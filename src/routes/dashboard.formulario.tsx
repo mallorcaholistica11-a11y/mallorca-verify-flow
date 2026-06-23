@@ -171,7 +171,11 @@ function Formulario() {
         current.sections.map((sec) => (
           <Box key={sec.title} title={sec.title}>
             {sec.note && <Note>{sec.note}</Note>}
-            {sec.fields?.map((f) => <FakeField key={f} label={f} />)}
+            {sec.title === "Especialidades y Terapias" ? (
+              <EspecialidadesPicker />
+            ) : (
+              sec.fields?.map((f) => <FakeField key={f} label={f} />)
+            )}
           </Box>
         ))
       ) : null}
