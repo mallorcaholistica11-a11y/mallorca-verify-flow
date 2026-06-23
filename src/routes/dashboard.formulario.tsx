@@ -118,6 +118,12 @@ function FakeCheckbox({ label }: { label: string }) {
 
 function Formulario() {
   const { track } = Route.useSearch();
+  if (track === "verificado") return <VerificadoFormulario />;
+  return <FormularioBase />;
+}
+
+function FormularioBase() {
+  const { track } = Route.useSearch();
   const navigate = useNavigate();
   const STEPS = getSteps(track);
   const [step, setStep] = useState(1);
@@ -130,6 +136,7 @@ function Formulario() {
     if (needsStripe) navigate({ to: "/dashboard/stripe", search: { track } });
     else navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
   };
+
 
   return (
     <WireframeShell
@@ -960,3 +967,474 @@ function ConfirmacionesConsentimientos({ onFinish }: { onFinish: () => void }) {
     </Box>
   );
 }
+
+// ================================================================
+// VERIFICADO · FORMULARIO 7 PASOS (Profesional Fundador / Verificado)
+// ================================================================
+
+const V_PUBLICO = [
+  "Adultos","Adolescentes","Niños","Personas mayores","Parejas","Familias",
+  "Embarazo y maternidad","Personas neurodivergentes","Animales","Empresas y equipos",
+];
+
+const V_MODALIDADES = [
+  "Mujeres","Hombres","Sesiones Individuales","Sesiones de Pareja","Sesiones Familiares",
+  "Sesiones Grupales","Talleres","Cursos y Formaciones","Retiros","Empresas y Organizaciones",
+  "Charlas y Conferencias","Eventos y Encuentros","Otro (especificar)",
+];
+
+const V_CONSULTA_MODES = [
+  "Presencial en consulta",
+  "Online (videollamada)",
+  "A distancia (Reiki, sanación energética y otras terapias sin presencia física)",
+  "A domicilio",
+];
+
+const V_IDIOMAS = ["Español","Inglés","Francés","Alemán","Catalán","Otro"];
+
+const V_STEP_TITLES = [
+  "Información General",
+  "Actividad Profesional",
+  "Consultas y Modalidades",
+  "Experiencia y Perfil",
+  "Enlaces y Redes",
+  "Verificación y Compromisos",
+  "Suscripción y Método de Pago",
+];
+
+function VCheckboxes({ options, columns = 3 }: { options: string[]; columns?: number }) {
+  const [selected, setSelected] = useState<string[]>([]);
+  const toggle = (v: string) =>
+    setSelected((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]));
+  const showOtro = options.includes("Otro (especificar)") && selected.includes("Otro (especificar)");
+  return (
+    <div>
+      <CheckboxGroup options={options} columns={columns} selected={selected} onToggle={toggle} />
+      {showOtro && <div style={{ marginTop: 12 }}><FakeField label="Especificar" /></div>}
+    </div>
+  );
+}
+
+function VYesNo({ label }: { label: string }) {
+  const [val, setVal] = useState<"si" | "no" | null>(null);
+  return (
+    <div style={{ marginBottom: 12 }}>
+      <div style={{ fontSize: 13, marginBottom: 6 }}>{label}</div>
+      <div style={{ display: "flex", gap: 8 }}>
+        {(["si","no"] as const).map((v) => (
+          <button
+            key={v}
+            type="button"
+            onClick={() => setVal(v)}
+            style={{
+              ...btn(val === v ? "primary" : "secondary"),
+              marginTop: 0,
+              padding: "6px 14px",
+            }}
+          >
+            {v === "si" ? "Sí" : "No"}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function FormacionList() {
+  const [items, setItems] = useState([{ id: 1 }]);
+  return (
+    <div>
+      {items.map((it, idx) => (
+        <div key={it.id} style={{ border: "1px dashed #bbb", padding: 12, marginBottom: 12 }}>
+          <div style={{ fontSize: 11, color: "#666", marginBottom: 6 }}>Formación #{idx + 1}</div>
+          <FakeField label="Formación" />
+          <FakeField label="Escuela" />
+          <FakeField label="Año" />
+          {items.length > 1 && (
+            <button
+              type="button"
+              onClick={() => setItems(items.filter((x) => x.id !== it.id))}
+              style={{ ...btn("secondary"), padding: "4px 10px", fontSize: 12 }}
+            >
+              Eliminar
+            </button>
+          )}
+        </div>
+      ))}
+      <button
+        type="button"
+        onClick={() => setItems([...items, { id: Date.now() }])}
+        style={{ ...btn("secondary"), padding: "6px 12px" }}
+      >
+        ➕ Añadir otra formación
+      </button>
+    </div>
+  );
+}
+
+function ConsultasList() {
+  const [items, setItems] = useState([{ id: 1 }]);
+  return (
+    <div>
+      {items.map((it, idx) => (
+        <div key={it.id} style={{ border: "1px dashed #bbb", padding: 12, marginBottom: 12 }}>
+          <div style={{ fontSize: 11, color: "#666", marginBottom: 6 }}>
+            {idx === 0 ? "Consulta principal" : `Consulta adicional #${idx}`}
+          </div>
+          <FakeField label="Nombre del centro" />
+          <DireccionPicker label="Dirección" />
+          <MunicipioPicker label="Municipio" />
+          <FakeField label="Isla (Mallorca)" />
+          {items.length > 1 && (
+            <button
+              type="button"
+              onClick={() => setItems(items.filter((x) => x.id !== it.id))}
+              style={{ ...btn("secondary"), padding: "4px 10px", fontSize: 12 }}
+            >
+              Eliminar
+            </button>
+          )}
+        </div>
+      ))}
+      <button
+        type="button"
+        onClick={() => setItems([...items, { id: Date.now() }])}
+        style={{ ...btn("secondary"), padding: "6px 12px" }}
+      >
+        ➕ Añadir otra consulta
+      </button>
+    </div>
+  );
+}
+
+function VConsentItem({
+  icon, title, linkText, label, checked, onToggle,
+}: {
+  icon: string; title: string; linkText?: string; label: string;
+  checked: boolean; onToggle: () => void;
+}) {
+  return (
+    <div style={{ marginBottom: 16 }}>
+      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>{icon} {title}</div>
+      {linkText && (
+        <a href="#" onClick={(e) => e.preventDefault()}
+          style={{ fontSize: 12, color: "#111", textDecoration: "underline", display: "inline-block", marginBottom: 8 }}>
+          {linkText}
+        </a>
+      )}
+      <div
+        onClick={onToggle}
+        style={{
+          display: "flex", alignItems: "center", gap: 8, padding: "8px 10px",
+          border: "1px dashed #888", background: checked ? "#f3f3f3" : "#fff",
+          cursor: "pointer", fontSize: 13,
+        }}
+      >
+        <span style={{
+          display: "inline-flex", alignItems: "center", justifyContent: "center",
+          width: 14, height: 14, border: "1px dashed #666", background: "#fff",
+          fontSize: 10, flexShrink: 0,
+        }}>
+          {checked ? "☑" : ""}
+        </span>
+        <span>{label}</span>
+      </div>
+    </div>
+  );
+}
+
+type VConsents = {
+  seguroRC: boolean;
+  codigo: boolean;
+  veracidad: boolean;
+  privacidad: boolean;
+  condiciones: boolean;
+  publicacion: boolean;
+};
+
+function VerificadoFormulario() {
+  const { track } = Route.useSearch();
+  const navigate = useNavigate();
+  const [step, setStep] = useState(1);
+  const total = 7;
+  const isLast = step === total;
+
+  const [consents, setConsents] = useState<VConsents>({
+    seguroRC: false, codigo: false, veracidad: false,
+    privacidad: false, condiciones: false, publicacion: false,
+  });
+  const toggleConsent = (k: keyof VConsents) =>
+    setConsents((p) => ({ ...p, [k]: !p[k] }));
+  const allConsents = Object.values(consents).every(Boolean);
+
+  const [autorizaPago, setAutorizaPago] = useState(false);
+  const canSubmit = allConsents && autorizaPago;
+
+  const finish = () => navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
+
+  const stepTitle = V_STEP_TITLES[step - 1];
+
+  return (
+    <WireframeShell
+      screen={`6 · FORMULARIO VERIFICADO · PASO ${step}/${total}`}
+      title={`Paso ${step} de ${total} · ${stepTitle}`}
+      breadcrumb="Dashboard › Completar perfil verificado"
+    >
+      <TrackBadge track={track} />
+
+      <Box title={`Progreso · Paso ${step} de ${total}`}>
+        <div style={{ display: "flex", gap: 4 }}>
+          {V_STEP_TITLES.map((t, i) => {
+            const n = i + 1;
+            return (
+              <div key={n} title={t} style={{
+                flex: 1, padding: 6, fontSize: 11, textAlign: "center",
+                border: "1px dashed #888",
+                background: n === step ? "#111" : n < step ? "#ddd" : "#fff",
+                color: n === step ? "#fff" : "#111",
+              }}>{n}</div>
+            );
+          })}
+        </div>
+        <div style={{ fontSize: 11, color: "#666", marginTop: 6 }}>
+          {V_STEP_TITLES.map((t, i) => `${i + 1}. ${t}`).join("  ·  ")}
+        </div>
+      </Box>
+
+      {step === 1 && (
+        <Box title="Información General">
+          <FakeField label="Nombre" />
+          <FakeField label="Apellidos" />
+          <FakeField label="Nombre profesional (opcional)" />
+          <MunicipioPicker label="Municipio principal" />
+          <FakeField label="Isla (Mallorca)" />
+          <FakeField label="Correo electrónico" type="email" />
+          <FakeField label="Teléfono" type="tel" />
+          <FakeField label="WhatsApp" type="tel" />
+          <FakeField label="Foto principal" type="file" />
+          <FakeField label="Fotos galería (opcional, máximo 3)" type="file" />
+          <FakeField label="Logo profesional (opcional)" type="file" />
+        </Box>
+      )}
+
+      {step === 2 && (
+        <>
+          <Box title="Especialidades y Terapias"><EspecialidadesPicker /></Box>
+          <Box title="Áreas de Especialización"><AreasPicker /></Box>
+          <Box title="Público al que acompaño">
+            <Note>Selecciona todas las opciones que correspondan.</Note>
+            <VCheckboxes options={V_PUBLICO} columns={3} />
+          </Box>
+          <Box title="Modalidades de Acompañamiento">
+            <Note>Selecciona todas las modalidades que ofreces.</Note>
+            <VCheckboxes options={V_MODALIDADES} columns={3} />
+          </Box>
+        </>
+      )}
+
+      {step === 3 && (
+        <>
+          <Box title="📍 Modalidades de Consulta">
+            <Note>¿Cómo realizas tus sesiones?</Note>
+            <VCheckboxes options={V_CONSULTA_MODES} columns={2} />
+          </Box>
+          <Box title="Consultas"><ConsultasList /></Box>
+        </>
+      )}
+
+      {step === 4 && (
+        <>
+          <Box title="Frase de presentación">
+            <Note>Describe tu actividad en una frase. Máximo 120 caracteres.</Note>
+            <FakeField label="Frase (máx. 120)" />
+            <div style={{ fontSize: 11, color: "#888", fontStyle: "italic" }}>
+              Ej.: Psicóloga integrativa especializada en ansiedad y trauma.
+            </div>
+          </Box>
+          <Box title="Presentación">
+            <Note>Cuéntanos quién eres y qué haces. Máximo 3000 caracteres.</Note>
+            <FakeField label="Presentación (máx. 3000)" type="textarea" />
+          </Box>
+          <Box title="Mi enfoque">
+            <Note>¿Cómo acompañas a las personas? Máximo 2000 caracteres.</Note>
+            <FakeField label="Mi enfoque (máx. 2000)" type="textarea" />
+          </Box>
+          <Box title="Qué me diferencia (opcional)">
+            <Note>Máximo 1000 caracteres.</Note>
+            <FakeField label="Qué me diferencia (máx. 1000)" type="textarea" />
+          </Box>
+          <Box title="Formación principal"><FormacionList /></Box>
+          <Box title="Idiomas">
+            <VCheckboxes options={V_IDIOMAS} columns={3} />
+          </Box>
+        </>
+      )}
+
+      {step === 5 && (
+        <Box title="🌐 Redes y Reservas">
+          <FakeField label="Página web" type="url" />
+          <FakeField label="Instagram" />
+          <FakeField label="Facebook" />
+          <FakeField label="LinkedIn" />
+          <FakeField label="YouTube" />
+          <FakeField label="Calendly" />
+          <FakeField label="Fresha" />
+          <FakeField label="WhatsApp Business" />
+          <FakeField label="Otra plataforma" />
+          <div style={{ height: 12 }} />
+          <VYesNo label="WhatsApp visible en el perfil" />
+          <VYesNo label="Correo visible en el perfil" />
+        </Box>
+      )}
+
+      {step === 6 && (
+        <Box title="🛡️ Verificación Mallorca Holística">
+          <div style={{ marginBottom: 16 }}>
+            <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>Seguro de Responsabilidad Civil</div>
+            <div
+              onClick={() => toggleConsent("seguroRC")}
+              style={{
+                display: "flex", alignItems: "center", gap: 8, padding: "8px 10px",
+                border: "1px dashed #888", background: consents.seguroRC ? "#f3f3f3" : "#fff",
+                cursor: "pointer", fontSize: 13,
+              }}
+            >
+              <span style={{
+                display: "inline-flex", alignItems: "center", justifyContent: "center",
+                width: 14, height: 14, border: "1px dashed #666", background: "#fff", fontSize: 10,
+              }}>{consents.seguroRC ? "☑" : ""}</span>
+              <span>Declaro disponer de un Seguro de Responsabilidad Civil vigente.</span>
+            </div>
+          </div>
+
+          <div style={{ marginBottom: 16 }}>
+            <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>Diploma o Certificado</div>
+            <Note>Mínimo 1 documento obligatorio.</Note>
+            <FakeField label="Subir diploma o certificado" type="file" />
+          </div>
+
+          <div style={{ marginBottom: 16 }}>
+            <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>Certificados adicionales</div>
+            <Note>Máximo 5 documentos.</Note>
+            <FakeField label="Subir certificados adicionales (opcional)" type="file" />
+          </div>
+
+          <VConsentItem icon="📜" title="Código Deontológico" linkText="👉 Ver documento"
+            label="Confirmo que he leído y acepto el Código Deontológico de Mallorca Holística."
+            checked={consents.codigo} onToggle={() => toggleConsent("codigo")} />
+          <VConsentItem icon="✅" title="Declaración de veracidad"
+            label="Declaro que toda la información aportada es veraz, exacta y está actualizada."
+            checked={consents.veracidad} onToggle={() => toggleConsent("veracidad")} />
+          <VConsentItem icon="🔒" title="Política de Privacidad" linkText="👉 Ver documento"
+            label="Confirmo que he leído y acepto la Política de Privacidad."
+            checked={consents.privacidad} onToggle={() => toggleConsent("privacidad")} />
+          <VConsentItem icon="📄" title="Condiciones de Uso" linkText="👉 Ver documento"
+            label="Confirmo que he leído y acepto las Condiciones de Uso."
+            checked={consents.condiciones} onToggle={() => toggleConsent("condiciones")} />
+          <VConsentItem icon="🌐" title="Publicación del Perfil" linkText="👉 Ver autorización"
+            label="Autorizo a Mallorca Holística a publicar mi perfil profesional en la plataforma."
+            checked={consents.publicacion} onToggle={() => toggleConsent("publicacion")} />
+
+          {!allConsents && (
+            <Note>Debes aceptar todas las confirmaciones para continuar al paso siguiente.</Note>
+          )}
+        </Box>
+      )}
+
+      {step === 7 && (
+        <>
+          <Box title="💳 Método de pago">
+            <p style={{ fontSize: 13 }}>
+              Como miembro de la Comunidad Fundadora, disfrutarás de 6 meses gratuitos desde la
+              fecha oficial de lanzamiento de Mallorca Holística.
+            </p>
+            <p style={{ fontSize: 13 }}>
+              Para garantizar tu plaza y facilitar la activación futura de tu suscripción,
+              necesitamos registrar un método de pago válido.
+            </p>
+            <p style={{ fontSize: 13 }}>
+              No se realizará ningún cargo durante el proceso de revisión ni durante el periodo gratuito.
+            </p>
+            <p style={{ fontSize: 13 }}>
+              Tu método de pago quedará guardado de forma segura mediante Stripe y solo se utilizará
+              cuando finalice el periodo gratuito de 6 meses.
+            </p>
+          </Box>
+
+          <Box title="Condiciones Comunidad Fundadora">
+            <ul style={{ paddingLeft: 18, fontSize: 13 }}>
+              <li>6 meses gratuitos desde la fecha oficial de lanzamiento de Mallorca Holística.</li>
+              <li>15 €/mes (IVA incluido) para siempre mientras mantengas activa tu suscripción.</li>
+              <li>Sin permanencia.</li>
+              <li>Sin ningún cargo durante el proceso de revisión ni durante el periodo gratuito.</li>
+              <li>La fecha oficial de lanzamiento será comunicada a todos los miembros fundadores con antelación suficiente.</li>
+            </ul>
+          </Box>
+
+          <Box title="Autorización">
+            <div
+              onClick={() => setAutorizaPago((v) => !v)}
+              style={{
+                display: "flex", alignItems: "flex-start", gap: 8, padding: "8px 10px",
+                border: "1px dashed #888", background: autorizaPago ? "#f3f3f3" : "#fff",
+                cursor: "pointer", fontSize: 13,
+              }}
+            >
+              <span style={{
+                display: "inline-flex", alignItems: "center", justifyContent: "center",
+                width: 14, height: 14, border: "1px dashed #666", background: "#fff",
+                fontSize: 10, flexShrink: 0, marginTop: 2,
+              }}>{autorizaPago ? "☑" : ""}</span>
+              <span>
+                Autorizo a Mallorca Holística a guardar mi método de pago y a activar automáticamente
+                mi suscripción Fundadora de 15 €/mes (IVA incluido) cuando finalice el periodo gratuito
+                de 6 meses desde la fecha oficial de lanzamiento de Mallorca Holística, siempre que mi
+                solicitud haya sido aprobada.
+              </span>
+            </div>
+          </Box>
+
+          <Box title="💳 Datos de pago">
+            <Note>Stripe Elements (placeholder en wireframe).</Note>
+            <FakeField label="Número de tarjeta" />
+            <FakeField label="Caducidad" />
+            <FakeField label="CVC" />
+            <FakeField label="Nombre del titular" />
+          </Box>
+        </>
+      )}
+
+      <Box title="Navegación">
+        <button onClick={() => setStep((s) => Math.max(1, s - 1))} disabled={step === 1} style={btn("secondary")}>
+          ← Anterior
+        </button>
+        {!isLast ? (
+          <button
+            onClick={() => setStep((s) => s + 1)}
+            disabled={step === 6 && !allConsents}
+            style={{
+              ...btn("primary"),
+              opacity: step === 6 && !allConsents ? 0.5 : 1,
+              cursor: step === 6 && !allConsents ? "not-allowed" : "pointer",
+            }}
+          >
+            Siguiente →
+          </button>
+        ) : (
+          <button
+            onClick={finish}
+            disabled={!canSubmit}
+            style={{
+              ...btn("primary"),
+              opacity: canSubmit ? 1 : 0.5,
+              cursor: canSubmit ? "pointer" : "not-allowed",
+            }}
+          >
+            👉 Enviar solicitud de verificación
+          </button>
+        )}
+      </Box>
+    </WireframeShell>
+  );
+}
+
