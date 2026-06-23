@@ -35,8 +35,8 @@ const PRESENCIA_STEPS: Step[] = [
     sections: [
       { title: "Especialidades y Terapias", note: "Máximo 3" },
       { title: "Áreas de Especialización", note: "Máximo 5" },
-      { title: "Público al que acompaño", fields: ["Público"] },
-      { title: "Modalidades de acompañamiento", fields: ["Modalidades"] },
+      { title: "Público al que acompaño" },
+      { title: "Modalidades de acompañamiento" },
     ],
   },
   {
@@ -175,6 +175,10 @@ function Formulario() {
               <EspecialidadesPicker />
             ) : sec.title === "Áreas de Especialización" ? (
               <AreasPicker />
+            ) : sec.title === "Público al que acompaño" ? (
+              <PublicoCheckboxes />
+            ) : sec.title === "Modalidades de acompañamiento" ? (
+              <ModalidadesCheckboxes />
             ) : (
               sec.fields?.map((f) => <FakeField key={f} label={f} />)
             )}
@@ -516,3 +520,136 @@ const AREAS = [
 ].sort((a, b) => a.localeCompare(b, "es"));
 
 const MAX_AREAS = 5;
+
+const PUBLICO_OPTIONS = [
+  "Mujeres",
+  "Hombres",
+  "Adolescentes",
+  "Niños",
+  "Personas mayores",
+  "Parejas",
+  "Familias",
+  "Empresas y equipos",
+  "Animales",
+];
+
+const MODALIDADES_OPTIONS = [
+  "Sesiones Individuales",
+  "Sesiones de Pareja",
+  "Sesiones Familiares",
+  "Sesiones Grupales",
+  "Talleres",
+  "Cursos y Formaciones",
+  "Retiros",
+  "Empresas y Organizaciones",
+  "Charlas y Conferencias",
+  "Eventos y Encuentros",
+  "Otro (especificar)",
+];
+
+function CheckboxGroup({
+  options,
+  columns,
+  selected,
+  onToggle,
+}: {
+  options: string[];
+  columns: number;
+  selected: string[];
+  onToggle: (value: string) => void;
+}) {
+  return (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: `repeat(${columns}, 1fr)`,
+        gap: 10,
+      }}
+    >
+      {options.map((opt) => {
+        const checked = selected.includes(opt);
+        return (
+          <div
+            key={opt}
+            onClick={() => onToggle(opt)}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "6px 8px",
+              border: "1px dashed #888",
+              background: checked ? "#f3f3f3" : "#fff",
+              cursor: "pointer",
+              fontSize: 13,
+            }}
+          >
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 14,
+                height: 14,
+                border: "1px dashed #666",
+                background: "#fff",
+                fontSize: 10,
+                flexShrink: 0,
+              }}
+            >
+              {checked ? "☑" : ""}
+            </span>
+            <span>{opt}</span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function PublicoCheckboxes() {
+  const [selected, setSelected] = useState<string[]>([]);
+  const toggle = (value: string) => {
+    setSelected((prev) =>
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+    );
+  };
+  return (
+    <div>
+      <Note>Selecciona todas las opciones que correspondan.</Note>
+      <CheckboxGroup options={PUBLICO_OPTIONS} columns={3} selected={selected} onToggle={toggle} />
+      {selected.length > 0 && (
+        <div style={{ fontSize: 11, color: "#666", marginTop: 10 }}>
+          Seleccionadas: {selected.join(", ")}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ModalidadesCheckboxes() {
+  const [selected, setSelected] = useState<string[]>([]);
+  const [otro, setOtro] = useState("");
+  const toggle = (value: string) => {
+    setSelected((prev) =>
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+    );
+  };
+  const showOtro = selected.includes("Otro (especificar)");
+  return (
+    <div>
+      <Note>Selecciona todas las modalidades que ofreces.</Note>
+      <CheckboxGroup options={MODALIDADES_OPTIONS} columns={3} selected={selected} onToggle={toggle} />
+      {showOtro && (
+        <div style={{ marginTop: 12 }}>
+          <FakeField label="Especificar otra modalidad" />
+        </div>
+      )}
+      {selected.length > 0 && (
+        <div style={{ fontSize: 11, color: "#666", marginTop: 10 }}>
+          Seleccionadas: {selected.filter((s) => s !== "Otro (especificar)").join(", ")}
+          {showOtro && otro ? ` — ${otro}` : ""}
+        </div>
+      )}
+    </div>
+  );
+}
