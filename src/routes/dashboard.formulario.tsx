@@ -63,7 +63,7 @@ const PRESENCIA_STEPS: Step[] = [
     checkboxes: ["WhatsApp visible en el perfil", "Correo visible en el perfil"],
   },
   {
-    title: "Verificación y Compromisos",
+    title: "Confirmaciones y Consentimientos",
     checkboxes: [
       "Código Deontológico",
       "Declaración de veracidad",
