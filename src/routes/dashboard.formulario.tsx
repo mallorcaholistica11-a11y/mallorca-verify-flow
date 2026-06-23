@@ -1335,7 +1335,7 @@ function VerificadoFormulario() {
                 display: "inline-flex", alignItems: "center", justifyContent: "center",
                 width: 14, height: 14, border: "1px dashed #666", background: "#fff", fontSize: 10,
               }}>{consents.seguroRC ? "☑" : ""}</span>
-              <span>Declaro disponer de un Seguro de Responsabilidad Civil vigente.</span>
+              <span>Declaro disponer de un Seguro de Responsabilidad Civil vigente para el desarrollo de mi actividad profesional.</span>
             </div>
           </div>
 
