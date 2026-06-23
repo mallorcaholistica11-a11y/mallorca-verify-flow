@@ -654,6 +654,8 @@ function ModalidadesCheckboxes() {
       )}
     </div>
   );
+}
+
 function ModalidadesConsultaCheckboxes() {
   const [selected, setSelected] = useState<string[]>([]);
   const toggle = (value: string) => {
