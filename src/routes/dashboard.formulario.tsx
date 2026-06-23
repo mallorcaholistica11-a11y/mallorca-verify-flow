@@ -173,6 +173,8 @@ function Formulario() {
             {sec.note && <Note>{sec.note}</Note>}
             {sec.title === "Especialidades y Terapias" ? (
               <EspecialidadesPicker />
+            ) : sec.title === "Áreas de Especialización" ? (
+              <AreasPicker />
             ) : (
               sec.fields?.map((f) => <FakeField key={f} label={f} />)
             )}
