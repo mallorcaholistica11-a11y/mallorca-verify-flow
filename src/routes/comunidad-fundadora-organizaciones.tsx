@@ -58,7 +58,7 @@ function ComunidadOrg() {
         <NavButton to="/invitacion/$token" params={{ token: "demo-token" }} search={{ track: "organizacion" }}>
           He recibido una invitación
         </NavButton>
-        <NavButton to="/lista-espera" variant="secondary">
+        <NavButton to="/lista-espera" search={{ track: "organizacion" }} variant="secondary">
           Quiero unirme a la lista de espera
         </NavButton>
       </Box>
