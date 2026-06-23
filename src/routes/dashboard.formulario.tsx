@@ -195,9 +195,13 @@ function Formulario() {
       ) : null}
 
       {current.checkboxes ? (
-        <Box title="Confirmaciones">
-          {current.checkboxes.map((c) => <FakeCheckbox key={c} label={c} />)}
-        </Box>
+        current.title === "Confirmaciones y Consentimientos" ? (
+          <ConfirmacionesConsentimientos onFinish={finish} />
+        ) : (
+          <Box title="Confirmaciones">
+            {current.checkboxes.map((c) => <FakeCheckbox key={c} label={c} />)}
+          </Box>
+        )
       ) : null}
 
       {current.note && <Note>{current.note}</Note>}
@@ -206,7 +210,7 @@ function Formulario() {
         <button onClick={() => setStep((s) => Math.max(1, s - 1))} disabled={step === 1} style={btn("secondary")}>← Anterior</button>
         {!isLast ? (
           <button onClick={() => setStep((s) => s + 1)} style={btn("primary")}>Siguiente →</button>
-        ) : (
+        ) : current.title === "Confirmaciones y Consentimientos" ? null : (
           <button onClick={finish} style={btn("primary")}>
             {needsStripe ? "Continuar a método de pago →" : "Finalizar perfil →"}
           </button>
