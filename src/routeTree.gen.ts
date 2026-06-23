@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SoyProfesionalRouteImport } from './routes/soy-profesional'
+import { Route as ProfesionalFundadorRouteImport } from './routes/profesional-fundador'
 import { Route as PlanPresenciaRouteImport } from './routes/plan-presencia'
 import { Route as ListaEsperaRouteImport } from './routes/lista-espera'
 import { Route as DashboardRouteImport } from './routes/dashboard'
@@ -26,6 +27,11 @@ import { Route as AuthCrearCuentaRouteImport } from './routes/auth.crear-cuenta'
 const SoyProfesionalRoute = SoyProfesionalRouteImport.update({
   id: '/soy-profesional',
   path: '/soy-profesional',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfesionalFundadorRoute = ProfesionalFundadorRouteImport.update({
+  id: '/profesional-fundador',
+  path: '/profesional-fundador',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlanPresenciaRoute = PlanPresenciaRouteImport.update({
@@ -99,6 +105,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRouteWithChildren
   '/lista-espera': typeof ListaEsperaRoute
   '/plan-presencia': typeof PlanPresenciaRoute
+  '/profesional-fundador': typeof ProfesionalFundadorRoute
   '/soy-profesional': typeof SoyProfesionalRoute
   '/auth/crear-cuenta': typeof AuthCrearCuentaRoute
   '/dashboard/formulario': typeof DashboardFormularioRoute
@@ -114,6 +121,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRouteWithChildren
   '/lista-espera': typeof ListaEsperaRoute
   '/plan-presencia': typeof PlanPresenciaRoute
+  '/profesional-fundador': typeof ProfesionalFundadorRoute
   '/soy-profesional': typeof SoyProfesionalRoute
   '/auth/crear-cuenta': typeof AuthCrearCuentaRoute
   '/dashboard/formulario': typeof DashboardFormularioRoute
@@ -130,6 +138,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRouteWithChildren
   '/lista-espera': typeof ListaEsperaRoute
   '/plan-presencia': typeof PlanPresenciaRoute
+  '/profesional-fundador': typeof ProfesionalFundadorRoute
   '/soy-profesional': typeof SoyProfesionalRoute
   '/auth/crear-cuenta': typeof AuthCrearCuentaRoute
   '/dashboard/formulario': typeof DashboardFormularioRoute
@@ -147,6 +156,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/lista-espera'
     | '/plan-presencia'
+    | '/profesional-fundador'
     | '/soy-profesional'
     | '/auth/crear-cuenta'
     | '/dashboard/formulario'
@@ -162,6 +172,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/lista-espera'
     | '/plan-presencia'
+    | '/profesional-fundador'
     | '/soy-profesional'
     | '/auth/crear-cuenta'
     | '/dashboard/formulario'
@@ -177,6 +188,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/lista-espera'
     | '/plan-presencia'
+    | '/profesional-fundador'
     | '/soy-profesional'
     | '/auth/crear-cuenta'
     | '/dashboard/formulario'
@@ -193,6 +205,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRouteWithChildren
   ListaEsperaRoute: typeof ListaEsperaRoute
   PlanPresenciaRoute: typeof PlanPresenciaRoute
+  ProfesionalFundadorRoute: typeof ProfesionalFundadorRoute
   SoyProfesionalRoute: typeof SoyProfesionalRoute
   AuthCrearCuentaRoute: typeof AuthCrearCuentaRoute
   InvitacionTokenRoute: typeof InvitacionTokenRoute
@@ -205,6 +218,13 @@ declare module '@tanstack/react-router' {
       path: '/soy-profesional'
       fullPath: '/soy-profesional'
       preLoaderRoute: typeof SoyProfesionalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profesional-fundador': {
+      id: '/profesional-fundador'
+      path: '/profesional-fundador'
+      fullPath: '/profesional-fundador'
+      preLoaderRoute: typeof ProfesionalFundadorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/plan-presencia': {
@@ -319,6 +339,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRouteWithChildren,
   ListaEsperaRoute: ListaEsperaRoute,
   PlanPresenciaRoute: PlanPresenciaRoute,
+  ProfesionalFundadorRoute: ProfesionalFundadorRoute,
   SoyProfesionalRoute: SoyProfesionalRoute,
   AuthCrearCuentaRoute: AuthCrearCuentaRoute,
   InvitacionTokenRoute: InvitacionTokenRoute,
