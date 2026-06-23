@@ -42,7 +42,7 @@ const PRESENCIA_STEPS: Step[] = [
   {
     title: "Consultas y Modalidades",
     sections: [
-      { title: "Modalidades de consulta", fields: ["Modalidades de consulta (presencial / online)"] },
+      { title: "Modalidades de consulta" },
       {
         title: "Consulta principal",
         fields: ["Nombre del centro", "Dirección", "Municipio", "Isla"],
@@ -179,6 +179,8 @@ function Formulario() {
               <PublicoCheckboxes />
             ) : sec.title === "Modalidades de acompañamiento" ? (
               <ModalidadesCheckboxes />
+            ) : sec.title === "Modalidades de consulta" ? (
+              <ModalidadesConsultaCheckboxes />
             ) : (
               sec.fields?.map((f) => <FakeField key={f} label={f} />)
             )}
@@ -648,6 +650,36 @@ function ModalidadesCheckboxes() {
         <div style={{ fontSize: 11, color: "#666", marginTop: 10 }}>
           Seleccionadas: {selected.filter((s) => s !== "Otro (especificar)").join(", ")}
           {showOtro && otro ? ` — ${otro}` : ""}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ModalidadesConsultaCheckboxes() {
+  const [selected, setSelected] = useState<string[]>([]);
+  const toggle = (value: string) => {
+    setSelected((prev) =>
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+    );
+  };
+  return (
+    <div>
+      <Note>Selecciona todas las modalidades de consulta que ofreces.</Note>
+      <CheckboxGroup
+        options={[
+          "Presencial en consulta",
+          "Online (videollamada)",
+          "A domicilio",
+          "A distancia (Reiki, sanación energética y otras terapias sin presencia física)",
+        ]}
+        columns={2}
+        selected={selected}
+        onToggle={toggle}
+      />
+      {selected.length > 0 && (
+        <div style={{ fontSize: 11, color: "#666", marginTop: 10 }}>
+          Seleccionadas: {selected.join(", ")}
         </div>
       )}
     </div>
