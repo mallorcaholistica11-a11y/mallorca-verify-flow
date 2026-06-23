@@ -4,6 +4,8 @@ import type { ReactNode } from "react";
 // Intentionally style-less wireframe primitives.
 // Dashed borders, monospace, no color decisions.
 
+export type Track = "presencia" | "verificado" | "organizacion";
+
 export function WireframeShell({
   screen,
   title,
@@ -24,7 +26,8 @@ export function WireframeShell({
         <nav style={{ display: "flex", gap: 16, fontSize: 12 }}>
           <Link to="/" style={linkStyle}>Inicio</Link>
           <Link to="/soy-profesional" style={linkStyle}>Soy profesional</Link>
-          <Link to="/comunidad-fundadora" style={linkStyle}>Comunidad Fundadora</Link>
+          <Link to="/comunidad-fundadora" style={linkStyle}>Fundadores · Profesionales</Link>
+          <Link to="/comunidad-fundadora-organizaciones" style={linkStyle}>Fundadores · Organizaciones</Link>
         </nav>
       </header>
 
@@ -135,10 +138,22 @@ export function Note({ children }: { children: ReactNode }) {
   );
 }
 
-export function TrackBadge({ track }: { track: "presencia" | "verificado" }) {
+const TRACK_LABEL: Record<Track, string> = {
+  presencia: "Perfil Presencia (gratuito)",
+  verificado: "Profesional Fundador (verificado)",
+  organizacion: "Organización Fundadora",
+};
+
+export function TrackBadge({ track }: { track: Track }) {
   return (
     <div style={{ display: "inline-block", padding: "4px 8px", border: "1px dashed #666", fontSize: 11, marginBottom: 12 }}>
-      Track activo: <strong>{track === "presencia" ? "Perfil Presencia (gratuito)" : "Comunidad Fundadora (verificado)"}</strong>
+      Track activo: <strong>{TRACK_LABEL[track]}</strong>
     </div>
   );
+}
+
+export function parseTrack(s: Record<string, unknown>): Track {
+  if (s.track === "verificado") return "verificado";
+  if (s.track === "organizacion") return "organizacion";
+  return "presencia";
 }
