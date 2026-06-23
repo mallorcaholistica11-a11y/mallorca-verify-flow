@@ -1,29 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { WireframeShell, Box, NavButton, Note } from "@/components/Wireframe";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
-    ],
-  }),
-  component: Index,
+  head: () => ({ meta: [{ title: "Mallorca Holística — Wireframe" }] }),
+  component: Visitante,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function Visitante() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <WireframeShell screen="0 · VISITANTE" title="Landing pública (mínima)" breadcrumb="Inicio">
+      <Note>Pantalla de entrada. Solo lo necesario para que el visitante entienda y avance.</Note>
+      <Box title="Hero">
+        <p style={{ fontSize: 13 }}>[Titular del proyecto Mallorca Holística]</p>
+        <p style={{ fontSize: 13 }}>[Subtítulo: comunidad de profesionales holísticos en Mallorca]</p>
+      </Box>
+      <Box title="CTAs principales">
+        <NavButton to="/soy-profesional">Soy profesional</NavButton>
+        <NavButton to="/auth/iniciar-sesion" variant="secondary">Ya tengo cuenta</NavButton>
+      </Box>
+    </WireframeShell>
   );
 }
