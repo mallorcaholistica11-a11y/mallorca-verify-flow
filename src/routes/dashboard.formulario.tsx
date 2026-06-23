@@ -63,7 +63,7 @@ const PRESENCIA_STEPS: Step[] = [
     checkboxes: ["WhatsApp visible en el perfil", "Correo visible en el perfil"],
   },
   {
-    title: "Verificación y Compromisos",
+    title: "Confirmaciones y Consentimientos",
     checkboxes: [
       "Código Deontológico",
       "Declaración de veracidad",
@@ -195,9 +195,13 @@ function Formulario() {
       ) : null}
 
       {current.checkboxes ? (
-        <Box title="Confirmaciones">
-          {current.checkboxes.map((c) => <FakeCheckbox key={c} label={c} />)}
-        </Box>
+        current.title === "Confirmaciones y Consentimientos" ? (
+          <ConfirmacionesConsentimientos onFinish={finish} />
+        ) : (
+          <Box title="Confirmaciones">
+            {current.checkboxes.map((c) => <FakeCheckbox key={c} label={c} />)}
+          </Box>
+        )
       ) : null}
 
       {current.note && <Note>{current.note}</Note>}
@@ -206,7 +210,7 @@ function Formulario() {
         <button onClick={() => setStep((s) => Math.max(1, s - 1))} disabled={step === 1} style={btn("secondary")}>← Anterior</button>
         {!isLast ? (
           <button onClick={() => setStep((s) => s + 1)} style={btn("primary")}>Siguiente →</button>
-        ) : (
+        ) : current.title === "Confirmaciones y Consentimientos" ? null : (
           <button onClick={finish} style={btn("primary")}>
             {needsStripe ? "Continuar a método de pago →" : "Finalizar perfil →"}
           </button>
@@ -799,5 +803,160 @@ function DireccionPicker({ label }: { label: string }) {
       {/* Estructura prevista (oculta en wireframe MVP):
           formatted_address, municipio, postal_code, isla, lat, lng, place_id */}
     </div>
+  );
+}
+
+type ConsentimientosState = {
+  codigoDeontologico: boolean;
+  declaracionVeracidad: boolean;
+  politicaPrivacidad: boolean;
+  condicionesUso: boolean;
+  publicacionPerfil: boolean;
+};
+
+const INITIAL_CONSENTIMIENTOS: ConsentimientosState = {
+  codigoDeontologico: false,
+  declaracionVeracidad: false,
+  politicaPrivacidad: false,
+  condicionesUso: false,
+  publicacionPerfil: false,
+};
+
+function ConsentimientoItem({
+  icon,
+  title,
+  linkText,
+  checked,
+  onToggle,
+  label,
+}: {
+  icon: string;
+  title: string;
+  linkText: string;
+  checked: boolean;
+  onToggle: () => void;
+  label: string;
+}) {
+  return (
+    <div style={{ marginBottom: 16 }}>
+      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
+        {icon} {title}
+      </div>
+      <a
+        href="#"
+        onClick={(e) => { e.preventDefault(); }}
+        style={{ fontSize: 12, color: "#111", textDecoration: "underline", display: "inline-block", marginBottom: 8 }}
+      >
+        {linkText}
+      </a>
+      <div
+        onClick={onToggle}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          padding: "8px 10px",
+          border: "1px dashed #888",
+          background: checked ? "#f3f3f3" : "#fff",
+          cursor: "pointer",
+          fontSize: 13,
+        }}
+      >
+        <span
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: 14,
+            height: 14,
+            border: "1px dashed #666",
+            background: "#fff",
+            fontSize: 10,
+            flexShrink: 0,
+          }}
+        >
+          {checked ? "☑" : ""}
+        </span>
+        <span>{label}</span>
+      </div>
+    </div>
+  );
+}
+
+function ConfirmacionesConsentimientos({ onFinish }: { onFinish: () => void }) {
+  const [state, setState] = useState<ConsentimientosState>(INITIAL_CONSENTIMIENTOS);
+  const allChecked = Object.values(state).every(Boolean);
+
+  const toggle = (key: keyof ConsentimientosState) => {
+    setState((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
+
+  return (
+    <Box title="🌿 Confirmaciones y Consentimientos">
+      <p style={{ fontSize: 13, marginBottom: 16 }}>
+        Antes de enviar tu perfil, revisa y acepta los siguientes documentos.
+      </p>
+
+      <ConsentimientoItem
+        icon="📜"
+        title="Código Deontológico Mallorca Holística"
+        linkText="👉 Ver documento"
+        checked={state.codigoDeontologico}
+        onToggle={() => toggle("codigoDeontologico")}
+        label="Confirmo que he leído y acepto el Código Deontológico de Mallorca Holística."
+      />
+
+      <ConsentimientoItem
+        icon="✅"
+        title="Declaración de Veracidad"
+        linkText="👉 Ver declaración"
+        checked={state.declaracionVeracidad}
+        onToggle={() => toggle("declaracionVeracidad")}
+        label="Declaro que toda la información aportada es veraz, exacta y está actualizada."
+      />
+
+      <ConsentimientoItem
+        icon="🔒"
+        title="Política de Privacidad"
+        linkText="👉 Ver documento"
+        checked={state.politicaPrivacidad}
+        onToggle={() => toggle("politicaPrivacidad")}
+        label="Confirmo que he leído y acepto la Política de Privacidad."
+      />
+
+      <ConsentimientoItem
+        icon="📄"
+        title="Condiciones de Uso"
+        linkText="👉 Ver documento"
+        checked={state.condicionesUso}
+        onToggle={() => toggle("condicionesUso")}
+        label="Confirmo que he leído y acepto las Condiciones de Uso."
+      />
+
+      <ConsentimientoItem
+        icon="🌐"
+        title="Publicación del Perfil"
+        linkText="👉 Ver autorización"
+        checked={state.publicacionPerfil}
+        onToggle={() => toggle("publicacionPerfil")}
+        label="Autorizo a Mallorca Holística a publicar mi perfil profesional en la plataforma."
+      />
+
+      <div style={{ fontSize: 12, color: "#666", marginTop: 20, marginBottom: 12, fontStyle: "italic" }}>
+        Una vez enviado, tu perfil será revisado por el equipo de Mallorca Holística antes de su publicación.
+      </div>
+
+      <button
+        onClick={onFinish}
+        disabled={!allChecked}
+        style={{
+          ...btn("primary"),
+          opacity: allChecked ? 1 : 0.5,
+          cursor: allChecked ? "pointer" : "not-allowed",
+        }}
+      >
+        👉 Finalizar Perfil
+      </button>
+    </Box>
   );
 }
