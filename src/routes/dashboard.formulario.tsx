@@ -33,7 +33,7 @@ const PRESENCIA_STEPS: Step[] = [
   {
     title: "Actividad Profesional",
     sections: [
-      { title: "Especialidades y Terapias", note: "Máximo 3", fields: ["Especialidad / terapia"] },
+      { title: "Especialidades y Terapias", note: "Máximo 3" },
       { title: "Áreas de Especialización", note: "Máximo 5", fields: ["Área de especialización"] },
       { title: "Público al que acompaño", fields: ["Público"] },
       { title: "Modalidades de acompañamiento", fields: ["Modalidades"] },
@@ -171,7 +171,11 @@ function Formulario() {
         current.sections.map((sec) => (
           <Box key={sec.title} title={sec.title}>
             {sec.note && <Note>{sec.note}</Note>}
-            {sec.fields?.map((f) => <FakeField key={f} label={f} />)}
+            {sec.title === "Especialidades y Terapias" ? (
+              <EspecialidadesPicker />
+            ) : (
+              sec.fields?.map((f) => <FakeField key={f} label={f} />)
+            )}
           </Box>
         ))
       ) : null}
@@ -223,4 +227,148 @@ function btn(variant: "primary" | "secondary"): React.CSSProperties {
     cursor: "pointer",
     fontFamily: "inherit",
   };
+}
+
+const ESPECIALIDADES = [
+  "Acupresión","Acupuntura","Alimentación Consciente","Aromaterapia","Arteterapia",
+  "Astrología Evolutiva","Astrología Terapéutica","Ayurveda","Biomagnetismo","Biodescodificación",
+  "Chi Kung (Qi Gong)","Coaching de Vida","Coaching Emocional","Comunicación Animal",
+  "Constelaciones Familiares","Cromoterapia","Danzaterapia","Dentista Holístico",
+  "Drenaje Linfático Manual","EFT (Liberación Emocional)","EMDR","Eneagrama",
+  "Equilibrio Energético","Equinoterapia","Fasciaterapia","Feldenkrais","Feng Shui",
+  "Fitoterapia","Flores de Bach","Gestalt","Ginecología Holística","Ginecología Integrativa",
+  "Hipnosis","Homeopatía","Iridología","Kinesiología","Masaje Relajante","Masaje Terapéutico",
+  "Medicina Funcional","Medicina Integrativa","Medicina Ortomolecular","Medicina Tradicional China",
+  "Meditación","Mindfulness","Naturopatía","Nutrición Consciente","Nutrición Integrativa",
+  "Oftalmología Integrativa","Optometría Holística","Osteopatía","Pilates Terapéutico",
+  "PNL (Programación Neurolingüística)","Psicología Integrativa","Quiromasaje","Reflexología",
+  "Registros Akáshicos","Reiki","Relajación Guiada","Respiración Consciente","Rolfing",
+  "Salud Bucodental","Sanación Energética","Shiatsu","Sonoterapia","Técnica Alexander",
+  "Terapia Craneosacral","Terapia de Pareja","Terapia Emocional","Terapia Familiar",
+  "Terapia Transpersonal","Yoga","Yoga Terapéutico","Otra especialidad o terapia (especificar)",
+].sort((a, b) => a.localeCompare(b, "es"));
+
+const MAX_ESPECIALIDADES = 3;
+
+function EspecialidadesPicker() {
+  const [query, setQuery] = useState("");
+  const [selected, setSelected] = useState<string[]>([]);
+  const [warning, setWarning] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
+  const [dragIndex, setDragIndex] = useState<number | null>(null);
+
+  const filtered = ESPECIALIDADES.filter(
+    (e) => !selected.includes(e) && (query === "" || e.toLowerCase().includes(query.toLowerCase()))
+  );
+
+  const add = (item: string) => {
+    if (selected.includes(item)) return;
+    if (selected.length >= MAX_ESPECIALIDADES) {
+      setWarning("Puedes seleccionar hasta 3 especialidades o terapias en el Plan Free.");
+      return;
+    }
+    setSelected([...selected, item]);
+    setWarning(null);
+    setQuery("");
+  };
+
+  const remove = (item: string) => {
+    setSelected(selected.filter((s) => s !== item));
+    setWarning(null);
+  };
+
+  const onDrop = (targetIdx: number) => {
+    if (dragIndex === null || dragIndex === targetIdx) return;
+    const next = [...selected];
+    const [moved] = next.splice(dragIndex, 1);
+    next.splice(targetIdx, 0, moved);
+    setSelected(next);
+    setDragIndex(null);
+  };
+
+  return (
+    <div>
+      <Note>
+        Elige tus 3 terapias o especialidades principales. Podrás ordenarlas según la importancia
+        que tienen en tu práctica.
+      </Note>
+
+      <div style={{ position: "relative", marginBottom: 12 }}>
+        <input
+          type="text"
+          value={query}
+          placeholder="Buscar una terapia o especialidad…"
+          onChange={(e) => { setQuery(e.target.value); setOpen(true); }}
+          onFocus={() => setOpen(true)}
+          onBlur={() => setTimeout(() => setOpen(false), 150)}
+          style={{
+            width: "100%", padding: "8px 10px", border: "1px dashed #888",
+            background: "#fff", fontFamily: "inherit", fontSize: 13, boxSizing: "border-box",
+          }}
+        />
+        {open && filtered.length > 0 && (
+          <div
+            style={{
+              position: "absolute", top: "100%", left: 0, right: 0, zIndex: 10,
+              maxHeight: 220, overflowY: "auto", border: "1px dashed #888",
+              borderTop: "none", background: "#fff",
+            }}
+          >
+            {filtered.map((item) => (
+              <div
+                key={item}
+                onMouseDown={(e) => { e.preventDefault(); add(item); }}
+                style={{ padding: "6px 10px", fontSize: 13, cursor: "pointer", borderBottom: "1px dotted #ddd" }}
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {warning && (
+        <div style={{ fontSize: 12, color: "#a00", border: "1px dashed #a00", padding: "6px 10px", marginBottom: 12, background: "#fff" }}>
+          {warning}
+        </div>
+      )}
+
+      <div style={{ fontSize: 11, color: "#666", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>
+        Seleccionadas ({selected.length}/{MAX_ESPECIALIDADES})
+      </div>
+      {selected.length === 0 ? (
+        <div style={{ fontSize: 12, color: "#aaa", fontStyle: "italic" }}>
+          [sin selección — busca y elige hasta 3]
+        </div>
+      ) : (
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+          {selected.map((item, idx) => (
+            <div
+              key={item}
+              draggable
+              onDragStart={() => setDragIndex(idx)}
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={() => onDrop(idx)}
+              title="Arrastra para reordenar"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: 8,
+                padding: "4px 8px", border: "1px dashed #666", background: "#fff",
+                fontSize: 12, cursor: "grab",
+              }}
+            >
+              <span style={{ color: "#888" }}>⋮⋮</span>
+              <span>{idx + 1}. {item}</span>
+              <button
+                onClick={() => remove(item)}
+                style={{ border: "none", background: "transparent", cursor: "pointer", fontSize: 12, padding: 0, color: "#666" }}
+                aria-label={`Eliminar ${item}`}
+              >
+                ✕
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }
