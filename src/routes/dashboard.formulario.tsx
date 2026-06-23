@@ -175,6 +175,10 @@ function Formulario() {
               <EspecialidadesPicker />
             ) : sec.title === "Áreas de Especialización" ? (
               <AreasPicker />
+            ) : sec.title === "Público al que acompaño" ? (
+              <PublicoCheckboxes />
+            ) : sec.title === "Modalidades de acompañamiento" ? (
+              <ModalidadesCheckboxes />
             ) : (
               sec.fields?.map((f) => <FakeField key={f} label={f} />)
             )}
