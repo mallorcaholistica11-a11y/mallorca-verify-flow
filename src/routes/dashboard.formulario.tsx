@@ -373,6 +373,9 @@ function EspecialidadesPicker() {
       )}
     </div>
   );
+}
+
+function AreasPicker() {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
   const [warning, setWarning] = useState<string | null>(null);
