@@ -267,14 +267,20 @@ const ESPECIALIDADES = [
   "Terapia Transpersonal","Yoga","Yoga Terapéutico","Otra especialidad o terapia (especificar)",
 ].sort((a, b) => a.localeCompare(b, "es"));
 
-const MAX_ESPECIALIDADES = 3;
+const DEFAULT_MAX_ESPECIALIDADES = 3;
+const DEFAULT_ESPECIALIDADES_NOTE =
+  "Elige tus 3 terapias o especialidades principales. Podrás ordenarlas según la importancia que tienen en tu práctica.";
+const UNLIMITED_ESPECIALIDADES_NOTE =
+  "Elige tus terapias o especialidades principales. Podrás ordenarlas según la importancia que tienen en tu práctica.";
 
-function EspecialidadesPicker() {
+function EspecialidadesPicker({ max = DEFAULT_MAX_ESPECIALIDADES, note }: { max?: number; note?: string }) {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
   const [warning, setWarning] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const [dragIndex, setDragIndex] = useState<number | null>(null);
+  const hasMax = max > 0;
+  const displayNote = note ?? (hasMax ? DEFAULT_ESPECIALIDADES_NOTE : UNLIMITED_ESPECIALIDADES_NOTE);
 
   const filtered = ESPECIALIDADES.filter(
     (e) => !selected.includes(e) && (query === "" || e.toLowerCase().includes(query.toLowerCase()))
@@ -282,8 +288,8 @@ function EspecialidadesPicker() {
 
   const add = (item: string) => {
     if (selected.includes(item)) return;
-    if (selected.length >= MAX_ESPECIALIDADES) {
-      setWarning("Puedes seleccionar hasta 3 especialidades o terapias en el Plan Free.");
+    if (hasMax && selected.length >= max) {
+      setWarning(`Puedes seleccionar hasta ${max} especialidades o terapias en el Plan Free.`);
       return;
     }
     setSelected([...selected, item]);
@@ -307,10 +313,7 @@ function EspecialidadesPicker() {
 
   return (
     <div>
-      <Note>
-        Elige tus 3 terapias o especialidades principales. Podrás ordenarlas según la importancia
-        que tienen en tu práctica.
-      </Note>
+      <Note>{displayNote}</Note>
 
       <div style={{ position: "relative", marginBottom: 12 }}>
         <input
@@ -353,11 +356,11 @@ function EspecialidadesPicker() {
       )}
 
       <div style={{ fontSize: 11, color: "#666", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>
-        Seleccionadas ({selected.length}/{MAX_ESPECIALIDADES})
+        Seleccionadas ({selected.length}{hasMax ? `/${max}` : ""})
       </div>
       {selected.length === 0 ? (
         <div style={{ fontSize: 12, color: "#aaa", fontStyle: "italic" }}>
-          [sin selección — busca y elige hasta 3]
+          [sin selección — busca y elige {hasMax ? `hasta ${max}` : "las que desees"}]
         </div>
       ) : (
         <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
@@ -392,12 +395,20 @@ function EspecialidadesPicker() {
   );
 }
 
-function AreasPicker() {
+const DEFAULT_MAX_AREAS = 5;
+const DEFAULT_AREAS_NOTE =
+  "Elige hasta 5 áreas en las que acompañas principalmente. Podrás ordenarlas según la importancia que tienen en tu práctica.";
+const UNLIMITED_AREAS_NOTE =
+  "Elige las áreas en las que acompañas principalmente. Podrás ordenarlas según la importancia que tienen en tu práctica.";
+
+function AreasPicker({ max = DEFAULT_MAX_AREAS, note }: { max?: number; note?: string }) {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
   const [warning, setWarning] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const [dragIndex, setDragIndex] = useState<number | null>(null);
+  const hasMax = max > 0;
+  const displayNote = note ?? (hasMax ? DEFAULT_AREAS_NOTE : UNLIMITED_AREAS_NOTE);
 
   const filtered = AREAS.filter(
     (a) => !selected.includes(a) && (query === "" || a.toLowerCase().includes(query.toLowerCase()))
@@ -405,8 +416,8 @@ function AreasPicker() {
 
   const add = (item: string) => {
     if (selected.includes(item)) return;
-    if (selected.length >= MAX_AREAS) {
-      setWarning("Puedes seleccionar hasta 5 áreas de especialización en el Plan Free.");
+    if (hasMax && selected.length >= max) {
+      setWarning(`Puedes seleccionar hasta ${max} áreas de especialización en el Plan Free.`);
       return;
     }
     setSelected([...selected, item]);
@@ -430,10 +441,7 @@ function AreasPicker() {
 
   return (
     <div>
-      <Note>
-        Elige hasta 5 áreas en las que acompañas principalmente. Podrás ordenarlas según la importancia
-        que tienen en tu práctica.
-      </Note>
+      <Note>{displayNote}</Note>
 
       <div style={{ position: "relative", marginBottom: 12 }}>
         <input
@@ -476,11 +484,11 @@ function AreasPicker() {
       )}
 
       <div style={{ fontSize: 11, color: "#666", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>
-        Seleccionadas ({selected.length}/{MAX_AREAS})
+        Seleccionadas ({selected.length}{hasMax ? `/${max}` : ""})
       </div>
       {selected.length === 0 ? (
         <div style={{ fontSize: 12, color: "#aaa", fontStyle: "italic" }}>
-          [sin selección — busca y elige hasta 5]
+          [sin selección — busca y elige {hasMax ? `hasta ${max}` : "las que desees"}]
         </div>
       ) : (
         <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
@@ -514,6 +522,7 @@ function AreasPicker() {
     </div>
   );
 }
+
 
 const AREAS = [
   "Adicciones","Adolescencia","Alergias","Alimentación","Alzheimer","Altas Capacidades","Ansiedad",
@@ -973,14 +982,29 @@ function ConfirmacionesConsentimientos({ onFinish }: { onFinish: () => void }) {
 // ================================================================
 
 const V_PUBLICO = [
-  "Adultos","Adolescentes","Niños","Personas mayores","Parejas","Familias",
-  "Embarazo y maternidad","Personas neurodivergentes","Animales","Empresas y equipos",
+  "Mujeres",
+  "Hombres",
+  "Adolescentes",
+  "Niños",
+  "Personas mayores",
+  "Parejas",
+  "Familias",
+  "Empresas y equipos",
+  "Animales",
 ];
 
 const V_MODALIDADES = [
-  "Mujeres","Hombres","Sesiones Individuales","Sesiones de Pareja","Sesiones Familiares",
-  "Sesiones Grupales","Talleres","Cursos y Formaciones","Retiros","Empresas y Organizaciones",
-  "Charlas y Conferencias","Eventos y Encuentros","Otro (especificar)",
+  "Sesiones Individuales",
+  "Sesiones de Pareja",
+  "Sesiones Familiares",
+  "Sesiones Grupales",
+  "Talleres",
+  "Cursos y Formaciones",
+  "Retiros",
+  "Empresas y Organizaciones",
+  "Charlas y Conferencias",
+  "Eventos y Encuentros",
+  "Otro (especificar)",
 ];
 
 const V_CONSULTA_MODES = [
@@ -1219,8 +1243,18 @@ function VerificadoFormulario() {
 
       {step === 2 && (
         <>
-          <Box title="Especialidades y Terapias"><EspecialidadesPicker /></Box>
-          <Box title="Áreas de Especialización"><AreasPicker /></Box>
+          <Box title="Especialidades y Terapias">
+            <EspecialidadesPicker
+              max={0}
+              note="Elige tus terapias o especialidades principales. Podrás ordenarlas según la importancia que tienen en tu práctica."
+            />
+          </Box>
+          <Box title="Áreas de Especialización">
+            <AreasPicker
+              max={0}
+              note="Elige las áreas en las que acompañas principalmente. Podrás ordenarlas según la importancia que tienen en tu práctica."
+            />
+          </Box>
           <Box title="Público al que acompaño">
             <Note>Selecciona todas las opciones que correspondan.</Note>
             <VCheckboxes options={V_PUBLICO} columns={3} />
