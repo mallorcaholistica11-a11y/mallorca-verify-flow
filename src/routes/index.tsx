@@ -3,20 +3,18 @@ import { WireframeShell, Box, NavButton, Note } from "@/components/Wireframe";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [{ title: "Mallorca Holística — Wireframe" }] }),
-  component: Visitante,
+  component: Inicio,
 });
 
-function Visitante() {
+function Inicio() {
   return (
-    <WireframeShell screen="0 · VISITANTE" title="Landing pública (mínima)" breadcrumb="Inicio">
-      <Note>Pantalla de entrada. Solo lo necesario para que el visitante entienda y avance.</Note>
-      <Box title="Hero">
-        <p style={{ fontSize: 13 }}>[Titular del proyecto Mallorca Holística]</p>
-        <p style={{ fontSize: 13 }}>[Subtítulo: comunidad de profesionales holísticos en Mallorca]</p>
-      </Box>
-      <Box title="CTAs principales">
+    <WireframeShell screen="0 · INICIO" title="Entrada al flujo profesional" breadcrumb="Inicio">
+      <Note>
+        Este wireframe valida únicamente la incorporación de profesionales.
+        Landing pública, buscador, terapias, actividades, resultados y ficha profesional están fuera de alcance.
+      </Note>
+      <Box title="Acción única">
         <NavButton to="/soy-profesional">Soy profesional</NavButton>
-        <NavButton to="/auth/iniciar-sesion" variant="secondary">Ya tengo cuenta</NavButton>
       </Box>
     </WireframeShell>
   );

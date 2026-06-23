@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { WireframeShell, Box, NavButton, Note } from "@/components/Wireframe";
+import { WireframeShell, Box, NavButton } from "@/components/Wireframe";
 
 export const Route = createFileRoute("/comunidad-fundadora")({
   component: Comunidad,
@@ -7,23 +7,38 @@ export const Route = createFileRoute("/comunidad-fundadora")({
 
 function Comunidad() {
   return (
-    <WireframeShell screen="4 · COMUNIDAD FUNDADORA (pública)" title="Comunidad Fundadora" breadcrumb="Planes › Verificado › Comunidad">
-      <Box title="Acceso actual">
-        <p style={{ fontSize: 13 }}>El acceso es mediante invitación enviada por WhatsApp.</p>
-        <p style={{ fontSize: 13 }}>40 plazas. Reserva durante 15 días desde la validación.</p>
+    <WireframeShell
+      screen="2 · COMUNIDAD FUNDADORA"
+      title="✨ Comunidad Fundadora"
+      breadcrumb="Soy profesional › Comunidad Fundadora"
+    >
+      <Box title="Fase beta">
+        <p style={{ fontSize: 13 }}>Mallorca Holística está en fase beta. Estamos construyendo el ecosistema inicial.</p>
       </Box>
-      <Box title="Beneficios fundadores">
+      <Box title="Comunidad Fundadora">
+        <p style={{ fontSize: 13 }}>Acceso actualmente mediante invitación.</p>
+      </Box>
+      <Box title="Beneficios">
         <ul style={{ fontSize: 13, paddingLeft: 18 }}>
-          <li>6 meses gratuitos tras el lanzamiento</li>
-          <li>Tarifa de 15 €/mes para siempre</li>
-          <li>Sello fundador</li>
+          <li>6 meses gratuitos desde el lanzamiento oficial</li>
+          <li>Tarifa fundadora protegida de 15 €/mes para siempre</li>
+          <li>40 plazas disponibles</li>
         </ul>
       </Box>
-      <Box title="Acciones">
-        <NavButton to="/invitacion/$token" params={{ token: "demo-token" }}>Acceder con mi invitación</NavButton>
-        <NavButton to="/lista-espera" variant="secondary">Unirme a la lista de espera</NavButton>
+      <Box title="Plazas">
+        <p style={{ fontSize: 13 }}>40 plazas disponibles. Reserva durante 15 días tras validar la invitación.</p>
       </Box>
-      <Note>"Acceder con invitación" simula validación de un link único de WhatsApp (token en URL).</Note>
+      <Box title="Lista de espera">
+        <p style={{ fontSize: 13 }}>Si no tienes invitación puedes unirte a la lista de espera.</p>
+      </Box>
+      <Box title="Acciones">
+        <NavButton to="/invitacion/$token" params={{ token: "demo-token" }}>
+          He recibido una invitación
+        </NavButton>
+        <NavButton to="/lista-espera" variant="secondary">
+          Quiero unirme a la lista de espera
+        </NavButton>
+      </Box>
     </WireframeShell>
   );
 }

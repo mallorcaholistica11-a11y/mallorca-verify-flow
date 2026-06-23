@@ -10,29 +10,20 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SoyProfesionalRouteImport } from './routes/soy-profesional'
-import { Route as PlanesRouteImport } from './routes/planes'
 import { Route as ListaEsperaRouteImport } from './routes/lista-espera'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ComunidadFundadoraRouteImport } from './routes/comunidad-fundadora'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as PlanProfesionalVerificadoRouteImport } from './routes/plan.profesional-verificado'
 import { Route as InvitacionTokenRouteImport } from './routes/invitacion.$token'
 import { Route as DashboardStripeRouteImport } from './routes/dashboard.stripe'
 import { Route as DashboardSolicitudEnviadaRouteImport } from './routes/dashboard.solicitud-enviada'
 import { Route as DashboardPerfilPublicadoRouteImport } from './routes/dashboard.perfil-publicado'
 import { Route as DashboardFormularioRouteImport } from './routes/dashboard.formulario'
-import { Route as AuthRecuperarRouteImport } from './routes/auth.recuperar'
-import { Route as AuthIniciarSesionRouteImport } from './routes/auth.iniciar-sesion'
 import { Route as AuthCrearCuentaRouteImport } from './routes/auth.crear-cuenta'
 
 const SoyProfesionalRoute = SoyProfesionalRouteImport.update({
   id: '/soy-profesional',
   path: '/soy-profesional',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PlanesRoute = PlanesRouteImport.update({
-  id: '/planes',
-  path: '/planes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ListaEsperaRoute = ListaEsperaRouteImport.update({
@@ -55,12 +46,6 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PlanProfesionalVerificadoRoute =
-  PlanProfesionalVerificadoRouteImport.update({
-    id: '/plan/profesional-verificado',
-    path: '/plan/profesional-verificado',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const InvitacionTokenRoute = InvitacionTokenRouteImport.update({
   id: '/invitacion/$token',
   path: '/invitacion/$token',
@@ -88,16 +73,6 @@ const DashboardFormularioRoute = DashboardFormularioRouteImport.update({
   path: '/formulario',
   getParentRoute: () => DashboardRoute,
 } as any)
-const AuthRecuperarRoute = AuthRecuperarRouteImport.update({
-  id: '/auth/recuperar',
-  path: '/auth/recuperar',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthIniciarSesionRoute = AuthIniciarSesionRouteImport.update({
-  id: '/auth/iniciar-sesion',
-  path: '/auth/iniciar-sesion',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AuthCrearCuentaRoute = AuthCrearCuentaRouteImport.update({
   id: '/auth/crear-cuenta',
   path: '/auth/crear-cuenta',
@@ -109,34 +84,26 @@ export interface FileRoutesByFullPath {
   '/comunidad-fundadora': typeof ComunidadFundadoraRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/lista-espera': typeof ListaEsperaRoute
-  '/planes': typeof PlanesRoute
   '/soy-profesional': typeof SoyProfesionalRoute
   '/auth/crear-cuenta': typeof AuthCrearCuentaRoute
-  '/auth/iniciar-sesion': typeof AuthIniciarSesionRoute
-  '/auth/recuperar': typeof AuthRecuperarRoute
   '/dashboard/formulario': typeof DashboardFormularioRoute
   '/dashboard/perfil-publicado': typeof DashboardPerfilPublicadoRoute
   '/dashboard/solicitud-enviada': typeof DashboardSolicitudEnviadaRoute
   '/dashboard/stripe': typeof DashboardStripeRoute
   '/invitacion/$token': typeof InvitacionTokenRoute
-  '/plan/profesional-verificado': typeof PlanProfesionalVerificadoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/comunidad-fundadora': typeof ComunidadFundadoraRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/lista-espera': typeof ListaEsperaRoute
-  '/planes': typeof PlanesRoute
   '/soy-profesional': typeof SoyProfesionalRoute
   '/auth/crear-cuenta': typeof AuthCrearCuentaRoute
-  '/auth/iniciar-sesion': typeof AuthIniciarSesionRoute
-  '/auth/recuperar': typeof AuthRecuperarRoute
   '/dashboard/formulario': typeof DashboardFormularioRoute
   '/dashboard/perfil-publicado': typeof DashboardPerfilPublicadoRoute
   '/dashboard/solicitud-enviada': typeof DashboardSolicitudEnviadaRoute
   '/dashboard/stripe': typeof DashboardStripeRoute
   '/invitacion/$token': typeof InvitacionTokenRoute
-  '/plan/profesional-verificado': typeof PlanProfesionalVerificadoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -144,17 +111,13 @@ export interface FileRoutesById {
   '/comunidad-fundadora': typeof ComunidadFundadoraRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/lista-espera': typeof ListaEsperaRoute
-  '/planes': typeof PlanesRoute
   '/soy-profesional': typeof SoyProfesionalRoute
   '/auth/crear-cuenta': typeof AuthCrearCuentaRoute
-  '/auth/iniciar-sesion': typeof AuthIniciarSesionRoute
-  '/auth/recuperar': typeof AuthRecuperarRoute
   '/dashboard/formulario': typeof DashboardFormularioRoute
   '/dashboard/perfil-publicado': typeof DashboardPerfilPublicadoRoute
   '/dashboard/solicitud-enviada': typeof DashboardSolicitudEnviadaRoute
   '/dashboard/stripe': typeof DashboardStripeRoute
   '/invitacion/$token': typeof InvitacionTokenRoute
-  '/plan/profesional-verificado': typeof PlanProfesionalVerificadoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -163,51 +126,39 @@ export interface FileRouteTypes {
     | '/comunidad-fundadora'
     | '/dashboard'
     | '/lista-espera'
-    | '/planes'
     | '/soy-profesional'
     | '/auth/crear-cuenta'
-    | '/auth/iniciar-sesion'
-    | '/auth/recuperar'
     | '/dashboard/formulario'
     | '/dashboard/perfil-publicado'
     | '/dashboard/solicitud-enviada'
     | '/dashboard/stripe'
     | '/invitacion/$token'
-    | '/plan/profesional-verificado'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/comunidad-fundadora'
     | '/dashboard'
     | '/lista-espera'
-    | '/planes'
     | '/soy-profesional'
     | '/auth/crear-cuenta'
-    | '/auth/iniciar-sesion'
-    | '/auth/recuperar'
     | '/dashboard/formulario'
     | '/dashboard/perfil-publicado'
     | '/dashboard/solicitud-enviada'
     | '/dashboard/stripe'
     | '/invitacion/$token'
-    | '/plan/profesional-verificado'
   id:
     | '__root__'
     | '/'
     | '/comunidad-fundadora'
     | '/dashboard'
     | '/lista-espera'
-    | '/planes'
     | '/soy-profesional'
     | '/auth/crear-cuenta'
-    | '/auth/iniciar-sesion'
-    | '/auth/recuperar'
     | '/dashboard/formulario'
     | '/dashboard/perfil-publicado'
     | '/dashboard/solicitud-enviada'
     | '/dashboard/stripe'
     | '/invitacion/$token'
-    | '/plan/profesional-verificado'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -215,13 +166,9 @@ export interface RootRouteChildren {
   ComunidadFundadoraRoute: typeof ComunidadFundadoraRoute
   DashboardRoute: typeof DashboardRouteWithChildren
   ListaEsperaRoute: typeof ListaEsperaRoute
-  PlanesRoute: typeof PlanesRoute
   SoyProfesionalRoute: typeof SoyProfesionalRoute
   AuthCrearCuentaRoute: typeof AuthCrearCuentaRoute
-  AuthIniciarSesionRoute: typeof AuthIniciarSesionRoute
-  AuthRecuperarRoute: typeof AuthRecuperarRoute
   InvitacionTokenRoute: typeof InvitacionTokenRoute
-  PlanProfesionalVerificadoRoute: typeof PlanProfesionalVerificadoRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -231,13 +178,6 @@ declare module '@tanstack/react-router' {
       path: '/soy-profesional'
       fullPath: '/soy-profesional'
       preLoaderRoute: typeof SoyProfesionalRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/planes': {
-      id: '/planes'
-      path: '/planes'
-      fullPath: '/planes'
-      preLoaderRoute: typeof PlanesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lista-espera': {
@@ -266,13 +206,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/plan/profesional-verificado': {
-      id: '/plan/profesional-verificado'
-      path: '/plan/profesional-verificado'
-      fullPath: '/plan/profesional-verificado'
-      preLoaderRoute: typeof PlanProfesionalVerificadoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/invitacion/$token': {
@@ -310,20 +243,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardFormularioRouteImport
       parentRoute: typeof DashboardRoute
     }
-    '/auth/recuperar': {
-      id: '/auth/recuperar'
-      path: '/auth/recuperar'
-      fullPath: '/auth/recuperar'
-      preLoaderRoute: typeof AuthRecuperarRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth/iniciar-sesion': {
-      id: '/auth/iniciar-sesion'
-      path: '/auth/iniciar-sesion'
-      fullPath: '/auth/iniciar-sesion'
-      preLoaderRoute: typeof AuthIniciarSesionRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/auth/crear-cuenta': {
       id: '/auth/crear-cuenta'
       path: '/auth/crear-cuenta'
@@ -357,13 +276,9 @@ const rootRouteChildren: RootRouteChildren = {
   ComunidadFundadoraRoute: ComunidadFundadoraRoute,
   DashboardRoute: DashboardRouteWithChildren,
   ListaEsperaRoute: ListaEsperaRoute,
-  PlanesRoute: PlanesRoute,
   SoyProfesionalRoute: SoyProfesionalRoute,
   AuthCrearCuentaRoute: AuthCrearCuentaRoute,
-  AuthIniciarSesionRoute: AuthIniciarSesionRoute,
-  AuthRecuperarRoute: AuthRecuperarRoute,
   InvitacionTokenRoute: InvitacionTokenRoute,
-  PlanProfesionalVerificadoRoute: PlanProfesionalVerificadoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

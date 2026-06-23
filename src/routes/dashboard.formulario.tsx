@@ -1,86 +1,84 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { WireframeShell, Box, FakeField, Note } from "@/components/Wireframe";
+import { WireframeShell, Box, FakeField, Note, TrackBadge } from "@/components/Wireframe";
+
+type Track = "presencia" | "verificado";
 
 export const Route = createFileRoute("/dashboard/formulario")({
+  validateSearch: (s: Record<string, unknown>): { track: Track } => ({
+    track: s.track === "verificado" ? "verificado" : "presencia",
+  }),
   component: Formulario,
 });
 
-const STEPS = [
-  { n: 1, title: "Información General", fields: ["Nombre completo", "Teléfono", "Ubicación"] },
-  { n: 2, title: "Actividad Profesional", fields: ["Profesión / disciplina", "Años de experiencia"] },
-  { n: 3, title: "Consultas y Modalidades", fields: ["Modalidades (presencial / online)", "Idiomas"] },
-  { n: 4, title: "Experiencia y Perfil", fields: ["Bio profesional", "Galería (imágenes)"] },
-  { n: 5, title: "Enlaces y Redes", fields: ["Web", "Instagram", "Otros"] },
-  { n: 6, title: "Verificación y Compromisos", fields: ["Diplomas (subir)", "Seguro RC (subir)", "Aceptar código deontológico"] },
-  { n: 7, title: "Suscripción y Método de Pago", fields: [] },
+const BASE_STEPS = [
+  { title: "Información General", fields: ["Nombre completo", "Teléfono", "Ubicación"] },
+  { title: "Actividad Profesional", fields: ["Profesión / disciplina", "Años de experiencia"] },
+  { title: "Consultas y Modalidades", fields: ["Modalidades (presencial / online)", "Idiomas"] },
+  { title: "Bio y Enlaces", fields: ["Bio profesional", "Web", "Instagram"] },
+];
+
+const VERIFICADO_STEPS = [
+  ...BASE_STEPS,
+  { title: "Documentación", fields: ["Diplomas (subir)", "Seguro RC (subir)", "Aceptar código deontológico"] },
 ];
 
 function Formulario() {
-  const [step, setStep] = useState(1);
+  const { track } = Route.useSearch();
   const navigate = useNavigate();
+  const STEPS = track === "verificado" ? VERIFICADO_STEPS : BASE_STEPS;
+  const [step, setStep] = useState(1);
   const current = STEPS[step - 1];
-  const isLast = step === STEPS.length;
+  const total = STEPS.length;
+  const isLast = step === total;
+
+  const finish = () => {
+    if (track === "verificado") navigate({ to: "/dashboard/stripe", search: { track } });
+    else navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
+  };
 
   return (
     <WireframeShell
-      screen={`8 · FORMULARIO · PASO ${step}/7`}
+      screen={`6 · FORMULARIO · PASO ${step}/${total}`}
       title={`Paso ${step} · ${current.title}`}
       breadcrumb="Dashboard › Completar perfil"
     >
+      <TrackBadge track={track} />
+
       <Box title="Progreso">
         <div style={{ display: "flex", gap: 4 }}>
-          {STEPS.map((s) => (
-            <div key={s.n} style={{
-              flex: 1, padding: 6, fontSize: 11, textAlign: "center",
-              border: "1px dashed #888",
-              background: s.n === step ? "#111" : s.n < step ? "#ddd" : "#fff",
-              color: s.n === step ? "#fff" : "#111",
-            }}>
-              {s.n}
-            </div>
-          ))}
+          {STEPS.map((_, i) => {
+            const n = i + 1;
+            return (
+              <div key={n} style={{
+                flex: 1, padding: 6, fontSize: 11, textAlign: "center",
+                border: "1px dashed #888",
+                background: n === step ? "#111" : n < step ? "#ddd" : "#fff",
+                color: n === step ? "#fff" : "#111",
+              }}>{n}</div>
+            );
+          })}
         </div>
       </Box>
 
       <Box title={`Campos del paso ${step}`}>
-        {step === 7 ? (
-          <>
-            <Note>Este paso lleva a Stripe (guardar método de pago — sin cobro).</Note>
-            <p style={{ fontSize: 13 }}>Resumen de tu suscripción futura:</p>
-            <ul style={{ fontSize: 13, paddingLeft: 18 }}>
-              <li>Plan: Profesional Verificado (Fundador)</li>
-              <li>Tarifa: 15 €/mes (protegida)</li>
-              <li>Activación: tras aprobación + fecha oficial de lanzamiento</li>
-              <li>6 meses gratuitos desde el lanzamiento</li>
-            </ul>
-          </>
+        {current.fields.map((f) => <FakeField key={f} label={f} />)}
+      </Box>
+
+      <Box title="Navegación">
+        <button onClick={() => setStep((s) => Math.max(1, s - 1))} disabled={step === 1} style={btn("secondary")}>← Anterior</button>
+        {!isLast ? (
+          <button onClick={() => setStep((s) => s + 1)} style={btn("primary")}>Siguiente →</button>
         ) : (
-          current.fields.map((f) => <FakeField key={f} label={f} />)
+          <button onClick={finish} style={btn("primary")}>
+            {track === "verificado" ? "Continuar a método de pago →" : "Enviar solicitud →"}
+          </button>
         )}
       </Box>
 
-      <Box title="Navegación del formulario">
-        <button
-          onClick={() => setStep((s) => Math.max(1, s - 1))}
-          disabled={step === 1}
-          style={btn("secondary")}
-        >
-          ← Anterior
-        </button>
-        {!isLast ? (
-          <button onClick={() => setStep((s) => s + 1)} style={btn("primary")}>
-            Siguiente →
-          </button>
-        ) : (
-          <button onClick={() => navigate({ to: "/dashboard/stripe" })} style={btn("primary")}>
-            Continuar a método de pago →
-          </button>
-        )}
-        <button onClick={() => navigate({ to: "/dashboard" })} style={btn("secondary")}>
-          Guardar y salir
-        </button>
-      </Box>
+      {track === "presencia" && (
+        <Note>El perfil gratuito no requiere documentación ni método de pago.</Note>
+      )}
     </WireframeShell>
   );
 }

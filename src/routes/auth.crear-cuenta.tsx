@@ -1,21 +1,29 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { WireframeShell, Box, FakeField, NavButton } from "@/components/Wireframe";
+import { createFileRoute } from "@tanstack/react-router";
+import { WireframeShell, Box, FakeField, NavButton, TrackBadge } from "@/components/Wireframe";
+
+type Track = "presencia" | "verificado";
 
 export const Route = createFileRoute("/auth/crear-cuenta")({
+  validateSearch: (s: Record<string, unknown>): { track: Track } => ({
+    track: s.track === "verificado" ? "verificado" : "presencia",
+  }),
   component: CrearCuenta,
 });
 
 function CrearCuenta() {
+  const { track } = Route.useSearch();
   return (
-    <WireframeShell screen="6 · CREAR CUENTA" title="Crear cuenta" breadcrumb="Auth › Crear cuenta">
+    <WireframeShell
+      screen="4 · CREAR CUENTA"
+      title="Crear cuenta"
+      breadcrumb={track === "verificado" ? "Invitación › Crear cuenta" : "Soy profesional › Crear cuenta"}
+    >
+      <TrackBadge track={track} />
       <Box title="Formulario">
         <FakeField label="Nombre" />
         <FakeField label="Email" type="email" />
         <FakeField label="Contraseña" type="password" />
-        <NavButton to="/dashboard">Crear cuenta</NavButton>
-      </Box>
-      <Box>
-        <Link to="/auth/iniciar-sesion" style={{ fontSize: 12 }}>¿Ya tienes cuenta? Inicia sesión</Link>
+        <NavButton to="/dashboard" search={{ track }}>Crear cuenta</NavButton>
       </Box>
     </WireframeShell>
   );
