@@ -22,11 +22,9 @@ export function WireframeShell({
           [LOGO] Mallorca Holística — wireframe
         </Link>
         <nav style={{ display: "flex", gap: 16, fontSize: 12 }}>
-          <Link to="/" style={linkStyle}>Visitante</Link>
+          <Link to="/" style={linkStyle}>Inicio</Link>
           <Link to="/soy-profesional" style={linkStyle}>Soy profesional</Link>
-          <Link to="/planes" style={linkStyle}>Planes</Link>
-          <Link to="/auth/iniciar-sesion" style={linkStyle}>Iniciar sesión</Link>
-          <Link to="/dashboard" style={linkStyle}>Dashboard</Link>
+          <Link to="/comunidad-fundadora" style={linkStyle}>Comunidad Fundadora</Link>
         </nav>
       </header>
 
@@ -99,11 +97,13 @@ export function Checklist({ items }: { items: { label: string; done?: boolean }[
 export function NavButton({
   to,
   params,
+  search,
   children,
   variant = "primary",
 }: {
   to: string;
   params?: Record<string, string>;
+  search?: Record<string, string>;
   children: ReactNode;
   variant?: "primary" | "secondary";
 }) {
@@ -121,7 +121,7 @@ export function NavButton({
   };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (
-    <Link to={to as any} params={params as any} style={style}>
+    <Link to={to as any} params={params as any} search={search as any} style={style}>
       {children} →
     </Link>
   );
@@ -131,6 +131,14 @@ export function Note({ children }: { children: ReactNode }) {
   return (
     <div style={{ fontSize: 11, color: "#666", fontStyle: "italic", padding: "8px 12px", borderLeft: "3px solid #ccc", background: "#f3f3f3", marginBottom: 12 }}>
       {children}
+    </div>
+  );
+}
+
+export function TrackBadge({ track }: { track: "presencia" | "verificado" }) {
+  return (
+    <div style={{ display: "inline-block", padding: "4px 8px", border: "1px dashed #666", fontSize: 11, marginBottom: 12 }}>
+      Track activo: <strong>{track === "presencia" ? "Perfil Presencia (gratuito)" : "Comunidad Fundadora (verificado)"}</strong>
     </div>
   );
 }
