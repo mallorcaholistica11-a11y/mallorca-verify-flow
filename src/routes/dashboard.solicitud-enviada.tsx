@@ -21,7 +21,7 @@ function SolicitudEnviada() {
         <p style={{ fontSize: 13 }}>Te avisaremos por email cuando esté lista.</p>
       </Box>
       <Box title={isOrg ? "Estado actual de la organización" : "Estado actual del perfil"}>
-        <p style={{ fontSize: 13 }}><strong>En revisión</strong></p>
+        <p style={{ fontSize: 13 }}><strong>Perfil pendiente de revisión</strong></p>
       </Box>
       <Box title="Simulación (solo wireframe)">
         <Note>En producción, esta revisión la hace el equipo manualmente. Aquí saltamos para validar el flujo.</Note>
