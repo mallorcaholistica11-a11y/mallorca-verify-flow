@@ -50,7 +50,7 @@ function SoyProfesional() {
           <NavButton to="/invitacion/$token" params={{ token: "demo-token" }} search={{ track: "verificado" }}>
             He recibido una invitación
           </NavButton>
-          <NavButton to="/comunidad-fundadora" variant="secondary">
+          <NavButton to="/profesional-fundador" variant="secondary">
             Más información
           </NavButton>
         </Card>
