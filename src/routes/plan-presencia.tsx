@@ -12,6 +12,24 @@ function PlanPresencia() {
       title="🌿 Detalle Plan Presencia"
       breadcrumb="Inicio › Soy profesional › Plan Presencia"
     >
+      <Box title="🟡 FASE BETA MALLORCA HOLÍSTICA">
+        <p style={{ fontSize: 13 }}>
+          Mallorca Holística se encuentra actualmente en fase beta.
+        </p>
+        <p style={{ fontSize: 13 }}>
+          Estamos construyendo el ecosistema inicial de profesionales, centros, organizaciones y actividades que forman el corazón de Mallorca Holística.
+        </p>
+        <p style={{ fontSize: 13 }}>
+          Las personas que se incorporan durante esta etapa participan en los primeros pasos del proyecto y contribuyen a crear una red más visible, conectada y accesible para todos.
+        </p>
+        <p style={{ fontSize: 13 }}>
+          Nuevas funcionalidades, contenidos y oportunidades de participación se incorporan progresivamente a medida que crece la comunidad.
+        </p>
+        <p style={{ fontSize: 13 }}>
+          Gracias por formar parte de esta etapa fundacional y por ayudar a sembrar las primeras semillas de Mallorca Holística. 🌿
+        </p>
+      </Box>
+
       <Box title="🌿 PLAN PRESENCIA">
         <p style={{ fontSize: 13 }}>
           Ideal para profesionales, proyectos, asociaciones y organizaciones que desean formar parte de Mallorca Holística y contribuir a una comunidad más visible, conectada y accesible.
