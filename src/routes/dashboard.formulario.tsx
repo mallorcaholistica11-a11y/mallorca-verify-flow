@@ -45,7 +45,7 @@ const PRESENCIA_STEPS: Step[] = [
       { title: "Modalidades de consulta" },
       {
         title: "Consulta principal",
-        fields: ["Nombre del centro", "Dirección", "Municipio", "Isla"],
+        fields: ["Nombre del centro", "Dirección", "Municipio", "Código postal", "Isla"],
       },
     ],
     note: "El Plan Presencia incluye una única ubicación.",
