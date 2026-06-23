@@ -33,6 +33,10 @@ function SoyProfesional() {
           <NavButton to="/auth/crear-cuenta" search={{ track: "presencia" }}>
             Crear perfil gratuito
           </NavButton>
+          <NavButton to="/plan-presencia" variant="secondary">
+            Más información
+          </NavButton>
+
         </Card>
 
         <Card title="✨ Profesional Fundador">
