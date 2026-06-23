@@ -45,7 +45,7 @@ const PRESENCIA_STEPS: Step[] = [
       { title: "Modalidades de consulta" },
       {
         title: "Consulta principal",
-        fields: ["Nombre del centro", "Dirección", "Municipio", "Isla"],
+        fields: ["Nombre del centro", "Dirección", "Municipio", "Código postal", "Isla"],
       },
     ],
     note: "El Plan Presencia incluye una única ubicación.",
@@ -182,9 +182,7 @@ function Formulario() {
             ) : sec.title === "Modalidades de consulta" ? (
               <ModalidadesConsultaCheckboxes />
             ) : (
-              sec.fields?.map((f) =>
-                isMunicipioField(f) ? <MunicipioPicker key={f} label={f} /> : <FakeField key={f} label={f} />
-              )
+              sec.fields?.map((f) => renderField(f))
             )}
           </Box>
         ))
@@ -192,9 +190,7 @@ function Formulario() {
 
       {current.fields && !current.sections ? (
         <Box title={`Campos del paso ${step}`}>
-          {current.fields.map((f) =>
-            isMunicipioField(f) ? <MunicipioPicker key={f} label={f} /> : <FakeField key={f} label={f} />
-          )}
+          {current.fields.map((f) => renderField(f))}
         </Box>
       ) : null}
 
@@ -765,6 +761,43 @@ function MunicipioPicker({ label }: { label: string }) {
       <div style={{ fontSize: 11, color: "#888", marginTop: 4, fontStyle: "italic" }}>
         Solo se permiten municipios de Mallorca de la lista normalizada.
       </div>
+    </div>
+  );
+}
+
+function isDireccionField(label: string) {
+  return label.toLowerCase().startsWith("dirección");
+}
+
+function renderField(label: string) {
+  if (isMunicipioField(label)) return <MunicipioPicker key={label} label={label} />;
+  if (isDireccionField(label)) return <DireccionPicker key={label} label={label} />;
+  return <FakeField key={label} label={label} />;
+}
+
+function DireccionPicker({ label }: { label: string }) {
+  const [value, setValue] = useState("");
+  return (
+    <div style={{ marginBottom: 12 }}>
+      <div style={{ fontSize: 11, color: "#666", textTransform: "uppercase", letterSpacing: 1, marginBottom: 4 }}>
+        {label}
+      </div>
+      <input
+        type="text"
+        value={value}
+        placeholder="Empieza a escribir la dirección…"
+        onChange={(e) => setValue(e.target.value)}
+        style={{
+          width: "100%", padding: "8px 10px", border: "1px dashed #888",
+          background: "#fff", fontFamily: "inherit", fontSize: 13, boxSizing: "border-box",
+        }}
+      />
+      <div style={{ fontSize: 11, color: "#888", marginTop: 4, fontStyle: "italic" }}>
+        MVP: texto libre. Preparado para Google Places Autocomplete — al integrarlo se guardarán
+        automáticamente: dirección formateada, municipio, código postal, isla, latitud, longitud y Place ID.
+      </div>
+      {/* Estructura prevista (oculta en wireframe MVP):
+          formatted_address, municipio, postal_code, isla, lat, lng, place_id */}
     </div>
   );
 }
