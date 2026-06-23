@@ -1,21 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { WireframeShell, Box, NavButton, Note, TrackBadge } from "@/components/Wireframe";
-
-type Track = "presencia" | "verificado";
+import { WireframeShell, Box, NavButton, Note, TrackBadge, parseTrack, type Track } from "@/components/Wireframe";
 
 export const Route = createFileRoute("/dashboard/solicitud-enviada")({
-  validateSearch: (s: Record<string, unknown>): { track: Track } => ({
-    track: s.track === "verificado" ? "verificado" : "presencia",
-  }),
+  validateSearch: (s: Record<string, unknown>): { track: Track } => ({ track: parseTrack(s) }),
   component: SolicitudEnviada,
 });
 
 function SolicitudEnviada() {
   const { track } = Route.useSearch();
+  const isOrg = track === "organizacion";
   return (
     <WireframeShell
       screen="8 · SOLICITUD ENVIADA"
-      title="Solicitud recibida"
+      title={isOrg ? "Solicitud de organización recibida" : "Solicitud recibida"}
       breadcrumb="Dashboard › Solicitud enviada"
     >
       <TrackBadge track={track} />
@@ -23,7 +20,7 @@ function SolicitudEnviada() {
         <p style={{ fontSize: 13 }}>Hemos recibido tu solicitud y la revisaremos manualmente.</p>
         <p style={{ fontSize: 13 }}>Te avisaremos por email cuando esté lista.</p>
       </Box>
-      <Box title="Estado actual del perfil">
+      <Box title={isOrg ? "Estado actual de la organización" : "Estado actual del perfil"}>
         <p style={{ fontSize: 13 }}><strong>En revisión</strong></p>
       </Box>
       <Box title="Simulación (solo wireframe)">
