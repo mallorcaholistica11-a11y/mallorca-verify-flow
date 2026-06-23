@@ -36,7 +36,7 @@ const ORIGEN_LABEL: Record<Origen, string> = {
 };
 
 function ListaEspera() {
-  const { track } = Route.useSearch();
+  const { track } = Route.useSearch() as { track: Origen };
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
     nombre: "",
