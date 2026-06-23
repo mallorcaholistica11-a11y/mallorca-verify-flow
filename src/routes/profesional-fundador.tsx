@@ -12,6 +12,24 @@ function ProfesionalFundador() {
       title="✨ Profesional Fundador"
       breadcrumb="Inicio › Soy profesional › Profesional Fundador"
     >
+      <Box title="🟡 FASE BETA MALLORCA HOLÍSTICA">
+        <p style={{ fontSize: 13 }}>
+          Mallorca Holística se encuentra actualmente en fase beta.
+        </p>
+        <p style={{ fontSize: 13 }}>
+          Estamos construyendo el ecosistema inicial de profesionales, centros, organizaciones y actividades que forman el corazón de Mallorca Holística.
+        </p>
+        <p style={{ fontSize: 13 }}>
+          Las personas que se incorporan durante esta etapa participan en los primeros pasos del proyecto y contribuyen a crear una red más visible, conectada y accesible para todos.
+        </p>
+        <p style={{ fontSize: 13 }}>
+          Nuevas funcionalidades, contenidos y oportunidades de participación se incorporan progresivamente a medida que crece la comunidad.
+        </p>
+        <p style={{ fontSize: 13 }}>
+          Gracias por formar parte de esta etapa fundacional y por ayudar a sembrar las primeras semillas de Mallorca Holística. 🌿
+        </p>
+      </Box>
+
       <Box title="✨ PROFESIONAL FUNDADOR">
         <p style={{ fontSize: 13 }}>
           Pensado para profesionales que desean fortalecer la confianza, aumentar su visibilidad y facilitar que más personas descubran el valor de su trabajo.
