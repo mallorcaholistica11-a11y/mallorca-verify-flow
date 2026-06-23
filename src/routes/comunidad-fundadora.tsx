@@ -8,21 +8,20 @@ export const Route = createFileRoute("/comunidad-fundadora")({
 function Comunidad() {
   return (
     <WireframeShell
-      screen="2 · COMUNIDAD FUNDADORA"
-      title="✨ Comunidad Fundadora"
-      breadcrumb="Soy profesional › Comunidad Fundadora"
+      screen="2A · COMUNIDAD FUNDADORA · PROFESIONALES"
+      title="✨ Comunidad Fundadora · Profesionales"
+      breadcrumb="Soy profesional › Comunidad Fundadora · Profesionales"
     >
       <Box title="Fase beta">
         <p style={{ fontSize: 13 }}>Mallorca Holística está en fase beta. Estamos construyendo el ecosistema inicial.</p>
       </Box>
-      <Box title="Comunidad Fundadora">
+      <Box title="Acceso">
         <p style={{ fontSize: 13 }}>Acceso actualmente mediante invitación.</p>
       </Box>
       <Box title="Beneficios">
         <ul style={{ fontSize: 13, paddingLeft: 18 }}>
           <li>6 meses gratuitos desde el lanzamiento oficial</li>
-          <li>Tarifa fundadora protegida de 15 €/mes para siempre</li>
-          <li>40 plazas disponibles</li>
+          <li>Tarifa fundadora protegida de 15 €/mes para siempre mientras mantengan activa su suscripción</li>
         </ul>
       </Box>
       <Box title="Plazas">
@@ -32,7 +31,7 @@ function Comunidad() {
         <p style={{ fontSize: 13 }}>Si no tienes invitación puedes unirte a la lista de espera.</p>
       </Box>
       <Box title="Acciones">
-        <NavButton to="/invitacion/$token" params={{ token: "demo-token" }}>
+        <NavButton to="/invitacion/$token" params={{ token: "demo-token" }} search={{ track: "verificado" }}>
           He recibido una invitación
         </NavButton>
         <NavButton to="/lista-espera" variant="secondary">

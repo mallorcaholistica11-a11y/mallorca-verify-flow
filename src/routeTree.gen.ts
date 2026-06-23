@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SoyProfesionalRouteImport } from './routes/soy-profesional'
 import { Route as ListaEsperaRouteImport } from './routes/lista-espera'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as ComunidadFundadoraOrganizacionesRouteImport } from './routes/comunidad-fundadora-organizaciones'
 import { Route as ComunidadFundadoraRouteImport } from './routes/comunidad-fundadora'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as InvitacionTokenRouteImport } from './routes/invitacion.$token'
@@ -36,6 +37,12 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ComunidadFundadoraOrganizacionesRoute =
+  ComunidadFundadoraOrganizacionesRouteImport.update({
+    id: '/comunidad-fundadora-organizaciones',
+    path: '/comunidad-fundadora-organizaciones',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ComunidadFundadoraRoute = ComunidadFundadoraRouteImport.update({
   id: '/comunidad-fundadora',
   path: '/comunidad-fundadora',
@@ -82,6 +89,7 @@ const AuthCrearCuentaRoute = AuthCrearCuentaRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/comunidad-fundadora': typeof ComunidadFundadoraRoute
+  '/comunidad-fundadora-organizaciones': typeof ComunidadFundadoraOrganizacionesRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/lista-espera': typeof ListaEsperaRoute
   '/soy-profesional': typeof SoyProfesionalRoute
@@ -95,6 +103,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/comunidad-fundadora': typeof ComunidadFundadoraRoute
+  '/comunidad-fundadora-organizaciones': typeof ComunidadFundadoraOrganizacionesRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/lista-espera': typeof ListaEsperaRoute
   '/soy-profesional': typeof SoyProfesionalRoute
@@ -109,6 +118,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/comunidad-fundadora': typeof ComunidadFundadoraRoute
+  '/comunidad-fundadora-organizaciones': typeof ComunidadFundadoraOrganizacionesRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/lista-espera': typeof ListaEsperaRoute
   '/soy-profesional': typeof SoyProfesionalRoute
@@ -124,6 +134,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/comunidad-fundadora'
+    | '/comunidad-fundadora-organizaciones'
     | '/dashboard'
     | '/lista-espera'
     | '/soy-profesional'
@@ -137,6 +148,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/comunidad-fundadora'
+    | '/comunidad-fundadora-organizaciones'
     | '/dashboard'
     | '/lista-espera'
     | '/soy-profesional'
@@ -150,6 +162,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/comunidad-fundadora'
+    | '/comunidad-fundadora-organizaciones'
     | '/dashboard'
     | '/lista-espera'
     | '/soy-profesional'
@@ -164,6 +177,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ComunidadFundadoraRoute: typeof ComunidadFundadoraRoute
+  ComunidadFundadoraOrganizacionesRoute: typeof ComunidadFundadoraOrganizacionesRoute
   DashboardRoute: typeof DashboardRouteWithChildren
   ListaEsperaRoute: typeof ListaEsperaRoute
   SoyProfesionalRoute: typeof SoyProfesionalRoute
@@ -192,6 +206,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/comunidad-fundadora-organizaciones': {
+      id: '/comunidad-fundadora-organizaciones'
+      path: '/comunidad-fundadora-organizaciones'
+      fullPath: '/comunidad-fundadora-organizaciones'
+      preLoaderRoute: typeof ComunidadFundadoraOrganizacionesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/comunidad-fundadora': {
@@ -274,6 +295,7 @@ const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ComunidadFundadoraRoute: ComunidadFundadoraRoute,
+  ComunidadFundadoraOrganizacionesRoute: ComunidadFundadoraOrganizacionesRoute,
   DashboardRoute: DashboardRouteWithChildren,
   ListaEsperaRoute: ListaEsperaRoute,
   SoyProfesionalRoute: SoyProfesionalRoute,

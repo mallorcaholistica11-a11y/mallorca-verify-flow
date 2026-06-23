@@ -1,30 +1,35 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { WireframeShell, Box, NavButton, Note } from "@/components/Wireframe";
+import { WireframeShell, Box, NavButton, Note, parseTrack, type Track } from "@/components/Wireframe";
 
 export const Route = createFileRoute("/invitacion/$token")({
+  validateSearch: (s: Record<string, unknown>): { track: Track } => ({
+    track: parseTrack(s) === "presencia" ? "verificado" : parseTrack(s),
+  }),
   component: Invitacion,
 });
 
 function Invitacion() {
   const { token } = Route.useParams();
+  const { track } = Route.useSearch();
+  const isOrg = track === "organizacion";
   return (
     <WireframeShell
       screen="3 · INVITACIÓN VALIDADA"
       title="Tu invitación ha sido validada"
-      breadcrumb="Comunidad Fundadora › Invitación"
+      breadcrumb={(isOrg ? "Comunidad Fundadora · Organizaciones" : "Comunidad Fundadora · Profesionales") + " › Invitación"}
     >
       <Note>Token recibido por URL: <code>{token}</code></Note>
       <Box title="Estado">
-        <p style={{ fontSize: 13 }}>✓ Invitación válida</p>
+        <p style={{ fontSize: 13 }}>✓ Invitación válida ({isOrg ? "Organización Fundadora" : "Profesional Fundador"})</p>
         <p style={{ fontSize: 13 }}>Tu plaza permanecerá reservada durante 15 días.</p>
       </Box>
       <Box title="Beneficios fundadores activos">
         <ul style={{ fontSize: 13, paddingLeft: 18 }}>
           <li>6 meses gratuitos desde el lanzamiento oficial</li>
-          <li>15 €/mes para siempre</li>
+          <li>{isOrg ? "35 €/mes" : "15 €/mes"} para siempre mientras mantengan activa su suscripción</li>
         </ul>
       </Box>
-      <NavButton to="/auth/crear-cuenta" search={{ track: "verificado" }}>
+      <NavButton to="/auth/crear-cuenta" search={{ track }}>
         Crear mi cuenta y continuar
       </NavButton>
     </WireframeShell>
