@@ -182,7 +182,9 @@ function Formulario() {
             ) : sec.title === "Modalidades de consulta" ? (
               <ModalidadesConsultaCheckboxes />
             ) : (
-              sec.fields?.map((f) => <FakeField key={f} label={f} />)
+              sec.fields?.map((f) =>
+                isMunicipioField(f) ? <MunicipioPicker key={f} label={f} /> : <FakeField key={f} label={f} />
+              )
             )}
           </Box>
         ))
@@ -190,7 +192,9 @@ function Formulario() {
 
       {current.fields && !current.sections ? (
         <Box title={`Campos del paso ${step}`}>
-          {current.fields.map((f) => <FakeField key={f} label={f} />)}
+          {current.fields.map((f) =>
+            isMunicipioField(f) ? <MunicipioPicker key={f} label={f} /> : <FakeField key={f} label={f} />
+          )}
         </Box>
       ) : null}
 
@@ -682,6 +686,85 @@ function ModalidadesConsultaCheckboxes() {
           Seleccionadas: {selected.join(", ")}
         </div>
       )}
+    </div>
+  );
+}
+
+const MUNICIPIOS = [
+  "Alaró","Alcúdia","Algaida","Andratx","Ariany","Artà","Banyalbufar","Binissalem","Búger","Bunyola",
+  "Calvià","Campanet","Campos","Capdepera","Consell","Costitx","Deià","Escorca","Esporles","Estellencs",
+  "Felanitx","Fornalutx","Inca","Lloret de Vistalegre","Lloseta","Llubí","Llucmajor","Manacor",
+  "Mancor de la Vall","Maria de la Salut","Marratxí","Montuïri","Muro","Palma","Petra","Pollença",
+  "Porreres","Puigpunyent","Sa Pobla","Sant Joan","Sant Llorenç des Cardassar","Santa Eugènia",
+  "Santa Margalida","Santa Maria del Camí","Santanyí","Selva","Sencelles","Ses Salines","Sineu",
+  "Sóller","Son Servera","Valldemossa","Vilafranca de Bonany",
+].sort((a, b) => a.localeCompare(b, "es"));
+
+function isMunicipioField(label: string) {
+  return label.toLowerCase().includes("municipio");
+}
+
+function MunicipioPicker({ label }: { label: string }) {
+  const [query, setQuery] = useState("");
+  const [selected, setSelected] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
+
+  const filtered = MUNICIPIOS.filter(
+    (m) => query === "" || m.toLowerCase().includes(query.toLowerCase())
+  );
+
+  const display = selected ?? query;
+
+  return (
+    <div style={{ marginBottom: 12 }}>
+      <div style={{ fontSize: 11, color: "#666", textTransform: "uppercase", letterSpacing: 1, marginBottom: 4 }}>
+        {label}
+      </div>
+      <div style={{ position: "relative" }}>
+        <input
+          type="text"
+          value={display}
+          placeholder="Seleccionar municipio"
+          onChange={(e) => { setSelected(null); setQuery(e.target.value); setOpen(true); }}
+          onFocus={() => setOpen(true)}
+          onBlur={() => setTimeout(() => setOpen(false), 150)}
+          style={{
+            width: "100%", padding: "8px 10px", border: "1px dashed #888",
+            background: "#fff", fontFamily: "inherit", fontSize: 13, boxSizing: "border-box",
+          }}
+        />
+        {open && filtered.length > 0 && (
+          <div
+            style={{
+              position: "absolute", top: "100%", left: 0, right: 0, zIndex: 10,
+              maxHeight: 220, overflowY: "auto", border: "1px dashed #888",
+              borderTop: "none", background: "#fff",
+            }}
+          >
+            {filtered.map((item) => (
+              <div
+                key={item}
+                onMouseDown={(e) => { e.preventDefault(); setSelected(item); setQuery(""); setOpen(false); }}
+                style={{ padding: "6px 10px", fontSize: 13, cursor: "pointer", borderBottom: "1px dotted #ddd" }}
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+        )}
+        {open && filtered.length === 0 && (
+          <div style={{
+            position: "absolute", top: "100%", left: 0, right: 0, zIndex: 10,
+            border: "1px dashed #888", borderTop: "none", background: "#fff",
+            padding: "6px 10px", fontSize: 12, color: "#a00",
+          }}>
+            No hay coincidencias. Solo se permiten municipios de la lista.
+          </div>
+        )}
+      </div>
+      <div style={{ fontSize: 11, color: "#888", marginTop: 4, fontStyle: "italic" }}>
+        Solo se permiten municipios de Mallorca de la lista normalizada.
+      </div>
     </div>
   );
 }
