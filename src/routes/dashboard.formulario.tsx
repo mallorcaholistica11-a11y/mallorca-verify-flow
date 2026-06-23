@@ -1278,27 +1278,25 @@ function VerificadoFormulario() {
 
       {step === 4 && (
         <>
-          <Box title="Frase de presentación">
+          <Box title="🌟 Frase de presentación">
             <Note>Describe tu actividad en una frase. Máximo 120 caracteres.</Note>
             <FakeField label="Frase (máx. 120)" />
-            <div style={{ fontSize: 11, color: "#888", fontStyle: "italic" }}>
-              Ej.: Psicóloga integrativa especializada en ansiedad y trauma.
+            <div style={{ fontSize: 12, color: "#666", fontStyle: "italic", marginTop: 8 }}>
+              Ejemplos:
+              <ul style={{ paddingLeft: 18, marginTop: 6, marginBottom: 6 }}>
+                <li>Psicóloga integrativa especializada en ansiedad y trauma.</li>
+                <li>Osteópata y terapeuta corporal con enfoque holístico.</li>
+                <li>Profesora de yoga y acompañante en procesos de transformación personal.</li>
+              </ul>
+              Esta frase puede aparecer en búsquedas, tarjetas de resultados, perfil público y Google.
             </div>
           </Box>
-          <Box title="Presentación">
-            <Note>Cuéntanos quién eres y qué haces. Máximo 3000 caracteres.</Note>
-            <FakeField label="Presentación (máx. 3000)" type="textarea" />
+          <Box title="✨ Presentación profesional">
+            <Note>Cuéntanos quién eres, qué haces y cómo acompañas a las personas. Máximo 3000 caracteres.</Note>
+            <FakeField label="Presentación profesional (máx. 3000)" type="textarea" />
           </Box>
-          <Box title="Mi enfoque">
-            <Note>¿Cómo acompañas a las personas? Máximo 2000 caracteres.</Note>
-            <FakeField label="Mi enfoque (máx. 2000)" type="textarea" />
-          </Box>
-          <Box title="Qué me diferencia (opcional)">
-            <Note>Máximo 1000 caracteres.</Note>
-            <FakeField label="Qué me diferencia (máx. 1000)" type="textarea" />
-          </Box>
-          <Box title="Formación principal"><FormacionList /></Box>
-          <Box title="Idiomas">
+          <Box title="🎓 Formación principal"><FormacionList /></Box>
+          <Box title="🌍 Idiomas">
             <VCheckboxes options={V_IDIOMAS} columns={3} />
           </Box>
         </>
