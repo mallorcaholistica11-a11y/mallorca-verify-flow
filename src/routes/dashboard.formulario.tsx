@@ -182,7 +182,9 @@ function Formulario() {
             ) : sec.title === "Modalidades de consulta" ? (
               <ModalidadesConsultaCheckboxes />
             ) : (
-              sec.fields?.map((f) => <FakeField key={f} label={f} />)
+              sec.fields?.map((f) =>
+                isMunicipioField(f) ? <MunicipioPicker key={f} label={f} /> : <FakeField key={f} label={f} />
+              )
             )}
           </Box>
         ))
@@ -190,7 +192,9 @@ function Formulario() {
 
       {current.fields && !current.sections ? (
         <Box title={`Campos del paso ${step}`}>
-          {current.fields.map((f) => <FakeField key={f} label={f} />)}
+          {current.fields.map((f) =>
+            isMunicipioField(f) ? <MunicipioPicker key={f} label={f} /> : <FakeField key={f} label={f} />
+          )}
         </Box>
       ) : null}
 
