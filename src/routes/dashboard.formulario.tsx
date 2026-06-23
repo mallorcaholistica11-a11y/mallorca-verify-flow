@@ -118,6 +118,12 @@ function FakeCheckbox({ label }: { label: string }) {
 
 function Formulario() {
   const { track } = Route.useSearch();
+  if (track === "verificado") return <VerificadoFormulario />;
+  return <FormularioBase />;
+}
+
+function FormularioBase() {
+  const { track } = Route.useSearch();
   const navigate = useNavigate();
   const STEPS = getSteps(track);
   const [step, setStep] = useState(1);
@@ -130,6 +136,7 @@ function Formulario() {
     if (needsStripe) navigate({ to: "/dashboard/stripe", search: { track } });
     else navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
   };
+
 
   return (
     <WireframeShell
