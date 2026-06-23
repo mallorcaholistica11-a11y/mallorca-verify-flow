@@ -113,7 +113,7 @@ function ProfesionalFundador() {
         <NavButton to="/invitacion/$token" params={{ token: "demo-token" }} search={{ track: "verificado" }}>
           👉 He recibido una invitación
         </NavButton>
-        <NavButton to="/lista-espera" variant="secondary">
+        <NavButton to="/lista-espera" search={{ track: "verificado" }} variant="secondary">
           👉 Quiero unirme a la lista de espera
         </NavButton>
         <NavButton to="/soy-profesional" variant="secondary">
