@@ -33,7 +33,7 @@ const PRESENCIA_STEPS: Step[] = [
   {
     title: "Actividad Profesional",
     sections: [
-      { title: "Especialidades y Terapias", note: "Máximo 3", fields: ["Especialidad / terapia"] },
+      { title: "Especialidades y Terapias", note: "Máximo 3" },
       { title: "Áreas de Especialización", note: "Máximo 5", fields: ["Área de especialización"] },
       { title: "Público al que acompaño", fields: ["Público"] },
       { title: "Modalidades de acompañamiento", fields: ["Modalidades"] },
