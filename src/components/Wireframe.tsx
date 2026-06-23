@@ -1,0 +1,136 @@
+import { Link } from "@tanstack/react-router";
+import type { ReactNode } from "react";
+
+// Intentionally style-less wireframe primitives.
+// Dashed borders, monospace, no color decisions.
+
+export function WireframeShell({
+  screen,
+  title,
+  breadcrumb,
+  children,
+}: {
+  screen: string;
+  title: string;
+  breadcrumb?: string;
+  children: ReactNode;
+}) {
+  return (
+    <div style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", minHeight: "100vh", background: "#fafafa", color: "#111" }}>
+      <header style={{ borderBottom: "1px dashed #999", padding: "12px 20px", display: "flex", justifyContent: "space-between", alignItems: "center", background: "#fff" }}>
+        <Link to="/" style={{ textDecoration: "none", color: "#111", fontWeight: 600 }}>
+          [LOGO] Mallorca Holística — wireframe
+        </Link>
+        <nav style={{ display: "flex", gap: 16, fontSize: 12 }}>
+          <Link to="/" style={linkStyle}>Visitante</Link>
+          <Link to="/soy-profesional" style={linkStyle}>Soy profesional</Link>
+          <Link to="/planes" style={linkStyle}>Planes</Link>
+          <Link to="/auth/iniciar-sesion" style={linkStyle}>Iniciar sesión</Link>
+          <Link to="/dashboard" style={linkStyle}>Dashboard</Link>
+        </nav>
+      </header>
+
+      <div style={{ padding: "8px 20px", fontSize: 11, color: "#666", borderBottom: "1px dashed #ddd" }}>
+        {breadcrumb ?? "—"}
+      </div>
+
+      <main style={{ maxWidth: 820, margin: "24px auto", padding: "0 20px" }}>
+        <div style={{ fontSize: 11, color: "#888", letterSpacing: 1, marginBottom: 4 }}>
+          PANTALLA · {screen}
+        </div>
+        <h1 style={{ fontSize: 22, margin: "0 0 20px 0" }}>{title}</h1>
+        {children}
+      </main>
+
+      <footer style={{ marginTop: 60, padding: 20, borderTop: "1px dashed #999", fontSize: 11, color: "#777", textAlign: "center" }}>
+        Wireframe funcional · sin diseño visual · validación de navegación
+      </footer>
+    </div>
+  );
+}
+
+const linkStyle = { textDecoration: "none", color: "#111", padding: "4px 8px", border: "1px dashed #bbb", borderRadius: 4 };
+
+export function Box({ children, title }: { children: ReactNode; title?: string }) {
+  return (
+    <div style={{ border: "1px dashed #888", padding: 16, marginBottom: 16, background: "#fff" }}>
+      {title && <div style={{ fontSize: 11, color: "#666", marginBottom: 8, textTransform: "uppercase", letterSpacing: 1 }}>{title}</div>}
+      {children}
+    </div>
+  );
+}
+
+export function Card({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <div style={{ border: "1px dashed #888", padding: 16, background: "#fff", flex: 1, minWidth: 220 }}>
+      <div style={{ fontWeight: 600, marginBottom: 8 }}>{title}</div>
+      <div style={{ fontSize: 13 }}>{children}</div>
+    </div>
+  );
+}
+
+export function Row({ children }: { children: ReactNode }) {
+  return <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 16 }}>{children}</div>;
+}
+
+export function FakeField({ label, type = "text" }: { label: string; type?: string }) {
+  return (
+    <div style={{ marginBottom: 12 }}>
+      <div style={{ fontSize: 12, marginBottom: 4 }}>{label}</div>
+      <div style={{ border: "1px dashed #888", padding: "8px 10px", background: "#fff", color: "#aaa", fontSize: 12 }}>
+        [{type}]
+      </div>
+    </div>
+  );
+}
+
+export function Checklist({ items }: { items: { label: string; done?: boolean }[] }) {
+  return (
+    <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+      {items.map((it, i) => (
+        <li key={i} style={{ padding: "6px 0", borderBottom: "1px dotted #ccc", fontSize: 13 }}>
+          {it.done ? "☑" : "☐"} {it.label}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+export function NavButton({
+  to,
+  params,
+  children,
+  variant = "primary",
+}: {
+  to: string;
+  params?: Record<string, string>;
+  children: ReactNode;
+  variant?: "primary" | "secondary";
+}) {
+  const style = {
+    display: "inline-block",
+    padding: "10px 16px",
+    border: variant === "primary" ? "2px solid #111" : "1px dashed #666",
+    background: "#fff",
+    color: "#111",
+    textDecoration: "none",
+    fontSize: 13,
+    marginRight: 8,
+    marginTop: 8,
+    cursor: "pointer",
+  };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return (
+    <Link to={to as any} params={params as any} style={style}>
+      {children} →
+    </Link>
+  );
+}
+
+export function Note({ children }: { children: ReactNode }) {
+  return (
+    <div style={{ fontSize: 11, color: "#666", fontStyle: "italic", padding: "8px 12px", borderLeft: "3px solid #ccc", background: "#f3f3f3", marginBottom: 12 }}>
+      {children}
+    </div>
+  );
+}
