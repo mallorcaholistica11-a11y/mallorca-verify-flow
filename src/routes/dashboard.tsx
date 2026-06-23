@@ -34,8 +34,13 @@ function DashboardHome() {
         { label: "Enviar solicitud" },
       ]
     : [
-        { label: "Completar perfil" },
-        { label: "Enviar solicitud" },
+        { label: "Paso 1 · Información General" },
+        { label: "Paso 2 · Actividad Profesional" },
+        { label: "Paso 3 · Consultas y Modalidades" },
+        { label: "Paso 4 · Experiencia y Perfil" },
+        { label: "Paso 5 · Enlaces y Redes" },
+        { label: "Paso 6 · Verificación y Compromisos" },
+        { label: "Finalizar perfil y enviar solicitud" },
       ];
 
   const ctaLabel = isOrg
