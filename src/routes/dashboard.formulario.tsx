@@ -42,7 +42,7 @@ const PRESENCIA_STEPS: Step[] = [
   {
     title: "Consultas y Modalidades",
     sections: [
-      { title: "Modalidades de consulta", fields: ["Modalidades de consulta (presencial / online)"] },
+      { title: "Modalidades de consulta" },
       {
         title: "Consulta principal",
         fields: ["Nombre del centro", "Dirección", "Municipio", "Isla"],
@@ -179,6 +179,8 @@ function Formulario() {
               <PublicoCheckboxes />
             ) : sec.title === "Modalidades de acompañamiento" ? (
               <ModalidadesCheckboxes />
+            ) : sec.title === "Modalidades de consulta" ? (
+              <ModalidadesConsultaCheckboxes />
             ) : (
               sec.fields?.map((f) => <FakeField key={f} label={f} />)
             )}
