@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SoyProfesionalRouteImport } from './routes/soy-profesional'
+import { Route as PlanPresenciaRouteImport } from './routes/plan-presencia'
 import { Route as ListaEsperaRouteImport } from './routes/lista-espera'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ComunidadFundadoraOrganizacionesRouteImport } from './routes/comunidad-fundadora-organizaciones'
@@ -25,6 +26,11 @@ import { Route as AuthCrearCuentaRouteImport } from './routes/auth.crear-cuenta'
 const SoyProfesionalRoute = SoyProfesionalRouteImport.update({
   id: '/soy-profesional',
   path: '/soy-profesional',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlanPresenciaRoute = PlanPresenciaRouteImport.update({
+  id: '/plan-presencia',
+  path: '/plan-presencia',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ListaEsperaRoute = ListaEsperaRouteImport.update({
@@ -92,6 +98,7 @@ export interface FileRoutesByFullPath {
   '/comunidad-fundadora-organizaciones': typeof ComunidadFundadoraOrganizacionesRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/lista-espera': typeof ListaEsperaRoute
+  '/plan-presencia': typeof PlanPresenciaRoute
   '/soy-profesional': typeof SoyProfesionalRoute
   '/auth/crear-cuenta': typeof AuthCrearCuentaRoute
   '/dashboard/formulario': typeof DashboardFormularioRoute
@@ -106,6 +113,7 @@ export interface FileRoutesByTo {
   '/comunidad-fundadora-organizaciones': typeof ComunidadFundadoraOrganizacionesRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/lista-espera': typeof ListaEsperaRoute
+  '/plan-presencia': typeof PlanPresenciaRoute
   '/soy-profesional': typeof SoyProfesionalRoute
   '/auth/crear-cuenta': typeof AuthCrearCuentaRoute
   '/dashboard/formulario': typeof DashboardFormularioRoute
@@ -121,6 +129,7 @@ export interface FileRoutesById {
   '/comunidad-fundadora-organizaciones': typeof ComunidadFundadoraOrganizacionesRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/lista-espera': typeof ListaEsperaRoute
+  '/plan-presencia': typeof PlanPresenciaRoute
   '/soy-profesional': typeof SoyProfesionalRoute
   '/auth/crear-cuenta': typeof AuthCrearCuentaRoute
   '/dashboard/formulario': typeof DashboardFormularioRoute
@@ -137,6 +146,7 @@ export interface FileRouteTypes {
     | '/comunidad-fundadora-organizaciones'
     | '/dashboard'
     | '/lista-espera'
+    | '/plan-presencia'
     | '/soy-profesional'
     | '/auth/crear-cuenta'
     | '/dashboard/formulario'
@@ -151,6 +161,7 @@ export interface FileRouteTypes {
     | '/comunidad-fundadora-organizaciones'
     | '/dashboard'
     | '/lista-espera'
+    | '/plan-presencia'
     | '/soy-profesional'
     | '/auth/crear-cuenta'
     | '/dashboard/formulario'
@@ -165,6 +176,7 @@ export interface FileRouteTypes {
     | '/comunidad-fundadora-organizaciones'
     | '/dashboard'
     | '/lista-espera'
+    | '/plan-presencia'
     | '/soy-profesional'
     | '/auth/crear-cuenta'
     | '/dashboard/formulario'
@@ -180,6 +192,7 @@ export interface RootRouteChildren {
   ComunidadFundadoraOrganizacionesRoute: typeof ComunidadFundadoraOrganizacionesRoute
   DashboardRoute: typeof DashboardRouteWithChildren
   ListaEsperaRoute: typeof ListaEsperaRoute
+  PlanPresenciaRoute: typeof PlanPresenciaRoute
   SoyProfesionalRoute: typeof SoyProfesionalRoute
   AuthCrearCuentaRoute: typeof AuthCrearCuentaRoute
   InvitacionTokenRoute: typeof InvitacionTokenRoute
@@ -192,6 +205,13 @@ declare module '@tanstack/react-router' {
       path: '/soy-profesional'
       fullPath: '/soy-profesional'
       preLoaderRoute: typeof SoyProfesionalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/plan-presencia': {
+      id: '/plan-presencia'
+      path: '/plan-presencia'
+      fullPath: '/plan-presencia'
+      preLoaderRoute: typeof PlanPresenciaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lista-espera': {
@@ -298,6 +318,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComunidadFundadoraOrganizacionesRoute: ComunidadFundadoraOrganizacionesRoute,
   DashboardRoute: DashboardRouteWithChildren,
   ListaEsperaRoute: ListaEsperaRoute,
+  PlanPresenciaRoute: PlanPresenciaRoute,
   SoyProfesionalRoute: SoyProfesionalRoute,
   AuthCrearCuentaRoute: AuthCrearCuentaRoute,
   InvitacionTokenRoute: InvitacionTokenRoute,
