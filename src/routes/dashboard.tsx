@@ -54,8 +54,8 @@ function DashboardHome() {
     <WireframeShell screen={screen} title={title} breadcrumb="Dashboard">
       <TrackBadge track={track} />
 
-      <Box title={isOrg ? "Estado de tu organización" : "Estado de tu perfil"}>
-        <p style={{ fontSize: 13 }}><strong>Perfil incompleto</strong></p>
+      <Box title={isOrg ? "Estado de tu solicitud" : "Estado de tu perfil"}>
+        <p style={{ fontSize: 13 }}><strong>{isOrg ? "🟠 Solicitud en preparación" : "Perfil incompleto"}</strong></p>
       </Box>
 
       <Box title="Tareas pendientes">
