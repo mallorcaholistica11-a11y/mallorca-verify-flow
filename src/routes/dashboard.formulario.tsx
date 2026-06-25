@@ -1191,8 +1191,8 @@ function VerificadoFormulario() {
     setConsents((p) => ({ ...p, [k]: !p[k] }));
   const allConsents = Object.values(consents).every(Boolean);
 
-  const [autorizaPago, setAutorizaPago] = useState(false);
-  const canSubmit = allConsents && autorizaPago;
+
+
 
   const finish = () => navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
 
