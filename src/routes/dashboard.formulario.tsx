@@ -1275,19 +1275,25 @@ function VerificadoFormulario() {
 
   const finish = () => navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
 
-  const stepTitle = V_STEP_TITLES[step - 1];
+  const isOrg = track === "organizacion";
+  const TITLES = isOrg ? O_STEP_TITLES : V_STEP_TITLES;
+  const stepTitle = TITLES[step - 1];
+  const screenLabel = isOrg ? "FORMULARIO ORGANIZACIÓN" : "FORMULARIO VERIFICADO";
+  const breadcrumb = isOrg
+    ? "Dashboard › Completar perfil de la organización"
+    : "Dashboard › Completar perfil verificado";
 
   return (
     <WireframeShell
-      screen={`6 · FORMULARIO VERIFICADO · PASO ${step}/${total}`}
+      screen={`6 · ${screenLabel} · PASO ${step}/${total}`}
       title={`Paso ${step} de ${total} · ${stepTitle}`}
-      breadcrumb="Dashboard › Completar perfil verificado"
+      breadcrumb={breadcrumb}
     >
       <TrackBadge track={track} />
 
       <Box title={`Progreso · Paso ${step} de ${total}`}>
         <div style={{ display: "flex", gap: 4 }}>
-          {V_STEP_TITLES.map((t, i) => {
+          {TITLES.map((t, i) => {
             const n = i + 1;
             return (
               <div key={n} title={t} style={{
@@ -1300,9 +1306,10 @@ function VerificadoFormulario() {
           })}
         </div>
         <div style={{ fontSize: 11, color: "#666", marginTop: 6 }}>
-          {V_STEP_TITLES.map((t, i) => `${i + 1}. ${t}`).join("  ·  ")}
+          {TITLES.map((t, i) => `${i + 1}. ${t}`).join("  ·  ")}
         </div>
       </Box>
+
 
       {step === 1 && (
         <Box title="Información General">
