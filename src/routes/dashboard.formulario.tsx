@@ -1585,7 +1585,7 @@ function VerificadoFormulario() {
             <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>🌿 Condiciones Comunidad Fundadora</div>
             <ul style={{ fontSize: 13, paddingLeft: 20, marginBottom: 8 }}>
               <li>✨ 6 meses gratuitos desde la fecha oficial de lanzamiento de Mallorca Holística.</li>
-              <li>✨ Tarifa fundadora protegida de 15 €/mes (IVA incluido) para siempre mientras mantengas activa tu suscripción.</li>
+              <li>✨ Tarifa fundadora protegida de {isOrg ? "35" : "15"} €/mes (IVA incluido) para siempre mientras mantengas activa tu suscripción.</li>
               <li>✨ Sin permanencia.</li>
               <li>✨ Sin ningún cargo durante el proceso de revisión ni durante el periodo gratuito.</li>
             </ul>
