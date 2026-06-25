@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { WireframeShell, Box, FakeField, Note, TrackBadge, parseTrack, type Track } from "@/components/Wireframe";
+import { TelefonoField } from "@/components/TelefonoField";
 
 export const Route = createFileRoute("/dashboard/formulario")({
   validateSearch: (s: Record<string, unknown>): { track: Track } => ({ track: parseTrack(s) }),
