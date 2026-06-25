@@ -1333,10 +1333,7 @@ function VerificadoFormulario() {
               </p>
               <FakeField label="Nombre" />
               <FakeField label="Apellidos" />
-              <FakeField
-                label="Cargo (opcional)"
-                placeholder="Ej.: Director/a, Coordinador/a, Responsable, Fundador/a, Gerente"
-              />
+              <FakeField label="Cargo (opcional) — Ej.: Director/a, Coordinador/a, Responsable, Fundador/a, Gerente" />
             </Box>
           )}
 
@@ -1344,7 +1341,7 @@ function VerificadoFormulario() {
             {isOrg && (
               <>
                 <FakeField label="Nombre comercial (opcional)" />
-                <FakeField label="Tipo de organización" placeholder="Ej.: Centro, Asociación, Proyecto, Evento…" />
+                <FakeField label="Tipo de organización — Ej.: Centro, Asociación, Proyecto, Evento…" />
               </>
             )}
             <MunicipioPicker label="Municipio principal" />
