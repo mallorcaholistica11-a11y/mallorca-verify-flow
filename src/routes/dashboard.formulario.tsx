@@ -1502,7 +1502,7 @@ function VerificadoFormulario() {
                 <FakeField label="Apellidos" />
                 <FakeField label="Cargo" />
                 <FakeField label="Email" type="email" />
-                <FakeField label="Teléfono" type="tel" />
+                <TelefonoField label="Teléfono" />
               </div>
 
               <div style={{ marginBottom: 16 }}>
