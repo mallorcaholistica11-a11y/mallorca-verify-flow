@@ -1191,8 +1191,8 @@ function VerificadoFormulario() {
     setConsents((p) => ({ ...p, [k]: !p[k] }));
   const allConsents = Object.values(consents).every(Boolean);
 
-  const [autorizaPago, setAutorizaPago] = useState(false);
-  const canSubmit = allConsents && autorizaPago;
+
+
 
   const finish = () => navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
 
@@ -1372,66 +1372,9 @@ function VerificadoFormulario() {
       )}
 
       {step === 7 && (
-        <>
-          <Box title="💳 Método de pago">
-            <p style={{ fontSize: 13 }}>
-              Como miembro de la Comunidad Fundadora disfrutarás de <strong>6 meses gratuitos</strong> desde la
-              fecha oficial de lanzamiento de Mallorca Holística.
-            </p>
-            <p style={{ fontSize: 13 }}>
-              Para reservar tu plaza y facilitar la activación futura de tu suscripción,
-              necesitamos registrar un método de pago válido.
-            </p>
-            <p style={{ fontSize: 13 }}>
-              No se realizará ningún cargo durante el proceso de revisión de tu solicitud ni durante el periodo gratuito.
-            </p>
-            <p style={{ fontSize: 13 }}>
-              Tu método de pago quedará protegido mediante Stripe y únicamente se utilizará
-              cuando finalicen los 6 meses gratuitos, siempre que tu solicitud haya sido aprobada.
-            </p>
-          </Box>
-
-          <Box title="🌿 Condiciones Comunidad Fundadora">
-            <ul style={{ paddingLeft: 18, fontSize: 13, lineHeight: 1.7 }}>
-              <li>✨ 6 meses gratuitos desde la fecha oficial de lanzamiento de Mallorca Holística.</li>
-              <li>✨ Tarifa fundadora protegida de 15 €/mes (IVA incluido) para siempre mientras mantengas activa tu suscripción.</li>
-              <li>✨ Sin permanencia.</li>
-              <li>✨ Sin ningún cargo durante el proceso de revisión ni durante el periodo gratuito.</li>
-              <li>📅 La fecha oficial de lanzamiento será comunicada con suficiente antelación a todos los miembros fundadores.</li>
-            </ul>
-          </Box>
-
-          <Box title="🔒 Autorización">
-            <div
-              onClick={() => setAutorizaPago((v) => !v)}
-              style={{
-                display: "flex", alignItems: "flex-start", gap: 8, padding: "8px 10px",
-                border: "1px dashed #888", background: autorizaPago ? "#f3f3f3" : "#fff",
-                cursor: "pointer", fontSize: 13,
-              }}
-            >
-              <span style={{
-                display: "inline-flex", alignItems: "center", justifyContent: "center",
-                width: 14, height: 14, border: "1px dashed #666", background: "#fff",
-                fontSize: 10, flexShrink: 0, marginTop: 2,
-              }}>{autorizaPago ? "☑" : ""}</span>
-              <span>
-                Autorizo a Mallorca Holística a guardar mi método de pago y a activar automáticamente
-                mi suscripción Fundadora de 15 €/mes (IVA incluido) cuando finalice el periodo gratuito
-                de 6 meses desde la fecha oficial de lanzamiento de Mallorca Holística, siempre que mi
-                solicitud haya sido aprobada.
-              </span>
-            </div>
-          </Box>
-
-          <Box title="💳 Datos de pago">
-            <Note>Integración con Stripe (preparada para futura activación).</Note>
-            <FakeField label="Número de tarjeta" />
-            <FakeField label="Caducidad (MM/AA)" />
-            <FakeField label="CVC" />
-            <FakeField label="Nombre del titular" />
-          </Box>
-        </>
+        <Box title="💳 Suscripción y Método de Pago">
+          <Note>Pantalla en construcción. El contenido se añadirá próximamente.</Note>
+        </Box>
       )}
 
       <Box title="Navegación">
@@ -1453,12 +1396,7 @@ function VerificadoFormulario() {
         ) : (
           <button
             onClick={finish}
-            disabled={!canSubmit}
-            style={{
-              ...btn("primary"),
-              opacity: canSubmit ? 1 : 0.5,
-              cursor: canSubmit ? "pointer" : "not-allowed",
-            }}
+            style={btn("primary")}
           >
             👉 Enviar solicitud de verificación
           </button>
