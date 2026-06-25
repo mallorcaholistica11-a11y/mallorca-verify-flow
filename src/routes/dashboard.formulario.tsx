@@ -1472,36 +1472,57 @@ function VerificadoFormulario() {
       )}
 
       {step === 6 && (
-        <Box title="🛡️ Verificación Mallorca Holística">
-          <div style={{ marginBottom: 16 }}>
-            <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>Seguro de Responsabilidad Civil</div>
-            <div
-              onClick={() => toggleConsent("seguroRC")}
-              style={{
-                display: "flex", alignItems: "center", gap: 8, padding: "8px 10px",
-                border: "1px dashed #888", background: consents.seguroRC ? "#f3f3f3" : "#fff",
-                cursor: "pointer", fontSize: 13,
-              }}
-            >
-              <span style={{
-                display: "inline-flex", alignItems: "center", justifyContent: "center",
-                width: 14, height: 14, border: "1px dashed #666", background: "#fff", fontSize: 10,
-              }}>{consents.seguroRC ? "☑" : ""}</span>
-              <span>Declaro disponer de un Seguro de Responsabilidad Civil vigente para el desarrollo de mi actividad profesional.</span>
-            </div>
-          </div>
+        <Box title={isOrg ? "🛡️ Verificación de la Organización" : "🛡️ Verificación Mallorca Holística"}>
+          {isOrg ? (
+            <>
+              <div style={{ marginBottom: 16 }}>
+                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>👤 Persona responsable</div>
+                <FakeField label="Nombre" />
+                <FakeField label="Apellidos" />
+                <FakeField label="Cargo" />
+                <FakeField label="Email" type="email" />
+                <FakeField label="Teléfono" type="tel" />
+              </div>
 
-          <div style={{ marginBottom: 16 }}>
-            <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>Diploma o Certificado</div>
-            <Note>Mínimo 1 documento obligatorio.</Note>
-            <FakeField label="Subir diploma o certificado" type="file" />
-          </div>
+              <div style={{ marginBottom: 16 }}>
+                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>🏢 Identificación de la entidad</div>
+                <FakeField label="Nombre legal" />
+                <FakeField label="CIF / NIF" />
+              </div>
+            </>
+          ) : (
+            <>
+              <div style={{ marginBottom: 16 }}>
+                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>Seguro de Responsabilidad Civil</div>
+                <div
+                  onClick={() => toggleConsent("seguroRC")}
+                  style={{
+                    display: "flex", alignItems: "center", gap: 8, padding: "8px 10px",
+                    border: "1px dashed #888", background: consents.seguroRC ? "#f3f3f3" : "#fff",
+                    cursor: "pointer", fontSize: 13,
+                  }}
+                >
+                  <span style={{
+                    display: "inline-flex", alignItems: "center", justifyContent: "center",
+                    width: 14, height: 14, border: "1px dashed #666", background: "#fff", fontSize: 10,
+                  }}>{consents.seguroRC ? "☑" : ""}</span>
+                  <span>Declaro disponer de un Seguro de Responsabilidad Civil vigente para el desarrollo de mi actividad profesional.</span>
+                </div>
+              </div>
 
-          <div style={{ marginBottom: 16 }}>
-            <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>Certificados adicionales</div>
-            <Note>Máximo 5 documentos.</Note>
-            <FakeField label="Subir certificados adicionales (opcional)" type="file" />
-          </div>
+              <div style={{ marginBottom: 16 }}>
+                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>Diploma o Certificado</div>
+                <Note>Mínimo 1 documento obligatorio.</Note>
+                <FakeField label="Subir diploma o certificado" type="file" />
+              </div>
+
+              <div style={{ marginBottom: 16 }}>
+                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>Certificados adicionales</div>
+                <Note>Máximo 5 documentos.</Note>
+                <FakeField label="Subir certificados adicionales (opcional)" type="file" />
+              </div>
+            </>
+          )}
 
           <VConsentItem icon="📜" title="Código Deontológico" linkText="👉 Ver documento"
             label="Confirmo que he leído y acepto el Código Deontológico de Mallorca Holística."
@@ -1516,12 +1537,31 @@ function VerificadoFormulario() {
             label="Confirmo que he leído y acepto las Condiciones de Uso."
             checked={consents.condiciones} onToggle={() => toggleConsent("condiciones")} />
           <VConsentItem icon="🌐" title="Publicación del Perfil" linkText="👉 Ver autorización"
-            label="Autorizo a Mallorca Holística a publicar mi perfil profesional en la plataforma."
+            label={isOrg
+              ? "Autorizo a Mallorca Holística a publicar el perfil de la organización en la plataforma."
+              : "Autorizo a Mallorca Holística a publicar mi perfil profesional en la plataforma."}
             checked={consents.publicacion} onToggle={() => toggleConsent("publicacion")} />
+
+          {isOrg && (
+            <>
+              <VConsentItem icon="📝" title="Declaración responsable"
+                label="Declaro representar legalmente o contar con autorización para actuar en nombre de esta organización."
+                checked={consents.seguroRC} onToggle={() => toggleConsent("seguroRC")} />
+
+              <div style={{ marginBottom: 16 }}>
+                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>✍️ Firma</div>
+                <FakeField label="Nombre completo del firmante" />
+                <div style={{ fontSize: 11, color: "#888", marginTop: 4, fontStyle: "italic" }}>
+                  La fecha, hora e IP quedarán registradas automáticamente.
+                </div>
+              </div>
+            </>
+          )}
 
           <Note>Solo queda un último paso para enviar tu solicitud de verificación.</Note>
         </Box>
       )}
+
 
       {step === 7 && (
         <Box title="💳 Suscripción y Método de Pago">
