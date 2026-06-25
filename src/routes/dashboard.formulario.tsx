@@ -1026,6 +1026,82 @@ const V_STEP_TITLES = [
   "Suscripción y Método de Pago",
 ];
 
+const O_STEP_TITLES = [
+  "Información General",
+  "Servicios y Actividades",
+  "Ubicaciones",
+  "Perfil de la Organización",
+  "Enlaces y Redes",
+  "Verificación y Compromisos",
+  "Suscripción y Método de Pago",
+];
+
+const O_ACTIVIDADES_ORGANIZADAS = [
+  "Talleres","Cursos","Formaciones","Eventos","Conferencias",
+  "Retiros","Encuentros","Actividades recurrentes","Otro",
+];
+
+const O_INSTALACIONES = [
+  "Salas de terapia","Salas de formación","Espacios para eventos",
+  "Jardín","Alojamiento","Restaurante","Cafetería","Otro",
+];
+
+function UbicacionesList() {
+  const [items, setItems] = useState([{ id: 1 }]);
+  return (
+    <div>
+      {items.map((it, idx) => (
+        <div key={it.id} style={{ border: "1px dashed #bbb", padding: 12, marginBottom: 12 }}>
+          <div style={{ fontSize: 11, color: "#666", marginBottom: 6 }}>
+            {idx === 0 ? "Ubicación principal" : `Ubicación adicional #${idx}`}
+          </div>
+          <DireccionPicker label="Dirección" />
+          <MunicipioPicker label="Municipio" />
+          <FakeField label="Isla (Mallorca)" />
+          {items.length > 1 && (
+            <button type="button"
+              onClick={() => setItems(items.filter((x) => x.id !== it.id))}
+              style={{ ...btn("secondary"), padding: "4px 10px", fontSize: 12 }}>
+              Eliminar
+            </button>
+          )}
+        </div>
+      ))}
+      <button type="button"
+        onClick={() => setItems([...items, { id: Date.now() }])}
+        style={{ ...btn("secondary"), padding: "6px 12px" }}>
+        ➕ Añadir otra ubicación
+      </button>
+    </div>
+  );
+}
+
+function EquipoList() {
+  const [items, setItems] = useState<{ id: number }[]>([]);
+  return (
+    <div>
+      {items.map((it, idx) => (
+        <div key={it.id} style={{ border: "1px dashed #bbb", padding: 12, marginBottom: 12 }}>
+          <div style={{ fontSize: 11, color: "#666", marginBottom: 6 }}>Miembro #{idx + 1}</div>
+          <FakeField label="Nombre" />
+          <FakeField label="Cargo o especialidad" />
+          <FakeField label="Fotografía" type="file" />
+          <button type="button"
+            onClick={() => setItems(items.filter((x) => x.id !== it.id))}
+            style={{ ...btn("secondary"), padding: "4px 10px", fontSize: 12 }}>
+            Eliminar
+          </button>
+        </div>
+      ))}
+      <button type="button"
+        onClick={() => setItems([...items, { id: Date.now() }])}
+        style={{ ...btn("secondary"), padding: "6px 12px" }}>
+        ➕ Añadir miembro
+      </button>
+    </div>
+  );
+}
+
 function VCheckboxes({ options, columns = 3 }: { options: string[]; columns?: number }) {
   const [selected, setSelected] = useState<string[]>([]);
   const toggle = (v: string) =>
