@@ -1313,52 +1313,94 @@ function VerificadoFormulario() {
 
       {step === 1 && (
         <Box title="Información General">
-          <FakeField label="Nombre" />
-          <FakeField label="Apellidos" />
-          <FakeField label="Nombre profesional (opcional)" />
+          {isOrg ? (
+            <>
+              <FakeField label="Nombre de la organización, centro, proyecto o evento" />
+              <FakeField label="Nombre comercial (opcional)" />
+            </>
+          ) : (
+            <>
+              <FakeField label="Nombre" />
+              <FakeField label="Apellidos" />
+              <FakeField label="Nombre profesional (opcional)" />
+            </>
+          )}
           <MunicipioPicker label="Municipio principal" />
           <FakeField label="Isla (Mallorca)" />
           <FakeField label="Correo electrónico" type="email" />
           <FakeField label="Teléfono" type="tel" />
           <FakeField label="WhatsApp" type="tel" />
-          <FakeField label="Foto principal" type="file" />
-          <FakeField label="Fotos galería (opcional, máximo 3)" type="file" />
-          <FakeField label="Logo profesional (opcional)" type="file" />
+          <FakeField label={isOrg ? "Imagen principal" : "Foto principal"} type="file" />
+          <FakeField
+            label={isOrg ? "Galería (opcional, hasta 9 imágenes)" : "Fotos galería (opcional, máximo 3)"}
+            type="file"
+          />
+          <FakeField label={isOrg ? "Logo (opcional)" : "Logo profesional (opcional)"} type="file" />
         </Box>
       )}
 
       {step === 2 && (
         <>
-          <Box title="Especialidades y Terapias">
+          <Box title={isOrg ? "Especialidades, Servicios o Actividades" : "Especialidades y Terapias"}>
             <EspecialidadesPicker
               max={0}
-              note="Elige tus terapias o especialidades principales. Podrás ordenarlas según la importancia que tienen en tu práctica."
+              note={
+                isOrg
+                  ? "Selecciona las especialidades, servicios o actividades que ofrece tu organización. Podrás ordenarlas según su relevancia."
+                  : "Elige tus terapias o especialidades principales. Podrás ordenarlas según la importancia que tienen en tu práctica."
+              }
             />
           </Box>
           <Box title="Áreas de Especialización">
             <AreasPicker
               max={0}
-              note="Elige las áreas en las que acompañas principalmente. Podrás ordenarlas según la importancia que tienen en tu práctica."
+              note={
+                isOrg
+                  ? "Elige las áreas en las que trabaja tu organización. Podrás ordenarlas según su relevancia."
+                  : "Elige las áreas en las que acompañas principalmente. Podrás ordenarlas según la importancia que tienen en tu práctica."
+              }
             />
           </Box>
-          <Box title="Público al que acompaño">
+          <Box title={isOrg ? "Público al que se dirige" : "Público al que acompaño"}>
             <Note>Selecciona todas las opciones que correspondan.</Note>
             <VCheckboxes options={V_PUBLICO} columns={3} />
           </Box>
-          <Box title="Modalidades de Acompañamiento">
+          <Box title={isOrg ? "Modalidades" : "Modalidades de Acompañamiento"}>
             <Note>Selecciona todas las modalidades que ofreces.</Note>
             <VCheckboxes options={V_MODALIDADES} columns={3} />
           </Box>
+          {isOrg && (
+            <Box title="Actividades organizadas">
+              <Note>Selecciona los tipos de actividades que organiza tu organización.</Note>
+              <VCheckboxes options={O_ACTIVIDADES_ORGANIZADAS} columns={3} />
+            </Box>
+          )}
         </>
       )}
 
       {step === 3 && (
         <>
-          <Box title="📍 Modalidades de Consulta">
-            <Note>¿Cómo realizas tus sesiones?</Note>
-            <VCheckboxes options={V_CONSULTA_MODES} columns={2} />
-          </Box>
-          <Box title="Consultas"><ConsultasList /></Box>
+          {!isOrg && (
+            <Box title="📍 Modalidades de Consulta">
+              <Note>¿Cómo realizas tus sesiones?</Note>
+              <VCheckboxes options={V_CONSULTA_MODES} columns={2} />
+            </Box>
+          )}
+          {isOrg ? (
+            <>
+              <Box title="📍 Ubicaciones"><UbicacionesList /></Box>
+              <Box title="Instalaciones">
+                <Note>Selecciona las instalaciones disponibles en tu espacio.</Note>
+                <VCheckboxes options={O_INSTALACIONES} columns={3} />
+              </Box>
+              <Box title="Galería del espacio">
+                <Note>Hasta 15 imágenes del espacio.</Note>
+                <FakeField label="Imágenes del espacio (opcional, hasta 15)" type="file" />
+              </Box>
+            </>
+          ) : (
+            <Box title="Consultas"><ConsultasList /></Box>
+          )}
         </>
       )}
 
@@ -1370,23 +1412,47 @@ function VerificadoFormulario() {
             <div style={{ fontSize: 12, color: "#666", fontStyle: "italic", marginTop: 8 }}>
               Ejemplos:
               <ul style={{ paddingLeft: 18, marginTop: 6, marginBottom: 6 }}>
-                <li>Psicóloga integrativa especializada en ansiedad y trauma.</li>
-                <li>Osteópata y terapeuta corporal con enfoque holístico.</li>
-                <li>Profesora de yoga y acompañante en procesos de transformación personal.</li>
+                {isOrg ? (
+                  <>
+                    <li>Centro holístico dedicado al bienestar integral en Mallorca.</li>
+                    <li>Espacio de formación y retiros en plena naturaleza.</li>
+                    <li>Escuela de yoga y meditación con enfoque integrativo.</li>
+                  </>
+                ) : (
+                  <>
+                    <li>Psicóloga integrativa especializada en ansiedad y trauma.</li>
+                    <li>Osteópata y terapeuta corporal con enfoque holístico.</li>
+                    <li>Profesora de yoga y acompañante en procesos de transformación personal.</li>
+                  </>
+                )}
               </ul>
               Esta frase puede aparecer en búsquedas, tarjetas de resultados, perfil público y Google.
             </div>
           </Box>
-          <Box title="✨ Presentación profesional">
-            <Note>Cuéntanos quién eres, qué haces y cómo acompañas a las personas. Máximo 3000 caracteres.</Note>
-            <FakeField label="Presentación profesional (máx. 3000)" type="textarea" />
+          <Box title={isOrg ? "✨ Presentación de la organización" : "✨ Presentación profesional"}>
+            <Note>
+              {isOrg
+                ? "Cuéntanos quiénes sois, qué hacéis, cómo trabajáis, qué ofrecéis y aquello que consideráis importante destacar. Máximo 3000 caracteres."
+                : "Cuéntanos quién eres, qué haces y cómo acompañas a las personas. Máximo 3000 caracteres."}
+            </Note>
+            <FakeField
+              label={isOrg ? "Presentación de la organización (máx. 3000)" : "Presentación profesional (máx. 3000)"}
+              type="textarea"
+            />
           </Box>
-          <Box title="🎓 Formación principal"><FormacionList /></Box>
+          {!isOrg && <Box title="🎓 Formación principal"><FormacionList /></Box>}
           <Box title="🌍 Idiomas">
             <VCheckboxes options={V_IDIOMAS} columns={3} />
           </Box>
+          {isOrg && (
+            <Box title="👥 Equipo (opcional)">
+              <Note>Añade los miembros del equipo que quieras mostrar en el perfil público.</Note>
+              <EquipoList />
+            </Box>
+          )}
         </>
       )}
+
 
       {step === 5 && (
         <Box title="🌐 Redes y Reservas">
