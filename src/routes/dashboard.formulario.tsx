@@ -1348,8 +1348,8 @@ function VerificadoFormulario() {
             <MunicipioPicker label="Municipio principal" />
             <FakeField label="Isla (Mallorca)" />
             <FakeField label="Correo electrónico" type="email" />
-            <FakeField label="Teléfono" type="tel" />
-            <FakeField label="WhatsApp" type="tel" />
+            <TelefonoField label="Teléfono" />
+            <TelefonoField label="WhatsApp" />
             <FakeField label={isOrg ? "Logo (opcional)" : "Logo profesional (opcional)"} type="file" />
             <FakeField label={isOrg ? "Imagen principal" : "Foto principal"} type="file" />
             <FakeField
