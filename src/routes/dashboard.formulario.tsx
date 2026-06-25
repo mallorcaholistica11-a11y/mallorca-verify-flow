@@ -118,7 +118,7 @@ function FakeCheckbox({ label }: { label: string }) {
 
 function Formulario() {
   const { track } = Route.useSearch();
-  if (track === "verificado") return <VerificadoFormulario />;
+  if (track === "verificado" || track === "organizacion") return <VerificadoFormulario />;
   return <FormularioBase />;
 }
 
@@ -1026,6 +1026,82 @@ const V_STEP_TITLES = [
   "Suscripción y Método de Pago",
 ];
 
+const O_STEP_TITLES = [
+  "Información General",
+  "Servicios y Actividades",
+  "Ubicaciones",
+  "Perfil de la Organización",
+  "Enlaces y Redes",
+  "Verificación y Compromisos",
+  "Suscripción y Método de Pago",
+];
+
+const O_ACTIVIDADES_ORGANIZADAS = [
+  "Talleres","Cursos","Formaciones","Eventos","Conferencias",
+  "Retiros","Encuentros","Actividades recurrentes","Otro",
+];
+
+const O_INSTALACIONES = [
+  "Salas de terapia","Salas de formación","Espacios para eventos",
+  "Jardín","Alojamiento","Restaurante","Cafetería","Otro",
+];
+
+function UbicacionesList() {
+  const [items, setItems] = useState([{ id: 1 }]);
+  return (
+    <div>
+      {items.map((it, idx) => (
+        <div key={it.id} style={{ border: "1px dashed #bbb", padding: 12, marginBottom: 12 }}>
+          <div style={{ fontSize: 11, color: "#666", marginBottom: 6 }}>
+            {idx === 0 ? "Ubicación principal" : `Ubicación adicional #${idx}`}
+          </div>
+          <DireccionPicker label="Dirección" />
+          <MunicipioPicker label="Municipio" />
+          <FakeField label="Isla (Mallorca)" />
+          {items.length > 1 && (
+            <button type="button"
+              onClick={() => setItems(items.filter((x) => x.id !== it.id))}
+              style={{ ...btn("secondary"), padding: "4px 10px", fontSize: 12 }}>
+              Eliminar
+            </button>
+          )}
+        </div>
+      ))}
+      <button type="button"
+        onClick={() => setItems([...items, { id: Date.now() }])}
+        style={{ ...btn("secondary"), padding: "6px 12px" }}>
+        ➕ Añadir otra ubicación
+      </button>
+    </div>
+  );
+}
+
+function EquipoList() {
+  const [items, setItems] = useState<{ id: number }[]>([]);
+  return (
+    <div>
+      {items.map((it, idx) => (
+        <div key={it.id} style={{ border: "1px dashed #bbb", padding: 12, marginBottom: 12 }}>
+          <div style={{ fontSize: 11, color: "#666", marginBottom: 6 }}>Miembro #{idx + 1}</div>
+          <FakeField label="Nombre" />
+          <FakeField label="Cargo o especialidad" />
+          <FakeField label="Fotografía" type="file" />
+          <button type="button"
+            onClick={() => setItems(items.filter((x) => x.id !== it.id))}
+            style={{ ...btn("secondary"), padding: "4px 10px", fontSize: 12 }}>
+            Eliminar
+          </button>
+        </div>
+      ))}
+      <button type="button"
+        onClick={() => setItems([...items, { id: Date.now() }])}
+        style={{ ...btn("secondary"), padding: "6px 12px" }}>
+        ➕ Añadir miembro
+      </button>
+    </div>
+  );
+}
+
 function VCheckboxes({ options, columns = 3 }: { options: string[]; columns?: number }) {
   const [selected, setSelected] = useState<string[]>([]);
   const toggle = (v: string) =>
@@ -1199,19 +1275,25 @@ function VerificadoFormulario() {
 
   const finish = () => navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
 
-  const stepTitle = V_STEP_TITLES[step - 1];
+  const isOrg = track === "organizacion";
+  const TITLES = isOrg ? O_STEP_TITLES : V_STEP_TITLES;
+  const stepTitle = TITLES[step - 1];
+  const screenLabel = isOrg ? "FORMULARIO ORGANIZACIÓN" : "FORMULARIO VERIFICADO";
+  const breadcrumb = isOrg
+    ? "Dashboard › Completar perfil de la organización"
+    : "Dashboard › Completar perfil verificado";
 
   return (
     <WireframeShell
-      screen={`6 · FORMULARIO VERIFICADO · PASO ${step}/${total}`}
+      screen={`6 · ${screenLabel} · PASO ${step}/${total}`}
       title={`Paso ${step} de ${total} · ${stepTitle}`}
-      breadcrumb="Dashboard › Completar perfil verificado"
+      breadcrumb={breadcrumb}
     >
       <TrackBadge track={track} />
 
       <Box title={`Progreso · Paso ${step} de ${total}`}>
         <div style={{ display: "flex", gap: 4 }}>
-          {V_STEP_TITLES.map((t, i) => {
+          {TITLES.map((t, i) => {
             const n = i + 1;
             return (
               <div key={n} title={t} style={{
@@ -1224,58 +1306,101 @@ function VerificadoFormulario() {
           })}
         </div>
         <div style={{ fontSize: 11, color: "#666", marginTop: 6 }}>
-          {V_STEP_TITLES.map((t, i) => `${i + 1}. ${t}`).join("  ·  ")}
+          {TITLES.map((t, i) => `${i + 1}. ${t}`).join("  ·  ")}
         </div>
       </Box>
 
+
       {step === 1 && (
         <Box title="Información General">
-          <FakeField label="Nombre" />
-          <FakeField label="Apellidos" />
-          <FakeField label="Nombre profesional (opcional)" />
+          {isOrg ? (
+            <>
+              <FakeField label="Nombre de la organización, centro, proyecto o evento" />
+              <FakeField label="Nombre comercial (opcional)" />
+            </>
+          ) : (
+            <>
+              <FakeField label="Nombre" />
+              <FakeField label="Apellidos" />
+              <FakeField label="Nombre profesional (opcional)" />
+            </>
+          )}
           <MunicipioPicker label="Municipio principal" />
           <FakeField label="Isla (Mallorca)" />
           <FakeField label="Correo electrónico" type="email" />
           <FakeField label="Teléfono" type="tel" />
           <FakeField label="WhatsApp" type="tel" />
-          <FakeField label="Foto principal" type="file" />
-          <FakeField label="Fotos galería (opcional, máximo 3)" type="file" />
-          <FakeField label="Logo profesional (opcional)" type="file" />
+          <FakeField label={isOrg ? "Imagen principal" : "Foto principal"} type="file" />
+          <FakeField
+            label={isOrg ? "Galería (opcional, hasta 9 imágenes)" : "Fotos galería (opcional, máximo 3)"}
+            type="file"
+          />
+          <FakeField label={isOrg ? "Logo (opcional)" : "Logo profesional (opcional)"} type="file" />
         </Box>
       )}
 
       {step === 2 && (
         <>
-          <Box title="Especialidades y Terapias">
+          <Box title={isOrg ? "Especialidades, Servicios o Actividades" : "Especialidades y Terapias"}>
             <EspecialidadesPicker
               max={0}
-              note="Elige tus terapias o especialidades principales. Podrás ordenarlas según la importancia que tienen en tu práctica."
+              note={
+                isOrg
+                  ? "Selecciona las especialidades, servicios o actividades que ofrece tu organización. Podrás ordenarlas según su relevancia."
+                  : "Elige tus terapias o especialidades principales. Podrás ordenarlas según la importancia que tienen en tu práctica."
+              }
             />
           </Box>
           <Box title="Áreas de Especialización">
             <AreasPicker
               max={0}
-              note="Elige las áreas en las que acompañas principalmente. Podrás ordenarlas según la importancia que tienen en tu práctica."
+              note={
+                isOrg
+                  ? "Elige las áreas en las que trabaja tu organización. Podrás ordenarlas según su relevancia."
+                  : "Elige las áreas en las que acompañas principalmente. Podrás ordenarlas según la importancia que tienen en tu práctica."
+              }
             />
           </Box>
-          <Box title="Público al que acompaño">
+          <Box title={isOrg ? "Público al que se dirige" : "Público al que acompaño"}>
             <Note>Selecciona todas las opciones que correspondan.</Note>
             <VCheckboxes options={V_PUBLICO} columns={3} />
           </Box>
-          <Box title="Modalidades de Acompañamiento">
+          <Box title={isOrg ? "Modalidades" : "Modalidades de Acompañamiento"}>
             <Note>Selecciona todas las modalidades que ofreces.</Note>
             <VCheckboxes options={V_MODALIDADES} columns={3} />
           </Box>
+          {isOrg && (
+            <Box title="Actividades organizadas">
+              <Note>Selecciona los tipos de actividades que organiza tu organización.</Note>
+              <VCheckboxes options={O_ACTIVIDADES_ORGANIZADAS} columns={3} />
+            </Box>
+          )}
         </>
       )}
 
       {step === 3 && (
         <>
-          <Box title="📍 Modalidades de Consulta">
-            <Note>¿Cómo realizas tus sesiones?</Note>
-            <VCheckboxes options={V_CONSULTA_MODES} columns={2} />
-          </Box>
-          <Box title="Consultas"><ConsultasList /></Box>
+          {!isOrg && (
+            <Box title="📍 Modalidades de Consulta">
+              <Note>¿Cómo realizas tus sesiones?</Note>
+              <VCheckboxes options={V_CONSULTA_MODES} columns={2} />
+            </Box>
+          )}
+          {isOrg ? (
+            <>
+              <Box title="📍 Ubicaciones"><UbicacionesList /></Box>
+              <Box title="Instalaciones">
+                <Note>Selecciona las instalaciones disponibles en tu espacio.</Note>
+                <VCheckboxes options={O_INSTALACIONES} columns={3} />
+              </Box>
+              <Box title="Galería del espacio">
+                <Note>Hasta 15 imágenes del espacio.</Note>
+                <FakeField label="Imágenes del espacio (opcional, hasta 15)" type="file" />
+              </Box>
+            </>
+          ) : (
+            <Box title="Consultas"><ConsultasList /></Box>
+          )}
         </>
       )}
 
@@ -1287,23 +1412,47 @@ function VerificadoFormulario() {
             <div style={{ fontSize: 12, color: "#666", fontStyle: "italic", marginTop: 8 }}>
               Ejemplos:
               <ul style={{ paddingLeft: 18, marginTop: 6, marginBottom: 6 }}>
-                <li>Psicóloga integrativa especializada en ansiedad y trauma.</li>
-                <li>Osteópata y terapeuta corporal con enfoque holístico.</li>
-                <li>Profesora de yoga y acompañante en procesos de transformación personal.</li>
+                {isOrg ? (
+                  <>
+                    <li>Centro holístico dedicado al bienestar integral en Mallorca.</li>
+                    <li>Espacio de formación y retiros en plena naturaleza.</li>
+                    <li>Escuela de yoga y meditación con enfoque integrativo.</li>
+                  </>
+                ) : (
+                  <>
+                    <li>Psicóloga integrativa especializada en ansiedad y trauma.</li>
+                    <li>Osteópata y terapeuta corporal con enfoque holístico.</li>
+                    <li>Profesora de yoga y acompañante en procesos de transformación personal.</li>
+                  </>
+                )}
               </ul>
               Esta frase puede aparecer en búsquedas, tarjetas de resultados, perfil público y Google.
             </div>
           </Box>
-          <Box title="✨ Presentación profesional">
-            <Note>Cuéntanos quién eres, qué haces y cómo acompañas a las personas. Máximo 3000 caracteres.</Note>
-            <FakeField label="Presentación profesional (máx. 3000)" type="textarea" />
+          <Box title={isOrg ? "✨ Presentación de la organización" : "✨ Presentación profesional"}>
+            <Note>
+              {isOrg
+                ? "Cuéntanos quiénes sois, qué hacéis, cómo trabajáis, qué ofrecéis y aquello que consideráis importante destacar. Máximo 3000 caracteres."
+                : "Cuéntanos quién eres, qué haces y cómo acompañas a las personas. Máximo 3000 caracteres."}
+            </Note>
+            <FakeField
+              label={isOrg ? "Presentación de la organización (máx. 3000)" : "Presentación profesional (máx. 3000)"}
+              type="textarea"
+            />
           </Box>
-          <Box title="🎓 Formación principal"><FormacionList /></Box>
+          {!isOrg && <Box title="🎓 Formación principal"><FormacionList /></Box>}
           <Box title="🌍 Idiomas">
             <VCheckboxes options={V_IDIOMAS} columns={3} />
           </Box>
+          {isOrg && (
+            <Box title="👥 Equipo (opcional)">
+              <Note>Añade los miembros del equipo que quieras mostrar en el perfil público.</Note>
+              <EquipoList />
+            </Box>
+          )}
         </>
       )}
+
 
       {step === 5 && (
         <Box title="🌐 Redes y Reservas">
@@ -1323,36 +1472,57 @@ function VerificadoFormulario() {
       )}
 
       {step === 6 && (
-        <Box title="🛡️ Verificación Mallorca Holística">
-          <div style={{ marginBottom: 16 }}>
-            <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>Seguro de Responsabilidad Civil</div>
-            <div
-              onClick={() => toggleConsent("seguroRC")}
-              style={{
-                display: "flex", alignItems: "center", gap: 8, padding: "8px 10px",
-                border: "1px dashed #888", background: consents.seguroRC ? "#f3f3f3" : "#fff",
-                cursor: "pointer", fontSize: 13,
-              }}
-            >
-              <span style={{
-                display: "inline-flex", alignItems: "center", justifyContent: "center",
-                width: 14, height: 14, border: "1px dashed #666", background: "#fff", fontSize: 10,
-              }}>{consents.seguroRC ? "☑" : ""}</span>
-              <span>Declaro disponer de un Seguro de Responsabilidad Civil vigente para el desarrollo de mi actividad profesional.</span>
-            </div>
-          </div>
+        <Box title={isOrg ? "🛡️ Verificación de la Organización" : "🛡️ Verificación Mallorca Holística"}>
+          {isOrg ? (
+            <>
+              <div style={{ marginBottom: 16 }}>
+                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>👤 Persona responsable</div>
+                <FakeField label="Nombre" />
+                <FakeField label="Apellidos" />
+                <FakeField label="Cargo" />
+                <FakeField label="Email" type="email" />
+                <FakeField label="Teléfono" type="tel" />
+              </div>
 
-          <div style={{ marginBottom: 16 }}>
-            <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>Diploma o Certificado</div>
-            <Note>Mínimo 1 documento obligatorio.</Note>
-            <FakeField label="Subir diploma o certificado" type="file" />
-          </div>
+              <div style={{ marginBottom: 16 }}>
+                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>🏢 Identificación de la entidad</div>
+                <FakeField label="Nombre legal" />
+                <FakeField label="CIF / NIF" />
+              </div>
+            </>
+          ) : (
+            <>
+              <div style={{ marginBottom: 16 }}>
+                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>Seguro de Responsabilidad Civil</div>
+                <div
+                  onClick={() => toggleConsent("seguroRC")}
+                  style={{
+                    display: "flex", alignItems: "center", gap: 8, padding: "8px 10px",
+                    border: "1px dashed #888", background: consents.seguroRC ? "#f3f3f3" : "#fff",
+                    cursor: "pointer", fontSize: 13,
+                  }}
+                >
+                  <span style={{
+                    display: "inline-flex", alignItems: "center", justifyContent: "center",
+                    width: 14, height: 14, border: "1px dashed #666", background: "#fff", fontSize: 10,
+                  }}>{consents.seguroRC ? "☑" : ""}</span>
+                  <span>Declaro disponer de un Seguro de Responsabilidad Civil vigente para el desarrollo de mi actividad profesional.</span>
+                </div>
+              </div>
 
-          <div style={{ marginBottom: 16 }}>
-            <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>Certificados adicionales</div>
-            <Note>Máximo 5 documentos.</Note>
-            <FakeField label="Subir certificados adicionales (opcional)" type="file" />
-          </div>
+              <div style={{ marginBottom: 16 }}>
+                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>Diploma o Certificado</div>
+                <Note>Mínimo 1 documento obligatorio.</Note>
+                <FakeField label="Subir diploma o certificado" type="file" />
+              </div>
+
+              <div style={{ marginBottom: 16 }}>
+                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>Certificados adicionales</div>
+                <Note>Máximo 5 documentos.</Note>
+                <FakeField label="Subir certificados adicionales (opcional)" type="file" />
+              </div>
+            </>
+          )}
 
           <VConsentItem icon="📜" title="Código Deontológico" linkText="👉 Ver documento"
             label="Confirmo que he leído y acepto el Código Deontológico de Mallorca Holística."
@@ -1367,12 +1537,31 @@ function VerificadoFormulario() {
             label="Confirmo que he leído y acepto las Condiciones de Uso."
             checked={consents.condiciones} onToggle={() => toggleConsent("condiciones")} />
           <VConsentItem icon="🌐" title="Publicación del Perfil" linkText="👉 Ver autorización"
-            label="Autorizo a Mallorca Holística a publicar mi perfil profesional en la plataforma."
+            label={isOrg
+              ? "Autorizo a Mallorca Holística a publicar el perfil de la organización en la plataforma."
+              : "Autorizo a Mallorca Holística a publicar mi perfil profesional en la plataforma."}
             checked={consents.publicacion} onToggle={() => toggleConsent("publicacion")} />
+
+          {isOrg && (
+            <>
+              <VConsentItem icon="📝" title="Declaración responsable"
+                label="Declaro representar legalmente o contar con autorización para actuar en nombre de esta organización."
+                checked={consents.seguroRC} onToggle={() => toggleConsent("seguroRC")} />
+
+              <div style={{ marginBottom: 16 }}>
+                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>✍️ Firma</div>
+                <FakeField label="Nombre completo del firmante" />
+                <div style={{ fontSize: 11, color: "#888", marginTop: 4, fontStyle: "italic" }}>
+                  La fecha, hora e IP quedarán registradas automáticamente.
+                </div>
+              </div>
+            </>
+          )}
 
           <Note>Solo queda un último paso para enviar tu solicitud de verificación.</Note>
         </Box>
       )}
+
 
       {step === 7 && (
         <Box title="💳 Suscripción y Método de Pago">
@@ -1396,7 +1585,7 @@ function VerificadoFormulario() {
             <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>🌿 Condiciones Comunidad Fundadora</div>
             <ul style={{ fontSize: 13, paddingLeft: 20, marginBottom: 8 }}>
               <li>✨ 6 meses gratuitos desde la fecha oficial de lanzamiento de Mallorca Holística.</li>
-              <li>✨ Tarifa fundadora protegida de 15 €/mes (IVA incluido) para siempre mientras mantengas activa tu suscripción.</li>
+              <li>✨ Tarifa fundadora protegida de {isOrg ? "35" : "15"} €/mes (IVA incluido) para siempre mientras mantengas activa tu suscripción.</li>
               <li>✨ Sin permanencia.</li>
               <li>✨ Sin ningún cargo durante el proceso de revisión ni durante el periodo gratuito.</li>
             </ul>
@@ -1408,7 +1597,7 @@ function VerificadoFormulario() {
           <VConsentItem
             icon="🔒"
             title="Autorización"
-            label="Autorizo a Mallorca Holística a guardar mi método de pago y a activar automáticamente mi suscripción Fundadora de 15 €/mes (IVA incluido) cuando finalice el periodo gratuito de 6 meses desde la fecha oficial de lanzamiento de Mallorca Holística, siempre que mi solicitud haya sido aprobada."
+            label={`Autorizo a Mallorca Holística a guardar mi método de pago y a activar automáticamente mi suscripción Fundadora de ${isOrg ? "35" : "15"} €/mes (IVA incluido) cuando finalice el periodo gratuito de 6 meses desde la fecha oficial de lanzamiento de Mallorca Holística, siempre que mi solicitud haya sido aprobada.`}
             checked={autorizaPago}
             onToggle={() => setAutorizaPago((p) => !p)}
           />
