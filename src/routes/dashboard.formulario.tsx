@@ -1597,7 +1597,7 @@ function VerificadoFormulario() {
           <VConsentItem
             icon="🔒"
             title="Autorización"
-            label="Autorizo a Mallorca Holística a guardar mi método de pago y a activar automáticamente mi suscripción Fundadora de 15 €/mes (IVA incluido) cuando finalice el periodo gratuito de 6 meses desde la fecha oficial de lanzamiento de Mallorca Holística, siempre que mi solicitud haya sido aprobada."
+            label={`Autorizo a Mallorca Holística a guardar mi método de pago y a activar automáticamente mi suscripción Fundadora de ${isOrg ? "35" : "15"} €/mes (IVA incluido) cuando finalice el periodo gratuito de 6 meses desde la fecha oficial de lanzamiento de Mallorca Holística, siempre que mi solicitud haya sido aprobada.`}
             checked={autorizaPago}
             onToggle={() => setAutorizaPago((p) => !p)}
           />
