@@ -9,6 +9,42 @@ export const Route = createFileRoute("/dashboard/solicitud-enviada")({
 function SolicitudEnviada() {
   const { track } = Route.useSearch();
   const isOrg = track === "organizacion";
+  const isVerificado = track === "verificado";
+
+  if (isVerificado) {
+    return (
+      <WireframeShell
+        screen="8 · SOLICITUD ENVIADA"
+        title="🌿 ¡Gracias por unirte a la Comunidad Fundadora!"
+        breadcrumb="Dashboard › Solicitud enviada"
+      >
+        <TrackBadge track={track} />
+        <Box title="Tu solicitud de verificación ya está en proceso">
+          <p style={{ fontSize: 13 }}>
+            Hemos recibido correctamente toda la información y la documentación de tu perfil.
+          </p>
+          <p style={{ fontSize: 13 }}>
+            Durante los próximos días revisaremos tu solicitud para verificar que cumple los
+            requisitos de Mallorca Holística.
+          </p>
+          <p style={{ fontSize: 13 }}>
+            Te informaremos por correo electrónico cuando el proceso haya finalizado.
+          </p>
+          <p style={{ fontSize: 13 }}>
+            Gracias por confiar en este proyecto y por ayudar a sembrar las primeras semillas de
+            Mallorca Holística.
+          </p>
+          <p style={{ fontSize: 13, fontStyle: "italic" }}>
+            Porque lo que se siembra con alma… siempre florece. 🌿
+          </p>
+        </Box>
+        <Box title="Acciones">
+          <NavButton to="/dashboard" search={{ track }}>👉 Volver al Dashboard</NavButton>
+        </Box>
+      </WireframeShell>
+    );
+  }
+
   return (
     <WireframeShell
       screen="8 · SOLICITUD ENVIADA"
