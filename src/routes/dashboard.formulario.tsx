@@ -1396,12 +1396,7 @@ function VerificadoFormulario() {
         ) : (
           <button
             onClick={finish}
-            disabled={!canSubmit}
-            style={{
-              ...btn("primary"),
-              opacity: canSubmit ? 1 : 0.5,
-              cursor: canSubmit ? "pointer" : "not-allowed",
-            }}
+            style={btn("primary")}
           >
             👉 Enviar solicitud de verificación
           </button>
