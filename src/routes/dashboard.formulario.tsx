@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { WireframeShell, Box, FakeField, Note, TrackBadge, parseTrack, type Track } from "@/components/Wireframe";
+import { TelefonoField } from "@/components/TelefonoField";
 
 export const Route = createFileRoute("/dashboard/formulario")({
   validateSearch: (s: Record<string, unknown>): { track: Track } => ({ track: parseTrack(s) }),
@@ -1347,8 +1348,8 @@ function VerificadoFormulario() {
             <MunicipioPicker label="Municipio principal" />
             <FakeField label="Isla (Mallorca)" />
             <FakeField label="Correo electrónico" type="email" />
-            <FakeField label="Teléfono" type="tel" />
-            <FakeField label="WhatsApp" type="tel" />
+            <TelefonoField label="Teléfono" />
+            <TelefonoField label="WhatsApp" />
             <FakeField label={isOrg ? "Logo (opcional)" : "Logo profesional (opcional)"} type="file" />
             <FakeField label={isOrg ? "Imagen principal" : "Foto principal"} type="file" />
             <FakeField
@@ -1483,7 +1484,7 @@ function VerificadoFormulario() {
           <FakeField label="YouTube" />
           <FakeField label="Calendly" />
           <FakeField label="Fresha" />
-          <FakeField label="WhatsApp Business" />
+          <TelefonoField label="WhatsApp Business" />
           <FakeField label="Otra plataforma" />
           <div style={{ height: 12 }} />
           <VYesNo label="WhatsApp visible en el perfil" />
@@ -1501,7 +1502,7 @@ function VerificadoFormulario() {
                 <FakeField label="Apellidos" />
                 <FakeField label="Cargo" />
                 <FakeField label="Email" type="email" />
-                <FakeField label="Teléfono" type="tel" />
+                <TelefonoField label="Teléfono" />
               </div>
 
               <div style={{ marginBottom: 16 }}>
