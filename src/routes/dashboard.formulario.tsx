@@ -1367,9 +1367,7 @@ function VerificadoFormulario() {
             label="Autorizo a Mallorca Holística a publicar mi perfil profesional en la plataforma."
             checked={consents.publicacion} onToggle={() => toggleConsent("publicacion")} />
 
-          {!allConsents && (
-            <Note>Debes aceptar todas las confirmaciones para continuar al paso siguiente.</Note>
-          )}
+          <Note>Solo queda un último paso para enviar tu solicitud de verificación.</Note>
         </Box>
       )}
 
@@ -1377,33 +1375,33 @@ function VerificadoFormulario() {
         <>
           <Box title="💳 Método de pago">
             <p style={{ fontSize: 13 }}>
-              Como miembro de la Comunidad Fundadora, disfrutarás de 6 meses gratuitos desde la
+              Como miembro de la Comunidad Fundadora disfrutarás de <strong>6 meses gratuitos</strong> desde la
               fecha oficial de lanzamiento de Mallorca Holística.
             </p>
             <p style={{ fontSize: 13 }}>
-              Para garantizar tu plaza y facilitar la activación futura de tu suscripción,
+              Para reservar tu plaza y facilitar la activación futura de tu suscripción,
               necesitamos registrar un método de pago válido.
             </p>
             <p style={{ fontSize: 13 }}>
-              No se realizará ningún cargo durante el proceso de revisión ni durante el periodo gratuito.
+              No se realizará ningún cargo durante el proceso de revisión de tu solicitud ni durante el periodo gratuito.
             </p>
             <p style={{ fontSize: 13 }}>
-              Tu método de pago quedará guardado de forma segura mediante Stripe y solo se utilizará
-              cuando finalice el periodo gratuito de 6 meses.
+              Tu método de pago quedará protegido mediante Stripe y únicamente se utilizará
+              cuando finalicen los 6 meses gratuitos, siempre que tu solicitud haya sido aprobada.
             </p>
           </Box>
 
-          <Box title="Condiciones Comunidad Fundadora">
-            <ul style={{ paddingLeft: 18, fontSize: 13 }}>
-              <li>6 meses gratuitos desde la fecha oficial de lanzamiento de Mallorca Holística.</li>
-              <li>15 €/mes (IVA incluido) para siempre mientras mantengas activa tu suscripción.</li>
-              <li>Sin permanencia.</li>
-              <li>Sin ningún cargo durante el proceso de revisión ni durante el periodo gratuito.</li>
-              <li>La fecha oficial de lanzamiento será comunicada a todos los miembros fundadores con antelación suficiente.</li>
+          <Box title="🌿 Condiciones Comunidad Fundadora">
+            <ul style={{ paddingLeft: 18, fontSize: 13, lineHeight: 1.7 }}>
+              <li>✨ 6 meses gratuitos desde la fecha oficial de lanzamiento de Mallorca Holística.</li>
+              <li>✨ Tarifa fundadora protegida de 15 €/mes (IVA incluido) para siempre mientras mantengas activa tu suscripción.</li>
+              <li>✨ Sin permanencia.</li>
+              <li>✨ Sin ningún cargo durante el proceso de revisión ni durante el periodo gratuito.</li>
+              <li>📅 La fecha oficial de lanzamiento será comunicada con suficiente antelación a todos los miembros fundadores.</li>
             </ul>
           </Box>
 
-          <Box title="Autorización">
+          <Box title="🔒 Autorización">
             <div
               onClick={() => setAutorizaPago((v) => !v)}
               style={{
@@ -1427,9 +1425,9 @@ function VerificadoFormulario() {
           </Box>
 
           <Box title="💳 Datos de pago">
-            <Note>Stripe Elements (placeholder en wireframe).</Note>
+            <Note>Integración con Stripe (preparada para futura activación).</Note>
             <FakeField label="Número de tarjeta" />
-            <FakeField label="Caducidad" />
+            <FakeField label="Caducidad (MM/AA)" />
             <FakeField label="CVC" />
             <FakeField label="Nombre del titular" />
           </Box>
