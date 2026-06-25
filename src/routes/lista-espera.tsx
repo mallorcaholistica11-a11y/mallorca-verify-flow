@@ -134,6 +134,7 @@ function ListaEspera() {
           </div>
           <div style={fieldStyle}>
             <TelefonoField label="Teléfono / WhatsApp *" />
+          </div>
           <div style={fieldStyle}>
             <label style={labelStyle}>Nombre del proyecto, centro u organización (opcional)</label>
             <input style={inputStyle} value={form.proyecto} onChange={(e) => update("proyecto", e.target.value)} />
