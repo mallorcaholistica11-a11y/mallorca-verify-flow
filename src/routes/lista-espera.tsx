@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { WireframeShell, Box, NavButton, Note } from "@/components/Wireframe";
+import { TelefonoField } from "@/components/TelefonoField";
 
 type Origen = "verificado" | "organizacion";
 
