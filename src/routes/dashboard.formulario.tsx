@@ -1484,7 +1484,7 @@ function VerificadoFormulario() {
           <FakeField label="YouTube" />
           <FakeField label="Calendly" />
           <FakeField label="Fresha" />
-          <FakeField label="WhatsApp Business" />
+          <TelefonoField label="WhatsApp Business" />
           <FakeField label="Otra plataforma" />
           <div style={{ height: 12 }} />
           <VYesNo label="WhatsApp visible en el perfil" />
