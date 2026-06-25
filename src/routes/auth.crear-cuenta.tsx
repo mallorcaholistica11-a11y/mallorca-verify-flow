@@ -18,7 +18,7 @@ function CrearCuenta() {
     <WireframeShell screen="4 · CREAR CUENTA" title="Crear cuenta" breadcrumb={breadcrumb}>
       <TrackBadge track={track} />
       <Box title="Formulario">
-        <FakeField label={track === "organizacion" ? "Nombre de la organización" : "Nombre"} />
+        <FakeField label={track === "organizacion" ? "Nombre de la organización, centro, proyecto o evento" : "Nombre"} />
         <FakeField label="Email" type="email" />
         <FakeField label="Contraseña" type="password" />
         <NavButton to="/dashboard" search={{ track }}>Crear cuenta</NavButton>
