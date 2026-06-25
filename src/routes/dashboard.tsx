@@ -17,14 +17,15 @@ function DashboardHome() {
   const isOrg = track === "organizacion";
   const isVerificado = track === "verificado";
 
-  const title = isOrg ? "Tu panel · Organización" : "Tu panel";
-  const screen = isOrg ? "5 · DASHBOARD ORGANIZACIÓN" : "5 · DASHBOARD PROFESIONAL";
+  const title = isOrg ? "Tu panel · Organización Fundadora" : "Tu panel";
+  const screen = isOrg ? "5 · DASHBOARD ORGANIZACIÓN FUNDADORA" : "5 · DASHBOARD PROFESIONAL";
 
   const tasks = isOrg
     ? [
-        { label: "Completar perfil de organización" },
-        { label: "Guardar método de pago" },
-        { label: "Enviar solicitud" },
+        { label: "Completar perfil de la organización" },
+        { label: "Revisar y aceptar las condiciones" },
+        { label: "Registrar método de pago" },
+        { label: "Enviar solicitud de verificación" },
       ]
     : isVerificado
     ? [
@@ -44,7 +45,7 @@ function DashboardHome() {
       ];
 
   const ctaLabel = isOrg
-    ? "Completar perfil de organización"
+    ? "👉 Completar perfil"
     : isVerificado
     ? "Completar perfil verificado"
     : "Completar perfil";
