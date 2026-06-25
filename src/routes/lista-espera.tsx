@@ -133,16 +133,7 @@ function ListaEspera() {
             <input type="email" style={inputStyle} value={form.email} onChange={(e) => update("email", e.target.value)} required />
           </div>
           <div style={fieldStyle}>
-            <label style={labelStyle}>Teléfono / WhatsApp *</label>
-            <input
-              type="tel"
-              placeholder="+34 600 000 000"
-              style={inputStyle}
-              value={form.telefono}
-              onChange={(e) => update("telefono", e.target.value)}
-              required
-            />
-          </div>
+            <TelefonoField label="Teléfono / WhatsApp *" />
           <div style={fieldStyle}>
             <label style={labelStyle}>Nombre del proyecto, centro u organización (opcional)</label>
             <input style={inputStyle} value={form.proyecto} onChange={(e) => update("proyecto", e.target.value)} />
