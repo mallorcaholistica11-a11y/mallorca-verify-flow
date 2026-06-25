@@ -41,6 +41,7 @@ function ComunidadOrg() {
           <li>Centros</li>
           <li>Escuelas</li>
           <li>Espacios de bienestar</li>
+          <li>Asociaciones</li>
           <li>Organizadores de eventos</li>
           <li>Organizadores de retiros</li>
         </ul>
