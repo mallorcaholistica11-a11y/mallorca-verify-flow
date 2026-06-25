@@ -1312,31 +1312,54 @@ function VerificadoFormulario() {
 
 
       {step === 1 && (
-        <Box title="Información General">
-          {isOrg ? (
-            <>
+        <>
+          <Box title="Información General">
+            {isOrg ? (
               <FakeField label="Nombre de la organización, centro, proyecto o evento" />
-              <FakeField label="Nombre comercial (opcional)" />
-            </>
-          ) : (
-            <>
+            ) : (
+              <>
+                <FakeField label="Nombre" />
+                <FakeField label="Apellidos" />
+                <FakeField label="Nombre profesional (opcional)" />
+              </>
+            )}
+          </Box>
+
+          {isOrg && (
+            <Box title="👤 Persona de contacto">
+              <p style={{ fontSize: 12, color: "#6b7280", marginTop: 0, marginBottom: 12 }}>
+                Será el contacto principal durante el proceso de registro y verificación.
+                No sustituye al Representante legal (Paso 6).
+              </p>
               <FakeField label="Nombre" />
               <FakeField label="Apellidos" />
-              <FakeField label="Nombre profesional (opcional)" />
-            </>
+              <FakeField
+                label="Cargo (opcional)"
+                placeholder="Ej.: Director/a, Coordinador/a, Responsable, Fundador/a, Gerente"
+              />
+            </Box>
           )}
-          <MunicipioPicker label="Municipio principal" />
-          <FakeField label="Isla (Mallorca)" />
-          <FakeField label="Correo electrónico" type="email" />
-          <FakeField label="Teléfono" type="tel" />
-          <FakeField label="WhatsApp" type="tel" />
-          <FakeField label={isOrg ? "Imagen principal" : "Foto principal"} type="file" />
-          <FakeField
-            label={isOrg ? "Galería (opcional, hasta 9 imágenes)" : "Fotos galería (opcional, máximo 3)"}
-            type="file"
-          />
-          <FakeField label={isOrg ? "Logo (opcional)" : "Logo profesional (opcional)"} type="file" />
-        </Box>
+
+          <Box title={isOrg ? "Datos de la organización" : "Datos de contacto"}>
+            {isOrg && (
+              <>
+                <FakeField label="Nombre comercial (opcional)" />
+                <FakeField label="Tipo de organización" placeholder="Ej.: Centro, Asociación, Proyecto, Evento…" />
+              </>
+            )}
+            <MunicipioPicker label="Municipio principal" />
+            <FakeField label="Isla (Mallorca)" />
+            <FakeField label="Correo electrónico" type="email" />
+            <FakeField label="Teléfono" type="tel" />
+            <FakeField label="WhatsApp" type="tel" />
+            <FakeField label={isOrg ? "Logo (opcional)" : "Logo profesional (opcional)"} type="file" />
+            <FakeField label={isOrg ? "Imagen principal" : "Foto principal"} type="file" />
+            <FakeField
+              label={isOrg ? "Galería (opcional, hasta 9 imágenes)" : "Fotos galería (opcional, máximo 3)"}
+              type="file"
+            />
+          </Box>
+        </>
       )}
 
       {step === 2 && (
