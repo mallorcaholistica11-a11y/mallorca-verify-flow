@@ -1187,9 +1187,12 @@ function VerificadoFormulario() {
     seguroRC: false, codigo: false, veracidad: false,
     privacidad: false, condiciones: false, publicacion: false,
   });
+  const [autorizaPago, setAutorizaPago] = useState(false);
+
   const toggleConsent = (k: keyof VConsents) =>
     setConsents((p) => ({ ...p, [k]: !p[k] }));
   const allConsents = Object.values(consents).every(Boolean);
+
 
 
 
