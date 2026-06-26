@@ -3,6 +3,7 @@ import { useState } from "react";
 // Componente único para Teléfono / WhatsApp / WhatsApp Business
 // Almacena prefijo y número por separado para mantener un formato uniforme.
 
+export type TelefonoValue = { prefijo: string; numero: string };
 export type PrefijoOption = { code: string; label: string; dial: string };
 
 export const PREFIJOS: PrefijoOption[] = [
@@ -22,14 +23,44 @@ export const PREFIJOS: PrefijoOption[] = [
 export function TelefonoField({
   label,
   defaultDial = "+34",
+  value,
+  onChange,
 }: {
   label: string;
   defaultDial?: string;
+  value?: TelefonoValue;
+  onChange?: (v: TelefonoValue) => void;
 }) {
-  const [dial, setDial] = useState(defaultDial);
-  const [numero, setNumero] = useState("");
+  const isControlled = value !== undefined && onChange !== undefined;
+  const initialDial = value?.prefijo ?? defaultDial;
+  const initialNumero = value?.numero ?? "";
+
+  const [internalDial, setInternalDial] = useState(initialDial);
+  const [internalNumero, setInternalNumero] = useState(initialNumero);
   const [otroDial, setOtroDial] = useState("");
+
+  const dial = isControlled ? value.prefijo : internalDial;
+  const numero = isControlled ? value.numero : internalNumero;
   const isOther = dial === "OTHER";
+
+  const update = (nextPrefijo: string, nextNumero: string) => {
+    if (isControlled) {
+      onChange({ prefijo: nextPrefijo, numero: nextNumero });
+    } else {
+      setInternalDial(nextPrefijo);
+      setInternalNumero(nextNumero);
+    }
+  };
+
+  const handleDialChange = (nextDial: string) => {
+    update(nextDial, numero);
+  };
+
+  const handleNumeroChange = (nextNumero: string) => {
+    update(dial, nextNumero);
+  };
+
+  const effectivePrefijo = isOther ? otroDial || "+__" : dial;
 
   return (
     <div style={{ marginBottom: 12 }}>
@@ -37,7 +68,7 @@ export function TelefonoField({
       <div style={{ display: "flex", gap: 6 }}>
         <select
           value={dial}
-          onChange={(e) => setDial(e.target.value)}
+          onChange={(e) => handleDialChange(e.target.value)}
           style={{
             border: "1px dashed #888",
             background: "#fff",
@@ -71,7 +102,7 @@ export function TelefonoField({
           type="tel"
           placeholder="600 000 000"
           value={numero}
-          onChange={(e) => setNumero(e.target.value)}
+          onChange={(e) => handleNumeroChange(e.target.value)}
           style={{
             flex: 1,
             border: "1px dashed #888",
@@ -82,7 +113,7 @@ export function TelefonoField({
         />
       </div>
       <div style={{ fontSize: 10, color: "#9ca3af", marginTop: 4 }}>
-        Almacenado como: {`{ prefijo: "${isOther ? otroDial || "+__" : dial}", numero: "${numero || "________"}" }`}
+        Almacenado como: {`{ prefijo: "${effectivePrefijo}", numero: "${numero || "________"}" }`}
       </div>
     </div>
   );
