@@ -1520,12 +1520,44 @@ function VerificadoFormulario() {
           {isOrg ? (
             <>
               <div style={{ marginBottom: 16 }}>
+                <div
+                  onClick={() => setRepresentanteEsContacto((v) => !v)}
+                  style={{
+                    display: "flex", alignItems: "center", gap: 8, padding: "8px 10px",
+                    border: "1px dashed #888", background: representanteEsContacto ? "#f3f3f3" : "#fff",
+                    cursor: "pointer", fontSize: 13,
+                  }}
+                >
+                  <span style={{
+                    display: "inline-flex", alignItems: "center", justifyContent: "center",
+                    width: 14, height: 14, border: "1px dashed #666", background: "#fff", fontSize: 10,
+                  }}>
+                    {representanteEsContacto ? "☑" : ""}
+                  </span>
+                  <span>La persona de contacto es también el representante legal de esta organización.</span>
+                </div>
+              </div>
+
+              <div style={{ marginBottom: 16 }}>
                 <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>👤 Persona responsable</div>
-                <FakeField label="Nombre" />
-                <FakeField label="Apellidos" />
-                <FakeField label="Cargo" />
-                <FakeField label="Email" type="email" />
-                <TelefonoField label="Teléfono" />
+                {representanteEsContacto ? (
+                  <>
+                    <Note>Se reutilizan los datos de la persona de contacto introducidos en el Paso 1.</Note>
+                    <div style={{ fontSize: 13, marginBottom: 8 }}><strong>Nombre:</strong> {contacto.nombre || "[pendiente]"}</div>
+                    <div style={{ fontSize: 13, marginBottom: 8 }}><strong>Apellidos:</strong> {contacto.apellidos || "[pendiente]"}</div>
+                    <div style={{ fontSize: 13, marginBottom: 8 }}><strong>Cargo:</strong> {contacto.cargo || "[pendiente]"}</div>
+                    <div style={{ fontSize: 13, marginBottom: 8 }}><strong>Email:</strong> {contacto.email || "[pendiente]"}</div>
+                    <div style={{ fontSize: 13, marginBottom: 8 }}><strong>Teléfono:</strong> {contacto.telefono.prefijo} {contacto.telefono.numero || "[pendiente]"}</div>
+                  </>
+                ) : (
+                  <>
+                    <FakeField label="Nombre" />
+                    <FakeField label="Apellidos" />
+                    <FakeField label="Cargo" />
+                    <FakeField label="Email" type="email" />
+                    <TelefonoField label="Teléfono" />
+                  </>
+                )}
               </div>
 
               <div style={{ marginBottom: 16 }}>
