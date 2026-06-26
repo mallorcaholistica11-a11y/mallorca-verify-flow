@@ -269,19 +269,29 @@ const ESPECIALIDADES = [
 ].sort((a, b) => a.localeCompare(b, "es"));
 
 const DEFAULT_MAX_ESPECIALIDADES = 3;
-const DEFAULT_ESPECIALIDADES_NOTE =
-  "Elige tus 3 terapias o especialidades principales. Podrás ordenarlas según la importancia que tienen en tu práctica.";
-const UNLIMITED_ESPECIALIDADES_NOTE =
+const PROFESIONAL_ESPECIALIDADES_NOTE =
   "Elige tus terapias o especialidades principales. Podrás ordenarlas según la importancia que tienen en tu práctica.";
+const ORGANIZACION_ESPECIALIDADES_NOTE =
+  "Selecciona las terapias, servicios o actividades que ofrece vuestra organización. Podrás ordenarlas según su importancia.";
 
-function EspecialidadesPicker({ max = DEFAULT_MAX_ESPECIALIDADES, note }: { max?: number; note?: string }) {
+type PickerVariant = "profesional" | "organizacion";
+
+function EspecialidadesPicker({
+  max = DEFAULT_MAX_ESPECIALIDADES,
+  note,
+  variant = "profesional",
+}: {
+  max?: number;
+  note?: string;
+  variant?: PickerVariant;
+}) {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
   const [warning, setWarning] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const [dragIndex, setDragIndex] = useState<number | null>(null);
   const hasMax = max > 0;
-  const displayNote = note ?? (hasMax ? DEFAULT_ESPECIALIDADES_NOTE : UNLIMITED_ESPECIALIDADES_NOTE);
+  const displayNote = note ?? (variant === "organizacion" ? ORGANIZACION_ESPECIALIDADES_NOTE : PROFESIONAL_ESPECIALIDADES_NOTE);
 
   const filtered = ESPECIALIDADES.filter(
     (e) => !selected.includes(e) && (query === "" || e.toLowerCase().includes(query.toLowerCase()))
