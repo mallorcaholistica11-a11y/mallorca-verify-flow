@@ -1427,25 +1427,11 @@ function VerificadoFormulario() {
 
       {step === 2 && (
         <>
-          <Box title={isOrg ? "Especialidades, Servicios o Actividades" : "Especialidades y Terapias"}>
-            <EspecialidadesPicker
-              max={0}
-              note={
-                isOrg
-                  ? "Selecciona las especialidades, servicios o actividades que ofrece tu organización. Podrás ordenarlas según su relevancia."
-                  : "Elige tus terapias o especialidades principales. Podrás ordenarlas según la importancia que tienen en tu práctica."
-              }
-            />
+          <Box title="Especialidades y Terapias">
+            <EspecialidadesPicker max={0} variant={isOrg ? "organizacion" : "profesional"} />
           </Box>
           <Box title="Áreas de Especialización">
-            <AreasPicker
-              max={0}
-              note={
-                isOrg
-                  ? "Elige las áreas en las que trabaja tu organización. Podrás ordenarlas según su relevancia."
-                  : "Elige las áreas en las que acompañas principalmente. Podrás ordenarlas según la importancia que tienen en tu práctica."
-              }
-            />
+            <AreasPicker max={0} variant={isOrg ? "organizacion" : "profesional"} />
           </Box>
           <Box title={isOrg ? "Público al que se dirige" : "Público al que acompaño"}>
             <Note>Selecciona todas las opciones que correspondan.</Note>
