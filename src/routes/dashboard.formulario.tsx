@@ -1344,13 +1344,20 @@ function VerificadoFormulario() {
 
           {isOrg && (
             <Box title="👤 Persona de contacto">
-              <p style={{ fontSize: 12, color: "#6b7280", marginTop: 0, marginBottom: 12 }}>
-                Será el contacto principal durante el proceso de registro y verificación.
-                No sustituye al Representante legal (Paso 6).
-              </p>
+              <Note>
+                Será la persona con la que Mallorca Holística se comunicará durante el proceso de registro y verificación.
+                <br />
+                Si esta persona también es el representante legal de la organización, podrás indicarlo en el Paso 6.
+              </Note>
               <FakeField label="Nombre" />
               <FakeField label="Apellidos" />
               <FakeField label="Cargo (opcional) — Ej.: Director/a, Coordinador/a, Responsable, Fundador/a, Gerente" />
+              <FakeField label="Correo electrónico" type="email" />
+              <TelefonoField
+                label="Teléfono"
+                value={contacto.telefono}
+                onChange={handleContactoTelefono}
+              />
             </Box>
           )}
 
