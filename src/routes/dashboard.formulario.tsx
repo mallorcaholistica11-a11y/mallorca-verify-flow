@@ -633,6 +633,7 @@ function isTelefonoField(label: string) {
 }
 
 function renderField(label: string) {
+  if (label === "Isla") return <ReadOnlyField key={label} label="Isla" value="Mallorca" />;
   if (isMunicipioField(label)) return <MunicipioPicker key={label} label={label} />;
   if (isDireccionField(label)) return <DireccionPicker key={label} label={label} />;
   if (isTelefonoField(label)) return <TelefonoField key={label} label={label} />;
