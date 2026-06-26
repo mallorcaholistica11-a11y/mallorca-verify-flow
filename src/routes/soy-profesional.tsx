@@ -5,6 +5,30 @@ export const Route = createFileRoute("/soy-profesional")({
   component: SoyProfesional,
 });
 
+const textBlock = {
+  maxWidth: 760,
+  margin: "0 auto",
+  textAlign: "center" as const,
+};
+
+const paragraph = {
+  fontSize: 13,
+  lineHeight: 1.6,
+  margin: "0 0 12px 0",
+};
+
+const bullet = {
+  fontSize: 13,
+  margin: "4px 0",
+};
+
+const highlight = {
+  marginTop: 20,
+  padding: "16px 20px",
+  background: "#f6f6f6",
+  border: "1px dashed #bbb",
+};
+
 function SoyProfesional() {
   return (
     <WireframeShell
@@ -12,39 +36,58 @@ function SoyProfesional() {
       title="🌿 Forma parte de Mallorca Holística"
       breadcrumb="Inicio › Soy profesional"
     >
-      <Box title="La plataforma de confianza para la salud complementaria e integrativa">
-        <p style={{ fontSize: 13 }}>
-          Cada vez más personas buscan un enfoque más integrador para cuidar de su salud. Al mismo tiempo, miles de profesionales, centros y organizaciones ofrecen un acompañamiento de gran valor que merece ser más visible y reconocido.
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Mallorca Holística nace para crear un puente entre ambos, facilitando el encuentro entre las personas que buscan apoyo y los profesionales que pueden acompañarlas desde la confianza, la profesionalidad y el compromiso.
-        </p>
-        <p style={{ fontSize: 13 }}>
-          🌿 Cada persona, cada profesional y cada proyecto aportan algo único. En Mallorca Holística, todos encuentran su lugar.
-        </p>
+      {/* 1. BLOQUE SUPERIOR */}
+      <Box title="Forma parte de Mallorca Holística">
+        <div style={textBlock}>
+          <p style={{ ...paragraph, fontWeight: 600, marginBottom: 16 }}>
+            La plataforma de confianza para la salud complementaria e integrativa.
+          </p>
+          <p style={paragraph}>
+            Cada vez más personas buscan un enfoque más integrador para cuidar de su salud.
+          </p>
+          <p style={paragraph}>
+            Al mismo tiempo, miles de profesionales, centros y organizaciones ofrecen un acompañamiento de gran valor que merece ser más visible y reconocido.
+          </p>
+          <p style={paragraph}>
+            Mallorca Holística nace para crear un puente entre ambos, facilitando el encuentro entre las personas que buscan apoyo y los profesionales que pueden acompañarlas desde la confianza, la profesionalidad y el compromiso.
+          </p>
+          <p style={paragraph}>
+            🌿 Cada persona, cada profesional y cada proyecto aportan algo único.
+          </p>
+          <p style={{ ...paragraph, marginBottom: 0 }}>
+            En Mallorca Holística, todos encuentran su lugar.
+          </p>
+        </div>
       </Box>
 
+      {/* 2. PRIMER BLOQUE: EMPieZA AQUÍ */}
       <Box title="🌿 Empieza aquí">
-        <p style={{ fontSize: 13, textAlign: "center", maxWidth: 640, margin: "0 auto 16px" }}>
-          🌿 Gracias por querer formar parte de Mallorca Holística.
-        </p>
-        <p style={{ fontSize: 13, textAlign: "center", maxWidth: 640, margin: "0 auto 24px" }}>
-          Cada profesional aporta una forma única de acompañar a las personas. Nos hace mucha ilusión que quieras compartir la tuya y contribuir a construir una comunidad más visible, conectada y basada en la confianza.
-        </p>
+        <div style={textBlock}>
+          <p style={paragraph}>
+            🌿 Gracias por dar el primer paso.
+          </p>
+          <p style={paragraph}>
+            Cada profesional aporta una forma única de acompañar a las personas.
+          </p>
+          <p style={{ ...paragraph, marginBottom: 24 }}>
+            Nos hace mucha ilusión darte la bienvenida y que quieras compartir la tuya, contribuyendo a construir una comunidad más visible, conectada y basada en la confianza.
+          </p>
+        </div>
+
         <div style={{ maxWidth: 420, margin: "0 auto" }}>
-          <Card title="🌿 Perfil Presencia">
-            <p style={{ fontSize: 13 }}>
-              <strong>Gratuito</strong>
+          <Card title="🌿 Presencia">
+            <p style={{ fontSize: 13, marginBottom: 8 }}>
+              <strong>Plan gratuito</strong>
             </p>
-            <p style={{ fontSize: 13 }}>
-              Pensado para profesionales que desean comenzar a formar parte de Mallorca Holística y dar visibilidad a su actividad.
+            <p style={{ fontSize: 13, marginBottom: 12 }}>
+              Empieza a formar parte de Mallorca Holística creando tu perfil profesional para que más personas puedan descubrir tu trabajo.
             </p>
-            <p style={{ fontSize: 13 }}>Incluye:</p>
-            <ul style={{ fontSize: 13, paddingLeft: 18 }}>
-              <li>Perfil público básico</li>
-              <li>Presencia en el directorio</li>
-              <li>Acceso al panel profesional</li>
-            </ul>
+            <p style={{ fontSize: 13, marginBottom: 4 }}>Incluye:</p>
+            <div style={{ marginBottom: 12 }}>
+              <p style={bullet}>• Perfil público básico</p>
+              <p style={bullet}>• Presencia en el directorio</p>
+              <p style={bullet}>• Acceso al panel profesional</p>
+            </div>
             <NavButton to="/auth/crear-cuenta" search={{ track: "presencia" }}>
               👉 Crear perfil gratuito
             </NavButton>
@@ -55,71 +98,79 @@ function SoyProfesional() {
         </div>
       </Box>
 
+      {/* 3. SEGUNDO BLOQUE: ESTAMOS CONSTRUYENDO */}
       <Box title="✨ Estamos construyendo Mallorca Holística">
-        <p style={{ fontSize: 13 }}>
-          Mallorca Holística está dando sus primeros pasos.
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Durante esta primera etapa, un pequeño grupo de profesionales y organizaciones participa como Comunidad Fundadora, ayudándonos a dar forma a la plataforma antes de su lanzamiento público.
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Sus aportaciones nos permiten mejorar cada detalle para construir una herramienta realmente útil para el sector.
-        </p>
-        <p style={{ fontSize: 13 }}>
-          🌿 Aunque esta fase fundacional sea mediante invitación, nos encantará que descubras el proyecto, conozcas los futuros planes y compartas con nosotros tus ideas o sugerencias.
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Si deseas formar parte de las próximas etapas, también puedes unirte a la lista de espera.
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Porque Mallorca Holística se construye entre todos.
-        </p>
+        <div style={textBlock}>
+          <p style={paragraph}>
+            Mallorca Holística está dando sus primeros pasos.
+          </p>
+          <p style={paragraph}>
+            Durante esta primera etapa, un pequeño grupo de profesionales y organizaciones participa como Comunidad Fundadora, ayudándonos a dar forma a la plataforma antes de su lanzamiento público.
+          </p>
+          <p style={{ ...paragraph, marginBottom: 16 }}>
+            Sus aportaciones nos permiten mejorar cada detalle para construir una herramienta realmente útil para el sector.
+          </p>
+          <div style={highlight}>
+            <p style={{ ...paragraph, fontWeight: 600, marginBottom: 8 }}>
+              🌿 Cualquier profesional puede descubrir el proyecto, conocer los próximos planes y compartir con nosotros sus ideas o sugerencias.
+            </p>
+            <p style={{ ...paragraph, fontWeight: 600, marginBottom: 0 }}>
+              Si deseas participar en futuras etapas, también podrás unirte a la lista de espera.
+            </p>
+          </div>
+          <p style={{ ...paragraph, marginTop: 16, marginBottom: 0 }}>
+            Porque Mallorca Holística se construye entre todos.
+          </p>
+        </div>
       </Box>
 
-      <div style={{ margin: "24px 0 12px" }}>
-        <div style={{ fontSize: 11, color: "#666", marginBottom: 8, textTransform: "uppercase", letterSpacing: 1 }}>
-          ✨ Comunidad Fundadora
+      {/* 4. COMUNIDAD FUNDADORA */}
+      <Box title="✨ Comunidad Fundadora">
+        <div style={textBlock}>
+          <p style={{ ...paragraph, marginBottom: 20 }}>
+            Los primeros pasos dejan huella. Gracias a la Comunidad Fundadora, Mallorca Holística crecerá desde la experiencia, la escucha y la colaboración.
+          </p>
         </div>
-      </div>
 
-      <Row>
-        <Card title="✨ Profesional Fundador">
-          <p style={{ fontSize: 13 }}>Actualmente mediante invitación.</p>
-          <p style={{ fontSize: 13 }}>
-            Estamos formando el grupo inicial de profesionales que acompañará el lanzamiento de Mallorca Holística.
-          </p>
-          <p style={{ fontSize: 13 }}>40 plazas disponibles.</p>
-          <NavButton to="/invitacion/$token" params={{ token: "demo-token" }} search={{ track: "verificado" }}>
-            👉 He recibido una invitación
-          </NavButton>
-          <NavButton to="/profesional-fundador" variant="secondary">
-            Más información →
-          </NavButton>
-        </Card>
+        <Row>
+          <Card title="✨ Profesional Fundador">
+            <p style={{ fontSize: 13 }}>Actualmente mediante invitación.</p>
+            <p style={{ fontSize: 13 }}>
+              Estamos formando el grupo inicial de profesionales que acompañará el lanzamiento de Mallorca Holística.
+            </p>
+            <p style={{ fontSize: 13 }}>40 plazas disponibles.</p>
+            <NavButton to="/invitacion/$token" params={{ token: "demo-token" }} search={{ track: "verificado" }}>
+              👉 He recibido una invitación
+            </NavButton>
+            <NavButton to="/profesional-fundador" variant="secondary">
+              Más información →
+            </NavButton>
+          </Card>
 
-        <Card title="🌞 Organización Fundadora">
-          <p style={{ fontSize: 13 }}>Actualmente mediante invitación.</p>
-          <p style={{ fontSize: 13 }}>
-            Estamos formando el grupo inicial de centros y organizaciones que acompañará el lanzamiento de Mallorca Holística.
-          </p>
-          <p style={{ fontSize: 13 }}>10 plazas disponibles.</p>
-          <p style={{ fontSize: 13 }}>Pensado para:</p>
-          <ul style={{ fontSize: 13, paddingLeft: 18 }}>
-            <li>Centros</li>
-            <li>Escuelas</li>
-            <li>Asociaciones</li>
-            <li>Espacios de bienestar</li>
-            <li>Organizadores de eventos</li>
-            <li>Organizadores de retiros</li>
-          </ul>
-          <NavButton to="/invitacion/$token" params={{ token: "demo-token" }} search={{ track: "organizacion" }}>
-            👉 He recibido una invitación
-          </NavButton>
-          <NavButton to="/comunidad-fundadora-organizaciones" variant="secondary">
-            Más información →
-          </NavButton>
-        </Card>
-      </Row>
+          <Card title="🌞 Organización Fundadora">
+            <p style={{ fontSize: 13 }}>Actualmente mediante invitación.</p>
+            <p style={{ fontSize: 13 }}>
+              Estamos formando el grupo inicial de centros y organizaciones que acompañará el lanzamiento de Mallorca Holística.
+            </p>
+            <p style={{ fontSize: 13 }}>10 plazas disponibles.</p>
+            <p style={{ fontSize: 13, marginBottom: 4 }}>Pensado para:</p>
+            <div style={{ marginBottom: 12 }}>
+              <p style={bullet}>• Centros</p>
+              <p style={bullet}>• Escuelas</p>
+              <p style={bullet}>• Asociaciones</p>
+              <p style={bullet}>• Espacios de salud y bienestar</p>
+              <p style={bullet}>• Organizadores de eventos</p>
+              <p style={bullet}>• Organizadores de retiros</p>
+            </div>
+            <NavButton to="/invitacion/$token" params={{ token: "demo-token" }} search={{ track: "organizacion" }}>
+              👉 He recibido una invitación
+            </NavButton>
+            <NavButton to="/comunidad-fundadora-organizaciones" variant="secondary">
+              Más información →
+            </NavButton>
+          </Card>
+        </Row>
+      </Box>
     </WireframeShell>
   );
 }
