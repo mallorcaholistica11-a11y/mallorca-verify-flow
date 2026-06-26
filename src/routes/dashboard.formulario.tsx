@@ -1349,10 +1349,34 @@ function VerificadoFormulario() {
                 <br />
                 Si esta persona también es el representante legal de la organización, podrás indicarlo en el Paso 6.
               </Note>
-              <FakeField label="Nombre" />
-              <FakeField label="Apellidos" />
-              <FakeField label="Cargo (opcional) — Ej.: Director/a, Coordinador/a, Responsable, Fundador/a, Gerente" />
-              <FakeField label="Correo electrónico" type="email" />
+              <input
+                type="text"
+                placeholder="Nombre"
+                value={contacto.nombre}
+                onChange={(e) => handleContactoChange("nombre", e.target.value)}
+                style={{ width: "100%", padding: "8px 10px", marginBottom: 12, border: "1px dashed #888", fontSize: 13, fontFamily: "inherit", boxSizing: "border-box" }}
+              />
+              <input
+                type="text"
+                placeholder="Apellidos"
+                value={contacto.apellidos}
+                onChange={(e) => handleContactoChange("apellidos", e.target.value)}
+                style={{ width: "100%", padding: "8px 10px", marginBottom: 12, border: "1px dashed #888", fontSize: 13, fontFamily: "inherit", boxSizing: "border-box" }}
+              />
+              <input
+                type="text"
+                placeholder="Cargo (opcional) — Ej.: Director/a, Coordinador/a, Responsable, Fundador/a, Gerente"
+                value={contacto.cargo}
+                onChange={(e) => handleContactoChange("cargo", e.target.value)}
+                style={{ width: "100%", padding: "8px 10px", marginBottom: 12, border: "1px dashed #888", fontSize: 13, fontFamily: "inherit", boxSizing: "border-box" }}
+              />
+              <input
+                type="email"
+                placeholder="Correo electrónico"
+                value={contacto.email}
+                onChange={(e) => handleContactoChange("email", e.target.value)}
+                style={{ width: "100%", padding: "8px 10px", marginBottom: 12, border: "1px dashed #888", fontSize: 13, fontFamily: "inherit", boxSizing: "border-box" }}
+              />
               <TelefonoField
                 label="Teléfono"
                 value={contacto.telefono}
