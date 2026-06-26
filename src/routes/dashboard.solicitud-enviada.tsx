@@ -15,15 +15,15 @@ const MENSAJE_PRESENCIA = [
   "Porque lo que se siembra con alma... siempre florece. 🌿",
 ];
 
-const MENSAJE_ORGANIZACION = [
-  "Hemos recibido correctamente tu solicitud.",
-  "Durante los próximos días revisaremos la información y la documentación que nos has enviado para completar el proceso correspondiente.",
-  "Te informaremos por correo electrónico en cuanto tu solicitud haya sido revisada.",
-  "Gracias por formar parte de esta etapa fundacional y por ayudar a construir una comunidad más visible, conectada y accesible para todos.",
+const MENSAJE_PROFESIONAL = [
+  "Nos hace mucha ilusión que quieras formar parte de esta comunidad.",
+  "Hemos recibido correctamente tu solicitud y durante los próximos días revisaremos la información y la documentación que nos has enviado.",
+  "Te informaremos por correo electrónico en cuanto el proceso haya finalizado.",
+  "Gracias por confiar en este proyecto y por contribuir a construir una comunidad más visible, conectada y accesible para todos.",
   "Porque lo que se siembra con alma... siempre florece. 🌿",
 ];
 
-const MENSAJE_POR_DEFECTO = [
+const MENSAJE_ORGANIZACION = [
   "Hemos recibido correctamente tu solicitud.",
   "Durante los próximos días revisaremos la información y la documentación que nos has enviado para completar el proceso correspondiente.",
   "Te informaremos por correo electrónico en cuanto tu solicitud haya sido revisada.",
@@ -33,8 +33,9 @@ const MENSAJE_POR_DEFECTO = [
 
 function mensajePorTrack(track: Track): string[] {
   if (track === "presencia") return MENSAJE_PRESENCIA;
+  if (track === "verificado") return MENSAJE_PROFESIONAL;
   if (track === "organizacion") return MENSAJE_ORGANIZACION;
-  return MENSAJE_POR_DEFECTO;
+  return MENSAJE_PRESENCIA;
 }
 
 function SolicitudEnviada() {
