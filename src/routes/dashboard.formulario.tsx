@@ -1370,7 +1370,7 @@ function VerificadoFormulario() {
               </>
             )}
             <MunicipioPicker label="Municipio principal" />
-            <FakeField label="Isla (Mallorca)" />
+            <ReadOnlyField label="Isla" value="Mallorca" />
             <FakeField label="Correo electrónico" type="email" />
             <TelefonoField label="Teléfono" />
             <TelefonoField label="WhatsApp" />
