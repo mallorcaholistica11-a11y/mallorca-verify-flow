@@ -638,6 +638,17 @@ function renderField(label: string) {
   if (isMunicipioField(label)) return <MunicipioPicker key={label} label={label} />;
   if (isDireccionField(label)) return <DireccionPicker key={label} label={label} />;
   if (isTelefonoField(label)) return <TelefonoField key={label} label={label} />;
+  if (label.startsWith("Frase de presentación"))
+    return <LimitedTextField key={label} label="Frase de presentación" max={120} />;
+  if (label.startsWith("Presentación profesional"))
+    return (
+      <LimitedTextField
+        key={label}
+        label="Presentación profesional"
+        max={1000}
+        multiline
+      />
+    );
   return <FakeField key={label} label={label} />;
 }
 
