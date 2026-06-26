@@ -626,9 +626,15 @@ function isDireccionField(label: string) {
   return label.toLowerCase().startsWith("dirección");
 }
 
+function isTelefonoField(label: string) {
+  const lower = label.toLowerCase();
+  return lower.includes("teléfono") || lower.includes("whatsapp");
+}
+
 function renderField(label: string) {
   if (isMunicipioField(label)) return <MunicipioPicker key={label} label={label} />;
   if (isDireccionField(label)) return <DireccionPicker key={label} label={label} />;
+  if (isTelefonoField(label)) return <TelefonoField key={label} label={label} />;
   return <FakeField key={label} label={label} />;
 }
 
