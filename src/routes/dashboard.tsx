@@ -17,22 +17,15 @@ function DashboardHome() {
   const isOrg = track === "organizacion";
   const isVerificado = track === "verificado";
 
-  const title = isOrg ? "Tu panel · Organización Fundadora" : "Tu panel";
-  const screen = isOrg ? "5 · DASHBOARD ORGANIZACIÓN FUNDADORA" : "5 · DASHBOARD PROFESIONAL";
+  const title = isOrg ? "Tu panel · Organización Fundadora" : isVerificado ? "Tu panel · Profesional Fundador" : "Tu panel";
+  const screen = isOrg ? "5 · DASHBOARD ORGANIZACIÓN FUNDADORA" : isVerificado ? "5 · DASHBOARD PROFESIONAL FUNDADOR" : "5 · DASHBOARD PROFESIONAL";
 
-  const tasks = isOrg
+  const tasks = isOrg || isVerificado
     ? [
-        { label: "Completar perfil de la organización" },
+        { label: "Completar perfil" },
         { label: "Revisar y aceptar las condiciones" },
         { label: "Registrar método de pago" },
         { label: "Enviar solicitud de verificación" },
-      ]
-    : isVerificado
-    ? [
-        { label: "Completar perfil verificado" },
-        { label: "Adjuntar documentación (diplomas, seguro RC)" },
-        { label: "Guardar método de pago" },
-        { label: "Enviar solicitud" },
       ]
     : [
         { label: "Paso 1 · Información General" },
@@ -44,11 +37,7 @@ function DashboardHome() {
         { label: "Finalizar perfil y enviar solicitud" },
       ];
 
-  const ctaLabel = isOrg
-    ? "👉 Completar perfil"
-    : isVerificado
-    ? "Completar perfil verificado"
-    : "Completar perfil";
+  const ctaLabel = isOrg || isVerificado ? "👉 Completar perfil" : "Completar perfil";
 
   return (
     <WireframeShell screen={screen} title={title} breadcrumb="Dashboard">
