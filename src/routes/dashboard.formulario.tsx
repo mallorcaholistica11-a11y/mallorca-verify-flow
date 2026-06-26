@@ -66,7 +66,7 @@ const PRESENCIA_STEPS: Step[] = [
     title: "Experiencia y Perfil",
     fields: [
       "Frase de presentación (máx. 120 caracteres)",
-      "Presentación breve (máx. 500 caracteres)",
+      "Presentación profesional (máx. 1000 caracteres)",
     ],
   },
   {
