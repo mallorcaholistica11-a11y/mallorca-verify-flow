@@ -1266,9 +1266,22 @@ function VerificadoFormulario() {
   });
   const [autorizaPago, setAutorizaPago] = useState(false);
 
+  const [contacto, setContacto] = useState({
+    nombre: "",
+    apellidos: "",
+    cargo: "",
+    email: "",
+    telefono: "",
+  });
+  const [representanteEsContacto, setRepresentanteEsContacto] = useState(false);
+
   const toggleConsent = (k: keyof VConsents) =>
     setConsents((p) => ({ ...p, [k]: !p[k] }));
   const allConsents = Object.values(consents).every(Boolean);
+
+  const handleContactoChange = (field: keyof typeof contacto, value: string) => {
+    setContacto((prev) => ({ ...prev, [field]: value }));
+  };
 
 
 
