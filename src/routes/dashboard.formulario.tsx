@@ -180,9 +180,9 @@ function FormularioBase() {
           <Box key={sec.title} title={sec.title}>
             {sec.note && <Note>{sec.note}</Note>}
             {sec.title === "Especialidades y Terapias" ? (
-              <EspecialidadesPicker />
+              <EspecialidadesPicker variant="profesional" />
             ) : sec.title === "Áreas de Especialización" ? (
-              <AreasPicker />
+              <AreasPicker variant="profesional" />
             ) : sec.title === "Público al que acompaño" ? (
               <PublicoCheckboxes />
             ) : sec.title === "Modalidades de acompañamiento" ? (
