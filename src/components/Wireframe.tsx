@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 
 // Intentionally style-less wireframe primitives.
 // Dashed borders, monospace, no color decisions.
@@ -104,6 +104,69 @@ export function FakeField({ label, type = "text" }: { label: string; type?: stri
       <div style={{ fontSize: 12, marginBottom: 4 }}>{label}</div>
       <div style={{ border: "1px dashed #888", padding: "8px 10px", background: "#fff", color: "#aaa", fontSize: 12 }}>
         [{type}]
+      </div>
+    </div>
+  );
+}
+
+export function LimitedTextField({
+  label,
+  max,
+  multiline = false,
+  rows = 6,
+  placeholder,
+}: {
+  label: string;
+  max: number;
+  multiline?: boolean;
+  rows?: number;
+  placeholder?: string;
+}) {
+  const [value, setValue] = useState("");
+  const count = value.length;
+  const atLimit = count >= max;
+  const sharedStyle = {
+    width: "100%",
+    border: "1px dashed #888",
+    padding: "8px 10px",
+    background: "#fff",
+    color: "#111",
+    fontSize: 13,
+    fontFamily: "inherit",
+    boxSizing: "border-box" as const,
+  };
+  return (
+    <div style={{ marginBottom: 12 }}>
+      <div style={{ fontSize: 12, marginBottom: 4 }}>{label}</div>
+      {multiline ? (
+        <textarea
+          value={value}
+          maxLength={max}
+          rows={rows}
+          placeholder={placeholder}
+          onChange={(e) => setValue(e.target.value.slice(0, max))}
+          style={{ ...sharedStyle, resize: "vertical" }}
+        />
+      ) : (
+        <input
+          type="text"
+          value={value}
+          maxLength={max}
+          placeholder={placeholder}
+          onChange={(e) => setValue(e.target.value.slice(0, max))}
+          style={sharedStyle}
+        />
+      )}
+      <div
+        style={{
+          fontSize: 11,
+          color: atLimit ? "#a00" : "#666",
+          marginTop: 4,
+          textAlign: "right",
+          fontStyle: "italic",
+        }}
+      >
+        {count} / {max} caracteres
       </div>
     </div>
   );
