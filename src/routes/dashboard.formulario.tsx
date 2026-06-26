@@ -1463,7 +1463,7 @@ function VerificadoFormulario() {
         <>
           <Box title="🌟 Frase de presentación">
             <Note>Describe tu actividad en una frase. Máximo 120 caracteres.</Note>
-            <FakeField label="Frase (máx. 120)" />
+            <LimitedTextField label="Frase de presentación" max={120} />
             <div style={{ fontSize: 12, color: "#666", fontStyle: "italic", marginTop: 8 }}>
               Ejemplos:
               <ul style={{ paddingLeft: 18, marginTop: 6, marginBottom: 6 }}>
@@ -1491,13 +1491,10 @@ function VerificadoFormulario() {
                 ? "Cuéntanos quiénes sois, qué hacéis, cómo trabajáis, qué ofrecéis y aquello que consideráis importante destacar. Máximo 3000 caracteres."
                 : "Cuéntanos quién eres, qué haces y cómo acompañas a las personas. Máximo 3000 caracteres."}
             </Note>
-            <FakeField
-              label={
-                isOrg
-                  ? "Presentación de la organización (máx. 3000)"
-                  : "Presentación profesional (máx. 3000)"
-              }
-              type="textarea"
+            <LimitedTextField
+              label={isOrg ? "Presentación de la organización" : "Presentación profesional"}
+              max={3000}
+              multiline
             />
           </Box>
           {!isOrg && (
