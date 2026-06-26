@@ -407,19 +407,27 @@ function EspecialidadesPicker({
 }
 
 const DEFAULT_MAX_AREAS = 5;
-const DEFAULT_AREAS_NOTE =
-  "Elige hasta 5 áreas en las que acompañas principalmente. Podrás ordenarlas según la importancia que tienen en tu práctica.";
-const UNLIMITED_AREAS_NOTE =
+const PROFESIONAL_AREAS_NOTE =
   "Elige las áreas en las que acompañas principalmente. Podrás ordenarlas según la importancia que tienen en tu práctica.";
+const ORGANIZACION_AREAS_NOTE =
+  "Selecciona las áreas en las que trabaja principalmente vuestra organización. Podrás ordenarlas según su importancia.";
 
-function AreasPicker({ max = DEFAULT_MAX_AREAS, note }: { max?: number; note?: string }) {
+function AreasPicker({
+  max = DEFAULT_MAX_AREAS,
+  note,
+  variant = "profesional",
+}: {
+  max?: number;
+  note?: string;
+  variant?: PickerVariant;
+}) {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
   const [warning, setWarning] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const [dragIndex, setDragIndex] = useState<number | null>(null);
   const hasMax = max > 0;
-  const displayNote = note ?? (hasMax ? DEFAULT_AREAS_NOTE : UNLIMITED_AREAS_NOTE);
+  const displayNote = note ?? (variant === "organizacion" ? ORGANIZACION_AREAS_NOTE : PROFESIONAL_AREAS_NOTE);
 
   const filtered = AREAS.filter(
     (a) => !selected.includes(a) && (query === "" || a.toLowerCase().includes(query.toLowerCase()))
