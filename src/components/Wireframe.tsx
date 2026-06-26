@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 
 // Intentionally style-less wireframe primitives.
 // Dashed borders, monospace, no color decisions.
