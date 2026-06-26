@@ -1271,7 +1271,7 @@ function VerificadoFormulario() {
     apellidos: "",
     cargo: "",
     email: "",
-    telefono: "",
+    telefono: { prefijo: "+34", numero: "" },
   });
   const [representanteEsContacto, setRepresentanteEsContacto] = useState(false);
 
@@ -1279,8 +1279,11 @@ function VerificadoFormulario() {
     setConsents((p) => ({ ...p, [k]: !p[k] }));
   const allConsents = Object.values(consents).every(Boolean);
 
-  const handleContactoChange = (field: keyof typeof contacto, value: string) => {
+  const handleContactoChange = (field: "nombre" | "apellidos" | "cargo" | "email", value: string) => {
     setContacto((prev) => ({ ...prev, [field]: value }));
+  };
+  const handleContactoTelefono = (value: { prefijo: string; numero: string }) => {
+    setContacto((prev) => ({ ...prev, telefono: value }));
   };
 
 
