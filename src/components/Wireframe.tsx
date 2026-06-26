@@ -74,6 +74,30 @@ export function Row({ children }: { children: ReactNode }) {
   return <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 16 }}>{children}</div>;
 }
 
+export function ReadOnlyField({ label, value }: { label: string; value: string }) {
+  return (
+    <div style={{ marginBottom: 12 }}>
+      <div style={{ fontSize: 12, marginBottom: 4 }}>{label}</div>
+      <input
+        type="text"
+        readOnly
+        value={value}
+        style={{
+          width: "100%",
+          border: "1px dashed #888",
+          padding: "8px 10px",
+          background: "#f6f6f6",
+          color: "#111",
+          fontSize: 12,
+          fontFamily: "inherit",
+          boxSizing: "border-box",
+          cursor: "default",
+        }}
+      />
+    </div>
+  );
+}
+
 export function FakeField({ label, type = "text" }: { label: string; type?: string }) {
   return (
     <div style={{ marginBottom: 12 }}>

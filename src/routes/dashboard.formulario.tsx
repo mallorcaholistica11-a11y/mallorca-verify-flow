@@ -4,6 +4,7 @@ import {
   WireframeShell,
   Box,
   FakeField,
+  ReadOnlyField,
   Note,
   TrackBadge,
   parseTrack,
@@ -944,7 +945,7 @@ function UbicacionesList() {
           </div>
           <DireccionPicker label="Dirección" />
           <MunicipioPicker label="Municipio" />
-          <FakeField label="Isla (Mallorca)" />
+          <ReadOnlyField label="Isla" value="Mallorca" />
           {items.length > 1 && (
             <button
               type="button"
@@ -1084,7 +1085,7 @@ function ConsultasList() {
           <FakeField label="Nombre del centro" />
           <DireccionPicker label="Dirección" />
           <MunicipioPicker label="Municipio" />
-          <FakeField label="Isla (Mallorca)" />
+          <ReadOnlyField label="Isla" value="Mallorca" />
           {items.length > 1 && (
             <button
               type="button"
@@ -1369,7 +1370,7 @@ function VerificadoFormulario() {
               </>
             )}
             <MunicipioPicker label="Municipio principal" />
-            <FakeField label="Isla (Mallorca)" />
+            <ReadOnlyField label="Isla" value="Mallorca" />
             <FakeField label="Correo electrónico" type="email" />
             <TelefonoField label="Teléfono" />
             <TelefonoField label="WhatsApp" />
