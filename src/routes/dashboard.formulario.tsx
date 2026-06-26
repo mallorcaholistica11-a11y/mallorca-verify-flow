@@ -1,6 +1,14 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { WireframeShell, Box, FakeField, Note, TrackBadge, parseTrack, type Track } from "@/components/Wireframe";
+import {
+  WireframeShell,
+  Box,
+  FakeField,
+  Note,
+  TrackBadge,
+  parseTrack,
+  type Track,
+} from "@/components/Wireframe";
 import { TelefonoField } from "@/components/TelefonoField";
 import { AreasPicker, EspecialidadesPicker } from "@/components/TaxonomiaPickers";
 
@@ -85,7 +93,11 @@ const BASE_STEPS: Step[] = [
 
 const VERIFICADO_STEPS: Step[] = [
   ...BASE_STEPS,
-  { title: "Documentación", fields: ["Diplomas (subir)", "Seguro RC (subir)"], checkboxes: ["Aceptar código deontológico"] },
+  {
+    title: "Documentación",
+    fields: ["Diplomas (subir)", "Seguro RC (subir)"],
+    checkboxes: ["Aceptar código deontológico"],
+  },
 ];
 
 const ORGANIZACION_STEPS: Step[] = [
@@ -99,7 +111,10 @@ const ORGANIZACION_STEPS: Step[] = [
       "Ubicación",
     ],
   },
-  { title: "Actividad", fields: ["Descripción de la actividad", "Disciplinas / servicios", "Aforo o capacidad"] },
+  {
+    title: "Actividad",
+    fields: ["Descripción de la actividad", "Disciplinas / servicios", "Aforo o capacidad"],
+  },
   { title: "Bio y Enlaces", fields: ["Descripción pública", "Web", "Instagram"] },
 ];
 
@@ -112,7 +127,16 @@ function getSteps(track: Track): Step[] {
 function FakeCheckbox({ label }: { label: string }) {
   return (
     <div style={{ marginBottom: 8, fontSize: 13 }}>
-      <span style={{ display: "inline-block", width: 14, height: 14, border: "1px dashed #888", marginRight: 8, verticalAlign: "middle" }} />
+      <span
+        style={{
+          display: "inline-block",
+          width: 14,
+          height: 14,
+          border: "1px dashed #888",
+          marginRight: 8,
+          verticalAlign: "middle",
+        }}
+      />
       {label}
     </div>
   );
@@ -139,12 +163,15 @@ function FormularioBase() {
     else navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
   };
 
-
   return (
     <WireframeShell
       screen={`6 · FORMULARIO · PASO ${step}/${total}`}
       title={`Paso ${step} · ${current.title}`}
-      breadcrumb={track === "organizacion" ? "Dashboard › Completar perfil organización" : "Dashboard › Completar perfil"}
+      breadcrumb={
+        track === "organizacion"
+          ? "Dashboard › Completar perfil organización"
+          : "Dashboard › Completar perfil"
+      }
     >
       <TrackBadge track={track} />
 
@@ -176,31 +203,29 @@ function FormularioBase() {
         </div>
       </Box>
 
-      {current.sections ? (
-        current.sections.map((sec) => (
-          <Box key={sec.title} title={sec.title}>
-            {sec.note && <Note>{sec.note}</Note>}
-            {sec.title === "Especialidades y Terapias" ? (
-              <EspecialidadesPicker variant="profesional" />
-            ) : sec.title === "Áreas de Especialización" ? (
-              <AreasPicker variant="profesional" />
-            ) : sec.title === "Público al que acompaño" ? (
-              <PublicoCheckboxes />
-            ) : sec.title === "Modalidades de acompañamiento" ? (
-              <ModalidadesCheckboxes />
-            ) : sec.title === "Modalidades de consulta" ? (
-              <ModalidadesConsultaCheckboxes />
-            ) : (
-              sec.fields?.map((f) => renderField(f))
-            )}
-          </Box>
-        ))
-      ) : null}
+      {current.sections
+        ? current.sections.map((sec) => (
+            <Box key={sec.title} title={sec.title}>
+              {sec.note && <Note>{sec.note}</Note>}
+              {sec.title === "Especialidades y Terapias" ? (
+                <EspecialidadesPicker variant="profesional" />
+              ) : sec.title === "Áreas de Especialización" ? (
+                <AreasPicker variant="profesional" />
+              ) : sec.title === "Público al que acompaño" ? (
+                <PublicoCheckboxes />
+              ) : sec.title === "Modalidades de acompañamiento" ? (
+                <ModalidadesCheckboxes />
+              ) : sec.title === "Modalidades de consulta" ? (
+                <ModalidadesConsultaCheckboxes />
+              ) : (
+                sec.fields?.map((f) => renderField(f))
+              )}
+            </Box>
+          ))
+        : null}
 
       {current.fields && !current.sections ? (
-        <Box title={`Campos del paso ${step}`}>
-          {current.fields.map((f) => renderField(f))}
-        </Box>
+        <Box title={`Campos del paso ${step}`}>{current.fields.map((f) => renderField(f))}</Box>
       ) : null}
 
       {current.checkboxes ? (
@@ -208,7 +233,9 @@ function FormularioBase() {
           <ConfirmacionesConsentimientos onFinish={finish} />
         ) : (
           <Box title="Confirmaciones">
-            {current.checkboxes.map((c) => <FakeCheckbox key={c} label={c} />)}
+            {current.checkboxes.map((c) => (
+              <FakeCheckbox key={c} label={c} />
+            ))}
           </Box>
         )
       ) : null}
@@ -216,9 +243,17 @@ function FormularioBase() {
       {current.note && <Note>{current.note}</Note>}
 
       <Box title="Navegación">
-        <button onClick={() => setStep((s) => Math.max(1, s - 1))} disabled={step === 1} style={btn("secondary")}>← Anterior</button>
+        <button
+          onClick={() => setStep((s) => Math.max(1, s - 1))}
+          disabled={step === 1}
+          style={btn("secondary")}
+        >
+          ← Anterior
+        </button>
         {!isLast ? (
-          <button onClick={() => setStep((s) => s + 1)} style={btn("primary")}>Siguiente →</button>
+          <button onClick={() => setStep((s) => s + 1)} style={btn("primary")}>
+            Siguiente →
+          </button>
         ) : current.title === "Confirmaciones y Consentimientos" ? null : (
           <button onClick={finish} style={btn("primary")}>
             {needsStripe ? "Continuar a método de pago →" : "Finalizar perfil →"}
@@ -339,7 +374,7 @@ function PublicoCheckboxes() {
   const [selected, setSelected] = useState<string[]>([]);
   const toggle = (value: string) => {
     setSelected((prev) =>
-      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
     );
   };
   return (
@@ -360,14 +395,19 @@ function ModalidadesCheckboxes() {
   const [otro, setOtro] = useState("");
   const toggle = (value: string) => {
     setSelected((prev) =>
-      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
     );
   };
   const showOtro = selected.includes("Otro (especificar)");
   return (
     <div>
       <Note>Selecciona todas las modalidades que ofreces.</Note>
-      <CheckboxGroup options={MODALIDADES_OPTIONS} columns={3} selected={selected} onToggle={toggle} />
+      <CheckboxGroup
+        options={MODALIDADES_OPTIONS}
+        columns={3}
+        selected={selected}
+        onToggle={toggle}
+      />
       {showOtro && (
         <div style={{ marginTop: 12 }}>
           <FakeField label="Especificar otra modalidad" />
@@ -387,7 +427,7 @@ function ModalidadesConsultaCheckboxes() {
   const [selected, setSelected] = useState<string[]>([]);
   const toggle = (value: string) => {
     setSelected((prev) =>
-      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
     );
   };
   return (
@@ -414,13 +454,59 @@ function ModalidadesConsultaCheckboxes() {
 }
 
 const MUNICIPIOS = [
-  "Alaró","Alcúdia","Algaida","Andratx","Ariany","Artà","Banyalbufar","Binissalem","Búger","Bunyola",
-  "Calvià","Campanet","Campos","Capdepera","Consell","Costitx","Deià","Escorca","Esporles","Estellencs",
-  "Felanitx","Fornalutx","Inca","Lloret de Vistalegre","Lloseta","Llubí","Llucmajor","Manacor",
-  "Mancor de la Vall","Maria de la Salut","Marratxí","Montuïri","Muro","Palma","Petra","Pollença",
-  "Porreres","Puigpunyent","Sa Pobla","Sant Joan","Sant Llorenç des Cardassar","Santa Eugènia",
-  "Santa Margalida","Santa Maria del Camí","Santanyí","Selva","Sencelles","Ses Salines","Sineu",
-  "Sóller","Son Servera","Valldemossa","Vilafranca de Bonany",
+  "Alaró",
+  "Alcúdia",
+  "Algaida",
+  "Andratx",
+  "Ariany",
+  "Artà",
+  "Banyalbufar",
+  "Binissalem",
+  "Búger",
+  "Bunyola",
+  "Calvià",
+  "Campanet",
+  "Campos",
+  "Capdepera",
+  "Consell",
+  "Costitx",
+  "Deià",
+  "Escorca",
+  "Esporles",
+  "Estellencs",
+  "Felanitx",
+  "Fornalutx",
+  "Inca",
+  "Lloret de Vistalegre",
+  "Lloseta",
+  "Llubí",
+  "Llucmajor",
+  "Manacor",
+  "Mancor de la Vall",
+  "Maria de la Salut",
+  "Marratxí",
+  "Montuïri",
+  "Muro",
+  "Palma",
+  "Petra",
+  "Pollença",
+  "Porreres",
+  "Puigpunyent",
+  "Sa Pobla",
+  "Sant Joan",
+  "Sant Llorenç des Cardassar",
+  "Santa Eugènia",
+  "Santa Margalida",
+  "Santa Maria del Camí",
+  "Santanyí",
+  "Selva",
+  "Sencelles",
+  "Ses Salines",
+  "Sineu",
+  "Sóller",
+  "Son Servera",
+  "Valldemossa",
+  "Vilafranca de Bonany",
 ].sort((a, b) => a.localeCompare(b, "es"));
 
 function isMunicipioField(label: string) {
@@ -433,14 +519,22 @@ function MunicipioPicker({ label }: { label: string }) {
   const [open, setOpen] = useState(false);
 
   const filtered = MUNICIPIOS.filter(
-    (m) => query === "" || m.toLowerCase().includes(query.toLowerCase())
+    (m) => query === "" || m.toLowerCase().includes(query.toLowerCase()),
   );
 
   const display = selected ?? query;
 
   return (
     <div style={{ marginBottom: 12 }}>
-      <div style={{ fontSize: 11, color: "#666", textTransform: "uppercase", letterSpacing: 1, marginBottom: 4 }}>
+      <div
+        style={{
+          fontSize: 11,
+          color: "#666",
+          textTransform: "uppercase",
+          letterSpacing: 1,
+          marginBottom: 4,
+        }}
+      >
         {label}
       </div>
       <div style={{ position: "relative" }}>
@@ -448,27 +542,53 @@ function MunicipioPicker({ label }: { label: string }) {
           type="text"
           value={display}
           placeholder="Seleccionar municipio"
-          onChange={(e) => { setSelected(null); setQuery(e.target.value); setOpen(true); }}
+          onChange={(e) => {
+            setSelected(null);
+            setQuery(e.target.value);
+            setOpen(true);
+          }}
           onFocus={() => setOpen(true)}
           onBlur={() => setTimeout(() => setOpen(false), 150)}
           style={{
-            width: "100%", padding: "8px 10px", border: "1px dashed #888",
-            background: "#fff", fontFamily: "inherit", fontSize: 13, boxSizing: "border-box",
+            width: "100%",
+            padding: "8px 10px",
+            border: "1px dashed #888",
+            background: "#fff",
+            fontFamily: "inherit",
+            fontSize: 13,
+            boxSizing: "border-box",
           }}
         />
         {open && filtered.length > 0 && (
           <div
             style={{
-              position: "absolute", top: "100%", left: 0, right: 0, zIndex: 10,
-              maxHeight: 220, overflowY: "auto", border: "1px dashed #888",
-              borderTop: "none", background: "#fff",
+              position: "absolute",
+              top: "100%",
+              left: 0,
+              right: 0,
+              zIndex: 10,
+              maxHeight: 220,
+              overflowY: "auto",
+              border: "1px dashed #888",
+              borderTop: "none",
+              background: "#fff",
             }}
           >
             {filtered.map((item) => (
               <div
                 key={item}
-                onMouseDown={(e) => { e.preventDefault(); setSelected(item); setQuery(""); setOpen(false); }}
-                style={{ padding: "6px 10px", fontSize: 13, cursor: "pointer", borderBottom: "1px dotted #ddd" }}
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  setSelected(item);
+                  setQuery("");
+                  setOpen(false);
+                }}
+                style={{
+                  padding: "6px 10px",
+                  fontSize: 13,
+                  cursor: "pointer",
+                  borderBottom: "1px dotted #ddd",
+                }}
               >
                 {item}
               </div>
@@ -476,11 +596,21 @@ function MunicipioPicker({ label }: { label: string }) {
           </div>
         )}
         {open && filtered.length === 0 && (
-          <div style={{
-            position: "absolute", top: "100%", left: 0, right: 0, zIndex: 10,
-            border: "1px dashed #888", borderTop: "none", background: "#fff",
-            padding: "6px 10px", fontSize: 12, color: "#a00",
-          }}>
+          <div
+            style={{
+              position: "absolute",
+              top: "100%",
+              left: 0,
+              right: 0,
+              zIndex: 10,
+              border: "1px dashed #888",
+              borderTop: "none",
+              background: "#fff",
+              padding: "6px 10px",
+              fontSize: 12,
+              color: "#a00",
+            }}
+          >
             No hay coincidencias. Solo se permiten municipios de la lista.
           </div>
         )}
@@ -506,7 +636,15 @@ function DireccionPicker({ label }: { label: string }) {
   const [value, setValue] = useState("");
   return (
     <div style={{ marginBottom: 12 }}>
-      <div style={{ fontSize: 11, color: "#666", textTransform: "uppercase", letterSpacing: 1, marginBottom: 4 }}>
+      <div
+        style={{
+          fontSize: 11,
+          color: "#666",
+          textTransform: "uppercase",
+          letterSpacing: 1,
+          marginBottom: 4,
+        }}
+      >
         {label}
       </div>
       <input
@@ -515,13 +653,19 @@ function DireccionPicker({ label }: { label: string }) {
         placeholder="Empieza a escribir la dirección…"
         onChange={(e) => setValue(e.target.value)}
         style={{
-          width: "100%", padding: "8px 10px", border: "1px dashed #888",
-          background: "#fff", fontFamily: "inherit", fontSize: 13, boxSizing: "border-box",
+          width: "100%",
+          padding: "8px 10px",
+          border: "1px dashed #888",
+          background: "#fff",
+          fontFamily: "inherit",
+          fontSize: 13,
+          boxSizing: "border-box",
         }}
       />
       <div style={{ fontSize: 11, color: "#888", marginTop: 4, fontStyle: "italic" }}>
         MVP: texto libre. Preparado para Google Places Autocomplete — al integrarlo se guardarán
-        automáticamente: dirección formateada, municipio, código postal, isla, latitud, longitud y Place ID.
+        automáticamente: dirección formateada, municipio, código postal, isla, latitud, longitud y
+        Place ID.
       </div>
       {/* Estructura prevista (oculta en wireframe MVP):
           formatted_address, municipio, postal_code, isla, lat, lng, place_id */}
@@ -567,8 +711,16 @@ function ConsentimientoItem({
       </div>
       <a
         href="#"
-        onClick={(e) => { e.preventDefault(); }}
-        style={{ fontSize: 12, color: "#111", textDecoration: "underline", display: "inline-block", marginBottom: 8 }}
+        onClick={(e) => {
+          e.preventDefault();
+        }}
+        style={{
+          fontSize: 12,
+          color: "#111",
+          textDecoration: "underline",
+          display: "inline-block",
+          marginBottom: 8,
+        }}
       >
         {linkText}
       </a>
@@ -665,8 +817,17 @@ function ConfirmacionesConsentimientos({ onFinish }: { onFinish: () => void }) {
         label="Autorizo a Mallorca Holística a publicar mi perfil profesional en la plataforma."
       />
 
-      <div style={{ fontSize: 12, color: "#666", marginTop: 20, marginBottom: 12, fontStyle: "italic" }}>
-        Una vez enviado, tu perfil será revisado por el equipo de Mallorca Holística antes de su publicación.
+      <div
+        style={{
+          fontSize: 12,
+          color: "#666",
+          marginTop: 20,
+          marginBottom: 12,
+          fontStyle: "italic",
+        }}
+      >
+        Una vez enviado, tu perfil será revisado por el equipo de Mallorca Holística antes de su
+        publicación.
       </div>
 
       <button
@@ -721,7 +882,7 @@ const V_CONSULTA_MODES = [
   "A domicilio",
 ];
 
-const V_IDIOMAS = ["Español","Inglés","Francés","Alemán","Catalán","Otro"];
+const V_IDIOMAS = ["Español", "Inglés", "Francés", "Alemán", "Catalán", "Otro"];
 
 const V_STEP_TITLES = [
   "Información General",
@@ -744,13 +905,26 @@ const O_STEP_TITLES = [
 ];
 
 const O_ACTIVIDADES_ORGANIZADAS = [
-  "Talleres","Cursos","Formaciones","Eventos","Conferencias",
-  "Retiros","Encuentros","Actividades recurrentes","Otro",
+  "Talleres",
+  "Cursos",
+  "Formaciones",
+  "Eventos",
+  "Conferencias",
+  "Retiros",
+  "Encuentros",
+  "Actividades recurrentes",
+  "Otro",
 ];
 
 const O_INSTALACIONES = [
-  "Salas de terapia","Salas de formación","Espacios para eventos",
-  "Jardín","Alojamiento","Restaurante","Cafetería","Otro",
+  "Salas de terapia",
+  "Salas de formación",
+  "Espacios para eventos",
+  "Jardín",
+  "Alojamiento",
+  "Restaurante",
+  "Cafetería",
+  "Otro",
 ];
 
 function UbicacionesList() {
@@ -766,17 +940,21 @@ function UbicacionesList() {
           <MunicipioPicker label="Municipio" />
           <FakeField label="Isla (Mallorca)" />
           {items.length > 1 && (
-            <button type="button"
+            <button
+              type="button"
               onClick={() => setItems(items.filter((x) => x.id !== it.id))}
-              style={{ ...btn("secondary"), padding: "4px 10px", fontSize: 12 }}>
+              style={{ ...btn("secondary"), padding: "4px 10px", fontSize: 12 }}
+            >
               Eliminar
             </button>
           )}
         </div>
       ))}
-      <button type="button"
+      <button
+        type="button"
         onClick={() => setItems([...items, { id: Date.now() }])}
-        style={{ ...btn("secondary"), padding: "6px 12px" }}>
+        style={{ ...btn("secondary"), padding: "6px 12px" }}
+      >
         ➕ Añadir otra ubicación
       </button>
     </div>
@@ -793,16 +971,20 @@ function EquipoList() {
           <FakeField label="Nombre" />
           <FakeField label="Cargo o especialidad" />
           <FakeField label="Fotografía" type="file" />
-          <button type="button"
+          <button
+            type="button"
             onClick={() => setItems(items.filter((x) => x.id !== it.id))}
-            style={{ ...btn("secondary"), padding: "4px 10px", fontSize: 12 }}>
+            style={{ ...btn("secondary"), padding: "4px 10px", fontSize: 12 }}
+          >
             Eliminar
           </button>
         </div>
       ))}
-      <button type="button"
+      <button
+        type="button"
         onClick={() => setItems([...items, { id: Date.now() }])}
-        style={{ ...btn("secondary"), padding: "6px 12px" }}>
+        style={{ ...btn("secondary"), padding: "6px 12px" }}
+      >
         ➕ Añadir miembro
       </button>
     </div>
@@ -813,11 +995,16 @@ function VCheckboxes({ options, columns = 3 }: { options: string[]; columns?: nu
   const [selected, setSelected] = useState<string[]>([]);
   const toggle = (v: string) =>
     setSelected((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]));
-  const showOtro = options.includes("Otro (especificar)") && selected.includes("Otro (especificar)");
+  const showOtro =
+    options.includes("Otro (especificar)") && selected.includes("Otro (especificar)");
   return (
     <div>
       <CheckboxGroup options={options} columns={columns} selected={selected} onToggle={toggle} />
-      {showOtro && <div style={{ marginTop: 12 }}><FakeField label="Especificar" /></div>}
+      {showOtro && (
+        <div style={{ marginTop: 12 }}>
+          <FakeField label="Especificar" />
+        </div>
+      )}
     </div>
   );
 }
@@ -828,7 +1015,7 @@ function VYesNo({ label }: { label: string }) {
     <div style={{ marginBottom: 12 }}>
       <div style={{ fontSize: 13, marginBottom: 6 }}>{label}</div>
       <div style={{ display: "flex", gap: 8 }}>
-        {(["si","no"] as const).map((v) => (
+        {(["si", "no"] as const).map((v) => (
           <button
             key={v}
             type="button"
@@ -915,33 +1102,66 @@ function ConsultasList() {
 }
 
 function VConsentItem({
-  icon, title, linkText, label, checked, onToggle,
+  icon,
+  title,
+  linkText,
+  label,
+  checked,
+  onToggle,
 }: {
-  icon: string; title: string; linkText?: string; label: string;
-  checked: boolean; onToggle: () => void;
+  icon: string;
+  title: string;
+  linkText?: string;
+  label: string;
+  checked: boolean;
+  onToggle: () => void;
 }) {
   return (
     <div style={{ marginBottom: 16 }}>
-      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>{icon} {title}</div>
+      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
+        {icon} {title}
+      </div>
       {linkText && (
-        <a href="#" onClick={(e) => e.preventDefault()}
-          style={{ fontSize: 12, color: "#111", textDecoration: "underline", display: "inline-block", marginBottom: 8 }}>
+        <a
+          href="#"
+          onClick={(e) => e.preventDefault()}
+          style={{
+            fontSize: 12,
+            color: "#111",
+            textDecoration: "underline",
+            display: "inline-block",
+            marginBottom: 8,
+          }}
+        >
           {linkText}
         </a>
       )}
       <div
         onClick={onToggle}
         style={{
-          display: "flex", alignItems: "center", gap: 8, padding: "8px 10px",
-          border: "1px dashed #888", background: checked ? "#f3f3f3" : "#fff",
-          cursor: "pointer", fontSize: 13,
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          padding: "8px 10px",
+          border: "1px dashed #888",
+          background: checked ? "#f3f3f3" : "#fff",
+          cursor: "pointer",
+          fontSize: 13,
         }}
       >
-        <span style={{
-          display: "inline-flex", alignItems: "center", justifyContent: "center",
-          width: 14, height: 14, border: "1px dashed #666", background: "#fff",
-          fontSize: 10, flexShrink: 0,
-        }}>
+        <span
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: 14,
+            height: 14,
+            border: "1px dashed #666",
+            background: "#fff",
+            fontSize: 10,
+            flexShrink: 0,
+          }}
+        >
           {checked ? "☑" : ""}
         </span>
         <span>{label}</span>
@@ -967,8 +1187,12 @@ function VerificadoFormulario() {
   const isLast = step === total;
 
   const [consents, setConsents] = useState<VConsents>({
-    seguroRC: false, codigo: false, veracidad: false,
-    privacidad: false, condiciones: false, publicacion: false,
+    seguroRC: false,
+    codigo: false,
+    veracidad: false,
+    privacidad: false,
+    condiciones: false,
+    publicacion: false,
   });
   const [autorizaPago, setAutorizaPago] = useState(false);
 
@@ -981,20 +1205,18 @@ function VerificadoFormulario() {
   });
   const [representanteEsContacto, setRepresentanteEsContacto] = useState(false);
 
-  const toggleConsent = (k: keyof VConsents) =>
-    setConsents((p) => ({ ...p, [k]: !p[k] }));
+  const toggleConsent = (k: keyof VConsents) => setConsents((p) => ({ ...p, [k]: !p[k] }));
   const allConsents = Object.values(consents).every(Boolean);
 
-  const handleContactoChange = (field: "nombre" | "apellidos" | "cargo" | "email", value: string) => {
+  const handleContactoChange = (
+    field: "nombre" | "apellidos" | "cargo" | "email",
+    value: string,
+  ) => {
     setContacto((prev) => ({ ...prev, [field]: value }));
   };
   const handleContactoTelefono = (value: { prefijo: string; numero: string }) => {
     setContacto((prev) => ({ ...prev, telefono: value }));
   };
-
-
-
-
 
   const finish = () => navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
 
@@ -1019,12 +1241,21 @@ function VerificadoFormulario() {
           {TITLES.map((t, i) => {
             const n = i + 1;
             return (
-              <div key={n} title={t} style={{
-                flex: 1, padding: 6, fontSize: 11, textAlign: "center",
-                border: "1px dashed #888",
-                background: n === step ? "#111" : n < step ? "#ddd" : "#fff",
-                color: n === step ? "#fff" : "#111",
-              }}>{n}</div>
+              <div
+                key={n}
+                title={t}
+                style={{
+                  flex: 1,
+                  padding: 6,
+                  fontSize: 11,
+                  textAlign: "center",
+                  border: "1px dashed #888",
+                  background: n === step ? "#111" : n < step ? "#ddd" : "#fff",
+                  color: n === step ? "#fff" : "#111",
+                }}
+              >
+                {n}
+              </div>
             );
           })}
         </div>
@@ -1032,7 +1263,6 @@ function VerificadoFormulario() {
           {TITLES.map((t, i) => `${i + 1}. ${t}`).join("  ·  ")}
         </div>
       </Box>
-
 
       {step === 1 && (
         <>
@@ -1051,37 +1281,71 @@ function VerificadoFormulario() {
           {isOrg && (
             <Box title="👤 Persona de contacto">
               <Note>
-                Será la persona con la que Mallorca Holística se comunicará durante el proceso de registro y verificación.
+                Será la persona con la que Mallorca Holística se comunicará durante el proceso de
+                registro y verificación.
                 <br />
-                Si esta persona también es el representante legal de la organización, podrás indicarlo en el Paso 6.
+                Si esta persona también es el representante legal de la organización, podrás
+                indicarlo en el Paso 6.
               </Note>
               <input
                 type="text"
                 placeholder="Nombre"
                 value={contacto.nombre}
                 onChange={(e) => handleContactoChange("nombre", e.target.value)}
-                style={{ width: "100%", padding: "8px 10px", marginBottom: 12, border: "1px dashed #888", fontSize: 13, fontFamily: "inherit", boxSizing: "border-box" }}
+                style={{
+                  width: "100%",
+                  padding: "8px 10px",
+                  marginBottom: 12,
+                  border: "1px dashed #888",
+                  fontSize: 13,
+                  fontFamily: "inherit",
+                  boxSizing: "border-box",
+                }}
               />
               <input
                 type="text"
                 placeholder="Apellidos"
                 value={contacto.apellidos}
                 onChange={(e) => handleContactoChange("apellidos", e.target.value)}
-                style={{ width: "100%", padding: "8px 10px", marginBottom: 12, border: "1px dashed #888", fontSize: 13, fontFamily: "inherit", boxSizing: "border-box" }}
+                style={{
+                  width: "100%",
+                  padding: "8px 10px",
+                  marginBottom: 12,
+                  border: "1px dashed #888",
+                  fontSize: 13,
+                  fontFamily: "inherit",
+                  boxSizing: "border-box",
+                }}
               />
               <input
                 type="text"
                 placeholder="Cargo (opcional) — Ej.: Director/a, Coordinador/a, Responsable, Fundador/a, Gerente"
                 value={contacto.cargo}
                 onChange={(e) => handleContactoChange("cargo", e.target.value)}
-                style={{ width: "100%", padding: "8px 10px", marginBottom: 12, border: "1px dashed #888", fontSize: 13, fontFamily: "inherit", boxSizing: "border-box" }}
+                style={{
+                  width: "100%",
+                  padding: "8px 10px",
+                  marginBottom: 12,
+                  border: "1px dashed #888",
+                  fontSize: 13,
+                  fontFamily: "inherit",
+                  boxSizing: "border-box",
+                }}
               />
               <input
                 type="email"
                 placeholder="Correo electrónico"
                 value={contacto.email}
                 onChange={(e) => handleContactoChange("email", e.target.value)}
-                style={{ width: "100%", padding: "8px 10px", marginBottom: 12, border: "1px dashed #888", fontSize: 13, fontFamily: "inherit", boxSizing: "border-box" }}
+                style={{
+                  width: "100%",
+                  padding: "8px 10px",
+                  marginBottom: 12,
+                  border: "1px dashed #888",
+                  fontSize: 13,
+                  fontFamily: "inherit",
+                  boxSizing: "border-box",
+                }}
               />
               <TelefonoField
                 label="Teléfono"
@@ -1103,10 +1367,17 @@ function VerificadoFormulario() {
             <FakeField label="Correo electrónico" type="email" />
             <TelefonoField label="Teléfono" />
             <TelefonoField label="WhatsApp" />
-            <FakeField label={isOrg ? "Logo (opcional)" : "Logo profesional (opcional)"} type="file" />
+            <FakeField
+              label={isOrg ? "Logo (opcional)" : "Logo profesional (opcional)"}
+              type="file"
+            />
             <FakeField label={isOrg ? "Imagen principal" : "Foto principal"} type="file" />
             <FakeField
-              label={isOrg ? "Galería (opcional, hasta 9 imágenes)" : "Fotos galería (opcional, máximo 3)"}
+              label={
+                isOrg
+                  ? "Galería (opcional, hasta 9 imágenes)"
+                  : "Fotos galería (opcional, máximo 3)"
+              }
               type="file"
             />
           </Box>
@@ -1148,7 +1419,9 @@ function VerificadoFormulario() {
           )}
           {isOrg ? (
             <>
-              <Box title="📍 Ubicaciones"><UbicacionesList /></Box>
+              <Box title="📍 Ubicaciones">
+                <UbicacionesList />
+              </Box>
               <Box title="Instalaciones">
                 <Note>Selecciona las instalaciones disponibles en tu espacio.</Note>
                 <VCheckboxes options={O_INSTALACIONES} columns={3} />
@@ -1159,7 +1432,9 @@ function VerificadoFormulario() {
               </Box>
             </>
           ) : (
-            <Box title="Consultas"><ConsultasList /></Box>
+            <Box title="Consultas">
+              <ConsultasList />
+            </Box>
           )}
         </>
       )}
@@ -1186,7 +1461,8 @@ function VerificadoFormulario() {
                   </>
                 )}
               </ul>
-              Esta frase puede aparecer en búsquedas, tarjetas de resultados, perfil público y Google.
+              Esta frase puede aparecer en búsquedas, tarjetas de resultados, perfil público y
+              Google.
             </div>
           </Box>
           <Box title={isOrg ? "✨ Presentación de la organización" : "✨ Presentación profesional"}>
@@ -1196,11 +1472,19 @@ function VerificadoFormulario() {
                 : "Cuéntanos quién eres, qué haces y cómo acompañas a las personas. Máximo 3000 caracteres."}
             </Note>
             <FakeField
-              label={isOrg ? "Presentación de la organización (máx. 3000)" : "Presentación profesional (máx. 3000)"}
+              label={
+                isOrg
+                  ? "Presentación de la organización (máx. 3000)"
+                  : "Presentación profesional (máx. 3000)"
+              }
               type="textarea"
             />
           </Box>
-          {!isOrg && <Box title="🎓 Formación principal"><FormacionList /></Box>}
+          {!isOrg && (
+            <Box title="🎓 Formación principal">
+              <FormacionList />
+            </Box>
+          )}
           <Box title="🌍 Idiomas">
             <VCheckboxes options={V_IDIOMAS} columns={3} />
           </Box>
@@ -1212,7 +1496,6 @@ function VerificadoFormulario() {
           )}
         </>
       )}
-
 
       {step === 5 && (
         <Box title="🌐 Redes y Reservas">
@@ -1232,38 +1515,72 @@ function VerificadoFormulario() {
       )}
 
       {step === 6 && (
-        <Box title={isOrg ? "🛡️ Verificación de la Organización" : "🛡️ Verificación Mallorca Holística"}>
+        <Box
+          title={
+            isOrg ? "🛡️ Verificación de la Organización" : "🛡️ Verificación Mallorca Holística"
+          }
+        >
           {isOrg ? (
             <>
               <div style={{ marginBottom: 16 }}>
                 <div
                   onClick={() => setRepresentanteEsContacto((v) => !v)}
                   style={{
-                    display: "flex", alignItems: "center", gap: 8, padding: "8px 10px",
-                    border: "1px dashed #888", background: representanteEsContacto ? "#f3f3f3" : "#fff",
-                    cursor: "pointer", fontSize: 13,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    padding: "8px 10px",
+                    border: "1px dashed #888",
+                    background: representanteEsContacto ? "#f3f3f3" : "#fff",
+                    cursor: "pointer",
+                    fontSize: 13,
                   }}
                 >
-                  <span style={{
-                    display: "inline-flex", alignItems: "center", justifyContent: "center",
-                    width: 14, height: 14, border: "1px dashed #666", background: "#fff", fontSize: 10,
-                  }}>
+                  <span
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: 14,
+                      height: 14,
+                      border: "1px dashed #666",
+                      background: "#fff",
+                      fontSize: 10,
+                    }}
+                  >
                     {representanteEsContacto ? "☑" : ""}
                   </span>
-                  <span>La persona de contacto es también el representante legal de esta organización.</span>
+                  <span>
+                    La persona de contacto es también el representante legal de esta organización.
+                  </span>
                 </div>
               </div>
 
               <div style={{ marginBottom: 16 }}>
-                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>👤 Persona responsable</div>
+                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
+                  👤 Persona responsable
+                </div>
                 {representanteEsContacto ? (
                   <>
-                    <Note>Se reutilizan los datos de la persona de contacto introducidos en el Paso 1.</Note>
-                    <div style={{ fontSize: 13, marginBottom: 8 }}><strong>Nombre:</strong> {contacto.nombre || "[pendiente]"}</div>
-                    <div style={{ fontSize: 13, marginBottom: 8 }}><strong>Apellidos:</strong> {contacto.apellidos || "[pendiente]"}</div>
-                    <div style={{ fontSize: 13, marginBottom: 8 }}><strong>Cargo:</strong> {contacto.cargo || "[pendiente]"}</div>
-                    <div style={{ fontSize: 13, marginBottom: 8 }}><strong>Email:</strong> {contacto.email || "[pendiente]"}</div>
-                    <div style={{ fontSize: 13, marginBottom: 8 }}><strong>Teléfono:</strong> {contacto.telefono.prefijo} {contacto.telefono.numero || "[pendiente]"}</div>
+                    <Note>
+                      Se reutilizan los datos de la persona de contacto introducidos en el Paso 1.
+                    </Note>
+                    <div style={{ fontSize: 13, marginBottom: 8 }}>
+                      <strong>Nombre:</strong> {contacto.nombre || "[pendiente]"}
+                    </div>
+                    <div style={{ fontSize: 13, marginBottom: 8 }}>
+                      <strong>Apellidos:</strong> {contacto.apellidos || "[pendiente]"}
+                    </div>
+                    <div style={{ fontSize: 13, marginBottom: 8 }}>
+                      <strong>Cargo:</strong> {contacto.cargo || "[pendiente]"}
+                    </div>
+                    <div style={{ fontSize: 13, marginBottom: 8 }}>
+                      <strong>Email:</strong> {contacto.email || "[pendiente]"}
+                    </div>
+                    <div style={{ fontSize: 13, marginBottom: 8 }}>
+                      <strong>Teléfono:</strong> {contacto.telefono.prefijo}{" "}
+                      {contacto.telefono.numero || "[pendiente]"}
+                    </div>
                   </>
                 ) : (
                   <>
@@ -1277,7 +1594,9 @@ function VerificadoFormulario() {
               </div>
 
               <div style={{ marginBottom: 16 }}>
-                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>🏢 Identificación de la entidad</div>
+                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
+                  🏢 Identificación de la entidad
+                </div>
                 <FakeField label="Nombre legal" />
                 <FakeField label="CIF / NIF" />
               </div>
@@ -1285,60 +1604,114 @@ function VerificadoFormulario() {
           ) : (
             <>
               <div style={{ marginBottom: 16 }}>
-                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>Seguro de Responsabilidad Civil</div>
+                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
+                  Seguro de Responsabilidad Civil
+                </div>
                 <div
                   onClick={() => toggleConsent("seguroRC")}
                   style={{
-                    display: "flex", alignItems: "center", gap: 8, padding: "8px 10px",
-                    border: "1px dashed #888", background: consents.seguroRC ? "#f3f3f3" : "#fff",
-                    cursor: "pointer", fontSize: 13,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    padding: "8px 10px",
+                    border: "1px dashed #888",
+                    background: consents.seguroRC ? "#f3f3f3" : "#fff",
+                    cursor: "pointer",
+                    fontSize: 13,
                   }}
                 >
-                  <span style={{
-                    display: "inline-flex", alignItems: "center", justifyContent: "center",
-                    width: 14, height: 14, border: "1px dashed #666", background: "#fff", fontSize: 10,
-                  }}>{consents.seguroRC ? "☑" : ""}</span>
-                  <span>Declaro disponer de un Seguro de Responsabilidad Civil vigente para el desarrollo de mi actividad profesional.</span>
+                  <span
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: 14,
+                      height: 14,
+                      border: "1px dashed #666",
+                      background: "#fff",
+                      fontSize: 10,
+                    }}
+                  >
+                    {consents.seguroRC ? "☑" : ""}
+                  </span>
+                  <span>
+                    Declaro disponer de un Seguro de Responsabilidad Civil vigente para el
+                    desarrollo de mi actividad profesional.
+                  </span>
                 </div>
               </div>
 
               <div style={{ marginBottom: 16 }}>
-                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>Diploma o Certificado</div>
+                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
+                  Diploma o Certificado
+                </div>
                 <Note>Mínimo 1 documento obligatorio.</Note>
                 <FakeField label="Subir diploma o certificado" type="file" />
               </div>
 
               <div style={{ marginBottom: 16 }}>
-                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>Certificados adicionales</div>
+                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
+                  Certificados adicionales
+                </div>
                 <Note>Máximo 5 documentos.</Note>
                 <FakeField label="Subir certificados adicionales (opcional)" type="file" />
               </div>
             </>
           )}
 
-          <VConsentItem icon="📜" title="Código Deontológico" linkText="👉 Ver documento"
+          <VConsentItem
+            icon="📜"
+            title="Código Deontológico"
+            linkText="👉 Ver documento"
             label="Confirmo que he leído y acepto el Código Deontológico de Mallorca Holística."
-            checked={consents.codigo} onToggle={() => toggleConsent("codigo")} />
-          <VConsentItem icon="✅" title="Declaración de veracidad"
+            checked={consents.codigo}
+            onToggle={() => toggleConsent("codigo")}
+          />
+          <VConsentItem
+            icon="✅"
+            title="Declaración de veracidad"
             label="Declaro que toda la información aportada es veraz, exacta y está actualizada."
-            checked={consents.veracidad} onToggle={() => toggleConsent("veracidad")} />
-          <VConsentItem icon="🔒" title="Política de Privacidad" linkText="👉 Ver documento"
+            checked={consents.veracidad}
+            onToggle={() => toggleConsent("veracidad")}
+          />
+          <VConsentItem
+            icon="🔒"
+            title="Política de Privacidad"
+            linkText="👉 Ver documento"
             label="Confirmo que he leído y acepto la Política de Privacidad."
-            checked={consents.privacidad} onToggle={() => toggleConsent("privacidad")} />
-          <VConsentItem icon="📄" title="Condiciones de Uso" linkText="👉 Ver documento"
+            checked={consents.privacidad}
+            onToggle={() => toggleConsent("privacidad")}
+          />
+          <VConsentItem
+            icon="📄"
+            title="Condiciones de Uso"
+            linkText="👉 Ver documento"
             label="Confirmo que he leído y acepto las Condiciones de Uso."
-            checked={consents.condiciones} onToggle={() => toggleConsent("condiciones")} />
-          <VConsentItem icon="🌐" title="Publicación del Perfil" linkText="👉 Ver autorización"
-            label={isOrg
-              ? "Autorizo a Mallorca Holística a publicar el perfil de la organización en la plataforma."
-              : "Autorizo a Mallorca Holística a publicar mi perfil profesional en la plataforma."}
-            checked={consents.publicacion} onToggle={() => toggleConsent("publicacion")} />
+            checked={consents.condiciones}
+            onToggle={() => toggleConsent("condiciones")}
+          />
+          <VConsentItem
+            icon="🌐"
+            title="Publicación del Perfil"
+            linkText="👉 Ver autorización"
+            label={
+              isOrg
+                ? "Autorizo a Mallorca Holística a publicar el perfil de la organización en la plataforma."
+                : "Autorizo a Mallorca Holística a publicar mi perfil profesional en la plataforma."
+            }
+            checked={consents.publicacion}
+            onToggle={() => toggleConsent("publicacion")}
+          />
 
           {isOrg && (
             <>
-              <VConsentItem icon="📝" title="Declaración responsable"
+              <VConsentItem
+                icon="📝"
+                title="Declaración responsable"
                 label="Declaro representar legalmente o contar con autorización para actuar en nombre de esta organización."
-                checked={consents.seguroRC} onToggle={() => toggleConsent("seguroRC")} />
+                checked={consents.seguroRC}
+                onToggle={() => toggleConsent("seguroRC")}
+              />
 
               <div style={{ marginBottom: 16 }}>
                 <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>✍️ Firma</div>
@@ -1354,35 +1727,48 @@ function VerificadoFormulario() {
         </Box>
       )}
 
-
       {step === 7 && (
         <Box title="💳 Suscripción y Método de Pago">
           <div style={{ marginBottom: 16 }}>
             <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>💳 Método de pago</div>
             <p style={{ fontSize: 13, marginBottom: 8 }}>
-              Como miembro de la Comunidad Fundadora disfrutarás de 6 meses gratuitos desde la fecha oficial de lanzamiento de Mallorca Holística.
+              Como miembro de la Comunidad Fundadora disfrutarás de 6 meses gratuitos desde la fecha
+              oficial de lanzamiento de Mallorca Holística.
             </p>
             <p style={{ fontSize: 13, marginBottom: 8 }}>
-              Para reservar tu plaza y facilitar la activación futura de tu suscripción, necesitamos registrar un método de pago válido.
+              Para reservar tu plaza y facilitar la activación futura de tu suscripción, necesitamos
+              registrar un método de pago válido.
             </p>
             <p style={{ fontSize: 13, marginBottom: 8 }}>
-              No se realizará ningún cargo durante el proceso de revisión de tu solicitud ni durante el periodo gratuito.
+              No se realizará ningún cargo durante el proceso de revisión de tu solicitud ni durante
+              el periodo gratuito.
             </p>
             <p style={{ fontSize: 13, marginBottom: 8 }}>
-              Tu método de pago quedará protegido mediante Stripe y únicamente se utilizará cuando finalicen los 6 meses gratuitos, siempre que tu solicitud haya sido aprobada.
+              Tu método de pago quedará protegido mediante Stripe y únicamente se utilizará cuando
+              finalicen los 6 meses gratuitos, siempre que tu solicitud haya sido aprobada.
             </p>
           </div>
 
           <div style={{ marginBottom: 16 }}>
-            <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>🌿 Condiciones Comunidad Fundadora</div>
+            <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
+              🌿 Condiciones Comunidad Fundadora
+            </div>
             <ul style={{ fontSize: 13, paddingLeft: 20, marginBottom: 8 }}>
-              <li>✨ 6 meses gratuitos desde la fecha oficial de lanzamiento de Mallorca Holística.</li>
-              <li>✨ Tarifa fundadora protegida de {isOrg ? "35" : "15"} €/mes (IVA incluido) para siempre mientras mantengas activa tu suscripción.</li>
+              <li>
+                ✨ 6 meses gratuitos desde la fecha oficial de lanzamiento de Mallorca Holística.
+              </li>
+              <li>
+                ✨ Tarifa fundadora protegida de {isOrg ? "35" : "15"} €/mes (IVA incluido) para
+                siempre mientras mantengas activa tu suscripción.
+              </li>
               <li>✨ Sin permanencia.</li>
-              <li>✨ Sin ningún cargo durante el proceso de revisión ni durante el periodo gratuito.</li>
+              <li>
+                ✨ Sin ningún cargo durante el proceso de revisión ni durante el periodo gratuito.
+              </li>
             </ul>
             <p style={{ fontSize: 13, marginBottom: 8 }}>
-              📅 La fecha oficial de lanzamiento será comunicada con suficiente antelación a todos los miembros fundadores.
+              📅 La fecha oficial de lanzamiento será comunicada con suficiente antelación a todos
+              los miembros fundadores.
             </p>
           </div>
 
@@ -1406,7 +1792,11 @@ function VerificadoFormulario() {
       )}
 
       <Box title="Navegación">
-        <button onClick={() => setStep((s) => Math.max(1, s - 1))} disabled={step === 1} style={btn("secondary")}>
+        <button
+          onClick={() => setStep((s) => Math.max(1, s - 1))}
+          disabled={step === 1}
+          style={btn("secondary")}
+        >
           ← Anterior
         </button>
         {!isLast ? (
@@ -1422,10 +1812,7 @@ function VerificadoFormulario() {
             Siguiente →
           </button>
         ) : (
-          <button
-            onClick={finish}
-            style={btn("primary")}
-          >
+          <button onClick={finish} style={btn("primary")}>
             👉 Enviar solicitud de verificación
           </button>
         )}
@@ -1433,4 +1820,3 @@ function VerificadoFormulario() {
     </WireframeShell>
   );
 }
-
