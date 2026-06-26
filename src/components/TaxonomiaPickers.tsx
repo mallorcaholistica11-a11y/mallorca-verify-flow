@@ -164,9 +164,9 @@ export type PickerVariant = "profesional" | "organizacion";
 
 const DEFAULT_MAX_ESPECIALIDADES = 3;
 const PROFESIONAL_ESPECIALIDADES_NOTE =
-  "Elige tus terapias o especialidades principales. Podrás ordenarlas según la importancia que tienen en tu práctica.";
+  "Elige tus terapias o especialidades principales. Puedes ordenarlas según la importancia que tienen en tu práctica.";
 const ORGANIZACION_ESPECIALIDADES_NOTE =
-  "Selecciona las terapias, servicios o actividades que ofrece vuestra organización. Podrás ordenarlas según su importancia.";
+  "Selecciona las terapias, servicios o actividades que ofrece vuestra organización. Puedes ordenarlas según su importancia.";
 
 export function EspecialidadesPicker({
   max = DEFAULT_MAX_ESPECIALIDADES,
@@ -359,9 +359,9 @@ export function EspecialidadesPicker({
 
 const DEFAULT_MAX_AREAS = 5;
 const PROFESIONAL_AREAS_NOTE =
-  "Elige las áreas en las que acompañas principalmente. Podrás ordenarlas según la importancia que tienen en tu práctica.";
+  "Elige las áreas en las que acompañas principalmente. Puedes ordenarlas según la importancia que tienen en tu práctica.";
 const ORGANIZACION_AREAS_NOTE =
-  "Selecciona las áreas en las que trabaja principalmente vuestra organización. Podrás ordenarlas según su importancia.";
+  "Selecciona las áreas en las que trabaja principalmente vuestra organización. Puedes ordenarlas según su importancia.";
 
 export function AreasPicker({
   max = DEFAULT_MAX_AREAS,
