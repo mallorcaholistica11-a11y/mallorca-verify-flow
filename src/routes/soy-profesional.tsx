@@ -80,13 +80,13 @@ function SoyProfesional() {
               <strong>Plan gratuito</strong>
             </p>
             <p style={{ fontSize: 13, marginBottom: 12 }}>
-              Empieza a formar parte de Mallorca Holística creando tu perfil profesional para que más personas puedan descubrir tu trabajo.
+              Empieza a formar parte de Mallorca Holística para que las personas puedan descubrir quién eres, cómo acompañas y los servicios que ofreces.
             </p>
-            <p style={{ fontSize: 13, marginBottom: 4 }}>Incluye:</p>
+            <p style={{ fontSize: 13, marginBottom: 4 }}>Con Presencia puedes:</p>
             <div style={{ marginBottom: 12 }}>
-              <p style={bullet}>• Perfil público básico</p>
-              <p style={bullet}>• Presencia en el directorio</p>
-              <p style={bullet}>• Acceso al panel profesional</p>
+              <p style={bullet}>• Crear tu perfil profesional.</p>
+              <p style={bullet}>• Aparecer en el directorio de Mallorca Holística.</p>
+              <p style={bullet}>• Acceder a tu panel profesional.</p>
             </div>
             <NavButton to="/auth/crear-cuenta" search={{ track: "presencia" }}>
               👉 Crear perfil gratuito
