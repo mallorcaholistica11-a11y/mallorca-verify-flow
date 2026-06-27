@@ -17,16 +17,10 @@ function ProfesionalFundador() {
           Mallorca Holística se encuentra actualmente en fase beta.
         </p>
         <p style={{ fontSize: 13 }}>
-          Estamos construyendo el ecosistema inicial de profesionales, centros, organizaciones y actividades que forman el corazón de Mallorca Holística.
+          Durante esta primera etapa iremos incorporando nuevas funcionalidades y mejorando la plataforma gracias a la participación de nuestra comunidad.
         </p>
         <p style={{ fontSize: 13 }}>
-          Las personas que se incorporan durante esta etapa participan en los primeros pasos del proyecto y contribuyen a crear una red más visible, conectada y accesible para todos.
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Nuevas funcionalidades, contenidos y oportunidades de participación se incorporan progresivamente a medida que crece la comunidad.
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Gracias por formar parte de esta etapa fundacional y por ayudar a sembrar las primeras semillas de Mallorca Holística. 🌿
+          Gracias por acompañarnos desde el principio y formar parte de este lanzamiento. 🌿
         </p>
       </Box>
 
