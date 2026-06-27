@@ -26,6 +26,12 @@ function ProfesionalFundador() {
 
       <Box title="✨ PROFESIONAL FUNDADOR">
         <p style={{ fontSize: 13 }}>
+          Para profesionales que desean dar visibilidad a su actividad.
+        </p>
+        <p style={{ fontSize: 13 }}>
+          Terapeutas, psicólogos, coaches, instructores, profesionales de la salud, del movimiento, del desarrollo personal...
+        </p>
+        <p style={{ fontSize: 13 }}>
           El Programa Profesional Fundador está dirigido a profesionales que desean impulsar su presencia en Mallorca Holística desde el lanzamiento, con un perfil profesional verificado y condiciones exclusivas para los primeros miembros de la comunidad.
         </p>
       </Box>
