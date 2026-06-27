@@ -191,9 +191,23 @@ function SoyProfesional() {
             <p style={{ fontSize: 13, marginBottom: 16 }}>
               La puerta de entrada a Mallorca Holística.
             </p>
-            <NavButton to="/auth/crear-cuenta" search={{ track: "presencia" }}>
+            <button
+              disabled
+              style={{
+                display: "inline-block",
+                padding: "10px 16px",
+                border: "2px solid #111",
+                background: "#f3f3f3",
+                color: "#888",
+                fontSize: 13,
+                marginTop: 8,
+                cursor: "not-allowed",
+                opacity: 0.7,
+                fontFamily: "inherit",
+              }}
+            >
               Plan actual
-            </NavButton>
+            </button>
           </Card>
 
           <Card title="⭐ Profesional Verificado">
