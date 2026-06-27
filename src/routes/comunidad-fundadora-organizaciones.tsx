@@ -17,50 +17,95 @@ function ComunidadOrg() {
           Mallorca Holística se encuentra actualmente en fase beta.
         </p>
         <p style={{ fontSize: 13 }}>
-          Estamos construyendo el ecosistema inicial de profesionales, centros, organizaciones y actividades que forman el corazón de Mallorca Holística.
+          Durante esta primera etapa iremos incorporando nuevas funcionalidades y mejorando la plataforma gracias a la participación de nuestra comunidad.
         </p>
         <p style={{ fontSize: 13 }}>
-          Las personas que se incorporan durante esta etapa participan en los primeros pasos del proyecto y contribuyen a crear una red más visible, conectada y accesible para todos.
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Nuevas funcionalidades, contenidos y oportunidades de participación se incorporan progresivamente a medida que crece la comunidad.
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Gracias por formar parte de esta etapa fundacional y por ayudar a sembrar las primeras semillas de Mallorca Holística. 🌿
+          Gracias por acompañarnos desde el principio y formar parte de este lanzamiento. 🌿
         </p>
       </Box>
 
-      <Box title="Fase beta">
-        <p style={{ fontSize: 13 }}>Mallorca Holística está en fase beta. Estamos construyendo el ecosistema inicial.</p>
+      <Box title="🌞 ORGANIZACIÓN FUNDADORA">
+        <p style={{ fontSize: 13 }}>
+          El Programa de Organizaciones Fundadoras está dirigido a centros, organizaciones y proyectos que desean impulsar su presencia en Mallorca Holística desde el lanzamiento, con un perfil de organización verificado y condiciones exclusivas para las primeras entidades que formen parte de la comunidad.
+        </p>
       </Box>
-      <Box title="Acceso">
-        <p style={{ fontSize: 13 }}>Acceso actualmente mediante invitación.</p>
-      </Box>
-      <Box title="Pensado para">
-        <ul style={{ fontSize: 13, paddingLeft: 18 }}>
-          <li>Centros</li>
-          <li>Escuelas</li>
-          <li>Espacios de bienestar</li>
-          <li>Asociaciones</li>
-          <li>Organizadores de eventos</li>
-          <li>Organizadores de retiros</li>
+
+      <Box title="Lo que incluye">
+        <ul style={{ paddingLeft: 18, fontSize: 13 }}>
+          <li>✓ Perfil público de organización dentro del directorio Mallorca Holística.</li>
+          <li>✓ Presentación completa de la organización.</li>
+          <li>✓ Especialidades y Terapias ilimitadas.</li>
+          <li>✓ Áreas de Especialización ilimitadas.</li>
+          <li>✓ Hasta 15 imágenes en la galería.</li>
+          <li>✓ Perfil de Organización Verificado.</li>
+          <li>✓ Identificación como Organización Verificada.</li>
+          <li>✓ Contacto directo mediante teléfono, WhatsApp, página web y redes sociales.</li>
+          <li>✓ Aparición prioritaria en el directorio y en los resultados de búsqueda.</li>
+          <li>✓ Publicación ilimitada de actividades, talleres, cursos, retiros y eventos.</li>
+          <li>✓ Acceso al panel de organización.</li>
         </ul>
       </Box>
-      <Box title="Beneficios">
-        <ul style={{ fontSize: 13, paddingLeft: 18 }}>
-          <li>6 meses gratuitos desde el lanzamiento oficial</li>
-          <li>Tarifa fundadora protegida de 35 €/mes para siempre mientras mantengan activa su suscripción</li>
+
+      <Box title="Requisitos">
+        <ul style={{ paddingLeft: 18, fontSize: 13 }}>
+          <li>✓ Aceptación del Código Deontológico Mallorca Holística.</li>
+          <li>✓ Identificación de la organización mediante la documentación correspondiente (CIF y documentación acreditativa).</li>
+          <li>✓ Designación de una persona responsable de la cuenta.</li>
+          <li>✓ Declaración de veracidad de la información aportada.</li>
+          <li>✓ Aceptación de la Política de Privacidad.</li>
+          <li>✓ Aceptación de las Condiciones de Uso.</li>
+          <li>✓ Autorización para la publicación del perfil.</li>
         </ul>
       </Box>
-      <Box title="Plazas">
-        <p style={{ fontSize: 13 }}>10 plazas disponibles. Reserva durante 15 días tras validar la invitación.</p>
+
+      <Box title="🌿 Comunidad Fundadora">
+        <p style={{ fontSize: 13 }}>
+          Mallorca Holística está dando sus primeros pasos.
+        </p>
+        <p style={{ fontSize: 13 }}>
+          Las Organizaciones Fundadoras no solo acceden a condiciones exclusivas, sino que participan activamente en la construcción de una plataforma creada para dar mayor visibilidad, confianza y reconocimiento a la salud complementaria e integrativa.
+        </p>
+        <p style={{ fontSize: 13 }}>
+          Su confianza y participación forman parte de los cimientos de Mallorca Holística.
+        </p>
+        <p style={{ fontSize: 13 }}>
+          Como agradecimiento por acompañarnos desde el inicio, disfrutarán de ventajas exclusivas que conservarán mientras mantengan activa su suscripción.
+        </p>
+        <ul style={{ paddingLeft: 18, fontSize: 13 }}>
+          <li>✨ 10 plazas disponibles.</li>
+          <li>✨ 6 meses gratuitos desde el lanzamiento oficial.</li>
+          <li>✨ Tarifa Fundadora protegida de 35 €/mes (IVA incluido) para siempre.</li>
+          <li>✨ Acceso prioritario a nuevas funcionalidades y futuras oportunidades dentro del ecosistema.</li>
+          <li>✨ Participación en la comunidad que está ayudando a construir Mallorca Holística desde sus comienzos.</li>
+        </ul>
+        <p style={{ fontSize: 13 }}>
+          Gracias por formar parte de esta primera semilla.
+        </p>
+        <p style={{ fontSize: 13 }}>
+          Porque lo que se siembra con alma... siempre florece. 🌿
+        </p>
       </Box>
+
+      <Box title="Precio futuro del plan">
+        <p style={{ fontSize: 13 }}>50 €/mes (IVA incluido)</p>
+      </Box>
+
+      <Box title="Ventaja Fundadora">
+        <p style={{ fontSize: 13 }}>
+          <strong>35 €/mes (IVA incluido)</strong> para siempre mientras la suscripción permanezca activa.
+        </p>
+        <p style={{ fontSize: 13 }}>+ 6 meses gratuitos desde el lanzamiento oficial.</p>
+      </Box>
+
       <Box title="Acciones">
         <NavButton to="/invitacion/$token" params={{ token: "demo-token" }} search={{ track: "organizacion" }}>
-          He recibido una invitación
+          👉 He recibido una invitación
         </NavButton>
         <NavButton to="/lista-espera" search={{ track: "organizacion" }} variant="secondary">
-          Quiero unirme a la lista de espera
+          👉 Quiero unirme a la lista de espera
+        </NavButton>
+        <NavButton to="/soy-profesional" variant="secondary">
+          ← Volver a planes
         </NavButton>
       </Box>
     </WireframeShell>
