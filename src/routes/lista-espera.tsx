@@ -23,12 +23,12 @@ const MUNICIPIOS = [
 ];
 
 const ACTIVIDADES = [
-  "Terapeuta",
-  "Centro de bienestar",
-  "Organizador de eventos",
-  "Escuela",
-  "Asociación",
-  "Otro",
+  "👤 Profesional de la salud complementaria e integrativa",
+  "🏢 Centro o espacio de bienestar",
+  "🎓 Escuela o centro de formación",
+  "🤝 Asociación o fundación",
+  "🎪 Organizador de eventos o retiros",
+  "✨ Otro proyecto relacionado",
 ];
 
 const ORIGEN_LABEL: Record<Origen, string> = {
