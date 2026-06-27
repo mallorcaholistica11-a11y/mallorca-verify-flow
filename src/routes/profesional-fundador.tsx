@@ -26,41 +26,41 @@ function ProfesionalFundador() {
 
       <Box title="✨ PROFESIONAL FUNDADOR">
         <p style={{ fontSize: 13 }}>
-          Pensado para profesionales que desean fortalecer la confianza, aumentar su visibilidad y facilitar que más personas descubran el valor de su trabajo.
+          El Programa Profesional Fundador está dirigido a profesionales que desean impulsar su presencia en Mallorca Holística desde el lanzamiento, con un perfil profesional verificado y condiciones exclusivas para los primeros miembros de la comunidad.
         </p>
       </Box>
 
       <Box title="Lo que incluye">
         <ul style={{ paddingLeft: 18, fontSize: 13 }}>
-          <li>✓ Perfil público dentro del directorio Mallorca Holística</li>
-          <li>✓ Foto principal y presentación profesional</li>
-          <li>✓ Hasta 3 especialidades o terapias</li>
-          <li>✓ Hasta 5 áreas de especialización</li>
-          <li>✓ Una ubicación profesional</li>
-          <li>✓ Información de contacto visible</li>
-          <li>✓ Página web e Instagram</li>
-          <li>✓ Aparición en búsquedas dentro de la plataforma</li>
-          <li>✓ Acceso al panel profesional</li>
-          <li>✓ Perfil Profesional Verificado Mallorca Holística</li>
-          <li>✓ Sello Profesional Verificado</li>
-          <li>✓ Trayectoria y formación visibles</li>
-          <li>✓ Contacto directo mediante teléfono, WhatsApp, página web y redes sociales</li>
-          <li>✓ Mayor visibilidad en búsquedas y recomendaciones</li>
-          <li>✓ Opiniones verificadas</li>
-          <li>✓ Galería de hasta 5 imágenes</li>
-          <li>✓ Publicación de hasta 3 actividades o eventos al mes</li>
-          <li>✓ Mayor facilidad para que las personas descubran tus servicios</li>
+          <li>✓ Perfil público dentro del directorio Mallorca Holística.</li>
+          <li>✓ Fotografía principal.</li>
+          <li>✓ Presentación profesional ampliada.</li>
+          <li>✓ Especialidades y Terapias ilimitadas.</li>
+          <li>✓ Áreas de Especialización ilimitadas.</li>
+          <li>✓ Una ubicación principal.</li>
+          <li>✓ Modalidades de atención.</li>
+          <li>✓ Idiomas.</li>
+          <li>✓ Perfil Profesional Verificado Mallorca Holística.</li>
+          <li>✓ Sello Profesional Verificado.</li>
+          <li>✓ Trayectoria profesional visible.</li>
+          <li>✓ Contacto directo mediante teléfono, WhatsApp, página web y redes sociales.</li>
+          <li>✓ Aparición prioritaria en el directorio y en los resultados de búsqueda.</li>
+          <li>✓ Opiniones verificadas.</li>
+          <li>✓ Galería de hasta 5 imágenes.</li>
+          <li>✓ Publicación de hasta 3 actividades al mes.</li>
+          <li>✓ Acceso al panel profesional.</li>
         </ul>
       </Box>
 
       <Box title="Requisitos">
         <ul style={{ paddingLeft: 18, fontSize: 13 }}>
-          <li>✓ Aceptación del Código Deontológico Mallorca Holística</li>
-          <li>✓ Declaración de veracidad de la información aportada</li>
-          <li>✓ Verificación profesional mediante acreditación formativa y seguro de responsabilidad civil vigente</li>
-          <li>✓ Aceptación de la Política de Privacidad</li>
-          <li>✓ Aceptación de las Condiciones de Uso</li>
-          <li>✓ Autorización para la publicación del perfil</li>
+          <li>✓ Aceptación del Código Deontológico Mallorca Holística.</li>
+          <li>✓ Verificación profesional mediante la aportación de hasta 3 titulaciones o certificaciones.</li>
+          <li>✓ Seguro de Responsabilidad Civil vigente.</li>
+          <li>✓ Declaración de veracidad de la información aportada.</li>
+          <li>✓ Aceptación de la Política de Privacidad.</li>
+          <li>✓ Aceptación de las Condiciones de Uso.</li>
+          <li>✓ Autorización para la publicación del perfil.</li>
         </ul>
       </Box>
 
@@ -69,13 +69,13 @@ function ProfesionalFundador() {
           Mallorca Holística está dando sus primeros pasos.
         </p>
         <p style={{ fontSize: 13 }}>
-          Las personas que forman parte de la Comunidad Fundadora acceden a condiciones especiales y participan activamente en la creación de una red más visible, conectada y accesible para todos.
+          Los Miembros Fundadores no solo acceden a condiciones exclusivas, sino que participan activamente en la construcción de una plataforma creada para dar mayor visibilidad, confianza y reconocimiento a la salud complementaria e integrativa.
         </p>
         <p style={{ fontSize: 13 }}>
-          Su confianza, apoyo e implicación tienen un valor inmenso para nosotros.
+          Su confianza y participación forman parte de los cimientos de Mallorca Holística.
         </p>
         <p style={{ fontSize: 13 }}>
-          Como agradecimiento, disfrutan de condiciones especialmente ventajosas que conservarán mientras su suscripción permanezca activa.
+          Como agradecimiento por acompañarnos desde el inicio, disfrutarán de ventajas exclusivas que conservarán mientras mantengan activa su suscripción.
         </p>
         <ul style={{ paddingLeft: 18, fontSize: 13 }}>
           <li>✨ 40 plazas disponibles</li>
