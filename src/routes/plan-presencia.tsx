@@ -17,37 +17,37 @@ function PlanPresencia() {
           Mallorca Holística se encuentra actualmente en fase beta.
         </p>
         <p style={{ fontSize: 13 }}>
-          Estamos construyendo el ecosistema inicial de profesionales, centros, organizaciones y actividades que forman el corazón de Mallorca Holística.
+          Durante esta primera etapa iremos incorporando nuevas funcionalidades y mejorando la plataforma gracias a la participación de nuestra comunidad.
         </p>
         <p style={{ fontSize: 13 }}>
-          Las personas que se incorporan durante esta etapa participan en los primeros pasos del proyecto y contribuyen a crear una red más visible, conectada y accesible para todos.
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Nuevas funcionalidades, contenidos y oportunidades de participación se incorporan progresivamente a medida que crece la comunidad.
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Gracias por formar parte de esta etapa fundacional y por ayudar a sembrar las primeras semillas de Mallorca Holística. 🌿
+          Gracias por acompañarnos desde el principio y formar parte de este lanzamiento. 🌿
         </p>
       </Box>
 
       <Box title="🌿 PLAN PRESENCIA">
         <p style={{ fontSize: 13 }}>
-          Ideal para profesionales, proyectos, asociaciones y organizaciones que desean formar parte de Mallorca Holística y contribuir a una comunidad más visible, conectada y accesible.
+          El Plan Presencia es la puerta de entrada a Mallorca Holística.
+        </p>
+        <p style={{ fontSize: 13 }}>
+          Permite crear un perfil público dentro de la plataforma y comenzar a formar parte del ecosistema, dando visibilidad a tu actividad profesional o a tu proyecto.
         </p>
       </Box>
 
       <Box title="Lo que incluye">
         <ul style={{ paddingLeft: 18, fontSize: 13 }}>
-          <li>✓ Perfil público dentro del directorio Mallorca Holística</li>
-          <li>✓ Foto principal y presentación profesional</li>
-          <li>✓ Hasta 3 especialidades o terapias</li>
-          <li>✓ Hasta 5 áreas de especialización</li>
-          <li>✓ Una ubicación profesional</li>
-          <li>✓ Información de contacto visible</li>
-          <li>✓ Página web e Instagram</li>
-          <li>✓ Aparición en búsquedas dentro de la plataforma</li>
-          <li>✓ Acceso al panel profesional</li>
-          <li>✓ Posibilidad de publicar actividades de forma ocasional, previa validación por parte de Mallorca Holística</li>
+          <li>✓ Perfil público dentro del directorio Mallorca Holística.</li>
+          <li>✓ Fotografía principal.</li>
+          <li>✓ Presentación profesional.</li>
+          <li>✓ Hasta 3 Especialidades y Terapias.</li>
+          <li>✓ Hasta 5 Áreas de Especialización.</li>
+          <li>✓ Una ubicación principal.</li>
+          <li>✓ Modalidades de atención.</li>
+          <li>✓ Idiomas.</li>
+          <li>✓ Información básica de contacto visible.</li>
+          <li>✓ Aparición en el directorio.</li>
+          <li>✓ Aparición en los resultados de búsqueda.</li>
+          <li>✓ Acceso al panel profesional.</li>
+          <li>✓ Posibilidad de solicitar la publicación ocasional de actividades, previa revisión por parte de Mallorca Holística.</li>
         </ul>
       </Box>
 
@@ -63,6 +63,12 @@ function PlanPresencia() {
 
       <Box title="Precio">
         <p style={{ fontSize: 13 }}><strong>Gratuito</strong></p>
+      </Box>
+
+      <Box title="Evolución de tu perfil">
+        <p style={{ fontSize: 13 }}>
+          Cuando lo desees, podrás ampliar tu perfil accediendo a los futuros planes de Mallorca Holística o, durante esta primera etapa, participar en el Programa de Miembros Fundadores mediante invitación.
+        </p>
       </Box>
 
       <Box title="Acciones">
