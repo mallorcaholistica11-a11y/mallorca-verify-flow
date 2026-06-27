@@ -9,7 +9,7 @@ function ComunidadOrg() {
   return (
     <WireframeShell
       screen="2B · COMUNIDAD FUNDADORA · ORGANIZACIONES"
-      title="🌞 Comunidad Fundadora · Organizaciones"
+      title="🌿 Comunidad Fundadora · Centros y Organizadores"
       breadcrumb="Soy profesional › Comunidad Fundadora · Organizaciones"
     >
       <Box title="🟡 FASE BETA MALLORCA HOLÍSTICA">
@@ -26,7 +26,7 @@ function ComunidadOrg() {
 
       <Box title="🌞 ORGANIZACIÓN FUNDADORA">
         <p style={{ fontSize: 13 }}>
-          Para organizaciones que desean dar visibilidad a su proyecto.
+          Para centros y organizadores que desean dar visibilidad a su proyecto.
         </p>
         <p style={{ fontSize: 13 }}>
           Centros, escuelas, asociaciones, espacios de salud, organizadores de eventos, retiros, festivales...

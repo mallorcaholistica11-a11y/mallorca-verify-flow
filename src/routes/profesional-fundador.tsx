@@ -9,7 +9,7 @@ function ProfesionalFundador() {
   return (
     <WireframeShell
       screen="1c · DETALLE PROFESIONAL FUNDADOR"
-      title="✨ Profesional Fundador"
+      title="🌿 Comunidad Fundadora · Profesionales"
       breadcrumb="Inicio › Soy profesional › Profesional Fundador"
     >
       <Box title="🟡 FASE BETA MALLORCA HOLÍSTICA">
