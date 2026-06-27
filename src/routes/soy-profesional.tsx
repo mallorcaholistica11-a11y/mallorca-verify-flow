@@ -208,6 +208,9 @@ function SoyProfesional() {
             >
               Plan actual
             </button>
+            <NavButton to="/futuro/plan-presencia" variant="secondary">
+              Descubrir el plan →
+            </NavButton>
           </Card>
 
           <Card title="⭐ Profesional Verificado">
@@ -220,8 +223,11 @@ function SoyProfesional() {
             <p style={{ fontSize: 13, marginBottom: 16 }}>
               Perfil profesional verificado con mayor visibilidad y funcionalidades avanzadas.
             </p>
-            <NavButton to="/lista-espera" search={{ track: "verificado" }} variant="secondary">
+            <NavButton to="/lista-espera" search={{ track: "verificado" }}>
               Quiero que me aviséis
+            </NavButton>
+            <NavButton to="/futuro/profesional-verificado" variant="secondary">
+              Descubrir el plan →
             </NavButton>
           </Card>
 
@@ -235,8 +241,11 @@ function SoyProfesional() {
             <p style={{ fontSize: 13, marginBottom: 16 }}>
               Pensado para centros, escuelas y proyectos que organizan actividades, cursos, retiros y eventos.
             </p>
-            <NavButton to="/lista-espera" search={{ track: "organizacion" }} variant="secondary">
+            <NavButton to="/lista-espera" search={{ track: "organizacion" }}>
               Quiero que me aviséis
+            </NavButton>
+            <NavButton to="/futuro/centros-organizadores" variant="secondary">
+              Descubrir el plan →
             </NavButton>
           </Card>
         </Row>
