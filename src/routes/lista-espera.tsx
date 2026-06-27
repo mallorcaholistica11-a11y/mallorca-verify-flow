@@ -140,9 +140,9 @@ function ListaEspera() {
             <input style={inputStyle} value={form.proyecto} onChange={(e) => update("proyecto", e.target.value)} />
           </div>
           <div style={fieldStyle}>
-            <label style={labelStyle}>Actividad principal *</label>
+            <label style={labelStyle}>¿Qué deseas incorporar a Mallorca Holística? *</label>
             <select style={inputStyle} value={form.actividad} onChange={(e) => update("actividad", e.target.value)} required>
-              <option value="">Seleccionar actividad</option>
+              <option value="">Seleccionar opción</option>
               {ACTIVIDADES.map((a) => (
                 <option key={a} value={a}>{a}</option>
               ))}
