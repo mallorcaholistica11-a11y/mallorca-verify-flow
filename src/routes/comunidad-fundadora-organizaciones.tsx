@@ -26,6 +26,12 @@ function ComunidadOrg() {
 
       <Box title="🌞 ORGANIZACIÓN FUNDADORA">
         <p style={{ fontSize: 13 }}>
+          Para organizaciones que desean dar visibilidad a su proyecto.
+        </p>
+        <p style={{ fontSize: 13 }}>
+          Centros, escuelas, asociaciones, espacios de salud, organizadores de eventos, retiros, festivales...
+        </p>
+        <p style={{ fontSize: 13 }}>
           El Programa de Organizaciones Fundadoras está dirigido a centros, organizaciones y proyectos que desean impulsar su presencia en Mallorca Holística desde el lanzamiento, con un perfil de organización verificado y condiciones exclusivas para las primeras entidades que formen parte de la comunidad.
         </p>
       </Box>
