@@ -135,13 +135,10 @@ function SoyProfesional() {
         <Row>
           <Card title="✨ Profesional Fundador">
             <p style={{ fontSize: 13 }}>Actualmente mediante invitación.</p>
-            <p style={{ fontSize: 13 }}>
-              Estamos formando el grupo inicial de profesionales que acompañará el lanzamiento de Mallorca Holística.
-            </p>
             <p style={{ fontSize: 13 }}>40 plazas disponibles.</p>
             <p style={{ fontSize: 13 }}>Para profesionales que desean dar visibilidad a su actividad.</p>
             <p style={{ fontSize: 13 }}>
-              Terapeutas, psicólogos, coaches, instructores, profesionales de la salud, del movimiento y del desarrollo personal.
+              Terapeutas, psicólogos, coaches, instructores, profesionales de la salud, del movimiento, del desarrollo personal...
             </p>
             <NavButton to="/invitacion/$token" params={{ token: "demo-token" }} search={{ track: "verificado" }}>
               👉 He recibido una invitación
@@ -153,13 +150,10 @@ function SoyProfesional() {
 
           <Card title="🌞 Organización Fundadora">
             <p style={{ fontSize: 13 }}>Actualmente mediante invitación.</p>
-            <p style={{ fontSize: 13 }}>
-              Estamos formando el grupo inicial de centros y organizaciones que acompañará el lanzamiento de Mallorca Holística.
-            </p>
             <p style={{ fontSize: 13 }}>10 plazas disponibles.</p>
             <p style={{ fontSize: 13 }}>Para organizaciones que desean dar visibilidad a su proyecto.</p>
             <p style={{ fontSize: 13 }}>
-              Centros, escuelas, asociaciones, espacios de salud, organizadores de eventos, retiros y festivales.
+              Centros, escuelas, asociaciones, espacios de salud, organizadores de eventos, retiros, festivales...
             </p>
             <NavButton to="/invitacion/$token" params={{ token: "demo-token" }} search={{ track: "organizacion" }}>
               👉 He recibido una invitación
