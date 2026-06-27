@@ -139,6 +139,10 @@ function SoyProfesional() {
               Estamos formando el grupo inicial de profesionales que acompañará el lanzamiento de Mallorca Holística.
             </p>
             <p style={{ fontSize: 13 }}>40 plazas disponibles.</p>
+            <p style={{ fontSize: 13 }}>Para profesionales que desean dar visibilidad a su actividad.</p>
+            <p style={{ fontSize: 13 }}>
+              Terapeutas, psicólogos, coaches, instructores, profesionales de la salud, del movimiento y del desarrollo personal.
+            </p>
             <NavButton to="/invitacion/$token" params={{ token: "demo-token" }} search={{ track: "verificado" }}>
               👉 He recibido una invitación
             </NavButton>
