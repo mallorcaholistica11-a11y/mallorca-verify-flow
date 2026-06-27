@@ -139,6 +139,10 @@ function SoyProfesional() {
               Estamos formando el grupo inicial de profesionales que acompañará el lanzamiento de Mallorca Holística.
             </p>
             <p style={{ fontSize: 13 }}>40 plazas disponibles.</p>
+            <p style={{ fontSize: 13 }}>Para profesionales que desean dar visibilidad a su actividad.</p>
+            <p style={{ fontSize: 13 }}>
+              Terapeutas, psicólogos, coaches, instructores, profesionales de la salud, del movimiento y del desarrollo personal.
+            </p>
             <NavButton to="/invitacion/$token" params={{ token: "demo-token" }} search={{ track: "verificado" }}>
               👉 He recibido una invitación
             </NavButton>
@@ -153,15 +157,10 @@ function SoyProfesional() {
               Estamos formando el grupo inicial de centros y organizaciones que acompañará el lanzamiento de Mallorca Holística.
             </p>
             <p style={{ fontSize: 13 }}>10 plazas disponibles.</p>
-            <p style={{ fontSize: 13, marginBottom: 4 }}>Pensado para:</p>
-            <div style={{ marginBottom: 12 }}>
-              <p style={bullet}>• Centros</p>
-              <p style={bullet}>• Escuelas</p>
-              <p style={bullet}>• Asociaciones</p>
-              <p style={bullet}>• Espacios de salud y bienestar</p>
-              <p style={bullet}>• Organizadores de eventos</p>
-              <p style={bullet}>• Organizadores de retiros</p>
-            </div>
+            <p style={{ fontSize: 13 }}>Para organizaciones que desean dar visibilidad a su proyecto.</p>
+            <p style={{ fontSize: 13 }}>
+              Centros, escuelas, asociaciones, espacios de salud, organizadores de eventos, retiros y festivales.
+            </p>
             <NavButton to="/invitacion/$token" params={{ token: "demo-token" }} search={{ track: "organizacion" }}>
               👉 He recibido una invitación
             </NavButton>
