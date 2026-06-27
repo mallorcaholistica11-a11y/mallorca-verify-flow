@@ -18,6 +18,9 @@ import { Route as ComunidadFundadoraOrganizacionesRouteImport } from './routes/c
 import { Route as ComunidadFundadoraRouteImport } from './routes/comunidad-fundadora'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as InvitacionTokenRouteImport } from './routes/invitacion.$token'
+import { Route as FuturoProfesionalVerificadoRouteImport } from './routes/futuro.profesional-verificado'
+import { Route as FuturoPlanPresenciaRouteImport } from './routes/futuro.plan-presencia'
+import { Route as FuturoCentrosOrganizadoresRouteImport } from './routes/futuro.centros-organizadores'
 import { Route as DashboardStripeRouteImport } from './routes/dashboard.stripe'
 import { Route as DashboardSolicitudEnviadaRouteImport } from './routes/dashboard.solicitud-enviada'
 import { Route as DashboardPerfilPublicadoRouteImport } from './routes/dashboard.perfil-publicado'
@@ -70,6 +73,23 @@ const InvitacionTokenRoute = InvitacionTokenRouteImport.update({
   path: '/invitacion/$token',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FuturoProfesionalVerificadoRoute =
+  FuturoProfesionalVerificadoRouteImport.update({
+    id: '/futuro/profesional-verificado',
+    path: '/futuro/profesional-verificado',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const FuturoPlanPresenciaRoute = FuturoPlanPresenciaRouteImport.update({
+  id: '/futuro/plan-presencia',
+  path: '/futuro/plan-presencia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FuturoCentrosOrganizadoresRoute =
+  FuturoCentrosOrganizadoresRouteImport.update({
+    id: '/futuro/centros-organizadores',
+    path: '/futuro/centros-organizadores',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const DashboardStripeRoute = DashboardStripeRouteImport.update({
   id: '/stripe',
   path: '/stripe',
@@ -112,6 +132,9 @@ export interface FileRoutesByFullPath {
   '/dashboard/perfil-publicado': typeof DashboardPerfilPublicadoRoute
   '/dashboard/solicitud-enviada': typeof DashboardSolicitudEnviadaRoute
   '/dashboard/stripe': typeof DashboardStripeRoute
+  '/futuro/centros-organizadores': typeof FuturoCentrosOrganizadoresRoute
+  '/futuro/plan-presencia': typeof FuturoPlanPresenciaRoute
+  '/futuro/profesional-verificado': typeof FuturoProfesionalVerificadoRoute
   '/invitacion/$token': typeof InvitacionTokenRoute
 }
 export interface FileRoutesByTo {
@@ -128,6 +151,9 @@ export interface FileRoutesByTo {
   '/dashboard/perfil-publicado': typeof DashboardPerfilPublicadoRoute
   '/dashboard/solicitud-enviada': typeof DashboardSolicitudEnviadaRoute
   '/dashboard/stripe': typeof DashboardStripeRoute
+  '/futuro/centros-organizadores': typeof FuturoCentrosOrganizadoresRoute
+  '/futuro/plan-presencia': typeof FuturoPlanPresenciaRoute
+  '/futuro/profesional-verificado': typeof FuturoProfesionalVerificadoRoute
   '/invitacion/$token': typeof InvitacionTokenRoute
 }
 export interface FileRoutesById {
@@ -145,6 +171,9 @@ export interface FileRoutesById {
   '/dashboard/perfil-publicado': typeof DashboardPerfilPublicadoRoute
   '/dashboard/solicitud-enviada': typeof DashboardSolicitudEnviadaRoute
   '/dashboard/stripe': typeof DashboardStripeRoute
+  '/futuro/centros-organizadores': typeof FuturoCentrosOrganizadoresRoute
+  '/futuro/plan-presencia': typeof FuturoPlanPresenciaRoute
+  '/futuro/profesional-verificado': typeof FuturoProfesionalVerificadoRoute
   '/invitacion/$token': typeof InvitacionTokenRoute
 }
 export interface FileRouteTypes {
@@ -163,6 +192,9 @@ export interface FileRouteTypes {
     | '/dashboard/perfil-publicado'
     | '/dashboard/solicitud-enviada'
     | '/dashboard/stripe'
+    | '/futuro/centros-organizadores'
+    | '/futuro/plan-presencia'
+    | '/futuro/profesional-verificado'
     | '/invitacion/$token'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -179,6 +211,9 @@ export interface FileRouteTypes {
     | '/dashboard/perfil-publicado'
     | '/dashboard/solicitud-enviada'
     | '/dashboard/stripe'
+    | '/futuro/centros-organizadores'
+    | '/futuro/plan-presencia'
+    | '/futuro/profesional-verificado'
     | '/invitacion/$token'
   id:
     | '__root__'
@@ -195,6 +230,9 @@ export interface FileRouteTypes {
     | '/dashboard/perfil-publicado'
     | '/dashboard/solicitud-enviada'
     | '/dashboard/stripe'
+    | '/futuro/centros-organizadores'
+    | '/futuro/plan-presencia'
+    | '/futuro/profesional-verificado'
     | '/invitacion/$token'
   fileRoutesById: FileRoutesById
 }
@@ -208,6 +246,9 @@ export interface RootRouteChildren {
   ProfesionalFundadorRoute: typeof ProfesionalFundadorRoute
   SoyProfesionalRoute: typeof SoyProfesionalRoute
   AuthCrearCuentaRoute: typeof AuthCrearCuentaRoute
+  FuturoCentrosOrganizadoresRoute: typeof FuturoCentrosOrganizadoresRoute
+  FuturoPlanPresenciaRoute: typeof FuturoPlanPresenciaRoute
+  FuturoProfesionalVerificadoRoute: typeof FuturoProfesionalVerificadoRoute
   InvitacionTokenRoute: typeof InvitacionTokenRoute
 }
 
@@ -276,6 +317,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InvitacionTokenRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/futuro/profesional-verificado': {
+      id: '/futuro/profesional-verificado'
+      path: '/futuro/profesional-verificado'
+      fullPath: '/futuro/profesional-verificado'
+      preLoaderRoute: typeof FuturoProfesionalVerificadoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/futuro/plan-presencia': {
+      id: '/futuro/plan-presencia'
+      path: '/futuro/plan-presencia'
+      fullPath: '/futuro/plan-presencia'
+      preLoaderRoute: typeof FuturoPlanPresenciaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/futuro/centros-organizadores': {
+      id: '/futuro/centros-organizadores'
+      path: '/futuro/centros-organizadores'
+      fullPath: '/futuro/centros-organizadores'
+      preLoaderRoute: typeof FuturoCentrosOrganizadoresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard/stripe': {
       id: '/dashboard/stripe'
       path: '/stripe'
@@ -342,6 +404,9 @@ const rootRouteChildren: RootRouteChildren = {
   ProfesionalFundadorRoute: ProfesionalFundadorRoute,
   SoyProfesionalRoute: SoyProfesionalRoute,
   AuthCrearCuentaRoute: AuthCrearCuentaRoute,
+  FuturoCentrosOrganizadoresRoute: FuturoCentrosOrganizadoresRoute,
+  FuturoPlanPresenciaRoute: FuturoPlanPresenciaRoute,
+  FuturoProfesionalVerificadoRoute: FuturoProfesionalVerificadoRoute,
   InvitacionTokenRoute: InvitacionTokenRoute,
 }
 export const routeTree = rootRouteImport
