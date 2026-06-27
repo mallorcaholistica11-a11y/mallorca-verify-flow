@@ -78,11 +78,11 @@ function ProfesionalFundador() {
           Como agradecimiento por acompañarnos desde el inicio, disfrutarán de ventajas exclusivas que conservarán mientras mantengan activa su suscripción.
         </p>
         <ul style={{ paddingLeft: 18, fontSize: 13 }}>
-          <li>✨ 40 plazas disponibles</li>
-          <li>✨ 6 meses gratuitos desde el lanzamiento oficial</li>
-          <li>✨ Tarifa fundadora protegida de 15 €/mes (IVA incluido) para siempre</li>
-          <li>✨ Acceso prioritario a futuras funcionalidades y oportunidades dentro del ecosistema</li>
-          <li>✨ Participación en una comunidad que está ayudando a sembrar las bases de Mallorca Holística desde sus comienzos</li>
+          <li>✨ 40 plazas disponibles.</li>
+          <li>✨ 6 meses gratuitos desde el lanzamiento oficial.</li>
+          <li>✨ Tarifa Fundadora protegida de 15 €/mes (IVA incluido) para siempre.</li>
+          <li>✨ Acceso prioritario a nuevas funcionalidades y futuras oportunidades dentro del ecosistema.</li>
+          <li>✨ Participación en la comunidad que está ayudando a construir Mallorca Holística desde sus comienzos.</li>
         </ul>
         <p style={{ fontSize: 13 }}>
           Gracias por formar parte de esta primera semilla.
