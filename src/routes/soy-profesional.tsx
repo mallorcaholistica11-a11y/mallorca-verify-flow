@@ -166,6 +166,81 @@ function SoyProfesional() {
           </Card>
         </Row>
       </Box>
+      {/* 5. PRÓXIMAMENTE */}
+      <Box title="⭐ Próximamente">
+        <div style={textBlock}>
+          <p style={{ ...paragraph, fontWeight: 600, marginBottom: 8 }}>
+            La evolución de Mallorca Holística
+          </p>
+          <p style={paragraph}>
+            Después del lanzamiento estarán disponibles nuestros planes permanentes para profesionales y centros.
+          </p>
+          <p style={{ ...paragraph, marginBottom: 24 }}>
+            Durante esta fase beta puedes descubrirlos y, si te interesan, solicitar que te avisemos cuando estén disponibles.
+          </p>
+        </div>
+
+        <Row>
+          <Card title="🌿 Presencia">
+            <p style={{ fontSize: 13, marginBottom: 4 }}>
+              <strong>Disponible actualmente</strong>
+            </p>
+            <p style={{ fontSize: 13, marginBottom: 12 }}>
+              <strong>Gratuito</strong>
+            </p>
+            <p style={{ fontSize: 13, marginBottom: 16 }}>
+              La puerta de entrada a Mallorca Holística.
+            </p>
+            <button
+              disabled
+              style={{
+                display: "inline-block",
+                padding: "10px 16px",
+                border: "2px solid #111",
+                background: "#f3f3f3",
+                color: "#888",
+                fontSize: 13,
+                marginTop: 8,
+                cursor: "not-allowed",
+                opacity: 0.7,
+                fontFamily: "inherit",
+              }}
+            >
+              Plan actual
+            </button>
+          </Card>
+
+          <Card title="⭐ Profesional Verificado">
+            <p style={{ fontSize: 13, marginBottom: 4 }}>
+              <strong>Próximamente</strong>
+            </p>
+            <p style={{ fontSize: 13, marginBottom: 12 }}>
+              <strong>25 €/mes</strong>
+            </p>
+            <p style={{ fontSize: 13, marginBottom: 16 }}>
+              Perfil profesional verificado con mayor visibilidad y funcionalidades avanzadas.
+            </p>
+            <NavButton to="/lista-espera" search={{ track: "verificado" }} variant="secondary">
+              Quiero que me aviséis
+            </NavButton>
+          </Card>
+
+          <Card title="⭐ Centros & Organizadores">
+            <p style={{ fontSize: 13, marginBottom: 4 }}>
+              <strong>Próximamente</strong>
+            </p>
+            <p style={{ fontSize: 13, marginBottom: 12 }}>
+              <strong>50 €/mes</strong>
+            </p>
+            <p style={{ fontSize: 13, marginBottom: 16 }}>
+              Pensado para centros, escuelas y proyectos que organizan actividades, cursos, retiros y eventos.
+            </p>
+            <NavButton to="/lista-espera" search={{ track: "organizacion" }} variant="secondary">
+              Quiero que me aviséis
+            </NavButton>
+          </Card>
+        </Row>
+      </Box>
     </WireframeShell>
   );
 }
