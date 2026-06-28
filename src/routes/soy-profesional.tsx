@@ -22,6 +22,17 @@ const bullet = {
   margin: "4px 0",
 };
 
+const badge = {
+  display: "inline-block",
+  fontSize: 12,
+  fontWeight: 600,
+  color: "#3a5f40",
+  background: "#e8f5e9",
+  padding: "4px 10px",
+  borderRadius: 999,
+  marginBottom: 10,
+};
+
 function SoyProfesional() {
   return (
     <WireframeShell
@@ -91,18 +102,19 @@ function SoyProfesional() {
         </div>
 
         <Row>
-          <Card title="✨ Profesional Fundador">
+          <Card title="⭐ Profesional Verificado">
+            <span style={badge}>🌿 Comunidad Fundadora</span>
             <p style={{ fontSize: 13, marginBottom: 8 }}>
-              <strong>Disponible actualmente mediante invitación</strong>
+              <strong>Actualmente mediante invitación.</strong>
             </p>
             <p style={{ fontSize: 13, marginBottom: 12 }}>
-              Forma parte del primer grupo de profesionales que acompaña el nacimiento de Mallorca Holística.
+              Perfil profesional verificado con ventajas exclusivas durante el lanzamiento.
             </p>
             <p style={{ fontSize: 13, marginBottom: 12 }}>
-              Con tu experiencia y tu mirada nos ayudas a dar forma a una plataforma creada junto a la comunidad y para la comunidad.
+              Para profesionales de la salud complementaria e integrativa.
             </p>
-            <p style={{ fontSize: 13, marginBottom: 4 }}>
-              Queremos agradecer a quienes deciden formar parte de Mallorca Holística desde sus primeros pasos. Por ello, los miembros fundadores disfrutan de:
+            <p style={{ fontSize: 13, marginBottom: 12 }}>
+              Terapeutas, psicólogos, coaches, instructores, profesionales del movimiento, nutricionistas, médicos integrativos...
             </p>
             <div style={{ marginBottom: 12 }}>
               <p style={bullet}>✓ 6 meses gratuitos desde el lanzamiento oficial.</p>
@@ -113,22 +125,23 @@ function SoyProfesional() {
               👉 He recibido una invitación
             </NavButton>
             <NavButton to="/profesional-fundador" variant="secondary">
-              Más información
+              👉 Más información
             </NavButton>
           </Card>
 
-          <Card title="🌞 Organización Fundadora">
+          <Card title="⭐ Centros & Organizadores">
+            <span style={badge}>🌿 Comunidad Fundadora</span>
             <p style={{ fontSize: 13, marginBottom: 8 }}>
-              <strong>Disponible actualmente mediante invitación</strong>
+              <strong>Actualmente mediante invitación.</strong>
             </p>
             <p style={{ fontSize: 13, marginBottom: 12 }}>
-              Forma parte del primer grupo de centros y organizaciones que acompaña el nacimiento de Mallorca Holística.
+              Perfil de organización verificado con ventajas exclusivas durante el lanzamiento.
             </p>
             <p style={{ fontSize: 13, marginBottom: 12 }}>
-              Con vuestra experiencia y vuestra mirada nos ayudáis a dar forma a una plataforma creada junto a la comunidad y para la comunidad.
+              Para centros, organizaciones y proyectos relacionados con la salud complementaria e integrativa.
             </p>
-            <p style={{ fontSize: 13, marginBottom: 4 }}>
-              Queremos agradecer a quienes decidís formar parte de Mallorca Holística desde sus primeros pasos. Por ello, las organizaciones fundadoras disfrutan de:
+            <p style={{ fontSize: 13, marginBottom: 12 }}>
+              Centros de bienestar, escuelas, asociaciones, organizadores de eventos, retiros, festivales...
             </p>
             <div style={{ marginBottom: 12 }}>
               <p style={bullet}>✓ 6 meses gratuitos desde el lanzamiento oficial.</p>
@@ -139,7 +152,7 @@ function SoyProfesional() {
               👉 He recibido una invitación
             </NavButton>
             <NavButton to="/comunidad-fundadora-organizaciones" variant="secondary">
-              Más información
+              👉 Más información
             </NavButton>
           </Card>
         </Row>
