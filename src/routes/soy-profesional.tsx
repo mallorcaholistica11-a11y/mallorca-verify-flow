@@ -22,13 +22,6 @@ const bullet = {
   margin: "4px 0",
 };
 
-const highlight = {
-  marginTop: 20,
-  padding: "16px 20px",
-  background: "#f6f6f6",
-  border: "1px dashed #bbb",
-};
-
 function SoyProfesional() {
   return (
     <WireframeShell
@@ -36,147 +29,133 @@ function SoyProfesional() {
       title="🌿 Forma parte de Mallorca Holística"
       breadcrumb="Inicio › Soy profesional"
     >
-      {/* 1. BLOQUE SUPERIOR */}
+      {/* 1. HERO */}
       <Box title="Forma parte de Mallorca Holística">
         <div style={textBlock}>
-          <p style={{ ...paragraph, fontWeight: 600, marginBottom: 16 }}>
-            La plataforma de confianza para la salud complementaria e integrativa.
+          <p style={paragraph}>
+            Mallorca Holística reúne a profesionales, centros y organizaciones comprometidos con la salud integrativa, las terapias complementarias y el acompañamiento a las personas.
           </p>
           <p style={paragraph}>
-            Cada vez más personas buscan un enfoque más integrador para cuidar de su salud.
-          </p>
-          <p style={paragraph}>
-            Al mismo tiempo, miles de profesionales, centros y organizaciones ofrecen un acompañamiento de gran valor que merece ser más visible y reconocido.
-          </p>
-          <p style={paragraph}>
-            Mallorca Holística nace para crear un puente entre ambos, facilitando el encuentro entre las personas que buscan apoyo y los profesionales que pueden acompañarlas desde la confianza, la profesionalidad y el compromiso.
-          </p>
-          <p style={paragraph}>
-            🌿 Cada persona, cada profesional y cada proyecto aportan algo único.
+            Creemos que una comunidad se construye cuando cada profesional aporta su experiencia, su mirada y su forma única de cuidar.
           </p>
           <p style={{ ...paragraph, marginBottom: 0 }}>
-            En Mallorca Holística, todos encuentran su lugar.
+            Crea tu perfil, comparte tu actividad y forma parte de una comunidad que conecta diferentes miradas sobre la salud integrativa y las terapias complementarias.
           </p>
         </div>
       </Box>
 
-      {/* 2. PRIMER BLOQUE: EMPieZA AQUÍ */}
-      <Box title="🌿 Empieza aquí">
-        <div style={textBlock}>
-          <p style={paragraph}>
-            🌿 Gracias por dar el primer paso.
-          </p>
-          <p style={paragraph}>
-            Cada profesional aporta una forma única de acompañar a las personas.
-          </p>
-          <p style={{ ...paragraph, marginBottom: 24 }}>
-            Nos hace mucha ilusión darte la bienvenida y que quieras compartir la tuya, contribuyendo a construir una comunidad más visible, conectada y basada en la confianza.
-          </p>
-        </div>
-
+      {/* 2. PLAN PRESENCIA */}
+      <Box title="🌿 Empieza hoy con el Plan Presencia">
         <div style={{ maxWidth: 420, margin: "0 auto" }}>
           <Card title="🌿 Presencia">
             <p style={{ fontSize: 13, marginBottom: 8 }}>
-              <strong>Plan gratuito</strong>
+              <strong>Gratuito</strong>
             </p>
             <p style={{ fontSize: 13, marginBottom: 12 }}>
-              Empieza a formar parte de Mallorca Holística para que las personas puedan descubrir quién eres, cómo acompañas y los servicios que ofreces.
+              El Plan Presencia te permite crear tu perfil profesional y comenzar a formar parte del ecosistema Mallorca Holística.
             </p>
-            <p style={{ fontSize: 13, marginBottom: 4 }}>Con Presencia puedes:</p>
+            <p style={{ fontSize: 13, marginBottom: 4 }}>Incluye:</p>
             <div style={{ marginBottom: 12 }}>
-              <p style={bullet}>• Crear tu perfil profesional.</p>
-              <p style={bullet}>• Aparecer en el directorio de Mallorca Holística.</p>
-              <p style={bullet}>• Acceder a tu panel profesional.</p>
+              <p style={bullet}>• Perfil público.</p>
+              <p style={bullet}>• Hasta 3 Especialidades y Terapias.</p>
+              <p style={bullet}>• Hasta 5 Áreas de Especialización.</p>
+              <p style={bullet}>• Aparición en el directorio.</p>
+              <p style={bullet}>• Acceso al panel profesional.</p>
+              <p style={bullet}>• Posibilidad de solicitar la publicación de actividades.</p>
             </div>
             <NavButton to="/auth/crear-cuenta" search={{ track: "presencia" }}>
-              👉 Crear perfil gratuito
+              👉 Crear mi perfil gratuito
             </NavButton>
             <NavButton to="/plan-presencia" variant="secondary">
-              Más información →
+              Descubrir el Plan Presencia
             </NavButton>
           </Card>
         </div>
       </Box>
 
-      {/* 3. SEGUNDO BLOQUE: ESTAMOS CONSTRUYENDO */}
-      <Box title="✨ Estamos construyendo Mallorca Holística">
+      {/* 3. COMUNIDAD FUNDADORA */}
+      <Box title="✨ Construimos Mallorca Holística juntos">
         <div style={textBlock}>
           <p style={paragraph}>
             Mallorca Holística está dando sus primeros pasos.
           </p>
           <p style={paragraph}>
-            Durante esta primera etapa, un pequeño grupo de profesionales y organizaciones participa como Comunidad Fundadora, ayudándonos a dar forma a la plataforma antes de su lanzamiento público.
+            Durante esta fase beta, un grupo reducido de profesionales y organizaciones forma parte de la Comunidad Fundadora.
           </p>
-          <p style={{ ...paragraph, marginBottom: 16 }}>
-            Sus aportaciones nos permiten mejorar cada detalle para construir una herramienta realmente útil para el sector.
+          <p style={paragraph}>
+            Con sus experiencias, ideas y sugerencias ayudan a crear una plataforma más útil, más humana y más conectada con las necesidades reales del sector.
           </p>
-          <div style={highlight}>
-            <p style={{ ...paragraph, fontWeight: 600, marginBottom: 8 }}>
-              🌿 Cualquier profesional puede descubrir el proyecto, conocer los próximos planes y compartir con nosotros sus ideas o sugerencias.
-            </p>
-            <p style={{ ...paragraph, fontWeight: 600, marginBottom: 0 }}>
-              Si deseas participar en futuras etapas, también podrás unirte a la lista de espera.
-            </p>
-          </div>
-          <p style={{ ...paragraph, marginTop: 16, marginBottom: 0 }}>
+          <p style={{ ...paragraph, marginBottom: 0 }}>
             Porque Mallorca Holística se construye entre todos.
-          </p>
-        </div>
-      </Box>
-
-      {/* 4. COMUNIDAD FUNDADORA */}
-      <Box title="✨ Comunidad Fundadora">
-        <div style={textBlock}>
-          <p style={{ ...paragraph, marginBottom: 20 }}>
-            Los primeros pasos dejan huella. Gracias a la Comunidad Fundadora, Mallorca Holística crecerá desde la experiencia, la escucha y la colaboración.
           </p>
         </div>
 
         <Row>
           <Card title="✨ Profesional Fundador">
-            <p style={{ fontSize: 13 }}>Actualmente mediante invitación.</p>
-            <p style={{ fontSize: 13 }}>40 plazas disponibles.</p>
-            <p style={{ fontSize: 13 }}>Perfil profesional verificado con ventajas exclusivas durante el lanzamiento.</p>
-            <p style={{ fontSize: 13 }}>Para profesionales que desean dar visibilidad a su actividad.</p>
-            <p style={{ fontSize: 13 }}>
-              Terapeutas, psicólogos, coaches, instructores, profesionales de la salud, del movimiento, del desarrollo personal...
+            <p style={{ fontSize: 13, marginBottom: 8 }}>
+              <strong>Disponible actualmente mediante invitación</strong>
             </p>
+            <p style={{ fontSize: 13, marginBottom: 12 }}>
+              Forma parte del primer grupo de profesionales que acompaña el nacimiento de Mallorca Holística.
+            </p>
+            <p style={{ fontSize: 13, marginBottom: 12 }}>
+              Con tu experiencia y tu mirada nos ayudas a dar forma a una plataforma creada junto a la comunidad y para la comunidad.
+            </p>
+            <p style={{ fontSize: 13, marginBottom: 4 }}>
+              Queremos agradecer a quienes deciden formar parte de Mallorca Holística desde sus primeros pasos. Por ello, los miembros fundadores disfrutan de:
+            </p>
+            <div style={{ marginBottom: 12 }}>
+              <p style={bullet}>✓ 6 meses gratuitos desde el lanzamiento oficial.</p>
+              <p style={bullet}>✓ Tarifa fundadora protegida de 15 €/mes (IVA incluido).</p>
+              <p style={bullet}>✓ Solo 40 plazas.</p>
+            </div>
             <NavButton to="/invitacion/$token" params={{ token: "demo-token" }} search={{ track: "verificado" }}>
               👉 He recibido una invitación
             </NavButton>
             <NavButton to="/profesional-fundador" variant="secondary">
-              Más información →
+              Más información
             </NavButton>
           </Card>
 
           <Card title="🌞 Organización Fundadora">
-            <p style={{ fontSize: 13 }}>Actualmente mediante invitación.</p>
-            <p style={{ fontSize: 13 }}>10 plazas disponibles.</p>
-            <p style={{ fontSize: 13 }}>Perfil de organización verificado con ventajas exclusivas durante el lanzamiento.</p>
-            <p style={{ fontSize: 13 }}>Para organizaciones que desean dar visibilidad a su proyecto.</p>
-            <p style={{ fontSize: 13 }}>
-              Centros, escuelas, asociaciones, espacios de salud, organizadores de eventos, retiros, festivales...
+            <p style={{ fontSize: 13, marginBottom: 8 }}>
+              <strong>Disponible actualmente mediante invitación</strong>
             </p>
+            <p style={{ fontSize: 13, marginBottom: 12 }}>
+              Forma parte del primer grupo de centros y organizaciones que acompaña el nacimiento de Mallorca Holística.
+            </p>
+            <p style={{ fontSize: 13, marginBottom: 12 }}>
+              Con vuestra experiencia y vuestra mirada nos ayudáis a dar forma a una plataforma creada junto a la comunidad y para la comunidad.
+            </p>
+            <p style={{ fontSize: 13, marginBottom: 4 }}>
+              Queremos agradecer a quienes decidís formar parte de Mallorca Holística desde sus primeros pasos. Por ello, las organizaciones fundadoras disfrutan de:
+            </p>
+            <div style={{ marginBottom: 12 }}>
+              <p style={bullet}>✓ 6 meses gratuitos desde el lanzamiento oficial.</p>
+              <p style={bullet}>✓ Tarifa fundadora protegida de 35 €/mes (IVA incluido).</p>
+              <p style={bullet}>✓ Solo 10 plazas.</p>
+            </div>
             <NavButton to="/invitacion/$token" params={{ token: "demo-token" }} search={{ track: "organizacion" }}>
               👉 He recibido una invitación
             </NavButton>
             <NavButton to="/comunidad-fundadora-organizaciones" variant="secondary">
-              Más información →
+              Más información
             </NavButton>
           </Card>
         </Row>
       </Box>
-      {/* 5. PRÓXIMAMENTE */}
-      <Box title="⭐ Próximamente">
+
+      {/* 4. DESCUBRE LOS PLANES DE MALLORCA HOLÍSTICA */}
+      <Box title="⭐ Descubre los planes de Mallorca Holística">
         <div style={textBlock}>
-          <p style={{ ...paragraph, fontWeight: 600, marginBottom: 8 }}>
-            La evolución de Mallorca Holística
+          <p style={paragraph}>
+            Actualmente el Plan Presencia está disponible para todos los profesionales.
           </p>
           <p style={paragraph}>
-            Después del lanzamiento estarán disponibles nuestros planes permanentes para profesionales y centros.
+            Los planes Profesional Verificado y Centros & Organizadores estarán disponibles para toda la comunidad tras el lanzamiento oficial.
           </p>
-          <p style={{ ...paragraph, marginBottom: 24 }}>
-            Durante esta fase beta puedes descubrirlos y, si te interesan, solicitar que te avisemos cuando estén disponibles.
+          <p style={{ ...paragraph, marginBottom: 0 }}>
+            Mientras tanto, ya puedes conocer sus características, descubrir sus ventajas y solicitar que te avisemos cuando estén disponibles.
           </p>
         </div>
 
@@ -190,6 +169,9 @@ function SoyProfesional() {
             </p>
             <p style={{ fontSize: 13, marginBottom: 16 }}>
               La puerta de entrada a Mallorca Holística.
+            </p>
+            <p style={{ fontSize: 13, marginBottom: 16 }}>
+              Crea tu perfil público y empieza a formar parte del directorio de profesionales.
             </p>
             <button
               disabled
@@ -209,43 +191,43 @@ function SoyProfesional() {
               Plan actual
             </button>
             <NavButton to="/futuro/plan-presencia" variant="secondary">
-              Descubrir el plan →
+              Descubrir el plan
             </NavButton>
           </Card>
 
           <Card title="⭐ Profesional Verificado">
             <p style={{ fontSize: 13, marginBottom: 4 }}>
-              <strong>Próximamente</strong>
+              <strong>Disponible tras el lanzamiento oficial</strong>
             </p>
             <p style={{ fontSize: 13, marginBottom: 12 }}>
-              <strong>25 €/mes</strong>
+              <strong>25 €/mes (IVA incluido)</strong>
             </p>
             <p style={{ fontSize: 13, marginBottom: 16 }}>
-              Perfil profesional verificado con mayor visibilidad y funcionalidades avanzadas.
+              Pensado para profesionales que desean reforzar la confianza que transmiten, aumentar su visibilidad y acceder a funcionalidades avanzadas.
             </p>
             <NavButton to="/lista-espera" search={{ track: "verificado" }}>
               Quiero que me aviséis
             </NavButton>
             <NavButton to="/futuro/profesional-verificado" variant="secondary">
-              Descubrir el plan →
+              Descubrir el plan
             </NavButton>
           </Card>
 
           <Card title="⭐ Centros & Organizadores">
             <p style={{ fontSize: 13, marginBottom: 4 }}>
-              <strong>Próximamente</strong>
+              <strong>Disponible tras el lanzamiento oficial</strong>
             </p>
             <p style={{ fontSize: 13, marginBottom: 12 }}>
-              <strong>50 €/mes</strong>
+              <strong>50 €/mes (IVA incluido)</strong>
             </p>
             <p style={{ fontSize: 13, marginBottom: 16 }}>
-              Pensado para centros, escuelas y proyectos que organizan actividades, cursos, retiros y eventos.
+              Pensado para centros, escuelas, asociaciones y organizaciones que desean dar mayor visibilidad a su proyecto y a todas las actividades que organizan.
             </p>
             <NavButton to="/lista-espera" search={{ track: "organizacion" }}>
               Quiero que me aviséis
             </NavButton>
             <NavButton to="/futuro/centros-organizadores" variant="secondary">
-              Descubrir el plan →
+              Descubrir el plan
             </NavButton>
           </Card>
         </Row>
