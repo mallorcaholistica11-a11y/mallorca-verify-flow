@@ -6,6 +6,15 @@ export const Route = createFileRoute("/dashboard")({
   component: DashboardWrapper,
 });
 
+const subtitleStyle = {
+  maxWidth: 560,
+  margin: "0 auto",
+  textAlign: "center" as const,
+  fontSize: 13,
+  lineHeight: 1.6,
+  color: "#444",
+};
+
 function DashboardWrapper() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   if (pathname === "/dashboard") return <DashboardHome />;
@@ -18,13 +27,6 @@ function DashboardHome() {
   const isVerificado = track === "verificado";
   const isPresencia = track === "presencia";
 
-  const title = isOrg
-    ? "Tu panel · Organización Fundadora"
-    : isVerificado
-      ? "Tu panel · Profesional Fundador"
-      : isPresencia
-        ? "Tu panel · Plan Presencia"
-        : "Tu panel";
   const screen = isOrg
     ? "5 · DASHBOARD ORGANIZACIÓN FUNDADORA"
     : isVerificado
@@ -35,16 +37,16 @@ function DashboardHome() {
 
   const tasks = isPresencia
     ? [
-        { label: "Completar perfil" },
+        { label: "Completar tu perfil" },
         { label: "Revisar y aceptar las condiciones" },
-        { label: "Enviar solicitud" },
+        { label: "Enviar tu solicitud" },
       ]
     : isOrg || isVerificado
       ? [
-          { label: "Completar perfil" },
+          { label: "Completar tu perfil" },
           { label: "Revisar y aceptar las condiciones" },
           { label: "Registrar método de pago" },
-          { label: "Enviar solicitud de verificación" },
+          { label: "Enviar tu solicitud de verificación" },
         ]
       : [
           { label: "Paso 1 · Información General" },
@@ -59,16 +61,23 @@ function DashboardHome() {
   const ctaLabel = isPresencia || isOrg || isVerificado ? "👉 Completar perfil" : "Completar perfil";
 
   return (
-    <WireframeShell screen={screen} title={title} breadcrumb="Dashboard">
+    <WireframeShell screen={screen} title="🌿 Bienvenido a Mallorca Holística" breadcrumb="Dashboard">
       <TrackBadge track={track} />
 
-      <Box title={isPresencia || isOrg || isVerificado ? "Estado de tu solicitud" : "Estado de tu perfil"}>
+      <div style={subtitleStyle}>
+        <p style={{ fontWeight: 600, margin: "0 0 6px 0" }}>¡Tu cuenta ya está creada!</p>
+        <p style={{ margin: 0 }}>
+          Ahora solo queda completar tu perfil para que podamos revisarlo y publicarlo en Mallorca Holística.
+        </p>
+      </div>
+
+      <Box title="Estado de tu perfil">
         <p style={{ fontSize: 13 }}>
-          <strong>{isPresencia || isOrg || isVerificado ? "🟠 Solicitud en preparación" : "Perfil incompleto"}</strong>
+          <strong>🌿 Perfil en preparación</strong>
         </p>
       </Box>
 
-      <Box title="Tareas pendientes">
+      <Box title="Próximos pasos">
         <Checklist items={tasks} />
       </Box>
 
@@ -80,3 +89,4 @@ function DashboardHome() {
     </WireframeShell>
   );
 }
+
