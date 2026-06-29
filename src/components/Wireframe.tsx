@@ -39,7 +39,7 @@ export function WireframeShell({
         <div style={{ fontSize: 11, color: "#888", letterSpacing: 1, marginBottom: 4 }}>
           PANTALLA · {screen}
         </div>
-        <h1 style={{ fontSize: 22, margin: "0 0 20px 0" }}>{title}</h1>
+        <h1 style={{ fontSize: 22, margin: "0 0 20px 0", whiteSpace: "pre-wrap" }}>{title}</h1>
         {children}
       </main>
 
@@ -55,7 +55,7 @@ const linkStyle = { textDecoration: "none", color: "#111", padding: "4px 8px", b
 export function Box({ children, title }: { children: ReactNode; title?: string }) {
   return (
     <div style={{ border: "1px dashed #888", padding: 16, marginBottom: 16, background: "#fff" }}>
-      {title && <div style={{ fontSize: 11, color: "#666", marginBottom: 8, textTransform: "uppercase", letterSpacing: 1 }}>{title}</div>}
+      {title && <div style={{ fontSize: 11, color: "#666", marginBottom: 8, textTransform: "uppercase", letterSpacing: 1, whiteSpace: "pre-wrap" }}>{title}</div>}
       {children}
     </div>
   );

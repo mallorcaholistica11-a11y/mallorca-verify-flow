@@ -9,36 +9,28 @@ function ComunidadOrg() {
   return (
     <WireframeShell
       screen="2B · COMUNIDAD FUNDADORA · ORGANIZACIONES"
-      title="🌿 Comunidad Fundadora · Centros y Organizadores"
+      title={"🌞 Centros & Organizadores\u00a0\n\n🌿 Programa Comunidad Fundadora"}
       breadcrumb="Soy profesional › Comunidad Fundadora · Organizaciones"
     >
-      <Box title="🌿 PROGRAMA COMUNIDAD FUNDADORA">
-        <p style={{ fontSize: 13 }}>
-          Mallorca Holística está dando sus primeros pasos.
+      <Box title={"\n\n\n"}>
+        <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>
+          {"🌿 PROGRAMA COMUNIDAD FUNDADORA\n\nMallorca Holística está dando sus primeros pasos.\n\nDurante esta primera etapa, un grupo reducido de profesionales, centros y organizaciones accede al Programa Comunidad Fundadora, participando en el lanzamiento de Mallorca Holística desde sus comienzos.\n\nSu confianza nos permite validar la plataforma en un entorno real y seguir mejorando la experiencia antes de abrirla a toda la comunidad.\n\nGracias por acompañarnos desde el principio y formar parte de esta primera semilla. 🌿"}
         </p>
-        <p style={{ fontSize: 13 }}>
-          Durante esta primera etapa, un grupo reducido de profesionales y organizaciones accede al Programa Comunidad Fundadora, participando en el lanzamiento de Mallorca Holística desde sus comienzos.
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Su confianza nos permite validar la plataforma en un entorno real y seguir mejorando la experiencia antes de abrirla a toda la comunidad.
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Gracias por acompañarnos desde el principio y formar parte de esta primera semilla. 🌿
-        </p>
+        <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>{"\n"}</p>
+        <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>{"\n"}</p>
+        <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>{"\n"}</p>
       </Box>
 
       <Box title="✨ Para quién es">
-        <p style={{ fontSize: 13 }}>
-          Para centros y organizadores que desean dar visibilidad a su proyecto.
+        <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>
+          {"Para centros y organizaciones que desean fortalecer la confianza, aumentar su visibilidad y ofrecer una información más completa sobre su actividad.\n\nCentros y proyectos relacionados con la salud complementaria e integrativa.\n\nCentros de bienestar, escuelas, asociaciones, espacios de salud, organizadores de actividades, retiros, festivales y otros proyectos que promueven el bienestar y la salud integrativa."}
         </p>
-        <p style={{ fontSize: 13 }}>
-          Centros, escuelas, asociaciones, espacios de salud, organizadores de eventos, retiros, festivales...
-        </p>
+        <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>{"\n"}</p>
       </Box>
 
       <Box title="🌞 El Plan Centros & Organizadores">
-        <p style={{ fontSize: 13 }}>
-          El Programa de Organizaciones Fundadoras está dirigido a centros, organizaciones y proyectos que desean impulsar su presencia en Mallorca Holística desde el lanzamiento, con un perfil de organización verificado y condiciones exclusivas para las primeras entidades que formen parte de la comunidad.
+        <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>
+          {"El Plan Centros & Organizadores permite presentar de forma más completa un centro, organización o proyecto, facilitando que las personas descubran sus actividades, espacios y propuestas.\nAdemás de ampliar la información visible, incorpora herramientas y ventajas pensadas para aumentar la visibilidad dentro de Mallorca Holística y facilitar el contacto directo con las personas interesadas."}
         </p>
       </Box>
 
@@ -71,11 +63,15 @@ function ComunidadOrg() {
       </Box>
 
       <Box title="🌿 Ventajas para los Miembros Fundadores">
-        <ul style={{ paddingLeft: 18, fontSize: 13 }}>
-          <li>✨ Hasta 10 Centros & Organizadores Fundadores.</li>
-          <li>✨ 6 meses gratuitos desde el lanzamiento oficial.</li>
-          <li>✨ Tarifa Fundadora protegida de 35 €/mes (IVA incluido) para siempre, mientras la suscripción permanezca activa.</li>
-          <li>✨ Acceso prioritario a nuevas funcionalidades y futuras oportunidades dentro del ecosistema.</li>
+        <ul style={{ paddingLeft: 18, fontSize: 13, listStyleType: "none", margin: 0 }}>
+          <li style={{ marginBottom: 8 }}>✨ Hasta 10 Centros & Organizadores Fundadores.</li>
+          <li style={{ marginBottom: 8 }}>✨ 6 meses gratuitos desde el lanzamiento oficial.</li>
+          <li style={{ marginBottom: 8, whiteSpace: "pre-wrap" }}>
+            {"✨ Tarifa Fundadora protegida de 35 €/mes (IVA incluido) para siempre, mientras la suscripción\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 permanezca activa."}
+          </li>
+          <li style={{ marginBottom: 8, whiteSpace: "pre-wrap" }}>
+            {"✨ Acceso prioritario a nuevas funcionalidades y futuras oportunidades dentro del ecosistema.\n\n\n\nGracias por formar parte de esta primera semilla.\n\nPorque lo que se siembra con alma... siempre florece. 🌿"}
+          </li>
         </ul>
       </Box>
 
