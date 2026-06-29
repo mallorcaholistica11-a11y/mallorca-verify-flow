@@ -39,7 +39,7 @@ export function WireframeShell({
         <div style={{ fontSize: 11, color: "#888", letterSpacing: 1, marginBottom: 4 }}>
           PANTALLA · {screen}
         </div>
-        <h1 style={{ fontSize: 22, margin: "0 0 20px 0" }}>{title}</h1>
+        <h1 style={{ fontSize: 22, margin: "0 0 20px 0", whiteSpace: "pre-wrap" }}>{title}</h1>
         {children}
       </main>
 
