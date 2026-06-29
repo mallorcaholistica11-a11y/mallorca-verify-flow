@@ -88,17 +88,16 @@ function SoyProfesional() {
       <Box title="✨ Construimos Mallorca Holística juntos">
         <div style={textBlock}>
           <p style={paragraph}>
-            <strong>Mallorca Holística está dando sus primeros pasos junto a su Comunidad Fundadora.</strong>
+            <strong>Mallorca Holística está dando sus primeros pasos junto a su Comunidad Fundadora.{"\n\n"}</strong>
           </p>
           <p style={paragraph}>
-            Durante esta fase beta, un grupo reducido de profesionales y organizaciones forma parte de este comienzo, acompañando el nacimiento del proyecto desde sus primeras etapas.
+            Durante esta primera etapa, un grupo reducido de profesionales y organizaciones accede al Programa Comunidad Fundadora, participando en el lanzamiento de Mallorca Holística desde sus comienzos.{"\n\n"}
           </p>
           <p style={paragraph}>
-            Su confianza nos permite validar Mallorca Holística en un entorno real y seguir mejorando la experiencia antes del lanzamiento oficial.
+            Su confianza nos permite validar Mallorca Holística en un entorno real y seguir mejorando la experiencia antes del lanzamiento oficial.{"\n\n"}
           </p>
           <p style={{ ...paragraph, marginBottom: 0 }}>
-            <strong>Gracias por formar parte de esta primera semilla.<br />
-            Porque Mallorca Holística nace gracias a las personas que creen en ella desde el principio.</strong>
+            <strong>Gracias por formar parte de esta primera semilla.</strong>
           </p>
         </div>
 
@@ -119,7 +118,7 @@ function SoyProfesional() {
             </p>
             <div style={{ marginBottom: 12 }}>
               <p style={bullet}>✓ 6 meses gratuitos desde el lanzamiento oficial.</p>
-              <p style={bullet}>✓ Tarifa fundadora protegida de 15 €/mes (IVA incluido).</p>
+              <p style={bullet}>✓ Tarifa fundadora protegida de 15 €/mes (IVA incluido) para siempre, mientras la suscripción&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; permanezca activa.</p>
               <p style={bullet}>✓&nbsp;Hasta 40 Profesionales Fundadores.</p>
             </div>
             <NavButton to="/invitacion/$token" params={{ token: "demo-token" }} search={{ track: "verificado" }}>
@@ -146,7 +145,7 @@ function SoyProfesional() {
             </p>
             <div style={{ marginBottom: 12 }}>
               <p style={bullet}>✓ 6 meses gratuitos desde el lanzamiento oficial.</p>
-              <p style={bullet}>✓ Tarifa fundadora protegida de 35 €/mes (IVA incluido).</p>
+              <p style={bullet}>✓ Tarifa fundadora protegida de 35 €/mes (IVA incluido) para siempre, mientras la suscripción&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; permanezca activa.</p>
               <p style={bullet}>✓ Hasta 10 Centros & Organizadores Fundadores.</p>
             </div>
             <NavButton to="/invitacion/$token" params={{ token: "demo-token" }} search={{ track: "organizacion" }}>
