@@ -12,30 +12,38 @@ function ProfesionalFundador() {
       title={"⭐ Profesional Verificado\n🌿 Programa Comunidad Fundadora"}
       breadcrumb="Inicio › Soy profesional › Profesional Fundador"
     >
-      <Box title="🌿 PROGRAMA COMUNIDAD FUNDADORA">
+      <Box title="🌿 Programa Comunidad Fundadora">
         <p style={{ fontSize: 13 }}>
-          Mallorca Holística está dando sus primeros pasos.{"\n\n"}
+          Mallorca Holística está dando sus primeros pasos.
         </p>
         <p style={{ fontSize: 13 }}>
-          Durante esta primera etapa, un grupo reducido de profesionales y organizaciones accede al Programa Comunidad Fundadora, participando en el lanzamiento de Mallorca Holística desde sus comienzos.{"\n\n"}
-          Su confianza nos permite validar la plataforma en un entorno real y seguir mejorando la experiencia antes de abrirla a toda la comunidad.{"\n\n"}
+          Durante esta primera etapa, un grupo reducido de profesionales y organizaciones accede al Programa Comunidad Fundadora, participando en el lanzamiento de Mallorca Holística desde sus comienzos.
+        </p>
+        <p style={{ fontSize: 13 }}>
+          Su confianza nos permite validar la plataforma en un entorno real y seguir mejorando la experiencia antes de abrirla a toda la comunidad.
+        </p>
+        <p style={{ fontSize: 13 }}>
           Gracias por acompañarnos desde el principio y formar parte de esta primera semilla. 🌿
         </p>
       </Box>
 
-      <Box title="✨ PARA QUIÉN ES">
+      <Box title="✨ Para quién es">
         <p style={{ fontSize: 13 }}>
-          PARA QUIÉN ES{"\n\n"}
-          Para profesionales que desean fortalecer la confianza, aumentar su visibilidad y ofrecer una información más completa sobre su actividad.{"\n\n"}
-          Profesionales de la salud complementaria e integrativa.{"\n\n"}
-          Terapeutas, psicólogos, coaches, instructores, profesionales del movimiento, nutricionistas, médicos integrativos...{"\n\n\n"}
-          ✨ PARA QUIÉN ES
+          Para profesionales que desean fortalecer la confianza, aumentar su visibilidad y ofrecer una información más completa sobre su actividad.
         </p>
-        
         <p style={{ fontSize: 13 }}>
-          {"\n\n"}
-          EL PLAN PROFESIONAL VERIFICADO{"\n\n"}
-          El Plan Profesional Verificado permite ofrecer un perfil más completo y generar una mayor confianza entre las personas que buscan un profesional.{"\n\n"}
+          Profesionales de la salud complementaria e integrativa.
+        </p>
+        <p style={{ fontSize: 13 }}>
+          Terapeutas, psicólogos, coaches, instructores, profesionales del movimiento, nutricionistas, médicos integrativos...
+        </p>
+      </Box>
+
+      <Box title="✨ El Plan Profesional Verificado">
+        <p style={{ fontSize: 13 }}>
+          El Plan Profesional Verificado permite ofrecer un perfil más completo y generar una mayor confianza entre las personas que buscan un profesional.
+        </p>
+        <p style={{ fontSize: 13 }}>
           Además de ampliar la información visible, incorpora herramientas y ventajas pensadas para mejorar la visibilidad dentro de Mallorca Holística y facilitar el contacto directo con los usuarios.
         </p>
       </Box>
@@ -74,31 +82,13 @@ function ProfesionalFundador() {
         </ul>
       </Box>
 
-      <Box title="🌿 VENTAJAS PARA LOS MIEMBROS FUNDADORES">
-        <p style={{ fontSize: 13 }}>
-          <strong>Mallorca Holística está dando sus primeros pasos junto a su Comunidad Fundadora.{"\n\n"}</strong>
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Durante esta primera etapa, un grupo reducido de profesionales y organizaciones accede al Programa Comunidad Fundadora, participando en el lanzamiento de Mallorca Holística desde sus comienzos.{"\n\n"}
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Su confianza nos permite validar Mallorca Holística en un entorno real y seguir mejorando la experiencia antes del lanzamiento oficial.{"\n\n"}
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Como agradecimiento por acompañarnos desde el inicio, disfrutarán de ventajas exclusivas que conservarán mientras mantengan activa su suscripción.{"\n\n"}
-        </p>
+      <Box title="🌿 Ventajas para los Miembros Fundadores">
         <ul style={{ paddingLeft: 18, fontSize: 13 }}>
           <li>✨ Hasta 40 Profesionales Fundadores.</li>
           <li>✨ 6 meses gratuitos desde el lanzamiento oficial.</li>
-          <li>✨ Tarifa Fundadora protegida de 15 €/mes (IVA incluido) para siempre, mientras la suscripción&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; permanezca activa.</li>
+          <li>✨ Tarifa Fundadora protegida de 15 €/mes (IVA incluido) para siempre, mientras la suscripción permanezca activa.</li>
           <li>✨ Acceso prioritario a nuevas funcionalidades y futuras oportunidades dentro del ecosistema.</li>
         </ul>
-        <p style={{ fontSize: 13 }}>
-          <strong>Gracias por formar parte de esta primera semilla.</strong>
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Porque lo que se siembra con alma... siempre florece. 🌿
-        </p>
       </Box>
 
       <Box title="Precio futuro del plan">
