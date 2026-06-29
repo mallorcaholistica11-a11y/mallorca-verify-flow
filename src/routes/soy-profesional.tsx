@@ -118,7 +118,7 @@ function SoyProfesional() {
             </p>
             <div style={{ marginBottom: 12 }}>
               <p style={bullet}>✓ 6 meses gratuitos desde el lanzamiento oficial.</p>
-              <p style={bullet}>✓ Tarifa fundadora protegida de 15 €/mes (IVA incluido).</p>
+              <p style={bullet}>✓ Tarifa fundadora protegida de 15 €/mes (IVA incluido) para siempre, mientras la suscripción&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; permanezca activa.</p>
               <p style={bullet}>✓&nbsp;Hasta 40 Profesionales Fundadores.</p>
             </div>
             <NavButton to="/invitacion/$token" params={{ token: "demo-token" }} search={{ track: "verificado" }}>
@@ -145,7 +145,7 @@ function SoyProfesional() {
             </p>
             <div style={{ marginBottom: 12 }}>
               <p style={bullet}>✓ 6 meses gratuitos desde el lanzamiento oficial.</p>
-              <p style={bullet}>✓ Tarifa fundadora protegida de 35 €/mes (IVA incluido).</p>
+              <p style={bullet}>✓ Tarifa fundadora protegida de 35 €/mes (IVA incluido) para siempre, mientras la suscripción&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; permanezca activa.</p>
               <p style={bullet}>✓ Hasta 10 Centros & Organizadores Fundadores.</p>
             </div>
             <NavButton to="/invitacion/$token" params={{ token: "demo-token" }} search={{ track: "organizacion" }}>
