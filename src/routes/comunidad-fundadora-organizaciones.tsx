@@ -66,13 +66,13 @@ function ComunidadOrg() {
 
       <Box title="🌿 Comunidad Fundadora">
         <p style={{ fontSize: 13 }}>
-          Mallorca Holística está dando sus primeros pasos.
+          <strong>Mallorca Holística está dando sus primeros pasos junto a su Comunidad Fundadora.</strong>
         </p>
         <p style={{ fontSize: 13 }}>
-          Las Organizaciones Fundadoras no solo acceden a condiciones exclusivas, sino que participan activamente en la construcción de una plataforma creada para dar mayor visibilidad, confianza y reconocimiento a la salud complementaria e integrativa.
+          Durante esta fase beta, un grupo reducido de profesionales y organizaciones forma parte de este comienzo, acompañando el nacimiento del proyecto desde sus primeras etapas.
         </p>
         <p style={{ fontSize: 13 }}>
-          Su confianza y participación forman parte de los cimientos de Mallorca Holística.
+          Su confianza nos permite validar Mallorca Holística en un entorno real y seguir mejorando la experiencia antes del lanzamiento oficial.
         </p>
         <p style={{ fontSize: 13 }}>
           Como agradecimiento por acompañarnos desde el inicio, disfrutarán de ventajas exclusivas que conservarán mientras mantengan activa su suscripción.
@@ -85,7 +85,8 @@ function ComunidadOrg() {
           <li>✨ Participación en la comunidad que está ayudando a construir Mallorca Holística desde sus comienzos.</li>
         </ul>
         <p style={{ fontSize: 13 }}>
-          Gracias por formar parte de esta primera semilla.
+          <strong>Gracias por formar parte de esta primera semilla.<br />
+          Porque Mallorca Holística nace gracias a las personas que creen en ella desde el principio.</strong>
         </p>
         <p style={{ fontSize: 13 }}>
           Porque lo que se siembra con alma... siempre florece. 🌿

@@ -88,16 +88,17 @@ function SoyProfesional() {
       <Box title="✨ Construimos Mallorca Holística juntos">
         <div style={textBlock}>
           <p style={paragraph}>
-            Mallorca Holística está dando sus primeros pasos.
+            <strong>Mallorca Holística está dando sus primeros pasos junto a su Comunidad Fundadora.</strong>
           </p>
           <p style={paragraph}>
-            Durante esta fase beta, un grupo reducido de profesionales y organizaciones forma parte de la Comunidad Fundadora.
+            Durante esta fase beta, un grupo reducido de profesionales y organizaciones forma parte de este comienzo, acompañando el nacimiento del proyecto desde sus primeras etapas.
           </p>
           <p style={paragraph}>
-            Con sus experiencias, ideas y sugerencias ayudan a crear una plataforma más útil, más humana y más conectada con las necesidades reales del sector.
+            Su confianza nos permite validar Mallorca Holística en un entorno real y seguir mejorando la experiencia antes del lanzamiento oficial.
           </p>
           <p style={{ ...paragraph, marginBottom: 0 }}>
-            Porque Mallorca Holística se construye entre todos.
+            <strong>Gracias por formar parte de esta primera semilla.<br />
+            Porque Mallorca Holística nace gracias a las personas que creen en ella desde el principio.</strong>
           </p>
         </div>
 
@@ -108,7 +109,7 @@ function SoyProfesional() {
               <strong>Actualmente mediante invitación.</strong>
             </p>
             <p style={{ fontSize: 13, marginBottom: 12 }}>
-              Perfil profesional verificado con ventajas exclusivas durante el lanzamiento.
+              Accede al Plan Profesional Verificado con condiciones exclusivas para los Miembros Fundadores.
             </p>
             <p style={{ fontSize: 13, marginBottom: 12 }}>
               Para profesionales de la salud complementaria e integrativa.
@@ -135,7 +136,7 @@ function SoyProfesional() {
               <strong>Actualmente mediante invitación.</strong>
             </p>
             <p style={{ fontSize: 13, marginBottom: 12 }}>
-              Perfil de organización verificado con ventajas exclusivas durante el lanzamiento.
+              Accede al Plan Centros & Organizadores con condiciones exclusivas para los Miembros Fundadores.
             </p>
             <p style={{ fontSize: 13, marginBottom: 12 }}>
               Para centros, organizaciones y proyectos relacionados con la salud complementaria e integrativa.
