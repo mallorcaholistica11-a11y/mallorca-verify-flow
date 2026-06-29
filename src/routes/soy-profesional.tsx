@@ -119,7 +119,7 @@ function SoyProfesional() {
             <div style={{ marginBottom: 12 }}>
               <p style={bullet}>✓ 6 meses gratuitos desde el lanzamiento oficial.</p>
               <p style={bullet}>✓ Tarifa fundadora protegida de 15 €/mes (IVA incluido).</p>
-              <p style={bullet}>✓ Solo 40 plazas.</p>
+              <p style={bullet}>✓&nbsp;Hasta 40 Profesionales Fundadores.</p>
             </div>
             <NavButton to="/invitacion/$token" params={{ token: "demo-token" }} search={{ track: "verificado" }}>
               👉 He recibido una invitación
@@ -146,7 +146,7 @@ function SoyProfesional() {
             <div style={{ marginBottom: 12 }}>
               <p style={bullet}>✓ 6 meses gratuitos desde el lanzamiento oficial.</p>
               <p style={bullet}>✓ Tarifa fundadora protegida de 35 €/mes (IVA incluido).</p>
-              <p style={bullet}>✓ Solo 10 plazas.</p>
+              <p style={bullet}>✓ Hasta 10 Centros & Organizadores Fundadores.</p>
             </div>
             <NavButton to="/invitacion/$token" params={{ token: "demo-token" }} search={{ track: "organizacion" }}>
               👉 He recibido una invitación
@@ -159,7 +159,7 @@ function SoyProfesional() {
       </Box>
 
       {/* 4. DESCUBRE LOS PLANES DE MALLORCA HOLÍSTICA */}
-      <Box title="⭐ Descubre los planes de Mallorca Holística">
+      <Box title="⭐ DESPUÉS DEL LANZAMIENTO">
         <div style={textBlock}>
           <p style={paragraph}>
             Actualmente el Plan Presencia está disponible para todos los profesionales.
