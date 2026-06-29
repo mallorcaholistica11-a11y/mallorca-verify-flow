@@ -87,18 +87,13 @@ function SoyProfesional() {
       {/* 3. COMUNIDAD FUNDADORA */}
       <Box title="✨ Construimos Mallorca Holística juntos">
         <div style={textBlock}>
-          <p style={paragraph}>
-            Mallorca Holística está dando sus primeros pasos.
-          </p>
-          <p style={paragraph}>
-            Durante esta fase beta, un grupo reducido de profesionales y organizaciones forma parte de la Comunidad Fundadora.
-          </p>
-          <p style={paragraph}>
-            Con sus experiencias, ideas y sugerencias ayudan a crear una plataforma más útil, más humana y más conectada con las necesidades reales del sector.
-          </p>
-          <p style={{ ...paragraph, marginBottom: 0 }}>
-            Porque Mallorca Holística se construye entre todos.
-          </p>
+          <div style={{ ...paragraph, textAlign: "center", whiteSpace: "pre-line" }}>
+            <strong>Mallorca Holística está dando sus primeros pasos junto a su Comunidad Fundadora.</strong>{"\n\n"}
+            Durante esta fase beta, un grupo reducido de profesionales y organizaciones forma parte de este comienzo, acompañando el nacimiento del proyecto desde sus primeras etapas.{"\n\n"}
+            Su confianza nos permite validar Mallorca Holística en un entorno real y seguir mejorando la experiencia antes del lanzamiento oficial.{"\n\n"}
+            <strong>Gracias por formar parte de esta primera semilla.{"\n"}
+            Porque Mallorca Holística nace gracias a las personas que creen en ella desde el principio.</strong>
+          </div>
         </div>
 
         <Row>
