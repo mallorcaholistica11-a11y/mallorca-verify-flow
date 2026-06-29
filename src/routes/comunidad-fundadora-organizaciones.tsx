@@ -14,24 +14,31 @@ function ComunidadOrg() {
     >
       <Box title="🌿 PROGRAMA COMUNIDAD FUNDADORA">
         <p style={{ fontSize: 13 }}>
-          Mallorca Holística está dando sus primeros pasos.{"\n\n"}
+          Mallorca Holística está dando sus primeros pasos.
         </p>
         <p style={{ fontSize: 13 }}>
-          Durante esta primera etapa, un grupo reducido de profesionales y organizaciones accede al Programa Comunidad Fundadora, participando en el lanzamiento de Mallorca Holística desde sus comienzos.{"\n\n"}
-          Su confianza nos permite validar la plataforma en un entorno real y seguir mejorando la experiencia antes de abrirla a toda la comunidad.{"\n\n"}
+          Durante esta primera etapa, un grupo reducido de profesionales y organizaciones accede al Programa Comunidad Fundadora, participando en el lanzamiento de Mallorca Holística desde sus comienzos.
+        </p>
+        <p style={{ fontSize: 13 }}>
+          Su confianza nos permite validar la plataforma en un entorno real y seguir mejorando la experiencia antes de abrirla a toda la comunidad.
+        </p>
+        <p style={{ fontSize: 13 }}>
           Gracias por acompañarnos desde el principio y formar parte de esta primera semilla. 🌿
         </p>
       </Box>
 
-      <Box title="🌞 ORGANIZACIÓN FUNDADORA">
+      <Box title="✨ Para quién es">
         <p style={{ fontSize: 13 }}>
           Para centros y organizadores que desean dar visibilidad a su proyecto.
         </p>
         <p style={{ fontSize: 13 }}>
           Centros, escuelas, asociaciones, espacios de salud, organizadores de eventos, retiros, festivales...
         </p>
+      </Box>
+
+      <Box title="🌞 El Plan Centros & Organizadores">
         <p style={{ fontSize: 13 }}>
-          El Programa de Organizaciones Fundadoras está dirigido a centros, organizaciones y proyectos que desean impulsar su presencia en Mallorca Holística desde el lanzamiento, con un perfil de organization verificado y condiciones exclusivas para las primeras entidades que formen parte de la comunidad.
+          El Programa de Organizaciones Fundadoras está dirigido a centros, organizaciones y proyectos que desean impulsar su presencia en Mallorca Holística desde el lanzamiento, con un perfil de organización verificado y condiciones exclusivas para las primeras entidades que formen parte de la comunidad.
         </p>
       </Box>
 
@@ -63,32 +70,13 @@ function ComunidadOrg() {
         </ul>
       </Box>
 
-      <Box title="🌿 VENTAJAS PARA LOS MIEMBROS FUNDADORES">
-        <p style={{ fontSize: 13 }}>
-          <strong>Mallorca Holística está dando sus primeros pasos junto a su Comunidad Fundadora.{"\n\n"}</strong>
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Durante esta primera etapa, un grupo reducido de profesionales y organizaciones accede al Programa Comunidad Fundadora, participando en el lanzamiento de Mallorca Holística desde sus comienzos.{"\n\n"}
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Su confianza nos permite validar Mallorca Holística en un entorno real y seguir mejorando la experiencia antes del lanzamiento oficial.{"\n\n"}
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Como agradecimiento por acompañarnos desde el inicio, disfrutarán de ventajas exclusivas que conservarán mientras mantengan activa su suscripción.{"\n\n"}
-        </p>
+      <Box title="🌿 Ventajas para los Miembros Fundadores">
         <ul style={{ paddingLeft: 18, fontSize: 13 }}>
-          <li>✨ 10 plazas disponibles.</li>
+          <li>✨ Hasta 10 Centros & Organizadores Fundadores.</li>
           <li>✨ 6 meses gratuitos desde el lanzamiento oficial.</li>
-          <li>✨ Tarifa Fundadora protegida de 35 €/mes (IVA incluido) para siempre, mientras la suscripción&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; permanezca activa.</li>
+          <li>✨ Tarifa Fundadora protegida de 35 €/mes (IVA incluido) para siempre, mientras la suscripción permanezca activa.</li>
           <li>✨ Acceso prioritario a nuevas funcionalidades y futuras oportunidades dentro del ecosistema.</li>
-          <li>✨ Participación en la comunidad que está ayudando a construir Mallorca Holística desde sus comienzos.</li>
         </ul>
-        <p style={{ fontSize: 13 }}>
-          <strong>Gracias por formar parte de esta primera semilla.</strong>
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Porque lo que se siembra con alma... siempre florece. 🌿
-        </p>
       </Box>
 
       <Box title="Precio futuro del plan">
