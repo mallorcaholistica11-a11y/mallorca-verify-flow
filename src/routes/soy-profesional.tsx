@@ -103,7 +103,7 @@ function SoyProfesional() {
               <strong>Actualmente mediante invitación.</strong>
             </p>
             <p style={{ fontSize: 13, marginBottom: 12 }}>
-              Perfil profesional verificado con ventajas exclusivas durante el lanzamiento.
+              Accede al Plan Profesional Verificado con condiciones exclusivas para los Miembros Fundadores.
             </p>
             <p style={{ fontSize: 13, marginBottom: 12 }}>
               Para profesionales de la salud complementaria e integrativa.
@@ -130,7 +130,7 @@ function SoyProfesional() {
               <strong>Actualmente mediante invitación.</strong>
             </p>
             <p style={{ fontSize: 13, marginBottom: 12 }}>
-              Perfil de organización verificado con ventajas exclusivas durante el lanzamiento.
+              Accede al Plan Centros & Organizadores con condiciones exclusivas para los Miembros Fundadores.
             </p>
             <p style={{ fontSize: 13, marginBottom: 12 }}>
               Para centros, organizaciones y proyectos relacionados con la salud complementaria e integrativa.
