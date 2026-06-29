@@ -44,13 +44,13 @@ function SoyProfesional() {
       <Box title="Forma parte de Mallorca Holística">
         <div style={textBlock}>
           <p style={paragraph}>
-            Mallorca Holística reúne a profesionales, centros y organizaciones comprometidos con la salud integrativa, las terapias complementarias y el acompañamiento a las personas.
+            Mallorca Holística reúne a profesionales de la salud complementaria e integrativa, centros y organizaciones que comparten una visión más integradora, humana y consciente del bienestar y del acompañamiento a las personas.
           </p>
           <p style={paragraph}>
-            Creemos que una comunidad se construye cuando cada profesional aporta su experiencia, su mirada y su forma única de cuidar.
+            Cada profesional, cada centro y cada organización aportan una mirada única. Juntos formamos una comunidad basada en la confianza, la profesionalidad y el compromiso.
           </p>
           <p style={{ ...paragraph, marginBottom: 0 }}>
-            Crea tu perfil, comparte tu actividad y forma parte de una comunidad que conecta diferentes miradas sobre la salud integrativa y las terapias complementarias.
+            Crea tu perfil y forma parte de una comunidad que conecta diferentes miradas sobre la salud complementaria e integrativa, facilitando que más personas puedan descubrir{"\n\u00a0"}tu actividad y tu forma de acompañar.
           </p>
         </div>
       </Box>
@@ -159,32 +159,32 @@ function SoyProfesional() {
       </Box>
 
       {/* 4. DESCUBRE LOS PLANES DE MALLORCA HOLÍSTICA */}
-      <Box title="⭐ DESPUÉS DEL LANZAMIENTO">
+      <Box title="⭐ LOS PLANES DE MALLORCA HOLÍSTICA">
         <div style={textBlock}>
           <p style={paragraph}>
-            Actualmente el Plan Presencia está disponible para todos los profesionales.
+            El Plan Presencia está disponible desde hoy para cualquier profesional que desee formar parte de Mallorca Holística.
           </p>
           <p style={paragraph}>
-            Los planes Profesional Verificado y Centros & Organizadores estarán disponibles para toda la comunidad tras el lanzamiento oficial.
+            Tras el lanzamiento oficial de la plataforma, también estarán disponibles{"\n"}los planes Profesional Verificado y Centros & Organizadores.
           </p>
           <p style={{ ...paragraph, marginBottom: 0 }}>
-            Mientras tanto, ya puedes conocer sus características, descubrir sus ventajas y solicitar que te avisemos cuando estén disponibles.
+            Mientras tanto, puedes conocer sus características y solicitar que te avisemos cuando estén disponibles.{"\n\n"}
           </p>
         </div>
 
         <Row>
           <Card title="🌿 Presencia">
             <p style={{ fontSize: 13, marginBottom: 4 }}>
-              <strong>Disponible actualmente</strong>
+              <strong>{"\n"}Disponible para toda la comunidad</strong>
             </p>
             <p style={{ fontSize: 13, marginBottom: 12 }}>
-              <strong>Gratuito</strong>
+              <strong>{"\n"}Gratuito</strong>
             </p>
             <p style={{ fontSize: 13, marginBottom: 16 }}>
               La puerta de entrada a Mallorca Holística.
             </p>
             <p style={{ fontSize: 13, marginBottom: 16 }}>
-              Crea tu perfil público y empieza a formar parte del directorio de profesionales.
+              Crea tu perfil público y empieza a formar parte del directorio de profesionales.{"\n\n"}
             </p>
             <button
               disabled
@@ -210,7 +210,7 @@ function SoyProfesional() {
 
           <Card title="⭐ Profesional Verificado">
             <p style={{ fontSize: 13, marginBottom: 4 }}>
-              <strong>Disponible tras el lanzamiento oficial</strong>
+              <strong>Disponible tras el lanzamiento oficial de Mallorca Holística</strong>
             </p>
             <p style={{ fontSize: 13, marginBottom: 12 }}>
               <strong>25 €/mes (IVA incluido)</strong>
@@ -219,7 +219,7 @@ function SoyProfesional() {
               Pensado para profesionales que desean reforzar la confianza que transmiten, aumentar su visibilidad y acceder a funcionalidades avanzadas.
             </p>
             <NavButton to="/lista-espera" search={{ track: "verificado" }}>
-              Quiero que me aviséis
+              Avisadme cuando esté disponible →
             </NavButton>
             <NavButton to="/futuro/profesional-verificado" variant="secondary">
               Descubrir el plan
@@ -228,7 +228,7 @@ function SoyProfesional() {
 
           <Card title="⭐ Centros & Organizadores">
             <p style={{ fontSize: 13, marginBottom: 4 }}>
-              <strong>Disponible tras el lanzamiento oficial</strong>
+              <strong>Disponible tras el lanzamiento oficial de Mallorca Holística</strong>
             </p>
             <p style={{ fontSize: 13, marginBottom: 12 }}>
               <strong>50 €/mes (IVA incluido)</strong>
@@ -237,7 +237,7 @@ function SoyProfesional() {
               Pensado para centros, escuelas, asociaciones y organizaciones que desean dar mayor visibilidad a su proyecto y a todas las actividades que organizan.
             </p>
             <NavButton to="/lista-espera" search={{ track: "organizacion" }}>
-              Quiero que me aviséis
+              Avisadme cuando esté disponible →
             </NavButton>
             <NavButton to="/futuro/centros-organizadores" variant="secondary">
               Descubrir el plan
