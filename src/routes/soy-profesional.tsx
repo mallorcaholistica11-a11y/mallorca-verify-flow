@@ -40,30 +40,30 @@ function SoyProfesional() {
 
       <Box title="⭐ LOS PLANES DE MALLORCA HOLÍSTICA">
         <Row>
-          <Card title=\"🌿 Plan Presencia\\n\\n\\n\\n\">
+          <Card title={"🌿 Plan Presencia\n\n\n\n"}>
             <p style={{ fontSize: 13, marginBottom: 4 }}>
-              <strong>Gratuito\n\n</strong>
+              <strong>{"Gratuito\n\n"}</strong>
             </p>
             <p style={{ fontSize: 13, marginBottom: 12 }}>
               <strong>Acceso libre</strong>
             </p>
             <p style={{ fontSize: 13, marginBottom: 16 }}>
-              La puerta de entrada al ecosistema Mallorca Holística. Un perfil profesional para comenzar a formar parte de una comunidad de profesionales de la salud complementaria e integrativa.\n\n\n\n
+              {"La puerta de entrada al ecosistema Mallorca Holística. Un perfil profesional para comenzar a formar parte de una comunidad de profesionales de la salud complementaria e integrativa.\n\n\n\n"}
             </p>
-            <NavButton to=\"/auth/crear-cuenta\" search={{ track: \"presencia\" }}>
-              
+            <NavButton to="/auth/crear-cuenta" search={{ track: "presencia" }}>
+              {""}
             </NavButton>
-            <NavButton to=\"/plan-presencia\" variant=\"secondary\">
+            <NavButton to="/plan-presencia" variant="secondary">
               Descubrir el plan
             </NavButton>
           </Card>
 
-          <Card title="⭐ Plan Profesional Verificado">
+          <Card title={"⭐ Plan Profesional Verificado\n\n"}>
             <p style={{ fontSize: 13, marginBottom: 4 }}>
-              <strong>Disponible con oferta de lanzamiento</strong>
+              <strong>{"\n\n25 €/mes (IVA incluido)\n\nDisponible con oferta de lanzamiento"}</strong>
             </p>
             <p style={{ fontSize: 13, marginBottom: 12 }}>
-              <strong>25 €/mes (IVA incluido)</strong>
+              <strong>{""}</strong>
             </p>
             <p style={{ fontSize: 13, marginBottom: 16 }}>
               Pensado para profesionales que desean reforzar la confianza que transmiten, aumentar su visibilidad y acceder a funcionalidades avanzadas.
@@ -73,12 +73,12 @@ function SoyProfesional() {
             </NavButton>
           </Card>
 
-          <Card title="⭐ Plan Centros & Organizadores">
+          <Card title={"⭐ Plan Centros & Organizadores\n\n\n\n\n50 €/mes (IVA incluido)\n\n"}>
             <p style={{ fontSize: 13, marginBottom: 4 }}>
               <strong>Disponible con oferta de lanzamiento</strong>
             </p>
             <p style={{ fontSize: 13, marginBottom: 12 }}>
-              <strong>50 €/mes (IVA incluido)</strong>
+              <strong>{""}</strong>
             </p>
             <p style={{ fontSize: 13, marginBottom: 16 }}>
               Pensado para centros, escuelas, asociaciones y organizaciones que desean dar mayor visibilidad a su proyecto y a todas las actividades que organizan.
