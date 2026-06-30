@@ -14,44 +14,60 @@ function PlanProfesionalVerificado() {
     >
       <Box title="✨ Para quién es">
         <p style={{ fontSize: 13 }}>
-          Para profesionales que desean fortalecer la confianza, aumentar su visibilidad y ofrecer una información más completa sobre su actividad.
+          Para profesionales de la salud complementaria e integrativa que desean reforzar la confianza que transmiten, aumentar su visibilidad y ofrecer una información más completa sobre su actividad.
         </p>
         <p style={{ fontSize: 13 }}>
-          Profesionales de la salud complementaria e integrativa.
+          {"\n"}
         </p>
         <p style={{ fontSize: 13 }}>
-          Terapeutas, psicólogos, coaches, instructores, profesionales del movimiento, nutricionistas, médicos integrativos...
+          {"\n"}
         </p>
       </Box>
 
-      <Box title="✨ El Plan Profesional Verificado">
+      <Box title="⭐ ¿QUÉ ES EL PLAN PROFESIONAL VERIFICADO?">
         <p style={{ fontSize: 13 }}>
           El Plan Profesional Verificado permite ofrecer un perfil más completo y generar una mayor confianza entre las personas que buscan un profesional.
+          {"\n"}
         </p>
         <p style={{ fontSize: 13 }}>
-          Además de ampliar la información visible, incorpora herramientas y ventajas pensadas para mejorar la visibilidad dentro de Mallorca Holística y facilitar el contacto directo con los usuarios.
+          Además de ampliar la información visible, incorpora herramientas y ventajas pensadas para reforzar la confianza que transmiten, aumentar tu visibilidad dentro de Mallorca Holística y facilitar el contacto directo con las personas interesadas en tu actividad.
         </p>
       </Box>
 
       <Box title="Lo que incluye">
-        <ul style={{ paddingLeft: 18, fontSize: 13 }}>
-          <li>✓ Perfil público dentro del directorio Mallorca Holística.</li>
-          <li>✓ Fotografía principal.</li>
-          <li>✓ Presentación profesional ampliada.</li>
-          <li>✓ Especialidades y Terapias ilimitadas.</li>
-          <li>✓ Áreas de Especialización ilimitadas.</li>
-          <li>✓ Una ubicación principal.</li>
-          <li>✓ Modalidades de atención.</li>
-          <li>✓ Idiomas.</li>
-          <li>✓ Perfil Profesional Verificado Mallorca Holística.</li>
-          <li>✓ Sello Profesional Verificado.</li>
-          <li>✓ Trayectoria profesional visible.</li>
-          <li>✓ Contacto directo mediante teléfono, WhatsApp, página web y redes sociales.</li>
-          <li>✓ Aparición prioritaria en el directorio y en los resultados de búsqueda.</li>
-          <li>✓ Opiniones verificadas.</li>
-          <li>✓ Galería de hasta 5 imágenes.</li>
-          <li>✓ Publicación de hasta 3 actividades al mes.</li>
-          <li>✓ Acceso al panel profesional.</li>
+        <ul style={{ paddingLeft: 18, fontSize: 13, listStyle: "none" }}>
+          <li>
+            <p><strong>Perfil profesional</strong></p>
+            <p>✓ Perfil Profesional Verificado.</p>
+            <p>✓ Sello Profesional Verificado.</p>
+            <p>✓ Perfil público dentro del directorio Mallorca Holística.</p>
+            <p>✓ Fotografía principal.</p>
+            <p>✓ Presentación profesional ampliada.</p>
+            <p>✓ Trayectoria profesional visible.</p>
+            <p>✓ Galería de hasta 5 imágenes.</p>
+            
+            <p style={{ marginTop: 16 }}><strong>Actividad profesional</strong></p>
+            <p>✓ Especialidades y Terapias ilimitadas.</p>
+            <p>✓ Áreas de Especialización ilimitadas.</p>
+            <p>✓ Una ubicación principal.</p>
+            <p>✓ Modalidades de atención.</p>
+            <p>✓ Idiomas.</p>
+            
+            <p style={{ marginTop: 16 }}><strong>Visibilidad</strong></p>
+            <p>✓ Aparición prioritaria en el directorio.</p>
+            <p>✓ Aparición prioritaria en los resultados de búsqueda.</p>
+            <p>✓ Opiniones verificadas.</p>
+            
+            <p style={{ marginTop: 16 }}><strong>Contacto</strong></p>
+            <p>✓ Teléfono clicable.</p>
+            <p>✓ WhatsApp clicable.</p>
+            <p>✓ Página web clicable.</p>
+            <p>✓ Redes sociales clicables.</p>
+            
+            <p style={{ marginTop: 16 }}><strong>Herramientas</strong></p>
+            <p>✓ Acceso al panel profesional.</p>
+            <p>✓ Publicación de hasta 3 eventos grupales al mes en la Agenda de Actividades.</p>
+          </li>
         </ul>
       </Box>
 
@@ -73,16 +89,16 @@ function PlanProfesionalVerificado() {
 
       <Box title="🎉 Oferta de lanzamiento">
         <p style={{ fontSize: 13 }}>
-          Con motivo del lanzamiento de Mallorca Holística, el Plan Profesional Verificado estará disponible con un período gratuito inicial (duración pendiente de definir).
+          Con motivo del lanzamiento de Mallorca Holística, el Plan Profesional Verificado incluye un período gratuito inicial de 2 meses.
         </p>
         <p style={{ fontSize: 13 }}>
-          Una vez finalizado dicho período, la suscripción continuará con la tarifa vigente.
+          Una vez finalizado dicho período, la suscripción continuará automáticamente con la tarifa vigente, salvo cancelación previa.
         </p>
       </Box>
 
       <Box title="Acciones">
         <NavButton to="/auth/crear-cuenta" search={{ track: "verificado" }}>
-          👉 Quiero este plan
+          👉Crear mi cuenta y solicitar mi verificación →
         </NavButton>
         <NavButton to="/soy-profesional" variant="secondary">
           ← Volver a planes
