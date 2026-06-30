@@ -21,7 +21,7 @@ function PlanCentrosOrganizadores() {
 
       <Box title="🌞 ¿QUÉ ES EL PLAN CENTROS & ORGANIZADORES?">
         <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>
-          {"El Plan Centros & Organizadores está pensado para entidades que desean dar visibilidad a su proyecto, presentar su actividad y compartir su programación dentro de Mallorca Holística.\n\n\n\n\nAdemás de disponer de un perfil institucional completo, incorpora herramientas específicas para facilitar la gestión de la organización y aumentar su alcance dentro del ecosistema."}
+          {"El Plan Centros & Organizadores está pensado para entidades que desean dar visibilidad a su proyecto, presentar su actividad y compartir su programación dentro de Mallorca Holística.\n\nAdemás de disponer de un perfil institucional completo, incorpora herramientas específicas para facilitar la gestión de la organización y aumentar su alcance dentro del ecosistema."}
         </p>
       </Box>
 
