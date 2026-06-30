@@ -40,20 +40,20 @@ function SoyProfesional() {
 
       <Box title="⭐ LOS PLANES DE MALLORCA HOLÍSTICA">
         <Row>
-          <Card title="🌿 Plan Presencia">
+          <Card title=\"🌿 Plan Presencia\\n\\n\\n\\n\">
             <p style={{ fontSize: 13, marginBottom: 4 }}>
-              <strong>Disponible para toda la comunidad</strong>
+              <strong>Gratuito\n\n</strong>
             </p>
             <p style={{ fontSize: 13, marginBottom: 12 }}>
-              <strong>Gratuito</strong>
+              <strong>Acceso libre</strong>
             </p>
             <p style={{ fontSize: 13, marginBottom: 16 }}>
-              La puerta de entrada a Mallorca Holística. Crea tu perfil público y empieza a formar parte del directorio de profesionales.
+              La puerta de entrada al ecosistema Mallorca Holística. Un perfil profesional para comenzar a formar parte de una comunidad de profesionales de la salud complementaria e integrativa.\n\n\n\n
             </p>
-            <NavButton to="/auth/crear-cuenta" search={{ track: "presencia" }}>
-              👉 Crear mi perfil gratuito
+            <NavButton to=\"/auth/crear-cuenta\" search={{ track: \"presencia\" }}>
+              
             </NavButton>
-            <NavButton to="/plan-presencia" variant="secondary">
+            <NavButton to=\"/plan-presencia\" variant=\"secondary\">
               Descubrir el plan
             </NavButton>
           </Card>
