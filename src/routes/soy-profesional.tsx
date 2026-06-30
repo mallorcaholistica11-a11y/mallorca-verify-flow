@@ -17,6 +17,17 @@ const paragraph = {
   margin: "0 0 12px 0",
 };
 
+const priceStyle = {
+  fontSize: 16,
+  fontWeight: 600,
+  marginBottom: 4,
+};
+
+const infoStyle = {
+  fontSize: 12,
+  marginBottom: 4,
+};
+
 function SoyProfesional() {
   return (
     <WireframeShell
@@ -33,55 +44,58 @@ function SoyProfesional() {
             Cada profesional, cada centro y cada organización aportan una mirada única. Juntos formamos una comunidad basada en la confianza, la profesionalidad y el compromiso.
           </p>
           <p style={{ ...paragraph, marginBottom: 0 }}>
-            Elige el plan que mejor se adapte a tu actividad y empieza a formar parte de Mallorca Holística.
+            Descubre qué ofrece cada plan y elige el que mejor se adapte a tu actividad.
           </p>
         </div>
       </Box>
 
-      <Box title="⭐ LOS PLANES DE MALLORCA HOLÍSTICA">
+      <Box title="⭐ ELIGE EL PLAN QUE MEJOR SE ADAPTE A TU ACTIVIDAD">
         <Row>
-          <Card title={"🌿 Plan Presencia\n\n\n\n"}>
-            <p style={{ fontSize: 13, marginBottom: 4 }}>
-              <strong>{"Gratuito\n\n"}</strong>
+          <Card title="🌿 Plan Presencia">
+            <p style={priceStyle}>
+              <strong>Gratuito</strong>
             </p>
-            <p style={{ fontSize: 13, marginBottom: 12 }}>
-              <strong>Acceso libre</strong>
+            <p style={infoStyle}>
+              Acceso libre
             </p>
             <p style={{ fontSize: 13, marginBottom: 16 }}>
-              {"La puerta de entrada al ecosistema Mallorca Holística. Un perfil profesional para comenzar a formar parte de una comunidad de profesionales de la salud complementaria e integrativa.\n\n\n\n"}
+              Para profesionales de la salud complementaria e integrativa que desean dar visibilidad a su actividad y empezar a formar parte de Mallorca Holística.
             </p>
-            <NavButton to="/auth/crear-cuenta" search={{ track: "presencia" }}>
-              {""}
-            </NavButton>
-            <NavButton to="/plan-presencia" variant="secondary">
-              Descubrir el plan
+            <NavButton to="/plan-presencia">
+              👉 Descubrir el plan
             </NavButton>
           </Card>
 
-          <Card title={"⭐ Plan Profesional Verificado\n\n"}>
-            <p style={{ fontSize: 13, marginBottom: 4 }}>
-              <strong>{"\n\n25 €/mes (IVA incluido)\n\nDisponible con oferta de lanzamiento"}</strong>
+          <Card title="⭐ Plan Profesional Verificado">
+            <p style={priceStyle}>
+              <strong>25 €/mes (IVA incluido)</strong>
             </p>
-            <p style={{ fontSize: 13, marginBottom: 12 }}>
-              <strong>{""}</strong>
+            <p style={infoStyle}>
+              ✨ 2 meses gratuitos por lanzamiento
+            </p>
+            <p style={infoStyle}>
+              Acceso mediante verificación profesional
             </p>
             <p style={{ fontSize: 13, marginBottom: 16 }}>
-              Pensado para profesionales que desean reforzar la confianza que transmiten, aumentar su visibilidad y acceder a funcionalidades avanzadas.
+              Para profesionales de la salud complementaria e integrativa que desean reforzar la confianza que transmiten, aumentar su visibilidad y acceder a funcionalidades avanzadas.
             </p>
             <NavButton to="/profesional-fundador">
               👉 Descubrir el plan
             </NavButton>
           </Card>
 
-          <Card title={"⭐ Plan Centros & Organizadores\n\n\n\n\n50 €/mes (IVA incluido)\n\n"}>
-            <p style={{ fontSize: 13, marginBottom: 4 }}>
-              <strong>Disponible con oferta de lanzamiento</strong>
+          <Card title="⭐ Plan Centros & Organizadores">
+            <p style={priceStyle}>
+              <strong>50 €/mes (IVA incluido)</strong>
             </p>
-            <p style={{ fontSize: 13, marginBottom: 12 }}>
-              <strong>{""}</strong>
+            <p style={infoStyle}>
+              ✨ 2 meses gratuitos por lanzamiento
+            </p>
+            <p style={infoStyle}>
+              Acceso mediante identificación de la entidad
             </p>
             <p style={{ fontSize: 13, marginBottom: 16 }}>
-              Pensado para centros, escuelas, asociaciones y organizaciones que desean dar mayor visibilidad a su proyecto y a todas las actividades que organizan.
+              Para centros, escuelas, asociaciones y otras entidades relacionadas con la salud complementaria e integrativa que desean dar mayor visibilidad a su proyecto y a las actividades que organizan.
             </p>
             <NavButton to="/comunidad-fundadora-organizaciones">
               👉 Descubrir el plan
