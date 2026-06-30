@@ -14,7 +14,7 @@ function PlanPresencia() {
     >
       <Box title="✨ ¿PARA QUIÉN ES?">
         <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>
-          {"Para profesionales de la salud complementaria e integrativa que desean dar visibilidad a su actividad y comenzar a formar parte de Mallorca Holística.\n\n\n"}
+          {"Para profesionales de la salud complementaria e integrativa que desean dar visibilidad a su actividad y comenzar a formar parte de Mallorca Holística.\n"}
         </p>
       </Box>
 
