@@ -26,8 +26,9 @@ export function WireframeShell({
         <nav style={{ display: "flex", gap: 16, fontSize: 12 }}>
           <Link to="/" style={linkStyle}>Inicio</Link>
           <Link to="/soy-profesional" style={linkStyle}>Soy profesional</Link>
-          <Link to="/comunidad-fundadora" style={linkStyle}>Fundadores · Profesionales</Link>
-          <Link to="/comunidad-fundadora-organizaciones" style={linkStyle}>Fundadores · Organizaciones</Link>
+          <Link to="/plan-presencia" style={linkStyle}>Plan Presencia</Link>
+          <Link to="/profesional-fundador" style={linkStyle}>Profesional Verificado</Link>
+          <Link to="/comunidad-fundadora-organizaciones" style={linkStyle}>Centros & Organizadores</Link>
         </nav>
       </header>
 
