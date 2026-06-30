@@ -15,6 +15,7 @@ import { Route as PlanPresenciaRouteImport } from './routes/plan-presencia'
 import { Route as ListaEsperaRouteImport } from './routes/lista-espera'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ComunidadFundadoraOrganizacionesRouteImport } from './routes/comunidad-fundadora-organizaciones'
+import { Route as ComunidadFundadoraCentrosRouteImport } from './routes/comunidad-fundadora-centros'
 import { Route as ComunidadFundadoraRouteImport } from './routes/comunidad-fundadora'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as InvitacionTokenRouteImport } from './routes/invitacion.$token'
@@ -56,6 +57,12 @@ const ComunidadFundadoraOrganizacionesRoute =
   ComunidadFundadoraOrganizacionesRouteImport.update({
     id: '/comunidad-fundadora-organizaciones',
     path: '/comunidad-fundadora-organizaciones',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ComunidadFundadoraCentrosRoute =
+  ComunidadFundadoraCentrosRouteImport.update({
+    id: '/comunidad-fundadora-centros',
+    path: '/comunidad-fundadora-centros',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ComunidadFundadoraRoute = ComunidadFundadoraRouteImport.update({
@@ -121,6 +128,7 @@ const AuthCrearCuentaRoute = AuthCrearCuentaRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/comunidad-fundadora': typeof ComunidadFundadoraRoute
+  '/comunidad-fundadora-centros': typeof ComunidadFundadoraCentrosRoute
   '/comunidad-fundadora-organizaciones': typeof ComunidadFundadoraOrganizacionesRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/lista-espera': typeof ListaEsperaRoute
@@ -140,6 +148,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/comunidad-fundadora': typeof ComunidadFundadoraRoute
+  '/comunidad-fundadora-centros': typeof ComunidadFundadoraCentrosRoute
   '/comunidad-fundadora-organizaciones': typeof ComunidadFundadoraOrganizacionesRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/lista-espera': typeof ListaEsperaRoute
@@ -160,6 +169,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/comunidad-fundadora': typeof ComunidadFundadoraRoute
+  '/comunidad-fundadora-centros': typeof ComunidadFundadoraCentrosRoute
   '/comunidad-fundadora-organizaciones': typeof ComunidadFundadoraOrganizacionesRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/lista-espera': typeof ListaEsperaRoute
@@ -181,6 +191,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/comunidad-fundadora'
+    | '/comunidad-fundadora-centros'
     | '/comunidad-fundadora-organizaciones'
     | '/dashboard'
     | '/lista-espera'
@@ -200,6 +211,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/comunidad-fundadora'
+    | '/comunidad-fundadora-centros'
     | '/comunidad-fundadora-organizaciones'
     | '/dashboard'
     | '/lista-espera'
@@ -219,6 +231,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/comunidad-fundadora'
+    | '/comunidad-fundadora-centros'
     | '/comunidad-fundadora-organizaciones'
     | '/dashboard'
     | '/lista-espera'
@@ -239,6 +252,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ComunidadFundadoraRoute: typeof ComunidadFundadoraRoute
+  ComunidadFundadoraCentrosRoute: typeof ComunidadFundadoraCentrosRoute
   ComunidadFundadoraOrganizacionesRoute: typeof ComunidadFundadoraOrganizacionesRoute
   DashboardRoute: typeof DashboardRouteWithChildren
   ListaEsperaRoute: typeof ListaEsperaRoute
@@ -294,6 +308,13 @@ declare module '@tanstack/react-router' {
       path: '/comunidad-fundadora-organizaciones'
       fullPath: '/comunidad-fundadora-organizaciones'
       preLoaderRoute: typeof ComunidadFundadoraOrganizacionesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/comunidad-fundadora-centros': {
+      id: '/comunidad-fundadora-centros'
+      path: '/comunidad-fundadora-centros'
+      fullPath: '/comunidad-fundadora-centros'
+      preLoaderRoute: typeof ComunidadFundadoraCentrosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/comunidad-fundadora': {
@@ -397,6 +418,7 @@ const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ComunidadFundadoraRoute: ComunidadFundadoraRoute,
+  ComunidadFundadoraCentrosRoute: ComunidadFundadoraCentrosRoute,
   ComunidadFundadoraOrganizacionesRoute: ComunidadFundadoraOrganizacionesRoute,
   DashboardRoute: DashboardRouteWithChildren,
   ListaEsperaRoute: ListaEsperaRoute,
