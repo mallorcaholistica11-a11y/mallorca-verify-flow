@@ -12,32 +12,50 @@ function PlanCentrosOrganizadores() {
       title="🌞 Plan Centros & Organizadores"
       breadcrumb="Soy profesional › Plan Centros & Organizadores"
     >
-      <Box title="✨ Para quién es">
+      <Box title="✨ ¿PARA QUIÉN ES?">
         <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>
-          {"Para centros y organizaciones que desean fortalecer la confianza, aumentar su visibilidad y ofrecer una información más completa sobre su actividad.\n\nCentros y proyectos relacionados con la salud complementaria e integrativa.\n\nCentros de bienestar, escuelas, asociaciones, espacios de salud, organizadores de actividades, retiros, festivales y otros proyectos que promueven el bienestar y la salud integrativa."}
+          {"Para centros, escuelas, asociaciones y otras entidades relacionadas con la salud complementaria e integrativa que desean dar mayor visibilidad a su proyecto y a las actividades que organizan.\n"}
         </p>
         <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>{"\n"}</p>
       </Box>
 
-      <Box title="🌞 El Plan Centros & Organizadores">
+      <Box title="🌞 ¿QUÉ ES EL PLAN CENTROS & ORGANIZADORES?">
         <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>
-          {"El Plan Centros & Organizadores permite presentar de forma más completa un centro, organización o proyecto, facilitando que las personas descubran sus actividades, espacios y propuestas.\nAdemás de ampliar la información visible, incorpora herramientas y ventajas pensadas para aumentar la visibilidad dentro de Mallorca Holística y facilitar el contacto directo con las personas interesadas."}
+          {"El Plan Centros & Organizadores está pensado para entidades que desean dar visibilidad a su proyecto, presentar su actividad y compartir su programación dentro de Mallorca Holística.\n\n\n\n\nAdemás de disponer de un perfil institucional completo, incorpora herramientas específicas para facilitar la gestión de la organización y aumentar su alcance dentro del ecosistema."}
         </p>
       </Box>
 
-      <Box title="Lo que incluye">
-        <ul style={{ paddingLeft: 18, fontSize: 13 }}>
-          <li>✓ Perfil público de organización dentro del directorio Mallorca Holística.</li>
-          <li>✓ Presentación completa de la organización.</li>
-          <li>✓ Especialidades y Terapias ilimitadas.</li>
-          <li>✓ Áreas de Especialización ilimitadas.</li>
-          <li>✓ Hasta 15 imágenes en la galería.</li>
-          <li>✓ Perfil de Organización Verificado.</li>
-          <li>✓ Identificación como Organización Verificada.</li>
-          <li>✓ Contacto directo mediante teléfono, WhatsApp, página web y redes sociales.</li>
-          <li>✓ Aparición prioritaria en el directorio y en los resultados de búsqueda.</li>
-          <li>✓ Publicación ilimitada de actividades, talleres, cursos, retiros y eventos.</li>
-          <li>✓ Acceso al panel de organización.</li>
+      <Box title="LO QUE INCLUYE">
+        <ul style={{ listStyle: "none", padding: 0, margin: 0, fontSize: 13 }}>
+          <li style={{ marginBottom: 16 }}>
+            {"\u00a0\n"}
+            <h2 style={{ fontSize: 14, fontWeight: 600, margin: "0 0 8px 0" }}>Perfil institucional</h2>
+            <p style={{ margin: "0 0 4px 0" }}>✓ Perfil institucional dentro del directorio Mallorca Holística.</p>
+            <p style={{ margin: "0 0 4px 0" }}>✓ Organización Identificada.</p>
+            <p style={{ margin: "0 0 4px 0" }}>✓ Sello de Organización Identificada.</p>
+            <p style={{ margin: "0 0 4px 0" }}>✓ Logotipo o imagen principal.</p>
+            <p style={{ margin: "0 0 4px 0" }}>✓ Presentación ampliada.</p>
+            <p style={{ margin: "0 0 16px 0" }}>✓ Galería de hasta 15 imágenes.</p>
+
+            <h2 style={{ fontSize: 14, fontWeight: 600, margin: "0 0 8px 0" }}>Proyecto</h2>
+            <p style={{ margin: "0 0 4px 0" }}>✓ Especialidades y Terapias ilimitadas.</p>
+            <p style={{ margin: "0 0 4px 0" }}>✓ Áreas de Especialización ilimitadas.</p>
+            <p style={{ margin: "0 0 16px 0" }}>✓ Una ubicación principal.</p>
+
+            <h2 style={{ fontSize: 14, fontWeight: 600, margin: "0 0 8px 0" }}>Visibilidad</h2>
+            <p style={{ margin: "0 0 4px 0" }}>✓ Aparición prioritaria en el directorio.</p>
+            <p style={{ margin: "0 0 16px 0" }}>✓ Aparición prioritaria en los resultados de búsqueda.</p>
+
+            <h2 style={{ fontSize: 14, fontWeight: 600, margin: "0 0 8px 0" }}>Contacto</h2>
+            <p style={{ margin: "0 0 4px 0" }}>✓ Teléfono clicable.</p>
+            <p style={{ margin: "0 0 4px 0" }}>✓ WhatsApp clicable.</p>
+            <p style={{ margin: "0 0 4px 0" }}>✓ Página web clicable.</p>
+            <p style={{ margin: "0 0 16px 0" }}>✓ Redes sociales clicables.</p>
+
+            <h2 style={{ fontSize: 14, fontWeight: 600, margin: "0 0 8px 0" }}>Herramientas</h2>
+            <p style={{ margin: "0 0 4px 0" }}>✓ Acceso al panel de organización.</p>
+            <p style={{ margin: "0 0 4px 0" }}>✓ Publicación ilimitada de eventos grupales en la Agenda de Actividades.</p>
+          </li>
         </ul>
       </Box>
 
