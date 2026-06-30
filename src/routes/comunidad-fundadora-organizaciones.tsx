@@ -44,7 +44,7 @@ function PlanCentrosOrganizadores() {
       <Box title="Requisitos">
         <ul style={{ paddingLeft: 18, fontSize: 13 }}>
           <li>✓ Aceptación del Código Deontológico Mallorca Holística.</li>
-          <li>✓ Identificación de la organización mediante la documentación correspondiente (CIF y documentación acreditativa).</li>
+          <li>✓ Identificación documental de la entidad.</li>
           <li>✓ Designación de una persona responsable de la cuenta.</li>
           <li>✓ Declaración de veracidad de la información aportada.</li>
           <li>✓ Aceptación de la Política de Privacidad.</li>
@@ -58,17 +58,15 @@ function PlanCentrosOrganizadores() {
       </Box>
 
       <Box title="🎉 Oferta de lanzamiento">
-        <p style={{ fontSize: 13 }}>
-          Con motivo del lanzamiento de Mallorca Holística, el Plan Centros & Organizadores estará disponible con un período gratuito inicial (duración pendiente de definir).
+        <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>
+          {"Con motivo del lanzamiento de Mallorca Holística, el Plan Centros & Organizadores incluye un período gratuito inicial de 2 meses.\n\nUna vez finalizado dicho período, la suscripción continuará con la tarifa vigente, salvo cancelación previa."}
         </p>
-        <p style={{ fontSize: 13 }}>
-          Una vez finalizado dicho período, la suscripción continuará con la tarifa vigente.
-        </p>
+        <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>{"\n"}</p>
       </Box>
 
       <Box title="Acciones">
         <NavButton to="/auth/crear-cuenta" search={{ track: "organizacion" }}>
-          👉 Quiero este plan
+          👉 Crear mi cuenta y registrar mi entidad →
         </NavButton>
         <NavButton to="/soy-profesional" variant="secondary">
           ← Volver a planes
