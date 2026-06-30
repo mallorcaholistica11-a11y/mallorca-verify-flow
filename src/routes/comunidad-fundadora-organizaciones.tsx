@@ -2,25 +2,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import { WireframeShell, Box, NavButton } from "@/components/Wireframe";
 
 export const Route = createFileRoute("/comunidad-fundadora-organizaciones")({
-  component: ComunidadOrg,
+  component: PlanCentrosOrganizadores,
 });
 
-function ComunidadOrg() {
+function PlanCentrosOrganizadores() {
   return (
     <WireframeShell
-      screen="2B · COMUNIDAD FUNDADORA · ORGANIZACIONES"
-      title={"🌞 Centros & Organizadores\u00a0\n\n🌿 Programa Comunidad Fundadora"}
-      breadcrumb="Soy profesional › Comunidad Fundadora · Organizaciones"
+      screen="2B · PLAN CENTROS & ORGANIZADORES"
+      title="🌞 Plan Centros & Organizadores"
+      breadcrumb="Soy profesional › Plan Centros & Organizadores"
     >
-      <Box title={"\n\n\n"}>
-        <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>
-          {"🌿 PROGRAMA COMUNIDAD FUNDADORA\n\nMallorca Holística está dando sus primeros pasos.\n\nDurante esta primera etapa, un grupo reducido de profesionales, centros y organizaciones accede al Programa Comunidad Fundadora, participando en el lanzamiento de Mallorca Holística desde sus comienzos.\n\nSu confianza nos permite validar la plataforma en un entorno real y seguir mejorando la experiencia antes de abrirla a toda la comunidad.\n\nGracias por acompañarnos desde el principio y formar parte de esta primera semilla. 🌿"}
-        </p>
-        <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>{"\n"}</p>
-        <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>{"\n"}</p>
-        <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>{"\n"}</p>
-      </Box>
-
       <Box title="✨ Para quién es">
         <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>
           {"Para centros y organizaciones que desean fortalecer la confianza, aumentar su visibilidad y ofrecer una información más completa sobre su actividad.\n\nCentros y proyectos relacionados con la salud complementaria e integrativa.\n\nCentros de bienestar, escuelas, asociaciones, espacios de salud, organizadores de actividades, retiros, festivales y otros proyectos que promueven el bienestar y la salud integrativa."}
@@ -62,36 +53,22 @@ function ComunidadOrg() {
         </ul>
       </Box>
 
-      <Box title="🌿 Ventajas para los Miembros Fundadores">
-        <ul style={{ paddingLeft: 18, fontSize: 13, listStyleType: "none", margin: 0 }}>
-          <li style={{ marginBottom: 8 }}>✨ Hasta 10 Centros & Organizadores Fundadores.</li>
-          <li style={{ marginBottom: 8 }}>✨ 6 meses gratuitos desde el lanzamiento oficial.</li>
-          <li style={{ marginBottom: 8, whiteSpace: "pre-wrap" }}>
-            {"✨ Tarifa Fundadora protegida de 35 €/mes (IVA incluido) para siempre, mientras la suscripción\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 permanezca activa."}
-          </li>
-          <li style={{ marginBottom: 8, whiteSpace: "pre-wrap" }}>
-            {"✨ Acceso prioritario a nuevas funcionalidades y futuras oportunidades dentro del ecosistema.\n\n\n\nGracias por formar parte de esta primera semilla.\n\nPorque lo que se siembra con alma... siempre florece. 🌿"}
-          </li>
-        </ul>
-      </Box>
-
-      <Box title="Precio futuro del plan">
+      <Box title="Precio">
         <p style={{ fontSize: 13 }}>50 €/mes (IVA incluido)</p>
       </Box>
 
-      <Box title="Ventaja Fundadora">
+      <Box title="🎉 Oferta de lanzamiento">
         <p style={{ fontSize: 13 }}>
-          <strong>35 €/mes (IVA incluido)</strong> para siempre mientras la suscripción permanezca activa.
+          Con motivo del lanzamiento de Mallorca Holística, el Plan Centros & Organizadores estará disponible con un período gratuito inicial (duración pendiente de definir).
         </p>
-        <p style={{ fontSize: 13 }}>+ 6 meses gratuitos desde el lanzamiento oficial.</p>
+        <p style={{ fontSize: 13 }}>
+          Una vez finalizado dicho período, la suscripción continuará con la tarifa vigente.
+        </p>
       </Box>
 
       <Box title="Acciones">
-        <NavButton to="/invitacion/$token" params={{ token: "demo-token" }} search={{ track: "organizacion" }}>
-          👉 He recibido una invitación
-        </NavButton>
-        <NavButton to="/lista-espera" search={{ track: "organizacion" }} variant="secondary">
-          👉 Quiero unirme a la lista de espera
+        <NavButton to="/auth/crear-cuenta" search={{ track: "organizacion" }}>
+          👉 Quiero este plan
         </NavButton>
         <NavButton to="/soy-profesional" variant="secondary">
           ← Volver a planes

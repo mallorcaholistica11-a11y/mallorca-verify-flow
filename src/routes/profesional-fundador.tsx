@@ -2,31 +2,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import { WireframeShell, Box, NavButton } from "@/components/Wireframe";
 
 export const Route = createFileRoute("/profesional-fundador")({
-  component: ProfesionalFundador,
+  component: PlanProfesionalVerificado,
 });
 
-function ProfesionalFundador() {
+function PlanProfesionalVerificado() {
   return (
     <WireframeShell
-      screen="1c · DETALLE PROFESIONAL FUNDADOR"
-      title={"⭐ Profesional Verificado\n🌿 Programa Comunidad Fundadora"}
-      breadcrumb="Inicio › Soy profesional › Profesional Fundador"
+      screen="1c · PLAN PROFESIONAL VERIFICADO"
+      title="⭐ Plan Profesional Verificado"
+      breadcrumb="Inicio › Soy profesional › Plan Profesional Verificado"
     >
-      <Box title="🌿 Programa Comunidad Fundadora">
-        <p style={{ fontSize: 13 }}>
-          Mallorca Holística está dando sus primeros pasos.
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Durante esta primera etapa, un grupo reducido de profesionales y organizaciones accede al Programa Comunidad Fundadora, participando en el lanzamiento de Mallorca Holística desde sus comienzos.
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Su confianza nos permite validar la plataforma en un entorno real y seguir mejorando la experiencia antes de abrirla a toda la comunidad.
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Gracias por acompañarnos desde el principio y formar parte de esta primera semilla. 🌿
-        </p>
-      </Box>
-
       <Box title="✨ Para quién es">
         <p style={{ fontSize: 13 }}>
           Para profesionales que desean fortalecer la confianza, aumentar su visibilidad y ofrecer una información más completa sobre su actividad.
@@ -82,32 +67,22 @@ function ProfesionalFundador() {
         </ul>
       </Box>
 
-      <Box title="🌿 Ventajas para los Miembros Fundadores">
-        <ul style={{ paddingLeft: 18, fontSize: 13 }}>
-          <li>✨ Hasta 40 Profesionales Fundadores.</li>
-          <li>✨ 6 meses gratuitos desde el lanzamiento oficial.</li>
-          <li>✨ Tarifa Fundadora protegida de 15 €/mes (IVA incluido) para siempre, mientras la suscripción permanezca activa.</li>
-          <li>✨ Acceso prioritario a nuevas funcionalidades y futuras oportunidades dentro del ecosistema.</li>
-        </ul>
-      </Box>
-
-      <Box title="Precio futuro del plan">
+      <Box title="Precio">
         <p style={{ fontSize: 13 }}>25 €/mes (IVA incluido)</p>
       </Box>
 
-      <Box title="Ventaja Fundadora">
+      <Box title="🎉 Oferta de lanzamiento">
         <p style={{ fontSize: 13 }}>
-          <strong>15 €/mes (IVA incluido)</strong> para siempre mientras la suscripción permanezca activa.
+          Con motivo del lanzamiento de Mallorca Holística, el Plan Profesional Verificado estará disponible con un período gratuito inicial (duración pendiente de definir).
         </p>
-        <p style={{ fontSize: 13 }}>+ 6 meses gratuitos desde el lanzamiento oficial.</p>
+        <p style={{ fontSize: 13 }}>
+          Una vez finalizado dicho período, la suscripción continuará con la tarifa vigente.
+        </p>
       </Box>
 
       <Box title="Acciones">
-        <NavButton to="/invitacion/$token" params={{ token: "demo-token" }} search={{ track: "verificado" }}>
-          👉 He recibido una invitación
-        </NavButton>
-        <NavButton to="/lista-espera" search={{ track: "verificado" }} variant="secondary">
-          👉 Quiero unirme a la lista de espera
+        <NavButton to="/auth/crear-cuenta" search={{ track: "verificado" }}>
+          👉 Quiero este plan
         </NavButton>
         <NavButton to="/soy-profesional" variant="secondary">
           ← Volver a planes
