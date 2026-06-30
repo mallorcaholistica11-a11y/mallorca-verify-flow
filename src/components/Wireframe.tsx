@@ -213,7 +213,7 @@ export function NavButton({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (
     <Link to={to as any} params={params as any} search={search as any} style={style}>
-      {children} →
+      {children}
     </Link>
   );
 }

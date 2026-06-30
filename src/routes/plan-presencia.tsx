@@ -13,23 +13,15 @@ function PlanPresencia() {
       breadcrumb="Inicio › Soy profesional › Plan Presencia"
     >
       <Box title="🌿 Plan Presencia">
-        <p style={{ fontSize: 13 }}>
-          Para profesionales que desean dar visibilidad a su actividad.
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Profesionales de la salud complementaria e integrativa.
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Terapeutas, psicólogos, coaches, instructores, profesionales del movimiento, nutricionistas, médicos integrativos...
+        <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>
+          Para profesionales de la salud complementaria e integrativa que desean dar visibilidad a su actividad y comenzar a formar parte de Mallorca Holística.
         </p>
       </Box>
 
-      <Box title="La puerta de entrada a Mallorca Holística">
-        <p style={{ fontSize: 13 }}>
-          El Plan Presencia permite crear un perfil público dentro de Mallorca Holística y comenzar a formar parte del ecosistema.
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Es una forma sencilla de dar visibilidad a tu actividad profesional, facilitar que las personas descubran quién eres y cómo acompañas, y empezar a construir tu presencia dentro de una comunidad basada en la confianza.
+      <Box title="🌿 ¿QUÉ ES EL PLAN PRESENCIA?">
+        <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>
+          El Plan Presencia permite crear un perfil público dentro de Mallorca Holística y comenzar a formar parte del ecosistema.{"\n\n"}
+          Es la forma más sencilla de comenzar a formar parte de Mallorca Holística, dar visibilidad a tu actividad profesional y facilitar que las personas descubran quién eres y cómo acompañas.
         </p>
       </Box>
 
@@ -51,22 +43,6 @@ function PlanPresencia() {
         </ul>
       </Box>
 
-      <Box title="No incluye">
-        <ul style={{ paddingLeft: 18, fontSize: 13 }}>
-          <li>✘ Perfil Profesional Verificado.</li>
-          <li>✘ Sello Profesional Verificado.</li>
-          <li>✘ Trayectoria profesional visible.</li>
-          <li>✘ Formación visible.</li>
-          <li>✘ Opiniones verificadas.</li>
-          <li>✘ Prioridad en los resultados de búsqueda.</li>
-          <li>✘ Galería de imágenes.</li>
-          <li>✘ Teléfono clicable.</li>
-          <li>✘ WhatsApp clicable.</li>
-          <li>✘ Página web clicable.</li>
-          <li>✘ Redes sociales clicables.</li>
-        </ul>
-      </Box>
-
       <Box title="Requisitos">
         <ul style={{ paddingLeft: 18, fontSize: 13 }}>
           <li>✓ Aceptación del Código Deontológico Mallorca Holística.</li>
@@ -80,18 +56,16 @@ function PlanPresencia() {
         <p style={{ fontSize: 13 }}><strong>Gratuito</strong></p>
       </Box>
 
-      <Box title="Evolución de tu perfil">
-        <p style={{ fontSize: 13 }}>
-          El Plan Presencia es el primer paso dentro de Mallorca Holística.
-        </p>
-        <p style={{ fontSize: 13 }}>
-          A medida que evolucione tu actividad, podrás acceder a los planes Profesional Verificado o Centros & Organizadores, incorporando nuevas funcionalidades, mayor visibilidad y herramientas pensadas para impulsar tu proyecto.
+      <Box title="🌿 TU PERFIL PUEDE EVOLUCIONAR">
+        <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>
+          El Plan Presencia puede acompañarte durante todo tu recorrido en Mallorca Holística.{"\n\n\n"}
+          Si en el futuro deseas acceder a nuevas funcionalidades, reforzar la confianza que transmites o dar mayor visibilidad a tu actividad, podrás solicitar el acceso a los planes Profesional Verificado o Centros & Organizadores.{"\n\n\n\n\n"}
         </p>
       </Box>
 
       <Box title="Acciones">
         <NavButton to="/auth/crear-cuenta" search={{ track: "presencia" }}>
-          👉 Crear mi cuenta
+          👉 Crear mi cuenta gratuita
         </NavButton>
         <NavButton to="/soy-profesional" variant="secondary">
           ← Volver a planes
