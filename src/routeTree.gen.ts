@@ -16,6 +16,7 @@ import { Route as ListaEsperaRouteImport } from './routes/lista-espera'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ComunidadFundadoraOrganizacionesRouteImport } from './routes/comunidad-fundadora-organizaciones'
 import { Route as ComunidadFundadoraCentrosRouteImport } from './routes/comunidad-fundadora-centros'
+import { Route as ComunidadFundadoraBienvenidaRouteImport } from './routes/comunidad-fundadora-bienvenida'
 import { Route as ComunidadFundadoraAccesoRouteImport } from './routes/comunidad-fundadora-acceso'
 import { Route as ComunidadFundadoraRouteImport } from './routes/comunidad-fundadora'
 import { Route as IndexRouteImport } from './routes/index'
@@ -64,6 +65,12 @@ const ComunidadFundadoraCentrosRoute =
   ComunidadFundadoraCentrosRouteImport.update({
     id: '/comunidad-fundadora-centros',
     path: '/comunidad-fundadora-centros',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ComunidadFundadoraBienvenidaRoute =
+  ComunidadFundadoraBienvenidaRouteImport.update({
+    id: '/comunidad-fundadora-bienvenida',
+    path: '/comunidad-fundadora-bienvenida',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ComunidadFundadoraAccesoRoute =
@@ -136,6 +143,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/comunidad-fundadora': typeof ComunidadFundadoraRoute
   '/comunidad-fundadora-acceso': typeof ComunidadFundadoraAccesoRoute
+  '/comunidad-fundadora-bienvenida': typeof ComunidadFundadoraBienvenidaRoute
   '/comunidad-fundadora-centros': typeof ComunidadFundadoraCentrosRoute
   '/comunidad-fundadora-organizaciones': typeof ComunidadFundadoraOrganizacionesRoute
   '/dashboard': typeof DashboardRouteWithChildren
@@ -157,6 +165,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/comunidad-fundadora': typeof ComunidadFundadoraRoute
   '/comunidad-fundadora-acceso': typeof ComunidadFundadoraAccesoRoute
+  '/comunidad-fundadora-bienvenida': typeof ComunidadFundadoraBienvenidaRoute
   '/comunidad-fundadora-centros': typeof ComunidadFundadoraCentrosRoute
   '/comunidad-fundadora-organizaciones': typeof ComunidadFundadoraOrganizacionesRoute
   '/dashboard': typeof DashboardRouteWithChildren
@@ -179,6 +188,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/comunidad-fundadora': typeof ComunidadFundadoraRoute
   '/comunidad-fundadora-acceso': typeof ComunidadFundadoraAccesoRoute
+  '/comunidad-fundadora-bienvenida': typeof ComunidadFundadoraBienvenidaRoute
   '/comunidad-fundadora-centros': typeof ComunidadFundadoraCentrosRoute
   '/comunidad-fundadora-organizaciones': typeof ComunidadFundadoraOrganizacionesRoute
   '/dashboard': typeof DashboardRouteWithChildren
@@ -202,6 +212,7 @@ export interface FileRouteTypes {
     | '/'
     | '/comunidad-fundadora'
     | '/comunidad-fundadora-acceso'
+    | '/comunidad-fundadora-bienvenida'
     | '/comunidad-fundadora-centros'
     | '/comunidad-fundadora-organizaciones'
     | '/dashboard'
@@ -223,6 +234,7 @@ export interface FileRouteTypes {
     | '/'
     | '/comunidad-fundadora'
     | '/comunidad-fundadora-acceso'
+    | '/comunidad-fundadora-bienvenida'
     | '/comunidad-fundadora-centros'
     | '/comunidad-fundadora-organizaciones'
     | '/dashboard'
@@ -244,6 +256,7 @@ export interface FileRouteTypes {
     | '/'
     | '/comunidad-fundadora'
     | '/comunidad-fundadora-acceso'
+    | '/comunidad-fundadora-bienvenida'
     | '/comunidad-fundadora-centros'
     | '/comunidad-fundadora-organizaciones'
     | '/dashboard'
@@ -266,6 +279,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ComunidadFundadoraRoute: typeof ComunidadFundadoraRoute
   ComunidadFundadoraAccesoRoute: typeof ComunidadFundadoraAccesoRoute
+  ComunidadFundadoraBienvenidaRoute: typeof ComunidadFundadoraBienvenidaRoute
   ComunidadFundadoraCentrosRoute: typeof ComunidadFundadoraCentrosRoute
   ComunidadFundadoraOrganizacionesRoute: typeof ComunidadFundadoraOrganizacionesRoute
   DashboardRoute: typeof DashboardRouteWithChildren
@@ -329,6 +343,13 @@ declare module '@tanstack/react-router' {
       path: '/comunidad-fundadora-centros'
       fullPath: '/comunidad-fundadora-centros'
       preLoaderRoute: typeof ComunidadFundadoraCentrosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/comunidad-fundadora-bienvenida': {
+      id: '/comunidad-fundadora-bienvenida'
+      path: '/comunidad-fundadora-bienvenida'
+      fullPath: '/comunidad-fundadora-bienvenida'
+      preLoaderRoute: typeof ComunidadFundadoraBienvenidaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/comunidad-fundadora-acceso': {
@@ -440,6 +461,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ComunidadFundadoraRoute: ComunidadFundadoraRoute,
   ComunidadFundadoraAccesoRoute: ComunidadFundadoraAccesoRoute,
+  ComunidadFundadoraBienvenidaRoute: ComunidadFundadoraBienvenidaRoute,
   ComunidadFundadoraCentrosRoute: ComunidadFundadoraCentrosRoute,
   ComunidadFundadoraOrganizacionesRoute: ComunidadFundadoraOrganizacionesRoute,
   DashboardRoute: DashboardRouteWithChildren,
