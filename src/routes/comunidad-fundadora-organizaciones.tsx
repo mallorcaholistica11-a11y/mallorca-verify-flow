@@ -77,7 +77,7 @@ function PlanCentrosOrganizadores() {
 
       <Box title="🎉LANZAMIENTO OFICIAL">
         <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>
-          {"Con motivo del lanzamiento oficial de Mallorca Holística, todas las nuevas suscripciones realizadas durante el primer mes disfrutarán de 2 meses gratuitos.\n\n\n\n\nAl finalizar este período, la suscripción continuará automáticamente con la tarifa vigente, salvo cancelación previa.\n\n\n\n\nQueremos que dispongas del tiempo suficiente para presentar tu proyecto y dar a conocer tus actividades desde el lanzamiento de Mallorca Holística.\n\n\n"}
+          {"Con motivo del lanzamiento oficial de Mallorca Holística, todas las nuevas suscripciones realizadas durante el primer mes disfrutarán de 2 meses gratuitos.\n\nAl finalizar este período, la suscripción continuará automáticamente con la tarifa vigente, salvo cancelación previa.\n\nQueremos que dispongas del tiempo suficiente para presentar tu proyecto y dar a conocer tus actividades desde el lanzamiento de Mallorca Holística.\n"}
         </p>
       </Box>
 
