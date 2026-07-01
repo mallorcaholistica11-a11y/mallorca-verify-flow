@@ -40,7 +40,7 @@ export function WireframeShell({
         <div style={{ fontSize: 11, color: "#888", letterSpacing: 1, marginBottom: 4 }}>
           PANTALLA · {screen}
         </div>
-        <h1 style={{ fontSize: 22, margin: "0 0 20px 0", whiteSpace: "pre-wrap" }}>{title}</h1>
+        <h1 style={{ fontSize: 22, margin: "0 0 20px 0", whiteSpace: "pre-wrap" }}>{title.replace("Reserva tu plaza", "Activa tu suscripción")}</h1>
         {children}
       </main>
 
@@ -228,7 +228,7 @@ export function Note({ children }: { children: ReactNode }) {
 
 const TRACK_LABEL: Record<Track, string> = {
   presencia: "Perfil Presencia (gratuito)",
-  verificado: "Profesional Fundador (verificado)",
+  verificado: "Profesional Verificado (No Fundador)",
   organizacion: "Organización Fundadora",
 };
 

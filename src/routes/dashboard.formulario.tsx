@@ -1754,44 +1754,44 @@ function VerificadoFormulario() {
               Solo queda un último paso para enviar tu solicitud.
             </p>
             <p style={{ fontSize: 13, marginBottom: 8 }}>
-              Como miembro de la Comunidad Fundadora disfrutarás de 6 meses gratuitos desde el lanzamiento oficial de Mallorca Holística.
+              Para facilitar la activación de tu suscripción, necesitamos registrar un método de pago seguro.
             </p>
             <p style={{ fontSize: 13, marginBottom: 8 }}>
-              Para reservar tu plaza y facilitar la activación futura de tu suscripción, necesitamos registrar un método de pago seguro.
+              {"\n"}
             </p>
             <p style={{ fontSize: 13, marginBottom: 8 }}>
-              No realizaremos ningún cargo durante la revisión de tu solicitud ni durante los 6 meses gratuitos.
+              No realizaremos ningún cargo durante la revisión de tu solicitud ni durante el período gratuito de lanzamiento, si corresponde.
             </p>
             <p style={{ fontSize: 13, marginBottom: 8 }}>
-              Tu tarjeta permanecerá protegida mediante Stripe y únicamente se utilizará cuando finalice el período gratuito, siempre que tu solicitud haya sido aprobada.
+              Tu tarjeta permanecerá protegida mediante Stripe y únicamente se utilizará cuando tu suscripción deba activarse, siempre que tu solicitud haya sido aprobada.
             </p>
           </div>
 
           <div style={{ marginBottom: 16 }}>
             <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
-              🌿 Tus condiciones como Miembro Fundador
+              🚀 Lanzamiento oficial
             </div>
             <ul style={{ fontSize: 13, paddingLeft: 20, marginBottom: 8 }}>
               <li>
-                ✨ 6 meses gratuitos desde la fecha oficial de lanzamiento de Mallorca Holística.
+                ✨ Si tu inscripción se realiza durante el primer mes tras el lanzamiento oficial de Mallorca Holística, disfrutarás automáticamente de 2 meses gratuitos.
               </li>
               <li>
-                ✨ Tarifa Fundador protegida de {isOrg ? "35" : "15"} €/mes (IVA incluido) para siempre, mientras mantengas activa tu suscripción.
+                ✨ Una vez finalizado este período, la suscripción continuará automáticamente con la tarifa vigente, salvo cancelación previa.
               </li>
               <li>✨ Sin permanencia.</li>
               <li>
-                ✨ Ningún cargo durante el proceso de revisión de tu solicitud.
+                ✨ Ningún cargo durante el proceso de revisión de tu solicitud.{"\n\n\n"}ℹ️ Si tu inscripción se realiza durante el período de lanzamiento, la promoción se aplicará automáticamente una vez tu solicitud haya sido aprobada.
               </li>
             </ul>
             <p style={{ fontSize: 13, marginBottom: 8 }}>
-              ℹ️ La fecha oficial de lanzamiento será comunicada con suficiente antelación a todos los miembros fundadores.
+              {"\n"}
             </p>
           </div>
 
           <VConsentItem
             icon="🔒"
             title="Autorización"
-            label={`Autorizo a Mallorca Holística a registrar mi método de pago de forma segura y a activar automáticamente mi suscripción con la tarifa de Miembro Fundador de ${isOrg ? "35" : "15"} €/mes (IVA incluido) una vez finalizados los 6 meses gratuitos, siempre que mi solicitud haya sido aprobada.`}
+            label={`Autorizo a Mallorca Holística a registrar mi método de pago de forma segura y activar automáticamente mi suscripción una vez finalizado el período gratuito correspondiente, siempre que mi solicitud haya sido aprobada.`}
             checked={autorizaPago}
             onToggle={() => setAutorizaPago((p) => !p)}
           />
