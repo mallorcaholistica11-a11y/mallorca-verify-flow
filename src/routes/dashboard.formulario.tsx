@@ -1916,31 +1916,52 @@ function Paso7OrganizacionEstandar({ autoriza, onToggle }: Paso7Props) {
     <Box title="🌿 Activa la suscripción de tu organización">
       <div style={{ marginBottom: 16 }}>
         <p style={{ fontSize: 13, marginBottom: 8 }}>
-          Has completado prácticamente todo el proceso. Solo queda registrar un método de pago
-          seguro para activar la suscripción del Plan Centros &amp; Organizadores una vez la
-          solicitud haya sido aprobada.
-        </p>
-        <p style={{ fontSize: 13, marginBottom: 8 }}>
-          La tarjeta permanecerá protegida mediante Stripe y no realizaremos ningún cargo durante
-          el proceso de revisión.
+          Has completado prácticamente todo el proceso. Solo queda un último paso para enviar tu solicitud.
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          Para facilitar la activación de tu suscripción, necesitamos registrar un método de pago seguro.
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          No realizaremos ningún cargo durante la revisión de tu solicitud ni durante el período gratuito de lanzamiento, si corresponde.
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          Tu tarjeta permanecerá protegida mediante Stripe y únicamente se utilizará cuando tu suscripción deba activarse, siempre que tu solicitud haya sido aprobada.
         </p>
       </div>
 
       <div style={{ marginBottom: 16 }}>
         <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
-          🌿 Vuestras condiciones — Plan Centros &amp; Organizadores
+          🚀 Lanzamiento oficial
         </div>
         <ul style={{ fontSize: 13, paddingLeft: 20, marginBottom: 8 }}>
-          <li>✨ Tarifa: 50 €/mes (IVA incluido).</li>
-          <li>✨ Sin permanencia.</li>
-          <li>✨ Ningún cargo durante el proceso de revisión de la solicitud.</li>
+          <li>
+            ✨ Si tu inscripción se realiza durante el primer mes tras el lanzamiento oficial de Mallorca Holística, disfrutarás automáticamente de 2 meses gratuitos.
+            <br />
+            <br />
+            ✨ Una vez finalizado este período, la suscripción continuará automáticamente con la tarifa vigente, salvo cancelación previa.
+            <br />
+            <br />
+            ✨ Sin permanencia.
+            <br />
+            <br />
+            ✨ Ningún cargo durante el proceso de revisión de tu solicitud.
+          </li>
         </ul>
       </div>
 
       <VConsentItem
         icon="🔒"
         title="Autorización"
-        label="Autorizo a Mallorca Holística a registrar el método de pago de la organización de forma segura y a activar automáticamente la suscripción del Plan Centros & Organizadores con la tarifa de 50 €/mes (IVA incluido), siempre que la solicitud haya sido aprobada."
+        label="Autorizo a Mallorca Holística a registrar mi método de pago de forma segura y activar automáticamente la suscripción de mi entidad una vez finalizado el período gratuito correspondiente, siempre que la solicitud haya sido aprobada."
         checked={autoriza}
         onToggle={onToggle}
       />
