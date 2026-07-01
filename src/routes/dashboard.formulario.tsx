@@ -911,7 +911,7 @@ const V_STEP_TITLES = [
   "Experiencia y Perfil",
   "Enlaces y Redes",
   "Verificación y Compromisos",
-  "Suscripción y Método de Pago",
+  "Reserva tu plaza",
 ];
 
 const O_STEP_TITLES = [
@@ -921,7 +921,7 @@ const O_STEP_TITLES = [
   "Perfil de la Organización",
   "Enlaces y Redes",
   "Verificación y Compromisos",
-  "Suscripción y Método de Pago",
+  "Reserva tu plaza",
 ];
 
 const O_ACTIVIDADES_ORGANIZADAS = [
