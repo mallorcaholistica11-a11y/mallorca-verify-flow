@@ -4,7 +4,12 @@ import { useState, type ReactNode } from "react";
 // Intentionally style-less wireframe primitives.
 // Dashed borders, monospace, no color decisions.
 
-export type Track = "presencia" | "verificado" | "organizacion";
+export type Track =
+  | "presencia"
+  | "verificado"
+  | "verificadoFundador"
+  | "organizacion"
+  | "organizacionFundadora";
 
 export function WireframeShell({
   screen,
@@ -229,7 +234,9 @@ export function Note({ children }: { children: ReactNode }) {
 const TRACK_LABEL: Record<Track, string> = {
   presencia: "Perfil Presencia (gratuito)",
   verificado: "Profesional Verificado (No Fundador)",
-  organizacion: "Organización Fundadora",
+  verificadoFundador: "Profesional Fundador",
+  organizacion: "Centros & Organizadores (No Fundador)",
+  organizacionFundadora: "Organización Fundadora",
 };
 
 export function TrackBadge({ track }: { track: Track }) {
@@ -242,6 +249,8 @@ export function TrackBadge({ track }: { track: Track }) {
 
 export function parseTrack(s: Record<string, unknown>): Track {
   if (s.track === "verificado") return "verificado";
+  if (s.track === "verificadoFundador") return "verificadoFundador";
   if (s.track === "organizacion") return "organizacion";
+  if (s.track === "organizacionFundadora") return "organizacionFundadora";
   return "presencia";
 }
