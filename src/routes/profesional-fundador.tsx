@@ -89,7 +89,7 @@ function PlanProfesionalVerificado() {
 
       <Box title="🎉 Oferta de lanzamiento">
         <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>
-          {"Con motivo del lanzamiento oficial de Mallorca Holística, todas las nuevas suscripciones realizadas durante el primer mes disfrutarán de 2 meses gratuitos.\n\n\n\n\nAl finalizar este período, la suscripción continuará automáticamente con la tarifa vigente, salvo cancelación previa.\n\n\n\n\nQueremos que dispongas del tiempo suficiente para comprobar el valor de formar parte de Mallorca Holística antes de comenzar tu suscripción."}
+          {"Con motivo del lanzamiento oficial de Mallorca Holística, todas las nuevas suscripciones realizadas durante el primer mes disfrutarán de 2 meses gratuitos.\n\nAl finalizar este período, la suscripción continuará automáticamente con la tarifa vigente, salvo cancelación previa.\n\nQueremos que dispongas del tiempo suficiente para comprobar el valor de formar parte de Mallorca Holística antes de comenzar tu suscripción."}
         </p>
         <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>
           {"\n\n"}
