@@ -23,8 +23,8 @@ function DashboardWrapper() {
 
 function DashboardHome() {
   const { track } = Route.useSearch();
-  const isOrg = track === "organizacion";
-  const isVerificado = track === "verificado";
+  const isOrg = track === "organizacion" || track === "organizacionFundadora";
+  const isVerificado = track === "verificado" || track === "verificadoFundador";
   const isPresencia = track === "presencia";
 
   const screen = isOrg
