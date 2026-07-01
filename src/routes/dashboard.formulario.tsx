@@ -1829,7 +1829,7 @@ function VerificadoFormulario() {
           </button>
         ) : (
           <button onClick={finish} style={btn("primary")}>
-            👉 Enviar solicitud de verificación
+            👉 Enviar mi solicitud
           </button>
         )}
       </Box>
