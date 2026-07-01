@@ -2,16 +2,19 @@ import { createFileRoute } from "@tanstack/react-router";
 import { WireframeShell, Box, NavButton, Note, parseTrack, type Track } from "@/components/Wireframe";
 
 export const Route = createFileRoute("/invitacion/$token")({
-  validateSearch: (s: Record<string, unknown>): { track: Track } => ({
-    track: parseTrack(s) === "presencia" ? "verificado" : parseTrack(s),
-  }),
+  validateSearch: (s: Record<string, unknown>): { track: Track } => {
+    const t = parseTrack(s);
+    // La invitación es privada: siempre entra en un track Fundador.
+    if (t === "organizacion" || t === "organizacionFundadora") return { track: "organizacionFundadora" };
+    return { track: "verificadoFundador" };
+  },
   component: Invitacion,
 });
 
 function Invitacion() {
   const { token } = Route.useParams();
   const { track } = Route.useSearch();
-  const isOrg = track === "organizacion";
+  const isOrg = track === "organizacionFundadora";
   return (
     <WireframeShell
       screen="3 · INVITACIÓN VALIDADA"
