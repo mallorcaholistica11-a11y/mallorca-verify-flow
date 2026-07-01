@@ -146,7 +146,13 @@ function FakeCheckbox({ label }: { label: string }) {
 
 function Formulario() {
   const { track } = Route.useSearch();
-  if (track === "verificado" || track === "organizacion") return <VerificadoFormulario />;
+  if (
+    track === "verificado" ||
+    track === "verificadoFundador" ||
+    track === "organizacion" ||
+    track === "organizacionFundadora"
+  )
+    return <VerificadoFormulario />;
   return <FormularioBase />;
 }
 
@@ -1240,7 +1246,8 @@ function VerificadoFormulario() {
 
   const finish = () => navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
 
-  const isOrg = track === "organizacion";
+  const isOrg = track === "organizacion" || track === "organizacionFundadora";
+  const isFundador = track === "verificadoFundador" || track === "organizacionFundadora";
   const TITLES = isOrg ? O_STEP_TITLES : V_STEP_TITLES;
   const stepTitle = TITLES[step - 1];
   const screenLabel = isOrg ? "FORMULARIO ORGANIZACIÓN" : "FORMULARIO VERIFICADO";
