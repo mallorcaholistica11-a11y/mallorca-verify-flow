@@ -9,9 +9,15 @@ function PlanPresencia() {
   return (
     <WireframeShell
       screen="1b · DETALLE PLAN PRESENCIA"
-      title="✨ ¿PARA QUIÉN ES?"
+      title="🌿 Plan Presencia"
       breadcrumb="Inicio › Soy profesional › Plan Presencia"
     >
+      <Box title="✨ ¿PARA QUIÉN ES?">
+        <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>
+          {"Para profesionales de la salud complementaria e integrativa que desean dar visibilidad a su actividad y comenzar a formar parte de Mallorca Holística.\n"}
+        </p>
+      </Box>
+
       <Box title="🌞 ¿QUÉ ES EL PLAN PRESENCIA?">
         <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>
           {"El Plan Presencia es la puerta de entrada a Mallorca Holística.\n\nPermite crear una cuenta, completar un perfil profesional público y comenzar a formar parte del ecosistema.\n\nEs la forma más sencilla de dar visibilidad a tu actividad profesional y facilitar que las personas descubran quién eres y cómo acompañas."}
@@ -20,8 +26,29 @@ function PlanPresencia() {
 
       <Box title="💎 ¿QUÉ INCLUYE?">
         <ul style={{ listStyle: "none", padding: 0, margin: 0, fontSize: 13 }}>
-          <li style={{ whiteSpace: "pre-wrap" }}>
-            {"Perfil profesional \n\n\n✓ Perfil público dentro del directorio Mallorca Holística. \n✓ Fotografía principal.\n✓ Presentación profesional.\n\n\nActividad profesional\n\n\n✓ Hasta 3 Especialidades y Terapias. \n✓ Hasta 5 Áreas de Especialización. \n✓ Una ubicación principal. \n✓ Modalidades de atención. \n✓ Idiomas. Visibilidad \n✓ Aparición en el directorio. \n✓ Aparición en los resultados de búsqueda. \n\n\nContacto\n\n\n✓ Información básica de contacto visible.\n\n\nHerramientas \n\n\n✓ Acceso al panel profesional.\n✓ Posibilidad de solicitar la publicación ocasional de eventos grupales en la Agenda de Actividades."}
+          <li style={{ marginBottom: 16 }}>
+            <h2 style={{ fontSize: 14, fontWeight: 600, margin: "0 0 8px 0" }}>💙 Perfil profesional</h2>
+            <p style={{ margin: "0 0 4px 0" }}>✓ Perfil público dentro del directorio Mallorca Holística.</p>
+            <p style={{ margin: "0 0 4px 0" }}>✓ Fotografía principal.</p>
+            <p style={{ margin: "0 0 16px 0" }}>✓ Presentación profesional.</p>
+
+            <h2 style={{ fontSize: 14, fontWeight: 600, margin: "0 0 8px 0" }}>💙 Actividad profesional</h2>
+            <p style={{ margin: "0 0 4px 0" }}>✓ Hasta 3 Especialidades y Terapias.</p>
+            <p style={{ margin: "0 0 4px 0" }}>✓ Hasta 5 Áreas de Especialización.</p>
+            <p style={{ margin: "0 0 4px 0" }}>✓ Una ubicación principal.</p>
+            <p style={{ margin: "0 0 4px 0" }}>✓ Modalidades de atención.</p>
+            <p style={{ margin: "0 0 16px 0" }}>✓ Idiomas.</p>
+
+            <h2 style={{ fontSize: 14, fontWeight: 600, margin: "0 0 8px 0" }}>💙 Visibilidad</h2>
+            <p style={{ margin: "0 0 4px 0" }}>✓ Aparición en el directorio.</p>
+            <p style={{ margin: "0 0 16px 0" }}>✓ Aparición en los resultados de búsqueda.</p>
+
+            <h2 style={{ fontSize: 14, fontWeight: 600, margin: "0 0 8px 0" }}>💙 Contacto</h2>
+            <p style={{ margin: "0 0 16px 0" }}>✓ Información básica de contacto visible.</p>
+
+            <h2 style={{ fontSize: 14, fontWeight: 600, margin: "0 0 8px 0" }}>💙 Herramientas</h2>
+            <p style={{ margin: "0 0 4px 0" }}>✓ Acceso al panel profesional.</p>
+            <p style={{ margin: "0 0 4px 0" }}>✓ Posibilidad de solicitar la publicación ocasional de eventos grupales en la Agenda de Actividades.</p>
           </li>
         </ul>
       </Box>
