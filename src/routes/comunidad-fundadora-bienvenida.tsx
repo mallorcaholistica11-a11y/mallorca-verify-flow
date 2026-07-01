@@ -31,7 +31,7 @@ function ComunidadFundadoraBienvenida() {
             <p style={{ fontSize: 13, margin: "0 0 16px 0" }}>
               ✓ 15 €/mes (IVA incluido) para siempre, mientras mantengas activa tu suscripción.
             </p>
-            <NavButton to="/auth/crear-cuenta" search={{ track: "verificado" }}>
+            <NavButton to="/auth/crear-cuenta" search={{ track: "verificadoFundador" }}>
               👉 Elegir este plan
             </NavButton>
           </Card>
@@ -44,7 +44,7 @@ function ComunidadFundadoraBienvenida() {
             <p style={{ fontSize: 13, margin: "0 0 16px 0" }}>
               ✓ 35 €/mes (IVA incluido) para siempre, mientras mantengas activa tu suscripción.
             </p>
-            <NavButton to="/auth/crear-cuenta" search={{ track: "organizacion" }}>
+            <NavButton to="/auth/crear-cuenta" search={{ track: "organizacionFundadora" }}>
               👉 Elegir este plan
             </NavButton>
           </Card>
