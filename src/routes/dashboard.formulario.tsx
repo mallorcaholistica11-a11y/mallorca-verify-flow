@@ -1751,68 +1751,14 @@ function VerificadoFormulario() {
         </Box>
       )}
 
-      {step === 7 && (
-        <Box title="🌿 Ya casi formas parte de Mallorca Holística">
-          <div style={{ marginBottom: 16 }}>
-            <p style={{ fontSize: 13, marginBottom: 8 }}>
-              Has completado prácticamente todo el proceso.
-            </p>
-            <p style={{ fontSize: 13, marginBottom: 8 }}>
-              Solo queda un último paso para enviar tu solicitud.
-            </p>
-            <p style={{ fontSize: 13, marginBottom: 8 }}>
-              Para facilitar la activación de tu suscripción, necesitamos registrar un método de pago seguro.
-            </p>
-            <p style={{ fontSize: 13, marginBottom: 8 }}>
-              {"\n"}
-            </p>
-            <p style={{ fontSize: 13, marginBottom: 8 }}>
-              No realizaremos ningún cargo durante la revisión de tu solicitud ni durante el período gratuito de lanzamiento, si corresponde.
-            </p>
-            <p style={{ fontSize: 13, marginBottom: 8 }}>
-              Tu tarjeta permanecerá protegida mediante Stripe y únicamente se utilizará cuando tu suscripción deba activarse, siempre que tu solicitud haya sido aprobada.
-            </p>
-          </div>
-
-          <div style={{ marginBottom: 16 }}>
-            <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
-              🚀 Lanzamiento oficial
-            </div>
-            <ul style={{ fontSize: 13, paddingLeft: 20, marginBottom: 8 }}>
-              <li>
-                ✨ Si tu inscripción se realiza durante el primer mes tras el lanzamiento oficial de Mallorca Holística, disfrutarás automáticamente de 2 meses gratuitos.
-              </li>
-              <li>
-                ✨ Una vez finalizado este período, la suscripción continuará automáticamente con la tarifa vigente, salvo cancelación previa.
-              </li>
-              <li>✨ Sin permanencia.</li>
-              <li>
-                ✨ Ningún cargo durante el proceso de revisión de tu solicitud.{"\n\n\n"}ℹ️ Si tu inscripción se realiza durante el período de lanzamiento, la promoción se aplicará automáticamente una vez tu solicitud haya sido aprobada.
-              </li>
-            </ul>
-            <p style={{ fontSize: 13, marginBottom: 8 }}>
-              {"\n"}
-            </p>
-          </div>
-
-          <VConsentItem
-            icon="🔒"
-            title="Autorización"
-            label={`Autorizo a Mallorca Holística a registrar mi método de pago de forma segura y activar automáticamente mi suscripción una vez finalizado el período gratuito correspondiente, siempre que mi solicitud haya sido aprobada.`}
-            checked={autorizaPago}
-            onToggle={() => setAutorizaPago((p) => !p)}
-          />
-
-          <div style={{ marginBottom: 16 }}>
-            <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>💳 Datos de pago</div>
-            <Note>Bloque reservado para la futura integración con Stripe.</Note>
-            <FakeField label="Número de tarjeta" />
-            <FakeField label="Fecha de caducidad" />
-            <FakeField label="CVC" />
-            <FakeField label="Titular de la tarjeta" />
-          </div>
-        </Box>
-      )}
+      {step === 7 &&
+        (isFundador
+          ? isOrg
+            ? <Paso7OrganizacionFundadora autoriza={autorizaPago} onToggle={() => setAutorizaPago((p) => !p)} />
+            : <Paso7ProfesionalFundador autoriza={autorizaPago} onToggle={() => setAutorizaPago((p) => !p)} />
+          : isOrg
+            ? <Paso7OrganizacionEstandar autoriza={autorizaPago} onToggle={() => setAutorizaPago((p) => !p)} />
+            : <Paso7ProfesionalEstandar autoriza={autorizaPago} onToggle={() => setAutorizaPago((p) => !p)} />)}
 
       <Box title="Navegación">
         <button
