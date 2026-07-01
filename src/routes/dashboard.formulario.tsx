@@ -1815,30 +1815,51 @@ function Paso7ProfesionalEstandar({ autoriza, onToggle }: Paso7Props) {
     <Box title="🌿 Activa tu suscripción">
       <div style={{ marginBottom: 16 }}>
         <p style={{ fontSize: 13, marginBottom: 8 }}>
-          Has completado prácticamente todo el proceso. Solo queda registrar un método de pago
-          seguro para poder activar tu suscripción una vez tu solicitud haya sido aprobada.
+          Has completado prácticamente todo el proceso.&nbsp;Solo queda un último paso para enviar
+          tu solicitud.
         </p>
         <p style={{ fontSize: 13, marginBottom: 8 }}>
-          Tu tarjeta permanecerá protegida mediante Stripe y no realizaremos ningún cargo durante
-          el proceso de revisión.
+          Para facilitar la activación de tu suscripción, necesitamos registrar un método de pago
+          seguro.
+        </p>
+        <p style={{ fontSize: 13, marginBottom: 8 }}>
+          No realizaremos ningún cargo durante la revisión de tu solicitud ni durante el período
+          gratuito de lanzamiento, si corresponde.
+        </p>
+        <p style={{ fontSize: 13, marginBottom: 8 }}>
+          Tu tarjeta permanecerá protegida mediante Stripe y únicamente se utilizará cuando tu
+          suscripción deba activarse, siempre que tu solicitud haya sido aprobada.
         </p>
       </div>
 
       <div style={{ marginBottom: 16 }}>
         <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
-          🌿 Tus condiciones — Plan Profesional Verificado
+          🌿 Tus condiciones — Plan Profesional Verificado -&nbsp;🚀 Lanzamiento oficial
         </div>
         <ul style={{ fontSize: 13, paddingLeft: 20, marginBottom: 8 }}>
-          <li>✨ Tarifa: 25 €/mes (IVA incluido).</li>
+          <li>
+            ✨ Si tu inscripción se realiza durante el primer mes tras el lanzamiento oficial de
+            Mallorca Holística, disfrutarás automáticamente de 2 meses gratuitos.
+          </li>
+          <li>
+            ✨ Una vez finalizado este período, la suscripción continuará automáticamente con la
+            tarifa vigente, salvo cancelación previa. Tarifa: 25 €/mes (IVA incluido).
+          </li>
           <li>✨ Sin permanencia.</li>
-          <li>✨ Ningún cargo durante el proceso de revisión de tu solicitud.</li>
+          <li>
+            ✨ Ningún cargo durante el proceso de revisión de tu solicitud.
+            <br />
+            <br />
+            ℹ️ Si tu inscripción se realiza durante el período de lanzamiento, la promoción se
+            aplicará automáticamente una vez tu solicitud haya sido aprobada.
+          </li>
         </ul>
       </div>
 
       <VConsentItem
         icon="🔒"
         title="Autorización"
-        label="Autorizo a Mallorca Holística a registrar mi método de pago de forma segura y a activar automáticamente mi suscripción de Profesional Verificado con la tarifa de 25 €/mes (IVA incluido), siempre que mi solicitud haya sido aprobada."
+        label="Autorizo a Mallorca Holística a registrar mi método de pago de forma segura y activar automáticamente mi suscripción de Profesional Verificado con la tarifa de 25 €/mes (IVA incluido) una vez finalizado el período gratuito correspondiente, siempre que mi solicitud haya sido aprobada."
         checked={autoriza}
         onToggle={onToggle}
       />
