@@ -917,18 +917,18 @@ const V_STEP_TITLES = [
   "Experiencia y Perfil",
   "Enlaces y Redes",
   "Verificación y Compromisos",
-  "Reserva tu plaza",
-];
+   "Activa tu suscripción",
+ ];
 
-const O_STEP_TITLES = [
-  "Información General",
-  "Servicios y Actividades",
-  "Ubicaciones",
-  "Perfil de la Organización",
-  "Enlaces y Redes",
-  "Verificación y Compromisos",
-  "Reserva tu plaza",
-];
+ const O_STEP_TITLES = [
+   "Información General",
+   "Servicios y Actividades",
+   "Ubicaciones",
+   "Perfil de la Organización",
+   "Enlaces y Redes",
+   "Verificación y Compromisos",
+   "Activa tu suscripción",
+ ];
 
 const O_ACTIVIDADES_ORGANIZADAS = [
   "Talleres",
