@@ -917,18 +917,18 @@ const V_STEP_TITLES = [
   "Experiencia y Perfil",
   "Enlaces y Redes",
   "Verificación y Compromisos",
-  "Reserva tu plaza",
-];
+   "Activa tu suscripción",
+ ];
 
-const O_STEP_TITLES = [
-  "Información General",
-  "Servicios y Actividades",
-  "Ubicaciones",
-  "Perfil de la Organización",
-  "Enlaces y Redes",
-  "Verificación y Compromisos",
-  "Reserva tu plaza",
-];
+ const O_STEP_TITLES = [
+   "Información General",
+   "Servicios y Actividades",
+   "Ubicaciones",
+   "Perfil de la Organización",
+   "Enlaces y Redes",
+   "Verificación y Compromisos",
+   "Activa tu suscripción",
+ ];
 
 const O_ACTIVIDADES_ORGANIZADAS = [
   "Talleres",
@@ -1248,8 +1248,11 @@ function VerificadoFormulario() {
 
   const isOrg = track === "organizacion" || track === "organizacionFundadora";
   const isFundador = track === "verificadoFundador" || track === "organizacionFundadora";
-  const TITLES = isOrg ? O_STEP_TITLES : V_STEP_TITLES;
-  const stepTitle = TITLES[step - 1];
+  const baseTitles = isOrg ? O_STEP_TITLES : V_STEP_TITLES;
+  const titles = baseTitles.map((t, i) =>
+    i === 6 ? (isFundador ? "Reserva tu plaza" : "Activa tu suscripción") : t,
+  );
+  const stepTitle = titles[step - 1];
   const screenLabel = isOrg ? "FORMULARIO ORGANIZACIÓN" : "FORMULARIO VERIFICADO";
   const breadcrumb = isOrg
     ? "Dashboard › Completar perfil de la organización"
@@ -1265,7 +1268,7 @@ function VerificadoFormulario() {
 
       <Box title={`Progreso · Paso ${step} de ${total}`}>
         <div style={{ display: "flex", gap: 4 }}>
-          {TITLES.map((t, i) => {
+          {titles.map((t, i) => {
             const n = i + 1;
             return (
               <div
@@ -1287,7 +1290,7 @@ function VerificadoFormulario() {
           })}
         </div>
         <div style={{ fontSize: 11, color: "#666", marginTop: 6 }}>
-          {TITLES.map((t, i) => `${i + 1}. ${t}`).join("  ·  ")}
+          {titles.map((t, i) => `${i + 1}. ${t}`).join("  ·  ")}
         </div>
       </Box>
 
@@ -1812,151 +1815,128 @@ function StripeBlock() {
 
 function Paso7ProfesionalEstandar({ autoriza, onToggle }: Paso7Props) {
   return (
-    <Box title="🌿 Activa tu suscripción">
-      <div style={{ marginBottom: 16 }}>
-        <p style={{ fontSize: 13, marginBottom: 8 }}>
-          Has completado prácticamente todo el proceso.&nbsp;Solo queda un último paso para enviar
-          tu solicitud.
-        </p>
-        <p style={{ fontSize: 13, marginBottom: 8 }}>
-          Para facilitar la activación de tu suscripción, necesitamos registrar un método de pago
-          seguro.
-        </p>
-        <p style={{ fontSize: 13, marginBottom: 8 }}>
-          No realizaremos ningún cargo durante la revisión de tu solicitud ni durante el período
-          gratuito de lanzamiento, si corresponde.
-        </p>
-        <p style={{ fontSize: 13, marginBottom: 8 }}>
-          Tu tarjeta permanecerá protegida mediante Stripe y únicamente se utilizará cuando tu
-          suscripción deba activarse, siempre que tu solicitud haya sido aprobada.
-        </p>
-      </div>
-
-      <div style={{ marginBottom: 16 }}>
-        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
-          🌿 Tus condiciones — Plan Profesional Verificado -&nbsp;🚀 Lanzamiento oficial
+    <>
+      <Box title="🌿 Ya casi formas parte de Mallorca Holística">
+        <div style={{ marginBottom: 16 }}>
+          <p style={{ fontSize: 13, marginBottom: 8 }}>
+            Has completado prácticamente todo el proceso.
+          </p>
+          <p style={{ fontSize: 13, marginBottom: 8 }}>
+            Para activar tu suscripción solo necesitamos registrar un método de pago seguro.
+          </p>
+          <p style={{ fontSize: 13, marginBottom: 8 }}>
+            No realizaremos ningún cargo durante la revisión de tu solicitud ni durante el período
+            gratuito de lanzamiento, si corresponde.
+          </p>
         </div>
+      </Box>
+
+      <Box title="🚀 Lanzamiento oficial">
         <ul style={{ fontSize: 13, paddingLeft: 20, marginBottom: 8 }}>
           <li>
             ✨ Si tu inscripción se realiza durante el primer mes tras el lanzamiento oficial de
             Mallorca Holística, disfrutarás automáticamente de 2 meses gratuitos.
           </li>
           <li>
-            ✨ Una vez finalizado este período, la suscripción continuará automáticamente con la
-            tarifa vigente, salvo cancelación previa. Tarifa: 25 €/mes (IVA incluido).
+            ✨ Después, tu suscripción continuará por 25 €/mes (IVA incluido), salvo cancelación
+            previa.
           </li>
           <li>✨ Sin permanencia.</li>
-          <li>
-            ✨ Ningún cargo durante el proceso de revisión de tu solicitud.
-            <br />
-            <br />
-            ℹ️ Si tu inscripción se realiza durante el período de lanzamiento, la promoción se
-            aplicará automáticamente una vez tu solicitud haya sido aprobada.
-          </li>
         </ul>
-      </div>
+      </Box>
 
       <VConsentItem
         icon="🔒"
         title="Autorización"
-        label="Autorizo a Mallorca Holística a registrar mi método de pago de forma segura y activar automáticamente mi suscripción de Profesional Verificado con la tarifa de 25 €/mes (IVA incluido) una vez finalizado el período gratuito correspondiente, siempre que mi solicitud haya sido aprobada."
+        label="Autorizo a Mallorca Holística a registrar mi método de pago de forma segura y activar automáticamente mi suscripción una vez finalizado el período gratuito correspondiente, siempre que mi solicitud haya sido aprobada."
         checked={autoriza}
         onToggle={onToggle}
       />
 
       <StripeBlock />
-    </Box>
+    </>
   );
 }
 
 function Paso7ProfesionalFundador({ autoriza, onToggle }: Paso7Props) {
   return (
-    <Box title="🌿 Bienvenido a la Comunidad Fundadora">
-      <div style={{ marginBottom: 16 }}>
-        <p style={{ fontSize: 13, marginBottom: 8 }}>
-          Gracias por acompañar a Mallorca Holística desde sus primeros pasos.
-        </p>
-        <p style={{ fontSize: 13, marginBottom: 8 }}>
-          Para reservar tu plaza como Miembro Fundador solo necesitamos registrar un método de pago
-          seguro. No se realizará ningún cargo durante la revisión de tu solicitud ni durante tus
-          6 meses gratuitos iniciales.
-        </p>
-      </div>
-
-      <div style={{ marginBottom: 16 }}>
-        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
-          🌿 Tus condiciones como Miembro Fundador — Profesional
+    <>
+      <Box title="🌿 Bienvenido a la Comunidad Fundadora">
+        <div style={{ marginBottom: 16 }}>
+          <p style={{ fontSize: 13, marginBottom: 8 }}>
+            Gracias por acompañar a Mallorca Holística desde sus primeros pasos.
+          </p>
+          <p style={{ fontSize: 13, marginBottom: 8 }}>
+            Para reservar tu plaza como Miembro Fundador, solo necesitamos registrar un método de
+            pago seguro.
+          </p>
+          <p style={{ fontSize: 13, marginBottom: 8 }}>
+            No realizaremos ningún cargo durante la revisión de tu solicitud ni durante tus 6 meses
+            gratuitos.
+          </p>
         </div>
+      </Box>
+
+      <Box title="🌿 Tus condiciones como Miembro Fundador">
         <ul style={{ fontSize: 13, paddingLeft: 20, marginBottom: 8 }}>
           <li>✨ 6 meses gratuitos desde el lanzamiento oficial.</li>
           <li>
-            ✨ 15 €/mes (IVA incluido) <strong>para siempre</strong>, mientras mantengas activa tu
-            suscripción.
+            ✨ 15 €/mes (IVA incluido) para siempre, mientras mantengas activa tu suscripción.
           </li>
           <li>✨ Sin permanencia.</li>
           <li>✨ Ningún cargo durante el proceso de revisión de tu solicitud.</li>
+          <li>
+            ℹ️ La fecha oficial de lanzamiento será comunicada con suficiente antelación a todos los
+            miembros fundadores.
+          </li>
         </ul>
-      </div>
+      </Box>
 
       <VConsentItem
         icon="🔒"
         title="Autorización"
-        label="Autorizo a Mallorca Holística a registrar mi método de pago de forma segura y a activar automáticamente mi suscripción con la tarifa de Miembro Fundador de 15 €/mes (IVA incluido) una vez finalizados los 6 meses gratuitos, siempre que mi solicitud haya sido aprobada."
+        label="Autorizo a Mallorca Holística a registrar mi método de pago de forma segura y activar automáticamente mi suscripción con la tarifa de Miembro Fundador de 15 €/mes (IVA incluido) una vez finalizados los 6 meses gratuitos, siempre que mi solicitud haya sido aprobada."
         checked={autoriza}
         onToggle={onToggle}
       />
 
       <StripeBlock />
-    </Box>
+    </>
   );
 }
 
 function Paso7OrganizacionEstandar({ autoriza, onToggle }: Paso7Props) {
   return (
-    <Box title="🌿 Activa la suscripción de tu organización">
-      <div style={{ marginBottom: 16 }}>
-        <p style={{ fontSize: 13, marginBottom: 8 }}>
-          Has completado prácticamente todo el proceso. Solo queda un último paso para enviar tu solicitud.
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          Para facilitar la activación de tu suscripción, necesitamos registrar un método de pago seguro.
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          No realizaremos ningún cargo durante la revisión de tu solicitud ni durante el período gratuito de lanzamiento, si corresponde.
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          Tu tarjeta permanecerá protegida mediante Stripe y únicamente se utilizará cuando tu suscripción deba activarse, siempre que tu solicitud haya sido aprobada.
-        </p>
-      </div>
-
-      <div style={{ marginBottom: 16 }}>
-        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
-          🚀 Lanzamiento oficial
+    <>
+      <Box title="🌿 Ya casi formas parte de Mallorca Holística">
+        <div style={{ marginBottom: 16 }}>
+          <p style={{ fontSize: 13, marginBottom: 8 }}>
+            Has completado prácticamente todo el proceso.
+          </p>
+          <p style={{ fontSize: 13, marginBottom: 8 }}>
+            Para activar la suscripción de tu entidad solo necesitamos registrar un método de pago
+            seguro.
+          </p>
+          <p style={{ fontSize: 13, marginBottom: 8 }}>
+            No realizaremos ningún cargo durante la revisión de tu solicitud ni durante el período
+            gratuito de lanzamiento, si corresponde.
+          </p>
         </div>
+      </Box>
+
+      <Box title="🚀 Lanzamiento oficial">
         <ul style={{ fontSize: 13, paddingLeft: 20, marginBottom: 8 }}>
           <li>
-            ✨ Si tu inscripción se realiza durante el primer mes tras el lanzamiento oficial de Mallorca Holística, disfrutarás automáticamente de 2 meses gratuitos.
-            <br />
-            <br />
-            ✨ Una vez finalizado este período, la suscripción continuará automáticamente con la tarifa vigente, salvo cancelación previa.
-            <br />
-            <br />
-            ✨ Sin permanencia.
-            <br />
-            <br />
-            ✨ Ningún cargo durante el proceso de revisión de tu solicitud.
+            ✨ Si tu inscripción se realiza durante el primer mes tras el lanzamiento oficial de
+            Mallorca Holística, disfrutarás automáticamente de 2 meses gratuitos.
           </li>
+          <li>
+            ✨ Después, la suscripción de tu entidad continuará por 50 €/mes (IVA incluido), salvo
+            cancelación previa.
+          </li>
+          <li>✨ Sin permanencia.</li>
         </ul>
-      </div>
+      </Box>
 
       <VConsentItem
         icon="🔒"
@@ -1967,49 +1947,54 @@ function Paso7OrganizacionEstandar({ autoriza, onToggle }: Paso7Props) {
       />
 
       <StripeBlock />
-    </Box>
+    </>
   );
 }
 
 function Paso7OrganizacionFundadora({ autoriza, onToggle }: Paso7Props) {
   return (
-    <Box title="🌿 Bienvenida a la Comunidad Fundadora">
-      <div style={{ marginBottom: 16 }}>
-        <p style={{ fontSize: 13, marginBottom: 8 }}>
-          Gracias por acompañar a Mallorca Holística desde sus primeros pasos como Organización
-          Fundadora.
-        </p>
-        <p style={{ fontSize: 13, marginBottom: 8 }}>
-          Para reservar vuestra plaza solo necesitamos registrar un método de pago seguro. No se
-          realizará ningún cargo durante la revisión de la solicitud ni durante los 6 meses
-          gratuitos iniciales.
-        </p>
-      </div>
-
-      <div style={{ marginBottom: 16 }}>
-        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
-          🌿 Vuestras condiciones como Organización Fundadora
+    <>
+      <Box title="🌿 Bienvenido a la Comunidad Fundadora">
+        <div style={{ marginBottom: 16 }}>
+          <p style={{ fontSize: 13, marginBottom: 8 }}>
+            Gracias por acompañar a Mallorca Holística desde sus primeros pasos.
+          </p>
+          <p style={{ fontSize: 13, marginBottom: 8 }}>
+            Para reservar la plaza de tu entidad como Miembro Fundador, solo necesitamos registrar un
+            método de pago seguro.
+          </p>
+          <p style={{ fontSize: 13, marginBottom: 8 }}>
+            No realizaremos ningún cargo durante la revisión de tu solicitud ni durante tus 6 meses
+            gratuitos.
+          </p>
         </div>
+      </Box>
+
+      <Box title="🌿 Tus condiciones como Miembro Fundador">
         <ul style={{ fontSize: 13, paddingLeft: 20, marginBottom: 8 }}>
           <li>✨ 6 meses gratuitos desde el lanzamiento oficial.</li>
           <li>
-            ✨ 35 €/mes (IVA incluido) <strong>para siempre</strong>, mientras mantengáis activa la
-            suscripción.
+            ✨ 35 €/mes (IVA incluido) para siempre, mientras mantengas activa la suscripción de tu
+            entidad.
           </li>
           <li>✨ Sin permanencia.</li>
-          <li>✨ Ningún cargo durante el proceso de revisión de la solicitud.</li>
+          <li>✨ Ningún cargo durante el proceso de revisión de tu solicitud.</li>
+          <li>
+            ℹ️ La fecha oficial de lanzamiento será comunicada con suficiente antelación a todos los
+            miembros fundadores.
+          </li>
         </ul>
-      </div>
+      </Box>
 
       <VConsentItem
         icon="🔒"
         title="Autorización"
-        label="Autorizo a Mallorca Holística a registrar el método de pago de la organización de forma segura y a activar automáticamente la suscripción con la tarifa de Organización Fundadora de 35 €/mes (IVA incluido) una vez finalizados los 6 meses gratuitos, siempre que la solicitud haya sido aprobada."
+        label="Autorizo a Mallorca Holística a registrar mi método de pago de forma segura y activar automáticamente la suscripción de mi entidad con la tarifa de Miembro Fundador de 35 €/mes (IVA incluido) una vez finalizados los 6 meses gratuitos, siempre que la solicitud haya sido aprobada."
         checked={autoriza}
         onToggle={onToggle}
       />
 
       <StripeBlock />
-    </Box>
+    </>
   );
 }
