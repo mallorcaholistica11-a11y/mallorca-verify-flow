@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SoyProfesionalRouteImport } from './routes/soy-profesional'
 import { Route as ProfesionalFundadorRouteImport } from './routes/profesional-fundador'
 import { Route as PlanPresenciaRouteImport } from './routes/plan-presencia'
+import { Route as MiEspacioRouteImport } from './routes/mi-espacio'
 import { Route as ListaEsperaRouteImport } from './routes/lista-espera'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ComunidadFundadoraOrganizacionesRouteImport } from './routes/comunidad-fundadora-organizaciones'
@@ -43,6 +44,11 @@ const ProfesionalFundadorRoute = ProfesionalFundadorRouteImport.update({
 const PlanPresenciaRoute = PlanPresenciaRouteImport.update({
   id: '/plan-presencia',
   path: '/plan-presencia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MiEspacioRoute = MiEspacioRouteImport.update({
+  id: '/mi-espacio',
+  path: '/mi-espacio',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ListaEsperaRoute = ListaEsperaRouteImport.update({
@@ -148,6 +154,7 @@ export interface FileRoutesByFullPath {
   '/comunidad-fundadora-organizaciones': typeof ComunidadFundadoraOrganizacionesRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/lista-espera': typeof ListaEsperaRoute
+  '/mi-espacio': typeof MiEspacioRoute
   '/plan-presencia': typeof PlanPresenciaRoute
   '/profesional-fundador': typeof ProfesionalFundadorRoute
   '/soy-profesional': typeof SoyProfesionalRoute
@@ -170,6 +177,7 @@ export interface FileRoutesByTo {
   '/comunidad-fundadora-organizaciones': typeof ComunidadFundadoraOrganizacionesRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/lista-espera': typeof ListaEsperaRoute
+  '/mi-espacio': typeof MiEspacioRoute
   '/plan-presencia': typeof PlanPresenciaRoute
   '/profesional-fundador': typeof ProfesionalFundadorRoute
   '/soy-profesional': typeof SoyProfesionalRoute
@@ -193,6 +201,7 @@ export interface FileRoutesById {
   '/comunidad-fundadora-organizaciones': typeof ComunidadFundadoraOrganizacionesRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/lista-espera': typeof ListaEsperaRoute
+  '/mi-espacio': typeof MiEspacioRoute
   '/plan-presencia': typeof PlanPresenciaRoute
   '/profesional-fundador': typeof ProfesionalFundadorRoute
   '/soy-profesional': typeof SoyProfesionalRoute
@@ -217,6 +226,7 @@ export interface FileRouteTypes {
     | '/comunidad-fundadora-organizaciones'
     | '/dashboard'
     | '/lista-espera'
+    | '/mi-espacio'
     | '/plan-presencia'
     | '/profesional-fundador'
     | '/soy-profesional'
@@ -239,6 +249,7 @@ export interface FileRouteTypes {
     | '/comunidad-fundadora-organizaciones'
     | '/dashboard'
     | '/lista-espera'
+    | '/mi-espacio'
     | '/plan-presencia'
     | '/profesional-fundador'
     | '/soy-profesional'
@@ -261,6 +272,7 @@ export interface FileRouteTypes {
     | '/comunidad-fundadora-organizaciones'
     | '/dashboard'
     | '/lista-espera'
+    | '/mi-espacio'
     | '/plan-presencia'
     | '/profesional-fundador'
     | '/soy-profesional'
@@ -284,6 +296,7 @@ export interface RootRouteChildren {
   ComunidadFundadoraOrganizacionesRoute: typeof ComunidadFundadoraOrganizacionesRoute
   DashboardRoute: typeof DashboardRouteWithChildren
   ListaEsperaRoute: typeof ListaEsperaRoute
+  MiEspacioRoute: typeof MiEspacioRoute
   PlanPresenciaRoute: typeof PlanPresenciaRoute
   ProfesionalFundadorRoute: typeof ProfesionalFundadorRoute
   SoyProfesionalRoute: typeof SoyProfesionalRoute
@@ -315,6 +328,13 @@ declare module '@tanstack/react-router' {
       path: '/plan-presencia'
       fullPath: '/plan-presencia'
       preLoaderRoute: typeof PlanPresenciaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mi-espacio': {
+      id: '/mi-espacio'
+      path: '/mi-espacio'
+      fullPath: '/mi-espacio'
+      preLoaderRoute: typeof MiEspacioRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lista-espera': {
@@ -466,6 +486,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComunidadFundadoraOrganizacionesRoute: ComunidadFundadoraOrganizacionesRoute,
   DashboardRoute: DashboardRouteWithChildren,
   ListaEsperaRoute: ListaEsperaRoute,
+  MiEspacioRoute: MiEspacioRoute,
   PlanPresenciaRoute: PlanPresenciaRoute,
   ProfesionalFundadorRoute: ProfesionalFundadorRoute,
   SoyProfesionalRoute: SoyProfesionalRoute,
