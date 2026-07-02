@@ -63,8 +63,8 @@ function SolicitudEnviada() {
         ))}
       </Box>
       <Box title="Acciones">
-        <NavButton to="/dashboard" search={{ track }}>
-          👉 Volver al Dashboard
+        <NavButton to="/mi-espacio" search={{ track }}>
+          👉 Acceder a Mi Espacio
         </NavButton>
       </Box>
     </WireframeShell>
