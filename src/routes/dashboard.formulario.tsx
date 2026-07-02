@@ -1248,8 +1248,11 @@ function VerificadoFormulario() {
 
   const isOrg = track === "organizacion" || track === "organizacionFundadora";
   const isFundador = track === "verificadoFundador" || track === "organizacionFundadora";
-  const TITLES = isOrg ? O_STEP_TITLES : V_STEP_TITLES;
-  const stepTitle = TITLES[step - 1];
+  const baseTitles = isOrg ? O_STEP_TITLES : V_STEP_TITLES;
+  const titles = baseTitles.map((t, i) =>
+    i === 6 ? (isFundador ? "Reserva tu plaza" : "Activa tu suscripción") : t,
+  );
+  const stepTitle = titles[step - 1];
   const screenLabel = isOrg ? "FORMULARIO ORGANIZACIÓN" : "FORMULARIO VERIFICADO";
   const breadcrumb = isOrg
     ? "Dashboard › Completar perfil de la organización"
@@ -1265,7 +1268,7 @@ function VerificadoFormulario() {
 
       <Box title={`Progreso · Paso ${step} de ${total}`}>
         <div style={{ display: "flex", gap: 4 }}>
-          {TITLES.map((t, i) => {
+          {titles.map((t, i) => {
             const n = i + 1;
             return (
               <div
@@ -1287,7 +1290,7 @@ function VerificadoFormulario() {
           })}
         </div>
         <div style={{ fontSize: 11, color: "#666", marginTop: 6 }}>
-          {TITLES.map((t, i) => `${i + 1}. ${t}`).join("  ·  ")}
+          {titles.map((t, i) => `${i + 1}. ${t}`).join("  ·  ")}
         </div>
       </Box>
 
