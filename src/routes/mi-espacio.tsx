@@ -55,9 +55,15 @@ function MiEspacio() {
         <Card title="👤 Mi Perfil">
           Consulta la información de tu perfil profesional y revisa los datos que has enviado.
         </Card>
-        <Card title="📅 Mis Actividades">
-          Aquí podrás publicar y gestionar tus actividades cuando tu perfil haya sido aprobado. Mientras tu solicitud esté en revisión esta sección permanecerá disponible únicamente como vista informativa.
-        </Card>
+        <Link
+          to="/mi-espacio/actividades"
+          search={{ track }}
+          style={{ textDecoration: "none", color: "inherit", flex: 1, minWidth: 220 }}
+        >
+          <Card title="📅 Mis Actividades">
+            Aquí podrás publicar y gestionar tus actividades cuando tu perfil haya sido aprobado. Mientras tu solicitud esté en revisión esta sección permanecerá disponible únicamente como vista informativa.
+          </Card>
+        </Link>
       </Row>
       <Row>
         <Card title="💳 Mi Suscripción">
