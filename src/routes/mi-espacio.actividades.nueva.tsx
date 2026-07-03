@@ -120,13 +120,15 @@ function NuevaActividadWizard() {
             Gracias por compartir tu propuesta con la comunidad de Mallorca Holística.
           </p>
           <p style={{ fontSize: 14, lineHeight: 1.7, color: "#333", margin: 0 }}>
-            Revisaremos tu actividad antes de publicarla para garantizar la calidad y coherencia de la Agenda.
-            Recibirás una notificación en cuanto esté aprobada.
+            La revisaremos antes de publicarla para garantizar la calidad y coherencia de la Agenda. Recibirás una notificación en cuanto haya sido aprobada.
           </p>
         </Box>
         <Box title="Continuar">
           <NavButton to="/mi-espacio/actividades" search={{ track }}>
             ← Volver a Mis Actividades
+            <span style={{ display: 'block', fontSize: 12, marginTop: 4, opacity: 0.8, fontWeight: 400 }}>
+              Desde Mis Actividades podrás consultar el estado de revisión de tu propuesta.
+            </span>
           </NavButton>
         </Box>
       </WireframeShell>
