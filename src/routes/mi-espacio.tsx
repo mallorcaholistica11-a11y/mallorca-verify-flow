@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { WireframeShell, Box, Row, Card, NavButton, TrackBadge, parseTrack, type Track } from "@/components/Wireframe";
 
 export const Route = createFileRoute("/mi-espacio")({

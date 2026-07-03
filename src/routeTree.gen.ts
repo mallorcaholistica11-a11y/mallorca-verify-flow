@@ -21,6 +21,7 @@ import { Route as ComunidadFundadoraBienvenidaRouteImport } from './routes/comun
 import { Route as ComunidadFundadoraAccesoRouteImport } from './routes/comunidad-fundadora-acceso'
 import { Route as ComunidadFundadoraRouteImport } from './routes/comunidad-fundadora'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MiEspacioActividadesRouteImport } from './routes/mi-espacio.actividades'
 import { Route as InvitacionTokenRouteImport } from './routes/invitacion.$token'
 import { Route as FuturoProfesionalVerificadoRouteImport } from './routes/futuro.profesional-verificado'
 import { Route as FuturoPlanPresenciaRouteImport } from './routes/futuro.plan-presencia'
@@ -95,6 +96,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MiEspacioActividadesRoute = MiEspacioActividadesRouteImport.update({
+  id: '/actividades',
+  path: '/actividades',
+  getParentRoute: () => MiEspacioRoute,
+} as any)
 const InvitacionTokenRoute = InvitacionTokenRouteImport.update({
   id: '/invitacion/$token',
   path: '/invitacion/$token',
@@ -154,7 +160,7 @@ export interface FileRoutesByFullPath {
   '/comunidad-fundadora-organizaciones': typeof ComunidadFundadoraOrganizacionesRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/lista-espera': typeof ListaEsperaRoute
-  '/mi-espacio': typeof MiEspacioRoute
+  '/mi-espacio': typeof MiEspacioRouteWithChildren
   '/plan-presencia': typeof PlanPresenciaRoute
   '/profesional-fundador': typeof ProfesionalFundadorRoute
   '/soy-profesional': typeof SoyProfesionalRoute
@@ -167,6 +173,7 @@ export interface FileRoutesByFullPath {
   '/futuro/plan-presencia': typeof FuturoPlanPresenciaRoute
   '/futuro/profesional-verificado': typeof FuturoProfesionalVerificadoRoute
   '/invitacion/$token': typeof InvitacionTokenRoute
+  '/mi-espacio/actividades': typeof MiEspacioActividadesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -177,7 +184,7 @@ export interface FileRoutesByTo {
   '/comunidad-fundadora-organizaciones': typeof ComunidadFundadoraOrganizacionesRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/lista-espera': typeof ListaEsperaRoute
-  '/mi-espacio': typeof MiEspacioRoute
+  '/mi-espacio': typeof MiEspacioRouteWithChildren
   '/plan-presencia': typeof PlanPresenciaRoute
   '/profesional-fundador': typeof ProfesionalFundadorRoute
   '/soy-profesional': typeof SoyProfesionalRoute
@@ -190,6 +197,7 @@ export interface FileRoutesByTo {
   '/futuro/plan-presencia': typeof FuturoPlanPresenciaRoute
   '/futuro/profesional-verificado': typeof FuturoProfesionalVerificadoRoute
   '/invitacion/$token': typeof InvitacionTokenRoute
+  '/mi-espacio/actividades': typeof MiEspacioActividadesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -201,7 +209,7 @@ export interface FileRoutesById {
   '/comunidad-fundadora-organizaciones': typeof ComunidadFundadoraOrganizacionesRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/lista-espera': typeof ListaEsperaRoute
-  '/mi-espacio': typeof MiEspacioRoute
+  '/mi-espacio': typeof MiEspacioRouteWithChildren
   '/plan-presencia': typeof PlanPresenciaRoute
   '/profesional-fundador': typeof ProfesionalFundadorRoute
   '/soy-profesional': typeof SoyProfesionalRoute
@@ -214,6 +222,7 @@ export interface FileRoutesById {
   '/futuro/plan-presencia': typeof FuturoPlanPresenciaRoute
   '/futuro/profesional-verificado': typeof FuturoProfesionalVerificadoRoute
   '/invitacion/$token': typeof InvitacionTokenRoute
+  '/mi-espacio/actividades': typeof MiEspacioActividadesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -239,6 +248,7 @@ export interface FileRouteTypes {
     | '/futuro/plan-presencia'
     | '/futuro/profesional-verificado'
     | '/invitacion/$token'
+    | '/mi-espacio/actividades'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -262,6 +272,7 @@ export interface FileRouteTypes {
     | '/futuro/plan-presencia'
     | '/futuro/profesional-verificado'
     | '/invitacion/$token'
+    | '/mi-espacio/actividades'
   id:
     | '__root__'
     | '/'
@@ -285,6 +296,7 @@ export interface FileRouteTypes {
     | '/futuro/plan-presencia'
     | '/futuro/profesional-verificado'
     | '/invitacion/$token'
+    | '/mi-espacio/actividades'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -296,7 +308,7 @@ export interface RootRouteChildren {
   ComunidadFundadoraOrganizacionesRoute: typeof ComunidadFundadoraOrganizacionesRoute
   DashboardRoute: typeof DashboardRouteWithChildren
   ListaEsperaRoute: typeof ListaEsperaRoute
-  MiEspacioRoute: typeof MiEspacioRoute
+  MiEspacioRoute: typeof MiEspacioRouteWithChildren
   PlanPresenciaRoute: typeof PlanPresenciaRoute
   ProfesionalFundadorRoute: typeof ProfesionalFundadorRoute
   SoyProfesionalRoute: typeof SoyProfesionalRoute
@@ -393,6 +405,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mi-espacio/actividades': {
+      id: '/mi-espacio/actividades'
+      path: '/actividades'
+      fullPath: '/mi-espacio/actividades'
+      preLoaderRoute: typeof MiEspacioActividadesRouteImport
+      parentRoute: typeof MiEspacioRoute
+    }
     '/invitacion/$token': {
       id: '/invitacion/$token'
       path: '/invitacion/$token'
@@ -477,6 +496,18 @@ const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
   DashboardRouteChildren,
 )
 
+interface MiEspacioRouteChildren {
+  MiEspacioActividadesRoute: typeof MiEspacioActividadesRoute
+}
+
+const MiEspacioRouteChildren: MiEspacioRouteChildren = {
+  MiEspacioActividadesRoute: MiEspacioActividadesRoute,
+}
+
+const MiEspacioRouteWithChildren = MiEspacioRoute._addFileChildren(
+  MiEspacioRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ComunidadFundadoraRoute: ComunidadFundadoraRoute,
@@ -486,7 +517,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComunidadFundadoraOrganizacionesRoute: ComunidadFundadoraOrganizacionesRoute,
   DashboardRoute: DashboardRouteWithChildren,
   ListaEsperaRoute: ListaEsperaRoute,
-  MiEspacioRoute: MiEspacioRoute,
+  MiEspacioRoute: MiEspacioRouteWithChildren,
   PlanPresenciaRoute: PlanPresenciaRoute,
   ProfesionalFundadorRoute: ProfesionalFundadorRoute,
   SoyProfesionalRoute: SoyProfesionalRoute,
