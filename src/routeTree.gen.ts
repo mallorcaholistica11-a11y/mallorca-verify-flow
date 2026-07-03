@@ -32,6 +32,7 @@ import { Route as DashboardSolicitudEnviadaRouteImport } from './routes/dashboar
 import { Route as DashboardPerfilPublicadoRouteImport } from './routes/dashboard.perfil-publicado'
 import { Route as DashboardFormularioRouteImport } from './routes/dashboard.formulario'
 import { Route as AuthCrearCuentaRouteImport } from './routes/auth.crear-cuenta'
+import { Route as ActividadIdRouteImport } from './routes/actividad.$id'
 import { Route as MiEspacioActividadesIndexRouteImport } from './routes/mi-espacio.actividades.index'
 import { Route as MiEspacioActividadesNuevaRouteImport } from './routes/mi-espacio.actividades.nueva'
 
@@ -158,6 +159,11 @@ const AuthCrearCuentaRoute = AuthCrearCuentaRouteImport.update({
   path: '/auth/crear-cuenta',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ActividadIdRoute = ActividadIdRouteImport.update({
+  id: '/actividad/$id',
+  path: '/actividad/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MiEspacioActividadesIndexRoute =
   MiEspacioActividadesIndexRouteImport.update({
     id: '/',
@@ -184,6 +190,7 @@ export interface FileRoutesByFullPath {
   '/plan-presencia': typeof PlanPresenciaRoute
   '/profesional-fundador': typeof ProfesionalFundadorRoute
   '/soy-profesional': typeof SoyProfesionalRoute
+  '/actividad/$id': typeof ActividadIdRoute
   '/auth/crear-cuenta': typeof AuthCrearCuentaRoute
   '/dashboard/formulario': typeof DashboardFormularioRoute
   '/dashboard/perfil-publicado': typeof DashboardPerfilPublicadoRoute
@@ -210,6 +217,7 @@ export interface FileRoutesByTo {
   '/plan-presencia': typeof PlanPresenciaRoute
   '/profesional-fundador': typeof ProfesionalFundadorRoute
   '/soy-profesional': typeof SoyProfesionalRoute
+  '/actividad/$id': typeof ActividadIdRoute
   '/auth/crear-cuenta': typeof AuthCrearCuentaRoute
   '/dashboard/formulario': typeof DashboardFormularioRoute
   '/dashboard/perfil-publicado': typeof DashboardPerfilPublicadoRoute
@@ -237,6 +245,7 @@ export interface FileRoutesById {
   '/plan-presencia': typeof PlanPresenciaRoute
   '/profesional-fundador': typeof ProfesionalFundadorRoute
   '/soy-profesional': typeof SoyProfesionalRoute
+  '/actividad/$id': typeof ActividadIdRoute
   '/auth/crear-cuenta': typeof AuthCrearCuentaRoute
   '/dashboard/formulario': typeof DashboardFormularioRoute
   '/dashboard/perfil-publicado': typeof DashboardPerfilPublicadoRoute
@@ -266,6 +275,7 @@ export interface FileRouteTypes {
     | '/plan-presencia'
     | '/profesional-fundador'
     | '/soy-profesional'
+    | '/actividad/$id'
     | '/auth/crear-cuenta'
     | '/dashboard/formulario'
     | '/dashboard/perfil-publicado'
@@ -292,6 +302,7 @@ export interface FileRouteTypes {
     | '/plan-presencia'
     | '/profesional-fundador'
     | '/soy-profesional'
+    | '/actividad/$id'
     | '/auth/crear-cuenta'
     | '/dashboard/formulario'
     | '/dashboard/perfil-publicado'
@@ -318,6 +329,7 @@ export interface FileRouteTypes {
     | '/plan-presencia'
     | '/profesional-fundador'
     | '/soy-profesional'
+    | '/actividad/$id'
     | '/auth/crear-cuenta'
     | '/dashboard/formulario'
     | '/dashboard/perfil-publicado'
@@ -346,6 +358,7 @@ export interface RootRouteChildren {
   PlanPresenciaRoute: typeof PlanPresenciaRoute
   ProfesionalFundadorRoute: typeof ProfesionalFundadorRoute
   SoyProfesionalRoute: typeof SoyProfesionalRoute
+  ActividadIdRoute: typeof ActividadIdRoute
   AuthCrearCuentaRoute: typeof AuthCrearCuentaRoute
   FuturoCentrosOrganizadoresRoute: typeof FuturoCentrosOrganizadoresRoute
   FuturoPlanPresenciaRoute: typeof FuturoPlanPresenciaRoute
@@ -516,6 +529,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthCrearCuentaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/actividad/$id': {
+      id: '/actividad/$id'
+      path: '/actividad/$id'
+      fullPath: '/actividad/$id'
+      preLoaderRoute: typeof ActividadIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mi-espacio/actividades/': {
       id: '/mi-espacio/actividades/'
       path: '/'
@@ -591,6 +611,7 @@ const rootRouteChildren: RootRouteChildren = {
   PlanPresenciaRoute: PlanPresenciaRoute,
   ProfesionalFundadorRoute: ProfesionalFundadorRoute,
   SoyProfesionalRoute: SoyProfesionalRoute,
+  ActividadIdRoute: ActividadIdRoute,
   AuthCrearCuentaRoute: AuthCrearCuentaRoute,
   FuturoCentrosOrganizadoresRoute: FuturoCentrosOrganizadoresRoute,
   FuturoPlanPresenciaRoute: FuturoPlanPresenciaRoute,
@@ -600,13 +621,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
