@@ -1,5 +1,5 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState, useMemo, type ReactNode } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState, useMemo, type CSSProperties, type ReactNode } from "react";
 import { WireframeShell, Box, NavButton, TrackBadge, parseTrack, type Track, Note } from "@/components/Wireframe";
 
 export const Route = createFileRoute("/mi-espacio/actividades/nueva")({
@@ -81,7 +81,6 @@ const initial: FormState = {
 
 function NuevaActividadWizard() {
   const { track } = Route.useSearch();
-  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [enviado, setEnviado] = useState(false);
   const [form, setForm] = useState<FormState>(initial);
@@ -450,7 +449,6 @@ function NuevaActividadWizard() {
         )}
       </Box>
 
-      <div style={{ display: "none" }}>{typeof navigate}</div>
     </WireframeShell>
   );
 }
@@ -576,7 +574,7 @@ function MunicipioPicker({ value, onChange }: { value: string; onChange: (v: str
   );
 }
 
-const inputStyle: React.CSSProperties = {
+const inputStyle: CSSProperties = {
   width: "100%",
   padding: "8px 10px",
   border: "1px dashed #888",
@@ -586,12 +584,12 @@ const inputStyle: React.CSSProperties = {
   boxSizing: "border-box",
 };
 
-const selectStyle: React.CSSProperties = {
+const selectStyle: CSSProperties = {
   ...inputStyle,
   cursor: "pointer",
 };
 
-const primaryBtn: React.CSSProperties = {
+const primaryBtn: CSSProperties = {
   display: "inline-block",
   padding: "10px 16px",
   border: "2px solid #111",
@@ -603,7 +601,7 @@ const primaryBtn: React.CSSProperties = {
   marginTop: 8,
 };
 
-const secondaryBtn: React.CSSProperties = {
+const secondaryBtn: CSSProperties = {
   display: "inline-block",
   padding: "10px 16px",
   border: "1px dashed #666",
