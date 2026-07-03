@@ -32,6 +32,7 @@ import { Route as DashboardSolicitudEnviadaRouteImport } from './routes/dashboar
 import { Route as DashboardPerfilPublicadoRouteImport } from './routes/dashboard.perfil-publicado'
 import { Route as DashboardFormularioRouteImport } from './routes/dashboard.formulario'
 import { Route as AuthCrearCuentaRouteImport } from './routes/auth.crear-cuenta'
+import { Route as MiEspacioActividadesIndexRouteImport } from './routes/mi-espacio.actividades.index'
 import { Route as MiEspacioActividadesNuevaRouteImport } from './routes/mi-espacio.actividades.nueva'
 
 const SoyProfesionalRoute = SoyProfesionalRouteImport.update({
@@ -157,6 +158,12 @@ const AuthCrearCuentaRoute = AuthCrearCuentaRouteImport.update({
   path: '/auth/crear-cuenta',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MiEspacioActividadesIndexRoute =
+  MiEspacioActividadesIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => MiEspacioActividadesRoute,
+  } as any)
 const MiEspacioActividadesNuevaRoute =
   MiEspacioActividadesNuevaRouteImport.update({
     id: '/nueva',
@@ -189,6 +196,7 @@ export interface FileRoutesByFullPath {
   '/mi-espacio/actividades': typeof MiEspacioActividadesRouteWithChildren
   '/mi-espacio/': typeof MiEspacioIndexRoute
   '/mi-espacio/actividades/nueva': typeof MiEspacioActividadesNuevaRoute
+  '/mi-espacio/actividades/': typeof MiEspacioActividadesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -211,9 +219,9 @@ export interface FileRoutesByTo {
   '/futuro/plan-presencia': typeof FuturoPlanPresenciaRoute
   '/futuro/profesional-verificado': typeof FuturoProfesionalVerificadoRoute
   '/invitacion/$token': typeof InvitacionTokenRoute
-  '/mi-espacio/actividades': typeof MiEspacioActividadesRouteWithChildren
   '/mi-espacio': typeof MiEspacioIndexRoute
   '/mi-espacio/actividades/nueva': typeof MiEspacioActividadesNuevaRoute
+  '/mi-espacio/actividades': typeof MiEspacioActividadesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -241,6 +249,7 @@ export interface FileRoutesById {
   '/mi-espacio/actividades': typeof MiEspacioActividadesRouteWithChildren
   '/mi-espacio/': typeof MiEspacioIndexRoute
   '/mi-espacio/actividades/nueva': typeof MiEspacioActividadesNuevaRoute
+  '/mi-espacio/actividades/': typeof MiEspacioActividadesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -269,6 +278,7 @@ export interface FileRouteTypes {
     | '/mi-espacio/actividades'
     | '/mi-espacio/'
     | '/mi-espacio/actividades/nueva'
+    | '/mi-espacio/actividades/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -291,9 +301,9 @@ export interface FileRouteTypes {
     | '/futuro/plan-presencia'
     | '/futuro/profesional-verificado'
     | '/invitacion/$token'
-    | '/mi-espacio/actividades'
     | '/mi-espacio'
     | '/mi-espacio/actividades/nueva'
+    | '/mi-espacio/actividades'
   id:
     | '__root__'
     | '/'
@@ -320,6 +330,7 @@ export interface FileRouteTypes {
     | '/mi-espacio/actividades'
     | '/mi-espacio/'
     | '/mi-espacio/actividades/nueva'
+    | '/mi-espacio/actividades/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -505,6 +516,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthCrearCuentaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mi-espacio/actividades/': {
+      id: '/mi-espacio/actividades/'
+      path: '/'
+      fullPath: '/mi-espacio/actividades/'
+      preLoaderRoute: typeof MiEspacioActividadesIndexRouteImport
+      parentRoute: typeof MiEspacioActividadesRoute
+    }
     '/mi-espacio/actividades/nueva': {
       id: '/mi-espacio/actividades/nueva'
       path: '/nueva'
@@ -535,10 +553,12 @@ const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
 
 interface MiEspacioActividadesRouteChildren {
   MiEspacioActividadesNuevaRoute: typeof MiEspacioActividadesNuevaRoute
+  MiEspacioActividadesIndexRoute: typeof MiEspacioActividadesIndexRoute
 }
 
 const MiEspacioActividadesRouteChildren: MiEspacioActividadesRouteChildren = {
   MiEspacioActividadesNuevaRoute: MiEspacioActividadesNuevaRoute,
+  MiEspacioActividadesIndexRoute: MiEspacioActividadesIndexRoute,
 }
 
 const MiEspacioActividadesRouteWithChildren =
