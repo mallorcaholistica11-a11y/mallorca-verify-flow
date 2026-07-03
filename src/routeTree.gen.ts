@@ -21,6 +21,7 @@ import { Route as ComunidadFundadoraBienvenidaRouteImport } from './routes/comun
 import { Route as ComunidadFundadoraAccesoRouteImport } from './routes/comunidad-fundadora-acceso'
 import { Route as ComunidadFundadoraRouteImport } from './routes/comunidad-fundadora'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MiEspacioIndexRouteImport } from './routes/mi-espacio.index'
 import { Route as MiEspacioActividadesRouteImport } from './routes/mi-espacio.actividades'
 import { Route as InvitacionTokenRouteImport } from './routes/invitacion.$token'
 import { Route as FuturoProfesionalVerificadoRouteImport } from './routes/futuro.profesional-verificado'
@@ -95,6 +96,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const MiEspacioIndexRoute = MiEspacioIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => MiEspacioRoute,
 } as any)
 const MiEspacioActividadesRoute = MiEspacioActividadesRouteImport.update({
   id: '/actividades',
@@ -174,6 +180,7 @@ export interface FileRoutesByFullPath {
   '/futuro/profesional-verificado': typeof FuturoProfesionalVerificadoRoute
   '/invitacion/$token': typeof InvitacionTokenRoute
   '/mi-espacio/actividades': typeof MiEspacioActividadesRoute
+  '/mi-espacio/': typeof MiEspacioIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -184,7 +191,6 @@ export interface FileRoutesByTo {
   '/comunidad-fundadora-organizaciones': typeof ComunidadFundadoraOrganizacionesRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/lista-espera': typeof ListaEsperaRoute
-  '/mi-espacio': typeof MiEspacioRouteWithChildren
   '/plan-presencia': typeof PlanPresenciaRoute
   '/profesional-fundador': typeof ProfesionalFundadorRoute
   '/soy-profesional': typeof SoyProfesionalRoute
@@ -198,6 +204,7 @@ export interface FileRoutesByTo {
   '/futuro/profesional-verificado': typeof FuturoProfesionalVerificadoRoute
   '/invitacion/$token': typeof InvitacionTokenRoute
   '/mi-espacio/actividades': typeof MiEspacioActividadesRoute
+  '/mi-espacio': typeof MiEspacioIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -223,6 +230,7 @@ export interface FileRoutesById {
   '/futuro/profesional-verificado': typeof FuturoProfesionalVerificadoRoute
   '/invitacion/$token': typeof InvitacionTokenRoute
   '/mi-espacio/actividades': typeof MiEspacioActividadesRoute
+  '/mi-espacio/': typeof MiEspacioIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -249,6 +257,7 @@ export interface FileRouteTypes {
     | '/futuro/profesional-verificado'
     | '/invitacion/$token'
     | '/mi-espacio/actividades'
+    | '/mi-espacio/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -259,7 +268,6 @@ export interface FileRouteTypes {
     | '/comunidad-fundadora-organizaciones'
     | '/dashboard'
     | '/lista-espera'
-    | '/mi-espacio'
     | '/plan-presencia'
     | '/profesional-fundador'
     | '/soy-profesional'
@@ -273,6 +281,7 @@ export interface FileRouteTypes {
     | '/futuro/profesional-verificado'
     | '/invitacion/$token'
     | '/mi-espacio/actividades'
+    | '/mi-espacio'
   id:
     | '__root__'
     | '/'
@@ -297,6 +306,7 @@ export interface FileRouteTypes {
     | '/futuro/profesional-verificado'
     | '/invitacion/$token'
     | '/mi-espacio/actividades'
+    | '/mi-espacio/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -405,6 +415,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mi-espacio/': {
+      id: '/mi-espacio/'
+      path: '/'
+      fullPath: '/mi-espacio/'
+      preLoaderRoute: typeof MiEspacioIndexRouteImport
+      parentRoute: typeof MiEspacioRoute
+    }
     '/mi-espacio/actividades': {
       id: '/mi-espacio/actividades'
       path: '/actividades'
@@ -498,10 +515,12 @@ const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
 
 interface MiEspacioRouteChildren {
   MiEspacioActividadesRoute: typeof MiEspacioActividadesRoute
+  MiEspacioIndexRoute: typeof MiEspacioIndexRoute
 }
 
 const MiEspacioRouteChildren: MiEspacioRouteChildren = {
   MiEspacioActividadesRoute: MiEspacioActividadesRoute,
+  MiEspacioIndexRoute: MiEspacioIndexRoute,
 }
 
 const MiEspacioRouteWithChildren = MiEspacioRoute._addFileChildren(
@@ -530,13 +549,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
