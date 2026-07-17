@@ -470,8 +470,8 @@ function NuevaActividadPagina() {
 function VistaPrevia({ form }: { form: FormState }) {
   const tipoLabel = form.tipo === "Otro" ? form.tipoOtro : form.tipo;
   const precioLabel =
-    form.precioTipo === "gratuita"
-      ? "Gratuita"
+    form.precioTipo === "gratuito"
+      ? "Gratuito"
       : form.precioTipo === "aportacion"
         ? "Aportación voluntaria"
         : form.precioTipo === "pago"
