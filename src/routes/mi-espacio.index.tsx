@@ -66,9 +66,15 @@ function MiEspacio() {
         </Link>
       </Row>
       <Row>
-        <Card title="💳 Mi Suscripción">
-          Consulta tu plan actual, tu método de pago y la información de tu suscripción.
-        </Card>
+        <Link
+          to="/mi-espacio/suscripcion"
+          search={{ track }}
+          style={{ textDecoration: "none", color: "inherit", flex: 1, minWidth: 220 }}
+        >
+          <Card title="💳 Mi Suscripción">
+            Consulta tu plan actual, tu método de pago y la información de tu suscripción.
+          </Card>
+        </Link>
         <Card title="❓ Ayuda">
           Encuentra respuestas a las preguntas más frecuentes o contacta con Mallorca Holística si necesitas ayuda.
         </Card>
