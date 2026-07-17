@@ -40,25 +40,13 @@ function MiEspacio() {
           🟡 Solicitud en revisión
         </p>
         <p style={{ fontSize: 13, margin: 0, color: "#444" }}>
-          Nuestro equipo está revisando la documentación que nos has enviado.
+          Estamos revisando la documentación que nos has enviado.
         </p>
         <p style={{ fontSize: 13, margin: "4px 0 0 0", color: "#444", whiteSpace: "pre-wrap" }}>
-          Te avisaremos por correo electrónico en cuanto el proceso haya finalizado.
+          Si necesitamos información adicional o cuando el proceso haya finalizado, te lo comunicaremos por correo electrónico.
 
 
-          Respuestas por mail:
-
-
-          ¡Tu perfil ya está aprobado!
-
-          Ya puedes acceder a todas las funcionalidades de Mallorca Holística, publicar actividades y formar parte del directorio profesional.
-
-
-
-          Y si alguna vez rechazáis una solicitud o necesitáis más documentación:
-
-          Hemos revisado tu perfil, pero necesitamos completar algunos datos antes de poder aprobarlo.
-          Accede a tu espacio profesional para consultar los detalles.
+          Respuestas por mail: ¡Tu perfil ya está aprobado! Ya puedes acceder a todas las funcionalidades de Mallorca Holística, publicar actividades y formar parte del directorio profesional. Y si alguna vez rechazáis una solicitud o necesitáis más documentación: Hemos revisado tu perfil, pero necesitamos completar algunos datos antes de poder aprobarlo. Accede a tu espacio profesional para consultar los detalles.
         </p>
       </Box>
 
