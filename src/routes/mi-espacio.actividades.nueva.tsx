@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, type CSSProperties, type ReactNode } from "react";
 import { WireframeShell, Box, NavButton, TrackBadge, parseTrack, type Track, Note } from "@/components/Wireframe";
+import { TelefonoField, type TelefonoValue } from "@/components/TelefonoField";
 
 export const Route = createFileRoute("/mi-espacio/actividades/nueva")({
   validateSearch: (s: Record<string, unknown>): { track: Track } => ({ track: parseTrack(s) }),
@@ -32,7 +33,7 @@ const MUNICIPIOS = [
   "Sineu","Sóller","Son Servera","Valldemossa","Vilafranca de Bonany",
 ].sort((a, b) => a.localeCompare(b, "es"));
 
-type PrecioTipo = "gratuita" | "pago" | "aportacion";
+type PrecioTipo = "gratuito" | "pago" | "aportacion";
 type Repite = "no" | "si";
 
 type FormState = {
@@ -57,7 +58,7 @@ type FormState = {
   precio: string;
   plazas: string;
   enlaceReserva: string;
-  telefono: string;
+  telefono: TelefonoValue;
   email: string;
 };
 
@@ -83,7 +84,7 @@ const initial: FormState = {
   precio: "",
   plazas: "",
   enlaceReserva: "",
-  telefono: "",
+  telefono: { prefijo: "+34", numero: "" },
   email: "",
 };
 
@@ -361,8 +362,8 @@ function NuevaActividadPagina() {
       <Box title="Bloque 5 · Reservas">
         <FieldLabel>Precio</FieldLabel>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          {([
-            ["gratuita", "Gratuita"],
+        {([
+            ["gratuito", "Gratuito"],
             ["pago", "De pago"],
             ["aportacion", "Aportación voluntaria"],
           ] as [PrecioTipo, string][]).map(([val, label]) => (
@@ -380,7 +381,7 @@ function NuevaActividadPagina() {
 
         {form.precioTipo === "pago" && (
           <div style={{ marginTop: 16, maxWidth: 220 }}>
-            <FieldLabel>Precio por persona (€)</FieldLabel>
+            <FieldLabel>Precio (€)</FieldLabel>
             <input
               type="number"
               min="0"
@@ -416,12 +417,10 @@ function NuevaActividadPagina() {
         </div>
 
         <div style={{ marginTop: 16 }}>
-          <FieldLabel>Teléfono de contacto</FieldLabel>
-          <input
-            type="tel"
+          <TelefonoField
+            label="WhatsApp o teléfono de contacto"
             value={form.telefono}
-            onChange={(e) => update("telefono", e.target.value)}
-            style={inputStyle}
+            onChange={(v) => update("telefono", v)}
           />
         </div>
 
@@ -471,8 +470,8 @@ function NuevaActividadPagina() {
 function VistaPrevia({ form }: { form: FormState }) {
   const tipoLabel = form.tipo === "Otro" ? form.tipoOtro : form.tipo;
   const precioLabel =
-    form.precioTipo === "gratuita"
-      ? "Gratuita"
+    form.precioTipo === "gratuito"
+      ? "Gratuito"
       : form.precioTipo === "aportacion"
         ? "Aportación voluntaria"
         : form.precioTipo === "pago"
@@ -513,8 +512,11 @@ function VistaPrevia({ form }: { form: FormState }) {
         <div style={{ fontSize: 12, color: "#333", marginBottom: 4 }}>
           📍 {form.municipio || (form.modalidad === "Online" ? "Online" : "Municipio")}
         </div>
-        <div style={{ fontSize: 12, color: "#333", marginBottom: 10 }}>
+        <div style={{ fontSize: 12, color: "#333", marginBottom: 4 }}>
           💶 {precioLabel}
+        </div>
+        <div style={{ fontSize: 12, color: "#333", marginBottom: 10 }}>
+          🌐 {form.modalidad || "Modalidad"}
         </div>
         <div style={{ fontSize: 12, color: "#444", lineHeight: 1.6, whiteSpace: "pre-wrap" }}>
           {descripcionCorta || "Breve descripción de la actividad…"}
