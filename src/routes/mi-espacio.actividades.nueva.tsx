@@ -33,7 +33,7 @@ const MUNICIPIOS = [
   "Sineu","Sóller","Son Servera","Valldemossa","Vilafranca de Bonany",
 ].sort((a, b) => a.localeCompare(b, "es"));
 
-type PrecioTipo = "gratuita" | "pago" | "aportacion";
+type PrecioTipo = "gratuito" | "pago" | "aportacion";
 type Repite = "no" | "si";
 
 type FormState = {
@@ -58,7 +58,7 @@ type FormState = {
   precio: string;
   plazas: string;
   enlaceReserva: string;
-  telefono: string;
+  telefono: TelefonoValue;
   email: string;
 };
 
