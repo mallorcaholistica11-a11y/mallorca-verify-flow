@@ -81,9 +81,15 @@ function MiEspacio() {
             Consulta tu plan actual, tu método de pago y la información de tu suscripción.
           </Card>
         </Link>
-        <Card title="❓ Ayuda">
-          Encuentra respuestas a las preguntas más frecuentes o contacta con Mallorca Holística si necesitas ayuda.
-        </Card>
+        <Link
+          to="/mi-espacio/ayuda"
+          search={{ track }}
+          style={{ textDecoration: "none", color: "inherit", flex: 1, minWidth: 220 }}
+        >
+          <Card title="❓ Ayuda">
+            Encuentra respuestas a las preguntas más frecuentes o contacta con Mallorca Holística si necesitas ayuda.
+          </Card>
+        </Link>
       </Row>
 
       <Box title="Volver">
