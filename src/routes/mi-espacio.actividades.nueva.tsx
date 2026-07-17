@@ -512,8 +512,11 @@ function VistaPrevia({ form }: { form: FormState }) {
         <div style={{ fontSize: 12, color: "#333", marginBottom: 4 }}>
           📍 {form.municipio || (form.modalidad === "Online" ? "Online" : "Municipio")}
         </div>
-        <div style={{ fontSize: 12, color: "#333", marginBottom: 10 }}>
+        <div style={{ fontSize: 12, color: "#333", marginBottom: 4 }}>
           💶 {precioLabel}
+        </div>
+        <div style={{ fontSize: 12, color: "#333", marginBottom: 10 }}>
+          🌐 {form.modalidad || "Modalidad"}
         </div>
         <div style={{ fontSize: 12, color: "#444", lineHeight: 1.6, whiteSpace: "pre-wrap" }}>
           {descripcionCorta || "Breve descripción de la actividad…"}
