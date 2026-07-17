@@ -42,8 +42,23 @@ function MiEspacio() {
         <p style={{ fontSize: 13, margin: 0, color: "#444" }}>
           Nuestro equipo está revisando la documentación que nos has enviado.
         </p>
-        <p style={{ fontSize: 13, margin: "4px 0 0 0", color: "#444" }}>
-          No es necesario realizar ninguna acción por el momento.
+        <p style={{ fontSize: 13, margin: "4px 0 0 0", color: "#444", whiteSpace: "pre-wrap" }}>
+          Te avisaremos por correo electrónico en cuanto el proceso haya finalizado.
+
+
+          Respuestas por mail:
+
+
+          ¡Tu perfil ya está aprobado!
+
+          Ya puedes acceder a todas las funcionalidades de Mallorca Holística, publicar actividades y formar parte del directorio profesional.
+
+
+
+          Y si alguna vez rechazáis una solicitud o necesitáis más documentación:
+
+          Hemos revisado tu perfil, pero necesitamos completar algunos datos antes de poder aprobarlo.
+          Accede a tu espacio profesional para consultar los detalles.
         </p>
       </Box>
 
@@ -67,7 +82,7 @@ function MiEspacio() {
           style={{ textDecoration: "none", color: "inherit", flex: 1, minWidth: 220 }}
         >
           <Card title="📅 Mis Actividades">
-            Aquí podrás publicar y gestionar tus actividades cuando tu perfil haya sido aprobado. Mientras tu solicitud esté en revisión esta sección permanecerá disponible únicamente como vista informativa.
+            Publica y gestiona las actividades que aparecerán en la Agenda de Mallorca Holística.
           </Card>
         </Link>
       </Row>
@@ -87,7 +102,7 @@ function MiEspacio() {
           style={{ textDecoration: "none", color: "inherit", flex: 1, minWidth: 220 }}
         >
           <Card title="❓ Ayuda">
-            Encuentra respuestas a las preguntas más frecuentes o contacta con Mallorca Holística si necesitas ayuda.
+            Resuelve tus dudas, consulta las preguntas más frecuentes o ponte en contacto con nosotros si necesitas ayuda.
           </Card>
         </Link>
       </Row>
