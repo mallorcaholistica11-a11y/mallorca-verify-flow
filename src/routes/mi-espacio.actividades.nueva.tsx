@@ -84,7 +84,7 @@ const initial: FormState = {
   precio: "",
   plazas: "",
   enlaceReserva: "",
-  telefono: "",
+  telefono: { prefijo: "+34", numero: "" },
   email: "",
 };
 
