@@ -52,9 +52,15 @@ function MiEspacio() {
       </div>
 
       <Row>
-        <Card title="👤 Mi Perfil">
-          Consulta la información de tu perfil profesional y revisa los datos que has enviado.
-        </Card>
+        <Link
+          to="/mi-espacio/perfil"
+          search={{ track }}
+          style={{ textDecoration: "none", color: "inherit", flex: 1, minWidth: 220 }}
+        >
+          <Card title="👤 Mi Perfil">
+            Consulta la información de tu perfil profesional y mantén tus datos siempre actualizados.
+          </Card>
+        </Link>
         <Link
           to="/mi-espacio/actividades"
           search={{ track }}
