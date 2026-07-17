@@ -417,12 +417,10 @@ function NuevaActividadPagina() {
         </div>
 
         <div style={{ marginTop: 16 }}>
-          <FieldLabel>Teléfono de contacto</FieldLabel>
-          <input
-            type="tel"
+          <TelefonoField
+            label="WhatsApp o teléfono de contacto"
             value={form.telefono}
-            onChange={(e) => update("telefono", e.target.value)}
-            style={inputStyle}
+            onChange={(v) => update("telefono", v)}
           />
         </div>
 
