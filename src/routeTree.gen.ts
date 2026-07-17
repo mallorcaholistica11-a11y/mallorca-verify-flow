@@ -22,6 +22,7 @@ import { Route as ComunidadFundadoraAccesoRouteImport } from './routes/comunidad
 import { Route as ComunidadFundadoraRouteImport } from './routes/comunidad-fundadora'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as MiEspacioIndexRouteImport } from './routes/mi-espacio.index'
+import { Route as MiEspacioSuscripcionRouteImport } from './routes/mi-espacio.suscripcion'
 import { Route as MiEspacioActividadesRouteImport } from './routes/mi-espacio.actividades'
 import { Route as InvitacionTokenRouteImport } from './routes/invitacion.$token'
 import { Route as FuturoProfesionalVerificadoRouteImport } from './routes/futuro.profesional-verificado'
@@ -103,6 +104,11 @@ const IndexRoute = IndexRouteImport.update({
 const MiEspacioIndexRoute = MiEspacioIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => MiEspacioRoute,
+} as any)
+const MiEspacioSuscripcionRoute = MiEspacioSuscripcionRouteImport.update({
+  id: '/suscripcion',
+  path: '/suscripcion',
   getParentRoute: () => MiEspacioRoute,
 } as any)
 const MiEspacioActividadesRoute = MiEspacioActividadesRouteImport.update({
@@ -201,6 +207,7 @@ export interface FileRoutesByFullPath {
   '/futuro/profesional-verificado': typeof FuturoProfesionalVerificadoRoute
   '/invitacion/$token': typeof InvitacionTokenRoute
   '/mi-espacio/actividades': typeof MiEspacioActividadesRouteWithChildren
+  '/mi-espacio/suscripcion': typeof MiEspacioSuscripcionRoute
   '/mi-espacio/': typeof MiEspacioIndexRoute
   '/mi-espacio/actividades/nueva': typeof MiEspacioActividadesNuevaRoute
   '/mi-espacio/actividades/': typeof MiEspacioActividadesIndexRoute
@@ -227,6 +234,7 @@ export interface FileRoutesByTo {
   '/futuro/plan-presencia': typeof FuturoPlanPresenciaRoute
   '/futuro/profesional-verificado': typeof FuturoProfesionalVerificadoRoute
   '/invitacion/$token': typeof InvitacionTokenRoute
+  '/mi-espacio/suscripcion': typeof MiEspacioSuscripcionRoute
   '/mi-espacio': typeof MiEspacioIndexRoute
   '/mi-espacio/actividades/nueva': typeof MiEspacioActividadesNuevaRoute
   '/mi-espacio/actividades': typeof MiEspacioActividadesIndexRoute
@@ -256,6 +264,7 @@ export interface FileRoutesById {
   '/futuro/profesional-verificado': typeof FuturoProfesionalVerificadoRoute
   '/invitacion/$token': typeof InvitacionTokenRoute
   '/mi-espacio/actividades': typeof MiEspacioActividadesRouteWithChildren
+  '/mi-espacio/suscripcion': typeof MiEspacioSuscripcionRoute
   '/mi-espacio/': typeof MiEspacioIndexRoute
   '/mi-espacio/actividades/nueva': typeof MiEspacioActividadesNuevaRoute
   '/mi-espacio/actividades/': typeof MiEspacioActividadesIndexRoute
@@ -286,6 +295,7 @@ export interface FileRouteTypes {
     | '/futuro/profesional-verificado'
     | '/invitacion/$token'
     | '/mi-espacio/actividades'
+    | '/mi-espacio/suscripcion'
     | '/mi-espacio/'
     | '/mi-espacio/actividades/nueva'
     | '/mi-espacio/actividades/'
@@ -312,6 +322,7 @@ export interface FileRouteTypes {
     | '/futuro/plan-presencia'
     | '/futuro/profesional-verificado'
     | '/invitacion/$token'
+    | '/mi-espacio/suscripcion'
     | '/mi-espacio'
     | '/mi-espacio/actividades/nueva'
     | '/mi-espacio/actividades'
@@ -340,6 +351,7 @@ export interface FileRouteTypes {
     | '/futuro/profesional-verificado'
     | '/invitacion/$token'
     | '/mi-espacio/actividades'
+    | '/mi-espacio/suscripcion'
     | '/mi-espacio/'
     | '/mi-espacio/actividades/nueva'
     | '/mi-espacio/actividades/'
@@ -457,6 +469,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/mi-espacio/'
       preLoaderRoute: typeof MiEspacioIndexRouteImport
+      parentRoute: typeof MiEspacioRoute
+    }
+    '/mi-espacio/suscripcion': {
+      id: '/mi-espacio/suscripcion'
+      path: '/suscripcion'
+      fullPath: '/mi-espacio/suscripcion'
+      preLoaderRoute: typeof MiEspacioSuscripcionRouteImport
       parentRoute: typeof MiEspacioRoute
     }
     '/mi-espacio/actividades': {
@@ -586,11 +605,13 @@ const MiEspacioActividadesRouteWithChildren =
 
 interface MiEspacioRouteChildren {
   MiEspacioActividadesRoute: typeof MiEspacioActividadesRouteWithChildren
+  MiEspacioSuscripcionRoute: typeof MiEspacioSuscripcionRoute
   MiEspacioIndexRoute: typeof MiEspacioIndexRoute
 }
 
 const MiEspacioRouteChildren: MiEspacioRouteChildren = {
   MiEspacioActividadesRoute: MiEspacioActividadesRouteWithChildren,
+  MiEspacioSuscripcionRoute: MiEspacioSuscripcionRoute,
   MiEspacioIndexRoute: MiEspacioIndexRoute,
 }
 
@@ -621,13 +642,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
