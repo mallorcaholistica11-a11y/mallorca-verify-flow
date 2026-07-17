@@ -381,7 +381,7 @@ function NuevaActividadPagina() {
 
         {form.precioTipo === "pago" && (
           <div style={{ marginTop: 16, maxWidth: 220 }}>
-            <FieldLabel>Precio por persona (€)</FieldLabel>
+            <FieldLabel>Precio (€)</FieldLabel>
             <input
               type="number"
               min="0"
