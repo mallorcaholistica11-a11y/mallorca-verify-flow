@@ -362,8 +362,8 @@ function NuevaActividadPagina() {
       <Box title="Bloque 5 · Reservas">
         <FieldLabel>Precio</FieldLabel>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          {([
-            ["gratuita", "Gratuita"],
+        {([
+            ["gratuito", "Gratuito"],
             ["pago", "De pago"],
             ["aportacion", "Aportación voluntaria"],
           ] as [PrecioTipo, string][]).map(([val, label]) => (
