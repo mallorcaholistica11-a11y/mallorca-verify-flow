@@ -361,7 +361,13 @@ function PresenciaWhatsApp() {
           </button>
         ))}
       </div>
-      {!mismo && <TelefonoField label="WhatsApp" />}
+      {mismo ? (
+        <div style={{ fontSize: 12, color: "#3f6b4a", marginTop: 8, lineHeight: 1.6 }}>
+          ✅ Perfecto. Utilizaremos este mismo número para WhatsApp.
+        </div>
+      ) : (
+        <TelefonoField label="WhatsApp" />
+      )}
     </div>
   );
 }
@@ -380,10 +386,14 @@ function PresenciaStep({
   if (step === 1) {
     return (
       <Box title="Información básica">
-        <FakeField label="Nombre" />
-        <FakeField label="Apellidos" />
-        <FakeField label="Nombre profesional (opcional)" />
-        <Ayuda>Si utilizas un nombre artístico o una marca personal, puedes indicarlo aquí.</Ayuda>
+        <FakeField label={isOrg ? "Nombre de la persona responsable" : "Nombre"} />
+        <FakeField label={isOrg ? "Apellidos de la persona responsable" : "Apellidos"} />
+        <FakeField label={isOrg ? "Nombre del centro" : "Nombre profesional"} />
+        <Ayuda>
+          {isOrg
+            ? "Introduce el nombre con el que las personas identifican vuestro centro o espacio."
+            : "Si utilizas un nombre artístico o una marca personal, puedes indicarlo aquí."}
+        </Ayuda>
         <MunicipioPicker label="Municipio principal" />
         <FakeField
           label={isOrg ? "Correo electrónico del centro" : "Correo electrónico profesional"}
@@ -393,7 +403,11 @@ function PresenciaStep({
         <TelefonoField label="Teléfono" />
         <PresenciaWhatsApp />
         <FakeField label={isOrg ? "Imagen principal del centro" : "Tu fotografía"} type="file" />
-        <Ayuda>Será la imagen principal de tu perfil.</Ayuda>
+        <Ayuda>
+          {isOrg
+            ? "Será la imagen principal del perfil de vuestro centro."
+            : "Será la imagen principal de tu perfil."}
+        </Ayuda>
       </Box>
     );
   }
@@ -401,11 +415,16 @@ function PresenciaStep({
   if (step === 2) {
     return (
       <>
-        <Box title="Especialidades y terapias">
+        <Box title={isOrg ? "Servicios, terapias y actividades" : "Especialidades y terapias"}>
           <Note>Máximo 3</Note>
+          {isOrg && (
+            <Ayuda>
+              Selecciona los principales servicios, terapias o actividades que ofrece vuestro centro.
+            </Ayuda>
+          )}
           <EspecialidadesPicker variant="profesional" />
         </Box>
-        <Box title="Áreas de especialización">
+        <Box title={isOrg ? "Áreas de especialización del centro" : "Áreas de especialización"}>
           <Note>Máximo 5</Note>
           <AreasPicker variant="profesional" />
         </Box>
@@ -433,9 +452,10 @@ function PresenciaStep({
           si cambias de plan.
         </Note>
         <Box title="Tu ubicación">
-          <FakeField label="Nombre del espacio (opcional)" />
+          <FakeField label={isOrg ? "Nombre del centro (opcional)" : "Nombre del espacio (opcional)"} />
           <Ayuda>
-            Si atiendes en un centro o espacio con un nombre propio puedes indicarlo aquí.
+            Si atiendes habitualmente en un centro o espacio con un nombre propio, puedes indicarlo
+            aquí.
           </Ayuda>
           <DireccionPicker label="Dirección" hint={null} />
           <MunicipioPicker label="Municipio" />
@@ -450,10 +470,15 @@ function PresenciaStep({
       <Box title="Tu presentación">
         <LimitedTextField label="Frase destacada" max={120} />
         <Ayuda>Una frase breve que resuma tu manera de acompañar o tu filosofía.</Ayuda>
-        <LimitedTextField label="Cuéntanos un poco sobre ti" max={1000} multiline />
+        <LimitedTextField
+          label={isOrg ? "Cuéntanos un poco sobre vuestro centro" : "Cuéntanos un poco sobre ti"}
+          max={1000}
+          multiline
+        />
         <Ayuda>
-          Comparte tu recorrido, tu forma de trabajar o aquello que te gustaría que las personas
-          conocieran antes de contactar contigo.
+          {isOrg
+            ? "Comparte la historia del centro, vuestra forma de trabajar o aquello que os gustaría que las personas conocieran antes de contactar con vosotros."
+            : "Comparte tu recorrido, tu forma de trabajar o aquello que te gustaría que las personas conocieran antes de contactar contigo."}
         </Ayuda>
         <Note>
           No te preocupes si ahora no tienes el texto perfecto. Podrás modificarlo siempre que
