@@ -897,7 +897,13 @@ function renderField(label: string) {
   return <FakeField key={label} label={label} />;
 }
 
-function DireccionPicker({ label }: { label: string }) {
+function DireccionPicker({
+  label,
+  hint = "MVP: texto libre. Preparado para Google Places Autocomplete — al integrarlo se guardarán automáticamente: dirección formateada, municipio, código postal, isla, latitud, longitud y Place ID.",
+}: {
+  label: string;
+  hint?: string | null;
+}) {
   const [value, setValue] = useState("");
   return (
     <div style={{ marginBottom: 12 }}>
@@ -927,11 +933,9 @@ function DireccionPicker({ label }: { label: string }) {
           boxSizing: "border-box",
         }}
       />
-      <div style={{ fontSize: 11, color: "#888", marginTop: 4, fontStyle: "italic" }}>
-        MVP: texto libre. Preparado para Google Places Autocomplete — al integrarlo se guardarán
-        automáticamente: dirección formateada, municipio, código postal, isla, latitud, longitud y
-        Place ID.
-      </div>
+      {hint && (
+        <div style={{ fontSize: 11, color: "#888", marginTop: 4, fontStyle: "italic" }}>{hint}</div>
+      )}
       {/* Estructura prevista (oculta en wireframe MVP):
           formatted_address, municipio, postal_code, isla, lat, lng, place_id */}
     </div>
