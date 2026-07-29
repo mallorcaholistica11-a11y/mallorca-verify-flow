@@ -338,7 +338,7 @@ function PresenciaWhatsApp() {
   const [mismo, setMismo] = useState(true);
   return (
     <div style={{ marginBottom: 12 }}>
-      <div style={{ fontSize: 12, marginBottom: 6 }}>¿Es el mismo número de teléfono?</div>
+      <div style={{ fontSize: 12, marginBottom: 6 }}>¿Utilizas este mismo número para WhatsApp?</div>
       <div style={{ display: "flex", gap: 8, marginBottom: mismo ? 0 : 12 }}>
         {[
           { label: "Sí", value: true },
@@ -363,7 +363,7 @@ function PresenciaWhatsApp() {
       </div>
       {mismo ? (
         <div style={{ fontSize: 12, color: "#3f6b4a", marginTop: 8, lineHeight: 1.6 }}>
-          ✅ Perfecto. Utilizaremos este mismo número para WhatsApp.
+          ✅ Perfecto.
         </div>
       ) : (
         <TelefonoField label="WhatsApp" />
