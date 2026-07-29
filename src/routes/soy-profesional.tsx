@@ -35,23 +35,23 @@ function SoyProfesional() {
       title="🌿 Forma parte de Mallorca Holística"
       breadcrumb="Inicio › Soy profesional"
     >
-      <Box title="Forma parte de Mallorca Holística">
+      <Box>
         <div style={textBlock}>
-          <p style={paragraph}>
-            Mallorca Holística reúne a profesionales de la salud complementaria e integrativa, centros y organizaciones que comparten una visión más integradora, humana y consciente del bienestar y del acompañamiento a las personas.
+          <p style={{ ...paragraph, fontSize: 16, fontWeight: 700, whiteSpace: "pre-wrap" }}>
+            Forma parte de Mallorca Holística{"\n\n\n\n\n"}Elige cómo quieres participar.
           </p>
           <p style={paragraph}>
-            Cada profesional, cada centro y cada organización aportan una mirada única. Juntos formamos una comunidad basada en la confianza, la profesionalidad y el compromiso.
+            {"\n"}
           </p>
           <p style={{ ...paragraph, marginBottom: 0 }}>
-            Descubre qué ofrece cada plan y elige el que mejor se adapte a tu actividad.
+            {"\n"}
           </p>
         </div>
       </Box>
 
       <Box title="⭐ ELIGE EL PLAN QUE MEJOR SE ADAPTE A TU ACTIVIDAD">
         <Row>
-          <Card title="🌿 Plan Presencia">
+          <Card title="🌿 Presencia">
             <p style={priceStyle}>
               <strong>Gratuito</strong>
             </p>
@@ -59,16 +59,16 @@ function SoyProfesional() {
               Acceso libre
             </p>
             <p style={{ fontSize: 13, marginBottom: 16 }}>
-              Para profesionales de la salud complementaria e integrativa que desean dar visibilidad a su actividad y empezar a formar parte de Mallorca Holística.
+              Para profesionales que desean dar visibilidad a su actividad y formar parte de Mallorca Holística.
             </p>
             <NavButton to="/plan-presencia">
-              👉 Descubrir el plan
+              👉&nbsp;Conocer el plan
             </NavButton>
           </Card>
 
-          <Card title="⭐ Plan Profesional Verificado">
+          <Card title="⭐ Profesional Verificado">
             <p style={priceStyle}>
-              <strong>25 €/mes (IVA incluido)</strong>
+              <strong>25 €/mes{"\n"}(IVA incluido)</strong>
             </p>
             <p style={infoStyle}>
               ✨ 2 meses gratuitos por lanzamiento
@@ -77,14 +77,14 @@ function SoyProfesional() {
               Acceso mediante verificación profesional
             </p>
             <p style={{ fontSize: 13, marginBottom: 16 }}>
-              Para profesionales de la salud complementaria e integrativa que desean reforzar la confianza que transmiten, aumentar su visibilidad y acceder a funcionalidades avanzadas.
+              Para profesionales que desean transmitir mayor confianza, aumentar su visibilidad y diferenciar su perfil mediante la verificación profesional.
             </p>
             <NavButton to="/profesional-fundador">
-              👉 Descubrir el plan
+              👉&nbsp;Conocer el plan
             </NavButton>
           </Card>
 
-          <Card title="⭐ Plan Centros & Organizadores">
+          <Card title="⭐ Centros & Organizadores">
             <p style={priceStyle}>
               <strong>50 €/mes (IVA incluido)</strong>
             </p>
@@ -95,21 +95,21 @@ function SoyProfesional() {
               Acceso mediante identificación de la entidad
             </p>
             <p style={{ fontSize: 13, marginBottom: 16 }}>
-              Para centros, escuelas, asociaciones y otras entidades relacionadas con la salud complementaria e integrativa que desean dar mayor visibilidad a su proyecto y a las actividades que organizan.
+              Para centros, escuelas, asociaciones y organizaciones que desean dar visibilidad to su proyecto y publicar las actividades que organizan.
             </p>
             <NavButton to="/comunidad-fundadora-organizaciones">
-              👉 Descubrir el plan
+              👉&nbsp;Conocer el plan
             </NavButton>
           </Card>
         </Row>
       </Box>
 
       <div style={{ marginTop: 32, padding: 16, border: "1px dashed #bbb", background: "#fafafa", textAlign: "center" }}>
-        <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 8 }}>
-          🌿 ¿Has recibido una invitación?
+        <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 8, whiteSpace: "pre-wrap" }}>
+          🌿 Comunidad Fundadora{"\n\n"}¿Has recibido una invitación personal?
         </div>
         <p style={{ fontSize: 12, color: "#555", margin: "0 auto 12px", maxWidth: 560, lineHeight: 1.5 }}>
-          Si has recibido una invitación personal para formar parte de la Comunidad Fundadora de Mallorca Holística, puedes acceder aquí para activar tus condiciones especiales.
+          Si es así, accede desde aquí para completar tu incorporación a Mallorca Holística.
         </p>
         <NavButton to="/comunidad-fundadora-acceso" variant="secondary">
           👉 Acceder con mi invitación

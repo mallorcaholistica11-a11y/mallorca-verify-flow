@@ -61,7 +61,7 @@ const linkStyle = { textDecoration: "none", color: "#111", padding: "4px 8px", b
 export function Box({ children, title }: { children: ReactNode; title?: string }) {
   return (
     <div style={{ border: "1px dashed #888", padding: 16, marginBottom: 16, background: "#fff" }}>
-      {title && <div style={{ fontSize: 11, color: "#666", marginBottom: 8, textTransform: "uppercase", letterSpacing: 1, whiteSpace: "pre-wrap" }}>{title}</div>}
+      {title && <div style={{ fontSize: 11, color: "#666", marginBottom: 8, textTransform: "uppercase", letterSpacing: 1, whiteSpace: "pre-wrap" }}>{title === "Forma parte de Mallorca Holística" ? "\n" : title}</div>}
       {children}
     </div>
   );
