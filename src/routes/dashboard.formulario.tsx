@@ -794,7 +794,13 @@ function isMunicipioField(label: string) {
   return label.toLowerCase().includes("municipio");
 }
 
-function MunicipioPicker({ label }: { label: string }) {
+function MunicipioPicker({
+  label,
+  hint = "Solo se permiten municipios de Mallorca de la lista normalizada.",
+}: {
+  label: string;
+  hint?: string | null;
+}) {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
@@ -896,9 +902,9 @@ function MunicipioPicker({ label }: { label: string }) {
           </div>
         )}
       </div>
-      <div style={{ fontSize: 11, color: "#888", marginTop: 4, fontStyle: "italic" }}>
-        Solo se permiten municipios de Mallorca de la lista normalizada.
-      </div>
+      {hint && (
+        <div style={{ fontSize: 11, color: "#888", marginTop: 4, fontStyle: "italic" }}>{hint}</div>
+      )}
     </div>
   );
 }
