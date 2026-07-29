@@ -1928,11 +1928,16 @@ function VerificadoFormulario() {
 
       {step === 4 && (
         <>
-          <Box title="🌟 Frase de presentación">
+          <Box title={isOrg ? "🌟 Frase de presentación" : "Frase destacada"}>
             <Note>Describe tu actividad en una frase. Máximo 120 caracteres.</Note>
-            <LimitedTextField label="Frase de presentación" max={120} />
+            <LimitedTextField label={isOrg ? "Frase de presentación" : "Frase destacada"} max={120} />
+            {!isOrg && (
+              <Ayuda>
+                Una frase breve que resuma tu manera de acompañar o tu filosofía profesional.
+              </Ayuda>
+            )}
             <div style={{ fontSize: 12, color: "#666", fontStyle: "italic", marginTop: 8 }}>
-              Ejemplos:
+              {isOrg ? "Ejemplos:" : "Algunas ideas:"}
               <ul style={{ paddingLeft: 18, marginTop: 6, marginBottom: 6 }}>
                 {isOrg ? (
                   <>
@@ -1948,28 +1953,48 @@ function VerificadoFormulario() {
                   </>
                 )}
               </ul>
-              Esta frase puede aparecer en búsquedas, tarjetas de resultados, perfil público y
-              Google.
+              {isOrg
+                ? "Esta frase puede aparecer en búsquedas, tarjetas de resultados, perfil público y Google."
+                : null}
             </div>
           </Box>
-          <Box title={isOrg ? "✨ Presentación de la organización" : "✨ Presentación profesional"}>
+          <Box title={isOrg ? "✨ Presentación de la organización" : "Cuéntanos un poco sobre ti"}>
             <Note>
               {isOrg
                 ? "Cuéntanos quiénes sois, qué hacéis, cómo trabajáis, qué ofrecéis y aquello que consideráis importante destacar. Máximo 3000 caracteres."
-                : "Cuéntanos quién eres, qué haces y cómo acompañas a las personas. Máximo 3000 caracteres."}
+                : "Máximo 3000 caracteres."}
             </Note>
             <LimitedTextField
-              label={isOrg ? "Presentación de la organización" : "Presentación profesional"}
+              label={isOrg ? "Presentación de la organización" : "Cuéntanos un poco sobre ti"}
               max={3000}
               multiline
             />
+            {!isOrg && (
+              <>
+                <Ayuda>
+                  Comparte tu recorrido, tu experiencia, tu forma de trabajar y aquello que te
+                  gustaría que las personas conocieran antes de contactar contigo.
+                </Ayuda>
+                <Note>
+                  No te preocupes si ahora no tienes el texto perfecto. Podrás modificarlo siempre
+                  que lo desees.
+                </Note>
+              </>
+            )}
           </Box>
           {!isOrg && (
-            <Box title="🎓 Formación principal">
+            <Box title="Formación principal">
+              <Ayuda>
+                Comparte las formaciones que consideres más relevantes para tu actividad
+                profesional.
+              </Ayuda>
               <FormacionList />
             </Box>
           )}
-          <Box title="🌍 Idiomas">
+          <Box title={isOrg ? "🌍 Idiomas" : "Idiomas"}>
+            {!isOrg && (
+              <Ayuda>Selecciona los idiomas en los que puedes atender a las personas.</Ayuda>
+            )}
             <VCheckboxes options={V_IDIOMAS} columns={3} />
           </Box>
           {isOrg && (
