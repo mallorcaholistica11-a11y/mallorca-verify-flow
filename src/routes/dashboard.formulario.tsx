@@ -794,7 +794,13 @@ function isMunicipioField(label: string) {
   return label.toLowerCase().includes("municipio");
 }
 
-function MunicipioPicker({ label }: { label: string }) {
+function MunicipioPicker({
+  label,
+  hint = "Solo se permiten municipios de Mallorca de la lista normalizada.",
+}: {
+  label: string;
+  hint?: string | null;
+}) {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
@@ -896,9 +902,9 @@ function MunicipioPicker({ label }: { label: string }) {
           </div>
         )}
       </div>
-      <div style={{ fontSize: 11, color: "#888", marginTop: 4, fontStyle: "italic" }}>
-        Solo se permiten municipios de Mallorca de la lista normalizada.
-      </div>
+      {hint && (
+        <div style={{ fontSize: 11, color: "#888", marginTop: 4, fontStyle: "italic" }}>{hint}</div>
+      )}
     </div>
   );
 }
@@ -1173,21 +1179,139 @@ const V_MODALIDADES = [
   "Otro (especificar)",
 ];
 
-const V_CONSULTA_MODES = [
-  "Presencial en consulta",
-  "Online (videollamada)",
-  "A distancia (Reiki, sanación energética y otras terapias sin presencia física)",
-  "A domicilio",
-];
-
 const V_IDIOMAS = ["Español", "Inglés", "Francés", "Alemán", "Catalán", "Otro"];
+
+// Introducciones de cada paso (recorrido Profesional Verificado).
+const V_STEP_INTROS: Record<number, string> = {
+  1: "Empezamos con la información principal de tu perfil. Estos datos ayudarán a las personas a conocerte, ponerse en contacto contigo y generar confianza desde el primer momento.",
+  2: "Cuéntanos un poco más sobre tu actividad para que las personas puedan encontrarte con facilidad y comprendan mejor cómo puedes acompañarlas.",
+  3: "Indícanos cómo realizas tus consultas y dónde atiendes habitualmente. Con este plan puedes añadir varias ubicaciones.",
+  4: "Este es tu espacio para presentarte. Comparte quién eres, cómo acompañas a las personas y aquello que hace única tu forma de trabajar. También podrás mostrar parte de tu formación e indicar los idiomas en los que ofreces atención.",
+  5: "Añade los enlaces y canales de contacto que quieras compartir para que las personas puedan conocerte, reservar una sesión o ponerse en contacto contigo. Todos los campos son opcionales.",
+  6: "Ya casi has terminado. Para mantener la calidad y la confianza de Mallorca Holística necesitamos verificar algunos aspectos de tu actividad profesional. Este proceso nos ayuda a ofrecer un espacio más seguro tanto para los profesionales como para las personas que buscan acompañamiento.",
+};
+
+const V_CONSULTA_OPTIONS = ["Presencial en consulta", "Online", "A domicilio", "A distancia"];
+
+const V_CONSULTA_HELP: Record<string, string> = {
+  Online: "Videollamada u otros medios digitales.",
+  "A distancia": "Para terapias que no requieren presencia física.",
+};
+
+const V_PUBLICO_OPTIONS = ["Todas las personas", ...V_PUBLICO];
+const V_MODALIDADES_OPTIONS = V_MODALIDADES.filter((m) => m !== "Otro (especificar)");
+
+// WhatsApp: mismo número que el teléfono o uno distinto.
+function VWhatsAppMismo() {
+  const [mismo, setMismo] = useState(true);
+  return (
+    <div style={{ marginBottom: 12 }}>
+      <div style={{ fontSize: 12, marginBottom: 6 }}>
+        ¿Utilizarás este mismo número para WhatsApp?
+      </div>
+      <div style={{ display: "flex", gap: 8 }}>
+        {[
+          { label: "Sí", value: true },
+          { label: "No", value: false },
+        ].map((op) => (
+          <button
+            key={op.label}
+            type="button"
+            onClick={() => setMismo(op.value)}
+            style={{
+              fontFamily: "inherit",
+              fontSize: 12,
+              padding: "6px 14px",
+              cursor: "pointer",
+              background: mismo === op.value ? "#f3f3f3" : "#fff",
+              border: mismo === op.value ? "2px solid #111" : "1px dashed #888",
+            }}
+          >
+            {op.label}
+          </button>
+        ))}
+      </div>
+      {mismo ? (
+        <div style={{ fontSize: 12, color: "#3f6b4a", marginTop: 8, lineHeight: 1.6 }}>
+          ✅ Perfecto. Utilizaremos este mismo número para WhatsApp.
+        </div>
+      ) : (
+        <div style={{ marginTop: 12 }}>
+          <TelefonoField label="WhatsApp" />
+        </div>
+      )}
+    </div>
+  );
+}
+
+// WhatsApp Business: solo se muestra si usa un número diferente.
+function VWhatsAppBusiness() {
+  const [distinto, setDistinto] = useState(false);
+  return (
+    <div>
+      <div
+        onClick={() => setDistinto((v) => !v)}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          padding: "8px 10px",
+          border: "1px dashed #888",
+          background: distinto ? "#f3f3f3" : "#fff",
+          cursor: "pointer",
+          fontSize: 13,
+          marginBottom: 12,
+        }}
+      >
+        <span
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: 14,
+            height: 14,
+            border: "1px dashed #666",
+            background: "#fff",
+            fontSize: 10,
+            flexShrink: 0,
+          }}
+        >
+          {distinto ? "☑" : ""}
+        </span>
+        <span>Utilizo un número diferente para WhatsApp Business.</span>
+      </div>
+      {distinto && <TelefonoField label="WhatsApp Business" />}
+    </div>
+  );
+}
+
+// Visibilidad de la información de contacto en el perfil público.
+function VInformacionPublica() {
+  const [whatsapp, setWhatsapp] = useState(true);
+  const [correo, setCorreo] = useState(true);
+  return (
+    <div>
+      <PresenciaToggleCheckbox
+        label="Mostrar mi WhatsApp"
+        checked={whatsapp}
+        onToggle={() => setWhatsapp((v) => !v)}
+      />
+      <PresenciaToggleCheckbox
+        label="Mostrar mi correo electrónico"
+        checked={correo}
+        onToggle={() => setCorreo((v) => !v)}
+      />
+      <Ayuda>Solo mostraremos la información que elijas compartir.</Ayuda>
+    </div>
+  );
+}
 
 const V_STEP_TITLES = [
   "Información General",
   "Actividad Profesional",
   "Consultas y Modalidades",
   "Experiencia y Perfil",
-  "Enlaces y Redes",
+  "Contacto y presencia online",
   "Verificación y Compromisos",
    "Activa tu suscripción",
  ];
@@ -1289,7 +1413,15 @@ function EquipoList() {
   );
 }
 
-function VCheckboxes({ options, columns = 3 }: { options: string[]; columns?: number }) {
+function VCheckboxes({
+  options,
+  columns = 3,
+  descriptions,
+}: {
+  options: string[];
+  columns?: number;
+  descriptions?: Record<string, string>;
+}) {
   const [selected, setSelected] = useState<string[]>([]);
   const toggle = (v: string) =>
     setSelected((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]));
@@ -1297,7 +1429,13 @@ function VCheckboxes({ options, columns = 3 }: { options: string[]; columns?: nu
     options.includes("Otro (especificar)") && selected.includes("Otro (especificar)");
   return (
     <div>
-      <CheckboxGroup options={options} columns={columns} selected={selected} onToggle={toggle} />
+      <CheckboxGroup
+        options={options}
+        columns={columns}
+        selected={selected}
+        onToggle={toggle}
+        descriptions={descriptions}
+      />
       {showOtro && (
         <div style={{ marginTop: 12 }}>
           <FakeField label="Especificar" />
@@ -1340,7 +1478,7 @@ function FormacionList() {
         <div key={it.id} style={{ border: "1px dashed #bbb", padding: 12, marginBottom: 12 }}>
           <div style={{ fontSize: 11, color: "#666", marginBottom: 6 }}>Formación #{idx + 1}</div>
           <FakeField label="Formación" />
-          <FakeField label="Escuela" />
+          <FakeField label="Centro o escuela" />
           <FakeField label="Año" />
           {items.length > 1 && (
             <button
@@ -1369,14 +1507,17 @@ function ConsultasList() {
   return (
     <div>
       {items.map((it, idx) => (
-        <div key={it.id} style={{ border: "1px dashed #bbb", padding: 12, marginBottom: 12 }}>
+        <div key={it.id} style={{ border: "1px dashed #bbb", padding: 16, marginBottom: 20 }}>
           <div style={{ fontSize: 11, color: "#666", marginBottom: 6 }}>
-            {idx === 0 ? "Consulta principal" : `Consulta adicional #${idx}`}
+            {idx === 0 ? "Ubicación principal" : `Ubicación adicional #${idx}`}
           </div>
-          <FakeField label="Nombre del centro" />
-          <DireccionPicker label="Dirección" />
-          <MunicipioPicker label="Municipio" />
-          <ReadOnlyField label="Isla" value="Mallorca" />
+          <FakeField label="Nombre del espacio (opcional)" />
+          <Ayuda>
+            Si atiendes habitualmente en un centro o espacio con un nombre propio puedes indicarlo
+            aquí.
+          </Ayuda>
+          <DireccionPicker label="Dirección" hint={null} />
+          <MunicipioPicker label="Municipio" hint={null} />
           {items.length > 1 && (
             <button
               type="button"
@@ -1393,7 +1534,7 @@ function ConsultasList() {
         onClick={() => setItems([...items, { id: Date.now() }])}
         style={{ ...btn("secondary"), padding: "6px 12px" }}
       >
-        ➕ Añadir otra consulta
+        ➕ Añadir otra ubicación
       </button>
     </div>
   );
@@ -1566,6 +1707,20 @@ function VerificadoFormulario() {
         </div>
       </Box>
 
+      {!isOrg && V_STEP_INTROS[step] && (
+        <p
+          style={{
+            fontSize: 14,
+            lineHeight: 1.7,
+            color: "#444",
+            margin: "0 0 24px 0",
+            maxWidth: 640,
+          }}
+        >
+          {V_STEP_INTROS[step]}
+        </p>
+      )}
+
       {step === 1 && (
         <>
           <Box title="Información General">
@@ -1576,6 +1731,9 @@ function VerificadoFormulario() {
                 <FakeField label="Nombre" />
                 <FakeField label="Apellidos" />
                 <FakeField label="Nombre profesional (opcional)" />
+                <Ayuda>
+                  Si utilizas un nombre artístico o una marca personal, puedes indicarlo aquí.
+                </Ayuda>
               </>
             )}
           </Box>
@@ -1658,49 +1816,72 @@ function VerificadoFormulario() {
           )}
 
           <Box title={isOrg ? "Datos de la organización" : "Datos de contacto"}>
-            {isOrg && (
+            {isOrg ? (
               <>
                 <FakeField label="Nombre comercial (opcional)" />
                 <FakeField label="Tipo de organización — Ej.: Centro, Asociación, Proyecto, Evento…" />
+                <MunicipioPicker label="Municipio principal" />
+                <ReadOnlyField label="Isla" value="Mallorca" />
+                <FakeField label="Correo electrónico" type="email" />
+                <TelefonoField label="Teléfono" />
+                <TelefonoField label="WhatsApp" />
+                <FakeField label="Logo (opcional)" type="file" />
+                <FakeField label="Imagen principal" type="file" />
+                <FakeField label="Galería (opcional, hasta 9 imágenes)" type="file" />
+              </>
+            ) : (
+              <>
+                <MunicipioPicker label="Municipio principal" hint={null} />
+                <FakeField label="Correo electrónico" type="email" />
+                <Ayuda>
+                  Será el correo de contacto que aparecerá en tu perfil profesional.
+                </Ayuda>
+                <TelefonoField label="Teléfono" />
+                <VWhatsAppMismo />
+                <FakeField label="Logo o marca (opcional)" type="file" />
+                <Ayuda>
+                  Si dispones de un logotipo o imagen de marca puedes añadirlo aquí.
+                </Ayuda>
+                <FakeField label="Foto principal" type="file" />
+                <Ayuda>Será la imagen principal de tu perfil profesional.</Ayuda>
+                <FakeField label="Galería de imágenes (opcional)" type="file" />
+                <Ayuda>
+                  Puedes añadir hasta 3 imágenes para mostrar tu espacio, tu trabajo o aquello que
+                  mejor represente tu actividad.
+                </Ayuda>
               </>
             )}
-            <MunicipioPicker label="Municipio principal" />
-            <ReadOnlyField label="Isla" value="Mallorca" />
-            <FakeField label="Correo electrónico" type="email" />
-            <TelefonoField label="Teléfono" />
-            <TelefonoField label="WhatsApp" />
-            <FakeField
-              label={isOrg ? "Logo (opcional)" : "Logo profesional (opcional)"}
-              type="file"
-            />
-            <FakeField label={isOrg ? "Imagen principal" : "Foto principal"} type="file" />
-            <FakeField
-              label={
-                isOrg
-                  ? "Galería (opcional, hasta 9 imágenes)"
-                  : "Fotos galería (opcional, máximo 3)"
-              }
-              type="file"
-            />
           </Box>
         </>
       )}
 
       {step === 2 && (
-        <>
+        <div style={{ display: "flex", flexDirection: "column", gap: isOrg ? 0 : 12 }}>
           <Box title="Especialidades y Terapias">
+            {!isOrg && (
+              <Ayuda>
+                Puedes añadir todas las especialidades que formen parte de tu práctica profesional y
+                ordenarlas según su importancia.
+              </Ayuda>
+            )}
             <EspecialidadesPicker max={0} variant={isOrg ? "organizacion" : "profesional"} />
           </Box>
           <Box title="Áreas de Especialización">
+            {!isOrg && (
+              <Ayuda>
+                Selecciona todas las áreas en las que acompañas habitualmente. También podrás
+                ordenarlas por relevancia.
+              </Ayuda>
+            )}
             <AreasPicker max={0} variant={isOrg ? "organizacion" : "profesional"} />
           </Box>
-          <Box title={isOrg ? "Público al que se dirige" : "Público al que acompaño"}>
+          <Box title={isOrg ? "Público al que se dirige" : "¿A quién acompañas?"}>
             <Note>Selecciona todas las opciones que correspondan.</Note>
-            <VCheckboxes options={V_PUBLICO} columns={3} />
+            <VCheckboxes options={isOrg ? V_PUBLICO : V_PUBLICO_OPTIONS} columns={3} />
           </Box>
-          <Box title={isOrg ? "Modalidades" : "Modalidades de Acompañamiento"}>
+          <Box title={isOrg ? "Modalidades" : "¿Cómo trabajas?"}>
             <Note>Selecciona todas las modalidades que ofreces.</Note>
-            <VCheckboxes options={V_MODALIDADES} columns={3} />
+            <VCheckboxes options={isOrg ? V_MODALIDADES : V_MODALIDADES_OPTIONS} columns={3} />
           </Box>
           {isOrg && (
             <Box title="Actividades organizadas">
@@ -1708,15 +1889,19 @@ function VerificadoFormulario() {
               <VCheckboxes options={O_ACTIVIDADES_ORGANIZADAS} columns={3} />
             </Box>
           )}
-        </>
+        </div>
       )}
 
       {step === 3 && (
         <>
           {!isOrg && (
-            <Box title="📍 Modalidades de Consulta">
-              <Note>¿Cómo realizas tus sesiones?</Note>
-              <VCheckboxes options={V_CONSULTA_MODES} columns={2} />
+            <Box title="¿Cómo realizas tus consultas?">
+              <Note>Selecciona todas las modalidades de consulta que ofreces.</Note>
+              <VCheckboxes
+                options={V_CONSULTA_OPTIONS}
+                columns={2}
+                descriptions={V_CONSULTA_HELP}
+              />
             </Box>
           )}
           {isOrg ? (
@@ -1734,7 +1919,7 @@ function VerificadoFormulario() {
               </Box>
             </>
           ) : (
-            <Box title="Consultas">
+            <Box title="Tus ubicaciones">
               <ConsultasList />
             </Box>
           )}
@@ -1743,11 +1928,16 @@ function VerificadoFormulario() {
 
       {step === 4 && (
         <>
-          <Box title="🌟 Frase de presentación">
+          <Box title={isOrg ? "🌟 Frase de presentación" : "Frase destacada"}>
             <Note>Describe tu actividad en una frase. Máximo 120 caracteres.</Note>
-            <LimitedTextField label="Frase de presentación" max={120} />
+            <LimitedTextField label={isOrg ? "Frase de presentación" : "Frase destacada"} max={120} />
+            {!isOrg && (
+              <Ayuda>
+                Una frase breve que resuma tu manera de acompañar o tu filosofía profesional.
+              </Ayuda>
+            )}
             <div style={{ fontSize: 12, color: "#666", fontStyle: "italic", marginTop: 8 }}>
-              Ejemplos:
+              {isOrg ? "Ejemplos:" : "Algunas ideas:"}
               <ul style={{ paddingLeft: 18, marginTop: 6, marginBottom: 6 }}>
                 {isOrg ? (
                   <>
@@ -1763,28 +1953,48 @@ function VerificadoFormulario() {
                   </>
                 )}
               </ul>
-              Esta frase puede aparecer en búsquedas, tarjetas de resultados, perfil público y
-              Google.
+              {isOrg
+                ? "Esta frase puede aparecer en búsquedas, tarjetas de resultados, perfil público y Google."
+                : null}
             </div>
           </Box>
-          <Box title={isOrg ? "✨ Presentación de la organización" : "✨ Presentación profesional"}>
+          <Box title={isOrg ? "✨ Presentación de la organización" : "Cuéntanos un poco sobre ti"}>
             <Note>
               {isOrg
                 ? "Cuéntanos quiénes sois, qué hacéis, cómo trabajáis, qué ofrecéis y aquello que consideráis importante destacar. Máximo 3000 caracteres."
-                : "Cuéntanos quién eres, qué haces y cómo acompañas a las personas. Máximo 3000 caracteres."}
+                : "Máximo 3000 caracteres."}
             </Note>
             <LimitedTextField
-              label={isOrg ? "Presentación de la organización" : "Presentación profesional"}
+              label={isOrg ? "Presentación de la organización" : "Cuéntanos un poco sobre ti"}
               max={3000}
               multiline
             />
+            {!isOrg && (
+              <>
+                <Ayuda>
+                  Comparte tu recorrido, tu experiencia, tu forma de trabajar y aquello que te
+                  gustaría que las personas conocieran antes de contactar contigo.
+                </Ayuda>
+                <Note>
+                  No te preocupes si ahora no tienes el texto perfecto. Podrás modificarlo siempre
+                  que lo desees.
+                </Note>
+              </>
+            )}
           </Box>
           {!isOrg && (
-            <Box title="🎓 Formación principal">
+            <Box title="Formación principal">
+              <Ayuda>
+                Comparte las formaciones que consideres más relevantes para tu actividad
+                profesional.
+              </Ayuda>
               <FormacionList />
             </Box>
           )}
-          <Box title="🌍 Idiomas">
+          <Box title={isOrg ? "🌍 Idiomas" : "Idiomas"}>
+            {!isOrg && (
+              <Ayuda>Selecciona los idiomas en los que puedes atender a las personas.</Ayuda>
+            )}
             <VCheckboxes options={V_IDIOMAS} columns={3} />
           </Box>
           {isOrg && (
@@ -1796,22 +2006,46 @@ function VerificadoFormulario() {
         </>
       )}
 
-      {step === 5 && (
-        <Box title="🌐 Redes y Reservas">
-          <FakeField label="Página web" type="url" />
-          <FakeField label="Instagram" />
-          <FakeField label="Facebook" />
-          <FakeField label="LinkedIn" />
-          <FakeField label="YouTube" />
-          <FakeField label="Calendly" />
-          <FakeField label="Fresha" />
-          <TelefonoField label="WhatsApp Business" />
-          <FakeField label="Otra plataforma" />
-          <div style={{ height: 12 }} />
-          <VYesNo label="WhatsApp visible en el perfil" />
-          <VYesNo label="Correo visible en el perfil" />
-        </Box>
-      )}
+      {step === 5 &&
+        (isOrg ? (
+          <Box title="🌐 Redes y Reservas">
+            <FakeField label="Página web" type="url" />
+            <FakeField label="Instagram" />
+            <FakeField label="Facebook" />
+            <FakeField label="LinkedIn" />
+            <FakeField label="YouTube" />
+            <FakeField label="Calendly" />
+            <FakeField label="Fresha" />
+            <TelefonoField label="WhatsApp Business" />
+            <FakeField label="Otra plataforma" />
+            <div style={{ height: 12 }} />
+            <VYesNo label="WhatsApp visible en el perfil" />
+            <VYesNo label="Correo visible en el perfil" />
+          </Box>
+        ) : (
+          <>
+            <Box title="🌐 Página web">
+              <FakeField label="Página web" type="url" />
+            </Box>
+            <Box title="📱 Redes sociales">
+              <FakeField label="Instagram" />
+              <FakeField label="Facebook" />
+              <FakeField label="LinkedIn" />
+              <FakeField label="YouTube" />
+              <FakeField label="Otra red social o plataforma" />
+            </Box>
+            <Box title="📅 Reservas online">
+              <FakeField label="Calendly" />
+              <FakeField label="Fresha" />
+            </Box>
+            <Box title="💬 WhatsApp Business">
+              <VWhatsAppBusiness />
+            </Box>
+            <Box title="🔒 Información pública">
+              <VInformacionPublica />
+            </Box>
+          </>
+        ))}
 
       {step === 6 && (
         <Box
@@ -1934,17 +2168,19 @@ function VerificadoFormulario() {
                     {consents.seguroRC ? "☑" : ""}
                   </span>
                   <span>
-                    Declaro disponer de un Seguro de Responsabilidad Civil vigente para el
-                    desarrollo de mi actividad profesional.
+                    Dispongo de un Seguro de Responsabilidad Civil vigente para el desarrollo de mi
+                    actividad profesional.
                   </span>
                 </div>
               </div>
 
               <div style={{ marginBottom: 16 }}>
                 <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
-                  Diploma o Certificado
+                  Formación acreditativa
                 </div>
-                <Note>Mínimo 1 documento obligatorio.</Note>
+                <Ayuda>
+                  Añade al menos un diploma o certificado que acredite tu formación principal.
+                </Ayuda>
                 <FakeField label="Subir diploma o certificado" type="file" />
               </div>
 
@@ -1952,7 +2188,9 @@ function VerificadoFormulario() {
                 <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
                   Certificados adicionales
                 </div>
-                <Note>Máximo 5 documentos.</Note>
+                <Ayuda>
+                  Puedes añadir hasta 5 documentos adicionales si lo consideras necesario.
+                </Ayuda>
                 <FakeField label="Subir certificados adicionales (opcional)" type="file" />
               </div>
             </>
@@ -1961,7 +2199,7 @@ function VerificadoFormulario() {
           <VConsentItem
             icon="📜"
             title="Código Deontológico"
-            linkText="👉 Ver documento"
+            linkText={isOrg ? "👉 Ver documento" : "Leer documento"}
             label="Confirmo que he leído y acepto el Código Deontológico de Mallorca Holística."
             checked={consents.codigo}
             onToggle={() => toggleConsent("codigo")}
@@ -1976,7 +2214,7 @@ function VerificadoFormulario() {
           <VConsentItem
             icon="🔒"
             title="Política de Privacidad"
-            linkText="👉 Ver documento"
+            linkText={isOrg ? "👉 Ver documento" : "Leer documento"}
             label="Confirmo que he leído y acepto la Política de Privacidad."
             checked={consents.privacidad}
             onToggle={() => toggleConsent("privacidad")}
@@ -1984,7 +2222,7 @@ function VerificadoFormulario() {
           <VConsentItem
             icon="📄"
             title="Condiciones de Uso"
-            linkText="👉 Ver documento"
+            linkText={isOrg ? "👉 Ver documento" : "Leer documento"}
             label="Confirmo que he leído y acepto las Condiciones de Uso."
             checked={consents.condiciones}
             onToggle={() => toggleConsent("condiciones")}
@@ -1992,7 +2230,7 @@ function VerificadoFormulario() {
           <VConsentItem
             icon="🌐"
             title="Publicación del Perfil"
-            linkText="👉 Ver autorización"
+            linkText={isOrg ? "👉 Ver autorización" : "Leer documento"}
             label={
               isOrg
                 ? "Autorizo a Mallorca Holística a publicar el perfil de la organización en la plataforma."
@@ -2088,32 +2326,22 @@ function StripeBlock() {
 function Paso7ProfesionalEstandar({ autoriza, onToggle }: Paso7Props) {
   return (
     <>
-      <Box title="🌿 Ya casi formas parte de Mallorca Holística">
+      <Box title="¡Enhorabuena! Ya has completado tu solicitud">
         <div style={{ marginBottom: 16 }}>
-          <p style={{ fontSize: 13, marginBottom: 8 }}>
-            Has completado prácticamente todo el proceso.
-          </p>
-          <p style={{ fontSize: 13, marginBottom: 8 }}>
+          <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
             Para activar tu suscripción solo necesitamos registrar un método de pago seguro.
           </p>
-          <p style={{ fontSize: 13, marginBottom: 8 }}>
-            No realizaremos ningún cargo durante la revisión de tu solicitud ni durante el período
-            gratuito de lanzamiento, si corresponde.
+          <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
+            No se realizará ningún cargo mientras tu solicitud esté en revisión.
           </p>
         </div>
       </Box>
 
-      <Box title="🚀 Lanzamiento oficial">
-        <ul style={{ fontSize: 13, paddingLeft: 20, marginBottom: 8 }}>
-          <li>
-            ✨ Si tu inscripción se realiza durante el primer mes tras el lanzamiento oficial de
-            Mallorca Holística, disfrutarás automáticamente de 2 meses gratuitos.
-          </li>
-          <li>
-            ✨ Después, tu suscripción continuará por 25 €/mes (IVA incluido), salvo cancelación
-            previa.
-          </li>
-          <li>✨ Sin permanencia.</li>
+      <Box title="Oferta de lanzamiento">
+        <ul style={{ fontSize: 13, paddingLeft: 20, marginBottom: 8, lineHeight: 1.8 }}>
+          <li>2 meses gratuitos si te inscribes durante el primer mes tras el lanzamiento.</li>
+          <li>Después, 25 €/mes (IVA incluido).</li>
+          <li>Sin permanencia.</li>
         </ul>
       </Box>
 
