@@ -1,5 +1,5 @@
 import { createFileRoute, Outlet, useRouterState } from "@tanstack/react-router";
-import { WireframeShell, Box, Checklist, NavButton, TrackBadge, parseTrack, type Track } from "@/components/Wireframe";
+import { WireframeShell, Box, NavButton, parseTrack, type Track } from "@/components/Wireframe";
 
 export const Route = createFileRoute("/dashboard")({
   validateSearch: (s: Record<string, unknown>): { track: Track } => ({ track: parseTrack(s) }),
@@ -35,34 +35,54 @@ function DashboardHome() {
         ? "5 · DASHBOARD PLAN PRESENCIA"
         : "5 · DASHBOARD PROFESIONAL";
 
-  const tasks = isPresencia
-    ? [
-        { label: "Completar tu perfil" },
-        { label: "Revisar y aceptar las condiciones" },
-        { label: "Enviar tu solicitud" },
-      ]
-    : isOrg || isVerificado
-      ? [
-          { label: "Completar tu perfil" },
-          { label: "Revisar y aceptar las condiciones" },
-          { label: "Registrar método de pago" },
-          { label: "Enviar tu solicitud de verificación" },
-        ]
-      : [
-          { label: "Paso 1 · Información General" },
-          { label: "Paso 2 · Actividad Profesional" },
-          { label: "Paso 3 · Consultas y Modalidades" },
-          { label: "Paso 4 · Experiencia y Perfil" },
-          { label: "Paso 5 · Enlaces y Redes" },
-          { label: "Paso 6 · Verificación y Compromisos" },
-          { label: "Finalizar perfil y enviar solicitud" },
-        ];
+  const planLabel = isOrg
+    ? "🌞 Plan Centros & Organizadores"
+    : isVerificado
+      ? "⭐ Plan Profesional Verificado"
+      : "🌿 Plan Presencia · Gratuito";
 
-  const ctaLabel = isPresencia || isOrg || isVerificado ? "👉 Completar perfil" : "Completar perfil";
+  // Estado actual del perfil. Preparado para reutilizarse con:
+  // "pendiente" | "revision" | "publicado" — solo cambian textos y acción.
+  const estado: ProfileState = "pendiente";
+  const estadoContent = PROFILE_STATES[estado];
+
+  const tercerPaso = isPresencia
+    ? {
+        title: "3. Envía tu solicitud",
+        lines: ["Nuestro equipo revisará tu perfil antes de publicarlo."],
+      }
+    : {
+        title: "3. Activa tu suscripción y envía tu solicitud",
+        lines: isOrg
+          ? [
+              "Registrarás tu método de pago de forma segura.",
+              "No se realizará ningún cargo mientras vuestra solicitud esté en revisión ni durante el periodo gratuito de lanzamiento, si corresponde.",
+              "Solo cuando vuestro perfil sea aprobado comenzará la suscripción.",
+            ]
+          : [
+              "Registrarás tu método de pago de forma segura.",
+              "No se realizará ningún cargo mientras tu perfil esté en revisión ni durante el periodo gratuito de lanzamiento, si corresponde.",
+              "Solo cuando tu perfil sea aprobado comenzará la suscripción.",
+            ],
+      };
+
+  const pasos = [
+    {
+      title: "1. Completa tu perfil",
+      lines: ["Añade la información que deseas mostrar públicamente."],
+    },
+    {
+      title: "2. Revisa y acepta las condiciones",
+      lines: ["Acepta la documentación necesaria para formar parte de Mallorca Holística."],
+    },
+    tercerPaso,
+  ];
 
   return (
     <WireframeShell screen={screen} title="🌿 Bienvenido a Mallorca Holística" breadcrumb="Dashboard">
-      <TrackBadge track={track} />
+      <div style={{ display: "inline-block", padding: "4px 8px", border: "1px dashed #666", fontSize: 11, marginBottom: 12 }}>
+        Plan seleccionado: <strong>{planLabel}</strong>
+      </div>
 
       <div style={subtitleStyle}>
         <p style={{ fontWeight: 600, margin: "0 0 6px 0" }}>¡Tu cuenta ya está creada!</p>
@@ -72,21 +92,61 @@ function DashboardHome() {
       </div>
 
       <Box title="Estado de tu perfil">
-        <p style={{ fontSize: 13 }}>
-          <strong>🌿 Perfil en preparación</strong>
+        <p style={{ fontSize: 13, margin: "0 0 6px 0" }}>
+          <strong>{estadoContent.badge}</strong>
         </p>
+        <p style={{ fontSize: 13, margin: 0, color: "#444" }}>{estadoContent.description}</p>
       </Box>
 
       <Box title="Próximos pasos">
-        <Checklist items={tasks} />
+        <ol style={{ listStyle: "none", padding: 0, margin: 0 }}>
+          {pasos.map((p) => (
+            <li key={p.title} style={{ padding: "10px 0", borderBottom: "1px dotted #ccc" }}>
+              <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 4 }}>{p.title}</div>
+              {p.lines.map((l) => (
+                <p key={l} style={{ fontSize: 12, color: "#444", margin: "0 0 4px 0", lineHeight: 1.6 }}>
+                  {l}
+                </p>
+              ))}
+            </li>
+          ))}
+        </ol>
       </Box>
 
-      <Box title="Acción principal">
-        <NavButton to="/dashboard/formulario" search={{ track }}>
-          {ctaLabel}
+      <Box title="Siguiente paso">
+        <NavButton to={estadoContent.ctaTo} search={{ track }}>
+          {estadoContent.ctaLabel}
         </NavButton>
       </Box>
     </WireframeShell>
   );
 }
+
+type ProfileState = "pendiente" | "revision" | "publicado";
+
+const PROFILE_STATES: Record<
+  ProfileState,
+  { badge: string; description: string; ctaLabel: string; ctaTo: string }
+> = {
+  pendiente: {
+    badge: "🟡 Perfil pendiente de completar",
+    description:
+      "Todavía necesitamos que completes la información de tu perfil antes de enviarlo a revisión.",
+    ctaLabel: "👉 Completar perfil",
+    ctaTo: "/dashboard/formulario",
+  },
+  revision: {
+    badge: "🟡 Solicitud en revisión",
+    description:
+      "Estamos revisando la información y la documentación que nos has enviado. Te avisaremos por correo electrónico.",
+    ctaLabel: "👉 Ver mi solicitud",
+    ctaTo: "/mi-espacio",
+  },
+  publicado: {
+    badge: "🟢 Perfil publicado",
+    description: "Tu perfil ya forma parte del directorio de Mallorca Holística.",
+    ctaLabel: "👉 Acceder a Mi Espacio",
+    ctaTo: "/mi-espacio",
+  },
+};
 
