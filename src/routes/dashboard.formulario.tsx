@@ -26,68 +26,44 @@ export const Route = createFileRoute("/dashboard/formulario")({
 
 type Step = {
   title: string;
+  intro?: string;
   sections?: { title: string; note?: string; fields?: string[] }[];
   fields?: string[];
   checkboxes?: string[];
   note?: string;
 };
 
+// Pasos del recorrido Plan Presencia. Solo títulos e introducciones: el
+// contenido de cada paso lo renderiza <PresenciaStep />.
 const PRESENCIA_STEPS: Step[] = [
   {
-    title: "Información General",
-    fields: [
-      "Nombre",
-      "Apellidos",
-      "Nombre profesional (opcional)",
-      "Municipio principal",
-      "Isla",
-      "Correo electrónico",
-      "Teléfono",
-      "WhatsApp",
-      "Foto principal",
-    ],
+    title: "Información básica",
+    intro:
+      "Empezamos con la información principal de tu perfil: los datos que permiten identificarte y que las personas puedan contactar contigo.",
   },
   {
-    title: "Actividad Profesional",
-    sections: [
-      { title: "Especialidades y Terapias", note: "Máximo 3" },
-      { title: "Áreas de Especialización", note: "Máximo 5" },
-      { title: "Público al que acompaño" },
-      { title: "Modalidades de acompañamiento" },
-    ],
+    title: "Tu actividad",
+    intro:
+      "Cuéntanos un poco más sobre tu actividad para que las personas puedan encontrarte con mayor facilidad.",
   },
   {
-    title: "Consultas y Modalidades",
-    sections: [
-      { title: "Modalidades de consulta" },
-      {
-        title: "Consulta principal",
-        fields: ["Nombre del centro", "Dirección", "Municipio", "Código postal", "Isla"],
-      },
-    ],
-    note: "El Plan Presencia incluye una única ubicación.",
+    title: "¿Dónde y cómo atiendes?",
+    intro: "Indícanos cómo realizas tus consultas y dónde atiendes habitualmente.",
   },
   {
-    title: "Experiencia y Perfil",
-    fields: [
-      "Frase de presentación (máx. 120 caracteres)",
-      "Presentación profesional (máx. 1000 caracteres)",
-    ],
+    title: "Tu presentación",
+    intro:
+      "Este es tu espacio para explicar quién eres y cómo acompañas a las personas. No hace falta escribir mucho; unas palabras auténticas suelen transmitir más que un texto muy largo.",
   },
   {
-    title: "Enlaces y Redes",
-    fields: ["Página web", "Instagram"],
-    checkboxes: ["WhatsApp visible en el perfil", "Correo visible en el perfil"],
+    title: "Contacto y enlaces",
+    intro:
+      "Añade los enlaces que quieras compartir para que las personas puedan conocerte mejor o contactar contigo. Todos estos datos son opcionales.",
   },
   {
-    title: "Confirmaciones y Consentimientos",
-    checkboxes: [
-      "Código Deontológico",
-      "Declaración de veracidad",
-      "Política de Privacidad",
-      "Condiciones de Uso",
-      "Autorización de publicación",
-    ],
+    title: "Revisión y envío",
+    intro:
+      "¡Ya casi has terminado! Antes de enviar tu perfil, revisa y acepta los siguientes documentos. Una vez enviado, nuestro equipo revisará tu solicitud antes de publicarla en Mallorca Holística.",
   },
 ];
 
