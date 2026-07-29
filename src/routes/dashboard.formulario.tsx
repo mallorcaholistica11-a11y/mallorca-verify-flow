@@ -1320,7 +1320,7 @@ function OWhatsAppMismo() {
       </div>
       {mismo ? (
         <div style={{ fontSize: 12, color: "#3f6b4a", marginTop: 8, lineHeight: 1.6 }}>
-          ✅ Perfecto. Utilizaremos este mismo número para WhatsApp.
+          ✅ Perfecto.
         </div>
       ) : (
         <div style={{ marginTop: 12 }}>
@@ -1403,7 +1403,7 @@ function VWhatsAppMismo() {
       </div>
       {mismo ? (
         <div style={{ fontSize: 12, color: "#3f6b4a", marginTop: 8, lineHeight: 1.6 }}>
-          ✅ Perfecto. Utilizaremos este mismo número para WhatsApp.
+          ✅ Perfecto.
         </div>
       ) : (
         <div style={{ marginTop: 12 }}>
