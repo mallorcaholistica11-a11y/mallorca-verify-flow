@@ -95,7 +95,7 @@ function DashboardHome() {
         <p style={{ fontSize: 13, margin: "0 0 6px 0" }}>
           <strong>{estadoContent.badge}</strong>
         </p>
-        <p style={{ fontSize: 13, margin: 0, color: "#444" }}>{estadoContent.description}</p>
+        <p style={{ fontSize: 13, margin: 0, color: "#444", whiteSpace: "pre-wrap" }}>{estadoContent.description}</p>
       </Box>
 
       <Box title="Próximos pasos">
@@ -131,7 +131,7 @@ const PROFILE_STATES: Record<
   pendiente: {
     badge: "🟡 Perfil pendiente de completar",
     description:
-      "Todavía necesitamos que completes la información de tu perfil antes de enviarlo a revisión.",
+      "Todavía necesitamos que completes la información de tu perfil antes de enviarlo a revisión.\n\n\nNota\u00a0\n8. Preparar esta misma pantalla para los siguientes estados\n\nDiseñar esta pantalla para que en el futuro pueda reutilizarse simplemente cambiando el contenido según el estado del perfil.\n\nEstados previstos:\n\n🟡 Perfil pendiente de completar\n🟡 Solicitud en revisión\n🟢 Perfil publicado\n\nLa estructura visual debe mantenerse igual para todos los estados, cambiando únicamente los textos, el estado y la acción principal.",
     ctaLabel: "👉 Completar perfil",
     ctaTo: "/dashboard/formulario",
   },
