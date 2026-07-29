@@ -2425,7 +2425,7 @@ function VerificadoFormulario() {
           <VConsentItem
             icon="📜"
             title="Código Deontológico"
-            linkText={isOrg ? "👉 Ver documento" : "Leer documento"}
+            linkText="Leer documento"
             label="Confirmo que he leído y acepto el Código Deontológico de Mallorca Holística."
             checked={consents.codigo}
             onToggle={() => toggleConsent("codigo")}
@@ -2440,7 +2440,7 @@ function VerificadoFormulario() {
           <VConsentItem
             icon="🔒"
             title="Política de Privacidad"
-            linkText={isOrg ? "👉 Ver documento" : "Leer documento"}
+            linkText="Leer documento"
             label="Confirmo que he leído y acepto la Política de Privacidad."
             checked={consents.privacidad}
             onToggle={() => toggleConsent("privacidad")}
@@ -2448,7 +2448,7 @@ function VerificadoFormulario() {
           <VConsentItem
             icon="📄"
             title="Condiciones de Uso"
-            linkText={isOrg ? "👉 Ver documento" : "Leer documento"}
+            linkText="Leer documento"
             label="Confirmo que he leído y acepto las Condiciones de Uso."
             checked={consents.condiciones}
             onToggle={() => toggleConsent("condiciones")}
@@ -2456,7 +2456,7 @@ function VerificadoFormulario() {
           <VConsentItem
             icon="🌐"
             title="Publicación del Perfil"
-            linkText={isOrg ? "👉 Ver autorización" : "Leer documento"}
+            linkText={isOrg ? "Leer autorización" : "Leer documento"}
             label={
               isOrg
                 ? "Autorizo a Mallorca Holística a publicar el perfil de la organización en la plataforma."
@@ -2478,6 +2478,10 @@ function VerificadoFormulario() {
 
               <div style={{ marginBottom: 16 }}>
                 <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>✍️ Firma</div>
+                <Ayuda>
+                  Al firmar confirmas que actúas en representación de esta organización y que toda
+                  la información proporcionada es correcta.
+                </Ayuda>
                 <FakeField label="Nombre completo del firmante" />
                 <div style={{ fontSize: 11, color: "#888", marginTop: 4, fontStyle: "italic" }}>
                   La fecha, hora e IP quedarán registradas automáticamente.
@@ -2486,7 +2490,11 @@ function VerificadoFormulario() {
             </>
           )}
 
-          <Note>Solo queda un último paso para enviar tu solicitud de verificación.</Note>
+          <Note>
+            {isOrg
+              ? "Ya solo queda un último paso. Después podréis enviar vuestra solicitud y nuestro equipo comenzará el proceso de revisión."
+              : "Solo queda un último paso para enviar tu solicitud de verificación."}
+          </Note>
         </Box>
       )}
 
