@@ -2036,16 +2036,27 @@ function VerificadoFormulario() {
       {step === 2 && (
         <div style={{ display: "flex", flexDirection: "column", gap: isOrg ? 0 : 12 }}>
           <Box title="Especialidades y Terapias">
-            {!isOrg && (
+            {isOrg ? (
+              <Ayuda>
+                Seleccionad todas las terapias, servicios o especialidades que formen parte de
+                vuestra actividad. Podréis ordenarlas según su importancia.
+              </Ayuda>
+            ) : (
               <Ayuda>
                 Puedes añadir todas las especialidades que formen parte de tu práctica profesional y
                 ordenarlas según su importancia.
               </Ayuda>
             )}
             <EspecialidadesPicker max={0} variant={isOrg ? "organizacion" : "profesional"} />
+            {isOrg && <Ayuda>Podéis seleccionar tantas como necesitéis.</Ayuda>}
           </Box>
           <Box title="Áreas de Especialización">
-            {!isOrg && (
+            {isOrg ? (
+              <Ayuda>
+                Seleccionad las áreas en las que trabajáis habitualmente. También podréis ordenarlas
+                según su relevancia.
+              </Ayuda>
+            ) : (
               <Ayuda>
                 Selecciona todas las áreas en las que acompañas habitualmente. También podrás
                 ordenarlas por relevancia.
@@ -2053,20 +2064,14 @@ function VerificadoFormulario() {
             )}
             <AreasPicker max={0} variant={isOrg ? "organizacion" : "profesional"} />
           </Box>
-          <Box title={isOrg ? "Público al que se dirige" : "¿A quién acompañas?"}>
+          <Box title={isOrg ? "¿A quién acompañáis?" : "¿A quién acompañas?"}>
             <Note>Selecciona todas las opciones que correspondan.</Note>
-            <VCheckboxes options={isOrg ? V_PUBLICO : V_PUBLICO_OPTIONS} columns={3} />
+            <VCheckboxes options={isOrg ? O_PUBLICO : V_PUBLICO_OPTIONS} columns={3} />
           </Box>
-          <Box title={isOrg ? "Modalidades" : "¿Cómo trabajas?"}>
+          <Box title={isOrg ? "¿Cómo ofrecéis vuestros servicios?" : "¿Cómo trabajas?"}>
             <Note>Selecciona todas las modalidades que ofreces.</Note>
-            <VCheckboxes options={isOrg ? V_MODALIDADES : V_MODALIDADES_OPTIONS} columns={3} />
+            <VCheckboxes options={isOrg ? O_MODALIDADES : V_MODALIDADES_OPTIONS} columns={3} />
           </Box>
-          {isOrg && (
-            <Box title="Actividades organizadas">
-              <Note>Selecciona los tipos de actividades que organiza tu organización.</Note>
-              <VCheckboxes options={O_ACTIVIDADES_ORGANIZADAS} columns={3} />
-            </Box>
-          )}
         </div>
       )}
 
@@ -2084,15 +2089,20 @@ function VerificadoFormulario() {
           )}
           {isOrg ? (
             <>
-              <Box title="📍 Ubicaciones">
+              <Box title="Vuestras ubicaciones">
                 <UbicacionesList />
               </Box>
               <Box title="Instalaciones">
-                <Note>Selecciona las instalaciones disponibles en tu espacio.</Note>
+                <Ayuda>
+                  Seleccionad las instalaciones y espacios que forman parte de vuestra organización.
+                </Ayuda>
                 <VCheckboxes options={O_INSTALACIONES} columns={3} />
               </Box>
-              <Box title="Galería del espacio">
-                <Note>Hasta 15 imágenes del espacio.</Note>
+              <Box title="Galería de imágenes">
+                <Ayuda>
+                  Podéis añadir hasta 15 imágenes para mostrar vuestro espacio, las instalaciones y
+                  el ambiente de vuestra organización.
+                </Ayuda>
                 <FakeField label="Imágenes del espacio (opcional, hasta 15)" type="file" />
               </Box>
             </>
