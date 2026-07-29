@@ -2168,17 +2168,19 @@ function VerificadoFormulario() {
                     {consents.seguroRC ? "☑" : ""}
                   </span>
                   <span>
-                    Declaro disponer de un Seguro de Responsabilidad Civil vigente para el
-                    desarrollo de mi actividad profesional.
+                    Dispongo de un Seguro de Responsabilidad Civil vigente para el desarrollo de mi
+                    actividad profesional.
                   </span>
                 </div>
               </div>
 
               <div style={{ marginBottom: 16 }}>
                 <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
-                  Diploma o Certificado
+                  Formación acreditativa
                 </div>
-                <Note>Mínimo 1 documento obligatorio.</Note>
+                <Ayuda>
+                  Añade al menos un diploma o certificado que acredite tu formación principal.
+                </Ayuda>
                 <FakeField label="Subir diploma o certificado" type="file" />
               </div>
 
@@ -2186,7 +2188,9 @@ function VerificadoFormulario() {
                 <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
                   Certificados adicionales
                 </div>
-                <Note>Máximo 5 documentos.</Note>
+                <Ayuda>
+                  Puedes añadir hasta 5 documentos adicionales si lo consideras necesario.
+                </Ayuda>
                 <FakeField label="Subir certificados adicionales (opcional)" type="file" />
               </div>
             </>
@@ -2195,7 +2199,7 @@ function VerificadoFormulario() {
           <VConsentItem
             icon="📜"
             title="Código Deontológico"
-            linkText="👉 Ver documento"
+            linkText={isOrg ? "👉 Ver documento" : "Leer documento"}
             label="Confirmo que he leído y acepto el Código Deontológico de Mallorca Holística."
             checked={consents.codigo}
             onToggle={() => toggleConsent("codigo")}
@@ -2210,7 +2214,7 @@ function VerificadoFormulario() {
           <VConsentItem
             icon="🔒"
             title="Política de Privacidad"
-            linkText="👉 Ver documento"
+            linkText={isOrg ? "👉 Ver documento" : "Leer documento"}
             label="Confirmo que he leído y acepto la Política de Privacidad."
             checked={consents.privacidad}
             onToggle={() => toggleConsent("privacidad")}
@@ -2218,7 +2222,7 @@ function VerificadoFormulario() {
           <VConsentItem
             icon="📄"
             title="Condiciones de Uso"
-            linkText="👉 Ver documento"
+            linkText={isOrg ? "👉 Ver documento" : "Leer documento"}
             label="Confirmo que he leído y acepto las Condiciones de Uso."
             checked={consents.condiciones}
             onToggle={() => toggleConsent("condiciones")}
@@ -2226,7 +2230,7 @@ function VerificadoFormulario() {
           <VConsentItem
             icon="🌐"
             title="Publicación del Perfil"
-            linkText="👉 Ver autorización"
+            linkText={isOrg ? "👉 Ver autorización" : "Leer documento"}
             label={
               isOrg
                 ? "Autorizo a Mallorca Holística a publicar el perfil de la organización en la plataforma."
