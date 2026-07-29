@@ -1179,13 +1179,6 @@ const V_MODALIDADES = [
   "Otro (especificar)",
 ];
 
-const V_CONSULTA_MODES = [
-  "Presencial en consulta",
-  "Online (videollamada)",
-  "A distancia (Reiki, sanación energética y otras terapias sin presencia física)",
-  "A domicilio",
-];
-
 const V_IDIOMAS = ["Español", "Inglés", "Francés", "Alemán", "Catalán", "Otro"];
 
 // Introducciones de cada paso (recorrido Profesional Verificado).
