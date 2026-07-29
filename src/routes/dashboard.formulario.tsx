@@ -1486,7 +1486,7 @@ const V_STEP_TITLES = [
    "Servicios y Actividades",
    "Ubicaciones",
    "Perfil de la Organización",
-   "Enlaces y Redes",
+   "Contacto y presencia online",
    "Verificación y Compromisos",
    "Activa tu suscripción",
  ];
@@ -2301,7 +2301,8 @@ function VerificadoFormulario() {
                     {representanteEsContacto ? "☑" : ""}
                   </span>
                   <span>
-                    La persona de contacto es también el representante legal de esta organización.
+                    La persona de contacto indicada anteriormente es también la representante legal
+                    de esta organización.
                   </span>
                 </div>
               </div>
@@ -2310,6 +2311,10 @@ function VerificadoFormulario() {
                 <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
                   👤 Persona responsable
                 </div>
+                <Ayuda>
+                  Indícanos la persona responsable que actuará en nombre de la organización durante
+                  el proceso de verificación.
+                </Ayuda>
                 {representanteEsContacto ? (
                   <>
                     <Note>
@@ -2347,6 +2352,10 @@ function VerificadoFormulario() {
                 <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
                   🏢 Identificación de la entidad
                 </div>
+                <Ayuda>
+                  Estos datos se utilizarán únicamente para verificar la identidad de vuestra
+                  organización y no serán visibles públicamente.
+                </Ayuda>
                 <FakeField label="Nombre legal" />
                 <FakeField label="CIF / NIF" />
               </div>
