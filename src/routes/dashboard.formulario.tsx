@@ -1036,54 +1036,50 @@ function ConfirmacionesConsentimientos({ onFinish }: { onFinish: () => void }) {
   };
 
   return (
-    <Box title="🌿 Confirmaciones y Consentimientos">
-      <p style={{ fontSize: 13, marginBottom: 16 }}>
-        Antes de enviar tu perfil, revisa y acepta los siguientes documentos.
-      </p>
-
+    <Box title="Revisión y envío">
       <ConsentimientoItem
         icon="📜"
         title="Código Deontológico Mallorca Holística"
-        linkText="👉 Ver documento"
+        linkText="👉 Leer documento"
         checked={state.codigoDeontologico}
         onToggle={() => toggle("codigoDeontologico")}
-        label="Confirmo que he leído y acepto el Código Deontológico de Mallorca Holística."
+        label="He leído y acepto el Código Deontológico."
       />
 
       <ConsentimientoItem
         icon="✅"
         title="Declaración de Veracidad"
-        linkText="👉 Ver declaración"
+        linkText="👉 Leer documento"
         checked={state.declaracionVeracidad}
         onToggle={() => toggle("declaracionVeracidad")}
-        label="Declaro que toda la información aportada es veraz, exacta y está actualizada."
+        label="Declaro que la información aportada es veraz y está actualizada."
       />
 
       <ConsentimientoItem
         icon="🔒"
         title="Política de Privacidad"
-        linkText="👉 Ver documento"
+        linkText="👉 Leer documento"
         checked={state.politicaPrivacidad}
         onToggle={() => toggle("politicaPrivacidad")}
-        label="Confirmo que he leído y acepto la Política de Privacidad."
+        label="He leído y acepto la Política de Privacidad."
       />
 
       <ConsentimientoItem
         icon="📄"
         title="Condiciones de Uso"
-        linkText="👉 Ver documento"
+        linkText="👉 Leer documento"
         checked={state.condicionesUso}
         onToggle={() => toggle("condicionesUso")}
-        label="Confirmo que he leído y acepto las Condiciones de Uso."
+        label="He leído y acepto las Condiciones de Uso."
       />
 
       <ConsentimientoItem
         icon="🌐"
         title="Publicación del Perfil"
-        linkText="👉 Ver autorización"
+        linkText="👉 Leer documento"
         checked={state.publicacionPerfil}
         onToggle={() => toggle("publicacionPerfil")}
-        label="Autorizo a Mallorca Holística a publicar mi perfil profesional en la plataforma."
+        label="Autorizo a Mallorca Holística a publicar mi perfil en la plataforma."
       />
 
       <div
@@ -1095,8 +1091,7 @@ function ConfirmacionesConsentimientos({ onFinish }: { onFinish: () => void }) {
           fontStyle: "italic",
         }}
       >
-        Una vez enviado, tu perfil será revisado por el equipo de Mallorca Holística antes de su
-        publicación.
+        Una vez enviado, revisaremos tu perfil y te avisaremos cuando esté listo para publicarse.
       </div>
 
       <button
@@ -1108,7 +1103,7 @@ function ConfirmacionesConsentimientos({ onFinish }: { onFinish: () => void }) {
           cursor: allChecked ? "pointer" : "not-allowed",
         }}
       >
-        👉 Finalizar Perfil
+        👉 Enviar para revisión
       </button>
     </Box>
   );
