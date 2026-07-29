@@ -12,29 +12,16 @@ function PlanProfesionalVerificado() {
       title="⭐ Plan Profesional Verificado"
       breadcrumb="Inicio › Soy profesional › Plan Profesional Verificado"
     >
-      <Box title="✨ Para quién es">
+      <Box title="⭐ Tu perfil profesional con verificación">
         <p style={{ fontSize: 13 }}>
-          Para profesionales de la salud complementaria e integrativa que desean reforzar la confianza que transmiten, aumentar su visibilidad y ofrecer una información más completa sobre su actividad.
+          El Plan Profesional Verificado está pensado para profesionales de la salud complementaria e integrativa que desean reforzar la confianza que transmiten, aumentar su visibilidad y ofrecer una información más completa sobre su actividad.
         </p>
         <p style={{ fontSize: 13 }}>
-          {"\n"}
-        </p>
-        <p style={{ fontSize: 13 }}>
-          {"\n"}
+          Además de ampliar la información visible de tu perfil, incorpora ventajas pensadas para reforzar la confianza que inspiras, mejorar tu presencia dentro de Mallorca Holística y facilitar el contacto con las personas interesadas en tu actividad.
         </p>
       </Box>
 
-      <Box title="⭐ ¿QUÉ ES EL PLAN PROFESIONAL VERIFICADO?">
-        <p style={{ fontSize: 13 }}>
-          El Plan Profesional Verificado permite ofrecer un perfil más completo y generar una mayor confianza entre las personas que buscan un profesional.
-          {"\n"}
-        </p>
-        <p style={{ fontSize: 13 }}>
-          Además de ampliar la información visible, incorpora herramientas y ventajas pensadas para reforzar la confianza que transmiten, aumentar tu visibilidad dentro de Mallorca Holística y facilitar el contacto directo con las personas interesadas en tu actividad.
-        </p>
-      </Box>
-
-      <Box title="Lo que incluye">
+      <Box title="¿Qué incluye?">
         <ul style={{ paddingLeft: 18, fontSize: 13, listStyle: "none" }}>
           <li>
             <p><strong>Perfil profesional</strong></p>
@@ -46,7 +33,7 @@ function PlanProfesionalVerificado() {
             <p>✓ Trayectoria profesional visible.</p>
             <p>✓ Galería de hasta 5 imágenes.</p>
             
-            <p style={{ marginTop: 16 }}><strong>Actividad profesional</strong></p>
+            <p style={{ marginTop: 16 }}><strong>Tu actividad</strong></p>
             <p>✓ Especialidades y Terapias ilimitadas.</p>
             <p>✓ Áreas de Especialización ilimitadas.</p>
             <p>✓ Una ubicación principal.</p>
@@ -64,16 +51,19 @@ function PlanProfesionalVerificado() {
             <p>✓ Página web clicable.</p>
             <p>✓ Redes sociales clicables.</p>
             
-            <p style={{ marginTop: 16 }}><strong>Herramientas</strong></p>
+            <p style={{ marginTop: 16 }}><strong>Tu espacio profesional</strong></p>
             <p>✓ Acceso al panel profesional.</p>
             <p>✓ Publicación de hasta 3 eventos grupales al mes en la Agenda de Actividades.</p>
           </li>
         </ul>
       </Box>
 
-      <Box title="Requisitos">
+      <Box title="🌿 Proceso de verificación">
+        <p style={{ fontSize: 13 }}>
+          Para ofrecer un entorno de confianza a todas las personas que utilizan Mallorca Holística, verificamos la información de los profesionales antes de aprobar su perfil.
+        </p>
         <ul style={{ paddingLeft: 18, fontSize: 13 }}>
-          <li>✓ Aceptación del Código Deontológico Mallorca Holística.</li>
+          <li>✓ Aceptación del Código Deontológico de Mallorca Holística.</li>
           <li>✓ Verificación profesional mediante la aportación de hasta 3 titulaciones o certificaciones.</li>
           <li>✓ Seguro de Responsabilidad Civil vigente.</li>
           <li>✓ Declaración de veracidad de la información aportada.</li>
@@ -84,21 +74,20 @@ function PlanProfesionalVerificado() {
       </Box>
 
       <Box title="Precio">
-        <p style={{ fontSize: 13 }}>25 €/mes (IVA incluido)</p>
-      </Box>
-
-      <Box title="🎉 Oferta de lanzamiento">
-        <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>
-          {"Con motivo del lanzamiento oficial de Mallorca Holística, todas las nuevas suscripciones realizadas durante el primer mes disfrutarán de 2 meses gratuitos.\n\nAl finalizar este período, la suscripción continuará automáticamente con la tarifa vigente, salvo cancelación previa.\n\nQueremos que dispongas del tiempo suficiente para comprobar el valor de formar parte de Mallorca Holística antes de comenzar tu suscripción."}
+        <p style={{ fontSize: 13, fontWeight: 600, marginBottom: 16 }}>
+          25 €/mes (IVA incluido)
+        </p>
+        <p style={{ fontSize: 13, fontWeight: 600, marginBottom: 8 }}>
+          🌟 Oferta de lanzamiento
         </p>
         <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>
-          {"\n\n"}
+          {"Con motivo del lanzamiento oficial de Mallorca Holística, todas las nuevas suscripciones realizadas durante el primer mes disfrutarán de 2 meses gratuitos.\n\nAl finalizar este periodo, la suscripción continuará automáticamente con la tarifa vigente, salvo cancelación previa.\n\nQueremos que dispongas del tiempo suficiente para descubrir el valor de formar parte de Mallorca Holística antes de decidir si deseas continuar."}
         </p>
       </Box>
 
       <Box title="Acciones">
         <NavButton to="/auth/crear-cuenta" search={{ track: "verificado" }}>
-          👉Crear mi cuenta y solicitar mi verificación →
+          👉 Crear mi cuenta y solicitar mi verificación →
         </NavButton>
         <NavButton to="/soy-profesional" variant="secondary">
           ← Volver a planes
