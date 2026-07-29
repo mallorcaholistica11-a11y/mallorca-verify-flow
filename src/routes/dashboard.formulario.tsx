@@ -2326,32 +2326,22 @@ function StripeBlock() {
 function Paso7ProfesionalEstandar({ autoriza, onToggle }: Paso7Props) {
   return (
     <>
-      <Box title="🌿 Ya casi formas parte de Mallorca Holística">
+      <Box title="¡Enhorabuena! Ya has completado tu solicitud">
         <div style={{ marginBottom: 16 }}>
-          <p style={{ fontSize: 13, marginBottom: 8 }}>
-            Has completado prácticamente todo el proceso.
-          </p>
-          <p style={{ fontSize: 13, marginBottom: 8 }}>
+          <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
             Para activar tu suscripción solo necesitamos registrar un método de pago seguro.
           </p>
-          <p style={{ fontSize: 13, marginBottom: 8 }}>
-            No realizaremos ningún cargo durante la revisión de tu solicitud ni durante el período
-            gratuito de lanzamiento, si corresponde.
+          <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
+            No se realizará ningún cargo mientras tu solicitud esté en revisión.
           </p>
         </div>
       </Box>
 
-      <Box title="🚀 Lanzamiento oficial">
-        <ul style={{ fontSize: 13, paddingLeft: 20, marginBottom: 8 }}>
-          <li>
-            ✨ Si tu inscripción se realiza durante el primer mes tras el lanzamiento oficial de
-            Mallorca Holística, disfrutarás automáticamente de 2 meses gratuitos.
-          </li>
-          <li>
-            ✨ Después, tu suscripción continuará por 25 €/mes (IVA incluido), salvo cancelación
-            previa.
-          </li>
-          <li>✨ Sin permanencia.</li>
+      <Box title="Oferta de lanzamiento">
+        <ul style={{ fontSize: 13, paddingLeft: 20, marginBottom: 8, lineHeight: 1.8 }}>
+          <li>2 meses gratuitos si te inscribes durante el primer mes tras el lanzamiento.</li>
+          <li>Después, 25 €/mes (IVA incluido).</li>
+          <li>Sin permanencia.</li>
         </ul>
       </Box>
 
