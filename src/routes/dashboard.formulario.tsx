@@ -39,7 +39,7 @@ const PRESENCIA_STEPS: Step[] = [
   {
     title: "Información básica",
     intro:
-      "Empezamos con la información principal de tu perfil: los datos que permiten identificarte y que las personas puedan contactar contigo.",
+      "Empezamos con la información principal de tu perfil. Estos datos ayudarán a las personas a conocerte y ponerse en contacto contigo.",
   },
   {
     title: "Tu actividad",
@@ -63,9 +63,14 @@ const PRESENCIA_STEPS: Step[] = [
   {
     title: "Revisión y envío",
     intro:
-      "¡Ya casi has terminado! Antes de enviar tu perfil, revisa y acepta los siguientes documentos. Una vez enviado, nuestro equipo revisará tu solicitud antes de publicarla en Mallorca Holística.",
+      "¡Ya casi has terminado! Antes de enviar tu perfil, revisa y acepta los siguientes documentos. Una vez enviado, nuestro equipo revisará tu perfil. Te avisaremos por correo electrónico cuando esté listo para publicarse.",
   },
 ];
+
+// Introducciones adaptadas al tipo de perfil (solo Plan Presencia).
+const PRESENCIA_INTRO_ORG: Record<number, string> = {
+  4: "Este es el espacio para presentar vuestro centro y explicar cómo acompañáis a las personas. No hace falta escribir mucho; unas palabras auténticas suelen transmitir más que un texto muy largo.",
+};
 
 const BASE_STEPS: Step[] = [
   { title: "Información General", fields: ["Nombre completo", "Teléfono", "Ubicación"] },
