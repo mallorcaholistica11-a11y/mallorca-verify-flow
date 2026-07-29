@@ -269,6 +269,233 @@ function FormularioBase() {
   );
 }
 
+// ================================================================
+// PLAN PRESENCIA · contenido de los pasos (aislado del resto de tracks)
+// ================================================================
+
+function Ayuda({ children }: { children: React.ReactNode }) {
+  return (
+    <div style={{ fontSize: 11, color: "#777", marginTop: -6, marginBottom: 14, lineHeight: 1.6 }}>
+      {children}
+    </div>
+  );
+}
+
+function PresenciaToggleCheckbox({
+  label,
+  checked,
+  onToggle,
+}: {
+  label: string;
+  checked: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <div
+      onClick={onToggle}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 8,
+        padding: "8px 10px",
+        border: "1px dashed #888",
+        background: checked ? "#f3f3f3" : "#fff",
+        cursor: "pointer",
+        fontSize: 13,
+        marginBottom: 8,
+      }}
+    >
+      <span
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: 14,
+          height: 14,
+          border: "1px dashed #666",
+          background: "#fff",
+          fontSize: 10,
+          flexShrink: 0,
+        }}
+      >
+        {checked ? "☑" : ""}
+      </span>
+      <span>{label}</span>
+    </div>
+  );
+}
+
+function PresenciaWhatsApp() {
+  const [mismo, setMismo] = useState(true);
+  return (
+    <div style={{ marginBottom: 12 }}>
+      <div style={{ fontSize: 12, marginBottom: 6 }}>¿Es el mismo número de teléfono?</div>
+      <div style={{ display: "flex", gap: 8, marginBottom: mismo ? 0 : 12 }}>
+        {[
+          { label: "Sí", value: true },
+          { label: "No", value: false },
+        ].map((op) => (
+          <button
+            key={op.label}
+            type="button"
+            onClick={() => setMismo(op.value)}
+            style={{
+              fontFamily: "inherit",
+              fontSize: 12,
+              padding: "6px 14px",
+              cursor: "pointer",
+              background: mismo === op.value ? "#f3f3f3" : "#fff",
+              border: mismo === op.value ? "2px solid #111" : "1px dashed #888",
+            }}
+          >
+            {op.label}
+          </button>
+        ))}
+      </div>
+      {!mismo && <TelefonoField label="WhatsApp" />}
+    </div>
+  );
+}
+
+function PresenciaStep({
+  step,
+  profileType,
+  onFinish,
+}: {
+  step: number;
+  profileType: PerfilTipo;
+  onFinish: () => void;
+}) {
+  const isOrg = profileType === "organization";
+
+  if (step === 1) {
+    return (
+      <Box title="Información básica">
+        <FakeField label="Nombre" />
+        <FakeField label="Apellidos" />
+        <FakeField label="Nombre profesional (opcional)" />
+        <Ayuda>Si utilizas un nombre artístico o una marca personal, puedes indicarlo aquí.</Ayuda>
+        <MunicipioPicker label="Municipio principal" />
+        <FakeField
+          label={isOrg ? "Correo electrónico del centro" : "Correo electrónico profesional"}
+          type="email"
+        />
+        <Ayuda>Será el correo de contacto que aparecerá en tu perfil.</Ayuda>
+        <TelefonoField label="Teléfono" />
+        <PresenciaWhatsApp />
+        <FakeField label={isOrg ? "Imagen principal del centro" : "Tu fotografía"} type="file" />
+        <Ayuda>Será la imagen principal de tu perfil.</Ayuda>
+      </Box>
+    );
+  }
+
+  if (step === 2) {
+    return (
+      <>
+        <Box title="Especialidades y terapias">
+          <Note>Máximo 3</Note>
+          <EspecialidadesPicker variant="profesional" />
+        </Box>
+        <Box title="Áreas de especialización">
+          <Note>Máximo 5</Note>
+          <AreasPicker variant="profesional" />
+        </Box>
+        <Box title={isOrg ? "¿A quién acompañáis?" : "¿A quién acompañas?"}>
+          <PublicoCheckboxes options={PRESENCIA_PUBLICO_OPTIONS} />
+        </Box>
+        <Box title="¿Cómo trabajas?">
+          <ModalidadesCheckboxes options={PRESENCIA_MODALIDADES_OPTIONS} />
+        </Box>
+      </>
+    );
+  }
+
+  if (step === 3) {
+    return (
+      <>
+        <Box title="¿Cómo realizas tus consultas?">
+          <ModalidadesConsultaCheckboxes
+            options={PRESENCIA_CONSULTA_OPTIONS}
+            descriptions={PRESENCIA_CONSULTA_HELP}
+          />
+        </Box>
+        <Note>
+          En el Plan Presencia puedes añadir una ubicación principal. Más adelante podrás ampliarla
+          si cambias de plan.
+        </Note>
+        <Box title="Tu ubicación">
+          <FakeField label="Nombre del espacio (opcional)" />
+          <Ayuda>
+            Si atiendes en un centro o espacio con un nombre propio puedes indicarlo aquí.
+          </Ayuda>
+          <DireccionPicker label="Dirección" hint={null} />
+          <MunicipioPicker label="Municipio" />
+          <FakeField label="Código postal" />
+        </Box>
+      </>
+    );
+  }
+
+  if (step === 4) {
+    return (
+      <Box title="Tu presentación">
+        <LimitedTextField label="Frase destacada" max={120} />
+        <Ayuda>Una frase breve que resuma tu manera de acompañar o tu filosofía.</Ayuda>
+        <LimitedTextField label="Cuéntanos un poco sobre ti" max={1000} multiline />
+        <Ayuda>
+          Comparte tu recorrido, tu forma de trabajar o aquello que te gustaría que las personas
+          conocieran antes de contactar contigo.
+        </Ayuda>
+        <Note>
+          No te preocupes si ahora no tienes el texto perfecto. Podrás modificarlo siempre que
+          quieras.
+        </Note>
+      </Box>
+    );
+  }
+
+  if (step === 5) {
+    return (
+      <>
+        <Box title="Enlaces">
+          <FakeField label="Página web" type="url" />
+          <FakeField label="Instagram" />
+        </Box>
+        <PresenciaDatosContacto />
+      </>
+    );
+  }
+
+  return <ConfirmacionesConsentimientos onFinish={onFinish} />;
+}
+
+function PresenciaDatosContacto() {
+  const [whatsapp, setWhatsapp] = useState(true);
+  const [correo, setCorreo] = useState(true);
+  return (
+    <Box title="Datos de contacto">
+      <PresenciaToggleCheckbox
+        label="Mostrar mi WhatsApp"
+        checked={whatsapp}
+        onToggle={() => setWhatsapp((v) => !v)}
+      />
+      <PresenciaToggleCheckbox
+        label="Mostrar mi correo electrónico"
+        checked={correo}
+        onToggle={() => setCorreo((v) => !v)}
+      />
+      <Ayuda>Solo mostraremos la información que elijas compartir.</Ayuda>
+    </Box>
+  );
+}
+
+const PRESENCIA_CONSULTA_OPTIONS = ["Presencial en consulta", "Online", "A domicilio", "A distancia"];
+
+const PRESENCIA_CONSULTA_HELP: Record<string, string> = {
+  Online: "Videollamada u otros medios digitales.",
+  "A distancia": "Para terapias que no requieren presencia física.",
+};
+
 function btn(variant: "primary" | "secondary"): React.CSSProperties {
   return {
     padding: "10px 16px",
