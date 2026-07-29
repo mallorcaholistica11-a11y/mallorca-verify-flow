@@ -1714,6 +1714,20 @@ function VerificadoFormulario() {
         </div>
       </Box>
 
+      {!isOrg && V_STEP_INTROS[step] && (
+        <p
+          style={{
+            fontSize: 14,
+            lineHeight: 1.7,
+            color: "#444",
+            margin: "0 0 24px 0",
+            maxWidth: 640,
+          }}
+        >
+          {V_STEP_INTROS[step]}
+        </p>
+      )}
+
       {step === 1 && (
         <>
           <Box title="Información General">
@@ -1724,6 +1738,9 @@ function VerificadoFormulario() {
                 <FakeField label="Nombre" />
                 <FakeField label="Apellidos" />
                 <FakeField label="Nombre profesional (opcional)" />
+                <Ayuda>
+                  Si utilizas un nombre artístico o una marca personal, puedes indicarlo aquí.
+                </Ayuda>
               </>
             )}
           </Box>
