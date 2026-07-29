@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import {
   WireframeShell,
@@ -10,6 +10,12 @@ import {
 
 export const Route = createFileRoute("/dashboard/tipo-perfil")({
   validateSearch: (s: Record<string, unknown>): { track: Track } => ({ track: parseTrack(s) }),
+  beforeLoad: ({ search }) => {
+    // Esta pantalla es exclusiva del Plan Presencia (formulario gratuito adaptativo).
+    if (search.track !== "presencia") {
+      throw redirect({ to: "/dashboard/formulario", search: { track: search.track } });
+    }
+  },
   component: TipoPerfil,
 });
 

@@ -45,6 +45,8 @@ function DashboardHome() {
   // "pendiente" | "revision" | "publicado" — solo cambian textos y acción.
   const estado: ProfileState = "pendiente";
   const estadoContent = PROFILE_STATES[estado];
+  const ctaTo =
+    estado === "pendiente" && !isPresencia ? "/dashboard/formulario" : estadoContent.ctaTo;
 
   const tercerPaso = isPresencia
     ? {
@@ -114,7 +116,7 @@ function DashboardHome() {
       </Box>
 
       <Box title="Siguiente paso">
-        <NavButton to={estadoContent.ctaTo} search={{ track }}>
+        <NavButton to={ctaTo} search={{ track }}>
           {estadoContent.ctaLabel}
         </NavButton>
       </Box>
