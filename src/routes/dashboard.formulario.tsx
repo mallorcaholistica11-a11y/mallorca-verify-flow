@@ -2116,16 +2116,21 @@ function VerificadoFormulario() {
 
       {step === 4 && (
         <>
-          <Box title={isOrg ? "🌟 Frase de presentación" : "Frase destacada"}>
+          <Box title="Frase destacada">
             <Note>Describe tu actividad en una frase. Máximo 120 caracteres.</Note>
-            <LimitedTextField label={isOrg ? "Frase de presentación" : "Frase destacada"} max={120} />
-            {!isOrg && (
+            <LimitedTextField label="Frase destacada" max={120} />
+            {isOrg ? (
+              <Ayuda>
+                Una frase breve que resuma vuestra filosofía, vuestra misión o aquello que mejor
+                define vuestro espacio.
+              </Ayuda>
+            ) : (
               <Ayuda>
                 Una frase breve que resuma tu manera de acompañar o tu filosofía profesional.
               </Ayuda>
             )}
             <div style={{ fontSize: 12, color: "#666", fontStyle: "italic", marginTop: 8 }}>
-              {isOrg ? "Ejemplos:" : "Algunas ideas:"}
+              Algunas ideas:
               <ul style={{ paddingLeft: 18, marginTop: 6, marginBottom: 6 }}>
                 {isOrg ? (
                   <>
@@ -2141,23 +2146,30 @@ function VerificadoFormulario() {
                   </>
                 )}
               </ul>
-              {isOrg
-                ? "Esta frase puede aparecer en búsquedas, tarjetas de resultados, perfil público y Google."
-                : null}
             </div>
           </Box>
-          <Box title={isOrg ? "✨ Presentación de la organización" : "Cuéntanos un poco sobre ti"}>
+          <Box title={isOrg ? "Contadnos un poco sobre vosotros" : "Cuéntanos un poco sobre ti"}>
             <Note>
-              {isOrg
-                ? "Cuéntanos quiénes sois, qué hacéis, cómo trabajáis, qué ofrecéis y aquello que consideráis importante destacar. Máximo 3000 caracteres."
-                : "Máximo 3000 caracteres."}
+              Máximo 3000 caracteres.
             </Note>
             <LimitedTextField
-              label={isOrg ? "Presentación de la organización" : "Cuéntanos un poco sobre ti"}
+              label={isOrg ? "Contadnos un poco sobre vosotros" : "Cuéntanos un poco sobre ti"}
               max={3000}
               multiline
             />
-            {!isOrg && (
+            {isOrg ? (
+              <>
+                <Ayuda>
+                  Compartid vuestra historia, vuestra filosofía, los servicios que ofrecéis y
+                  aquello que os gustaría que las personas conocieran antes de visitar vuestro
+                  espacio o ponerse en contacto con vosotros.
+                </Ayuda>
+                <Note>
+                  No os preocupéis si ahora no tenéis el texto perfecto. Podréis modificarlo siempre
+                  que queráis.
+                </Note>
+              </>
+            ) : (
               <>
                 <Ayuda>
                   Comparte tu recorrido, tu experiencia, tu forma de trabajar y aquello que te
@@ -2179,16 +2191,25 @@ function VerificadoFormulario() {
               <FormacionList />
             </Box>
           )}
-          <Box title={isOrg ? "🌍 Idiomas" : "Idiomas"}>
-            {!isOrg && (
+          <Box title="Idiomas">
+            {isOrg ? (
+              <Ayuda>Seleccionad los idiomas en los que podéis atender a las personas.</Ayuda>
+            ) : (
               <Ayuda>Selecciona los idiomas en los que puedes atender a las personas.</Ayuda>
             )}
             <VCheckboxes options={V_IDIOMAS} columns={3} />
           </Box>
           {isOrg && (
-            <Box title="👥 Equipo (opcional)">
-              <Note>Añade los miembros del equipo que quieras mostrar en el perfil público.</Note>
+            <Box title="Nuestro equipo (opcional)">
+              <Ayuda>
+                Añade las personas que forman parte de vuestra organización y que quieras mostrar en
+                el perfil público.
+              </Ayuda>
               <EquipoList />
+              <Note>
+                Próximamente podrás invitar a las personas de tu equipo para que creen o vinculen su
+                propio perfil profesional en Mallorca Holística.
+              </Note>
             </Box>
           )}
         </>
@@ -2196,20 +2217,28 @@ function VerificadoFormulario() {
 
       {step === 5 &&
         (isOrg ? (
-          <Box title="🌐 Redes y Reservas">
-            <FakeField label="Página web" type="url" />
-            <FakeField label="Instagram" />
-            <FakeField label="Facebook" />
-            <FakeField label="LinkedIn" />
-            <FakeField label="YouTube" />
-            <FakeField label="Calendly" />
-            <FakeField label="Fresha" />
-            <TelefonoField label="WhatsApp Business" />
-            <FakeField label="Otra plataforma" />
-            <div style={{ height: 12 }} />
-            <VYesNo label="WhatsApp visible en el perfil" />
-            <VYesNo label="Correo visible en el perfil" />
-          </Box>
+          <>
+            <Box title="🌐 Página web">
+              <FakeField label="Página web" type="url" />
+            </Box>
+            <Box title="📱 Redes sociales">
+              <FakeField label="Instagram" />
+              <FakeField label="Facebook" />
+              <FakeField label="LinkedIn" />
+              <FakeField label="YouTube" />
+            </Box>
+            <Box title="📅 Reservas y citas">
+              <FakeField label="Calendly" />
+              <FakeField label="Fresha" />
+              <FakeField label="Otra plataforma de reservas" />
+            </Box>
+            <Box title="💬 WhatsApp Business">
+              <OWhatsAppBusiness />
+            </Box>
+            <Box title="🔒 Información pública">
+              <OInformacionPublica />
+            </Box>
+          </>
         ) : (
           <>
             <Box title="🌐 Página web">
