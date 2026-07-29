@@ -2544,15 +2544,16 @@ function VerificadoFormulario() {
 
 type Paso7Props = { autoriza: boolean; onToggle: () => void };
 
-function StripeBlock() {
+function StripeBlock({ note, extraNote }: { note?: string; extraNote?: string } = {}) {
   return (
     <div style={{ marginBottom: 16 }}>
       <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>💳 Datos de pago</div>
-      <Note>Bloque reservado para la futura integración con Stripe.</Note>
+      <Note>{note ?? "Bloque reservado para la futura integración con Stripe."}</Note>
       <FakeField label="Número de tarjeta" />
       <FakeField label="Fecha de caducidad" />
       <FakeField label="CVC" />
       <FakeField label="Titular de la tarjeta" />
+      {extraNote && <Note>{extraNote}</Note>}
     </div>
   );
 }
