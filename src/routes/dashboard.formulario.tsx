@@ -2006,22 +2006,46 @@ function VerificadoFormulario() {
         </>
       )}
 
-      {step === 5 && (
-        <Box title="🌐 Redes y Reservas">
-          <FakeField label="Página web" type="url" />
-          <FakeField label="Instagram" />
-          <FakeField label="Facebook" />
-          <FakeField label="LinkedIn" />
-          <FakeField label="YouTube" />
-          <FakeField label="Calendly" />
-          <FakeField label="Fresha" />
-          <TelefonoField label="WhatsApp Business" />
-          <FakeField label="Otra plataforma" />
-          <div style={{ height: 12 }} />
-          <VYesNo label="WhatsApp visible en el perfil" />
-          <VYesNo label="Correo visible en el perfil" />
-        </Box>
-      )}
+      {step === 5 &&
+        (isOrg ? (
+          <Box title="🌐 Redes y Reservas">
+            <FakeField label="Página web" type="url" />
+            <FakeField label="Instagram" />
+            <FakeField label="Facebook" />
+            <FakeField label="LinkedIn" />
+            <FakeField label="YouTube" />
+            <FakeField label="Calendly" />
+            <FakeField label="Fresha" />
+            <TelefonoField label="WhatsApp Business" />
+            <FakeField label="Otra plataforma" />
+            <div style={{ height: 12 }} />
+            <VYesNo label="WhatsApp visible en el perfil" />
+            <VYesNo label="Correo visible en el perfil" />
+          </Box>
+        ) : (
+          <>
+            <Box title="🌐 Página web">
+              <FakeField label="Página web" type="url" />
+            </Box>
+            <Box title="📱 Redes sociales">
+              <FakeField label="Instagram" />
+              <FakeField label="Facebook" />
+              <FakeField label="LinkedIn" />
+              <FakeField label="YouTube" />
+              <FakeField label="Otra red social o plataforma" />
+            </Box>
+            <Box title="📅 Reservas online">
+              <FakeField label="Calendly" />
+              <FakeField label="Fresha" />
+            </Box>
+            <Box title="💬 WhatsApp Business">
+              <VWhatsAppBusiness />
+            </Box>
+            <Box title="🔒 Información pública">
+              <VInformacionPublica />
+            </Box>
+          </>
+        ))}
 
       {step === 6 && (
         <Box
