@@ -1599,31 +1599,6 @@ function VCheckboxes({
   );
 }
 
-function VYesNo({ label }: { label: string }) {
-  const [val, setVal] = useState<"si" | "no" | null>(null);
-  return (
-    <div style={{ marginBottom: 12 }}>
-      <div style={{ fontSize: 13, marginBottom: 6 }}>{label}</div>
-      <div style={{ display: "flex", gap: 8 }}>
-        {(["si", "no"] as const).map((v) => (
-          <button
-            key={v}
-            type="button"
-            onClick={() => setVal(v)}
-            style={{
-              ...btn(val === v ? "primary" : "secondary"),
-              marginTop: 0,
-              padding: "6px 14px",
-            }}
-          >
-            {v === "si" ? "Sí" : "No"}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 function FormacionList() {
   const [items, setItems] = useState([{ id: 1 }]);
   return (
