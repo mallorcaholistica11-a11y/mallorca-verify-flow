@@ -1823,30 +1823,41 @@ function VerificadoFormulario() {
           )}
 
           <Box title={isOrg ? "Datos de la organización" : "Datos de contacto"}>
-            {isOrg && (
+            {isOrg ? (
               <>
                 <FakeField label="Nombre comercial (opcional)" />
                 <FakeField label="Tipo de organización — Ej.: Centro, Asociación, Proyecto, Evento…" />
+                <MunicipioPicker label="Municipio principal" />
+                <ReadOnlyField label="Isla" value="Mallorca" />
+                <FakeField label="Correo electrónico" type="email" />
+                <TelefonoField label="Teléfono" />
+                <TelefonoField label="WhatsApp" />
+                <FakeField label="Logo (opcional)" type="file" />
+                <FakeField label="Imagen principal" type="file" />
+                <FakeField label="Galería (opcional, hasta 9 imágenes)" type="file" />
+              </>
+            ) : (
+              <>
+                <MunicipioPicker label="Municipio principal" hint={null} />
+                <FakeField label="Correo electrónico" type="email" />
+                <Ayuda>
+                  Será el correo de contacto que aparecerá en tu perfil profesional.
+                </Ayuda>
+                <TelefonoField label="Teléfono" />
+                <VWhatsAppMismo />
+                <FakeField label="Logo o marca (opcional)" type="file" />
+                <Ayuda>
+                  Si dispones de un logotipo o imagen de marca puedes añadirlo aquí.
+                </Ayuda>
+                <FakeField label="Foto principal" type="file" />
+                <Ayuda>Será la imagen principal de tu perfil profesional.</Ayuda>
+                <FakeField label="Galería de imágenes (opcional)" type="file" />
+                <Ayuda>
+                  Puedes añadir hasta 3 imágenes para mostrar tu espacio, tu trabajo o aquello que
+                  mejor represente tu actividad.
+                </Ayuda>
               </>
             )}
-            <MunicipioPicker label="Municipio principal" />
-            <ReadOnlyField label="Isla" value="Mallorca" />
-            <FakeField label="Correo electrónico" type="email" />
-            <TelefonoField label="Teléfono" />
-            <TelefonoField label="WhatsApp" />
-            <FakeField
-              label={isOrg ? "Logo (opcional)" : "Logo profesional (opcional)"}
-              type="file"
-            />
-            <FakeField label={isOrg ? "Imagen principal" : "Foto principal"} type="file" />
-            <FakeField
-              label={
-                isOrg
-                  ? "Galería (opcional, hasta 9 imágenes)"
-                  : "Fotos galería (opcional, máximo 3)"
-              }
-              type="file"
-            />
           </Box>
         </>
       )}
