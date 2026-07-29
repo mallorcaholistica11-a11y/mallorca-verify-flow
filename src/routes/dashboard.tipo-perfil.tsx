@@ -21,14 +21,14 @@ const OPCIONES: {
 }[] = [
   {
     value: "professional",
-    title: "Profesional",
+    title: "👤 Profesional",
     description:
       "Acompaño a personas mediante sesiones individuales y, en ocasiones, también ofrezco talleres, cursos o actividades grupales.",
     examples: "Psicología · Osteopatía · Yoga · Reiki · Nutrición · Coaching · Masaje · Acupuntura",
   },
   {
     value: "organization",
-    title: "Centro, espacio u organizador",
+    title: "🏡 Centro, espacio u organizador",
     description:
       "Represento un centro, un espacio de bienestar o una organización que ofrece servicios, actividades o eventos relacionados con el bienestar, la salud integrativa y el desarrollo personal.",
     examples:

@@ -26,68 +26,44 @@ export const Route = createFileRoute("/dashboard/formulario")({
 
 type Step = {
   title: string;
+  intro?: string;
   sections?: { title: string; note?: string; fields?: string[] }[];
   fields?: string[];
   checkboxes?: string[];
   note?: string;
 };
 
+// Pasos del recorrido Plan Presencia. Solo títulos e introducciones: el
+// contenido de cada paso lo renderiza <PresenciaStep />.
 const PRESENCIA_STEPS: Step[] = [
   {
-    title: "Información General",
-    fields: [
-      "Nombre",
-      "Apellidos",
-      "Nombre profesional (opcional)",
-      "Municipio principal",
-      "Isla",
-      "Correo electrónico",
-      "Teléfono",
-      "WhatsApp",
-      "Foto principal",
-    ],
+    title: "Información básica",
+    intro:
+      "Empezamos con la información principal de tu perfil: los datos que permiten identificarte y que las personas puedan contactar contigo.",
   },
   {
-    title: "Actividad Profesional",
-    sections: [
-      { title: "Especialidades y Terapias", note: "Máximo 3" },
-      { title: "Áreas de Especialización", note: "Máximo 5" },
-      { title: "Público al que acompaño" },
-      { title: "Modalidades de acompañamiento" },
-    ],
+    title: "Tu actividad",
+    intro:
+      "Cuéntanos un poco más sobre tu actividad para que las personas puedan encontrarte con mayor facilidad.",
   },
   {
-    title: "Consultas y Modalidades",
-    sections: [
-      { title: "Modalidades de consulta" },
-      {
-        title: "Consulta principal",
-        fields: ["Nombre del centro", "Dirección", "Municipio", "Código postal", "Isla"],
-      },
-    ],
-    note: "El Plan Presencia incluye una única ubicación.",
+    title: "¿Dónde y cómo atiendes?",
+    intro: "Indícanos cómo realizas tus consultas y dónde atiendes habitualmente.",
   },
   {
-    title: "Experiencia y Perfil",
-    fields: [
-      "Frase de presentación (máx. 120 caracteres)",
-      "Presentación profesional (máx. 1000 caracteres)",
-    ],
+    title: "Tu presentación",
+    intro:
+      "Este es tu espacio para explicar quién eres y cómo acompañas a las personas. No hace falta escribir mucho; unas palabras auténticas suelen transmitir más que un texto muy largo.",
   },
   {
-    title: "Enlaces y Redes",
-    fields: ["Página web", "Instagram"],
-    checkboxes: ["WhatsApp visible en el perfil", "Correo visible en el perfil"],
+    title: "Contacto y enlaces",
+    intro:
+      "Añade los enlaces que quieras compartir para que las personas puedan conocerte mejor o contactar contigo. Todos estos datos son opcionales.",
   },
   {
-    title: "Confirmaciones y Consentimientos",
-    checkboxes: [
-      "Código Deontológico",
-      "Declaración de veracidad",
-      "Política de Privacidad",
-      "Condiciones de Uso",
-      "Autorización de publicación",
-    ],
+    title: "Revisión y envío",
+    intro:
+      "¡Ya casi has terminado! Antes de enviar tu perfil, revisa y acepta los siguientes documentos. Una vez enviado, nuestro equipo revisará tu solicitud antes de publicarla en Mallorca Holística.",
   },
 ];
 
@@ -162,7 +138,9 @@ function Formulario() {
 }
 
 function FormularioBase() {
-  const { track } = Route.useSearch();
+  const { track, perfil } = Route.useSearch();
+  // Nomenclatura interna. En la URL el parámetro sigue llamándose "perfil".
+  const profileType: PerfilTipo = perfil ?? "professional";
   const navigate = useNavigate();
   const STEPS = getSteps(track);
   const [step, setStep] = useState(1);
@@ -170,6 +148,7 @@ function FormularioBase() {
   const total = STEPS.length;
   const isLast = step === total;
   const needsStripe = track === "verificado" || track === "organizacion";
+  const isPresencia = track === "presencia";
 
   const finish = () => {
     if (needsStripe) navigate({ to: "/dashboard/stripe", search: { track } });
@@ -216,7 +195,17 @@ function FormularioBase() {
         </div>
       </Box>
 
-      {current.sections
+      {current.intro && (
+        <p style={{ fontSize: 14, lineHeight: 1.7, color: "#444", margin: "0 0 24px 0", maxWidth: 640 }}>
+          {current.intro}
+        </p>
+      )}
+
+      {isPresencia ? (
+        <PresenciaStep step={step} profileType={profileType} onFinish={finish} />
+      ) : null}
+
+      {!isPresencia && current.sections
         ? current.sections.map((sec) => (
             <Box key={sec.title} title={sec.title}>
               {sec.note && <Note>{sec.note}</Note>}
@@ -237,11 +226,11 @@ function FormularioBase() {
           ))
         : null}
 
-      {current.fields && !current.sections ? (
+      {!isPresencia && current.fields && !current.sections ? (
         <Box title={`Campos del paso ${step}`}>{current.fields.map((f) => renderField(f))}</Box>
       ) : null}
 
-      {current.checkboxes ? (
+      {!isPresencia && current.checkboxes ? (
         current.title === "Confirmaciones y Consentimientos" ? (
           <ConfirmacionesConsentimientos onFinish={finish} />
         ) : (
@@ -267,22 +256,245 @@ function FormularioBase() {
           <button onClick={() => setStep((s) => s + 1)} style={btn("primary")}>
             Siguiente →
           </button>
-        ) : current.title === "Confirmaciones y Consentimientos" ? null : (
+        ) : isPresencia || current.title === "Confirmaciones y Consentimientos" ? null : (
           <button onClick={finish} style={btn("primary")}>
             {needsStripe ? "Continuar a método de pago →" : "Finalizar perfil →"}
           </button>
         )}
       </Box>
-
-      {track === "presencia" && (
-        <Note>El Plan Presencia no requiere documentación ni método de pago.</Note>
-      )}
       {track === "organizacion" && (
         <Note>Las organizaciones no requieren adjuntar documentación profesional individual.</Note>
       )}
     </WireframeShell>
   );
 }
+
+// ================================================================
+// PLAN PRESENCIA · contenido de los pasos (aislado del resto de tracks)
+// ================================================================
+
+function Ayuda({ children }: { children: React.ReactNode }) {
+  return (
+    <div style={{ fontSize: 11, color: "#777", marginTop: -6, marginBottom: 14, lineHeight: 1.6 }}>
+      {children}
+    </div>
+  );
+}
+
+function PresenciaToggleCheckbox({
+  label,
+  checked,
+  onToggle,
+}: {
+  label: string;
+  checked: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <div
+      onClick={onToggle}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 8,
+        padding: "8px 10px",
+        border: "1px dashed #888",
+        background: checked ? "#f3f3f3" : "#fff",
+        cursor: "pointer",
+        fontSize: 13,
+        marginBottom: 8,
+      }}
+    >
+      <span
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: 14,
+          height: 14,
+          border: "1px dashed #666",
+          background: "#fff",
+          fontSize: 10,
+          flexShrink: 0,
+        }}
+      >
+        {checked ? "☑" : ""}
+      </span>
+      <span>{label}</span>
+    </div>
+  );
+}
+
+function PresenciaWhatsApp() {
+  const [mismo, setMismo] = useState(true);
+  return (
+    <div style={{ marginBottom: 12 }}>
+      <div style={{ fontSize: 12, marginBottom: 6 }}>¿Es el mismo número de teléfono?</div>
+      <div style={{ display: "flex", gap: 8, marginBottom: mismo ? 0 : 12 }}>
+        {[
+          { label: "Sí", value: true },
+          { label: "No", value: false },
+        ].map((op) => (
+          <button
+            key={op.label}
+            type="button"
+            onClick={() => setMismo(op.value)}
+            style={{
+              fontFamily: "inherit",
+              fontSize: 12,
+              padding: "6px 14px",
+              cursor: "pointer",
+              background: mismo === op.value ? "#f3f3f3" : "#fff",
+              border: mismo === op.value ? "2px solid #111" : "1px dashed #888",
+            }}
+          >
+            {op.label}
+          </button>
+        ))}
+      </div>
+      {!mismo && <TelefonoField label="WhatsApp" />}
+    </div>
+  );
+}
+
+function PresenciaStep({
+  step,
+  profileType,
+  onFinish,
+}: {
+  step: number;
+  profileType: PerfilTipo;
+  onFinish: () => void;
+}) {
+  const isOrg = profileType === "organization";
+
+  if (step === 1) {
+    return (
+      <Box title="Información básica">
+        <FakeField label="Nombre" />
+        <FakeField label="Apellidos" />
+        <FakeField label="Nombre profesional (opcional)" />
+        <Ayuda>Si utilizas un nombre artístico o una marca personal, puedes indicarlo aquí.</Ayuda>
+        <MunicipioPicker label="Municipio principal" />
+        <FakeField
+          label={isOrg ? "Correo electrónico del centro" : "Correo electrónico profesional"}
+          type="email"
+        />
+        <Ayuda>Será el correo de contacto que aparecerá en tu perfil.</Ayuda>
+        <TelefonoField label="Teléfono" />
+        <PresenciaWhatsApp />
+        <FakeField label={isOrg ? "Imagen principal del centro" : "Tu fotografía"} type="file" />
+        <Ayuda>Será la imagen principal de tu perfil.</Ayuda>
+      </Box>
+    );
+  }
+
+  if (step === 2) {
+    return (
+      <>
+        <Box title="Especialidades y terapias">
+          <Note>Máximo 3</Note>
+          <EspecialidadesPicker variant="profesional" />
+        </Box>
+        <Box title="Áreas de especialización">
+          <Note>Máximo 5</Note>
+          <AreasPicker variant="profesional" />
+        </Box>
+        <Box title={isOrg ? "¿A quién acompañáis?" : "¿A quién acompañas?"}>
+          <PublicoCheckboxes options={PRESENCIA_PUBLICO_OPTIONS} />
+        </Box>
+        <Box title="¿Cómo trabajas?">
+          <ModalidadesCheckboxes options={PRESENCIA_MODALIDADES_OPTIONS} />
+        </Box>
+      </>
+    );
+  }
+
+  if (step === 3) {
+    return (
+      <>
+        <Box title="¿Cómo realizas tus consultas?">
+          <ModalidadesConsultaCheckboxes
+            options={PRESENCIA_CONSULTA_OPTIONS}
+            descriptions={PRESENCIA_CONSULTA_HELP}
+          />
+        </Box>
+        <Note>
+          En el Plan Presencia puedes añadir una ubicación principal. Más adelante podrás ampliarla
+          si cambias de plan.
+        </Note>
+        <Box title="Tu ubicación">
+          <FakeField label="Nombre del espacio (opcional)" />
+          <Ayuda>
+            Si atiendes en un centro o espacio con un nombre propio puedes indicarlo aquí.
+          </Ayuda>
+          <DireccionPicker label="Dirección" hint={null} />
+          <MunicipioPicker label="Municipio" />
+          <FakeField label="Código postal" />
+        </Box>
+      </>
+    );
+  }
+
+  if (step === 4) {
+    return (
+      <Box title="Tu presentación">
+        <LimitedTextField label="Frase destacada" max={120} />
+        <Ayuda>Una frase breve que resuma tu manera de acompañar o tu filosofía.</Ayuda>
+        <LimitedTextField label="Cuéntanos un poco sobre ti" max={1000} multiline />
+        <Ayuda>
+          Comparte tu recorrido, tu forma de trabajar o aquello que te gustaría que las personas
+          conocieran antes de contactar contigo.
+        </Ayuda>
+        <Note>
+          No te preocupes si ahora no tienes el texto perfecto. Podrás modificarlo siempre que
+          quieras.
+        </Note>
+      </Box>
+    );
+  }
+
+  if (step === 5) {
+    return (
+      <>
+        <Box title="Enlaces">
+          <FakeField label="Página web" type="url" />
+          <FakeField label="Instagram" />
+        </Box>
+        <PresenciaDatosContacto />
+      </>
+    );
+  }
+
+  return <ConfirmacionesConsentimientos onFinish={onFinish} />;
+}
+
+function PresenciaDatosContacto() {
+  const [whatsapp, setWhatsapp] = useState(true);
+  const [correo, setCorreo] = useState(true);
+  return (
+    <Box title="Datos de contacto">
+      <PresenciaToggleCheckbox
+        label="Mostrar mi WhatsApp"
+        checked={whatsapp}
+        onToggle={() => setWhatsapp((v) => !v)}
+      />
+      <PresenciaToggleCheckbox
+        label="Mostrar mi correo electrónico"
+        checked={correo}
+        onToggle={() => setCorreo((v) => !v)}
+      />
+      <Ayuda>Solo mostraremos la información que elijas compartir.</Ayuda>
+    </Box>
+  );
+}
+
+const PRESENCIA_CONSULTA_OPTIONS = ["Presencial en consulta", "Online", "A domicilio", "A distancia"];
+
+const PRESENCIA_CONSULTA_HELP: Record<string, string> = {
+  Online: "Videollamada u otros medios digitales.",
+  "A distancia": "Para terapias que no requieren presencia física.",
+};
 
 function btn(variant: "primary" | "secondary"): React.CSSProperties {
   return {
@@ -324,16 +536,24 @@ const MODALIDADES_OPTIONS = [
   "Otro (especificar)",
 ];
 
+// Variantes usadas únicamente en el recorrido del Plan Presencia.
+const PRESENCIA_PUBLICO_OPTIONS = ["Todas las personas", ...PUBLICO_OPTIONS];
+const PRESENCIA_MODALIDADES_OPTIONS = MODALIDADES_OPTIONS.filter(
+  (m) => m !== "Otro (especificar)",
+);
+
 function CheckboxGroup({
   options,
   columns,
   selected,
   onToggle,
+  descriptions,
 }: {
   options: string[];
   columns: number;
   selected: string[];
   onToggle: (value: string) => void;
+  descriptions?: Record<string, string>;
 }) {
   return (
     <div
@@ -375,7 +595,14 @@ function CheckboxGroup({
             >
               {checked ? "☑" : ""}
             </span>
-            <span>{opt}</span>
+            <span>
+              {opt}
+              {descriptions?.[opt] && (
+                <span style={{ display: "block", fontSize: 11, color: "#777", marginTop: 2 }}>
+                  {descriptions[opt]}
+                </span>
+              )}
+            </span>
           </div>
         );
       })}
@@ -383,7 +610,7 @@ function CheckboxGroup({
   );
 }
 
-function PublicoCheckboxes() {
+function PublicoCheckboxes({ options = PUBLICO_OPTIONS }: { options?: string[] }) {
   const [selected, setSelected] = useState<string[]>([]);
   const toggle = (value: string) => {
     setSelected((prev) =>
@@ -393,7 +620,7 @@ function PublicoCheckboxes() {
   return (
     <div>
       <Note>Selecciona todas las opciones que correspondan.</Note>
-      <CheckboxGroup options={PUBLICO_OPTIONS} columns={3} selected={selected} onToggle={toggle} />
+      <CheckboxGroup options={options} columns={3} selected={selected} onToggle={toggle} />
       {selected.length > 0 && (
         <div style={{ fontSize: 11, color: "#666", marginTop: 10 }}>
           Seleccionadas: {selected.join(", ")}
@@ -403,7 +630,7 @@ function PublicoCheckboxes() {
   );
 }
 
-function ModalidadesCheckboxes() {
+function ModalidadesCheckboxes({ options = MODALIDADES_OPTIONS }: { options?: string[] }) {
   const [selected, setSelected] = useState<string[]>([]);
   const [otro, setOtro] = useState("");
   const toggle = (value: string) => {
@@ -411,12 +638,12 @@ function ModalidadesCheckboxes() {
       prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
     );
   };
-  const showOtro = selected.includes("Otro (especificar)");
+  const showOtro = options.includes("Otro (especificar)") && selected.includes("Otro (especificar)");
   return (
     <div>
       <Note>Selecciona todas las modalidades que ofreces.</Note>
       <CheckboxGroup
-        options={MODALIDADES_OPTIONS}
+        options={options}
         columns={3}
         selected={selected}
         onToggle={toggle}
@@ -436,7 +663,18 @@ function ModalidadesCheckboxes() {
   );
 }
 
-function ModalidadesConsultaCheckboxes() {
+function ModalidadesConsultaCheckboxes({
+  options = [
+    "Presencial en consulta",
+    "Online (videollamada)",
+    "A domicilio",
+    "A distancia (Reiki, sanación energética y otras terapias sin presencia física)",
+  ],
+  descriptions,
+}: {
+  options?: string[];
+  descriptions?: Record<string, string>;
+}) {
   const [selected, setSelected] = useState<string[]>([]);
   const toggle = (value: string) => {
     setSelected((prev) =>
@@ -447,15 +685,11 @@ function ModalidadesConsultaCheckboxes() {
     <div>
       <Note>Selecciona todas las modalidades de consulta que ofreces.</Note>
       <CheckboxGroup
-        options={[
-          "Presencial en consulta",
-          "Online (videollamada)",
-          "A domicilio",
-          "A distancia (Reiki, sanación energética y otras terapias sin presencia física)",
-        ]}
+        options={options}
         columns={2}
         selected={selected}
         onToggle={toggle}
+        descriptions={descriptions}
       />
       {selected.length > 0 && (
         <div style={{ fontSize: 11, color: "#666", marginTop: 10 }}>
@@ -663,7 +897,13 @@ function renderField(label: string) {
   return <FakeField key={label} label={label} />;
 }
 
-function DireccionPicker({ label }: { label: string }) {
+function DireccionPicker({
+  label,
+  hint = "MVP: texto libre. Preparado para Google Places Autocomplete — al integrarlo se guardarán automáticamente: dirección formateada, municipio, código postal, isla, latitud, longitud y Place ID.",
+}: {
+  label: string;
+  hint?: string | null;
+}) {
   const [value, setValue] = useState("");
   return (
     <div style={{ marginBottom: 12 }}>
@@ -693,11 +933,9 @@ function DireccionPicker({ label }: { label: string }) {
           boxSizing: "border-box",
         }}
       />
-      <div style={{ fontSize: 11, color: "#888", marginTop: 4, fontStyle: "italic" }}>
-        MVP: texto libre. Preparado para Google Places Autocomplete — al integrarlo se guardarán
-        automáticamente: dirección formateada, municipio, código postal, isla, latitud, longitud y
-        Place ID.
-      </div>
+      {hint && (
+        <div style={{ fontSize: 11, color: "#888", marginTop: 4, fontStyle: "italic" }}>{hint}</div>
+      )}
       {/* Estructura prevista (oculta en wireframe MVP):
           formatted_address, municipio, postal_code, isla, lat, lng, place_id */}
     </div>
@@ -798,54 +1036,50 @@ function ConfirmacionesConsentimientos({ onFinish }: { onFinish: () => void }) {
   };
 
   return (
-    <Box title="🌿 Confirmaciones y Consentimientos">
-      <p style={{ fontSize: 13, marginBottom: 16 }}>
-        Antes de enviar tu perfil, revisa y acepta los siguientes documentos.
-      </p>
-
+    <Box title="Revisión y envío">
       <ConsentimientoItem
         icon="📜"
         title="Código Deontológico Mallorca Holística"
-        linkText="👉 Ver documento"
+        linkText="👉 Leer documento"
         checked={state.codigoDeontologico}
         onToggle={() => toggle("codigoDeontologico")}
-        label="Confirmo que he leído y acepto el Código Deontológico de Mallorca Holística."
+        label="He leído y acepto el Código Deontológico."
       />
 
       <ConsentimientoItem
         icon="✅"
         title="Declaración de Veracidad"
-        linkText="👉 Ver declaración"
+        linkText="👉 Leer documento"
         checked={state.declaracionVeracidad}
         onToggle={() => toggle("declaracionVeracidad")}
-        label="Declaro que toda la información aportada es veraz, exacta y está actualizada."
+        label="Declaro que la información aportada es veraz y está actualizada."
       />
 
       <ConsentimientoItem
         icon="🔒"
         title="Política de Privacidad"
-        linkText="👉 Ver documento"
+        linkText="👉 Leer documento"
         checked={state.politicaPrivacidad}
         onToggle={() => toggle("politicaPrivacidad")}
-        label="Confirmo que he leído y acepto la Política de Privacidad."
+        label="He leído y acepto la Política de Privacidad."
       />
 
       <ConsentimientoItem
         icon="📄"
         title="Condiciones de Uso"
-        linkText="👉 Ver documento"
+        linkText="👉 Leer documento"
         checked={state.condicionesUso}
         onToggle={() => toggle("condicionesUso")}
-        label="Confirmo que he leído y acepto las Condiciones de Uso."
+        label="He leído y acepto las Condiciones de Uso."
       />
 
       <ConsentimientoItem
         icon="🌐"
         title="Publicación del Perfil"
-        linkText="👉 Ver autorización"
+        linkText="👉 Leer documento"
         checked={state.publicacionPerfil}
         onToggle={() => toggle("publicacionPerfil")}
-        label="Autorizo a Mallorca Holística a publicar mi perfil profesional en la plataforma."
+        label="Autorizo a Mallorca Holística a publicar mi perfil en la plataforma."
       />
 
       <div
@@ -857,8 +1091,7 @@ function ConfirmacionesConsentimientos({ onFinish }: { onFinish: () => void }) {
           fontStyle: "italic",
         }}
       >
-        Una vez enviado, tu perfil será revisado por el equipo de Mallorca Holística antes de su
-        publicación.
+        Una vez enviado, revisaremos tu perfil y te avisaremos cuando esté listo para publicarse.
       </div>
 
       <button
@@ -870,7 +1103,7 @@ function ConfirmacionesConsentimientos({ onFinish }: { onFinish: () => void }) {
           cursor: allChecked ? "pointer" : "not-allowed",
         }}
       >
-        👉 Finalizar Perfil
+        👉 Enviar para revisión
       </button>
     </Box>
   );
