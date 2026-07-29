@@ -95,7 +95,7 @@ function DashboardHome() {
         <p style={{ fontSize: 13, margin: "0 0 6px 0" }}>
           <strong>{estadoContent.badge}</strong>
         </p>
-        <p style={{ fontSize: 13, margin: 0, color: "#444" }}>{estadoContent.description}</p>
+        <p style={{ fontSize: 13, margin: 0, color: "#444", whiteSpace: "pre-wrap" }}>{estadoContent.description}</p>
       </Box>
 
       <Box title="Próximos pasos">
