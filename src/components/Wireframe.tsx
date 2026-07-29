@@ -254,3 +254,13 @@ export function parseTrack(s: Record<string, unknown>): Track {
   if (s.track === "organizacionFundadora") return "organizacionFundadora";
   return "presencia";
 }
+
+// Tipo de perfil elegido en el onboarding. Preparado para que el formulario
+// único pueda adaptar títulos, textos de ayuda y campos en una segunda fase.
+export type PerfilTipo = "professional" | "organization";
+
+export function parsePerfil(s: Record<string, unknown>): PerfilTipo | undefined {
+  if (s.perfil === "professional") return "professional";
+  if (s.perfil === "organization") return "organization";
+  return undefined;
+}

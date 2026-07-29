@@ -9,13 +9,18 @@ import {
   Note,
   TrackBadge,
   parseTrack,
+  parsePerfil,
   type Track,
+  type PerfilTipo,
 } from "@/components/Wireframe";
 import { TelefonoField } from "@/components/TelefonoField";
 import { AreasPicker, EspecialidadesPicker } from "@/components/TaxonomiaPickers";
 
 export const Route = createFileRoute("/dashboard/formulario")({
-  validateSearch: (s: Record<string, unknown>): { track: Track } => ({ track: parseTrack(s) }),
+  validateSearch: (s: Record<string, unknown>): { track: Track; perfil?: PerfilTipo } => ({
+    track: parseTrack(s),
+    perfil: parsePerfil(s),
+  }),
   component: Formulario,
 });
 
