@@ -1863,20 +1863,32 @@ function VerificadoFormulario() {
       )}
 
       {step === 2 && (
-        <>
+        <div style={{ display: "flex", flexDirection: "column", gap: isOrg ? 0 : 12 }}>
           <Box title="Especialidades y Terapias">
+            {!isOrg && (
+              <Ayuda>
+                Puedes añadir todas las especialidades que formen parte de tu práctica profesional y
+                ordenarlas según su importancia.
+              </Ayuda>
+            )}
             <EspecialidadesPicker max={0} variant={isOrg ? "organizacion" : "profesional"} />
           </Box>
           <Box title="Áreas de Especialización">
+            {!isOrg && (
+              <Ayuda>
+                Selecciona todas las áreas en las que acompañas habitualmente. También podrás
+                ordenarlas por relevancia.
+              </Ayuda>
+            )}
             <AreasPicker max={0} variant={isOrg ? "organizacion" : "profesional"} />
           </Box>
-          <Box title={isOrg ? "Público al que se dirige" : "Público al que acompaño"}>
+          <Box title={isOrg ? "Público al que se dirige" : "¿A quién acompañas?"}>
             <Note>Selecciona todas las opciones que correspondan.</Note>
-            <VCheckboxes options={V_PUBLICO} columns={3} />
+            <VCheckboxes options={isOrg ? V_PUBLICO : V_PUBLICO_OPTIONS} columns={3} />
           </Box>
-          <Box title={isOrg ? "Modalidades" : "Modalidades de Acompañamiento"}>
+          <Box title={isOrg ? "Modalidades" : "¿Cómo trabajas?"}>
             <Note>Selecciona todas las modalidades que ofreces.</Note>
-            <VCheckboxes options={V_MODALIDADES} columns={3} />
+            <VCheckboxes options={isOrg ? V_MODALIDADES : V_MODALIDADES_OPTIONS} columns={3} />
           </Box>
           {isOrg && (
             <Box title="Actividades organizadas">
@@ -1884,15 +1896,19 @@ function VerificadoFormulario() {
               <VCheckboxes options={O_ACTIVIDADES_ORGANIZADAS} columns={3} />
             </Box>
           )}
-        </>
+        </div>
       )}
 
       {step === 3 && (
         <>
           {!isOrg && (
-            <Box title="📍 Modalidades de Consulta">
-              <Note>¿Cómo realizas tus sesiones?</Note>
-              <VCheckboxes options={V_CONSULTA_MODES} columns={2} />
+            <Box title="¿Cómo realizas tus consultas?">
+              <Note>Selecciona todas las modalidades de consulta que ofreces.</Note>
+              <VCheckboxes
+                options={V_CONSULTA_OPTIONS}
+                columns={2}
+                descriptions={V_CONSULTA_HELP}
+              />
             </Box>
           )}
           {isOrg ? (
@@ -1910,7 +1926,7 @@ function VerificadoFormulario() {
               </Box>
             </>
           ) : (
-            <Box title="Consultas">
+            <Box title="Tus ubicaciones">
               <ConsultasList />
             </Box>
           )}
