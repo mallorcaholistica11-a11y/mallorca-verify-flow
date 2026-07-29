@@ -2642,45 +2642,40 @@ function Paso7ProfesionalFundador({ autoriza, onToggle }: Paso7Props) {
 function Paso7OrganizacionEstandar({ autoriza, onToggle }: Paso7Props) {
   return (
     <>
-      <Box title="🌿 Ya casi formas parte de Mallorca Holística">
+      <Box title="¡Enhorabuena! Ya habéis completado vuestra solicitud">
         <div style={{ marginBottom: 16 }}>
-          <p style={{ fontSize: 13, marginBottom: 8 }}>
-            Has completado prácticamente todo el proceso.
+          <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
+            ¡Enhorabuena! Ya habéis completado vuestra solicitud. Solo queda registrar un método de
+            pago seguro para poder activar vuestra suscripción cuando vuestro perfil haya sido
+            aprobado.
           </p>
-          <p style={{ fontSize: 13, marginBottom: 8 }}>
-            Para activar la suscripción de tu entidad solo necesitamos registrar un método de pago
-            seguro.
-          </p>
-          <p style={{ fontSize: 13, marginBottom: 8 }}>
-            No realizaremos ningún cargo durante la revisión de tu solicitud ni durante el período
-            gratuito de lanzamiento, si corresponde.
+          <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
+            No realizaremos ningún cargo mientras vuestro perfil esté siendo revisado.
           </p>
         </div>
       </Box>
 
       <Box title="🚀 Lanzamiento oficial">
-        <ul style={{ fontSize: 13, paddingLeft: 20, marginBottom: 8 }}>
-          <li>
-            ✨ Si tu inscripción se realiza durante el primer mes tras el lanzamiento oficial de
-            Mallorca Holística, disfrutarás automáticamente de 2 meses gratuitos.
-          </li>
-          <li>
-            ✨ Después, la suscripción de tu entidad continuará por 50 €/mes (IVA incluido), salvo
-            cancelación previa.
-          </li>
+        <ul style={{ fontSize: 13, paddingLeft: 20, marginBottom: 8, lineHeight: 1.8 }}>
+          <li>✨ 2 meses gratuitos (promoción de lanzamiento).</li>
+          <li>✨ Después 50 €/mes (IVA incluido).</li>
           <li>✨ Sin permanencia.</li>
+          <li>✨ Podréis cancelar vuestra suscripción en cualquier momento.</li>
         </ul>
       </Box>
 
       <VConsentItem
         icon="🔒"
         title="Autorización"
-        label="Autorizo a Mallorca Holística a registrar mi método de pago de forma segura y activar automáticamente la suscripción de mi entidad una vez finalizado el período gratuito correspondiente, siempre que la solicitud haya sido aprobada."
+        label="Autorizo a Mallorca Holística a registrar de forma segura nuestro método de pago y a activar la suscripción de la organización al finalizar el periodo gratuito, siempre que la solicitud haya sido aprobada."
         checked={autoriza}
         onToggle={onToggle}
       />
 
-      <StripeBlock />
+      <StripeBlock
+        note="El registro del método de pago se realizará de forma segura mediante Stripe."
+        extraNote="No realizaremos ningún cargo hasta que vuestra organización haya sido aprobada y, si corresponde, haya finalizado el periodo gratuito de lanzamiento."
+      />
     </>
   );
 }
