@@ -138,7 +138,9 @@ function Formulario() {
 }
 
 function FormularioBase() {
-  const { track } = Route.useSearch();
+  const { track, perfil } = Route.useSearch();
+  // Nomenclatura interna. En la URL el parámetro sigue llamándose "perfil".
+  const profileType: PerfilTipo = perfil ?? "professional";
   const navigate = useNavigate();
   const STEPS = getSteps(track);
   const [step, setStep] = useState(1);
@@ -146,6 +148,7 @@ function FormularioBase() {
   const total = STEPS.length;
   const isLast = step === total;
   const needsStripe = track === "verificado" || track === "organizacion";
+  const isPresencia = track === "presencia";
 
   const finish = () => {
     if (needsStripe) navigate({ to: "/dashboard/stripe", search: { track } });
@@ -192,7 +195,17 @@ function FormularioBase() {
         </div>
       </Box>
 
-      {current.sections
+      {current.intro && (
+        <p style={{ fontSize: 14, lineHeight: 1.7, color: "#444", margin: "0 0 24px 0", maxWidth: 640 }}>
+          {current.intro}
+        </p>
+      )}
+
+      {isPresencia ? (
+        <PresenciaStep step={step} profileType={profileType} onFinish={finish} />
+      ) : null}
+
+      {!isPresencia && current.sections
         ? current.sections.map((sec) => (
             <Box key={sec.title} title={sec.title}>
               {sec.note && <Note>{sec.note}</Note>}
@@ -213,11 +226,11 @@ function FormularioBase() {
           ))
         : null}
 
-      {current.fields && !current.sections ? (
+      {!isPresencia && current.fields && !current.sections ? (
         <Box title={`Campos del paso ${step}`}>{current.fields.map((f) => renderField(f))}</Box>
       ) : null}
 
-      {current.checkboxes ? (
+      {!isPresencia && current.checkboxes ? (
         current.title === "Confirmaciones y Consentimientos" ? (
           <ConfirmacionesConsentimientos onFinish={finish} />
         ) : (
@@ -243,16 +256,12 @@ function FormularioBase() {
           <button onClick={() => setStep((s) => s + 1)} style={btn("primary")}>
             Siguiente →
           </button>
-        ) : current.title === "Confirmaciones y Consentimientos" ? null : (
+        ) : isPresencia || current.title === "Confirmaciones y Consentimientos" ? null : (
           <button onClick={finish} style={btn("primary")}>
             {needsStripe ? "Continuar a método de pago →" : "Finalizar perfil →"}
           </button>
         )}
       </Box>
-
-      {track === "presencia" && (
-        <Note>El Plan Presencia no requiere documentación ni método de pago.</Note>
-      )}
       {track === "organizacion" && (
         <Note>Las organizaciones no requieren adjuntar documentación profesional individual.</Note>
       )}
