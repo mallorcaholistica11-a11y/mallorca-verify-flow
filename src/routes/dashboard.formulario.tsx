@@ -1295,7 +1295,15 @@ function EquipoList() {
   );
 }
 
-function VCheckboxes({ options, columns = 3 }: { options: string[]; columns?: number }) {
+function VCheckboxes({
+  options,
+  columns = 3,
+  descriptions,
+}: {
+  options: string[];
+  columns?: number;
+  descriptions?: Record<string, string>;
+}) {
   const [selected, setSelected] = useState<string[]>([]);
   const toggle = (v: string) =>
     setSelected((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]));
@@ -1303,7 +1311,13 @@ function VCheckboxes({ options, columns = 3 }: { options: string[]; columns?: nu
     options.includes("Otro (especificar)") && selected.includes("Otro (especificar)");
   return (
     <div>
-      <CheckboxGroup options={options} columns={columns} selected={selected} onToggle={toggle} />
+      <CheckboxGroup
+        options={options}
+        columns={columns}
+        selected={selected}
+        onToggle={toggle}
+        descriptions={descriptions}
+      />
       {showOtro && (
         <div style={{ marginTop: 12 }}>
           <FakeField label="Especificar" />
@@ -1346,7 +1360,7 @@ function FormacionList() {
         <div key={it.id} style={{ border: "1px dashed #bbb", padding: 12, marginBottom: 12 }}>
           <div style={{ fontSize: 11, color: "#666", marginBottom: 6 }}>Formación #{idx + 1}</div>
           <FakeField label="Formación" />
-          <FakeField label="Escuela" />
+          <FakeField label="Centro o escuela" />
           <FakeField label="Año" />
           {items.length > 1 && (
             <button
@@ -1375,14 +1389,17 @@ function ConsultasList() {
   return (
     <div>
       {items.map((it, idx) => (
-        <div key={it.id} style={{ border: "1px dashed #bbb", padding: 12, marginBottom: 12 }}>
+        <div key={it.id} style={{ border: "1px dashed #bbb", padding: 16, marginBottom: 20 }}>
           <div style={{ fontSize: 11, color: "#666", marginBottom: 6 }}>
-            {idx === 0 ? "Consulta principal" : `Consulta adicional #${idx}`}
+            {idx === 0 ? "Ubicación principal" : `Ubicación adicional #${idx}`}
           </div>
-          <FakeField label="Nombre del centro" />
-          <DireccionPicker label="Dirección" />
-          <MunicipioPicker label="Municipio" />
-          <ReadOnlyField label="Isla" value="Mallorca" />
+          <FakeField label="Nombre del espacio (opcional)" />
+          <Ayuda>
+            Si atiendes habitualmente en un centro o espacio con un nombre propio puedes indicarlo
+            aquí.
+          </Ayuda>
+          <DireccionPicker label="Dirección" hint={null} />
+          <MunicipioPicker label="Municipio" hint={null} />
           {items.length > 1 && (
             <button
               type="button"
@@ -1399,7 +1416,7 @@ function ConsultasList() {
         onClick={() => setItems([...items, { id: Date.now() }])}
         style={{ ...btn("secondary"), padding: "6px 12px" }}
       >
-        ➕ Añadir otra consulta
+        ➕ Añadir otra ubicación
       </button>
     </div>
   );
