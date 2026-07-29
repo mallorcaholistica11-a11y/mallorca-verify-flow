@@ -536,16 +536,24 @@ const MODALIDADES_OPTIONS = [
   "Otro (especificar)",
 ];
 
+// Variantes usadas únicamente en el recorrido del Plan Presencia.
+const PRESENCIA_PUBLICO_OPTIONS = ["Todas las personas", ...PUBLICO_OPTIONS];
+const PRESENCIA_MODALIDADES_OPTIONS = MODALIDADES_OPTIONS.filter(
+  (m) => m !== "Otro (especificar)",
+);
+
 function CheckboxGroup({
   options,
   columns,
   selected,
   onToggle,
+  descriptions,
 }: {
   options: string[];
   columns: number;
   selected: string[];
   onToggle: (value: string) => void;
+  descriptions?: Record<string, string>;
 }) {
   return (
     <div
@@ -587,7 +595,14 @@ function CheckboxGroup({
             >
               {checked ? "☑" : ""}
             </span>
-            <span>{opt}</span>
+            <span>
+              {opt}
+              {descriptions?.[opt] && (
+                <span style={{ display: "block", fontSize: 11, color: "#777", marginTop: 2 }}>
+                  {descriptions[opt]}
+                </span>
+              )}
+            </span>
           </div>
         );
       })}
@@ -595,7 +610,7 @@ function CheckboxGroup({
   );
 }
 
-function PublicoCheckboxes() {
+function PublicoCheckboxes({ options = PUBLICO_OPTIONS }: { options?: string[] }) {
   const [selected, setSelected] = useState<string[]>([]);
   const toggle = (value: string) => {
     setSelected((prev) =>
@@ -605,7 +620,7 @@ function PublicoCheckboxes() {
   return (
     <div>
       <Note>Selecciona todas las opciones que correspondan.</Note>
-      <CheckboxGroup options={PUBLICO_OPTIONS} columns={3} selected={selected} onToggle={toggle} />
+      <CheckboxGroup options={options} columns={3} selected={selected} onToggle={toggle} />
       {selected.length > 0 && (
         <div style={{ fontSize: 11, color: "#666", marginTop: 10 }}>
           Seleccionadas: {selected.join(", ")}
@@ -615,7 +630,7 @@ function PublicoCheckboxes() {
   );
 }
 
-function ModalidadesCheckboxes() {
+function ModalidadesCheckboxes({ options = MODALIDADES_OPTIONS }: { options?: string[] }) {
   const [selected, setSelected] = useState<string[]>([]);
   const [otro, setOtro] = useState("");
   const toggle = (value: string) => {
@@ -623,12 +638,12 @@ function ModalidadesCheckboxes() {
       prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
     );
   };
-  const showOtro = selected.includes("Otro (especificar)");
+  const showOtro = options.includes("Otro (especificar)") && selected.includes("Otro (especificar)");
   return (
     <div>
       <Note>Selecciona todas las modalidades que ofreces.</Note>
       <CheckboxGroup
-        options={MODALIDADES_OPTIONS}
+        options={options}
         columns={3}
         selected={selected}
         onToggle={toggle}
@@ -648,7 +663,18 @@ function ModalidadesCheckboxes() {
   );
 }
 
-function ModalidadesConsultaCheckboxes() {
+function ModalidadesConsultaCheckboxes({
+  options = [
+    "Presencial en consulta",
+    "Online (videollamada)",
+    "A domicilio",
+    "A distancia (Reiki, sanación energética y otras terapias sin presencia física)",
+  ],
+  descriptions,
+}: {
+  options?: string[];
+  descriptions?: Record<string, string>;
+}) {
   const [selected, setSelected] = useState<string[]>([]);
   const toggle = (value: string) => {
     setSelected((prev) =>
@@ -659,15 +685,11 @@ function ModalidadesConsultaCheckboxes() {
     <div>
       <Note>Selecciona todas las modalidades de consulta que ofreces.</Note>
       <CheckboxGroup
-        options={[
-          "Presencial en consulta",
-          "Online (videollamada)",
-          "A domicilio",
-          "A distancia (Reiki, sanación energética y otras terapias sin presencia física)",
-        ]}
+        options={options}
         columns={2}
         selected={selected}
         onToggle={toggle}
+        descriptions={descriptions}
       />
       {selected.length > 0 && (
         <div style={{ fontSize: 11, color: "#666", marginTop: 10 }}>
