@@ -2529,7 +2529,7 @@ function VerificadoFormulario() {
           </button>
         ) : (
           <button onClick={finish} style={btn("primary")}>
-            👉 Enviar mi solicitud
+            {isOrg ? "👉 Enviar para revisión" : "👉 Enviar mi solicitud"}
           </button>
         )}
       </Box>
