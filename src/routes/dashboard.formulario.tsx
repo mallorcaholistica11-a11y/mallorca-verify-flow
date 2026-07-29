@@ -200,9 +200,13 @@ function FormularioBase() {
         </div>
       </Box>
 
-      {current.intro && (
+      {(isPresencia && profileType === "organization" && PRESENCIA_INTRO_ORG[step]
+        ? PRESENCIA_INTRO_ORG[step]
+        : current.intro) && (
         <p style={{ fontSize: 14, lineHeight: 1.7, color: "#444", margin: "0 0 24px 0", maxWidth: 640 }}>
-          {current.intro}
+          {isPresencia && profileType === "organization" && PRESENCIA_INTRO_ORG[step]
+            ? PRESENCIA_INTRO_ORG[step]
+            : current.intro}
         </p>
       )}
 
