@@ -60,8 +60,6 @@ export function TelefonoField({
     update(dial, nextNumero);
   };
 
-  const effectivePrefijo = isOther ? otroDial || "+__" : dial;
-
   return (
     <div style={{ marginBottom: 12 }}>
       <div style={{ fontSize: 12, marginBottom: 4 }}>{label}</div>
@@ -111,9 +109,6 @@ export function TelefonoField({
             fontSize: 12,
           }}
         />
-      </div>
-      <div style={{ fontSize: 10, color: "#9ca3af", marginTop: 4 }}>
-        Almacenado como: {`{ prefijo: "${effectivePrefijo}", numero: "${numero || "________"}" }`}
       </div>
     </div>
   );
