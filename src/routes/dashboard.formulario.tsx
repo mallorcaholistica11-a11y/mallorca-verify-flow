@@ -1318,7 +1318,7 @@ const V_STEP_TITLES = [
   "Actividad Profesional",
   "Consultas y Modalidades",
   "Experiencia y Perfil",
-  "Enlaces y Redes",
+  "Contacto y presencia online",
   "Verificación y Compromisos",
    "Activa tu suscripción",
  ];
