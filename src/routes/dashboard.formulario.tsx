@@ -1188,6 +1188,131 @@ const V_CONSULTA_MODES = [
 
 const V_IDIOMAS = ["Español", "Inglés", "Francés", "Alemán", "Catalán", "Otro"];
 
+// Introducciones de cada paso (recorrido Profesional Verificado).
+const V_STEP_INTROS: Record<number, string> = {
+  1: "Empezamos con la información principal de tu perfil. Estos datos ayudarán a las personas a conocerte, ponerse en contacto contigo y generar confianza desde el primer momento.",
+  2: "Cuéntanos un poco más sobre tu actividad para que las personas puedan encontrarte con facilidad y comprendan mejor cómo puedes acompañarlas.",
+  3: "Indícanos cómo realizas tus consultas y dónde atiendes habitualmente. Con este plan puedes añadir varias ubicaciones.",
+  4: "Este es tu espacio para presentarte. Comparte quién eres, cómo acompañas a las personas y aquello que hace única tu forma de trabajar. También podrás mostrar parte de tu formación e indicar los idiomas en los que ofreces atención.",
+  5: "Añade los enlaces y canales de contacto que quieras compartir para que las personas puedan conocerte, reservar una sesión o ponerse en contacto contigo. Todos los campos son opcionales.",
+  6: "Ya casi has terminado. Para mantener la calidad y la confianza de Mallorca Holística necesitamos verificar algunos aspectos de tu actividad profesional. Este proceso nos ayuda a ofrecer un espacio más seguro tanto para los profesionales como para las personas que buscan acompañamiento.",
+};
+
+const V_CONSULTA_OPTIONS = ["Presencial en consulta", "Online", "A domicilio", "A distancia"];
+
+const V_CONSULTA_HELP: Record<string, string> = {
+  Online: "Videollamada u otros medios digitales.",
+  "A distancia": "Para terapias que no requieren presencia física.",
+};
+
+const V_PUBLICO_OPTIONS = ["Todas las personas", ...V_PUBLICO];
+const V_MODALIDADES_OPTIONS = V_MODALIDADES.filter((m) => m !== "Otro (especificar)");
+
+// WhatsApp: mismo número que el teléfono o uno distinto.
+function VWhatsAppMismo() {
+  const [mismo, setMismo] = useState(true);
+  return (
+    <div style={{ marginBottom: 12 }}>
+      <div style={{ fontSize: 12, marginBottom: 6 }}>
+        ¿Utilizarás este mismo número para WhatsApp?
+      </div>
+      <div style={{ display: "flex", gap: 8 }}>
+        {[
+          { label: "Sí", value: true },
+          { label: "No", value: false },
+        ].map((op) => (
+          <button
+            key={op.label}
+            type="button"
+            onClick={() => setMismo(op.value)}
+            style={{
+              fontFamily: "inherit",
+              fontSize: 12,
+              padding: "6px 14px",
+              cursor: "pointer",
+              background: mismo === op.value ? "#f3f3f3" : "#fff",
+              border: mismo === op.value ? "2px solid #111" : "1px dashed #888",
+            }}
+          >
+            {op.label}
+          </button>
+        ))}
+      </div>
+      {mismo ? (
+        <div style={{ fontSize: 12, color: "#3f6b4a", marginTop: 8, lineHeight: 1.6 }}>
+          ✅ Perfecto. Utilizaremos este mismo número para WhatsApp.
+        </div>
+      ) : (
+        <div style={{ marginTop: 12 }}>
+          <TelefonoField label="WhatsApp" />
+        </div>
+      )}
+    </div>
+  );
+}
+
+// WhatsApp Business: solo se muestra si usa un número diferente.
+function VWhatsAppBusiness() {
+  const [distinto, setDistinto] = useState(false);
+  return (
+    <div>
+      <div
+        onClick={() => setDistinto((v) => !v)}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          padding: "8px 10px",
+          border: "1px dashed #888",
+          background: distinto ? "#f3f3f3" : "#fff",
+          cursor: "pointer",
+          fontSize: 13,
+          marginBottom: 12,
+        }}
+      >
+        <span
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: 14,
+            height: 14,
+            border: "1px dashed #666",
+            background: "#fff",
+            fontSize: 10,
+            flexShrink: 0,
+          }}
+        >
+          {distinto ? "☑" : ""}
+        </span>
+        <span>Utilizo un número diferente para WhatsApp Business.</span>
+      </div>
+      {distinto && <TelefonoField label="WhatsApp Business" />}
+    </div>
+  );
+}
+
+// Visibilidad de la información de contacto en el perfil público.
+function VInformacionPublica() {
+  const [whatsapp, setWhatsapp] = useState(true);
+  const [correo, setCorreo] = useState(true);
+  return (
+    <div>
+      <PresenciaToggleCheckbox
+        label="Mostrar mi WhatsApp"
+        checked={whatsapp}
+        onToggle={() => setWhatsapp((v) => !v)}
+      />
+      <PresenciaToggleCheckbox
+        label="Mostrar mi correo electrónico"
+        checked={correo}
+        onToggle={() => setCorreo((v) => !v)}
+      />
+      <Ayuda>Solo mostraremos la información que elijas compartir.</Ayuda>
+    </div>
+  );
+}
+
 const V_STEP_TITLES = [
   "Información General",
   "Actividad Profesional",
