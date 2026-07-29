@@ -1861,7 +1861,7 @@ function VerificadoFormulario() {
         </div>
       </Box>
 
-      {!isOrg && V_STEP_INTROS[step] && (
+      {(isOrg ? O_STEP_INTROS[step] : V_STEP_INTROS[step]) && (
         <p
           style={{
             fontSize: 14,
@@ -1871,16 +1871,53 @@ function VerificadoFormulario() {
             maxWidth: 640,
           }}
         >
-          {V_STEP_INTROS[step]}
+          {isOrg ? O_STEP_INTROS[step] : V_STEP_INTROS[step]}
         </p>
       )}
 
       {step === 1 && (
         <>
-          <Box title="Información General">
-            {isOrg ? (
-              <FakeField label="Nombre de la organización, centro, proyecto o evento" />
-            ) : (
+          {isOrg ? (
+            <>
+              <Box title="Información General">
+                <FakeField label="Nombre de la organización" />
+                <Ayuda>
+                  Es el nombre con el que las personas os encontrarán dentro de Mallorca Holística.
+                </Ayuda>
+              </Box>
+
+              <Box title="Datos de la organización">
+                <FakeField label="Nombre comercial (opcional)" />
+                <Ayuda>
+                  Si vuestra organización es conocida por un nombre diferente al nombre legal,
+                  podéis indicarlo aquí.
+                </Ayuda>
+                <SelectField label="Tipo de organización" options={O_TIPOS_ORGANIZACION} />
+                <MunicipioPicker label="Municipio principal" hint={null} />
+                <FakeField label="Correo electrónico" type="email" />
+                <Ayuda>
+                  Será el correo de contacto que aparecerá en vuestro perfil público.
+                </Ayuda>
+                <TelefonoField label="Teléfono" />
+                <OWhatsAppMismo />
+                <FakeField label="Logo o imagen de marca (opcional)" type="file" />
+                <Ayuda>
+                  Si disponéis de un logotipo o imagen de marca podéis añadirlo aquí.
+                </Ayuda>
+                <FakeField label="Imagen principal" type="file" />
+                <Ayuda>
+                  Será la imagen principal que representará vuestra organización en Mallorca
+                  Holística.
+                </Ayuda>
+                <FakeField label="Galería de imágenes (opcional)" type="file" />
+                <Ayuda>
+                  Podéis añadir hasta 9 imágenes para mostrar vuestro espacio, las instalaciones o
+                  las actividades que realizáis.
+                </Ayuda>
+              </Box>
+            </>
+          ) : (
+            <Box title="Información General">
               <>
                 <FakeField label="Nombre" />
                 <FakeField label="Apellidos" />
@@ -1889,8 +1926,8 @@ function VerificadoFormulario() {
                   Si utilizas un nombre artístico o una marca personal, puedes indicarlo aquí.
                 </Ayuda>
               </>
-            )}
-          </Box>
+            </Box>
+          )}
 
           {isOrg && (
             <Box title="👤 Persona de contacto">
@@ -1969,21 +2006,8 @@ function VerificadoFormulario() {
             </Box>
           )}
 
-          <Box title={isOrg ? "Datos de la organización" : "Datos de contacto"}>
-            {isOrg ? (
-              <>
-                <FakeField label="Nombre comercial (opcional)" />
-                <FakeField label="Tipo de organización — Ej.: Centro, Asociación, Proyecto, Evento…" />
-                <MunicipioPicker label="Municipio principal" />
-                <ReadOnlyField label="Isla" value="Mallorca" />
-                <FakeField label="Correo electrónico" type="email" />
-                <TelefonoField label="Teléfono" />
-                <TelefonoField label="WhatsApp" />
-                <FakeField label="Logo (opcional)" type="file" />
-                <FakeField label="Imagen principal" type="file" />
-                <FakeField label="Galería (opcional, hasta 9 imágenes)" type="file" />
-              </>
-            ) : (
+          {!isOrg && (
+            <Box title="Datos de contacto">
               <>
                 <MunicipioPicker label="Municipio principal" hint={null} />
                 <FakeField label="Correo electrónico" type="email" />
@@ -2004,8 +2028,8 @@ function VerificadoFormulario() {
                   mejor represente tu actividad.
                 </Ayuda>
               </>
-            )}
-          </Box>
+            </Box>
+          )}
         </>
       )}
 
