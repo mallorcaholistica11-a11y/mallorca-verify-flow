@@ -132,8 +132,8 @@ const PROFILE_STATES: Record<
     badge: "🟡 Perfil pendiente de completar",
     description:
       "Todavía necesitamos que completes la información de tu perfil antes de enviarlo a revisión.\n\n\nNOTA: 8. Preparar esta misma pantalla para los siguientes estados\n\nDiseñar esta pantalla para que en el futuro pueda reutilizarse simplemente cambiando el contenido según el estado del perfil.\n\nEstados previstos:\n\n🟡 Perfil pendiente de completar\n🟡 Solicitud en revisión\n🟢 Perfil publicado\n\nLa estructura visual debe mantenerse igual para todos los estados, cambiando únicamente los textos, el estado y la acción principal.",
-    ctaLabel: "👉 Completar perfil",
-    ctaTo: "/dashboard/formulario",
+    ctaLabel: "👉 Comenzar",
+    ctaTo: "/dashboard/tipo-perfil",
   },
   revision: {
     badge: "🟡 Solicitud en revisión",
