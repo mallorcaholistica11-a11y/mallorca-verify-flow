@@ -30,6 +30,7 @@ import { Route as InvitacionTokenRouteImport } from './routes/invitacion.$token'
 import { Route as FuturoProfesionalVerificadoRouteImport } from './routes/futuro.profesional-verificado'
 import { Route as FuturoPlanPresenciaRouteImport } from './routes/futuro.plan-presencia'
 import { Route as FuturoCentrosOrganizadoresRouteImport } from './routes/futuro.centros-organizadores'
+import { Route as DashboardTipoPerfilRouteImport } from './routes/dashboard.tipo-perfil'
 import { Route as DashboardStripeRouteImport } from './routes/dashboard.stripe'
 import { Route as DashboardSolicitudEnviadaRouteImport } from './routes/dashboard.solicitud-enviada'
 import { Route as DashboardPerfilPublicadoRouteImport } from './routes/dashboard.perfil-publicado'
@@ -150,6 +151,11 @@ const FuturoCentrosOrganizadoresRoute =
     path: '/futuro/centros-organizadores',
     getParentRoute: () => rootRouteImport,
   } as any)
+const DashboardTipoPerfilRoute = DashboardTipoPerfilRouteImport.update({
+  id: '/tipo-perfil',
+  path: '/tipo-perfil',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const DashboardStripeRoute = DashboardStripeRouteImport.update({
   id: '/stripe',
   path: '/stripe',
@@ -214,6 +220,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/perfil-publicado': typeof DashboardPerfilPublicadoRoute
   '/dashboard/solicitud-enviada': typeof DashboardSolicitudEnviadaRoute
   '/dashboard/stripe': typeof DashboardStripeRoute
+  '/dashboard/tipo-perfil': typeof DashboardTipoPerfilRoute
   '/futuro/centros-organizadores': typeof FuturoCentrosOrganizadoresRoute
   '/futuro/plan-presencia': typeof FuturoPlanPresenciaRoute
   '/futuro/profesional-verificado': typeof FuturoProfesionalVerificadoRoute
@@ -244,6 +251,7 @@ export interface FileRoutesByTo {
   '/dashboard/perfil-publicado': typeof DashboardPerfilPublicadoRoute
   '/dashboard/solicitud-enviada': typeof DashboardSolicitudEnviadaRoute
   '/dashboard/stripe': typeof DashboardStripeRoute
+  '/dashboard/tipo-perfil': typeof DashboardTipoPerfilRoute
   '/futuro/centros-organizadores': typeof FuturoCentrosOrganizadoresRoute
   '/futuro/plan-presencia': typeof FuturoPlanPresenciaRoute
   '/futuro/profesional-verificado': typeof FuturoProfesionalVerificadoRoute
@@ -275,6 +283,7 @@ export interface FileRoutesById {
   '/dashboard/perfil-publicado': typeof DashboardPerfilPublicadoRoute
   '/dashboard/solicitud-enviada': typeof DashboardSolicitudEnviadaRoute
   '/dashboard/stripe': typeof DashboardStripeRoute
+  '/dashboard/tipo-perfil': typeof DashboardTipoPerfilRoute
   '/futuro/centros-organizadores': typeof FuturoCentrosOrganizadoresRoute
   '/futuro/plan-presencia': typeof FuturoPlanPresenciaRoute
   '/futuro/profesional-verificado': typeof FuturoProfesionalVerificadoRoute
@@ -308,6 +317,7 @@ export interface FileRouteTypes {
     | '/dashboard/perfil-publicado'
     | '/dashboard/solicitud-enviada'
     | '/dashboard/stripe'
+    | '/dashboard/tipo-perfil'
     | '/futuro/centros-organizadores'
     | '/futuro/plan-presencia'
     | '/futuro/profesional-verificado'
@@ -338,6 +348,7 @@ export interface FileRouteTypes {
     | '/dashboard/perfil-publicado'
     | '/dashboard/solicitud-enviada'
     | '/dashboard/stripe'
+    | '/dashboard/tipo-perfil'
     | '/futuro/centros-organizadores'
     | '/futuro/plan-presencia'
     | '/futuro/profesional-verificado'
@@ -368,6 +379,7 @@ export interface FileRouteTypes {
     | '/dashboard/perfil-publicado'
     | '/dashboard/solicitud-enviada'
     | '/dashboard/stripe'
+    | '/dashboard/tipo-perfil'
     | '/futuro/centros-organizadores'
     | '/futuro/plan-presencia'
     | '/futuro/profesional-verificado'
@@ -551,6 +563,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FuturoCentrosOrganizadoresRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/tipo-perfil': {
+      id: '/dashboard/tipo-perfil'
+      path: '/tipo-perfil'
+      fullPath: '/dashboard/tipo-perfil'
+      preLoaderRoute: typeof DashboardTipoPerfilRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/dashboard/stripe': {
       id: '/dashboard/stripe'
       path: '/stripe'
@@ -615,6 +634,7 @@ interface DashboardRouteChildren {
   DashboardPerfilPublicadoRoute: typeof DashboardPerfilPublicadoRoute
   DashboardSolicitudEnviadaRoute: typeof DashboardSolicitudEnviadaRoute
   DashboardStripeRoute: typeof DashboardStripeRoute
+  DashboardTipoPerfilRoute: typeof DashboardTipoPerfilRoute
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
@@ -622,6 +642,7 @@ const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardPerfilPublicadoRoute: DashboardPerfilPublicadoRoute,
   DashboardSolicitudEnviadaRoute: DashboardSolicitudEnviadaRoute,
   DashboardStripeRoute: DashboardStripeRoute,
+  DashboardTipoPerfilRoute: DashboardTipoPerfilRoute,
 }
 
 const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
@@ -684,13 +705,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
