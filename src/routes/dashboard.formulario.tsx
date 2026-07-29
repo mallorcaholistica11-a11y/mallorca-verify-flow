@@ -1201,6 +1201,171 @@ const V_CONSULTA_HELP: Record<string, string> = {
 const V_PUBLICO_OPTIONS = ["Todas las personas", ...V_PUBLICO];
 const V_MODALIDADES_OPTIONS = V_MODALIDADES.filter((m) => m !== "Otro (especificar)");
 
+// ---- Recorrido Organización (Centros, Espacios y Organizadores) ----
+
+const O_STEP_INTROS: Record<number, string> = {
+  1: "Empezamos con la información principal de vuestra organización. Estos datos ayudarán a las personas a conoceros, ponerse en contacto con vosotros y generar confianza desde el primer momento.",
+  2: "Cuéntanos qué servicios, actividades y propuestas ofrece vuestra organización. Esta información ayudará a las personas a comprender mejor vuestra actividad y a encontraros con mayor facilidad.",
+  3: "Indícanos dónde se encuentra vuestro espacio y qué instalaciones ofrece. Si disponéis de varias ubicaciones, podréis añadirlas todas.",
+  4: "Este es vuestro espacio para presentar la esencia de vuestra organización. Compartid quiénes sois, qué ofrecéis y aquello que hace especial vuestro proyecto.",
+  5: "Añade los enlaces y canales de contacto que quieras compartir para que las personas puedan conocer vuestra organización, reservar una sesión o una actividad y ponerse en contacto con vosotros. Todos los campos son opcionales.",
+  6: "Ya casi habéis terminado. Para mantener la calidad y la confianza de Mallorca Holística necesitamos verificar algunos aspectos de vuestra organización. Este proceso nos ayuda a ofrecer un espacio más seguro tanto para las organizaciones como para las personas que buscan acompañamiento.",
+};
+
+const O_TIPOS_ORGANIZACION = [
+  "Centro",
+  "Espacio",
+  "Asociación",
+  "Fundación",
+  "Escuela",
+  "Proyecto",
+  "Organizador",
+  "Empresa",
+  "Consulta",
+  "Otro",
+];
+
+const O_PUBLICO = [
+  "Todas las personas",
+  ...V_PUBLICO.filter((p) => p !== "Empresas y equipos"),
+  "Empresas y organizaciones",
+];
+
+const O_MODALIDADES = [
+  "Sesiones individuales",
+  "Sesiones de pareja",
+  "Sesiones familiares",
+  "Sesiones grupales",
+  "Talleres",
+  "Cursos y formaciones",
+  "Charlas y conferencias",
+  "Retiros",
+  "Eventos y encuentros",
+];
+
+// Selector simple con estilo wireframe.
+function SelectField({ label, options }: { label: string; options: string[] }) {
+  const [value, setValue] = useState("");
+  return (
+    <div style={{ marginBottom: 12 }}>
+      <div
+        style={{
+          fontSize: 11,
+          color: "#666",
+          textTransform: "uppercase",
+          letterSpacing: 1,
+          marginBottom: 4,
+        }}
+      >
+        {label}
+      </div>
+      <select
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        style={{
+          width: "100%",
+          padding: "8px 10px",
+          border: "1px dashed #888",
+          background: "#fff",
+          fontFamily: "inherit",
+          fontSize: 13,
+          boxSizing: "border-box",
+        }}
+      >
+        <option value="">Seleccionar…</option>
+        {options.map((o) => (
+          <option key={o} value={o}>
+            {o}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
+
+// WhatsApp (organización): mismo número que el teléfono o uno distinto.
+function OWhatsAppMismo() {
+  const [mismo, setMismo] = useState(true);
+  return (
+    <div style={{ marginBottom: 12 }}>
+      <div style={{ fontSize: 12, marginBottom: 6 }}>
+        ¿Utilizaréis este mismo número para WhatsApp?
+      </div>
+      <div style={{ display: "flex", gap: 8 }}>
+        {[
+          { label: "Sí", value: true },
+          { label: "No", value: false },
+        ].map((op) => (
+          <button
+            key={op.label}
+            type="button"
+            onClick={() => setMismo(op.value)}
+            style={{
+              fontFamily: "inherit",
+              fontSize: 12,
+              padding: "6px 14px",
+              cursor: "pointer",
+              background: mismo === op.value ? "#f3f3f3" : "#fff",
+              border: mismo === op.value ? "2px solid #111" : "1px dashed #888",
+            }}
+          >
+            {op.label}
+          </button>
+        ))}
+      </div>
+      {mismo ? (
+        <div style={{ fontSize: 12, color: "#3f6b4a", marginTop: 8, lineHeight: 1.6 }}>
+          ✅ Perfecto. Utilizaremos este mismo número para WhatsApp.
+        </div>
+      ) : (
+        <div style={{ marginTop: 12 }}>
+          <TelefonoField label="WhatsApp" />
+        </div>
+      )}
+    </div>
+  );
+}
+
+// WhatsApp Business (organización).
+function OWhatsAppBusiness() {
+  const [distinto, setDistinto] = useState(false);
+  return (
+    <div>
+      <PresenciaToggleCheckbox
+        label="Utilizamos un número diferente para WhatsApp Business."
+        checked={distinto}
+        onToggle={() => setDistinto((v) => !v)}
+      />
+      {distinto && (
+        <div style={{ marginTop: 12 }}>
+          <TelefonoField label="WhatsApp Business" />
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Visibilidad de la información de contacto (organización).
+function OInformacionPublica() {
+  const [whatsapp, setWhatsapp] = useState(true);
+  const [correo, setCorreo] = useState(true);
+  return (
+    <div>
+      <PresenciaToggleCheckbox
+        label="Mostrar WhatsApp"
+        checked={whatsapp}
+        onToggle={() => setWhatsapp((v) => !v)}
+      />
+      <PresenciaToggleCheckbox
+        label="Mostrar correo electrónico"
+        checked={correo}
+        onToggle={() => setCorreo((v) => !v)}
+      />
+      <Ayuda>Solo mostraremos la información que decidáis compartir públicamente.</Ayuda>
+    </div>
+  );
+}
+
 // WhatsApp: mismo número que el teléfono o uno distinto.
 function VWhatsAppMismo() {
   const [mismo, setMismo] = useState(true);
