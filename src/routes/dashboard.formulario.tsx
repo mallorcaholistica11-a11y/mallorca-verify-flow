@@ -1491,18 +1491,6 @@ const V_STEP_TITLES = [
    "Activa tu suscripción",
  ];
 
-const O_ACTIVIDADES_ORGANIZADAS = [
-  "Talleres",
-  "Cursos",
-  "Formaciones",
-  "Eventos",
-  "Conferencias",
-  "Retiros",
-  "Encuentros",
-  "Actividades recurrentes",
-  "Otro",
-];
-
 const O_INSTALACIONES = [
   "Salas de terapia",
   "Salas de formación",
@@ -1511,7 +1499,6 @@ const O_INSTALACIONES = [
   "Alojamiento",
   "Restaurante",
   "Cafetería",
-  "Otro",
 ];
 
 function UbicacionesList() {
@@ -1523,9 +1510,11 @@ function UbicacionesList() {
           <div style={{ fontSize: 11, color: "#666", marginBottom: 6 }}>
             {idx === 0 ? "Ubicación principal" : `Ubicación adicional #${idx}`}
           </div>
-          <DireccionPicker label="Dirección" />
-          <MunicipioPicker label="Municipio" />
-          <ReadOnlyField label="Isla" value="Mallorca" />
+          <DireccionPicker
+            label="Dirección"
+            hint="Empieza a escribir la dirección y selecciona la opción correcta cuando aparezca."
+          />
+          <MunicipioPicker label="Municipio" hint={null} />
           {items.length > 1 && (
             <button
               type="button"
@@ -1556,8 +1545,8 @@ function EquipoList() {
         <div key={it.id} style={{ border: "1px dashed #bbb", padding: 12, marginBottom: 12 }}>
           <div style={{ fontSize: 11, color: "#666", marginBottom: 6 }}>Miembro #{idx + 1}</div>
           <FakeField label="Nombre" />
-          <FakeField label="Cargo o especialidad" />
-          <FakeField label="Fotografía" type="file" />
+          <FakeField label="Cargo (opcional)" />
+          <FakeField label="Fotografía (opcional)" type="file" />
           <button
             type="button"
             onClick={() => setItems(items.filter((x) => x.id !== it.id))}
@@ -1572,7 +1561,7 @@ function EquipoList() {
         onClick={() => setItems([...items, { id: Date.now() }])}
         style={{ ...btn("secondary"), padding: "6px 12px" }}
       >
-        ➕ Añadir miembro
+        ➕ Añadir una persona
       </button>
     </div>
   );
