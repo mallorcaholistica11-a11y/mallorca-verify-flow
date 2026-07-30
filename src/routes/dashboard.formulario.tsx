@@ -2134,10 +2134,19 @@ function VerificadoFormulario() {
             <Note>Selecciona todas las opciones que correspondan.</Note>
             <VCheckboxes options={isOrg ? O_PUBLICO : V_PUBLICO_OPTIONS} columns={3} />
           </Box>
-          <Box title={isOrg ? "¿Cómo ofrecéis vuestros servicios?" : "¿Cómo trabajas?"}>
-            <Note>Selecciona todas las modalidades que ofreces.</Note>
+          <Box title={isOrg ? "Modalidades de actividad" : "¿Cómo trabajas?"}>
+            <Note>
+              {isOrg
+                ? "Seleccionad todas las modalidades que ofrecéis."
+                : "Selecciona todas las modalidades que ofreces."}
+            </Note>
             <VCheckboxes options={isOrg ? O_MODALIDADES : V_MODALIDADES_OPTIONS} columns={3} />
           </Box>
+          {isOrg && (
+            <Box title="💶 Tarifas (opcional)">
+              <TarifasList variant="organizacion" />
+            </Box>
+          )}
         </div>
       )}
 
@@ -2164,10 +2173,12 @@ function VerificadoFormulario() {
                 </Ayuda>
                 <VCheckboxes options={O_INSTALACIONES} columns={3} />
               </Box>
-              <Box title="Galería de imágenes">
+              <Box title="Galería">
                 <Ayuda>
-                  Podéis añadir hasta 10 imágenes para mostrar vuestro espacio, las instalaciones y
-                  el ambiente de vuestra organización.
+                  Compartid hasta 10 fotografías de vuestro espacio, preferiblemente en formato
+                  horizontal y con buena calidad. Mostrad las instalaciones, las salas y el ambiente
+                  de vuestra organización para que las personas puedan conocer mejor vuestro
+                  espacio. Evitad imágenes con texto, logotipos o carteles promocionales.
                 </Ayuda>
                 <FakeField label="Imágenes del espacio (opcional, hasta 10)" type="file" />
               </Box>
