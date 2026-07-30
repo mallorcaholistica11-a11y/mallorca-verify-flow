@@ -1636,6 +1636,68 @@ function FormacionList() {
   );
 }
 
+function TarifasList() {
+  const [mostrar, setMostrar] = useState<boolean | null>(null);
+  const [items, setItems] = useState([{ id: 1 }]);
+  const opt = (value: boolean, label: string) => (
+    <div
+      onClick={() => setMostrar(value)}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 8,
+        padding: "8px 10px",
+        border: "1px dashed #888",
+        background: mostrar === value ? "#f3f3f3" : "#fff",
+        cursor: "pointer",
+        fontSize: 13,
+        marginBottom: 8,
+      }}
+    >
+      <span style={{ fontSize: 12 }}>{mostrar === value ? "◉" : "○"}</span>
+      <span>{label}</span>
+    </div>
+  );
+  return (
+    <div>
+      <div style={{ fontSize: 13, marginBottom: 8 }}>
+        ¿Quieres mostrar tus tarifas en tu perfil público?
+      </div>
+      {opt(true, "Sí")}
+      {opt(false, "No")}
+      {mostrar === true && (
+        <div style={{ marginTop: 12 }}>
+          {items.map((it, idx) => (
+            <div key={it.id} style={{ border: "1px dashed #bbb", padding: 12, marginBottom: 12 }}>
+              <div style={{ fontSize: 11, color: "#666", marginBottom: 6 }}>Tarifa #{idx + 1}</div>
+              <FakeField label="Nombre del servicio" />
+              <FakeField label="Duración (opcional)" />
+              <FakeField label="Precio" />
+              {items.length > 1 && (
+                <button
+                  type="button"
+                  onClick={() => setItems(items.filter((x) => x.id !== it.id))}
+                  style={{ ...btn("secondary"), padding: "4px 10px", fontSize: 12 }}
+                >
+                  Eliminar
+                </button>
+              )}
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() => setItems([...items, { id: Date.now() }])}
+            style={{ ...btn("secondary"), padding: "6px 12px" }}
+          >
+            ➕ Añadir otra tarifa
+          </button>
+          <Note>Podrás modificar estas tarifas siempre que lo necesites.</Note>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function ConsultasList() {
   const [items, setItems] = useState([{ id: 1 }]);
   return (
@@ -2163,6 +2225,15 @@ function VerificadoFormulario() {
               <FormacionList />
             </Box>
           )}
+          {!isOrg && (
+            <Box title="Experiencia profesional">
+              <Ayuda>
+                Indica desde cuándo ejerces profesionalmente. Esta información ayuda a las personas
+                a conocer mejor tu trayectoria.
+              </Ayuda>
+              <FakeField label="¿Desde qué año ejerces profesionalmente?" type="año · ej. 2014" />
+            </Box>
+          )}
           <Box title="Idiomas">
             {isOrg ? (
               <Ayuda>Seleccionad los idiomas en los que podéis atender a las personas.</Ayuda>
@@ -2223,9 +2294,18 @@ function VerificadoFormulario() {
               <FakeField label="YouTube" />
               <FakeField label="Otra red social o plataforma" />
             </Box>
-            <Box title="📅 Reservas online">
-              <FakeField label="Calendly" />
-              <FakeField label="Fresha" />
+            <Box title="📅 Plataforma de reservas (opcional)">
+              <Ayuda>
+                Comparte el enlace de la plataforma que utilizas para que las personas puedan
+                reservar una sesión directamente.
+              </Ayuda>
+              <FakeField label="URL" type="url" />
+              <Note>
+                Ejemplos: Calendly, Fresha, Google Calendar, SimplyBook, Booksy u otra plataforma.
+              </Note>
+            </Box>
+            <Box title="💶 Tarifas (opcional)">
+              <TarifasList />
             </Box>
             <Box title="💬 WhatsApp Business">
               <VWhatsAppBusiness />
@@ -2366,8 +2446,8 @@ function VerificadoFormulario() {
                     {consents.seguroRC ? "☑" : ""}
                   </span>
                   <span>
-                    Dispongo de un Seguro de Responsabilidad Civil vigente para el desarrollo de mi
-                    actividad profesional.
+                    Declaro bajo mi responsabilidad que dispongo de un Seguro de Responsabilidad
+                    Civil vigente para el ejercicio de mi actividad profesional.
                   </span>
                 </div>
               </div>
@@ -2571,7 +2651,7 @@ function Paso7ProfesionalEstandar({ autoriza, onToggle }: Paso7Props) {
       <VConsentItem
         icon="🔒"
         title="Autorización"
-        label="Autorizo a Mallorca Holística a registrar mi método de pago de forma segura y activar automáticamente mi suscripción una vez finalizado el período gratuito correspondiente, siempre que mi solicitud haya sido aprobada."
+        label="Autorizo a Mallorca Holística a registrar mi método de pago de forma segura y activar automáticamente mi suscripción únicamente si mi solicitud es aprobada, una vez finalizado el período gratuito correspondiente."
         checked={autoriza}
         onToggle={onToggle}
       />
