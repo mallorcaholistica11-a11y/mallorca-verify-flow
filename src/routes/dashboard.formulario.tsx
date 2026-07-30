@@ -1213,7 +1213,7 @@ const O_STEP_INTROS: Record<number, string> = {
   2: "Cuéntanos qué servicios, actividades y propuestas ofrece vuestra organización. Esta información ayudará a las personas a comprender mejor vuestra actividad y a encontraros con mayor facilidad.",
   3: "Indícanos dónde se encuentra vuestro espacio y qué instalaciones ofrece. Si disponéis de varias ubicaciones, podréis añadirlas todas.",
   4: "Este es vuestro espacio para presentar la esencia de vuestra organización. Compartid quiénes sois, qué ofrecéis y aquello que hace especial vuestro proyecto.",
-  5: "Añade los enlaces y canales de contacto que quieras compartir para que las personas puedan conocer vuestra organización, reservar una sesión o una actividad y ponerse en contacto con vosotros. Todos los campos son opcionales.",
+  5: "Añade los enlaces y canales de contacto que quieras compartir para que las personas puedan conocer vuestra organización, reservar una sesión o una actividad y ponerse en contacto con vosotros.",
   6: "Ya casi habéis terminado. Para mantener la calidad y la confianza de Mallorca Holística necesitamos verificar algunos aspectos de vuestra organización. Este proceso nos ayuda a ofrecer un espacio más seguro tanto para las organizaciones como para las personas que buscan acompañamiento.",
 };
 
@@ -1885,11 +1885,6 @@ function VerificadoFormulario() {
                   Será la imagen principal que representará vuestra organización en Mallorca
                   Holística.
                 </Ayuda>
-                <FakeField label="Galería de imágenes (opcional)" type="file" />
-                <Ayuda>
-                  Podéis añadir hasta 9 imágenes para mostrar vuestro espacio, las instalaciones o
-                  las actividades que realizáis.
-                </Ayuda>
               </Box>
             </>
           ) : (
@@ -2019,8 +2014,11 @@ function VerificadoFormulario() {
                 ordenarlas según su importancia.
               </Ayuda>
             )}
-            <EspecialidadesPicker max={0} variant={isOrg ? "organizacion" : "profesional"} />
-            {isOrg && <Ayuda>Podéis seleccionar tantas como necesitéis.</Ayuda>}
+            <EspecialidadesPicker
+              max={0}
+              note={isOrg ? null : undefined}
+              variant={isOrg ? "organizacion" : "profesional"}
+            />
           </Box>
           <Box title="Áreas de Especialización">
             {isOrg ? (
@@ -2034,7 +2032,11 @@ function VerificadoFormulario() {
                 ordenarlas por relevancia.
               </Ayuda>
             )}
-            <AreasPicker max={0} variant={isOrg ? "organizacion" : "profesional"} />
+            <AreasPicker
+              max={0}
+              note={isOrg ? null : undefined}
+              variant={isOrg ? "organizacion" : "profesional"}
+            />
           </Box>
           <Box title={isOrg ? "¿A quién acompañáis?" : "¿A quién acompañas?"}>
             <Note>Selecciona todas las opciones que correspondan.</Note>
@@ -2072,10 +2074,10 @@ function VerificadoFormulario() {
               </Box>
               <Box title="Galería de imágenes">
                 <Ayuda>
-                  Podéis añadir hasta 15 imágenes para mostrar vuestro espacio, las instalaciones y
+                  Podéis añadir hasta 10 imágenes para mostrar vuestro espacio, las instalaciones y
                   el ambiente de vuestra organización.
                 </Ayuda>
-                <FakeField label="Imágenes del espacio (opcional, hasta 15)" type="file" />
+                <FakeField label="Imágenes del espacio (opcional, hasta 10)" type="file" />
               </Box>
             </>
           ) : (
@@ -2089,7 +2091,7 @@ function VerificadoFormulario() {
       {step === 4 && (
         <>
           <Box title="Frase destacada">
-            <Note>Describe tu actividad en una frase. Máximo 120 caracteres.</Note>
+            {!isOrg && <Note>Describe tu actividad en una frase. Máximo 120 caracteres.</Note>}
             <LimitedTextField label="Frase destacada" max={120} />
             {isOrg ? (
               <Ayuda>
@@ -2121,7 +2123,7 @@ function VerificadoFormulario() {
             </div>
           </Box>
           <Box title={isOrg ? "Contadnos un poco sobre vosotros" : "Cuéntanos un poco sobre ti"}>
-            <Note>Máximo 3000 caracteres.</Note>
+            {!isOrg && <Note>Máximo 3000 caracteres.</Note>}
             <LimitedTextField
               label={isOrg ? "Contadnos un poco sobre vosotros" : "Cuéntanos un poco sobre ti"}
               max={3000}
@@ -2636,9 +2638,6 @@ function Paso7OrganizacionEstandar({ autoriza, onToggle }: Paso7Props) {
             pago seguro para poder activar vuestra suscripción cuando vuestro perfil haya sido
             aprobado.
           </p>
-          <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-            No realizaremos ningún cargo mientras vuestro perfil esté siendo revisado.
-          </p>
         </div>
       </Box>
 
@@ -2660,8 +2659,7 @@ function Paso7OrganizacionEstandar({ autoriza, onToggle }: Paso7Props) {
       />
 
       <StripeBlock
-        note="El registro del método de pago se realizará de forma segura mediante Stripe."
-        extraNote="No realizaremos ningún cargo hasta que vuestra organización haya sido aprobada y, si corresponde, haya finalizado el periodo gratuito de lanzamiento."
+        note="El registro del método de pago se realizará de forma segura mediante Stripe. No realizaremos ningún cargo hasta que vuestra organización haya sido aprobada y, si corresponde, haya finalizado el periodo gratuito de lanzamiento."
       />
     </>
   );
