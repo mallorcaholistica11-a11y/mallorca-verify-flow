@@ -2497,6 +2497,10 @@ function VerificadoFormulario() {
                   profesional.
                 </Ayuda>
                 <FormacionList />
+                <Ayuda>
+                  Añade las formaciones que consideres más relevantes para tu actividad profesional.
+                  No es necesario incluirlas todas.
+                </Ayuda>
               </Box>
               <div style={{ height: 12 }} />
               <Box title="Experiencia profesional">
@@ -2564,11 +2568,7 @@ function VerificadoFormulario() {
               <FakeField label="Página web" type="url" />
             </Box>
             <Box title="📱 Redes sociales">
-              <FakeField label="Instagram" />
-              <FakeField label="Facebook" />
-              <FakeField label="LinkedIn" />
-              <FakeField label="YouTube" />
-              <FakeField label="Otra red social o plataforma" />
+              <RedesSocialesList />
             </Box>
             <Box title="📅 Plataforma de reservas (opcional)">
               <Ayuda>
@@ -2747,7 +2747,7 @@ function VerificadoFormulario() {
           <Note>
             {isOrg
               ? "Ya solo queda un último paso. Después podréis enviar vuestra solicitud y nuestro equipo comenzará el proceso de revisión."
-              : "Solo queda un último paso para enviar tu solicitud de verificación."}
+              : "Ya solo queda un último paso. Después podrás enviar tu solicitud de verificación."}
           </Note>
         </Box>
       )}
@@ -2834,10 +2834,13 @@ function Paso7ProfesionalEstandar({ autoriza, onToggle }: Paso7Props) {
       <Box title="¡Enhorabuena! Ya has completado tu solicitud">
         <div style={{ marginBottom: 16 }}>
           <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-            Para activar tu suscripción solo necesitamos registrar un método de pago seguro.
+            Para completar tu solicitud solo necesitamos registrar un método de pago de forma
+            segura.
           </p>
           <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-            No se realizará ningún cargo mientras tu solicitud esté en revisión.
+            No realizaremos ningún cargo mientras tu solicitud esté en revisión. Si es aprobada, tu
+            suscripción se activará automáticamente al finalizar el período gratuito
+            correspondiente.
           </p>
         </div>
       </Box>
