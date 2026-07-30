@@ -399,11 +399,11 @@ function PresenciaStep({
       <Box title="Información básica">
         <FakeField label={isOrg ? "Nombre de la persona responsable" : "Nombre"} />
         <FakeField label={isOrg ? "Apellidos de la persona responsable" : "Apellidos"} />
-        <FakeField label={isOrg ? "Nombre del centro" : "Nombre profesional"} />
+        <FakeField label={isOrg ? "Nombre del centro" : "Nombre público (opcional)"} />
         <Ayuda>
           {isOrg
             ? "Introduce el nombre con el que las personas identifican vuestro centro o espacio."
-            : "Si utilizas un nombre artístico o una marca personal, puedes indicarlo aquí."}
+            : "Si utilizas un nombre profesional, artístico o una marca personal, puedes indicarlo aquí. Si lo dejas vacío, mostraremos tu nombre y apellidos."}
         </Ayuda>
         <MunicipioPicker label="Municipio principal" />
         <FakeField
@@ -417,7 +417,7 @@ function PresenciaStep({
         <Ayuda>
           {isOrg
             ? "Será la imagen principal del perfil de vuestro centro."
-            : "Será la imagen principal de tu perfil."}
+            : "Elige una fotografía donde se te vea con claridad. Preferiblemente con buena iluminación, fondo sencillo y formato vertical."}
         </Ayuda>
       </Box>
     );
@@ -460,8 +460,8 @@ function PresenciaStep({
           />
         </Box>
         <Note>
-          En el Plan Presencia puedes añadir una ubicación principal. Más adelante podrás ampliarla
-          si cambias de plan.
+          En el Plan Presencia puedes añadir una única ubicación. Si en el futuro amplías tu plan,
+          podrás incorporar más ubicaciones.
         </Note>
         <Box title="Tu ubicación">
           <FakeField
@@ -485,14 +485,14 @@ function PresenciaStep({
         <LimitedTextField label="Frase destacada" max={120} />
         <Ayuda>Una frase breve que resuma tu manera de acompañar o tu filosofía.</Ayuda>
         <LimitedTextField
-          label={isOrg ? "Cuéntanos un poco sobre vuestro centro" : "Cuéntanos un poco sobre ti"}
+          label={isOrg ? "Cuéntanos un poco sobre vuestro centro" : "Sobre mí"}
           max={1000}
           multiline
         />
         <Ayuda>
           {isOrg
             ? "Comparte la historia del centro, vuestra forma de trabajar o aquello que os gustaría que las personas conocieran antes de contactar con vosotros."
-            : "Comparte tu recorrido, tu forma de trabajar o aquello que te gustaría que las personas conocieran antes de contactar contigo."}
+            : "Comparte tu historia, tu forma de acompañar y aquello que te gustaría que las personas conocieran antes de contactar contigo."}
         </Ayuda>
         <Note>
           No te preocupes si ahora no tienes el texto perfecto. Podrás modificarlo siempre que
@@ -507,8 +507,8 @@ function PresenciaStep({
       <>
         <Box title="Enlaces">
           <FakeField label="Página web" type="url" />
-          <FakeField label="Instagram" />
         </Box>
+        <PresenciaRedesSociales />
         <PresenciaDatosContacto />
       </>
     );
@@ -521,7 +521,11 @@ function PresenciaDatosContacto() {
   const [whatsapp, setWhatsapp] = useState(true);
   const [correo, setCorreo] = useState(true);
   return (
-    <Box title="Datos de contacto">
+    <Box title="Datos de contacto visibles">
+      <Ayuda>
+        Selecciona qué información deseas mostrar públicamente para que las personas puedan
+        contactar contigo.
+      </Ayuda>
       <PresenciaToggleCheckbox
         label="Mostrar mi WhatsApp"
         checked={whatsapp}
@@ -533,6 +537,93 @@ function PresenciaDatosContacto() {
         onToggle={() => setCorreo((v) => !v)}
       />
       <Ayuda>Solo mostraremos la información que elijas compartir.</Ayuda>
+    </Box>
+  );
+}
+
+const PRESENCIA_REDES_OPCIONES = [
+  "Instagram",
+  "Facebook",
+  "LinkedIn",
+  "YouTube",
+  "TikTok",
+  "X (Twitter)",
+  "Pinterest",
+  "Telegram",
+  "Spotify",
+  "Podcast",
+  "Otra",
+];
+
+function PresenciaRedesSociales() {
+  const [redes, setRedes] = useState<{ plataforma: string; url: string }[]>([
+    { plataforma: "Instagram", url: "" },
+  ]);
+
+  const update = (i: number, patch: Partial<{ plataforma: string; url: string }>) =>
+    setRedes((rs) => rs.map((r, idx) => (idx === i ? { ...r, ...patch } : r)));
+
+  return (
+    <Box title="Redes sociales (opcional)">
+      {redes.map((r, i) => (
+        <div key={i} style={{ display: "flex", gap: 6, marginBottom: 8, alignItems: "center" }}>
+          <select
+            value={r.plataforma}
+            onChange={(e) => update(i, { plataforma: e.target.value })}
+            style={{
+              border: "1px dashed #888",
+              background: "#fff",
+              padding: "8px 6px",
+              fontSize: 12,
+              fontFamily: "inherit",
+              minWidth: 130,
+            }}
+          >
+            {PRESENCIA_REDES_OPCIONES.map((p) => (
+              <option key={p} value={p}>
+                {p}
+              </option>
+            ))}
+          </select>
+          <input
+            type="url"
+            placeholder="URL"
+            value={r.url}
+            onChange={(e) => update(i, { url: e.target.value })}
+            style={{
+              flex: 1,
+              border: "1px dashed #888",
+              background: "#fff",
+              padding: "8px 10px",
+              fontSize: 12,
+              fontFamily: "inherit",
+            }}
+          />
+          {redes.length > 1 && (
+            <button
+              type="button"
+              onClick={() => setRedes((rs) => rs.filter((_, idx) => idx !== i))}
+              style={{
+                border: "1px dashed #888",
+                background: "#fff",
+                fontFamily: "inherit",
+                fontSize: 12,
+                padding: "6px 10px",
+                cursor: "pointer",
+              }}
+            >
+              ✕
+            </button>
+          )}
+        </div>
+      ))}
+      <button
+        type="button"
+        onClick={() => setRedes((rs) => [...rs, { plataforma: "Instagram", url: "" }])}
+        style={btn("secondary")}
+      >
+        ➕ Añadir red social
+      </button>
     </Box>
   );
 }
