@@ -2067,10 +2067,10 @@ function VerificadoFormulario() {
               </Box>
               <Box title="Galería de imágenes">
                 <Ayuda>
-                  Podéis añadir hasta 15 imágenes para mostrar vuestro espacio, las instalaciones y
+                  Podéis añadir hasta 10 imágenes para mostrar vuestro espacio, las instalaciones y
                   el ambiente de vuestra organización.
                 </Ayuda>
-                <FakeField label="Imágenes del espacio (opcional, hasta 15)" type="file" />
+                <FakeField label="Imágenes del espacio (opcional, hasta 10)" type="file" />
               </Box>
             </>
           ) : (
