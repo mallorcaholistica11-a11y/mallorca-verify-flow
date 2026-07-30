@@ -15,6 +15,7 @@ import {
 } from "@/components/Wireframe";
 import { TelefonoField } from "@/components/TelefonoField";
 import { AreasPicker, EspecialidadesPicker } from "@/components/TaxonomiaPickers";
+import { HorarioSemanal } from "@/components/HorarioSemanal";
 
 export const Route = createFileRoute("/dashboard/formulario")({
   validateSearch: (s: Record<string, unknown>): { track: Track; perfil?: PerfilTipo } => ({
@@ -1234,6 +1235,7 @@ const O_PUBLICO = [
   "Todas las personas",
   ...V_PUBLICO.filter((p) => p !== "Empresas y equipos"),
   "Empresas y organizaciones",
+  "Profesionales",
 ];
 
 const O_MODALIDADES = [
@@ -1366,7 +1368,7 @@ function OInformacionPublica() {
         checked={correo}
         onToggle={() => setCorreo((v) => !v)}
       />
-      <Ayuda>Solo mostraremos la información que decidáis compartir públicamente.</Ayuda>
+      <Ayuda>Seleccionad qué información deseáis mostrar públicamente.</Ayuda>
     </div>
   );
 }
@@ -1488,7 +1490,7 @@ const V_STEP_TITLES = [
 
 const O_STEP_TITLES = [
   "Información General",
-  "Servicios y Actividades",
+  "Actividad de la organización",
   "Ubicaciones",
   "Perfil de la Organización",
   "Contacto y presencia online",
@@ -1636,7 +1638,8 @@ function FormacionList() {
   );
 }
 
-function TarifasList() {
+function TarifasList({ variant = "profesional" }: { variant?: "profesional" | "organizacion" }) {
+  const isOrg = variant === "organizacion";
   const [mostrar, setMostrar] = useState<boolean | null>(null);
   const [items, setItems] = useState<{ id: number }[]>([]);
   const opt = (value: boolean, label: string) => (
@@ -1668,12 +1671,20 @@ function TarifasList() {
   return (
     <div>
       <div style={{ fontSize: 13, marginBottom: 8 }}>
-        ¿Quieres mostrar tus tarifas en tu perfil público?
+        {isOrg
+          ? "¿Queréis mostrar algunas tarifas en vuestro perfil?"
+          : "¿Quieres mostrar tus tarifas en tu perfil público?"}
       </div>
       {opt(true, "Sí")}
       {opt(false, "No")}
       {mostrar === true && (
         <div style={{ marginTop: 12 }}>
+          {isOrg && (
+            <div style={{ fontSize: 11, color: "#777", marginBottom: 10, lineHeight: 1.6 }}>
+              Ejemplos: Clase de Yoga · 60 min · 18 € · Consulta · 75 min · 80 € · Masaje · 90 min ·
+              95 €
+            </div>
+          )}
           {items.map((it, idx) => (
             <div key={it.id} style={{ border: "1px dashed #bbb", padding: 12, marginBottom: 12 }}>
               <div style={{ fontSize: 11, color: "#666", marginBottom: 6 }}>Tarifa #{idx + 1}</div>
@@ -1698,7 +1709,11 @@ function TarifasList() {
           >
             ➕ Añadir otra tarifa
           </button>
-          <Note>Podrás modificar estas tarifas siempre que lo necesites.</Note>
+          <Note>
+            {isOrg
+              ? "Podréis modificar estas tarifas siempre que lo necesitéis."
+              : "Podrás modificar estas tarifas siempre que lo necesites."}
+          </Note>
         </div>
       )}
     </div>
@@ -1955,6 +1970,14 @@ function VerificadoFormulario() {
                   Holística.
                 </Ayuda>
               </Box>
+
+              <Box title="Horario (opcional)">
+                <Ayuda>
+                  Indicad vuestro horario habitual de atención. Si trabajáis únicamente con cita
+                  previa, podéis marcarlo y no será necesario completar los horarios.
+                </Ayuda>
+                <HorarioSemanal />
+              </Box>
             </>
           ) : (
             <Box title="Información General">
@@ -2111,10 +2134,19 @@ function VerificadoFormulario() {
             <Note>Selecciona todas las opciones que correspondan.</Note>
             <VCheckboxes options={isOrg ? O_PUBLICO : V_PUBLICO_OPTIONS} columns={3} />
           </Box>
-          <Box title={isOrg ? "¿Cómo ofrecéis vuestros servicios?" : "¿Cómo trabajas?"}>
-            <Note>Selecciona todas las modalidades que ofreces.</Note>
+          <Box title={isOrg ? "Modalidades de actividad" : "¿Cómo trabajas?"}>
+            <Note>
+              {isOrg
+                ? "Seleccionad todas las modalidades que ofrecéis."
+                : "Selecciona todas las modalidades que ofreces."}
+            </Note>
             <VCheckboxes options={isOrg ? O_MODALIDADES : V_MODALIDADES_OPTIONS} columns={3} />
           </Box>
+          {isOrg && (
+            <Box title="💶 Tarifas (opcional)">
+              <TarifasList variant="organizacion" />
+            </Box>
+          )}
         </div>
       )}
 
@@ -2141,10 +2173,12 @@ function VerificadoFormulario() {
                 </Ayuda>
                 <VCheckboxes options={O_INSTALACIONES} columns={3} />
               </Box>
-              <Box title="Galería de imágenes">
+              <Box title="Galería">
                 <Ayuda>
-                  Podéis añadir hasta 10 imágenes para mostrar vuestro espacio, las instalaciones y
-                  el ambiente de vuestra organización.
+                  Compartid hasta 10 fotografías de vuestro espacio, preferiblemente en formato
+                  horizontal y con buena calidad. Mostrad las instalaciones, las salas y el ambiente
+                  de vuestra organización para que las personas puedan conocer mejor vuestro
+                  espacio. Evitad imágenes con texto, logotipos o carteles promocionales.
                 </Ayuda>
                 <FakeField label="Imágenes del espacio (opcional, hasta 10)" type="file" />
               </Box>
@@ -2191,19 +2225,18 @@ function VerificadoFormulario() {
               </ul>
             </div>
           </Box>
-          <Box title={isOrg ? "Contadnos un poco sobre vosotros" : "Cuéntanos un poco sobre ti"}>
+          <Box title={isOrg ? "Sobre nosotros" : "Cuéntanos un poco sobre ti"}>
             {!isOrg && <Note>Máximo 3000 caracteres.</Note>}
             <LimitedTextField
-              label={isOrg ? "Contadnos un poco sobre vosotros" : "Cuéntanos un poco sobre ti"}
+              label={isOrg ? "Sobre nosotros" : "Cuéntanos un poco sobre ti"}
               max={3000}
               multiline
             />
             {isOrg ? (
               <>
                 <Ayuda>
-                  Compartid vuestra historia, vuestra filosofía, los servicios que ofrecéis y
-                  aquello que os gustaría que las personas conocieran antes de visitar vuestro
-                  espacio o ponerse en contacto con vosotros.
+                  Compartid vuestra historia, filosofía y aquello que hace especial vuestra
+                  organización.
                 </Ayuda>
                 <Note>
                   No os preocupéis si ahora no tenéis el texto perfecto. Podréis modificarlo siempre
@@ -2278,15 +2311,20 @@ function VerificadoFormulario() {
               <FakeField label="LinkedIn" />
               <FakeField label="YouTube" />
             </Box>
-            <Box title="📅 Reservas y citas">
-              <FakeField label="Calendly" />
-              <FakeField label="Fresha" />
-              <FakeField label="Otra plataforma de reservas" />
+            <Box title="📅 Reserva online">
+              <Ayuda>
+                Compartid el enlace de la plataforma que utilizáis para que las personas puedan
+                reservar una sesión o una actividad directamente.
+              </Ayuda>
+              <FakeField label="URL" type="url" />
+              <Note>
+                Ejemplos: Calendly, Fresha, Google Calendar, SimplyBook, Booksy u otra plataforma.
+              </Note>
             </Box>
             <Box title="💬 WhatsApp Business">
               <OWhatsAppBusiness />
             </Box>
-            <Box title="🔒 Información pública">
+            <Box title="🔒 Datos de contacto visibles">
               <OInformacionPublica />
             </Box>
           </>
@@ -2722,26 +2760,32 @@ function Paso7OrganizacionEstandar({ autoriza, onToggle }: Paso7Props) {
       <Box title="¡Enhorabuena! Ya habéis completado vuestra solicitud">
         <div style={{ marginBottom: 16 }}>
           <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-            ¡Enhorabuena! Ya habéis completado vuestra solicitud. Solo queda registrar un método de
-            pago seguro para poder activar vuestra suscripción cuando vuestro perfil haya sido
-            aprobado.
+            ¡Enhorabuena! Ya habéis completado vuestra solicitud.
+          </p>
+          <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
+            Para activar vuestra suscripción solo necesitamos registrar un método de pago seguro.
+          </p>
+          <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
+            No se realizará ningún cargo mientras vuestra solicitud esté en revisión.
           </p>
         </div>
       </Box>
 
-      <Box title="🚀 Lanzamiento oficial">
+      <Box title="Oferta de lanzamiento">
         <ul style={{ fontSize: 13, paddingLeft: 20, marginBottom: 8, lineHeight: 1.8 }}>
-          <li>✨ 2 meses gratuitos (promoción de lanzamiento).</li>
-          <li>✨ Después 50 €/mes (IVA incluido).</li>
-          <li>✨ Sin permanencia.</li>
-          <li>✨ Podréis cancelar vuestra suscripción en cualquier momento.</li>
+          <li>
+            2 meses gratuitos para todas las organizaciones que se inscriban durante el primer mes
+            tras el lanzamiento de Mallorca Holística.
+          </li>
+          <li>Después: 50 €/mes (IVA incluido).</li>
+          <li>Sin permanencia.</li>
         </ul>
       </Box>
 
       <VConsentItem
         icon="🔒"
         title="Autorización"
-        label="Autorizo a Mallorca Holística a registrar de forma segura nuestro método de pago y a activar la suscripción de la organización al finalizar el periodo gratuito, siempre que la solicitud haya sido aprobada."
+        label="Autorizo a Mallorca Holística a registrar de forma segura nuestro método de pago y activar automáticamente la suscripción únicamente si nuestra solicitud resulta aprobada, una vez finalizado el período gratuito correspondiente."
         checked={autoriza}
         onToggle={onToggle}
       />
