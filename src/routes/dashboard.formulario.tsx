@@ -1638,7 +1638,7 @@ function FormacionList() {
 
 function TarifasList() {
   const [mostrar, setMostrar] = useState<boolean | null>(null);
-  const [items, setItems] = useState([{ id: 1 }]);
+  const [items, setItems] = useState<{ id: number }[]>([]);
   const opt = (value: boolean, label: string) => (
     <div
       onClick={() => setMostrar(value)}
@@ -1658,6 +1658,13 @@ function TarifasList() {
       <span>{label}</span>
     </div>
   );
+
+  useEffect(() => {
+    if (mostrar === true && items.length === 0) {
+      setItems([{ id: Date.now() }]);
+    }
+  }, [mostrar, items]);
+
   return (
     <div>
       <div style={{ fontSize: 13, marginBottom: 8 }}>
@@ -1670,7 +1677,7 @@ function TarifasList() {
           {items.map((it, idx) => (
             <div key={it.id} style={{ border: "1px dashed #bbb", padding: 12, marginBottom: 12 }}>
               <div style={{ fontSize: 11, color: "#666", marginBottom: 6 }}>Tarifa #{idx + 1}</div>
-              <FakeField label="Nombre del servicio" />
+              <FakeField label="Servicio" />
               <FakeField label="Duración (opcional)" />
               <FakeField label="Precio" />
               {items.length > 1 && (
