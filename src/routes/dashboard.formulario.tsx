@@ -1603,6 +1603,149 @@ const O_INSTALACIONES = [
 ];
 
 function UbicacionesList() {
+  return <UbicacionesListInner />;
+}
+
+function DireccionAutocomplete() {
+  const [manual, setManual] = useState(false);
+  const [value, setValue] = useState("");
+  const inputStyle: React.CSSProperties = {
+    width: "100%",
+    padding: "8px 10px",
+    border: "1px dashed #888",
+    background: "#fff",
+    fontFamily: "inherit",
+    fontSize: 13,
+    boxSizing: "border-box",
+  };
+  return (
+    <div style={{ marginBottom: 12 }}>
+      <div
+        style={{
+          fontSize: 11,
+          color: "#666",
+          textTransform: "uppercase",
+          letterSpacing: 1,
+          marginBottom: 4,
+        }}
+      >
+        Dirección
+      </div>
+      <input
+        type="text"
+        value={value}
+        placeholder="Empieza a escribir la dirección…"
+        onChange={(e) => setValue(e.target.value)}
+        style={inputStyle}
+      />
+      {/* Autocompletado (Google Places o equivalente). Al seleccionar una dirección se guardan
+          automáticamente: calle, número, código postal, municipio, provincia, país, latitud,
+          longitud y place_id. */}
+      {!manual && (
+        <button
+          type="button"
+          onClick={() => setManual(true)}
+          style={{
+            background: "none",
+            border: "none",
+            padding: 0,
+            marginTop: 6,
+            fontFamily: "inherit",
+            fontSize: 12,
+            color: "#555",
+            textDecoration: "underline",
+            cursor: "pointer",
+          }}
+        >
+          ¿No encuentras tu dirección? Introdúcela manualmente.
+        </button>
+      )}
+      {manual && (
+        <div style={{ marginTop: 10, borderTop: "1px dashed #ddd", paddingTop: 10 }}>
+          <FakeField label="Calle" />
+          <FakeField label="Número" />
+          <FakeField label="Código postal" />
+          <MunicipioPicker label="Municipio" hint={null} />
+          <FakeField label="Provincia" />
+          <FakeField label="País" />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function RedesSocialesList() {
+  const [redes, setRedes] = useState<{ plataforma: string; url: string }[]>([
+    { plataforma: "Instagram", url: "" },
+  ]);
+  const update = (i: number, patch: Partial<{ plataforma: string; url: string }>) =>
+    setRedes((rs) => rs.map((r, idx) => (idx === i ? { ...r, ...patch } : r)));
+  return (
+    <div>
+      {redes.map((r, i) => (
+        <div key={i} style={{ display: "flex", gap: 6, marginBottom: 8, alignItems: "center" }}>
+          <select
+            value={r.plataforma}
+            onChange={(e) => update(i, { plataforma: e.target.value })}
+            style={{
+              border: "1px dashed #888",
+              background: "#fff",
+              padding: "8px 6px",
+              fontSize: 12,
+              fontFamily: "inherit",
+              minWidth: 130,
+            }}
+          >
+            {PRESENCIA_REDES_OPCIONES.map((p) => (
+              <option key={p} value={p}>
+                {p}
+              </option>
+            ))}
+          </select>
+          <input
+            type="url"
+            placeholder="URL"
+            value={r.url}
+            onChange={(e) => update(i, { url: e.target.value })}
+            style={{
+              flex: 1,
+              border: "1px dashed #888",
+              background: "#fff",
+              padding: "8px 10px",
+              fontSize: 12,
+              fontFamily: "inherit",
+            }}
+          />
+          {redes.length > 1 && (
+            <button
+              type="button"
+              onClick={() => setRedes((rs) => rs.filter((_, idx) => idx !== i))}
+              style={{
+                border: "1px dashed #888",
+                background: "#fff",
+                fontFamily: "inherit",
+                fontSize: 12,
+                padding: "6px 10px",
+                cursor: "pointer",
+              }}
+            >
+              ✕
+            </button>
+          )}
+        </div>
+      ))}
+      <button
+        type="button"
+        onClick={() => setRedes((rs) => [...rs, { plataforma: "Instagram", url: "" }])}
+        style={btn("secondary")}
+      >
+        ➕ Añadir red social
+      </button>
+    </div>
+  );
+}
+
+function UbicacionesListInner() {
   const [items, setItems] = useState([{ id: 1 }]);
   return (
     <div>
@@ -1611,11 +1754,7 @@ function UbicacionesList() {
           <div style={{ fontSize: 11, color: "#666", marginBottom: 6 }}>
             {idx === 0 ? "Ubicación principal" : `Ubicación adicional #${idx}`}
           </div>
-          <DireccionPicker
-            label="Dirección"
-            hint="Empieza a escribir la dirección y selecciona la opción correcta cuando aparezca."
-          />
-          <MunicipioPicker label="Municipio" hint={null} />
+          <DireccionAutocomplete />
           {items.length > 1 && (
             <button
               type="button"
@@ -1954,7 +2093,6 @@ function VerificadoFormulario() {
     email: "",
     telefono: { prefijo: "+34", numero: "" },
   });
-  const [representanteEsContacto, setRepresentanteEsContacto] = useState(false);
 
   const toggleConsent = (k: keyof VConsents) => setConsents((p) => ({ ...p, [k]: !p[k] }));
   const allConsents = Object.values(consents).every(Boolean);
@@ -2091,9 +2229,6 @@ function VerificadoFormulario() {
               <Note>
                 Será la persona con la que Mallorca Holística se comunicará durante el proceso de
                 registro y verificación.
-                <br />
-                Si esta persona también es el representante legal de la organización, podrás
-                indicarlo en el Paso 6.
               </Note>
               <input
                 type="text"
@@ -2400,10 +2535,7 @@ function VerificadoFormulario() {
               <FakeField label="Página web" type="url" />
             </Box>
             <Box title="📱 Redes sociales">
-              <FakeField label="Instagram" />
-              <FakeField label="Facebook" />
-              <FakeField label="LinkedIn" />
-              <FakeField label="YouTube" />
+              <RedesSocialesList />
             </Box>
             <Box title="📅 Reserva online">
               <Ayuda>
@@ -2464,82 +2596,6 @@ function VerificadoFormulario() {
         >
           {isOrg ? (
             <>
-              <div style={{ marginBottom: 16 }}>
-                <div
-                  onClick={() => setRepresentanteEsContacto((v) => !v)}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 8,
-                    padding: "8px 10px",
-                    border: "1px dashed #888",
-                    background: representanteEsContacto ? "#f3f3f3" : "#fff",
-                    cursor: "pointer",
-                    fontSize: 13,
-                  }}
-                >
-                  <span
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      width: 14,
-                      height: 14,
-                      border: "1px dashed #666",
-                      background: "#fff",
-                      fontSize: 10,
-                    }}
-                  >
-                    {representanteEsContacto ? "☑" : ""}
-                  </span>
-                  <span>
-                    La persona de contacto indicada anteriormente es también la representante legal
-                    de esta organización.
-                  </span>
-                </div>
-              </div>
-
-              <div style={{ marginBottom: 16 }}>
-                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
-                  👤 Persona responsable
-                </div>
-                <Ayuda>
-                  Indícanos la persona responsable que actuará en nombre de la organización durante
-                  el proceso de verificación.
-                </Ayuda>
-                {representanteEsContacto ? (
-                  <>
-                    <Note>
-                      Se reutilizan los datos de la persona de contacto introducidos en el Paso 1.
-                    </Note>
-                    <div style={{ fontSize: 13, marginBottom: 8 }}>
-                      <strong>Nombre:</strong> {contacto.nombre || "[pendiente]"}
-                    </div>
-                    <div style={{ fontSize: 13, marginBottom: 8 }}>
-                      <strong>Apellidos:</strong> {contacto.apellidos || "[pendiente]"}
-                    </div>
-                    <div style={{ fontSize: 13, marginBottom: 8 }}>
-                      <strong>Cargo:</strong> {contacto.cargo || "[pendiente]"}
-                    </div>
-                    <div style={{ fontSize: 13, marginBottom: 8 }}>
-                      <strong>Email:</strong> {contacto.email || "[pendiente]"}
-                    </div>
-                    <div style={{ fontSize: 13, marginBottom: 8 }}>
-                      <strong>Teléfono:</strong> {contacto.telefono.prefijo}{" "}
-                      {contacto.telefono.numero || "[pendiente]"}
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <FakeField label="Nombre" />
-                    <FakeField label="Apellidos" />
-                    <FakeField label="Cargo" />
-                    <FakeField label="Email" type="email" />
-                    <TelefonoField label="Teléfono" />
-                  </>
-                )}
-              </div>
-
               <div style={{ marginBottom: 16 }}>
                 <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
                   🏢 Identificación de la entidad
@@ -2669,12 +2725,14 @@ function VerificadoFormulario() {
               />
 
               <div style={{ marginBottom: 16 }}>
-                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>✍️ Firma</div>
+                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
+                  ✍️ Confirmación final
+                </div>
                 <Ayuda>
-                  Al firmar confirmas que actúas en representación de esta organización y que toda
-                  la información proporcionada es correcta.
+                  Al introducir tu nombre completo confirmas que actúas en representación de esta
+                  organización y que aceptas las declaraciones anteriores.
                 </Ayuda>
-                <FakeField label="Nombre completo del firmante" />
+                <FakeField label="Nombre completo" />
                 <div style={{ fontSize: 11, color: "#888", marginTop: 4, fontStyle: "italic" }}>
                   La fecha, hora e IP quedarán registradas automáticamente.
                 </div>
