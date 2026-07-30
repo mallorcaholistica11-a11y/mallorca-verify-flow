@@ -2224,22 +2224,23 @@ function VerificadoFormulario() {
             )}
           </Box>
           {!isOrg && (
-            <Box title="Formación principal">
-              <Ayuda>
-                Comparte las formaciones que consideres más relevantes para tu actividad
-                profesional.
-              </Ayuda>
-              <FormacionList />
-            </Box>
-          )}
-          {!isOrg && (
-            <Box title="Experiencia profesional">
-              <Ayuda>
-                Indica desde cuándo ejerces profesionalmente. Esta información ayuda a las personas
-                a conocer mejor tu trayectoria.
-              </Ayuda>
-              <FakeField label="¿Desde qué año ejerces profesionalmente?" type="año · ej. 2014" />
-            </Box>
+            <>
+              <Box title="Formación principal">
+                <Ayuda>
+                  Comparte las formaciones que consideres más relevantes para tu actividad
+                  profesional.
+                </Ayuda>
+                <FormacionList />
+              </Box>
+              <div style={{ height: 12 }} />
+              <Box title="Experiencia profesional">
+                <Ayuda>
+                  Indica desde cuándo ejerces profesionalmente. Esta información ayuda a las personas
+                  a conocer mejor tu trayectoria.
+                </Ayuda>
+                <FakeField label="¿Desde qué año ejerces profesionalmente?" type="año · ej. 2014" />
+              </Box>
+            </>
           )}
           <Box title="Idiomas">
             {isOrg ? (
