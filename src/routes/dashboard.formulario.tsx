@@ -2091,7 +2091,7 @@ function VerificadoFormulario() {
       {step === 4 && (
         <>
           <Box title="Frase destacada">
-            <Note>Describe tu actividad en una frase. Máximo 120 caracteres.</Note>
+            {!isOrg && <Note>Describe tu actividad en una frase. Máximo 120 caracteres.</Note>}
             <LimitedTextField label="Frase destacada" max={120} />
             {isOrg ? (
               <Ayuda>
@@ -2123,7 +2123,7 @@ function VerificadoFormulario() {
             </div>
           </Box>
           <Box title={isOrg ? "Contadnos un poco sobre vosotros" : "Cuéntanos un poco sobre ti"}>
-            <Note>Máximo 3000 caracteres.</Note>
+            {!isOrg && <Note>Máximo 3000 caracteres.</Note>}
             <LimitedTextField
               label={isOrg ? "Contadnos un poco sobre vosotros" : "Cuéntanos un poco sobre ti"}
               max={3000}
