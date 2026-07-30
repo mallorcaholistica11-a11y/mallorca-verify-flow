@@ -2311,15 +2311,20 @@ function VerificadoFormulario() {
               <FakeField label="LinkedIn" />
               <FakeField label="YouTube" />
             </Box>
-            <Box title="📅 Reservas y citas">
-              <FakeField label="Calendly" />
-              <FakeField label="Fresha" />
-              <FakeField label="Otra plataforma de reservas" />
+            <Box title="📅 Reserva online">
+              <Ayuda>
+                Compartid el enlace de la plataforma que utilizáis para que las personas puedan
+                reservar una sesión o una actividad directamente.
+              </Ayuda>
+              <FakeField label="URL" type="url" />
+              <Note>
+                Ejemplos: Calendly, Fresha, Google Calendar, SimplyBook, Booksy u otra plataforma.
+              </Note>
             </Box>
             <Box title="💬 WhatsApp Business">
               <OWhatsAppBusiness />
             </Box>
-            <Box title="🔒 Información pública">
+            <Box title="🔒 Datos de contacto visibles">
               <OInformacionPublica />
             </Box>
           </>
