@@ -371,7 +371,7 @@ export function AreasPicker({
   variant = "profesional",
 }: {
   max?: number;
-  note?: string;
+  note?: string | null;
   variant?: PickerVariant;
 }) {
   const [query, setQuery] = useState("");
@@ -381,7 +381,9 @@ export function AreasPicker({
   const [dragIndex, setDragIndex] = useState<number | null>(null);
   const hasMax = max > 0;
   const displayNote =
-    note ?? (variant === "organizacion" ? ORGANIZACION_AREAS_NOTE : PROFESIONAL_AREAS_NOTE);
+    note === null
+      ? null
+      : (note ?? (variant === "organizacion" ? ORGANIZACION_AREAS_NOTE : PROFESIONAL_AREAS_NOTE));
 
   const filtered = AREAS.filter(
     (a) => !selected.includes(a) && (query === "" || a.toLowerCase().includes(query.toLowerCase())),
@@ -414,7 +416,7 @@ export function AreasPicker({
 
   return (
     <div>
-      <Note>{displayNote}</Note>
+      {displayNote && <Note>{displayNote}</Note>}
 
       <div style={{ position: "relative", marginBottom: 12 }}>
         <input
