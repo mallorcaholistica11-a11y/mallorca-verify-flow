@@ -1287,7 +1287,7 @@ const V_IDIOMAS = ["Español", "Inglés", "Francés", "Alemán", "Catalán", "Ot
 const V_STEP_INTROS: Record<number, string> = {
   1: "Empezamos con la información principal de tu perfil. Estos datos ayudarán a las personas a conocerte, ponerse en contacto contigo y generar confianza desde el primer momento.",
   2: "Cuéntanos un poco más sobre tu actividad para que las personas puedan encontrarte con facilidad y comprendan mejor cómo puedes acompañarlas.",
-  3: "Indícanos cómo realizas tus consultas y dónde atiendes habitualmente. Con este plan puedes añadir varias ubicaciones.",
+  3: "Indícanos cómo realizas tus consultas y dónde atiendes habitualmente. Puedes añadir una o varias ubicaciones según tu actividad profesional.",
   4: "Este es tu espacio para presentarte. Comparte quién eres, cómo acompañas a las personas y aquello que hace única tu forma de trabajar. También podrás mostrar parte de tu formación e indicar los idiomas en los que ofreces atención.",
   5: "Añade los enlaces y canales de contacto que quieras compartir para que las personas puedan conocerte, reservar una sesión o ponerse en contacto contigo. Todos los campos son opcionales.",
   6: "Ya casi has terminado. Para mantener la calidad y la confianza de Mallorca Holística necesitamos verificar algunos aspectos de tu actividad profesional. Este proceso nos ayuda a ofrecer un espacio más seguro tanto para los profesionales como para las personas que buscan acompañamiento.",
@@ -1608,7 +1608,7 @@ function UbicacionesList() {
   return <UbicacionesListInner />;
 }
 
-function DireccionAutocomplete() {
+function DireccionAutocomplete({ ayuda }: { ayuda?: string }) {
   const [manual, setManual] = useState(false);
   const [value, setValue] = useState("");
   const inputStyle: React.CSSProperties = {
@@ -1640,6 +1640,9 @@ function DireccionAutocomplete() {
         onChange={(e) => setValue(e.target.value)}
         style={inputStyle}
       />
+      {ayuda && (
+        <div style={{ fontSize: 12, color: "#666", marginTop: 6, lineHeight: 1.6 }}>{ayuda}</div>
+      )}
       {/* Autocompletado (Google Places o equivalente). Al seleccionar una dirección se guardan
           automáticamente: calle, número, código postal, municipio, provincia, país, latitud,
           longitud y place_id. */}
@@ -1969,8 +1972,7 @@ function ConsultasList() {
             Si atiendes habitualmente en un centro o espacio con un nombre propio puedes indicarlo
             aquí.
           </Ayuda>
-          <DireccionPicker label="Dirección" hint={null} />
-          <MunicipioPicker label="Municipio" hint={null} />
+          <DireccionAutocomplete ayuda="Si atiendes en un centro o consulta, indica esa dirección. Si trabajas exclusivamente online o a domicilio, puedes indicar la ubicación de tu municipio o ciudad." />
           {items.length > 1 && (
             <button
               type="button"
@@ -2303,7 +2305,7 @@ function VerificadoFormulario() {
           {!isOrg && (
             <Box title="Datos de contacto">
               <>
-                <MunicipioPicker label="Municipio principal" hint={null} />
+                <DireccionAutocomplete ayuda="Si atiendes en un centro o consulta, indica esa dirección. Si trabajas exclusivamente online o a domicilio, puedes indicar la ubicación de tu municipio o ciudad." />
                 <FakeField label="Correo electrónico" type="email" />
                 <Ayuda>Será el correo de contacto que aparecerá en tu perfil profesional.</Ayuda>
                 <TelefonoField label="Teléfono" />
@@ -2495,6 +2497,10 @@ function VerificadoFormulario() {
                   profesional.
                 </Ayuda>
                 <FormacionList />
+                <Ayuda>
+                  Añade las formaciones que consideres más relevantes para tu actividad profesional.
+                  No es necesario incluirlas todas.
+                </Ayuda>
               </Box>
               <div style={{ height: 12 }} />
               <Box title="Experiencia profesional">
@@ -2562,11 +2568,7 @@ function VerificadoFormulario() {
               <FakeField label="Página web" type="url" />
             </Box>
             <Box title="📱 Redes sociales">
-              <FakeField label="Instagram" />
-              <FakeField label="Facebook" />
-              <FakeField label="LinkedIn" />
-              <FakeField label="YouTube" />
-              <FakeField label="Otra red social o plataforma" />
+              <RedesSocialesList />
             </Box>
             <Box title="📅 Plataforma de reservas (opcional)">
               <Ayuda>
@@ -2745,7 +2747,7 @@ function VerificadoFormulario() {
           <Note>
             {isOrg
               ? "Ya solo queda un último paso. Después podréis enviar vuestra solicitud y nuestro equipo comenzará el proceso de revisión."
-              : "Solo queda un último paso para enviar tu solicitud de verificación."}
+              : "Ya solo queda un último paso. Después podrás enviar tu solicitud de verificación."}
           </Note>
         </Box>
       )}
@@ -2832,10 +2834,13 @@ function Paso7ProfesionalEstandar({ autoriza, onToggle }: Paso7Props) {
       <Box title="¡Enhorabuena! Ya has completado tu solicitud">
         <div style={{ marginBottom: 16 }}>
           <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-            Para activar tu suscripción solo necesitamos registrar un método de pago seguro.
+            Para completar tu solicitud solo necesitamos registrar un método de pago de forma
+            segura.
           </p>
           <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-            No se realizará ningún cargo mientras tu solicitud esté en revisión.
+            No realizaremos ningún cargo mientras tu solicitud esté en revisión. Si es aprobada, tu
+            suscripción se activará automáticamente al finalizar el período gratuito
+            correspondiente.
           </p>
         </div>
       </Box>
