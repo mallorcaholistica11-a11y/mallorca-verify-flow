@@ -142,6 +142,7 @@ function Formulario() {
     return <VerificadoFormulario />;
   if (track === "presencia" && perfil === "organization")
     return <PresenciaOrganizacionFormulario />;
+  if (track === "presencia") return <PresenciaProfesionalFormulario />;
   return <FormularioBase />;
 }
 
