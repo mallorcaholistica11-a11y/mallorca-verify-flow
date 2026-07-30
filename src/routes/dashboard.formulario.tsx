@@ -2093,7 +2093,6 @@ function VerificadoFormulario() {
     email: "",
     telefono: { prefijo: "+34", numero: "" },
   });
-  const [representanteEsContacto, setRepresentanteEsContacto] = useState(false);
 
   const toggleConsent = (k: keyof VConsents) => setConsents((p) => ({ ...p, [k]: !p[k] }));
   const allConsents = Object.values(consents).every(Boolean);
