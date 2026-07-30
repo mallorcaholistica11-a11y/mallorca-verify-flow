@@ -681,7 +681,10 @@ const MODALIDADES_OPTIONS = [
 ];
 
 // Variantes usadas únicamente en el recorrido del Plan Presencia.
-const PRESENCIA_PUBLICO_OPTIONS = ["Todas las personas", ...PUBLICO_OPTIONS];
+const PRESENCIA_PUBLICO_OPTIONS = [
+  "Todas las personas",
+  ...PUBLICO_OPTIONS.map((p) => (p === "Empresas y equipos" ? "Empresas y organizaciones" : p)),
+];
 const PRESENCIA_MODALIDADES_OPTIONS = MODALIDADES_OPTIONS.filter((m) => m !== "Otro (especificar)");
 
 function CheckboxGroup({
