@@ -1608,7 +1608,7 @@ function UbicacionesList() {
   return <UbicacionesListInner />;
 }
 
-function DireccionAutocomplete() {
+function DireccionAutocomplete({ ayuda }: { ayuda?: string }) {
   const [manual, setManual] = useState(false);
   const [value, setValue] = useState("");
   const inputStyle: React.CSSProperties = {
@@ -1640,6 +1640,9 @@ function DireccionAutocomplete() {
         onChange={(e) => setValue(e.target.value)}
         style={inputStyle}
       />
+      {ayuda && (
+        <div style={{ fontSize: 12, color: "#666", marginTop: 6, lineHeight: 1.6 }}>{ayuda}</div>
+      )}
       {/* Autocompletado (Google Places o equivalente). Al seleccionar una dirección se guardan
           automáticamente: calle, número, código postal, municipio, provincia, país, latitud,
           longitud y place_id. */}
