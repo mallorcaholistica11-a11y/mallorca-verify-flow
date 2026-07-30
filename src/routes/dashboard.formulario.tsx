@@ -1972,8 +1972,7 @@ function ConsultasList() {
             Si atiendes habitualmente en un centro o espacio con un nombre propio puedes indicarlo
             aquí.
           </Ayuda>
-          <DireccionPicker label="Dirección" hint={null} />
-          <MunicipioPicker label="Municipio" hint={null} />
+          <DireccionAutocomplete ayuda="Si atiendes en un centro o consulta, indica esa dirección. Si trabajas exclusivamente online o a domicilio, puedes indicar la ubicación de tu municipio o ciudad." />
           {items.length > 1 && (
             <button
               type="button"
