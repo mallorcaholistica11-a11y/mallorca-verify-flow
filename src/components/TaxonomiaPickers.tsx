@@ -174,7 +174,7 @@ export function EspecialidadesPicker({
   variant = "profesional",
 }: {
   max?: number;
-  note?: string;
+  note?: string | null;
   variant?: PickerVariant;
 }) {
   const [query, setQuery] = useState("");
@@ -184,10 +184,12 @@ export function EspecialidadesPicker({
   const [dragIndex, setDragIndex] = useState<number | null>(null);
   const hasMax = max > 0;
   const displayNote =
-    note ??
-    (variant === "organizacion"
-      ? ORGANIZACION_ESPECIALIDADES_NOTE
-      : PROFESIONAL_ESPECIALIDADES_NOTE);
+    note === null
+      ? null
+      : (note ??
+        (variant === "organizacion"
+          ? ORGANIZACION_ESPECIALIDADES_NOTE
+          : PROFESIONAL_ESPECIALIDADES_NOTE));
 
   const filtered = ESPECIALIDADES.filter(
     (e) => !selected.includes(e) && (query === "" || e.toLowerCase().includes(query.toLowerCase())),
@@ -220,7 +222,7 @@ export function EspecialidadesPicker({
 
   return (
     <div>
-      <Note>{displayNote}</Note>
+      {displayNote && <Note>{displayNote}</Note>}
 
       <div style={{ position: "relative", marginBottom: 12 }}>
         <input
