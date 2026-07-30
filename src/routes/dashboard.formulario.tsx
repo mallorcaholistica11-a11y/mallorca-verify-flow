@@ -2230,9 +2230,6 @@ function VerificadoFormulario() {
               <Note>
                 Será la persona con la que Mallorca Holística se comunicará durante el proceso de
                 registro y verificación.
-                <br />
-                Si esta persona también es el representante legal de la organización, podrás
-                indicarlo en el Paso 6.
               </Note>
               <input
                 type="text"
