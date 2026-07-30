@@ -1885,11 +1885,6 @@ function VerificadoFormulario() {
                   Será la imagen principal que representará vuestra organización en Mallorca
                   Holística.
                 </Ayuda>
-                <FakeField label="Galería de imágenes (opcional)" type="file" />
-                <Ayuda>
-                  Podéis añadir hasta 9 imágenes para mostrar vuestro espacio, las instalaciones o
-                  las actividades que realizáis.
-                </Ayuda>
               </Box>
             </>
           ) : (
