@@ -2638,9 +2638,6 @@ function Paso7OrganizacionEstandar({ autoriza, onToggle }: Paso7Props) {
             pago seguro para poder activar vuestra suscripción cuando vuestro perfil haya sido
             aprobado.
           </p>
-          <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-            No realizaremos ningún cargo mientras vuestro perfil esté siendo revisado.
-          </p>
         </div>
       </Box>
 
@@ -2662,8 +2659,7 @@ function Paso7OrganizacionEstandar({ autoriza, onToggle }: Paso7Props) {
       />
 
       <StripeBlock
-        note="El registro del método de pago se realizará de forma segura mediante Stripe."
-        extraNote="No realizaremos ningún cargo hasta que vuestra organización haya sido aprobada y, si corresponde, haya finalizado el periodo gratuito de lanzamiento."
+        note="El registro del método de pago se realizará de forma segura mediante Stripe. No realizaremos ningún cargo hasta que vuestra organización haya sido aprobada y, si corresponde, haya finalizado el periodo gratuito de lanzamiento."
       />
     </>
   );
