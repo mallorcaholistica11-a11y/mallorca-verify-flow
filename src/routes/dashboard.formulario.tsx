@@ -1636,6 +1636,68 @@ function FormacionList() {
   );
 }
 
+function TarifasList() {
+  const [mostrar, setMostrar] = useState<boolean | null>(null);
+  const [items, setItems] = useState([{ id: 1 }]);
+  const opt = (value: boolean, label: string) => (
+    <div
+      onClick={() => setMostrar(value)}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 8,
+        padding: "8px 10px",
+        border: "1px dashed #888",
+        background: mostrar === value ? "#f3f3f3" : "#fff",
+        cursor: "pointer",
+        fontSize: 13,
+        marginBottom: 8,
+      }}
+    >
+      <span style={{ fontSize: 12 }}>{mostrar === value ? "◉" : "○"}</span>
+      <span>{label}</span>
+    </div>
+  );
+  return (
+    <div>
+      <div style={{ fontSize: 13, marginBottom: 8 }}>
+        ¿Quieres mostrar tus tarifas en tu perfil público?
+      </div>
+      {opt(true, "Sí")}
+      {opt(false, "No")}
+      {mostrar === true && (
+        <div style={{ marginTop: 12 }}>
+          {items.map((it, idx) => (
+            <div key={it.id} style={{ border: "1px dashed #bbb", padding: 12, marginBottom: 12 }}>
+              <div style={{ fontSize: 11, color: "#666", marginBottom: 6 }}>Tarifa #{idx + 1}</div>
+              <FakeField label="Nombre del servicio" />
+              <FakeField label="Duración (opcional)" />
+              <FakeField label="Precio" />
+              {items.length > 1 && (
+                <button
+                  type="button"
+                  onClick={() => setItems(items.filter((x) => x.id !== it.id))}
+                  style={{ ...btn("secondary"), padding: "4px 10px", fontSize: 12 }}
+                >
+                  Eliminar
+                </button>
+              )}
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() => setItems([...items, { id: Date.now() }])}
+            style={{ ...btn("secondary"), padding: "6px 12px" }}
+          >
+            ➕ Añadir otra tarifa
+          </button>
+          <Note>Podrás modificar estas tarifas siempre que lo necesites.</Note>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function ConsultasList() {
   const [items, setItems] = useState([{ id: 1 }]);
   return (
