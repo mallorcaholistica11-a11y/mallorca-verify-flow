@@ -1970,6 +1970,14 @@ function VerificadoFormulario() {
                   Holística.
                 </Ayuda>
               </Box>
+
+              <Box title="Horario (opcional)">
+                <Ayuda>
+                  Indicad vuestro horario habitual de atención. Si trabajáis únicamente con cita
+                  previa, podéis marcarlo y no será necesario completar los horarios.
+                </Ayuda>
+                <HorarioSemanal />
+              </Box>
             </>
           ) : (
             <Box title="Información General">
