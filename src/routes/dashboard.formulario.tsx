@@ -15,6 +15,7 @@ import {
 } from "@/components/Wireframe";
 import { TelefonoField } from "@/components/TelefonoField";
 import { AreasPicker, EspecialidadesPicker } from "@/components/TaxonomiaPickers";
+import { HorarioSemanal } from "@/components/HorarioSemanal";
 
 export const Route = createFileRoute("/dashboard/formulario")({
   validateSearch: (s: Record<string, unknown>): { track: Track; perfil?: PerfilTipo } => ({
@@ -1234,6 +1235,7 @@ const O_PUBLICO = [
   "Todas las personas",
   ...V_PUBLICO.filter((p) => p !== "Empresas y equipos"),
   "Empresas y organizaciones",
+  "Profesionales",
 ];
 
 const O_MODALIDADES = [
@@ -1488,7 +1490,7 @@ const V_STEP_TITLES = [
 
 const O_STEP_TITLES = [
   "Información General",
-  "Servicios y Actividades",
+  "Actividad de la organización",
   "Ubicaciones",
   "Perfil de la Organización",
   "Contacto y presencia online",
