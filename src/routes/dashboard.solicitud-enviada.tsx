@@ -1,46 +1,25 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { WireframeShell, Box, NavButton, TrackBadge } from "@/components/Wireframe";
 import { parseTrack, type Track } from "@/components/Wireframe";
+import { PLAN_NOMBRE } from "@/components/EstadoPerfil";
 
 export const Route = createFileRoute("/dashboard/solicitud-enviada")({
   validateSearch: (s: Record<string, unknown>): { track: Track } => ({ track: parseTrack(s) }),
   component: SolicitudEnviada,
 });
 
-const MENSAJE_PRESENCIA = [
-  "Nos hace mucha ilusión que quieras formar parte de esta comunidad.",
-  "Hemos recibido correctamente tu solicitud y durante los próximos días revisaremos la información y la documentación que nos has enviado.",
-  "Te informaremos por correo electrónico en cuanto el proceso haya finalizado.",
+// Mismo mensaje para los tres recorridos: solo cambia el nombre del plan.
+const MENSAJE = [
+  "Nos hace mucha ilusión que quieras formar parte de Mallorca Holística.",
+  "Hemos recibido correctamente tu solicitud.",
+  "Nuestro equipo revisará la información y la documentación que nos has enviado y te avisaremos por correo electrónico en cuanto el proceso haya finalizado.",
   "Gracias por confiar en este proyecto y por contribuir a construir una comunidad más visible, conectada y accesible para todos.",
   "Porque lo que se siembra con alma... siempre florece. 🌿",
 ];
-
-const MENSAJE_PROFESIONAL = [
-  "Nos hace mucha ilusión que quieras formar parte de esta comunidad.",
-  "Hemos recibido correctamente tu solicitud y durante los próximos días revisaremos la información y la documentación que nos has enviado.",
-  "Te informaremos por correo electrónico en cuanto el proceso haya finalizado.",
-  "Gracias por confiar en este proyecto y por contribuir a construir una comunidad más visible, conectada y accesible para todos.",
-  "Porque lo que se siembra con alma... siempre florece. 🌿",
-];
-
-const MENSAJE_ORGANIZACION = [
-  "Nos hace mucha ilusión que quieras formar parte de esta comunidad.",
-  "Hemos recibido correctamente tu solicitud y durante los próximos días revisaremos la información y la documentación que nos has enviado.",
-  "Te informaremos por correo electrónico en cuanto el proceso haya finalizado.",
-  "Gracias por confiar en este proyecto y por contribuir a construir una comunidad más visible, conectada y accesible para todos.",
-  "Porque lo que se siembra con alma... siempre florece. 🌿",
-];
-
-function mensajePorTrack(track: Track): string[] {
-  if (track === "presencia") return MENSAJE_PRESENCIA;
-  if (track === "verificado") return MENSAJE_PROFESIONAL;
-  if (track === "organizacion") return MENSAJE_ORGANIZACION;
-  return MENSAJE_PRESENCIA;
-}
 
 function SolicitudEnviada() {
   const { track } = Route.useSearch();
-  const mensaje = mensajePorTrack(track);
+  const mensaje = MENSAJE;
 
   return (
     <WireframeShell
@@ -50,6 +29,9 @@ function SolicitudEnviada() {
     >
       <TrackBadge track={track} />
       <Box title="Mensaje">
+        <p style={{ fontSize: 12, color: "#888", margin: "0 0 8px 0" }}>
+          {PLAN_NOMBRE[track]}
+        </p>
         {mensaje.map((text, i) => (
           <p
             key={i}
