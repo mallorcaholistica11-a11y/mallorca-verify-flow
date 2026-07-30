@@ -1368,7 +1368,7 @@ function OInformacionPublica() {
         checked={correo}
         onToggle={() => setCorreo((v) => !v)}
       />
-      <Ayuda>Solo mostraremos la información que decidáis compartir públicamente.</Ayuda>
+      <Ayuda>Seleccionad qué información deseáis mostrar públicamente.</Ayuda>
     </div>
   );
 }
