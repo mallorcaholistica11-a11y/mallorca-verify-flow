@@ -132,7 +132,7 @@ function FakeCheckbox({ label }: { label: string }) {
 }
 
 function Formulario() {
-  const { track } = Route.useSearch();
+  const { track, perfil } = Route.useSearch();
   if (
     track === "verificado" ||
     track === "verificadoFundador" ||
@@ -140,6 +140,8 @@ function Formulario() {
     track === "organizacionFundadora"
   )
     return <VerificadoFormulario />;
+  if (track === "presencia" && perfil === "organization")
+    return <PresenciaOrganizacionFormulario />;
   return <FormularioBase />;
 }
 
