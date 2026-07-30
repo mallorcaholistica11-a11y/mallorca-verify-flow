@@ -1638,7 +1638,8 @@ function FormacionList() {
   );
 }
 
-function TarifasList() {
+function TarifasList({ variant = "profesional" }: { variant?: "profesional" | "organizacion" }) {
+  const isOrg = variant === "organizacion";
   const [mostrar, setMostrar] = useState<boolean | null>(null);
   const [items, setItems] = useState<{ id: number }[]>([]);
   const opt = (value: boolean, label: string) => (
@@ -1670,12 +1671,20 @@ function TarifasList() {
   return (
     <div>
       <div style={{ fontSize: 13, marginBottom: 8 }}>
-        ¿Quieres mostrar tus tarifas en tu perfil público?
+        {isOrg
+          ? "¿Queréis mostrar algunas tarifas en vuestro perfil?"
+          : "¿Quieres mostrar tus tarifas en tu perfil público?"}
       </div>
       {opt(true, "Sí")}
       {opt(false, "No")}
       {mostrar === true && (
         <div style={{ marginTop: 12 }}>
+          {isOrg && (
+            <div style={{ fontSize: 11, color: "#777", marginBottom: 10, lineHeight: 1.6 }}>
+              Ejemplos: Clase de Yoga · 60 min · 18 € · Consulta · 75 min · 80 € · Masaje · 90 min ·
+              95 €
+            </div>
+          )}
           {items.map((it, idx) => (
             <div key={it.id} style={{ border: "1px dashed #bbb", padding: 12, marginBottom: 12 }}>
               <div style={{ fontSize: 11, color: "#666", marginBottom: 6 }}>Tarifa #{idx + 1}</div>
@@ -1700,7 +1709,11 @@ function TarifasList() {
           >
             ➕ Añadir otra tarifa
           </button>
-          <Note>Podrás modificar estas tarifas siempre que lo necesites.</Note>
+          <Note>
+            {isOrg
+              ? "Podréis modificar estas tarifas siempre que lo necesitéis."
+              : "Podrás modificar estas tarifas siempre que lo necesites."}
+          </Note>
         </div>
       )}
     </div>
