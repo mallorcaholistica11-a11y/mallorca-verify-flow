@@ -1611,11 +1611,7 @@ function UbicacionesList() {
           <div style={{ fontSize: 11, color: "#666", marginBottom: 6 }}>
             {idx === 0 ? "Ubicación principal" : `Ubicación adicional #${idx}`}
           </div>
-          <DireccionPicker
-            label="Dirección"
-            hint="Empieza a escribir la dirección y selecciona la opción correcta cuando aparezca."
-          />
-          <MunicipioPicker label="Municipio" hint={null} />
+          <DireccionAutocomplete />
           {items.length > 1 && (
             <button
               type="button"
