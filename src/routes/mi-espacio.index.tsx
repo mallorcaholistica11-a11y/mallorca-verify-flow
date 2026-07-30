@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { WireframeShell, Box, Row, Card, NavButton, TrackBadge, parseTrack, type Track } from "@/components/Wireframe";
+import { EstadoPerfilBox } from "@/components/EstadoPerfil";
 
 export const Route = createFileRoute("/mi-espacio/")({
   validateSearch: (s: Record<string, unknown>): { track: Track } => ({ track: parseTrack(s) }),
@@ -35,20 +36,7 @@ function MiEspacio() {
         </p>
       </div>
 
-      <Box title="Estado de la solicitud">
-        <p style={{ fontSize: 14, fontWeight: 600, margin: "0 0 8px 0" }}>
-          🟡 Solicitud en revisión
-        </p>
-        <p style={{ fontSize: 13, margin: 0, color: "#444" }}>
-          Estamos revisando la documentación que nos has enviado.
-        </p>
-        <p style={{ fontSize: 13, margin: "4px 0 0 0", color: "#444", whiteSpace: "pre-wrap" }}>
-          Si necesitamos información adicional o cuando el proceso haya finalizado, te lo comunicaremos por correo electrónico.
-
-
-          Respuestas por mail: ¡Tu perfil ya está aprobado! Ya puedes acceder a todas las funcionalidades de Mallorca Holística, publicar actividades y formar parte del directorio profesional. Y si alguna vez rechazáis una solicitud o necesitáis más documentación: Hemos revisado tu perfil, pero necesitamos completar algunos datos antes de poder aprobarlo. Accede a tu espacio profesional para consultar los detalles.
-        </p>
-      </Box>
+      <EstadoPerfilBox estado="en_revision" track={track} />
 
       <div style={{ fontSize: 11, color: "#888", letterSpacing: 1, margin: "24px 0 8px 0" }}>
         ACCIONES DISPONIBLES
