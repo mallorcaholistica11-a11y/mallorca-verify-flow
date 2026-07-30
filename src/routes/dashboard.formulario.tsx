@@ -2539,10 +2539,7 @@ function VerificadoFormulario() {
               <FakeField label="Página web" type="url" />
             </Box>
             <Box title="📱 Redes sociales">
-              <FakeField label="Instagram" />
-              <FakeField label="Facebook" />
-              <FakeField label="LinkedIn" />
-              <FakeField label="YouTube" />
+              <RedesSocialesList />
             </Box>
             <Box title="📅 Reserva online">
               <Ayuda>
