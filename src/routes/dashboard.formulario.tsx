@@ -2225,6 +2225,15 @@ function VerificadoFormulario() {
               <FormacionList />
             </Box>
           )}
+          {!isOrg && (
+            <Box title="Experiencia profesional">
+              <Ayuda>
+                Indica desde cuándo ejerces profesionalmente. Esta información ayuda a las personas
+                a conocer mejor tu trayectoria.
+              </Ayuda>
+              <FakeField label="¿Desde qué año ejerces profesionalmente?" type="año · ej. 2014" />
+            </Box>
+          )}
           <Box title="Idiomas">
             {isOrg ? (
               <Ayuda>Seleccionad los idiomas en los que podéis atender a las personas.</Ayuda>
@@ -2285,9 +2294,18 @@ function VerificadoFormulario() {
               <FakeField label="YouTube" />
               <FakeField label="Otra red social o plataforma" />
             </Box>
-            <Box title="📅 Reservas online">
-              <FakeField label="Calendly" />
-              <FakeField label="Fresha" />
+            <Box title="📅 Plataforma de reservas (opcional)">
+              <Ayuda>
+                Comparte el enlace de la plataforma que utilizas para que las personas puedan
+                reservar una sesión directamente.
+              </Ayuda>
+              <FakeField label="URL" type="url" />
+              <Note>
+                Ejemplos: Calendly, Fresha, Google Calendar, SimplyBook, Booksy u otra plataforma.
+              </Note>
+            </Box>
+            <Box title="💶 Tarifas (opcional)">
+              <TarifasList />
             </Box>
             <Box title="💬 WhatsApp Business">
               <VWhatsAppBusiness />
@@ -2428,8 +2446,8 @@ function VerificadoFormulario() {
                     {consents.seguroRC ? "☑" : ""}
                   </span>
                   <span>
-                    Dispongo de un Seguro de Responsabilidad Civil vigente para el desarrollo de mi
-                    actividad profesional.
+                    Declaro bajo mi responsabilidad que dispongo de un Seguro de Responsabilidad
+                    Civil vigente para el ejercicio de mi actividad profesional.
                   </span>
                 </div>
               </div>
@@ -2633,7 +2651,7 @@ function Paso7ProfesionalEstandar({ autoriza, onToggle }: Paso7Props) {
       <VConsentItem
         icon="🔒"
         title="Autorización"
-        label="Autorizo a Mallorca Holística a registrar mi método de pago de forma segura y activar automáticamente mi suscripción una vez finalizado el período gratuito correspondiente, siempre que mi solicitud haya sido aprobada."
+        label="Autorizo a Mallorca Holística a registrar mi método de pago de forma segura y activar automáticamente mi suscripción únicamente si mi solicitud es aprobada, una vez finalizado el período gratuito correspondiente."
         checked={autoriza}
         onToggle={onToggle}
       />
