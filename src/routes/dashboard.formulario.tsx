@@ -2014,8 +2014,11 @@ function VerificadoFormulario() {
                 ordenarlas según su importancia.
               </Ayuda>
             )}
-            <EspecialidadesPicker max={0} variant={isOrg ? "organizacion" : "profesional"} />
-            {isOrg && <Ayuda>Podéis seleccionar tantas como necesitéis.</Ayuda>}
+            <EspecialidadesPicker
+              max={0}
+              note={isOrg ? null : undefined}
+              variant={isOrg ? "organizacion" : "profesional"}
+            />
           </Box>
           <Box title="Áreas de Especialización">
             {isOrg ? (
@@ -2029,7 +2032,11 @@ function VerificadoFormulario() {
                 ordenarlas por relevancia.
               </Ayuda>
             )}
-            <AreasPicker max={0} variant={isOrg ? "organizacion" : "profesional"} />
+            <AreasPicker
+              max={0}
+              note={isOrg ? null : undefined}
+              variant={isOrg ? "organizacion" : "profesional"}
+            />
           </Box>
           <Box title={isOrg ? "¿A quién acompañáis?" : "¿A quién acompañas?"}>
             <Note>Selecciona todas las opciones que correspondan.</Note>
