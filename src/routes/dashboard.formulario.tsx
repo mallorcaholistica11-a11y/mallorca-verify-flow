@@ -2225,19 +2225,18 @@ function VerificadoFormulario() {
               </ul>
             </div>
           </Box>
-          <Box title={isOrg ? "Contadnos un poco sobre vosotros" : "Cuéntanos un poco sobre ti"}>
+          <Box title={isOrg ? "Sobre nosotros" : "Cuéntanos un poco sobre ti"}>
             {!isOrg && <Note>Máximo 3000 caracteres.</Note>}
             <LimitedTextField
-              label={isOrg ? "Contadnos un poco sobre vosotros" : "Cuéntanos un poco sobre ti"}
+              label={isOrg ? "Sobre nosotros" : "Cuéntanos un poco sobre ti"}
               max={3000}
               multiline
             />
             {isOrg ? (
               <>
                 <Ayuda>
-                  Compartid vuestra historia, vuestra filosofía, los servicios que ofrecéis y
-                  aquello que os gustaría que las personas conocieran antes de visitar vuestro
-                  espacio o ponerse en contacto con vosotros.
+                  Compartid vuestra historia, filosofía y aquello que hace especial vuestra
+                  organización.
                 </Ayuda>
                 <Note>
                   No os preocupéis si ahora no tenéis el texto perfecto. Podréis modificarlo siempre
