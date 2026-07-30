@@ -1213,7 +1213,7 @@ const O_STEP_INTROS: Record<number, string> = {
   2: "Cuéntanos qué servicios, actividades y propuestas ofrece vuestra organización. Esta información ayudará a las personas a comprender mejor vuestra actividad y a encontraros con mayor facilidad.",
   3: "Indícanos dónde se encuentra vuestro espacio y qué instalaciones ofrece. Si disponéis de varias ubicaciones, podréis añadirlas todas.",
   4: "Este es vuestro espacio para presentar la esencia de vuestra organización. Compartid quiénes sois, qué ofrecéis y aquello que hace especial vuestro proyecto.",
-  5: "Añade los enlaces y canales de contacto que quieras compartir para que las personas puedan conocer vuestra organización, reservar una sesión o una actividad y ponerse en contacto con vosotros. Todos los campos son opcionales.",
+  5: "Añade los enlaces y canales de contacto que quieras compartir para que las personas puedan conocer vuestra organización, reservar una sesión o una actividad y ponerse en contacto con vosotros.",
   6: "Ya casi habéis terminado. Para mantener la calidad y la confianza de Mallorca Holística necesitamos verificar algunos aspectos de vuestra organización. Este proceso nos ayuda a ofrecer un espacio más seguro tanto para las organizaciones como para las personas que buscan acompañamiento.",
 };
 
