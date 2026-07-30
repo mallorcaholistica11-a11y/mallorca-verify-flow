@@ -18,7 +18,7 @@ const MENSAJE = [
 ];
 
 function SolicitudEnviada() {
-  const { track } = Route.useSearch();
+  const { track } = Route.useSearch() as { track: Track };
   const mensaje = MENSAJE;
 
   return (
