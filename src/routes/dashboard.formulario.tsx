@@ -132,7 +132,7 @@ function FakeCheckbox({ label }: { label: string }) {
 }
 
 function Formulario() {
-  const { track } = Route.useSearch();
+  const { track, perfil } = Route.useSearch();
   if (
     track === "verificado" ||
     track === "verificadoFundador" ||
@@ -140,6 +140,8 @@ function Formulario() {
     track === "organizacionFundadora"
   )
     return <VerificadoFormulario />;
+  if (track === "presencia" && perfil === "organization")
+    return <PresenciaOrganizacionFormulario />;
   return <FormularioBase />;
 }
 
@@ -2994,5 +2996,382 @@ function Paso7OrganizacionFundadora({ autoriza, onToggle }: Paso7Props) {
 
       <StripeBlock />
     </>
+  );
+}
+
+// ================================================================
+// PLAN PRESENCIA · CENTROS & ORGANIZADORES
+// Adaptación del formulario del Plan de Pago (Centros & Organizadores)
+// sin las funcionalidades exclusivas del plan de pago.
+// ================================================================
+
+const OP_STEP_INTROS: Record<number, string> = {
+  1: O_STEP_INTROS[1],
+  2: O_STEP_INTROS[2],
+  3: "Indícanos dónde se encuentra vuestro espacio y qué instalaciones ofrece.",
+  4: O_STEP_INTROS[4],
+  5: O_STEP_INTROS[5],
+  6: "Ya casi habéis terminado. Antes de enviar vuestra solicitud, necesitamos que aceptéis los siguientes documentos y declaraciones para poder revisar vuestro perfil y publicarlo en Mallorca Holística.",
+};
+
+function PresenciaOrganizacionFormulario() {
+  const { track } = Route.useSearch();
+  const navigate = useNavigate();
+  const [step, setStep] = useState(1);
+  const total = 6;
+  const isLast = step === total;
+
+  const [consents, setConsents] = useState<VConsents>({
+    seguroRC: false,
+    codigo: false,
+    veracidad: false,
+    privacidad: false,
+    condiciones: false,
+    publicacion: false,
+  });
+  const toggleConsent = (k: keyof VConsents) => setConsents((p) => ({ ...p, [k]: !p[k] }));
+  const allConsents = Object.values(consents).every(Boolean);
+
+  const [contacto, setContacto] = useState({
+    nombre: "",
+    apellidos: "",
+    cargo: "",
+    email: "",
+    telefono: { prefijo: "+34", numero: "" },
+  });
+  const handleContactoChange = (
+    field: "nombre" | "apellidos" | "cargo" | "email",
+    value: string,
+  ) => setContacto((prev) => ({ ...prev, [field]: value }));
+  const handleContactoTelefono = (value: { prefijo: string; numero: string }) =>
+    setContacto((prev) => ({ ...prev, telefono: value }));
+
+  const finish = () => navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
+
+  const titles = O_STEP_TITLES.slice(0, 6);
+  const stepTitle = titles[step - 1];
+
+  const inputStyle: React.CSSProperties = {
+    width: "100%",
+    padding: "8px 10px",
+    marginBottom: 12,
+    border: "1px dashed #888",
+    fontSize: 13,
+    fontFamily: "inherit",
+    boxSizing: "border-box",
+  };
+
+  return (
+    <WireframeShell
+      screen={`6 · FORMULARIO ORGANIZACIÓN · PASO ${step}/${total}`}
+      title={`Paso ${step} de ${total} · ${stepTitle}`}
+      breadcrumb="Dashboard › Completar perfil de la organización"
+    >
+      <TrackBadge track={track} />
+
+      <Box title={`Progreso · Paso ${step} de ${total}`}>
+        <div style={{ display: "flex", gap: 4 }}>
+          {titles.map((t, i) => {
+            const n = i + 1;
+            return (
+              <div
+                key={n}
+                title={t}
+                style={{
+                  flex: 1,
+                  padding: 6,
+                  fontSize: 11,
+                  textAlign: "center",
+                  border: "1px dashed #888",
+                  background: n === step ? "#111" : n < step ? "#ddd" : "#fff",
+                  color: n === step ? "#fff" : "#111",
+                }}
+              >
+                {n}
+              </div>
+            );
+          })}
+        </div>
+        <div style={{ fontSize: 11, color: "#666", marginTop: 6 }}>
+          {titles.map((t, i) => `${i + 1}. ${t}`).join("  ·  ")}
+        </div>
+      </Box>
+
+      {OP_STEP_INTROS[step] && (
+        <p
+          style={{
+            fontSize: 14,
+            lineHeight: 1.7,
+            color: "#444",
+            margin: "0 0 24px 0",
+            maxWidth: 640,
+          }}
+        >
+          {OP_STEP_INTROS[step]}
+        </p>
+      )}
+
+      {step === 1 && (
+        <>
+          <Box title="Información General">
+            <FakeField label="Nombre de la organización" />
+            <Ayuda>
+              Es el nombre con el que las personas os encontrarán dentro de Mallorca Holística.
+            </Ayuda>
+          </Box>
+
+          <Box title="Datos de la organización">
+            <FakeField label="Nombre comercial (opcional)" />
+            <Ayuda>
+              Si vuestra organización es conocida por un nombre diferente al nombre legal, podéis
+              indicarlo aquí.
+            </Ayuda>
+            <SelectField label="Tipo de organización" options={O_TIPOS_ORGANIZACION} />
+            <MunicipioPicker label="Municipio principal" hint={null} />
+            <FakeField label="Correo electrónico" type="email" />
+            <Ayuda>Será el correo de contacto que aparecerá en vuestro perfil público.</Ayuda>
+            <TelefonoField label="Teléfono" />
+            <OWhatsAppMismo />
+            <FakeField label="Logo o imagen de marca (opcional)" type="file" />
+            <Ayuda>Si disponéis de un logotipo o imagen de marca podéis añadirlo aquí.</Ayuda>
+            <FakeField label="Imagen principal" type="file" />
+            <Ayuda>
+              Será la imagen principal que representará vuestra organización en Mallorca Holística.
+            </Ayuda>
+          </Box>
+
+          <Box title="👤 Persona de contacto">
+            <Note>
+              Será la persona con la que Mallorca Holística se comunicará durante el proceso de
+              registro y verificación.
+            </Note>
+            <input
+              type="text"
+              placeholder="Nombre"
+              value={contacto.nombre}
+              onChange={(e) => handleContactoChange("nombre", e.target.value)}
+              style={inputStyle}
+            />
+            <input
+              type="text"
+              placeholder="Apellidos"
+              value={contacto.apellidos}
+              onChange={(e) => handleContactoChange("apellidos", e.target.value)}
+              style={inputStyle}
+            />
+            <input
+              type="text"
+              placeholder="Cargo (opcional) — Ej.: Director/a, Coordinador/a, Responsable, Fundador/a, Gerente"
+              value={contacto.cargo}
+              onChange={(e) => handleContactoChange("cargo", e.target.value)}
+              style={inputStyle}
+            />
+            <input
+              type="email"
+              placeholder="Correo electrónico"
+              value={contacto.email}
+              onChange={(e) => handleContactoChange("email", e.target.value)}
+              style={inputStyle}
+            />
+            <TelefonoField
+              label="Teléfono"
+              value={contacto.telefono}
+              onChange={handleContactoTelefono}
+            />
+          </Box>
+        </>
+      )}
+
+      {step === 2 && (
+        <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+          <Box title="Especialidades y Terapias">
+            <Ayuda>
+              Seleccionad todas las terapias, servicios o especialidades que formen parte de vuestra
+              actividad. Podréis ordenarlas según su importancia.
+            </Ayuda>
+            <EspecialidadesPicker max={0} note={null} variant="organizacion" />
+          </Box>
+          <Box title="Áreas de Especialización">
+            <Ayuda>
+              Seleccionad las áreas en las que trabajáis habitualmente. También podréis ordenarlas
+              según su relevancia.
+            </Ayuda>
+            <AreasPicker max={0} note={null} variant="organizacion" />
+          </Box>
+          <Box title="¿A quién acompañáis?">
+            <Note>Selecciona todas las opciones que correspondan.</Note>
+            <VCheckboxes options={O_PUBLICO} columns={3} />
+          </Box>
+          <Box title="Modalidades de actividad">
+            <Note>Seleccionad todas las modalidades que ofrecéis.</Note>
+            <VCheckboxes options={O_MODALIDADES} columns={3} />
+          </Box>
+        </div>
+      )}
+
+      {step === 3 && (
+        <>
+          <Box title="Vuestra ubicación">
+            <DireccionAutocomplete />
+          </Box>
+          <Box title="Instalaciones">
+            <Ayuda>
+              Seleccionad las instalaciones y espacios que forman parte de vuestra organización.
+            </Ayuda>
+            <VCheckboxes options={O_INSTALACIONES} columns={3} />
+          </Box>
+        </>
+      )}
+
+      {step === 4 && (
+        <>
+          <Box title="Frase destacada">
+            <LimitedTextField label="Frase destacada" max={120} />
+            <Ayuda>
+              Una frase breve que resuma vuestra filosofía, vuestra misión o aquello que mejor define
+              vuestro espacio.
+            </Ayuda>
+            <div style={{ fontSize: 12, color: "#666", fontStyle: "italic", marginTop: 8 }}>
+              Algunas ideas:
+              <ul style={{ paddingLeft: 18, marginTop: 6, marginBottom: 6 }}>
+                <li>Centro holístico dedicado al bienestar integral en Mallorca.</li>
+                <li>Espacio de formación y retiros en plena naturaleza.</li>
+                <li>Escuela de yoga y meditación con enfoque integrativo.</li>
+              </ul>
+            </div>
+          </Box>
+          <Box title="Sobre nosotros">
+            <LimitedTextField label="Sobre nosotros" max={3000} multiline />
+            <Ayuda>
+              Compartid vuestra historia, filosofía y aquello que hace especial vuestra
+              organización.
+            </Ayuda>
+            <Note>
+              No os preocupéis si ahora no tenéis el texto perfecto. Podréis modificarlo siempre que
+              queráis.
+            </Note>
+          </Box>
+          <Box title="Idiomas">
+            <Ayuda>Seleccionad los idiomas en los que podéis atender a las personas.</Ayuda>
+            <VCheckboxes options={V_IDIOMAS} columns={3} />
+          </Box>
+        </>
+      )}
+
+      {step === 5 && (
+        <>
+          <Box title="🌐 Página web">
+            <FakeField label="Página web" type="url" />
+          </Box>
+          <Box title="📱 Redes sociales">
+            <RedesSocialesList />
+          </Box>
+          <Box title="💬 WhatsApp Business">
+            <OWhatsAppBusiness />
+          </Box>
+          <Box title="🔒 Datos de contacto visibles">
+            <OInformacionPublica />
+          </Box>
+        </>
+      )}
+
+      {step === 6 && (
+        <Box title="Verificación y Compromisos">
+          <VConsentItem
+            icon="📜"
+            title="Código Deontológico"
+            linkText="Leer documento"
+            label="Confirmo que he leído y acepto el Código Deontológico de Mallorca Holística."
+            checked={consents.codigo}
+            onToggle={() => toggleConsent("codigo")}
+          />
+          <VConsentItem
+            icon="✅"
+            title="Declaración de veracidad"
+            label="Declaro que toda la información aportada es veraz, exacta y está actualizada."
+            checked={consents.veracidad}
+            onToggle={() => toggleConsent("veracidad")}
+          />
+          <VConsentItem
+            icon="🔒"
+            title="Política de Privacidad"
+            linkText="Leer documento"
+            label="Confirmo que he leído y acepto la Política de Privacidad."
+            checked={consents.privacidad}
+            onToggle={() => toggleConsent("privacidad")}
+          />
+          <VConsentItem
+            icon="📄"
+            title="Condiciones de Uso"
+            linkText="Leer documento"
+            label="Confirmo que he leído y acepto las Condiciones de Uso."
+            checked={consents.condiciones}
+            onToggle={() => toggleConsent("condiciones")}
+          />
+          <VConsentItem
+            icon="🌐"
+            title="Publicación del Perfil"
+            linkText="Leer autorización"
+            label="Autorizo a Mallorca Holística a publicar el perfil de la organización en la plataforma."
+            checked={consents.publicacion}
+            onToggle={() => toggleConsent("publicacion")}
+          />
+          <VConsentItem
+            icon="📝"
+            title="Declaración responsable"
+            label="Declaro representar legalmente o contar con autorización para actuar en nombre de esta organización."
+            checked={consents.seguroRC}
+            onToggle={() => toggleConsent("seguroRC")}
+          />
+
+          <div style={{ marginBottom: 16 }}>
+            <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
+              ✍️ Confirmación final
+            </div>
+            <Ayuda>
+              Al introducir tu nombre completo confirmas que actúas en representación de esta
+              organización y que aceptas las declaraciones anteriores.
+            </Ayuda>
+            <FakeField label="Nombre completo" />
+            <div style={{ fontSize: 11, color: "#888", marginTop: 4, fontStyle: "italic" }}>
+              La fecha, hora e IP quedarán registradas automáticamente.
+            </div>
+          </div>
+
+          <Note>
+            Ya solo queda un último paso. Después podréis enviar vuestra solicitud. Nuestro equipo la
+            revisará y os avisaremos por correo electrónico cuando vuestro perfil esté listo para
+            publicarse.
+          </Note>
+        </Box>
+      )}
+
+      <Box title="Navegación">
+        <button
+          onClick={() => setStep((s) => Math.max(1, s - 1))}
+          disabled={step === 1}
+          style={btn("secondary")}
+        >
+          ← Anterior
+        </button>
+        {!isLast ? (
+          <button onClick={() => setStep((s) => s + 1)} style={btn("primary")}>
+            Siguiente →
+          </button>
+        ) : (
+          <button
+            onClick={finish}
+            disabled={!allConsents}
+            style={{
+              ...btn("primary"),
+              opacity: allConsents ? 1 : 0.5,
+              cursor: allConsents ? "pointer" : "not-allowed",
+            }}
+          >
+            👉 Enviar para revisión
+          </button>
+        )}
+      </Box>
+    </WireframeShell>
   );
 }
