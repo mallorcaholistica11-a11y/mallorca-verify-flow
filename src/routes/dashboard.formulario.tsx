@@ -3389,3 +3389,309 @@ function PresenciaOrganizacionFormulario() {
     </WireframeShell>
   );
 }
+
+// ================================================================
+// PLAN PRESENCIA · PROFESIONAL (6 pasos)
+// Misma estructura que el formulario Profesional Verificado,
+// sin las funcionalidades exclusivas del Plan Verificado.
+// ================================================================
+
+const PP_STEP_TITLES = [
+  "Información General",
+  "Actividad Profesional",
+  "Consultas y Modalidades",
+  "Experiencia y Perfil",
+  "Contacto y presencia online",
+  "Compromisos",
+];
+
+const PP_STEP_INTROS: Record<number, string> = {
+  1: "Empezamos con la información principal de tu perfil. Estos datos ayudarán a las personas a conocerte, ponerse en contacto contigo y generar confianza desde el primer momento.",
+  2: "Cuéntanos un poco más sobre tu actividad para que las personas puedan encontrarte con facilidad y comprendan mejor cómo puedes acompañarlas.",
+  3: "Indícanos cómo realizas tus consultas y dónde atiendes habitualmente.",
+  4: "Este es tu espacio para presentarte. Comparte quién eres, cómo acompañas a las personas y aquello que hace única tu forma de trabajar. También podrás mostrar parte de tu formación e indicar los idiomas en los que ofreces atención.",
+  5: "Añade los enlaces y canales de contacto que quieras compartir para que las personas puedan conocerte o ponerse en contacto contigo. Todos los campos son opcionales.",
+  6: "Ya casi has terminado. Antes de enviar tu solicitud, necesitamos que aceptes los siguientes documentos y declaraciones para poder revisar tu perfil y publicarlo en Mallorca Holística.",
+};
+
+type PPConsents = {
+  codigo: boolean;
+  veracidad: boolean;
+  privacidad: boolean;
+  condiciones: boolean;
+  publicacion: boolean;
+};
+
+function PresenciaProfesionalFormulario() {
+  const { track } = Route.useSearch();
+  const navigate = useNavigate();
+  const [step, setStep] = useState(1);
+  const total = 6;
+  const isLast = step === total;
+
+  const [consents, setConsents] = useState<PPConsents>({
+    codigo: false,
+    veracidad: false,
+    privacidad: false,
+    condiciones: false,
+    publicacion: false,
+  });
+  const toggleConsent = (k: keyof PPConsents) => setConsents((p) => ({ ...p, [k]: !p[k] }));
+  const allConsents = Object.values(consents).every(Boolean);
+
+  const finish = () => navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
+
+  const stepTitle = PP_STEP_TITLES[step - 1];
+
+  return (
+    <WireframeShell
+      screen={`6 · FORMULARIO PRESENCIA · PASO ${step}/${total}`}
+      title={`Paso ${step} de ${total} · ${stepTitle}`}
+      breadcrumb="Dashboard › Completar perfil"
+    >
+      <TrackBadge track={track} />
+
+      <Box title={`Progreso · Paso ${step} de ${total}`}>
+        <div style={{ display: "flex", gap: 4 }}>
+          {PP_STEP_TITLES.map((t, i) => {
+            const n = i + 1;
+            return (
+              <div
+                key={n}
+                title={t}
+                style={{
+                  flex: 1,
+                  padding: 6,
+                  fontSize: 11,
+                  textAlign: "center",
+                  border: "1px dashed #888",
+                  background: n === step ? "#111" : n < step ? "#ddd" : "#fff",
+                  color: n === step ? "#fff" : "#111",
+                }}
+              >
+                {n}
+              </div>
+            );
+          })}
+        </div>
+        <div style={{ fontSize: 11, color: "#666", marginTop: 6 }}>
+          {PP_STEP_TITLES.map((t, i) => `${i + 1}. ${t}`).join("  ·  ")}
+        </div>
+      </Box>
+
+      {PP_STEP_INTROS[step] && (
+        <p
+          style={{
+            fontSize: 14,
+            lineHeight: 1.7,
+            color: "#444",
+            margin: "0 0 24px 0",
+            maxWidth: 640,
+          }}
+        >
+          {PP_STEP_INTROS[step]}
+        </p>
+      )}
+
+      {step === 1 && (
+        <>
+          <Box title="Información General">
+            <FakeField label="Nombre" />
+            <FakeField label="Apellidos" />
+            <FakeField label="Nombre profesional (opcional)" />
+            <Ayuda>Si utilizas un nombre artístico o una marca personal, puedes indicarlo aquí.</Ayuda>
+          </Box>
+
+          <Box title="Datos de contacto">
+            <DireccionAutocomplete ayuda="Si atiendes en un centro o consulta, indica esa dirección. Si trabajas exclusivamente online o a domicilio, puedes indicar la ubicación de tu municipio o ciudad." />
+            <FakeField label="Correo electrónico" type="email" />
+            <Ayuda>Será el correo de contacto que aparecerá en tu perfil profesional.</Ayuda>
+            <TelefonoField label="Teléfono" />
+            <VWhatsAppMismo />
+            <FakeField label="Foto principal" type="file" />
+            <Ayuda>Será la imagen principal de tu perfil profesional.</Ayuda>
+          </Box>
+        </>
+      )}
+
+      {step === 2 && (
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <Box title="Especialidades y Terapias">
+            <Ayuda>
+              Puedes añadir hasta 3 especialidades o terapias principales y ordenarlas según su
+              importancia.
+            </Ayuda>
+            <EspecialidadesPicker max={3} note={null} variant="profesional" />
+          </Box>
+          <Box title="Áreas de Especialización">
+            <Ayuda>
+              Puedes seleccionar hasta 5 áreas de especialización y ordenarlas según su relevancia.
+            </Ayuda>
+            <AreasPicker max={5} note={null} variant="profesional" />
+          </Box>
+          <Box title="¿A quién acompañas?">
+            <Note>Selecciona todas las opciones que correspondan.</Note>
+            <VCheckboxes options={V_PUBLICO_OPTIONS} columns={3} />
+          </Box>
+          <Box title="¿Cómo trabajas?">
+            <Note>Selecciona todas las modalidades que ofreces.</Note>
+            <VCheckboxes options={V_MODALIDADES_OPTIONS} columns={3} />
+          </Box>
+        </div>
+      )}
+
+      {step === 3 && (
+        <>
+          <Box title="¿Cómo realizas tus consultas?">
+            <Note>Selecciona todas las modalidades de consulta que ofreces.</Note>
+            <VCheckboxes options={V_CONSULTA_OPTIONS} columns={2} descriptions={V_CONSULTA_HELP} />
+          </Box>
+          <Box title="Tu ubicación">
+            <ConsultasList single />
+          </Box>
+        </>
+      )}
+
+      {step === 4 && (
+        <>
+          <Box title="Frase destacada">
+            <Note>Describe tu actividad en una frase. Máximo 120 caracteres.</Note>
+            <LimitedTextField label="Frase destacada" max={120} />
+            <Ayuda>Una frase breve que resuma tu manera de acompañar o tu filosofía profesional.</Ayuda>
+            <div style={{ fontSize: 12, color: "#666", fontStyle: "italic", marginTop: 8 }}>
+              Algunas ideas:
+              <ul style={{ paddingLeft: 18, marginTop: 6, marginBottom: 6 }}>
+                <li>Psicóloga integrativa especializada en ansiedad y trauma.</li>
+                <li>Osteópata y terapeuta corporal con enfoque holístico.</li>
+                <li>Profesora de yoga y acompañante en procesos de transformación personal.</li>
+              </ul>
+            </div>
+          </Box>
+          <Box title="Cuéntanos un poco sobre ti">
+            <Note>Máximo 3000 caracteres.</Note>
+            <LimitedTextField label="Cuéntanos un poco sobre ti" max={3000} multiline />
+            <Ayuda>
+              Comparte tu recorrido, tu experiencia, tu forma de trabajar y aquello que te gustaría
+              que las personas conocieran antes de contactar contigo.
+            </Ayuda>
+            <Note>
+              No te preocupes si ahora no tienes el texto perfecto. Podrás modificarlo siempre que lo
+              desees.
+            </Note>
+          </Box>
+          <Box title="Formación principal">
+            <FormacionList single />
+            <Ayuda>
+              Añade la formación que consideres más relevante para tu actividad profesional.
+            </Ayuda>
+          </Box>
+          <div style={{ height: 12 }} />
+          <Box title="Experiencia profesional">
+            <Ayuda>
+              Indica desde cuándo ejerces profesionalmente. Esta información ayuda a las personas a
+              conocer mejor tu trayectoria.
+            </Ayuda>
+            <FakeField label="¿Desde qué año ejerces profesionalmente?" type="año · ej. 2014" />
+          </Box>
+          <Box title="Idiomas">
+            <Ayuda>Selecciona los idiomas en los que puedes atender a las personas.</Ayuda>
+            <VCheckboxes options={V_IDIOMAS} columns={3} />
+          </Box>
+        </>
+      )}
+
+      {step === 5 && (
+        <>
+          <Box title="🌐 Página web">
+            <FakeField label="Página web" type="url" />
+          </Box>
+          <Box title="📱 Redes sociales">
+            <RedesSocialesList />
+          </Box>
+          <Box title="💬 WhatsApp Business">
+            <VWhatsAppBusiness />
+          </Box>
+          <Box title="🔒 Información pública">
+            <VInformacionPublica />
+          </Box>
+        </>
+      )}
+
+      {step === 6 && (
+        <Box title="📄 Documentos y declaraciones">
+          <VConsentItem
+            icon="📜"
+            title="Código Deontológico"
+            linkText="Leer documento"
+            label="Confirmo que he leído y acepto el Código Deontológico de Mallorca Holística."
+            checked={consents.codigo}
+            onToggle={() => toggleConsent("codigo")}
+          />
+          <VConsentItem
+            icon="✅"
+            title="Declaración de veracidad"
+            label="Declaro que toda la información aportada es veraz, exacta y está actualizada."
+            checked={consents.veracidad}
+            onToggle={() => toggleConsent("veracidad")}
+          />
+          <VConsentItem
+            icon="🔒"
+            title="Política de Privacidad"
+            linkText="Leer documento"
+            label="Confirmo que he leído y acepto la Política de Privacidad."
+            checked={consents.privacidad}
+            onToggle={() => toggleConsent("privacidad")}
+          />
+          <VConsentItem
+            icon="📄"
+            title="Condiciones de Uso"
+            linkText="Leer documento"
+            label="Confirmo que he leído y acepto las Condiciones de Uso."
+            checked={consents.condiciones}
+            onToggle={() => toggleConsent("condiciones")}
+          />
+          <VConsentItem
+            icon="🌐"
+            title="Publicación del Perfil"
+            linkText="Leer documento"
+            label="Autorizo a Mallorca Holística a publicar mi perfil profesional en la plataforma."
+            checked={consents.publicacion}
+            onToggle={() => toggleConsent("publicacion")}
+          />
+          <Note>
+            Ya solo queda un último paso. Después podrás enviar tu solicitud. Nuestro equipo revisará
+            la información y te avisaremos por correo electrónico cuando tu perfil esté listo para
+            publicarse.
+          </Note>
+        </Box>
+      )}
+
+      <Box title="Navegación">
+        <button
+          onClick={() => setStep((s) => Math.max(1, s - 1))}
+          disabled={step === 1}
+          style={btn("secondary")}
+        >
+          ← Anterior
+        </button>
+        {!isLast ? (
+          <button onClick={() => setStep((s) => s + 1)} style={btn("primary")}>
+            Siguiente →
+          </button>
+        ) : (
+          <button
+            onClick={finish}
+            disabled={!allConsents}
+            style={{
+              ...btn("primary"),
+              opacity: allConsents ? 1 : 0.5,
+              cursor: allConsents ? "pointer" : "not-allowed",
+            }}
+          >
+            👉 Enviar mi solicitud
+          </button>
+        )}
+      </Box>
+    </WireframeShell>
+  );
+}
