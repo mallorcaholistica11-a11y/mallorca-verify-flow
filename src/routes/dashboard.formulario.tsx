@@ -2305,7 +2305,7 @@ function VerificadoFormulario() {
           {!isOrg && (
             <Box title="Datos de contacto">
               <>
-                <MunicipioPicker label="Municipio principal" hint={null} />
+                <DireccionAutocomplete ayuda="Si atiendes en un centro o consulta, indica esa dirección. Si trabajas exclusivamente online o a domicilio, puedes indicar la ubicación de tu municipio o ciudad." />
                 <FakeField label="Correo electrónico" type="email" />
                 <Ayuda>Será el correo de contacto que aparecerá en tu perfil profesional.</Ayuda>
                 <TelefonoField label="Teléfono" />
