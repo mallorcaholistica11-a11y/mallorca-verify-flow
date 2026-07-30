@@ -64,7 +64,7 @@ const PRESENCIA_STEPS: Step[] = [
   {
     title: "Revisión y envío",
     intro:
-      "¡Ya casi has terminado! Antes de enviar tu perfil, revisa y acepta los siguientes documentos. Una vez enviado, nuestro equipo revisará tu perfil. Te avisaremos por correo electrónico cuando esté listo para publicarse.",
+      "¡Ya casi has terminado! Antes de enviar tu perfil, revisa y acepta los siguientes documentos. Una vez enviada tu solicitud, nuestro equipo la revisará y te avisaremos por correo electrónico cuando tu perfil esté listo para publicarse.",
   },
 ];
 
