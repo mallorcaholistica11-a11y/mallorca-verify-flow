@@ -2598,82 +2598,6 @@ function VerificadoFormulario() {
           {isOrg ? (
             <>
               <div style={{ marginBottom: 16 }}>
-                <div
-                  onClick={() => setRepresentanteEsContacto((v) => !v)}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 8,
-                    padding: "8px 10px",
-                    border: "1px dashed #888",
-                    background: representanteEsContacto ? "#f3f3f3" : "#fff",
-                    cursor: "pointer",
-                    fontSize: 13,
-                  }}
-                >
-                  <span
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      width: 14,
-                      height: 14,
-                      border: "1px dashed #666",
-                      background: "#fff",
-                      fontSize: 10,
-                    }}
-                  >
-                    {representanteEsContacto ? "☑" : ""}
-                  </span>
-                  <span>
-                    La persona de contacto indicada anteriormente es también la representante legal
-                    de esta organización.
-                  </span>
-                </div>
-              </div>
-
-              <div style={{ marginBottom: 16 }}>
-                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
-                  👤 Persona responsable
-                </div>
-                <Ayuda>
-                  Indícanos la persona responsable que actuará en nombre de la organización durante
-                  el proceso de verificación.
-                </Ayuda>
-                {representanteEsContacto ? (
-                  <>
-                    <Note>
-                      Se reutilizan los datos de la persona de contacto introducidos en el Paso 1.
-                    </Note>
-                    <div style={{ fontSize: 13, marginBottom: 8 }}>
-                      <strong>Nombre:</strong> {contacto.nombre || "[pendiente]"}
-                    </div>
-                    <div style={{ fontSize: 13, marginBottom: 8 }}>
-                      <strong>Apellidos:</strong> {contacto.apellidos || "[pendiente]"}
-                    </div>
-                    <div style={{ fontSize: 13, marginBottom: 8 }}>
-                      <strong>Cargo:</strong> {contacto.cargo || "[pendiente]"}
-                    </div>
-                    <div style={{ fontSize: 13, marginBottom: 8 }}>
-                      <strong>Email:</strong> {contacto.email || "[pendiente]"}
-                    </div>
-                    <div style={{ fontSize: 13, marginBottom: 8 }}>
-                      <strong>Teléfono:</strong> {contacto.telefono.prefijo}{" "}
-                      {contacto.telefono.numero || "[pendiente]"}
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <FakeField label="Nombre" />
-                    <FakeField label="Apellidos" />
-                    <FakeField label="Cargo" />
-                    <FakeField label="Email" type="email" />
-                    <TelefonoField label="Teléfono" />
-                  </>
-                )}
-              </div>
-
-              <div style={{ marginBottom: 16 }}>
                 <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
                   🏢 Identificación de la entidad
                 </div>
@@ -2802,12 +2726,14 @@ function VerificadoFormulario() {
               />
 
               <div style={{ marginBottom: 16 }}>
-                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>✍️ Firma</div>
+                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
+                  ✍️ Confirmación final
+                </div>
                 <Ayuda>
-                  Al firmar confirmas que actúas en representación de esta organización y que toda
-                  la información proporcionada es correcta.
+                  Al introducir tu nombre completo confirmas que actúas en representación de esta
+                  organización y que aceptas las declaraciones anteriores.
                 </Ayuda>
-                <FakeField label="Nombre completo del firmante" />
+                <FakeField label="Nombre completo" />
                 <div style={{ fontSize: 11, color: "#888", marginTop: 4, fontStyle: "italic" }}>
                   La fecha, hora e IP quedarán registradas automáticamente.
                 </div>
