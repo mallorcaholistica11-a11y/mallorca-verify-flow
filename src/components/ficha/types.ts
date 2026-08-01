@@ -83,6 +83,25 @@ export type FichaPublicaData = {
 export const MAX_ESPECIALIDADES_FICHA = 15;
 export const MAX_AREAS_FICHA = 20;
 
+export type MiembroEquipo = {
+  nombre: string;
+  rol?: string;
+  fotoUrl?: string;
+};
+
+export type FichaCentroData = Omit<FichaPublicaData, "sobreMi"> & {
+  tipoOrganizacion?: string;
+  imagenPrincipal?: string;
+  sobreNosotros?: string;
+  idiomas?: string[];
+  instalaciones?: string[];
+  equipo?: MiembroEquipo[];
+  totalEquipo?: number;
+  horario?: string[];
+  citaPrevia?: boolean;
+  hayActividades?: boolean;
+};
+
 export function aniosAcompanando(anioInicio?: number, hoy = new Date()): number | null {
   if (!anioInicio) return null;
   const anios = hoy.getFullYear() - anioInicio;
