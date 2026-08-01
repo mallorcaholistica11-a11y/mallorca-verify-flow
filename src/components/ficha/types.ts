@@ -1,0 +1,83 @@
+// Modelo de datos común para las fichas públicas (Profesional / Centro,
+// Plan Presencia / Verificado). Los bloques vacíos no se renderizan.
+
+export type Modalidad = string;
+
+export type Ubicacion = {
+  nombre?: string;
+  direccion: string;
+  municipio: string;
+  principal?: boolean;
+};
+
+export type Tarifa = {
+  servicio: string;
+  duracion?: string;
+  precio: string;
+};
+
+export type Trayectoria = {
+  formaciones?: string[];
+  certificaciones?: string[];
+  experiencia?: string[];
+};
+
+export type RedSocial = {
+  red: string;
+  url: string;
+};
+
+export type Actividad = {
+  id: string;
+  titulo: string;
+  fecha?: string;
+  lugar?: string;
+};
+
+export type Opinion = {
+  autor: string;
+  contexto?: string;
+  texto: string;
+};
+
+export type Contacto = {
+  telefono?: string;
+  email?: string;
+  whatsapp?: string;
+  web?: string;
+  redes?: RedSocial[];
+};
+
+export type FichaPublicaData = {
+  nombre: string;
+  identidadProfesional?: string;
+  fotoUrl?: string;
+  especialidadesPrincipales?: string[];
+  anioInicioActividad?: number;
+  municipio?: string;
+  modalidades?: Modalidad[];
+  fraseDestacada?: string;
+  enlaceReserva?: string;
+  verificado?: boolean;
+  sobreMi?: string;
+  especialidades?: string[];
+  areas?: string[];
+  publicos?: string[];
+  trayectoria?: Trayectoria;
+  tarifas?: Tarifa[];
+  notaTarifas?: string;
+  galeria?: string[];
+  actividades?: Actividad[];
+  opiniones?: Opinion[];
+  ubicaciones?: Ubicacion[];
+  contacto?: Contacto;
+};
+
+export const MAX_ESPECIALIDADES_FICHA = 15;
+export const MAX_AREAS_FICHA = 20;
+
+export function aniosAcompanando(anioInicio?: number, hoy = new Date()): number | null {
+  if (!anioInicio) return null;
+  const anios = hoy.getFullYear() - anioInicio;
+  return anios > 0 ? anios : null;
+}
