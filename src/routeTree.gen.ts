@@ -22,6 +22,7 @@ import { Route as ComunidadFundadoraAccesoRouteImport } from './routes/comunidad
 import { Route as ComunidadFundadoraRouteImport } from './routes/comunidad-fundadora'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as MiEspacioIndexRouteImport } from './routes/mi-espacio.index'
+import { Route as ProfesionalSlugRouteImport } from './routes/profesional.$slug'
 import { Route as MiEspacioSuscripcionRouteImport } from './routes/mi-espacio.suscripcion'
 import { Route as MiEspacioPerfilRouteImport } from './routes/mi-espacio.perfil'
 import { Route as MiEspacioAyudaRouteImport } from './routes/mi-espacio.ayuda'
@@ -108,6 +109,11 @@ const MiEspacioIndexRoute = MiEspacioIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => MiEspacioRoute,
+} as any)
+const ProfesionalSlugRoute = ProfesionalSlugRouteImport.update({
+  id: '/profesional/$slug',
+  path: '/profesional/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const MiEspacioSuscripcionRoute = MiEspacioSuscripcionRouteImport.update({
   id: '/suscripcion',
@@ -229,6 +235,7 @@ export interface FileRoutesByFullPath {
   '/mi-espacio/ayuda': typeof MiEspacioAyudaRoute
   '/mi-espacio/perfil': typeof MiEspacioPerfilRoute
   '/mi-espacio/suscripcion': typeof MiEspacioSuscripcionRoute
+  '/profesional/$slug': typeof ProfesionalSlugRoute
   '/mi-espacio/': typeof MiEspacioIndexRoute
   '/mi-espacio/actividades/nueva': typeof MiEspacioActividadesNuevaRoute
   '/mi-espacio/actividades/': typeof MiEspacioActividadesIndexRoute
@@ -259,6 +266,7 @@ export interface FileRoutesByTo {
   '/mi-espacio/ayuda': typeof MiEspacioAyudaRoute
   '/mi-espacio/perfil': typeof MiEspacioPerfilRoute
   '/mi-espacio/suscripcion': typeof MiEspacioSuscripcionRoute
+  '/profesional/$slug': typeof ProfesionalSlugRoute
   '/mi-espacio': typeof MiEspacioIndexRoute
   '/mi-espacio/actividades/nueva': typeof MiEspacioActividadesNuevaRoute
   '/mi-espacio/actividades': typeof MiEspacioActividadesIndexRoute
@@ -292,6 +300,7 @@ export interface FileRoutesById {
   '/mi-espacio/ayuda': typeof MiEspacioAyudaRoute
   '/mi-espacio/perfil': typeof MiEspacioPerfilRoute
   '/mi-espacio/suscripcion': typeof MiEspacioSuscripcionRoute
+  '/profesional/$slug': typeof ProfesionalSlugRoute
   '/mi-espacio/': typeof MiEspacioIndexRoute
   '/mi-espacio/actividades/nueva': typeof MiEspacioActividadesNuevaRoute
   '/mi-espacio/actividades/': typeof MiEspacioActividadesIndexRoute
@@ -326,6 +335,7 @@ export interface FileRouteTypes {
     | '/mi-espacio/ayuda'
     | '/mi-espacio/perfil'
     | '/mi-espacio/suscripcion'
+    | '/profesional/$slug'
     | '/mi-espacio/'
     | '/mi-espacio/actividades/nueva'
     | '/mi-espacio/actividades/'
@@ -356,6 +366,7 @@ export interface FileRouteTypes {
     | '/mi-espacio/ayuda'
     | '/mi-espacio/perfil'
     | '/mi-espacio/suscripcion'
+    | '/profesional/$slug'
     | '/mi-espacio'
     | '/mi-espacio/actividades/nueva'
     | '/mi-espacio/actividades'
@@ -388,6 +399,7 @@ export interface FileRouteTypes {
     | '/mi-espacio/ayuda'
     | '/mi-espacio/perfil'
     | '/mi-espacio/suscripcion'
+    | '/profesional/$slug'
     | '/mi-espacio/'
     | '/mi-espacio/actividades/nueva'
     | '/mi-espacio/actividades/'
@@ -412,6 +424,7 @@ export interface RootRouteChildren {
   FuturoPlanPresenciaRoute: typeof FuturoPlanPresenciaRoute
   FuturoProfesionalVerificadoRoute: typeof FuturoProfesionalVerificadoRoute
   InvitacionTokenRoute: typeof InvitacionTokenRoute
+  ProfesionalSlugRoute: typeof ProfesionalSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -506,6 +519,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/mi-espacio/'
       preLoaderRoute: typeof MiEspacioIndexRouteImport
       parentRoute: typeof MiEspacioRoute
+    }
+    '/profesional/$slug': {
+      id: '/profesional/$slug'
+      path: '/profesional/$slug'
+      fullPath: '/profesional/$slug'
+      preLoaderRoute: typeof ProfesionalSlugRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/mi-espacio/suscripcion': {
       id: '/mi-espacio/suscripcion'
@@ -701,6 +721,7 @@ const rootRouteChildren: RootRouteChildren = {
   FuturoPlanPresenciaRoute: FuturoPlanPresenciaRoute,
   FuturoProfesionalVerificadoRoute: FuturoProfesionalVerificadoRoute,
   InvitacionTokenRoute: InvitacionTokenRoute,
+  ProfesionalSlugRoute: ProfesionalSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
