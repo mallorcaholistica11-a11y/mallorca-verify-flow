@@ -64,6 +64,7 @@ const demo: FichaPublicaData = {
     { servicio: "Primera consulta", duracion: "90 min", precio: "95 €" },
   ],
   notaTarifas: "Las tarifas pueden variar según las necesidades de cada persona.",
+  galeria: ["Sala de terapia", "Espacio de meditación", "Taller grupal"],
   actividades: [
     { id: "1", titulo: "Taller de respiración consciente", fecha: "12 sept · 18:00", lugar: "Palma" },
   ],
