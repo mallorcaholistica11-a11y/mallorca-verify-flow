@@ -142,3 +142,7 @@
     color: var(--color-foreground);
   }
 }
+
+.ficha-galeria-pista::-webkit-scrollbar {
+  display: none;
+}
