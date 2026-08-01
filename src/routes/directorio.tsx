@@ -303,8 +303,9 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0,1fr))",
+            gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0,1fr)) auto",
             gap: 12,
+            alignItems: "end",
           }}
         >
           <Campo label="Tipo de perfil">
@@ -336,6 +337,9 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
               ))}
             </select>
           </Campo>
+          <button type="button" style={{ ...selectStyle, width: "auto", cursor: "pointer", whiteSpace: "nowrap", color: "#555" }}>
+            ↺ Limpiar filtros
+          </button>
         </div>
         <label style={{ fontSize: 12, color: "#333", display: "flex", alignItems: "center", gap: 8 }}>
           <input type="checkbox" />
