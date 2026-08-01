@@ -248,9 +248,6 @@ function BuscadorIA({ isMobile }: { isMobile: boolean }) {
         }}
       >
         <div style={{ textAlign: "center", maxWidth: 620, margin: "0 auto 28px auto" }}>
-          <div style={{ fontSize: 11, letterSpacing: 2, color: "#888", marginBottom: 10 }}>
-            BÚSQUEDA GUIADA
-          </div>
           <h2 style={{ fontSize: isMobile ? 20 : 24, margin: "0 0 12px 0", fontWeight: 600 }}>
             ¿Cómo te sientes hoy?
           </h2>
@@ -279,13 +276,8 @@ function BuscadorIA({ isMobile }: { isMobile: boolean }) {
           </button>
         </div>
 
-        <div style={{ maxWidth: 720, margin: "22px auto 0 auto" }}>
-          <div style={{ fontSize: 11, color: "#888", marginBottom: 8, textAlign: "center" }}>
-            O elige una de las opciones más frecuentes
-          </div>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <Chips items={CHIPS} clicable />
-          </div>
+        <div style={{ maxWidth: 720, margin: "22px auto 0 auto", display: "flex", justifyContent: "center" }}>
+          <Chips items={CHIPS} clicable />
         </div>
       </div>
     </Bloque>
@@ -340,7 +332,7 @@ function Confianza({ isMobile }: { isMobile: boolean }) {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+              gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))",
               gap: 12,
             }}
           >
