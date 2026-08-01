@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import type { CSSProperties, ReactNode } from "react";
 import { Chips, Placeholder, Seccion } from "@/components/ficha/primitives";
 import { useMobile } from "@/components/ficha/useMobile";
+import { ESPECIALIDADES_OFICIALES, MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
 
 export const Route = createFileRoute("/directorio")({
   head: () => ({
@@ -36,18 +37,9 @@ const NAV = [
   "Nuestra Mirada",
 ];
 
-const MUNICIPIOS = ["Todos los municipios", "Palma", "Sóller", "Pollença", "Manacor", "Inca", "Alcúdia"];
+const MUNICIPIOS = ["Todos los municipios", ...MUNICIPIOS_MALLORCA];
 
-const ESPECIALIDADES = [
-  "Todas las especialidades",
-  "Psicoterapia integrativa",
-  "Osteopatía",
-  "Terapia floral",
-  "Yoga",
-  "Meditación",
-  "Masaje terapéutico",
-  "Nutrición integrativa",
-];
+const ESPECIALIDADES = ["Todas las especialidades", ...ESPECIALIDADES_OFICIALES];
 
 const MODALIDADES = ["Presencial", "Online", "A domicilio", "A distancia"];
 
@@ -78,8 +70,8 @@ const RESULTADOS: Resultado[] = [
     tipo: "profesional",
     nombre: "Lucía Gelabert",
     identidad: "Psicoterapeuta integrativa",
-    ubicacion: "Palma, Mallorca",
-    especialidades: ["Psicoterapia integrativa", "Mindfulness", "Duelo"],
+    ubicacion: "Palma",
+    especialidades: ["Psicología Integrativa", "Mindfulness", "Terapia Emocional"],
     verificado: true,
     slug: "lucia-gelabert",
   },
@@ -87,8 +79,8 @@ const RESULTADOS: Resultado[] = [
     tipo: "organizacion",
     nombre: "Espai Sa Font",
     identidad: "Centro de terapias y formación",
-    ubicacion: "Palma, Mallorca",
-    especialidades: ["Yoga", "Terapia manual", "Formaciones"],
+    ubicacion: "Palma",
+    especialidades: ["Yoga", "Masaje Terapéutico", "Meditación"],
     verificado: true,
     slug: "espai-sa-font",
   },
@@ -96,8 +88,8 @@ const RESULTADOS: Resultado[] = [
     tipo: "profesional",
     nombre: "Marta Ferrer",
     identidad: "Terapeuta floral",
-    ubicacion: "Sóller, Mallorca",
-    especialidades: ["Terapia Floral", "Meditación", "Respiración"],
+    ubicacion: "Sóller",
+    especialidades: ["Flores de Bach", "Meditación", "Respiración Consciente"],
     verificado: false,
     slug: "marta-ferrer",
   },
@@ -105,8 +97,8 @@ const RESULTADOS: Resultado[] = [
     tipo: "organizacion",
     nombre: "Casa Serena",
     identidad: "Espacio de bienestar y talleres",
-    ubicacion: "Pollença, Mallorca",
-    especialidades: ["Yoga", "Meditación", "Masaje Holístico"],
+    ubicacion: "Pollença",
+    especialidades: ["Yoga", "Meditación", "Masaje Relajante"],
     verificado: false,
     slug: "casa-serena",
   },
@@ -114,8 +106,8 @@ const RESULTADOS: Resultado[] = [
     tipo: "profesional",
     nombre: "Andrés López",
     identidad: "Osteópata",
-    ubicacion: "Palma, Mallorca",
-    especialidades: ["Osteopatía", "Dolor crónico", "Postura"],
+    ubicacion: "Palma",
+    especialidades: ["Osteopatía", "Fasciaterapia", "Quiromasaje"],
     verificado: true,
     slug: "lucia-gelabert",
   },
@@ -123,8 +115,8 @@ const RESULTADOS: Resultado[] = [
     tipo: "profesional",
     nombre: "Núria Camps",
     identidad: "Terapeuta energética",
-    ubicacion: "Inca, Mallorca",
-    especialidades: ["Reiki", "Terapia energética"],
+    ubicacion: "Inca",
+    especialidades: ["Reiki", "Sanación Energética"],
     verificado: false,
     slug: "marta-ferrer",
   },
