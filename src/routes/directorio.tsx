@@ -460,9 +460,13 @@ function TarjetaResultado({ r, isMobile }: { r: Resultado; isMobile: boolean }) 
         background: "#fff",
         padding: 16,
         display: "grid",
-        gridTemplateColumns: isMobile ? "1fr" : esProfesional ? "72px minmax(0,1fr)" : "120px minmax(0,1fr)",
+        gridTemplateColumns: isMobile
+          ? "1fr"
+          : esProfesional
+            ? "72px minmax(0,1fr) auto"
+            : "120px minmax(0,1fr) auto",
         gap: 16,
-        alignItems: "start",
+        alignItems: "center",
       }}
     >
       {esProfesional ? (
@@ -518,7 +522,19 @@ function TarjetaResultado({ r, isMobile }: { r: Resultado; isMobile: boolean }) 
         <div style={{ fontSize: 12, color: "#555", marginTop: 4 }}>{r.identidad}</div>
         <div style={{ fontSize: 12, color: "#888", marginTop: 2, marginBottom: 10 }}>{r.ubicacion}</div>
         <Chips items={r.especialidades.slice(0, 3)} />
-        <div style={{ marginTop: 12, fontSize: 12, color: "#111" }}>Ver perfil →</div>
+      </div>
+
+      <div
+        style={{
+          border: "1px dashed #666",
+          background: "#fff",
+          padding: "9px 16px",
+          fontSize: 12,
+          whiteSpace: "nowrap",
+          justifySelf: isMobile ? "start" : "end",
+        }}
+      >
+        Ver perfil →
       </div>
     </Link>
   );
