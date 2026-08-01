@@ -309,3 +309,152 @@ function BarraLateral({ data }: { data: FichaPublicaData }) {
 }
 
 const enlace = { color: "#111", textDecoration: "underline" } as const;
+
+const enlaceDiscreto = {
+  background: "none",
+  border: "none",
+  padding: 0,
+  marginTop: 8,
+  fontFamily: "inherit",
+  fontSize: 12,
+  color: "#555",
+  cursor: "pointer",
+  textDecoration: "underline",
+} as const;
+
+function BloqueFormaciones({ items }: { items: Formacion[] }) {
+  const [abierto, setAbierto] = useState(false);
+  if (items.length === 0) return null;
+  const visibles = abierto ? items : items.slice(0, 3);
+
+  return (
+    <div style={{ marginBottom: 18 }}>
+      <div style={{ display: "grid", gap: 10 }}>
+        {visibles.map((f, i) => (
+          <div key={`${f.titulo}-${i}`} style={{ fontSize: 13, lineHeight: 1.5 }}>
+            <div>{f.titulo}</div>
+            <div style={{ color: "#666", fontSize: 12 }}>
+              {[f.centro, f.anio].filter(Boolean).join(" · ")}
+            </div>
+          </div>
+        ))}
+      </div>
+      {items.length > 3 && (
+        <button type="button" onClick={() => setAbierto((v) => !v)} style={enlaceDiscreto}>
+          {abierto ? "− Mostrar menos" : "+ Mostrar toda la formación"}
+        </button>
+      )}
+    </div>
+  );
+}
+
+function ListaExpandible({ items, etiqueta }: { items: string[]; etiqueta: string }) {
+  const [abierto, setAbierto] = useState(false);
+  if (items.length === 0) return null;
+  const visibles = abierto ? items : items.slice(0, 3);
+
+  return (
+    <div>
+      <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, lineHeight: 1.8 }}>
+        {visibles.map((i) => (
+          <li key={i}>{i}</li>
+        ))}
+      </ul>
+      {items.length > 3 && (
+        <button type="button" onClick={() => setAbierto((v) => !v)} style={enlaceDiscreto}>
+          {abierto ? "− Mostrar menos" : `+ Mostrar toda la ${etiqueta}`}
+        </button>
+      )}
+    </div>
+  );
+}
+
+function Galeria({ imagenes, nombre }: { imagenes: string[]; nombre: string }) {
+  const [visor, setVisor] = useState<number | null>(null);
+  const visibles = imagenes.slice(0, 6);
+
+  return (
+    <>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(110px, 1fr))", gap: 8 }}>
+        {visibles.map((src, i) => (
+          <button
+            key={`${src}-${i}`}
+            type="button"
+            onClick={() => setVisor(i)}
+            style={{
+              border: "1px dashed #888",
+              aspectRatio: "1 / 1",
+              overflow: "hidden",
+              background: "#fff",
+              padding: 0,
+              cursor: "pointer",
+              fontFamily: "inherit",
+              fontSize: 11,
+              color: "#aaa",
+            }}
+          >
+            <img
+              src={src}
+              alt={`Imagen ${i + 1} de ${nombre}`}
+              loading="lazy"
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+          </button>
+        ))}
+      </div>
+      {imagenes.length > 6 && (
+        <button type="button" onClick={() => setVisor(0)} style={enlaceDiscreto}>
+          Ver toda la galería →
+        </button>
+      )}
+
+      {visor !== null && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setVisor(null)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.8)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 50,
+            padding: 24,
+          }}
+        >
+          <div onClick={(e) => e.stopPropagation()} style={{ maxWidth: 720, width: "100%", textAlign: "center" }}>
+            <img
+              src={imagenes[visor]}
+              alt={`Imagen ${visor + 1} de ${nombre}`}
+              style={{ maxWidth: "100%", maxHeight: "70vh", objectFit: "contain", background: "#fff" }}
+            />
+            <div style={{ display: "flex", justifyContent: "space-between", marginTop: 12, color: "#fff", fontSize: 12 }}>
+              <button
+                type="button"
+                onClick={() => setVisor((v) => ((v ?? 0) - 1 + imagenes.length) % imagenes.length)}
+                style={{ ...enlaceDiscreto, color: "#fff", marginTop: 0 }}
+              >
+                ← Anterior
+              </button>
+              <span>
+                {visor + 1} / {imagenes.length}
+              </span>
+              <button
+                type="button"
+                onClick={() => setVisor((v) => ((v ?? 0) + 1) % imagenes.length)}
+                style={{ ...enlaceDiscreto, color: "#fff", marginTop: 0 }}
+              >
+                Siguiente →
+              </button>
+            </div>
+            <button type="button" onClick={() => setVisor(null)} style={{ ...enlaceDiscreto, color: "#fff" }}>
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
