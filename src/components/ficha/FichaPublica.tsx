@@ -158,11 +158,7 @@ function Hero({
 
 function ColumnaPrincipal({ data }: { data: FichaPublicaData }) {
   const trayectoria = data.trayectoria;
-  const hayTrayectoria =
-    !!trayectoria &&
-    [trayectoria.formaciones, trayectoria.certificaciones, trayectoria.experiencia].some(
-      (l) => l && l.length > 0,
-    );
+  const hayFormacion = !!trayectoria?.formaciones?.length;
 
   return (
     <>
@@ -172,9 +168,6 @@ function ColumnaPrincipal({ data }: { data: FichaPublicaData }) {
 
       <Seccion titulo="Especialidades" vacio={!data.especialidades?.length}>
         <Chips items={(data.especialidades ?? []).slice(0, MAX_ESPECIALIDADES_FICHA)} clicable />
-        <div style={{ fontSize: 12, color: "#666", marginTop: 8 }}>
-          Haz clic sobre cualquier especialidad para descubrir en qué consiste y cuándo puede ayudarte.
-        </div>
       </Seccion>
 
       <Seccion titulo="¿En qué puedo ayudarte?" vacio={!data.areas?.length}>
@@ -189,9 +182,8 @@ function ColumnaPrincipal({ data }: { data: FichaPublicaData }) {
         <LineaTexto items={data.publicos ?? []} />
       </Seccion>
 
-      <Seccion titulo="Trayectoria profesional" vacio={!hayTrayectoria}>
+      <Seccion titulo="Formación" vacio={!hayFormacion}>
         <BloqueFormaciones items={trayectoria?.formaciones ?? []} />
-        <ListaExpandible items={trayectoria?.experiencia ?? []} etiqueta="experiencia" />
       </Seccion>
 
       <Seccion titulo="Tarifas" vacio={!data.tarifas?.length}>
@@ -326,45 +318,20 @@ const enlaceDiscreto = {
 function BloqueFormaciones({ items }: { items: Formacion[] }) {
   const [abierto, setAbierto] = useState(false);
   if (items.length === 0) return null;
-  const visibles = abierto ? items : items.slice(0, 3);
-
-  return (
-    <div style={{ marginBottom: 18 }}>
-      <div style={{ display: "grid", gap: 10 }}>
-        {visibles.map((f, i) => (
-          <div key={`${f.titulo}-${i}`} style={{ fontSize: 13, lineHeight: 1.5 }}>
-            <div>{f.titulo}</div>
-            <div style={{ color: "#666", fontSize: 12 }}>
-              {[f.centro, f.anio].filter(Boolean).join(" · ")}
-            </div>
-          </div>
-        ))}
-      </div>
-      {items.length > 3 && (
-        <button type="button" onClick={() => setAbierto((v) => !v)} style={enlaceDiscreto}>
-          {abierto ? "− Mostrar menos" : "+ Mostrar toda la formación"}
-        </button>
-      )}
-    </div>
-  );
-}
-
-function ListaExpandible({ items, etiqueta }: { items: string[]; etiqueta: string }) {
-  const [abierto, setAbierto] = useState(false);
-  if (items.length === 0) return null;
-  const visibles = abierto ? items : items.slice(0, 3);
 
   return (
     <div>
-      <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, lineHeight: 1.8 }}>
-        {visibles.map((i) => (
-          <li key={i}>{i}</li>
-        ))}
-      </ul>
-      {items.length > 3 && (
-        <button type="button" onClick={() => setAbierto((v) => !v)} style={enlaceDiscreto}>
-          {abierto ? "− Mostrar menos" : `+ Mostrar toda la ${etiqueta}`}
-        </button>
+      <button type="button" onClick={() => setAbierto((v) => !v)} style={{ ...enlaceDiscreto, marginTop: 0 }}>
+        {abierto ? "Ocultar formación ▴" : "Ver formación ▾"}
+      </button>
+      {abierto && (
+        <div style={{ display: "grid", gap: 6, marginTop: 10 }}>
+          {items.map((f, i) => (
+            <div key={`${f.titulo}-${i}`} style={{ fontSize: 13, lineHeight: 1.6 }}>
+              {[f.titulo, f.centro, f.anio].filter(Boolean).join(" · ")}
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );
