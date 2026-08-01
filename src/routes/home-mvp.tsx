@@ -461,12 +461,3 @@ const botonSecundario: CSSProperties = {
   fontFamily: "inherit",
   cursor: "pointer",
 };
-import { createFileRoute } from '@tanstack/react-router'
-
-export const Route = createFileRoute('/home-mvp')({
-  component: RouteComponent,
-})
-
-function RouteComponent() {
-  return <div>Hello "/home-mvp"!</div>
-}
