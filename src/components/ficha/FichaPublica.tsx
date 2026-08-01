@@ -11,6 +11,7 @@ import {
   MAX_AREAS_FICHA,
   MAX_ESPECIALIDADES_FICHA,
   aniosAcompanando,
+  type Formacion,
   type FichaPublicaData,
 } from "@/components/ficha/types";
 
