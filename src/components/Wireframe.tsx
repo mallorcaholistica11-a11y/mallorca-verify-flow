@@ -39,6 +39,7 @@ export function WireframeShell({
           <Link to="/centro/$slug" params={{ slug: "espai-sa-font" }} style={linkStyle}>Centro Verificado</Link>
           <Link to="/centro-free/$slug" params={{ slug: "casa-serena" }} style={linkStyle}>Centro Free</Link>
           <Link to="/home-mvp" style={linkStyle}>Home MVP</Link>
+          <Link to="/directorio" style={linkStyle}>Directorio</Link>
         </nav>
       </header>
 
