@@ -64,6 +64,7 @@ export type FichaPublicaData = {
   modalidades?: Modalidad[];
   fraseDestacada?: string;
   enlaceReserva?: string;
+  enlaceAgenda?: string;
   verificado?: boolean;
   sobreMi?: string;
   especialidades?: string[];
