@@ -1,0 +1,537 @@
+import { useMemo, useRef, useState } from "react";
+import { useMobile } from "@/components/ficha/useMobile";
+import { Boton, Chips, LineaTexto, Placeholder, Seccion } from "@/components/ficha/primitives";
+import {
+  MAX_AREAS_FICHA,
+  MAX_ESPECIALIDADES_FICHA,
+  aniosAcompanando,
+  type FichaCentroData,
+  type MiembroEquipo,
+} from "@/components/ficha/types";
+
+// Ficha pública de Centros & Organizadores · Plan Verificado.
+// Reutiliza las primitivas y el lenguaje visual de las fichas de profesionales.
+
+const enlace = { color: "#111", textDecoration: "underline" } as const;
+
+const enlaceDiscreto = {
+  background: "none",
+  border: "none",
+  padding: 0,
+  marginTop: 8,
+  fontFamily: "inherit",
+  fontSize: 12,
+  color: "#555",
+  cursor: "pointer",
+  textDecoration: "underline",
+} as const;
+
+export function FichaCentro({ data }: { data: FichaCentroData }) {
+  const isMobile = useMobile();
+  const anios = useMemo(() => aniosAcompanando(data.anioInicioActividad), [data.anioInicioActividad]);
+
+  return (
+    <div
+      style={{
+        fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+        background: "#fafafa",
+        color: "#111",
+        minHeight: "100vh",
+      }}
+    >
+      <HeroCentro data={data} anios={anios} isMobile={isMobile} />
+
+      <div
+        style={{
+          maxWidth: 1080,
+          margin: "0 auto",
+          padding: "32px 24px 40px",
+          display: "grid",
+          gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 2.4fr) minmax(0, 1fr)",
+          gap: isMobile ? 0 : 40,
+          alignItems: "start",
+        }}
+      >
+        <div>
+          <ColumnaPrincipal data={data} />
+        </div>
+        <aside>
+          <BarraLateral data={data} />
+        </aside>
+      </div>
+
+      <LlamadaFinal data={data} />
+    </div>
+  );
+}
+
+function HeroCentro({
+  data,
+  anios,
+  isMobile,
+}: {
+  data: FichaCentroData;
+  anios: number | null;
+  isMobile: boolean;
+}) {
+  const meta = [data.municipio, data.modalidades?.join(" · ")].filter(Boolean) as string[];
+
+  return (
+    <header style={{ borderBottom: "1px dashed #ccc", background: "#fff" }}>
+      <div
+        style={{
+          maxWidth: 1080,
+          margin: "0 auto",
+          padding: "40px 24px",
+          display: "flex",
+          flexDirection: isMobile ? "column" : "row",
+          gap: 32,
+          alignItems: isMobile ? "flex-start" : "center",
+        }}
+      >
+        <div style={{ flex: isMobile ? "none" : "0 0 34%", maxWidth: isMobile ? "100%" : "34%", width: "100%" }}>
+          <div
+            style={{
+              width: "100%",
+              aspectRatio: "16 / 10",
+              border: "1px dashed #888",
+              background: "#fff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#aaa",
+              fontSize: 12,
+              overflow: "hidden",
+            }}
+          >
+            {data.imagenPrincipal ? (
+              <img
+                src={data.imagenPrincipal}
+                alt={`Imagen principal de ${data.nombre}`}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+            ) : (
+              "[imagen del centro]"
+            )}
+          </div>
+        </div>
+
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <h1 style={{ fontSize: 26, margin: "0 0 6px 0" }}>{data.nombre}</h1>
+
+          {data.tipoOrganizacion && (
+            <div style={{ fontSize: 14, color: "#444", marginBottom: 6 }}>{data.tipoOrganizacion}</div>
+          )}
+
+          {data.especialidadesPrincipales && data.especialidadesPrincipales.length > 0 && (
+            <div style={{ fontSize: 13, color: "#444", marginBottom: 6 }}>
+              {data.especialidadesPrincipales.join(" · ")}
+            </div>
+          )}
+
+          {anios !== null && (
+            <div style={{ fontSize: 13, marginBottom: 6 }}>✨ Más de {anios} años acompañando personas</div>
+          )}
+
+          {meta.length > 0 && (
+            <div style={{ fontSize: 13, color: "#444", marginBottom: 10 }}>{meta.join(" · ")}</div>
+          )}
+
+          {data.fraseDestacada && (
+            <div style={{ fontSize: 13, color: "#555", fontStyle: "italic", marginBottom: 10 }}>
+              “{data.fraseDestacada}”
+            </div>
+          )}
+
+          {(data.contacto?.whatsapp || data.enlaceReserva) && (
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 14, marginBottom: 12 }}>
+              {data.contacto?.whatsapp && (
+                <Boton href={`https://wa.me/${data.contacto.whatsapp.replace(/[^0-9]/g, "")}`}>
+                  Hablar por WhatsApp
+                </Boton>
+              )}
+              {data.enlaceReserva && (
+                <Boton href={data.enlaceReserva} variante="principal">
+                  Reservar / Contactar
+                </Boton>
+              )}
+            </div>
+          )}
+
+          {data.verificado && (
+            <div style={{ fontSize: 12, color: "#555" }}>✔ Centro Verificado por Mallorca Holística</div>
+          )}
+        </div>
+      </div>
+    </header>
+  );
+}
+
+function ColumnaPrincipal({ data }: { data: FichaCentroData }) {
+  const publicos = data.publicos?.includes("Todas las personas")
+    ? ["Todas las personas"]
+    : (data.publicos ?? []);
+
+  return (
+    <>
+      <Seccion titulo="Sobre nosotros" vacio={!data.sobreNosotros}>
+        <p style={{ fontSize: 14, lineHeight: 1.7, margin: 0, whiteSpace: "pre-wrap" }}>{data.sobreNosotros}</p>
+        {data.idiomas && data.idiomas.length > 0 && (
+          <div style={{ fontSize: 13, color: "#444", marginTop: 12 }}>
+            Idiomas: {data.idiomas.join(" · ")}
+          </div>
+        )}
+      </Seccion>
+
+      <Seccion titulo="Especialidades" vacio={!data.especialidades?.length}>
+        <Chips items={(data.especialidades ?? []).slice(0, MAX_ESPECIALIDADES_FICHA)} clicable />
+      </Seccion>
+
+      <Seccion titulo="¿En qué podemos ayudarte?" vacio={!data.areas?.length}>
+        <Chips items={(data.areas ?? []).slice(0, MAX_AREAS_FICHA)} />
+      </Seccion>
+
+      <Seccion titulo="¿Qué ofrecemos?" vacio={!data.modalidades?.length}>
+        <LineaTexto items={data.modalidades ?? []} />
+      </Seccion>
+
+      <Seccion titulo="¿A quién acompañamos?" vacio={publicos.length === 0}>
+        <LineaTexto items={publicos} />
+      </Seccion>
+
+      <Seccion titulo="Instalaciones" vacio={!data.instalaciones?.length}>
+        <LineaTexto items={data.instalaciones ?? []} />
+      </Seccion>
+
+      <Seccion titulo="Nuestro equipo" vacio={!data.equipo?.length}>
+        <Equipo miembros={data.equipo ?? []} total={data.totalEquipo} />
+      </Seccion>
+
+      <Seccion titulo="Tarifas" vacio={!data.tarifas?.length}>
+        <div style={{ border: "1px dashed #888", background: "#fff" }}>
+          {(data.tarifas ?? []).slice(0, 3).map((t, i) => (
+            <div
+              key={`${t.servicio}-${i}`}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                gap: 12,
+                padding: "8px 12px",
+                fontSize: 13,
+                borderTop: i === 0 ? "none" : "1px dotted #ddd",
+              }}
+            >
+              <span>{t.servicio}</span>
+              <span style={{ color: "#666" }}>{t.duracion}</span>
+              <span>{t.precio}</span>
+            </div>
+          ))}
+        </div>
+        {(data.tarifas ?? []).length > 3 && (
+          <a href={data.enlaceReserva ?? "#"} style={{ ...enlace, display: "inline-block", fontSize: 12, marginTop: 8 }}>
+            Ver todas las tarifas →
+          </a>
+        )}
+        {data.notaTarifas && (
+          <div style={{ fontSize: 11, color: "#777", marginTop: 6 }}>{data.notaTarifas}</div>
+        )}
+      </Seccion>
+
+      <Seccion titulo="Galería" vacio={!data.galeria?.length}>
+        <CarruselGaleria imagenes={(data.galeria ?? []).slice(0, 10)} nombre={data.nombre} />
+      </Seccion>
+
+      <Seccion titulo="Descubre nuestras actividades" vacio={!data.hayActividades}>
+        <a href={data.enlaceAgenda ?? "/actividades"} style={{ ...enlace, fontSize: 13 }}>
+          Descubre nuestras actividades →
+        </a>
+      </Seccion>
+
+      <Seccion titulo="Opiniones" vacio={!data.opiniones?.length}>
+        <div style={{ display: "grid", gap: 8 }}>
+          {(data.opiniones ?? []).map((o, i) => (
+            <blockquote
+              key={`${o.autor}-${i}`}
+              style={{ border: "1px dashed #888", background: "#fff", margin: 0, padding: "12px", fontSize: 13 }}
+            >
+              <p style={{ margin: "0 0 8px 0", lineHeight: 1.6 }}>“{o.texto}”</p>
+              <footer style={{ fontSize: 12, color: "#666" }}>
+                {[o.autor, o.contexto].filter(Boolean).join(" · ")}
+              </footer>
+            </blockquote>
+          ))}
+        </div>
+      </Seccion>
+    </>
+  );
+}
+
+function Equipo({ miembros, total }: { miembros: MiembroEquipo[]; total?: number }) {
+  const visibles = miembros.slice(0, 3);
+  const hayMas = (total ?? miembros.length) > visibles.length;
+
+  return (
+    <div>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 20 }}>
+        {visibles.map((m, i) => (
+          <div key={`${m.nombre}-${i}`} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <div
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: "50%",
+                border: "1px dashed #888",
+                background: "#fff",
+                overflow: "hidden",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#aaa",
+                fontSize: 10,
+                flex: "0 0 auto",
+              }}
+            >
+              {m.fotoUrl ? (
+                <img src={m.fotoUrl} alt={m.nombre} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              ) : (
+                "[foto]"
+              )}
+            </div>
+            <div style={{ fontSize: 13, lineHeight: 1.4 }}>
+              <div>{m.nombre}</div>
+              {m.rol && <div style={{ fontSize: 12, color: "#666" }}>{m.rol}</div>}
+            </div>
+          </div>
+        ))}
+      </div>
+      {hayMas && (
+        <a href="#" style={{ ...enlace, display: "inline-block", fontSize: 12, marginTop: 10 }}>
+          Ver todo el equipo →
+        </a>
+      )}
+    </div>
+  );
+}
+
+function CarruselGaleria({ imagenes, nombre }: { imagenes: string[]; nombre: string }) {
+  const pista = useRef<HTMLDivElement>(null);
+  const [visor, setVisor] = useState<number | null>(null);
+
+  const desplazar = (dir: number) => {
+    pista.current?.scrollBy({ left: dir * 340, behavior: "smooth" });
+  };
+
+  return (
+    <>
+      <div
+        ref={pista}
+        style={{
+          display: "flex",
+          gap: 8,
+          overflowX: "auto",
+          paddingBottom: 6,
+          scrollSnapType: "x mandatory",
+        }}
+      >
+        {imagenes.map((src, i) => (
+          <button
+            key={`${src}-${i}`}
+            type="button"
+            onClick={() => setVisor(i)}
+            style={{
+              flex: "0 0 calc((100% - 40px) / 6)",
+              minWidth: 110,
+              aspectRatio: "1 / 1",
+              border: "1px dashed #888",
+              background: "#fff",
+              overflow: "hidden",
+              padding: 0,
+              cursor: "pointer",
+              fontFamily: "inherit",
+              fontSize: 11,
+              color: "#aaa",
+              scrollSnapAlign: "start",
+            }}
+          >
+            <img
+              src={src}
+              alt={`Imagen ${i + 1} de ${nombre}`}
+              loading="lazy"
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+          </button>
+        ))}
+      </div>
+
+      {imagenes.length > 6 && (
+        <div style={{ display: "flex", gap: 14 }}>
+          <button type="button" onClick={() => desplazar(-1)} style={enlaceDiscreto}>
+            ← Anterior
+          </button>
+          <button type="button" onClick={() => desplazar(1)} style={enlaceDiscreto}>
+            Siguiente →
+          </button>
+        </div>
+      )}
+
+      {visor !== null && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setVisor(null)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.8)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 50,
+            padding: 24,
+          }}
+        >
+          <div onClick={(e) => e.stopPropagation()} style={{ maxWidth: 720, width: "100%", textAlign: "center" }}>
+            <img
+              src={imagenes[visor]}
+              alt={`Imagen ${visor + 1} de ${nombre}`}
+              style={{ maxWidth: "100%", maxHeight: "70vh", objectFit: "contain", background: "#fff" }}
+            />
+            <div style={{ display: "flex", justifyContent: "space-between", marginTop: 12, color: "#fff", fontSize: 12 }}>
+              <button
+                type="button"
+                onClick={() => setVisor((v) => ((v ?? 0) - 1 + imagenes.length) % imagenes.length)}
+                style={{ ...enlaceDiscreto, color: "#fff", marginTop: 0 }}
+              >
+                ← Anterior
+              </button>
+              <span>
+                {visor + 1} / {imagenes.length}
+              </span>
+              <button
+                type="button"
+                onClick={() => setVisor((v) => ((v ?? 0) + 1) % imagenes.length)}
+                style={{ ...enlaceDiscreto, color: "#fff", marginTop: 0 }}
+              >
+                Siguiente →
+              </button>
+            </div>
+            <button type="button" onClick={() => setVisor(null)} style={{ ...enlaceDiscreto, color: "#fff" }}>
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+function BarraLateral({ data }: { data: FichaCentroData }) {
+  const ubicaciones = data.ubicaciones ?? [];
+  const principal = ubicaciones.find((u) => u.principal) ?? ubicaciones[0];
+  const otras = ubicaciones.filter((u) => u !== principal);
+  const contacto = data.contacto;
+  const redes = contacto?.redes ?? [];
+  const horario = data.horario ?? [];
+
+  return (
+    <>
+      <Seccion titulo="¿Dónde estamos?" vacio={!principal}>
+        <Placeholder alto={140}>[mapa · {principal?.municipio}]</Placeholder>
+        <div style={{ fontSize: 13, marginTop: 8 }}>
+          {principal?.nombre && <div style={{ fontWeight: 600 }}>{principal.nombre}</div>}
+          <div>{principal?.direccion}</div>
+          <div style={{ color: "#666" }}>{principal?.municipio}</div>
+        </div>
+        <a
+          href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+            [principal?.direccion, principal?.municipio].filter(Boolean).join(", "),
+          )}`}
+          target="_blank"
+          rel="noreferrer"
+          style={{ ...enlace, display: "inline-block", fontSize: 12, marginTop: 8 }}
+        >
+          Cómo llegar →
+        </a>
+        {otras.length > 0 && (
+          <ul style={{ margin: "10px 0 0 0", paddingLeft: 18, fontSize: 12, lineHeight: 1.7, color: "#444" }}>
+            {otras.map((u, i) => (
+              <li key={`${u.direccion}-${i}`}>
+                {[u.nombre, u.direccion, u.municipio].filter(Boolean).join(" · ")}
+              </li>
+            ))}
+          </ul>
+        )}
+      </Seccion>
+
+      <Seccion titulo="Horario" vacio={!data.citaPrevia && horario.length === 0}>
+        {data.citaPrevia ? (
+          <div style={{ fontSize: 13 }}>Atención con cita previa</div>
+        ) : (
+          <div style={{ display: "grid", gap: 4, fontSize: 13 }}>
+            {horario.map((linea, i) => (
+              <div key={`${linea}-${i}`}>{linea}</div>
+            ))}
+          </div>
+        )}
+      </Seccion>
+
+      <Seccion titulo="Contacto" vacio={!contacto?.telefono && !contacto?.email && !contacto?.whatsapp}>
+        <div style={{ display: "grid", gap: 6, fontSize: 13 }}>
+          {contacto?.whatsapp && (
+            <a href={`https://wa.me/${contacto.whatsapp.replace(/[^0-9]/g, "")}`} style={enlace}>
+              WhatsApp
+            </a>
+          )}
+          {contacto?.telefono && (
+            <a href={`tel:${contacto.telefono.replace(/\s/g, "")}`} style={enlace}>
+              {contacto.telefono}
+            </a>
+          )}
+          {contacto?.email && (
+            <a href={`mailto:${contacto.email}`} style={enlace}>
+              {contacto.email}
+            </a>
+          )}
+        </div>
+      </Seccion>
+
+      <Seccion titulo="Web y redes sociales" vacio={!contacto?.web && redes.length === 0}>
+        <div style={{ display: "grid", gap: 6, fontSize: 13 }}>
+          {contacto?.web && (
+            <a href={contacto.web} target="_blank" rel="noreferrer" style={enlace}>
+              {contacto.web.replace(/^https?:\/\//, "")}
+            </a>
+          )}
+          {redes.map((r) => (
+            <a key={r.red} href={r.url} target="_blank" rel="noreferrer" style={enlace}>
+              {r.red}
+            </a>
+          ))}
+        </div>
+      </Seccion>
+    </>
+  );
+}
+
+function LlamadaFinal({ data }: { data: FichaCentroData }) {
+  if (!data.enlaceReserva && !data.contacto?.whatsapp) return null;
+  return (
+    <section style={{ borderTop: "1px dashed #ccc", background: "#fff" }}>
+      <div style={{ maxWidth: 1080, margin: "0 auto", padding: "32px 24px 48px" }}>
+        <h2 style={{ fontSize: 16, margin: "0 0 12px 0" }}>¿Te gustaría contactar con este centro?</h2>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+          {data.enlaceReserva && (
+            <Boton href={data.enlaceReserva} variante="principal">
+              Reservar / Contactar
+            </Boton>
+          )}
+          {data.contacto?.whatsapp && (
+            <Boton href={`https://wa.me/${data.contacto.whatsapp.replace(/[^0-9]/g, "")}`}>
+              Hablar por WhatsApp
+            </Boton>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
