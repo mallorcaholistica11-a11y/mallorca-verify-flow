@@ -25,8 +25,17 @@ const enlaceDiscreto = {
   textDecoration: "underline",
 } as const;
 
-export function FichaCentro({ data }: { data: FichaCentroData }) {
+export type PlanCentro = "verificado" | "presencia";
+
+export function FichaCentro({
+  data,
+  plan = "verificado",
+}: {
+  data: FichaCentroData;
+  plan?: PlanCentro;
+}) {
   const isMobile = useMobile();
+  const esPresencia = plan === "presencia";
 
   return (
     <div
@@ -37,7 +46,7 @@ export function FichaCentro({ data }: { data: FichaCentroData }) {
         minHeight: "100vh",
       }}
     >
-      <HeroCentro data={data} isMobile={isMobile} />
+      <HeroCentro data={data} isMobile={isMobile} esPresencia={esPresencia} />
 
       <div
         style={{
@@ -51,19 +60,27 @@ export function FichaCentro({ data }: { data: FichaCentroData }) {
         }}
       >
         <div>
-          <ColumnaPrincipal data={data} />
+          <ColumnaPrincipal data={data} esPresencia={esPresencia} />
         </div>
         <aside>
-          <BarraLateral data={data} />
+          <BarraLateral data={data} esPresencia={esPresencia} />
         </aside>
       </div>
 
-      <LlamadaFinal data={data} />
+      <LlamadaFinal data={data} esPresencia={esPresencia} />
     </div>
   );
 }
 
-function HeroCentro({ data, isMobile }: { data: FichaCentroData; isMobile: boolean }) {
+function HeroCentro({
+  data,
+  isMobile,
+  esPresencia,
+}: {
+  data: FichaCentroData;
+  isMobile: boolean;
+  esPresencia: boolean;
+}) {
   return (
     <header style={{ borderBottom: "1px dashed #ccc", background: "#fff" }}>
       <div
@@ -127,14 +144,14 @@ function HeroCentro({ data, isMobile }: { data: FichaCentroData; isMobile: boole
             </div>
           )}
 
-          {(data.contacto?.whatsapp || data.enlaceReserva) && (
+          {(data.contacto?.whatsapp || (!esPresencia && data.enlaceReserva)) && (
             <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 14, marginBottom: 12 }}>
               {data.contacto?.whatsapp && (
                 <Boton href={`https://wa.me/${data.contacto.whatsapp.replace(/[^0-9]/g, "")}`}>
                   Hablar por WhatsApp
                 </Boton>
               )}
-              {data.enlaceReserva && (
+              {!esPresencia && data.enlaceReserva && (
                 <Boton href={data.enlaceReserva} variante="principal">
                   Reservar / Contactar
                 </Boton>
@@ -142,7 +159,7 @@ function HeroCentro({ data, isMobile }: { data: FichaCentroData; isMobile: boole
             </div>
           )}
 
-          {data.verificado && (
+          {!esPresencia && data.verificado && (
             <div style={{ fontSize: 12, color: "#555" }}>✔ Centro Verificado por Mallorca Holística</div>
           )}
         </div>
@@ -151,7 +168,7 @@ function HeroCentro({ data, isMobile }: { data: FichaCentroData; isMobile: boole
   );
 }
 
-function ColumnaPrincipal({ data }: { data: FichaCentroData }) {
+function ColumnaPrincipal({ data, esPresencia }: { data: FichaCentroData; esPresencia: boolean }) {
   const publicos = data.publicos?.includes("Todas las personas")
     ? ["Todas las personas"]
     : (data.publicos ?? []);
@@ -187,11 +204,11 @@ function ColumnaPrincipal({ data }: { data: FichaCentroData }) {
         <LineaTexto items={data.instalaciones ?? []} />
       </Seccion>
 
-      <Seccion titulo="Nuestro equipo" vacio={!data.equipo?.length}>
+      <Seccion titulo="Nuestro equipo" vacio={esPresencia || !data.equipo?.length}>
         <Equipo miembros={data.equipo ?? []} total={data.totalEquipo} />
       </Seccion>
 
-      <Seccion titulo="Servicios y tarifas (opcional)" vacio={!data.tarifas?.length}>
+      <Seccion titulo="Servicios y tarifas (opcional)" vacio={esPresencia || !data.tarifas?.length}>
         <div style={{ border: "1px dashed #888", background: "#fff" }}>
           {(data.tarifas ?? []).slice(0, 3).map((t, i) => (
             <div
@@ -221,17 +238,17 @@ function ColumnaPrincipal({ data }: { data: FichaCentroData }) {
         )}
       </Seccion>
 
-      <Seccion titulo="Galería" vacio={!data.galeria?.length}>
+      <Seccion titulo="Galería" vacio={esPresencia || !data.galeria?.length}>
         <CarruselGaleria imagenes={(data.galeria ?? []).slice(0, 10)} nombre={data.nombre} />
       </Seccion>
 
-      <Seccion titulo="Descubre nuestras actividades" vacio={!data.hayActividades}>
+      <Seccion titulo="Descubre nuestras actividades" vacio={esPresencia || !data.hayActividades}>
         <a href={data.enlaceAgenda ?? "/actividades"} style={{ ...enlace, fontSize: 13 }}>
           Descubre nuestras actividades →
         </a>
       </Seccion>
 
-      <Seccion titulo="Opiniones" vacio={!data.opiniones?.length}>
+      <Seccion titulo="Opiniones" vacio={esPresencia || !data.opiniones?.length}>
         <div style={{ display: "grid", gap: 8 }}>
           {(data.opiniones ?? []).map((o, i) => (
             <blockquote
@@ -410,7 +427,7 @@ function CarruselGaleria({ imagenes, nombre }: { imagenes: string[]; nombre: str
   );
 }
 
-function BarraLateral({ data }: { data: FichaCentroData }) {
+function BarraLateral({ data, esPresencia }: { data: FichaCentroData; esPresencia: boolean }) {
   const ubicaciones = data.ubicaciones ?? [];
   const principal = ubicaciones.find((u) => u.principal) ?? ubicaciones[0];
   const otras = ubicaciones.filter((u) => u !== principal);
@@ -448,7 +465,7 @@ function BarraLateral({ data }: { data: FichaCentroData }) {
         )}
       </Seccion>
 
-      <Seccion titulo="Horario" vacio={!data.citaPrevia && horario.length === 0}>
+      <Seccion titulo="Horario" vacio={esPresencia || (!data.citaPrevia && horario.length === 0)}>
         {data.citaPrevia ? (
           <div style={{ fontSize: 13 }}>Atención con cita previa</div>
         ) : (
@@ -498,15 +515,16 @@ function BarraLateral({ data }: { data: FichaCentroData }) {
   );
 }
 
-function LlamadaFinal({ data }: { data: FichaCentroData }) {
-  if (!data.enlaceReserva && !data.contacto?.whatsapp) return null;
+function LlamadaFinal({ data, esPresencia }: { data: FichaCentroData; esPresencia: boolean }) {
+  const enlaceReserva = esPresencia ? undefined : data.enlaceReserva;
+  if (!enlaceReserva && !data.contacto?.whatsapp) return null;
   return (
     <section style={{ borderTop: "1px dashed #ccc", background: "#fff" }}>
       <div style={{ maxWidth: 1080, margin: "0 auto", padding: "32px 24px 48px" }}>
         <h2 style={{ fontSize: 16, margin: "0 0 12px 0" }}>¿Te gustaría contactar con este centro?</h2>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-          {data.enlaceReserva && (
-            <Boton href={data.enlaceReserva} variante="principal">
+          {enlaceReserva && (
+            <Boton href={enlaceReserva} variante="principal">
               Reservar / Contactar
             </Boton>
           )}
