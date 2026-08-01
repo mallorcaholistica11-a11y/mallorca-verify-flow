@@ -37,6 +37,7 @@ import { Route as DashboardStripeRouteImport } from './routes/dashboard.stripe'
 import { Route as DashboardSolicitudEnviadaRouteImport } from './routes/dashboard.solicitud-enviada'
 import { Route as DashboardPerfilPublicadoRouteImport } from './routes/dashboard.perfil-publicado'
 import { Route as DashboardFormularioRouteImport } from './routes/dashboard.formulario'
+import { Route as CentroSlugRouteImport } from './routes/centro.$slug'
 import { Route as AuthCrearCuentaRouteImport } from './routes/auth.crear-cuenta'
 import { Route as ActividadIdRouteImport } from './routes/actividad.$id'
 import { Route as MiEspacioActividadesIndexRouteImport } from './routes/mi-espacio.actividades.index'
@@ -190,6 +191,11 @@ const DashboardFormularioRoute = DashboardFormularioRouteImport.update({
   path: '/formulario',
   getParentRoute: () => DashboardRoute,
 } as any)
+const CentroSlugRoute = CentroSlugRouteImport.update({
+  id: '/centro/$slug',
+  path: '/centro/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthCrearCuentaRoute = AuthCrearCuentaRouteImport.update({
   id: '/auth/crear-cuenta',
   path: '/auth/crear-cuenta',
@@ -228,6 +234,7 @@ export interface FileRoutesByFullPath {
   '/soy-profesional': typeof SoyProfesionalRoute
   '/actividad/$id': typeof ActividadIdRoute
   '/auth/crear-cuenta': typeof AuthCrearCuentaRoute
+  '/centro/$slug': typeof CentroSlugRoute
   '/dashboard/formulario': typeof DashboardFormularioRoute
   '/dashboard/perfil-publicado': typeof DashboardPerfilPublicadoRoute
   '/dashboard/solicitud-enviada': typeof DashboardSolicitudEnviadaRoute
@@ -261,6 +268,7 @@ export interface FileRoutesByTo {
   '/soy-profesional': typeof SoyProfesionalRoute
   '/actividad/$id': typeof ActividadIdRoute
   '/auth/crear-cuenta': typeof AuthCrearCuentaRoute
+  '/centro/$slug': typeof CentroSlugRoute
   '/dashboard/formulario': typeof DashboardFormularioRoute
   '/dashboard/perfil-publicado': typeof DashboardPerfilPublicadoRoute
   '/dashboard/solicitud-enviada': typeof DashboardSolicitudEnviadaRoute
@@ -295,6 +303,7 @@ export interface FileRoutesById {
   '/soy-profesional': typeof SoyProfesionalRoute
   '/actividad/$id': typeof ActividadIdRoute
   '/auth/crear-cuenta': typeof AuthCrearCuentaRoute
+  '/centro/$slug': typeof CentroSlugRoute
   '/dashboard/formulario': typeof DashboardFormularioRoute
   '/dashboard/perfil-publicado': typeof DashboardPerfilPublicadoRoute
   '/dashboard/solicitud-enviada': typeof DashboardSolicitudEnviadaRoute
@@ -331,6 +340,7 @@ export interface FileRouteTypes {
     | '/soy-profesional'
     | '/actividad/$id'
     | '/auth/crear-cuenta'
+    | '/centro/$slug'
     | '/dashboard/formulario'
     | '/dashboard/perfil-publicado'
     | '/dashboard/solicitud-enviada'
@@ -364,6 +374,7 @@ export interface FileRouteTypes {
     | '/soy-profesional'
     | '/actividad/$id'
     | '/auth/crear-cuenta'
+    | '/centro/$slug'
     | '/dashboard/formulario'
     | '/dashboard/perfil-publicado'
     | '/dashboard/solicitud-enviada'
@@ -397,6 +408,7 @@ export interface FileRouteTypes {
     | '/soy-profesional'
     | '/actividad/$id'
     | '/auth/crear-cuenta'
+    | '/centro/$slug'
     | '/dashboard/formulario'
     | '/dashboard/perfil-publicado'
     | '/dashboard/solicitud-enviada'
@@ -432,6 +444,7 @@ export interface RootRouteChildren {
   SoyProfesionalRoute: typeof SoyProfesionalRoute
   ActividadIdRoute: typeof ActividadIdRoute
   AuthCrearCuentaRoute: typeof AuthCrearCuentaRoute
+  CentroSlugRoute: typeof CentroSlugRoute
   FuturoCentrosOrganizadoresRoute: typeof FuturoCentrosOrganizadoresRoute
   FuturoPlanPresenciaRoute: typeof FuturoPlanPresenciaRoute
   FuturoProfesionalVerificadoRoute: typeof FuturoProfesionalVerificadoRoute
@@ -638,6 +651,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardFormularioRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/centro/$slug': {
+      id: '/centro/$slug'
+      path: '/centro/$slug'
+      fullPath: '/centro/$slug'
+      preLoaderRoute: typeof CentroSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth/crear-cuenta': {
       id: '/auth/crear-cuenta'
       path: '/auth/crear-cuenta'
@@ -737,6 +757,7 @@ const rootRouteChildren: RootRouteChildren = {
   SoyProfesionalRoute: SoyProfesionalRoute,
   ActividadIdRoute: ActividadIdRoute,
   AuthCrearCuentaRoute: AuthCrearCuentaRoute,
+  CentroSlugRoute: CentroSlugRoute,
   FuturoCentrosOrganizadoresRoute: FuturoCentrosOrganizadoresRoute,
   FuturoPlanPresenciaRoute: FuturoPlanPresenciaRoute,
   FuturoProfesionalVerificadoRoute: FuturoProfesionalVerificadoRoute,

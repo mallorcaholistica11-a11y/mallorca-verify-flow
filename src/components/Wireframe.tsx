@@ -36,6 +36,7 @@ export function WireframeShell({
           <Link to="/comunidad-fundadora-organizaciones" style={linkStyle}>Centros & Organizadores</Link>
           <Link to="/profesional/$slug" params={{ slug: "lucia-gelabert" }} style={linkStyle}>Ficha pública Verificada</Link>
           <Link to="/profesional-free/$slug" params={{ slug: "marta-ferrer" }} style={linkStyle}>Profesional Free</Link>
+          <Link to="/centro/$slug" params={{ slug: "espai-sa-font" }} style={linkStyle}>Centro Verificado</Link>
         </nav>
       </header>
 
