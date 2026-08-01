@@ -16,8 +16,14 @@ export type Tarifa = {
   precio: string;
 };
 
+export type Formacion = {
+  titulo: string;
+  centro?: string;
+  anio?: string;
+};
+
 export type Trayectoria = {
-  formaciones?: string[];
+  formaciones?: Formacion[];
   certificaciones?: string[];
   experiencia?: string[];
 };
@@ -58,6 +64,7 @@ export type FichaPublicaData = {
   modalidades?: Modalidad[];
   fraseDestacada?: string;
   enlaceReserva?: string;
+  enlaceAgenda?: string;
   verificado?: boolean;
   sobreMi?: string;
   especialidades?: string[];

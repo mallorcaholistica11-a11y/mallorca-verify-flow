@@ -1,11 +1,9 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useMobile } from "@/components/ficha/useMobile";
 import {
-  Acordeon,
   Boton,
   Chips,
   LineaTexto,
-  ListaSimple,
   Placeholder,
   Seccion,
 } from "@/components/ficha/primitives";
@@ -13,6 +11,7 @@ import {
   MAX_AREAS_FICHA,
   MAX_ESPECIALIDADES_FICHA,
   aniosAcompanando,
+  type Formacion,
   type FichaPublicaData,
 } from "@/components/ficha/types";
 
@@ -80,7 +79,7 @@ function Hero({
           alignItems: isMobile ? "flex-start" : "center",
         }}
       >
-        <div style={{ flex: isMobile ? "none" : "0 0 27%", maxWidth: isMobile ? 160 : "27%", width: "100%" }}>
+        <div style={{ flex: isMobile ? "none" : "0 0 21%", maxWidth: isMobile ? 122 : "21%", width: "100%" }}>
           <div
             style={{
               width: "100%",
@@ -131,22 +130,16 @@ function Hero({
             <div style={{ fontSize: 13, color: "#444", marginBottom: 10 }}>{meta.join(" · ")}</div>
           )}
 
-          {data.fraseDestacada && (
-            <p style={{ fontSize: 14, lineHeight: 1.6, margin: "0 0 16px 0", maxWidth: 620 }}>
-              {data.fraseDestacada}
-            </p>
-          )}
-
           {(data.enlaceReserva || data.contacto?.whatsapp) && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 12 }}>
-              {data.enlaceReserva && (
-                <Boton href={data.enlaceReserva} variante="principal">
-                  Reservar sesión
-                </Boton>
-              )}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 14, marginBottom: 12 }}>
               {data.contacto?.whatsapp && (
                 <Boton href={`https://wa.me/${data.contacto.whatsapp.replace(/[^0-9]/g, "")}`}>
                   Hablar por WhatsApp
+                </Boton>
+              )}
+              {data.enlaceReserva && (
+                <Boton href={data.enlaceReserva} variante="principal">
+                  Reservar sesión
                 </Boton>
               )}
             </div>
@@ -196,12 +189,9 @@ function ColumnaPrincipal({ data }: { data: FichaPublicaData }) {
         <LineaTexto items={data.publicos ?? []} />
       </Seccion>
 
-      <Seccion vacio={!hayTrayectoria}>
-        <Acordeon titulo="Descubre mi trayectoria">
-          <ListaSimple titulo="Formaciones" items={trayectoria?.formaciones} />
-          <ListaSimple titulo="Certificaciones" items={trayectoria?.certificaciones} />
-          <ListaSimple titulo="Experiencia profesional" items={trayectoria?.experiencia} />
-        </Acordeon>
+      <Seccion titulo="Trayectoria profesional" vacio={!hayTrayectoria}>
+        <BloqueFormaciones items={trayectoria?.formaciones ?? []} />
+        <ListaExpandible items={trayectoria?.experiencia ?? []} etiqueta="experiencia" />
       </Seccion>
 
       <Seccion titulo="Tarifas" vacio={!data.tarifas?.length}>
@@ -230,42 +220,14 @@ function ColumnaPrincipal({ data }: { data: FichaPublicaData }) {
       </Seccion>
 
       <Seccion titulo="Galería" vacio={!data.galeria?.length}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(110px, 1fr))", gap: 8 }}>
-          {(data.galeria ?? []).map((src, i) => (
-            <div key={`${src}-${i}`} style={{ border: "1px dashed #888", aspectRatio: "1 / 1", overflow: "hidden", background: "#fff" }}>
-              <img
-                src={src}
-                alt={`Imagen ${i + 1} de ${data.nombre}`}
-                loading="lazy"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              />
-            </div>
-          ))}
-        </div>
+        <Galeria imagenes={data.galeria ?? []} nombre={data.nombre} />
       </Seccion>
 
-      <Seccion titulo="Descubre mis actividades" vacio={!data.actividades?.length}>
-        <div style={{ display: "grid", gap: 8 }}>
-          {(data.actividades ?? []).map((a) => (
-            <a
-              key={a.id}
-              href={`/actividad/${a.id}`}
-              style={{
-                border: "1px dashed #888",
-                background: "#fff",
-                padding: "10px 12px",
-                fontSize: 13,
-                textDecoration: "none",
-                color: "#111",
-              }}
-            >
-              <div style={{ fontWeight: 600 }}>{a.titulo}</div>
-              <div style={{ color: "#666", fontSize: 12 }}>
-                {[a.fecha, a.lugar].filter(Boolean).join(" · ")}
-              </div>
-            </a>
-          ))}
-        </div>
+      <Seccion titulo="Actividades">
+        <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 10px 0", color: "#444" }}>
+          Consulta los talleres, cursos, retiros y actividades organizadas por este profesional.
+        </p>
+        <Boton href={data.enlaceAgenda ?? "/actividades"}>Ver agenda de actividades →</Boton>
       </Seccion>
 
       <Seccion titulo="Opiniones" vacio={!data.opiniones?.length}>
@@ -348,3 +310,152 @@ function BarraLateral({ data }: { data: FichaPublicaData }) {
 }
 
 const enlace = { color: "#111", textDecoration: "underline" } as const;
+
+const enlaceDiscreto = {
+  background: "none",
+  border: "none",
+  padding: 0,
+  marginTop: 8,
+  fontFamily: "inherit",
+  fontSize: 12,
+  color: "#555",
+  cursor: "pointer",
+  textDecoration: "underline",
+} as const;
+
+function BloqueFormaciones({ items }: { items: Formacion[] }) {
+  const [abierto, setAbierto] = useState(false);
+  if (items.length === 0) return null;
+  const visibles = abierto ? items : items.slice(0, 3);
+
+  return (
+    <div style={{ marginBottom: 18 }}>
+      <div style={{ display: "grid", gap: 10 }}>
+        {visibles.map((f, i) => (
+          <div key={`${f.titulo}-${i}`} style={{ fontSize: 13, lineHeight: 1.5 }}>
+            <div>{f.titulo}</div>
+            <div style={{ color: "#666", fontSize: 12 }}>
+              {[f.centro, f.anio].filter(Boolean).join(" · ")}
+            </div>
+          </div>
+        ))}
+      </div>
+      {items.length > 3 && (
+        <button type="button" onClick={() => setAbierto((v) => !v)} style={enlaceDiscreto}>
+          {abierto ? "− Mostrar menos" : "+ Mostrar toda la formación"}
+        </button>
+      )}
+    </div>
+  );
+}
+
+function ListaExpandible({ items, etiqueta }: { items: string[]; etiqueta: string }) {
+  const [abierto, setAbierto] = useState(false);
+  if (items.length === 0) return null;
+  const visibles = abierto ? items : items.slice(0, 3);
+
+  return (
+    <div>
+      <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, lineHeight: 1.8 }}>
+        {visibles.map((i) => (
+          <li key={i}>{i}</li>
+        ))}
+      </ul>
+      {items.length > 3 && (
+        <button type="button" onClick={() => setAbierto((v) => !v)} style={enlaceDiscreto}>
+          {abierto ? "− Mostrar menos" : `+ Mostrar toda la ${etiqueta}`}
+        </button>
+      )}
+    </div>
+  );
+}
+
+function Galeria({ imagenes, nombre }: { imagenes: string[]; nombre: string }) {
+  const [visor, setVisor] = useState<number | null>(null);
+  const visibles = imagenes.slice(0, 6);
+
+  return (
+    <>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(110px, 1fr))", gap: 8 }}>
+        {visibles.map((src, i) => (
+          <button
+            key={`${src}-${i}`}
+            type="button"
+            onClick={() => setVisor(i)}
+            style={{
+              border: "1px dashed #888",
+              aspectRatio: "1 / 1",
+              overflow: "hidden",
+              background: "#fff",
+              padding: 0,
+              cursor: "pointer",
+              fontFamily: "inherit",
+              fontSize: 11,
+              color: "#aaa",
+            }}
+          >
+            <img
+              src={src}
+              alt={`Imagen ${i + 1} de ${nombre}`}
+              loading="lazy"
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+          </button>
+        ))}
+      </div>
+      {imagenes.length > 6 && (
+        <button type="button" onClick={() => setVisor(0)} style={enlaceDiscreto}>
+          Ver toda la galería →
+        </button>
+      )}
+
+      {visor !== null && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setVisor(null)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.8)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 50,
+            padding: 24,
+          }}
+        >
+          <div onClick={(e) => e.stopPropagation()} style={{ maxWidth: 720, width: "100%", textAlign: "center" }}>
+            <img
+              src={imagenes[visor]}
+              alt={`Imagen ${visor + 1} de ${nombre}`}
+              style={{ maxWidth: "100%", maxHeight: "70vh", objectFit: "contain", background: "#fff" }}
+            />
+            <div style={{ display: "flex", justifyContent: "space-between", marginTop: 12, color: "#fff", fontSize: 12 }}>
+              <button
+                type="button"
+                onClick={() => setVisor((v) => ((v ?? 0) - 1 + imagenes.length) % imagenes.length)}
+                style={{ ...enlaceDiscreto, color: "#fff", marginTop: 0 }}
+              >
+                ← Anterior
+              </button>
+              <span>
+                {visor + 1} / {imagenes.length}
+              </span>
+              <button
+                type="button"
+                onClick={() => setVisor((v) => ((v ?? 0) + 1) % imagenes.length)}
+                style={{ ...enlaceDiscreto, color: "#fff", marginTop: 0 }}
+              >
+                Siguiente →
+              </button>
+            </div>
+            <button type="button" onClick={() => setVisor(null)} style={{ ...enlaceDiscreto, color: "#fff" }}>
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
