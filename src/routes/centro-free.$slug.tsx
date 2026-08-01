@@ -1,0 +1,80 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { FichaCentro } from "@/components/ficha/FichaCentro";
+import type { FichaCentroData } from "@/components/ficha/types";
+
+export const Route = createFileRoute("/centro-free/$slug")({
+  head: () => ({
+    meta: [
+      { title: "Ficha del centro · Plan Presencia · Mallorca Holística" },
+      {
+        name: "description",
+        content:
+          "Ficha pública de un centro del Plan Presencia en Mallorca Holística: especialidades, áreas de acompañamiento, instalaciones, ubicación y contacto.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:title", content: "Ficha del centro · Plan Presencia · Mallorca Holística" },
+      {
+        property: "og:description",
+        content: "Conoce este centro: qué ofrece, dónde está y cómo contactar.",
+      },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: FichaCentroPresencia,
+});
+
+// Datos de ejemplo (MVP) para el Plan Presencia de Centros & Organizadores.
+const demo: FichaCentroData = {
+  nombre: "Casa Serena",
+  tipoOrganizacion: "Espacio de bienestar y talleres",
+  especialidadesPrincipales: ["Yoga", "Meditación"],
+  municipio: "Pollença, Mallorca",
+  modalidades: ["Sesiones individuales", "Talleres", "Charlas"],
+  sobreNosotros:
+    "Casa Serena es un espacio tranquilo donde acompañamos procesos de calma y bienestar. Ofrecemos sesiones y talleres en grupos reducidos, con una atención cercana y un ritmo pausado.",
+  idiomas: ["Català", "Español", "English"],
+  especialidades: ["Yoga", "Meditación", "Respiración Consciente", "Masaje Holístico"],
+  areas: ["Estrés", "Ansiedad", "Insomnio", "Bienestar emocional"],
+  publicos: ["Todas las personas"],
+  instalaciones: ["Salas de terapia", "Salas de formación", "Jardín"],
+  ubicaciones: [
+    {
+      nombre: "Casa Serena · Pollença",
+      direccion: "Carrer del Vent, 12",
+      municipio: "Pollença",
+      principal: true,
+    },
+  ],
+  contacto: {
+    telefono: "971 123 456",
+    email: "hola@casaserena.com",
+    whatsapp: "+34600555666",
+    web: "https://www.casaserena.com",
+    redes: [
+      { red: "Instagram", url: "https://instagram.com/" },
+      { red: "Facebook", url: "https://facebook.com/" },
+    ],
+  },
+};
+
+function FichaCentroPresencia() {
+  return (
+    <div>
+      <div
+        style={{
+          fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+          fontSize: 11,
+          color: "#666",
+          padding: "10px 24px",
+          borderBottom: "1px dashed #ddd",
+          background: "#fff",
+        }}
+      >
+        <Link to="/" style={{ color: "#111" }}>
+          ← Volver a resultados
+        </Link>
+      </div>
+      <FichaCentro data={demo} plan="presencia" />
+    </div>
+  );
+}

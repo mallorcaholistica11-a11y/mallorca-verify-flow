@@ -37,6 +37,7 @@ export function WireframeShell({
           <Link to="/profesional/$slug" params={{ slug: "lucia-gelabert" }} style={linkStyle}>Ficha pública Verificada</Link>
           <Link to="/profesional-free/$slug" params={{ slug: "marta-ferrer" }} style={linkStyle}>Profesional Free</Link>
           <Link to="/centro/$slug" params={{ slug: "espai-sa-font" }} style={linkStyle}>Centro Verificado</Link>
+          <Link to="/centro-free/$slug" params={{ slug: "casa-serena" }} style={linkStyle}>Centro Free</Link>
         </nav>
       </header>
 
