@@ -1,11 +1,9 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useMobile } from "@/components/ficha/useMobile";
 import {
-  Acordeon,
   Boton,
   Chips,
   LineaTexto,
-  ListaSimple,
   Placeholder,
   Seccion,
 } from "@/components/ficha/primitives";
@@ -80,7 +78,7 @@ function Hero({
           alignItems: isMobile ? "flex-start" : "center",
         }}
       >
-        <div style={{ flex: isMobile ? "none" : "0 0 27%", maxWidth: isMobile ? 160 : "27%", width: "100%" }}>
+        <div style={{ flex: isMobile ? "none" : "0 0 21%", maxWidth: isMobile ? 122 : "21%", width: "100%" }}>
           <div
             style={{
               width: "100%",
@@ -131,22 +129,16 @@ function Hero({
             <div style={{ fontSize: 13, color: "#444", marginBottom: 10 }}>{meta.join(" · ")}</div>
           )}
 
-          {data.fraseDestacada && (
-            <p style={{ fontSize: 14, lineHeight: 1.6, margin: "0 0 16px 0", maxWidth: 620 }}>
-              {data.fraseDestacada}
-            </p>
-          )}
-
           {(data.enlaceReserva || data.contacto?.whatsapp) && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 12 }}>
-              {data.enlaceReserva && (
-                <Boton href={data.enlaceReserva} variante="principal">
-                  Reservar sesión
-                </Boton>
-              )}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 14, marginBottom: 12 }}>
               {data.contacto?.whatsapp && (
                 <Boton href={`https://wa.me/${data.contacto.whatsapp.replace(/[^0-9]/g, "")}`}>
                   Hablar por WhatsApp
+                </Boton>
+              )}
+              {data.enlaceReserva && (
+                <Boton href={data.enlaceReserva} variante="principal">
+                  Reservar sesión
                 </Boton>
               )}
             </div>
@@ -196,12 +188,9 @@ function ColumnaPrincipal({ data }: { data: FichaPublicaData }) {
         <LineaTexto items={data.publicos ?? []} />
       </Seccion>
 
-      <Seccion vacio={!hayTrayectoria}>
-        <Acordeon titulo="Descubre mi trayectoria">
-          <ListaSimple titulo="Formaciones" items={trayectoria?.formaciones} />
-          <ListaSimple titulo="Certificaciones" items={trayectoria?.certificaciones} />
-          <ListaSimple titulo="Experiencia profesional" items={trayectoria?.experiencia} />
-        </Acordeon>
+      <Seccion titulo="Trayectoria profesional" vacio={!hayTrayectoria}>
+        <BloqueFormaciones items={trayectoria?.formaciones ?? []} />
+        <ListaExpandible items={trayectoria?.experiencia ?? []} etiqueta="experiencia" />
       </Seccion>
 
       <Seccion titulo="Tarifas" vacio={!data.tarifas?.length}>
@@ -230,42 +219,14 @@ function ColumnaPrincipal({ data }: { data: FichaPublicaData }) {
       </Seccion>
 
       <Seccion titulo="Galería" vacio={!data.galeria?.length}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(110px, 1fr))", gap: 8 }}>
-          {(data.galeria ?? []).map((src, i) => (
-            <div key={`${src}-${i}`} style={{ border: "1px dashed #888", aspectRatio: "1 / 1", overflow: "hidden", background: "#fff" }}>
-              <img
-                src={src}
-                alt={`Imagen ${i + 1} de ${data.nombre}`}
-                loading="lazy"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              />
-            </div>
-          ))}
-        </div>
+        <Galeria imagenes={data.galeria ?? []} nombre={data.nombre} />
       </Seccion>
 
-      <Seccion titulo="Descubre mis actividades" vacio={!data.actividades?.length}>
-        <div style={{ display: "grid", gap: 8 }}>
-          {(data.actividades ?? []).map((a) => (
-            <a
-              key={a.id}
-              href={`/actividad/${a.id}`}
-              style={{
-                border: "1px dashed #888",
-                background: "#fff",
-                padding: "10px 12px",
-                fontSize: 13,
-                textDecoration: "none",
-                color: "#111",
-              }}
-            >
-              <div style={{ fontWeight: 600 }}>{a.titulo}</div>
-              <div style={{ color: "#666", fontSize: 12 }}>
-                {[a.fecha, a.lugar].filter(Boolean).join(" · ")}
-              </div>
-            </a>
-          ))}
-        </div>
+      <Seccion titulo="Actividades">
+        <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 10px 0", color: "#444" }}>
+          Consulta los talleres, cursos, retiros y actividades organizadas por este profesional.
+        </p>
+        <Boton href={data.enlaceAgenda ?? "/actividades"}>Ver agenda de actividades →</Boton>
       </Seccion>
 
       <Seccion titulo="Opiniones" vacio={!data.opiniones?.length}>
