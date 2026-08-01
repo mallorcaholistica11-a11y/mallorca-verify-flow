@@ -23,6 +23,7 @@ import { Route as ComunidadFundadoraRouteImport } from './routes/comunidad-funda
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as MiEspacioIndexRouteImport } from './routes/mi-espacio.index'
 import { Route as ProfesionalSlugRouteImport } from './routes/profesional.$slug'
+import { Route as ProfesionalFreeSlugRouteImport } from './routes/profesional-free.$slug'
 import { Route as MiEspacioSuscripcionRouteImport } from './routes/mi-espacio.suscripcion'
 import { Route as MiEspacioPerfilRouteImport } from './routes/mi-espacio.perfil'
 import { Route as MiEspacioAyudaRouteImport } from './routes/mi-espacio.ayuda'
@@ -113,6 +114,11 @@ const MiEspacioIndexRoute = MiEspacioIndexRouteImport.update({
 const ProfesionalSlugRoute = ProfesionalSlugRouteImport.update({
   id: '/profesional/$slug',
   path: '/profesional/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfesionalFreeSlugRoute = ProfesionalFreeSlugRouteImport.update({
+  id: '/profesional-free/$slug',
+  path: '/profesional-free/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MiEspacioSuscripcionRoute = MiEspacioSuscripcionRouteImport.update({
@@ -235,6 +241,7 @@ export interface FileRoutesByFullPath {
   '/mi-espacio/ayuda': typeof MiEspacioAyudaRoute
   '/mi-espacio/perfil': typeof MiEspacioPerfilRoute
   '/mi-espacio/suscripcion': typeof MiEspacioSuscripcionRoute
+  '/profesional-free/$slug': typeof ProfesionalFreeSlugRoute
   '/profesional/$slug': typeof ProfesionalSlugRoute
   '/mi-espacio/': typeof MiEspacioIndexRoute
   '/mi-espacio/actividades/nueva': typeof MiEspacioActividadesNuevaRoute
@@ -266,6 +273,7 @@ export interface FileRoutesByTo {
   '/mi-espacio/ayuda': typeof MiEspacioAyudaRoute
   '/mi-espacio/perfil': typeof MiEspacioPerfilRoute
   '/mi-espacio/suscripcion': typeof MiEspacioSuscripcionRoute
+  '/profesional-free/$slug': typeof ProfesionalFreeSlugRoute
   '/profesional/$slug': typeof ProfesionalSlugRoute
   '/mi-espacio': typeof MiEspacioIndexRoute
   '/mi-espacio/actividades/nueva': typeof MiEspacioActividadesNuevaRoute
@@ -300,6 +308,7 @@ export interface FileRoutesById {
   '/mi-espacio/ayuda': typeof MiEspacioAyudaRoute
   '/mi-espacio/perfil': typeof MiEspacioPerfilRoute
   '/mi-espacio/suscripcion': typeof MiEspacioSuscripcionRoute
+  '/profesional-free/$slug': typeof ProfesionalFreeSlugRoute
   '/profesional/$slug': typeof ProfesionalSlugRoute
   '/mi-espacio/': typeof MiEspacioIndexRoute
   '/mi-espacio/actividades/nueva': typeof MiEspacioActividadesNuevaRoute
@@ -335,6 +344,7 @@ export interface FileRouteTypes {
     | '/mi-espacio/ayuda'
     | '/mi-espacio/perfil'
     | '/mi-espacio/suscripcion'
+    | '/profesional-free/$slug'
     | '/profesional/$slug'
     | '/mi-espacio/'
     | '/mi-espacio/actividades/nueva'
@@ -366,6 +376,7 @@ export interface FileRouteTypes {
     | '/mi-espacio/ayuda'
     | '/mi-espacio/perfil'
     | '/mi-espacio/suscripcion'
+    | '/profesional-free/$slug'
     | '/profesional/$slug'
     | '/mi-espacio'
     | '/mi-espacio/actividades/nueva'
@@ -399,6 +410,7 @@ export interface FileRouteTypes {
     | '/mi-espacio/ayuda'
     | '/mi-espacio/perfil'
     | '/mi-espacio/suscripcion'
+    | '/profesional-free/$slug'
     | '/profesional/$slug'
     | '/mi-espacio/'
     | '/mi-espacio/actividades/nueva'
@@ -424,6 +436,7 @@ export interface RootRouteChildren {
   FuturoPlanPresenciaRoute: typeof FuturoPlanPresenciaRoute
   FuturoProfesionalVerificadoRoute: typeof FuturoProfesionalVerificadoRoute
   InvitacionTokenRoute: typeof InvitacionTokenRoute
+  ProfesionalFreeSlugRoute: typeof ProfesionalFreeSlugRoute
   ProfesionalSlugRoute: typeof ProfesionalSlugRoute
 }
 
@@ -525,6 +538,13 @@ declare module '@tanstack/react-router' {
       path: '/profesional/$slug'
       fullPath: '/profesional/$slug'
       preLoaderRoute: typeof ProfesionalSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profesional-free/$slug': {
+      id: '/profesional-free/$slug'
+      path: '/profesional-free/$slug'
+      fullPath: '/profesional-free/$slug'
+      preLoaderRoute: typeof ProfesionalFreeSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mi-espacio/suscripcion': {
@@ -721,18 +741,9 @@ const rootRouteChildren: RootRouteChildren = {
   FuturoPlanPresenciaRoute: FuturoPlanPresenciaRoute,
   FuturoProfesionalVerificadoRoute: FuturoProfesionalVerificadoRoute,
   InvitacionTokenRoute: InvitacionTokenRoute,
+  ProfesionalFreeSlugRoute: ProfesionalFreeSlugRoute,
   ProfesionalSlugRoute: ProfesionalSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
