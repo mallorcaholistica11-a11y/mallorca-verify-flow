@@ -68,12 +68,3 @@ function FichaProfesionalPresencia() {
     </div>
   );
 }
-import { createFileRoute } from '@tanstack/react-router'
-
-export const Route = createFileRoute('/profesional-free/$slug')({
-  component: RouteComponent,
-})
-
-function RouteComponent() {
-  return <div>Hello "/profesional-free/$slug"!</div>
-}
