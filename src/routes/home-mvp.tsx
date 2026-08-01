@@ -332,7 +332,7 @@ function Confianza({ isMobile }: { isMobile: boolean }) {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+              gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))",
               gap: 12,
             }}
           >
