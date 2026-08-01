@@ -172,9 +172,6 @@ function ColumnaPrincipal({ data }: { data: FichaPublicaData }) {
 
       <Seccion titulo="Especialidades" vacio={!data.especialidades?.length}>
         <Chips items={(data.especialidades ?? []).slice(0, MAX_ESPECIALIDADES_FICHA)} clicable />
-        <div style={{ fontSize: 12, color: "#666", marginTop: 8 }}>
-          Haz clic sobre cualquier especialidad para descubrir en qué consiste y cuándo puede ayudarte.
-        </div>
       </Seccion>
 
       <Seccion titulo="¿En qué puedo ayudarte?" vacio={!data.areas?.length}>
@@ -189,9 +186,8 @@ function ColumnaPrincipal({ data }: { data: FichaPublicaData }) {
         <LineaTexto items={data.publicos ?? []} />
       </Seccion>
 
-      <Seccion titulo="Trayectoria profesional" vacio={!hayTrayectoria}>
+      <Seccion titulo="Formación" vacio={!hayFormacion}>
         <BloqueFormaciones items={trayectoria?.formaciones ?? []} />
-        <ListaExpandible items={trayectoria?.experiencia ?? []} etiqueta="experiencia" />
       </Seccion>
 
       <Seccion titulo="Tarifas" vacio={!data.tarifas?.length}>
