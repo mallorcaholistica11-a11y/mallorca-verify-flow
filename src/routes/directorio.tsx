@@ -364,7 +364,26 @@ function Campo({ label, children }: { label: string; children: ReactNode }) {
 function Resultados({ isMobile }: { isMobile: boolean }) {
   return (
     <Bloque top={24}>
-      <div style={{ fontSize: 13, color: "#333", marginBottom: 18 }}>128 resultados encontrados</div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: 12,
+          flexWrap: "wrap",
+          marginBottom: 18,
+        }}
+      >
+        <div style={{ fontSize: 13, color: "#333" }}>128 resultados encontrados</div>
+        <label style={{ fontSize: 12, color: "#666", display: "flex", alignItems: "center", gap: 8 }}>
+          Ordenar por
+          <select style={{ ...selectStyle, width: "auto", padding: "7px 10px" }} defaultValue="Relevancia">
+            <option>Relevancia</option>
+            <option>Cercanía</option>
+            <option>Novedades</option>
+          </select>
+        </label>
+      </div>
 
       <div
         style={{
@@ -382,9 +401,19 @@ function Resultados({ isMobile }: { isMobile: boolean }) {
         </div>
 
         <div style={{ display: "grid", gap: 14, minWidth: 0 }}>
-          <Placeholder alto={isMobile ? 200 : 260}>[Mapa de Mallorca]</Placeholder>
-          <div style={{ fontSize: 11, color: "#888", lineHeight: 1.7 }}>
-            El mapa sirve únicamente para orientarte sobre la zona de los resultados.
+          <div style={{ border: "1px dashed #888", background: "#fff", padding: 14, display: "grid", gap: 10 }}>
+            <div style={{ fontSize: 12, fontWeight: 600 }}>Mapa de resultados</div>
+            <Placeholder alto={isMobile ? 180 : 210}>[Mapa de Mallorca]</Placeholder>
+            <div style={{ fontSize: 11, color: "#888", lineHeight: 1.7 }}>
+              El mapa sirve únicamente para orientarte sobre la zona de los resultados.
+            </div>
+          </div>
+          <div style={{ border: "1px dashed #888", background: "#fff", padding: 14 }}>
+            <div style={{ fontSize: 12, fontWeight: 600, marginBottom: 6 }}>¿No encuentras lo que buscas?</div>
+            <div style={{ fontSize: 12, color: "#555", lineHeight: 1.7 }}>
+              Prueba a utilizar menos filtros o explora directamente en el mapa.
+            </div>
+            <div style={{ fontSize: 12, color: "#111", marginTop: 10 }}>Limpiar filtros →</div>
           </div>
           <div style={{ display: "grid", gap: 12, marginTop: 8 }}>
             {DESCUBRE.map((d) => (
