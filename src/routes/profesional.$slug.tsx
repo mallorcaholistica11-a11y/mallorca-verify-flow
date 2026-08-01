@@ -31,8 +31,8 @@ const demo: FichaPublicaData = {
   anioInicioActividad: 2011,
   municipio: "Marratxí, Mallorca",
   modalidades: ["Presencial", "Online", "A domicilio"],
-  fraseDestacada: "Te acompaño a recuperar el equilibrio y sentirte mejor.",
   enlaceReserva: "https://example.com/reservas",
+  enlaceAgenda: "/actividades",
   verificado: true,
   sobreMi:
     "Soy terapeuta especializada en Reiki y sanación energética. Acompaño procesos emocionales ayudando a recuperar la calma, el equilibrio y la conexión interior. Cada sesión es un espacio para escucharte y sostenerte en tu proceso.",
@@ -54,9 +54,20 @@ const demo: FichaPublicaData = {
   ],
   publicos: ["Adultos", "Parejas", "Empresas y organizaciones"],
   trayectoria: {
-    formaciones: ["Maestra Reiki Usui Tibetano Nivel III", "Maestra ChiKung Internacional — Escuela Superior de MTC"],
-    certificaciones: ["Terapeuta Energética — Escuela Española de Desarrollo Transpersonal"],
-    experiencia: ["Consulta propia en Marratxí desde 2011", "Talleres de meditación en centros de Mallorca"],
+    formaciones: [
+      { titulo: "Maestra Reiki Usui Tibetano Nivel III", centro: "Escuela Internacional de Reiki", anio: "2016" },
+      { titulo: "Maestra ChiKung Internacional", centro: "Escuela Superior de MTC", anio: "2018" },
+      { titulo: "Terapeuta Energética", centro: "Escuela Española de Desarrollo Transpersonal", anio: "2012" },
+      { titulo: "Formación en Meditación y Mindfulness", centro: "Instituto Mente y Cuerpo", anio: "2020" },
+      { titulo: "Respiración Consciente", centro: "Escuela de Respiración Integrativa", anio: "2021" },
+    ],
+    experiencia: [
+      "Consulta propia en Marratxí desde 2011",
+      "Talleres y retiros en Mallorca",
+      "Formación para profesionales desde 2018",
+      "Colaboración con centros de bienestar en Palma",
+      "Sesiones online para personas fuera de la isla",
+    ],
   },
   tarifas: [
     { servicio: "Sesión individual", duracion: "60 min", precio: "80 €" },
