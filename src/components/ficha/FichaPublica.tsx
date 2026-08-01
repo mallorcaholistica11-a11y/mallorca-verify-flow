@@ -19,11 +19,19 @@ import {
 // Profesional Plan Presencia, Centro Verificado y Centro Plan Presencia:
 // basta con omitir los datos de los bloques que ese plan no incluye.
 
-export function FichaPublica({ data }: { data: FichaPublicaData }) {
+export type PlanFicha = "verificado" | "presencia";
+
+export function FichaPublica({
+  data,
+  plan = "verificado",
+}: {
+  data: FichaPublicaData;
+  plan?: PlanFicha;
+}) {
   const isMobile = useMobile();
   const anios = useMemo(() => aniosAcompanando(data.anioInicioActividad), [data.anioInicioActividad]);
 
-  const principal = <ColumnaPrincipal data={data} />;
+  const principal = <ColumnaPrincipal data={data} plan={plan} />;
   const lateral = <BarraLateral data={data} />;
 
   return (
@@ -35,7 +43,7 @@ export function FichaPublica({ data }: { data: FichaPublicaData }) {
         minHeight: "100vh",
       }}
     >
-      <Hero data={data} anios={anios} isMobile={isMobile} />
+      <Hero data={data} anios={plan === "presencia" ? null : anios} isMobile={isMobile} plan={plan} />
 
       <div
         style={{
@@ -59,12 +67,15 @@ function Hero({
   data,
   anios,
   isMobile,
+  plan,
 }: {
   data: FichaPublicaData;
   anios: number | null;
   isMobile: boolean;
+  plan: PlanFicha;
 }) {
   const meta = [data.municipio, data.modalidades?.join(" · ")].filter(Boolean) as string[];
+  const mostrarReserva = plan !== "presencia" && !!data.enlaceReserva;
 
   return (
     <header style={{ borderBottom: "1px dashed #ccc", background: "#fff" }}>
@@ -130,14 +141,14 @@ function Hero({
             <div style={{ fontSize: 13, color: "#444", marginBottom: 10 }}>{meta.join(" · ")}</div>
           )}
 
-          {(data.enlaceReserva || data.contacto?.whatsapp) && (
+          {(mostrarReserva || data.contacto?.whatsapp) && (
             <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 14, marginBottom: 12 }}>
               {data.contacto?.whatsapp && (
                 <Boton href={`https://wa.me/${data.contacto.whatsapp.replace(/[^0-9]/g, "")}`}>
                   Hablar por WhatsApp
                 </Boton>
               )}
-              {data.enlaceReserva && (
+              {mostrarReserva && (
                 <Boton href={data.enlaceReserva} variante="principal">
                   Reservar sesión
                 </Boton>
@@ -145,7 +156,7 @@ function Hero({
             </div>
           )}
 
-          {data.verificado && (
+          {plan !== "presencia" && data.verificado && (
             <div style={{ fontSize: 12, color: "#555" }}>
               ✔ Profesional Verificado por Mallorca Holística
             </div>
@@ -156,9 +167,10 @@ function Hero({
   );
 }
 
-function ColumnaPrincipal({ data }: { data: FichaPublicaData }) {
+function ColumnaPrincipal({ data, plan }: { data: FichaPublicaData; plan: PlanFicha }) {
   const trayectoria = data.trayectoria;
-  const hayFormacion = !!trayectoria?.formaciones?.length;
+  const completa = plan !== "presencia";
+  const hayFormacion = completa && !!trayectoria?.formaciones?.length;
 
   return (
     <>
@@ -186,7 +198,7 @@ function ColumnaPrincipal({ data }: { data: FichaPublicaData }) {
         <BloqueFormaciones items={trayectoria?.formaciones ?? []} />
       </Seccion>
 
-      <Seccion titulo="Tarifas" vacio={!data.tarifas?.length}>
+      <Seccion titulo="Tarifas" vacio={!completa || !data.tarifas?.length}>
         <div style={{ border: "1px dashed #888", background: "#fff" }}>
           {(data.tarifas ?? []).map((t, i) => (
             <div
@@ -211,18 +223,18 @@ function ColumnaPrincipal({ data }: { data: FichaPublicaData }) {
         )}
       </Seccion>
 
-      <Seccion titulo="Galería" vacio={!data.galeria?.length}>
+      <Seccion titulo="Galería" vacio={!completa || !data.galeria?.length}>
         <Galeria imagenes={data.galeria ?? []} nombre={data.nombre} />
       </Seccion>
 
-      <Seccion titulo="Actividades">
+      <Seccion titulo="Actividades" vacio={!completa}>
         <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 10px 0", color: "#444" }}>
           Consulta los talleres, cursos, retiros y actividades organizadas por este profesional.
         </p>
         <Boton href={data.enlaceAgenda ?? "/actividades"}>Ver agenda de actividades →</Boton>
       </Seccion>
 
-      <Seccion titulo="Opiniones" vacio={!data.opiniones?.length}>
+      <Seccion titulo="Opiniones" vacio={!completa || !data.opiniones?.length}>
         <div style={{ display: "grid", gap: 8 }}>
           {(data.opiniones ?? []).map((o, i) => (
             <blockquote
