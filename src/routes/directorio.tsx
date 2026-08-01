@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import type { CSSProperties, ReactNode } from "react";
 import { Chips, Placeholder, Seccion } from "@/components/ficha/primitives";
 import { useMobile } from "@/components/ficha/useMobile";
+import { ESPECIALIDADES_OFICIALES, MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
 
 export const Route = createFileRoute("/directorio")({
   head: () => ({
@@ -36,18 +37,9 @@ const NAV = [
   "Nuestra Mirada",
 ];
 
-const MUNICIPIOS = ["Todos los municipios", "Palma", "Sóller", "Pollença", "Manacor", "Inca", "Alcúdia"];
+const MUNICIPIOS = ["Todos los municipios", ...MUNICIPIOS_MALLORCA];
 
-const ESPECIALIDADES = [
-  "Todas las especialidades",
-  "Psicoterapia integrativa",
-  "Osteopatía",
-  "Terapia floral",
-  "Yoga",
-  "Meditación",
-  "Masaje terapéutico",
-  "Nutrición integrativa",
-];
+const ESPECIALIDADES = ["Todas las especialidades", ...ESPECIALIDADES_OFICIALES];
 
 const MODALIDADES = ["Presencial", "Online", "A domicilio", "A distancia"];
 
@@ -78,8 +70,8 @@ const RESULTADOS: Resultado[] = [
     tipo: "profesional",
     nombre: "Lucía Gelabert",
     identidad: "Psicoterapeuta integrativa",
-    ubicacion: "Palma, Mallorca",
-    especialidades: ["Psicoterapia integrativa", "Mindfulness", "Duelo"],
+    ubicacion: "Palma",
+    especialidades: ["Psicología Integrativa", "Mindfulness", "Terapia Emocional"],
     verificado: true,
     slug: "lucia-gelabert",
   },
@@ -87,8 +79,8 @@ const RESULTADOS: Resultado[] = [
     tipo: "organizacion",
     nombre: "Espai Sa Font",
     identidad: "Centro de terapias y formación",
-    ubicacion: "Palma, Mallorca",
-    especialidades: ["Yoga", "Terapia manual", "Formaciones"],
+    ubicacion: "Palma",
+    especialidades: ["Yoga", "Masaje Terapéutico", "Meditación"],
     verificado: true,
     slug: "espai-sa-font",
   },
@@ -96,8 +88,8 @@ const RESULTADOS: Resultado[] = [
     tipo: "profesional",
     nombre: "Marta Ferrer",
     identidad: "Terapeuta floral",
-    ubicacion: "Sóller, Mallorca",
-    especialidades: ["Terapia Floral", "Meditación", "Respiración"],
+    ubicacion: "Sóller",
+    especialidades: ["Flores de Bach", "Meditación", "Respiración Consciente"],
     verificado: false,
     slug: "marta-ferrer",
   },
@@ -105,8 +97,8 @@ const RESULTADOS: Resultado[] = [
     tipo: "organizacion",
     nombre: "Casa Serena",
     identidad: "Espacio de bienestar y talleres",
-    ubicacion: "Pollença, Mallorca",
-    especialidades: ["Yoga", "Meditación", "Masaje Holístico"],
+    ubicacion: "Pollença",
+    especialidades: ["Yoga", "Meditación", "Masaje Relajante"],
     verificado: false,
     slug: "casa-serena",
   },
@@ -114,8 +106,8 @@ const RESULTADOS: Resultado[] = [
     tipo: "profesional",
     nombre: "Andrés López",
     identidad: "Osteópata",
-    ubicacion: "Palma, Mallorca",
-    especialidades: ["Osteopatía", "Dolor crónico", "Postura"],
+    ubicacion: "Palma",
+    especialidades: ["Osteopatía", "Fasciaterapia", "Quiromasaje"],
     verificado: true,
     slug: "lucia-gelabert",
   },
@@ -123,8 +115,8 @@ const RESULTADOS: Resultado[] = [
     tipo: "profesional",
     nombre: "Núria Camps",
     identidad: "Terapeuta energética",
-    ubicacion: "Inca, Mallorca",
-    especialidades: ["Reiki", "Terapia energética"],
+    ubicacion: "Inca",
+    especialidades: ["Reiki", "Sanación Energética"],
     verificado: false,
     slug: "marta-ferrer",
   },
@@ -375,14 +367,6 @@ function Resultados({ isMobile }: { isMobile: boolean }) {
         }}
       >
         <div style={{ fontSize: 13, color: "#333" }}>128 resultados encontrados</div>
-        <label style={{ fontSize: 12, color: "#666", display: "flex", alignItems: "center", gap: 8 }}>
-          Ordenar por
-          <select style={{ ...selectStyle, width: "auto", padding: "7px 10px" }} defaultValue="Relevancia">
-            <option>Relevancia</option>
-            <option>Cercanía</option>
-            <option>Novedades</option>
-          </select>
-        </label>
       </div>
 
       <div
@@ -503,15 +487,7 @@ function TarjetaResultado({ r, isMobile }: { r: Resultado; isMobile: boolean }) 
       )}
 
       <div style={{ minWidth: 0 }}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "baseline",
-            gap: 12,
-            flexWrap: "wrap",
-          }}
-        >
+        <div style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
           <div style={{ fontSize: 14, fontWeight: 600 }}>{r.nombre}</div>
           {r.verificado && (
             <div style={{ fontSize: 11, color: "#2f5d3a", whiteSpace: "nowrap" }}>
@@ -520,7 +496,7 @@ function TarjetaResultado({ r, isMobile }: { r: Resultado; isMobile: boolean }) 
           )}
         </div>
         <div style={{ fontSize: 12, color: "#555", marginTop: 4 }}>{r.identidad}</div>
-        <div style={{ fontSize: 12, color: "#888", marginTop: 2, marginBottom: 10 }}>{r.ubicacion}</div>
+        <div style={{ fontSize: 12, color: "#888", marginTop: 2, marginBottom: 10 }}>📍 {r.ubicacion}</div>
         <Chips items={r.especialidades.slice(0, 3)} />
       </div>
 
