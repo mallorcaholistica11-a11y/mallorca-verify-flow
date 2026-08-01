@@ -1,10 +1,9 @@
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useMobile } from "@/components/ficha/useMobile";
 import { Boton, Chips, LineaTexto, Placeholder, Seccion } from "@/components/ficha/primitives";
 import {
   MAX_AREAS_FICHA,
   MAX_ESPECIALIDADES_FICHA,
-  aniosAcompanando,
   type FichaCentroData,
   type MiembroEquipo,
 } from "@/components/ficha/types";
@@ -28,7 +27,6 @@ const enlaceDiscreto = {
 
 export function FichaCentro({ data }: { data: FichaCentroData }) {
   const isMobile = useMobile();
-  const anios = useMemo(() => aniosAcompanando(data.anioInicioActividad), [data.anioInicioActividad]);
 
   return (
     <div
@@ -39,7 +37,7 @@ export function FichaCentro({ data }: { data: FichaCentroData }) {
         minHeight: "100vh",
       }}
     >
-      <HeroCentro data={data} anios={anios} isMobile={isMobile} />
+      <HeroCentro data={data} isMobile={isMobile} />
 
       <div
         style={{
@@ -65,17 +63,7 @@ export function FichaCentro({ data }: { data: FichaCentroData }) {
   );
 }
 
-function HeroCentro({
-  data,
-  anios,
-  isMobile,
-}: {
-  data: FichaCentroData;
-  anios: number | null;
-  isMobile: boolean;
-}) {
-  const meta = [data.municipio, data.modalidades?.join(" · ")].filter(Boolean) as string[];
-
+function HeroCentro({ data, isMobile }: { data: FichaCentroData; isMobile: boolean }) {
   return (
     <header style={{ borderBottom: "1px dashed #ccc", background: "#fff" }}>
       <div
@@ -129,17 +117,13 @@ function HeroCentro({
             </div>
           )}
 
-          {anios !== null && (
-            <div style={{ fontSize: 13, marginBottom: 6 }}>✨ Más de {anios} años acompañando personas</div>
+          {data.municipio && (
+            <div style={{ fontSize: 13, color: "#444", marginBottom: 4 }}>{data.municipio}</div>
           )}
 
-          {meta.length > 0 && (
-            <div style={{ fontSize: 13, color: "#444", marginBottom: 10 }}>{meta.join(" · ")}</div>
-          )}
-
-          {data.fraseDestacada && (
-            <div style={{ fontSize: 13, color: "#555", fontStyle: "italic", marginBottom: 10 }}>
-              “{data.fraseDestacada}”
+          {data.modalidades && data.modalidades.length > 0 && (
+            <div style={{ fontSize: 13, color: "#444", marginBottom: 10 }}>
+              {data.modalidades.join(" · ")}
             </div>
           )}
 
@@ -207,7 +191,7 @@ function ColumnaPrincipal({ data }: { data: FichaCentroData }) {
         <Equipo miembros={data.equipo ?? []} total={data.totalEquipo} />
       </Seccion>
 
-      <Seccion titulo="Tarifas" vacio={!data.tarifas?.length}>
+      <Seccion titulo="Servicios y tarifas (opcional)" vacio={!data.tarifas?.length}>
         <div style={{ border: "1px dashed #888", background: "#fff" }}>
           {(data.tarifas ?? []).slice(0, 3).map((t, i) => (
             <div
@@ -274,11 +258,11 @@ function Equipo({ miembros, total }: { miembros: MiembroEquipo[]; total?: number
     <div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 20 }}>
         {visibles.map((m, i) => (
-          <div key={`${m.nombre}-${i}`} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div key={`${m.nombre}-${i}`} style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <div
               style={{
-                width: 44,
-                height: 44,
+                width: 34,
+                height: 34,
                 borderRadius: "50%",
                 border: "1px dashed #888",
                 background: "#fff",
@@ -287,7 +271,7 @@ function Equipo({ miembros, total }: { miembros: MiembroEquipo[]; total?: number
                 alignItems: "center",
                 justifyContent: "center",
                 color: "#aaa",
-                fontSize: 10,
+                fontSize: 9,
                 flex: "0 0 auto",
               }}
             >
@@ -297,9 +281,9 @@ function Equipo({ miembros, total }: { miembros: MiembroEquipo[]; total?: number
                 "[foto]"
               )}
             </div>
-            <div style={{ fontSize: 13, lineHeight: 1.4 }}>
+            <div style={{ fontSize: 12, lineHeight: 1.4 }}>
               <div>{m.nombre}</div>
-              {m.rol && <div style={{ fontSize: 12, color: "#666" }}>{m.rol}</div>}
+              {m.rol && <div style={{ fontSize: 11, color: "#666" }}>{m.rol}</div>}
             </div>
           </div>
         ))}
@@ -325,12 +309,13 @@ function CarruselGaleria({ imagenes, nombre }: { imagenes: string[]; nombre: str
     <>
       <div
         ref={pista}
+        className="ficha-galeria-pista"
         style={{
           display: "flex",
           gap: 8,
           overflowX: "auto",
-          paddingBottom: 6,
           scrollSnapType: "x mandatory",
+          scrollbarWidth: "none",
         }}
       >
         {imagenes.map((src, i) => (
