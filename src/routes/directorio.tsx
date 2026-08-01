@@ -367,14 +367,6 @@ function Resultados({ isMobile }: { isMobile: boolean }) {
         }}
       >
         <div style={{ fontSize: 13, color: "#333" }}>128 resultados encontrados</div>
-        <label style={{ fontSize: 12, color: "#666", display: "flex", alignItems: "center", gap: 8 }}>
-          Ordenar por
-          <select style={{ ...selectStyle, width: "auto", padding: "7px 10px" }} defaultValue="Relevancia">
-            <option>Relevancia</option>
-            <option>Cercanía</option>
-            <option>Novedades</option>
-          </select>
-        </label>
       </div>
 
       <div
@@ -495,15 +487,7 @@ function TarjetaResultado({ r, isMobile }: { r: Resultado; isMobile: boolean }) 
       )}
 
       <div style={{ minWidth: 0 }}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "baseline",
-            gap: 12,
-            flexWrap: "wrap",
-          }}
-        >
+        <div style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
           <div style={{ fontSize: 14, fontWeight: 600 }}>{r.nombre}</div>
           {r.verificado && (
             <div style={{ fontSize: 11, color: "#2f5d3a", whiteSpace: "nowrap" }}>
@@ -512,7 +496,7 @@ function TarjetaResultado({ r, isMobile }: { r: Resultado; isMobile: boolean }) 
           )}
         </div>
         <div style={{ fontSize: 12, color: "#555", marginTop: 4 }}>{r.identidad}</div>
-        <div style={{ fontSize: 12, color: "#888", marginTop: 2, marginBottom: 10 }}>{r.ubicacion}</div>
+        <div style={{ fontSize: 12, color: "#888", marginTop: 2, marginBottom: 10 }}>📍 {r.ubicacion}</div>
         <Chips items={r.especialidades.slice(0, 3)} />
       </div>
 
