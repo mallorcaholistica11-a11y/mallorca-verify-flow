@@ -34,6 +34,7 @@ export function WireframeShell({
           <Link to="/plan-presencia" style={linkStyle}>Plan Presencia</Link>
           <Link to="/profesional-fundador" style={linkStyle}>Profesional Verificado</Link>
           <Link to="/comunidad-fundadora-organizaciones" style={linkStyle}>Centros & Organizadores</Link>
+          <Link to="/profesional/$slug" params={{ slug: "lucia-gelabert" }} style={linkStyle}>Ficha pública Verificada</Link>
         </nav>
       </header>
 
