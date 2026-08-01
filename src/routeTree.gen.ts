@@ -14,6 +14,7 @@ import { Route as ProfesionalFundadorRouteImport } from './routes/profesional-fu
 import { Route as PlanPresenciaRouteImport } from './routes/plan-presencia'
 import { Route as MiEspacioRouteImport } from './routes/mi-espacio'
 import { Route as ListaEsperaRouteImport } from './routes/lista-espera'
+import { Route as HomeMvpRouteImport } from './routes/home-mvp'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ComunidadFundadoraOrganizacionesRouteImport } from './routes/comunidad-fundadora-organizaciones'
 import { Route as ComunidadFundadoraCentrosRouteImport } from './routes/comunidad-fundadora-centros'
@@ -67,6 +68,11 @@ const MiEspacioRoute = MiEspacioRouteImport.update({
 const ListaEsperaRoute = ListaEsperaRouteImport.update({
   id: '/lista-espera',
   path: '/lista-espera',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeMvpRoute = HomeMvpRouteImport.update({
+  id: '/home-mvp',
+  path: '/home-mvp',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -233,6 +239,7 @@ export interface FileRoutesByFullPath {
   '/comunidad-fundadora-centros': typeof ComunidadFundadoraCentrosRoute
   '/comunidad-fundadora-organizaciones': typeof ComunidadFundadoraOrganizacionesRoute
   '/dashboard': typeof DashboardRouteWithChildren
+  '/home-mvp': typeof HomeMvpRoute
   '/lista-espera': typeof ListaEsperaRoute
   '/mi-espacio': typeof MiEspacioRouteWithChildren
   '/plan-presencia': typeof PlanPresenciaRoute
@@ -269,6 +276,7 @@ export interface FileRoutesByTo {
   '/comunidad-fundadora-centros': typeof ComunidadFundadoraCentrosRoute
   '/comunidad-fundadora-organizaciones': typeof ComunidadFundadoraOrganizacionesRoute
   '/dashboard': typeof DashboardRouteWithChildren
+  '/home-mvp': typeof HomeMvpRoute
   '/lista-espera': typeof ListaEsperaRoute
   '/plan-presencia': typeof PlanPresenciaRoute
   '/profesional-fundador': typeof ProfesionalFundadorRoute
@@ -304,6 +312,7 @@ export interface FileRoutesById {
   '/comunidad-fundadora-centros': typeof ComunidadFundadoraCentrosRoute
   '/comunidad-fundadora-organizaciones': typeof ComunidadFundadoraOrganizacionesRoute
   '/dashboard': typeof DashboardRouteWithChildren
+  '/home-mvp': typeof HomeMvpRoute
   '/lista-espera': typeof ListaEsperaRoute
   '/mi-espacio': typeof MiEspacioRouteWithChildren
   '/plan-presencia': typeof PlanPresenciaRoute
@@ -342,6 +351,7 @@ export interface FileRouteTypes {
     | '/comunidad-fundadora-centros'
     | '/comunidad-fundadora-organizaciones'
     | '/dashboard'
+    | '/home-mvp'
     | '/lista-espera'
     | '/mi-espacio'
     | '/plan-presencia'
@@ -378,6 +388,7 @@ export interface FileRouteTypes {
     | '/comunidad-fundadora-centros'
     | '/comunidad-fundadora-organizaciones'
     | '/dashboard'
+    | '/home-mvp'
     | '/lista-espera'
     | '/plan-presencia'
     | '/profesional-fundador'
@@ -412,6 +423,7 @@ export interface FileRouteTypes {
     | '/comunidad-fundadora-centros'
     | '/comunidad-fundadora-organizaciones'
     | '/dashboard'
+    | '/home-mvp'
     | '/lista-espera'
     | '/mi-espacio'
     | '/plan-presencia'
@@ -449,6 +461,7 @@ export interface RootRouteChildren {
   ComunidadFundadoraCentrosRoute: typeof ComunidadFundadoraCentrosRoute
   ComunidadFundadoraOrganizacionesRoute: typeof ComunidadFundadoraOrganizacionesRoute
   DashboardRoute: typeof DashboardRouteWithChildren
+  HomeMvpRoute: typeof HomeMvpRoute
   ListaEsperaRoute: typeof ListaEsperaRoute
   MiEspacioRoute: typeof MiEspacioRouteWithChildren
   PlanPresenciaRoute: typeof PlanPresenciaRoute
@@ -501,6 +514,13 @@ declare module '@tanstack/react-router' {
       path: '/lista-espera'
       fullPath: '/lista-espera'
       preLoaderRoute: typeof ListaEsperaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/home-mvp': {
+      id: '/home-mvp'
+      path: '/home-mvp'
+      fullPath: '/home-mvp'
+      preLoaderRoute: typeof HomeMvpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -770,6 +790,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComunidadFundadoraCentrosRoute: ComunidadFundadoraCentrosRoute,
   ComunidadFundadoraOrganizacionesRoute: ComunidadFundadoraOrganizacionesRoute,
   DashboardRoute: DashboardRouteWithChildren,
+  HomeMvpRoute: HomeMvpRoute,
   ListaEsperaRoute: ListaEsperaRoute,
   MiEspacioRoute: MiEspacioRouteWithChildren,
   PlanPresenciaRoute: PlanPresenciaRoute,
@@ -789,3 +810,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
