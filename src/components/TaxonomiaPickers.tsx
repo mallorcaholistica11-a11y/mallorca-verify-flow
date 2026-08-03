@@ -163,15 +163,123 @@ export const AREAS = [
 export type PickerVariant = "profesional" | "organizacion";
 
 const DEFAULT_MAX_ESPECIALIDADES = 3;
-const PROFESIONAL_ESPECIALIDADES_NOTE =
-  "Elige tus terapias o especialidades principales. Puedes ordenarlas según la importancia que tienen en tu práctica.";
-const ORGANIZACION_ESPECIALIDADES_NOTE =
-  "Selecciona las terapias, servicios o actividades que ofrece vuestra organización. Puedes ordenarlas según su importancia.";
+
+export const CATEGORIAS_ESPECIALIDADES: { categoria: string; especialidades: string[] }[] = [
+  {
+    categoria: "Terapias Manuales y Corporales",
+    especialidades: [
+      "Acupresión",
+      "Drenaje Linfático Manual",
+      "Fasciaterapia",
+      "Masaje Relajante",
+      "Masaje Terapéutico",
+      "Osteopatía",
+      "Quiromasaje",
+      "Reflexología",
+      "Rolfing",
+      "Shiatsu",
+      "Técnica Alexander",
+      "Terapia Craneosacral",
+    ],
+  },
+  {
+    categoria: "Medicina Natural e Integrativa",
+    especialidades: [
+      "Acupuntura",
+      "Ayurveda",
+      "Biodescodificación",
+      "Biomagnetismo",
+      "Fitoterapia",
+      "Homeopatía",
+      "Iridología",
+      "Medicina Funcional",
+      "Medicina Integrativa",
+      "Medicina Ortomolecular",
+      "Medicina Tradicional China",
+      "Naturopatía",
+    ],
+  },
+  {
+    categoria: "Nutrición y Alimentación",
+    especialidades: ["Alimentación Consciente", "Nutrición Consciente", "Nutrición Integrativa"],
+  },
+  {
+    categoria: "Psicología, Psicoterapia y Bienestar Emocional",
+    especialidades: [
+      "Coaching de Vida",
+      "Coaching Emocional",
+      "EFT (Liberación Emocional)",
+      "EMDR",
+      "Eneagrama",
+      "Gestalt",
+      "Hipnosis",
+      "Mindfulness",
+      "PNL (Programación Neurolingüística)",
+      "Psicología Integrativa",
+      "Psicoterapia",
+      "Relajación Guiada",
+      "Respiración Consciente",
+      "Terapia de Pareja",
+      "Terapia Emocional",
+      "Terapia Familiar",
+      "Terapia Somática",
+      "Terapia Transpersonal",
+    ],
+  },
+  {
+    categoria: "Energía y Espiritualidad",
+    especialidades: [
+      "Astrología Evolutiva",
+      "Astrología Terapéutica",
+      "Chi Kung (Qi Gong)",
+      "Cromoterapia",
+      "Equilibrio Energético",
+      "Flores de Bach",
+      "Meditación",
+      "Registros Akáshicos",
+      "Reiki",
+      "Sanación Energética",
+      "Sonoterapia",
+      "Yoga",
+      "Yoga Terapéutico",
+    ],
+  },
+  {
+    categoria: "Movimiento, Expresión y Creatividad",
+    especialidades: [
+      "Arteterapia",
+      "Danzaterapia",
+      "Equinoterapia",
+      "Feldenkrais",
+      "Pilates Terapéutico",
+    ],
+  },
+  {
+    categoria: "Salud Integrativa",
+    especialidades: [
+      "Dentista Holístico",
+      "Ginecología Holística",
+      "Ginecología Integrativa",
+      "Oftalmología Integrativa",
+      "Optometría Holística",
+      "Salud Bucodental",
+    ],
+  },
+  {
+    categoria: "Espacios y Otras Especialidades",
+    especialidades: ["Comunicación Animal", "Feng Shui"],
+  },
+];
+
+const LIMITE_ESP_MSG =
+  "Has alcanzado el número máximo de especialidades disponibles para tu plan. Si deseas seleccionar otra, primero desmarca una de las ya seleccionadas.";
+
+const introEspecialidades = (max: number) =>
+  `Selecciona hasta ${max} especialidades o terapias que mejor representen tu práctica profesional y ordénalas según su importancia.`;
 
 export function EspecialidadesPicker({
   max = DEFAULT_MAX_ESPECIALIDADES,
   note,
-  variant = "profesional",
 }: {
   max?: number;
   note?: string | null;
@@ -180,34 +288,29 @@ export function EspecialidadesPicker({
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
   const [warning, setWarning] = useState<string | null>(null);
-  const [open, setOpen] = useState(false);
   const [dragIndex, setDragIndex] = useState<number | null>(null);
+  const [propuesta, setPropuesta] = useState("");
   const hasMax = max > 0;
-  const displayNote =
-    note === null
-      ? null
-      : (note ??
-        (variant === "organizacion"
-          ? ORGANIZACION_ESPECIALIDADES_NOTE
-          : PROFESIONAL_ESPECIALIDADES_NOTE));
+  const displayNote = note === null ? null : (note ?? (hasMax ? introEspecialidades(max) : null));
 
-  const filtered = ESPECIALIDADES.filter(
-    (e) => !selected.includes(e) && (query === "" || e.toLowerCase().includes(query.toLowerCase())),
-  );
+  const q = query.trim().toLowerCase();
+  const grupos = CATEGORIAS_ESPECIALIDADES.map((g) => ({
+    categoria: g.categoria,
+    especialidades:
+      q === "" ? g.especialidades : g.especialidades.filter((e) => e.toLowerCase().includes(q)),
+  })).filter((g) => g.especialidades.length > 0);
 
-  const add = (item: string) => {
-    if (selected.includes(item)) return;
+  const toggle = (item: string) => {
+    if (selected.includes(item)) {
+      setSelected(selected.filter((s) => s !== item));
+      setWarning(null);
+      return;
+    }
     if (hasMax && selected.length >= max) {
-      setWarning(`Puedes seleccionar hasta ${max} especialidades o terapias en el Plan Free.`);
+      setWarning(LIMITE_ESP_MSG);
       return;
     }
     setSelected([...selected, item]);
-    setWarning(null);
-    setQuery("");
-  };
-
-  const remove = (item: string) => {
-    setSelected(selected.filter((s) => s !== item));
     setWarning(null);
   };
 
@@ -220,61 +323,90 @@ export function EspecialidadesPicker({
     setDragIndex(null);
   };
 
+  const atLimit = hasMax && selected.length >= max;
+
   return (
     <div>
       {displayNote && <Note>{displayNote}</Note>}
 
-      <div style={{ position: "relative", marginBottom: 12 }}>
-        <input
-          type="text"
-          value={query}
-          placeholder="Buscar una terapia o especialidad…"
-          onChange={(e) => {
-            setQuery(e.target.value);
-            setOpen(true);
-          }}
-          onFocus={() => setOpen(true)}
-          onBlur={() => setTimeout(() => setOpen(false), 150)}
+      <input
+        type="text"
+        value={query}
+        placeholder="Buscar una terapia o especialidad…"
+        onChange={(e) => setQuery(e.target.value)}
+        style={{
+          width: "100%",
+          padding: "8px 10px",
+          border: "1px dashed #888",
+          background: "#fff",
+          fontFamily: "inherit",
+          fontSize: 13,
+          boxSizing: "border-box",
+          marginBottom: 16,
+        }}
+      />
+
+      <div
+        style={{
+          border: "1px dashed #888",
+          background: "#fff",
+          padding: "10px 12px",
+          marginBottom: 16,
+        }}
+      >
+        <div
           style={{
-            width: "100%",
-            padding: "8px 10px",
-            border: "1px dashed #888",
-            background: "#fff",
-            fontFamily: "inherit",
-            fontSize: 13,
-            boxSizing: "border-box",
+            fontSize: 11,
+            color: "#666",
+            textTransform: "uppercase",
+            letterSpacing: 1,
+            marginBottom: 6,
           }}
-        />
-        {open && filtered.length > 0 && (
-          <div
-            style={{
-              position: "absolute",
-              top: "100%",
-              left: 0,
-              right: 0,
-              zIndex: 10,
-              maxHeight: 220,
-              overflowY: "auto",
-              border: "1px dashed #888",
-              borderTop: "none",
-              background: "#fff",
-            }}
-          >
-            {filtered.map((item) => (
+        >
+          Especialidades seleccionadas
+        </div>
+        <div style={{ fontSize: 13, marginBottom: selected.length > 0 ? 10 : 0 }}>
+          {selected.length} / {hasMax ? max : "—"} seleccionadas
+        </div>
+        {selected.length > 0 && (
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+            {selected.map((item, idx) => (
               <div
                 key={item}
-                onMouseDown={(e) => {
-                  e.preventDefault();
-                  add(item);
-                }}
+                draggable
+                onDragStart={() => setDragIndex(idx)}
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={() => onDrop(idx)}
+                title="Arrastra para reordenar"
                 style={{
-                  padding: "6px 10px",
-                  fontSize: 13,
-                  cursor: "pointer",
-                  borderBottom: "1px dotted #ddd",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "4px 8px",
+                  border: "1px dashed #666",
+                  background: "#fff",
+                  fontSize: 12,
+                  cursor: "grab",
                 }}
               >
-                {item}
+                <span style={{ color: "#888" }}>⋮⋮</span>
+                <span>
+                  {idx + 1}. {item}
+                </span>
+                <button
+                  onClick={() => toggle(item)}
+                  style={{
+                    border: "none",
+                    background: "transparent",
+                    cursor: "pointer",
+                    fontSize: 12,
+                    padding: 0,
+                    color: "#666",
+                  }}
+                  aria-label={`Eliminar ${item}`}
+                >
+                  ✕
+                </button>
               </div>
             ))}
           </div>
@@ -288,7 +420,7 @@ export function EspecialidadesPicker({
             color: "#a00",
             border: "1px dashed #a00",
             padding: "6px 10px",
-            marginBottom: 12,
+            marginBottom: 16,
             background: "#fff",
           }}
         >
@@ -296,65 +428,90 @@ export function EspecialidadesPicker({
         </div>
       )}
 
-      <div
-        style={{
-          fontSize: 11,
-          color: "#666",
-          textTransform: "uppercase",
-          letterSpacing: 1,
-          marginBottom: 6,
-        }}
-      >
-        Seleccionadas ({selected.length}
-        {hasMax ? `/${max}` : ""})
-      </div>
-      {selected.length === 0 ? (
+      {grupos.length === 0 ? (
         <div style={{ fontSize: 12, color: "#aaa", fontStyle: "italic" }}>
-          [sin selección — busca y elige {hasMax ? `hasta ${max}` : "las que desees"}]
+          [sin resultados para “{query}”]
         </div>
       ) : (
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-          {selected.map((item, idx) => (
+        grupos.map((g) => (
+          <div key={g.categoria} style={{ marginBottom: 20 }}>
             <div
-              key={item}
-              draggable
-              onDragStart={() => setDragIndex(idx)}
-              onDragOver={(e) => e.preventDefault()}
-              onDrop={() => onDrop(idx)}
-              title="Arrastra para reordenar"
               style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                padding: "4px 8px",
-                border: "1px dashed #666",
-                background: "#fff",
-                fontSize: 12,
-                cursor: "grab",
+                fontSize: 11,
+                textTransform: "uppercase",
+                letterSpacing: 1,
+                color: "#666",
+                borderBottom: "1px dotted #ccc",
+                paddingBottom: 4,
+                marginBottom: 8,
               }}
             >
-              <span style={{ color: "#888" }}>⋮⋮</span>
-              <span>
-                {idx + 1}. {item}
-              </span>
-              <button
-                onClick={() => remove(item)}
-                style={{
-                  border: "none",
-                  background: "transparent",
-                  cursor: "pointer",
-                  fontSize: 12,
-                  padding: 0,
-                  color: "#666",
-                }}
-                aria-label={`Eliminar ${item}`}
-              >
-                ✕
-              </button>
+              {g.categoria}
             </div>
-          ))}
-        </div>
+            <div className="areas-grid">
+              {g.especialidades.map((item) => {
+                const checked = selected.includes(item);
+                const bloqueada = atLimit && !checked;
+                return (
+                  <label
+                    key={item}
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: 8,
+                      fontSize: 13,
+                      lineHeight: 1.4,
+                      cursor: "pointer",
+                      color: bloqueada ? "#aaa" : "#111",
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={checked}
+                      onChange={() => toggle(item)}
+                      style={{ marginTop: 2, flexShrink: 0 }}
+                    />
+                    <span>{item}</span>
+                  </label>
+                );
+              })}
+            </div>
+          </div>
+        ))
       )}
+
+      <div style={{ border: "1px dashed #888", background: "#fff", padding: "10px 12px" }}>
+        <div
+          style={{
+            fontSize: 11,
+            textTransform: "uppercase",
+            letterSpacing: 1,
+            color: "#666",
+            marginBottom: 6,
+          }}
+        >
+          ¿No encuentras tu especialidad o terapia?
+        </div>
+        <div style={{ fontSize: 12, color: "#555", marginBottom: 8, lineHeight: 1.5 }}>
+          Escríbela aquí. Revisamos periódicamente todas las propuestas para seguir ampliando y
+          mejorar el catálogo de Mallorca Holística.
+        </div>
+        <input
+          type="text"
+          value={propuesta}
+          onChange={(e) => setPropuesta(e.target.value)}
+          placeholder="Escribe aquí tu especialidad o terapia…"
+          style={{
+            width: "100%",
+            padding: "8px 10px",
+            border: "1px dashed #888",
+            background: "#fff",
+            fontFamily: "inherit",
+            fontSize: 13,
+            boxSizing: "border-box",
+          }}
+        />
+      </div>
     </div>
   );
 }
