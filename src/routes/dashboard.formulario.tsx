@@ -2354,7 +2354,6 @@ function VerificadoFormulario() {
             />
           </Box>
           <Box title="Áreas de Especialización">
-            {isOrg ? (
             <AreasPicker max={15} variant={isOrg ? "organizacion" : "profesional"} />
           </Box>
           <Box title={isOrg ? "¿A quién acompañáis?" : "¿A quién acompañas?"}>
