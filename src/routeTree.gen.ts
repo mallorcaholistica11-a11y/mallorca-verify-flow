@@ -24,6 +24,7 @@ import { Route as ComunidadFundadoraAccesoRouteImport } from './routes/comunidad
 import { Route as ComunidadFundadoraRouteImport } from './routes/comunidad-fundadora'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as MiEspacioIndexRouteImport } from './routes/mi-espacio.index'
+import { Route as GuiaIndexRouteImport } from './routes/guia.index'
 import { Route as ProfesionalSlugRouteImport } from './routes/profesional.$slug'
 import { Route as ProfesionalFreeSlugRouteImport } from './routes/profesional-free.$slug'
 import { Route as MiEspacioSuscripcionRouteImport } from './routes/mi-espacio.suscripcion'
@@ -31,6 +32,7 @@ import { Route as MiEspacioPerfilRouteImport } from './routes/mi-espacio.perfil'
 import { Route as MiEspacioAyudaRouteImport } from './routes/mi-espacio.ayuda'
 import { Route as MiEspacioActividadesRouteImport } from './routes/mi-espacio.actividades'
 import { Route as InvitacionTokenRouteImport } from './routes/invitacion.$token'
+import { Route as GuiaSlugRouteImport } from './routes/guia.$slug'
 import { Route as FuturoProfesionalVerificadoRouteImport } from './routes/futuro.profesional-verificado'
 import { Route as FuturoPlanPresenciaRouteImport } from './routes/futuro.plan-presencia'
 import { Route as FuturoCentrosOrganizadoresRouteImport } from './routes/futuro.centros-organizadores'
@@ -125,6 +127,11 @@ const MiEspacioIndexRoute = MiEspacioIndexRouteImport.update({
   path: '/',
   getParentRoute: () => MiEspacioRoute,
 } as any)
+const GuiaIndexRoute = GuiaIndexRouteImport.update({
+  id: '/guia/',
+  path: '/guia/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProfesionalSlugRoute = ProfesionalSlugRouteImport.update({
   id: '/profesional/$slug',
   path: '/profesional/$slug',
@@ -158,6 +165,11 @@ const MiEspacioActividadesRoute = MiEspacioActividadesRouteImport.update({
 const InvitacionTokenRoute = InvitacionTokenRouteImport.update({
   id: '/invitacion/$token',
   path: '/invitacion/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuiaSlugRoute = GuiaSlugRouteImport.update({
+  id: '/guia/$slug',
+  path: '/guia/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FuturoProfesionalVerificadoRoute =
@@ -264,6 +276,7 @@ export interface FileRoutesByFullPath {
   '/futuro/centros-organizadores': typeof FuturoCentrosOrganizadoresRoute
   '/futuro/plan-presencia': typeof FuturoPlanPresenciaRoute
   '/futuro/profesional-verificado': typeof FuturoProfesionalVerificadoRoute
+  '/guia/$slug': typeof GuiaSlugRoute
   '/invitacion/$token': typeof InvitacionTokenRoute
   '/mi-espacio/actividades': typeof MiEspacioActividadesRouteWithChildren
   '/mi-espacio/ayuda': typeof MiEspacioAyudaRoute
@@ -271,6 +284,7 @@ export interface FileRoutesByFullPath {
   '/mi-espacio/suscripcion': typeof MiEspacioSuscripcionRoute
   '/profesional-free/$slug': typeof ProfesionalFreeSlugRoute
   '/profesional/$slug': typeof ProfesionalSlugRoute
+  '/guia/': typeof GuiaIndexRoute
   '/mi-espacio/': typeof MiEspacioIndexRoute
   '/mi-espacio/actividades/nueva': typeof MiEspacioActividadesNuevaRoute
   '/mi-espacio/actividades/': typeof MiEspacioActividadesIndexRoute
@@ -301,12 +315,14 @@ export interface FileRoutesByTo {
   '/futuro/centros-organizadores': typeof FuturoCentrosOrganizadoresRoute
   '/futuro/plan-presencia': typeof FuturoPlanPresenciaRoute
   '/futuro/profesional-verificado': typeof FuturoProfesionalVerificadoRoute
+  '/guia/$slug': typeof GuiaSlugRoute
   '/invitacion/$token': typeof InvitacionTokenRoute
   '/mi-espacio/ayuda': typeof MiEspacioAyudaRoute
   '/mi-espacio/perfil': typeof MiEspacioPerfilRoute
   '/mi-espacio/suscripcion': typeof MiEspacioSuscripcionRoute
   '/profesional-free/$slug': typeof ProfesionalFreeSlugRoute
   '/profesional/$slug': typeof ProfesionalSlugRoute
+  '/guia': typeof GuiaIndexRoute
   '/mi-espacio': typeof MiEspacioIndexRoute
   '/mi-espacio/actividades/nueva': typeof MiEspacioActividadesNuevaRoute
   '/mi-espacio/actividades': typeof MiEspacioActividadesIndexRoute
@@ -339,6 +355,7 @@ export interface FileRoutesById {
   '/futuro/centros-organizadores': typeof FuturoCentrosOrganizadoresRoute
   '/futuro/plan-presencia': typeof FuturoPlanPresenciaRoute
   '/futuro/profesional-verificado': typeof FuturoProfesionalVerificadoRoute
+  '/guia/$slug': typeof GuiaSlugRoute
   '/invitacion/$token': typeof InvitacionTokenRoute
   '/mi-espacio/actividades': typeof MiEspacioActividadesRouteWithChildren
   '/mi-espacio/ayuda': typeof MiEspacioAyudaRoute
@@ -346,6 +363,7 @@ export interface FileRoutesById {
   '/mi-espacio/suscripcion': typeof MiEspacioSuscripcionRoute
   '/profesional-free/$slug': typeof ProfesionalFreeSlugRoute
   '/profesional/$slug': typeof ProfesionalSlugRoute
+  '/guia/': typeof GuiaIndexRoute
   '/mi-espacio/': typeof MiEspacioIndexRoute
   '/mi-espacio/actividades/nueva': typeof MiEspacioActividadesNuevaRoute
   '/mi-espacio/actividades/': typeof MiEspacioActividadesIndexRoute
@@ -379,6 +397,7 @@ export interface FileRouteTypes {
     | '/futuro/centros-organizadores'
     | '/futuro/plan-presencia'
     | '/futuro/profesional-verificado'
+    | '/guia/$slug'
     | '/invitacion/$token'
     | '/mi-espacio/actividades'
     | '/mi-espacio/ayuda'
@@ -386,6 +405,7 @@ export interface FileRouteTypes {
     | '/mi-espacio/suscripcion'
     | '/profesional-free/$slug'
     | '/profesional/$slug'
+    | '/guia/'
     | '/mi-espacio/'
     | '/mi-espacio/actividades/nueva'
     | '/mi-espacio/actividades/'
@@ -416,12 +436,14 @@ export interface FileRouteTypes {
     | '/futuro/centros-organizadores'
     | '/futuro/plan-presencia'
     | '/futuro/profesional-verificado'
+    | '/guia/$slug'
     | '/invitacion/$token'
     | '/mi-espacio/ayuda'
     | '/mi-espacio/perfil'
     | '/mi-espacio/suscripcion'
     | '/profesional-free/$slug'
     | '/profesional/$slug'
+    | '/guia'
     | '/mi-espacio'
     | '/mi-espacio/actividades/nueva'
     | '/mi-espacio/actividades'
@@ -453,6 +475,7 @@ export interface FileRouteTypes {
     | '/futuro/centros-organizadores'
     | '/futuro/plan-presencia'
     | '/futuro/profesional-verificado'
+    | '/guia/$slug'
     | '/invitacion/$token'
     | '/mi-espacio/actividades'
     | '/mi-espacio/ayuda'
@@ -460,6 +483,7 @@ export interface FileRouteTypes {
     | '/mi-espacio/suscripcion'
     | '/profesional-free/$slug'
     | '/profesional/$slug'
+    | '/guia/'
     | '/mi-espacio/'
     | '/mi-espacio/actividades/nueva'
     | '/mi-espacio/actividades/'
@@ -487,9 +511,11 @@ export interface RootRouteChildren {
   FuturoCentrosOrganizadoresRoute: typeof FuturoCentrosOrganizadoresRoute
   FuturoPlanPresenciaRoute: typeof FuturoPlanPresenciaRoute
   FuturoProfesionalVerificadoRoute: typeof FuturoProfesionalVerificadoRoute
+  GuiaSlugRoute: typeof GuiaSlugRoute
   InvitacionTokenRoute: typeof InvitacionTokenRoute
   ProfesionalFreeSlugRoute: typeof ProfesionalFreeSlugRoute
   ProfesionalSlugRoute: typeof ProfesionalSlugRoute
+  GuiaIndexRoute: typeof GuiaIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -599,6 +625,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MiEspacioIndexRouteImport
       parentRoute: typeof MiEspacioRoute
     }
+    '/guia/': {
+      id: '/guia/'
+      path: '/guia'
+      fullPath: '/guia/'
+      preLoaderRoute: typeof GuiaIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/profesional/$slug': {
       id: '/profesional/$slug'
       path: '/profesional/$slug'
@@ -646,6 +679,13 @@ declare module '@tanstack/react-router' {
       path: '/invitacion/$token'
       fullPath: '/invitacion/$token'
       preLoaderRoute: typeof InvitacionTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guia/$slug': {
+      id: '/guia/$slug'
+      path: '/guia/$slug'
+      fullPath: '/guia/$slug'
+      preLoaderRoute: typeof GuiaSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/futuro/profesional-verificado': {
@@ -824,10 +864,22 @@ const rootRouteChildren: RootRouteChildren = {
   FuturoCentrosOrganizadoresRoute: FuturoCentrosOrganizadoresRoute,
   FuturoPlanPresenciaRoute: FuturoPlanPresenciaRoute,
   FuturoProfesionalVerificadoRoute: FuturoProfesionalVerificadoRoute,
+  GuiaSlugRoute: GuiaSlugRoute,
   InvitacionTokenRoute: InvitacionTokenRoute,
   ProfesionalFreeSlugRoute: ProfesionalFreeSlugRoute,
   ProfesionalSlugRoute: ProfesionalSlugRoute,
+  GuiaIndexRoute: GuiaIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
