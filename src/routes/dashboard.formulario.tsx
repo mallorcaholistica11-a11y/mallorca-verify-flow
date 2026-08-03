@@ -231,7 +231,7 @@ function FormularioBase() {
             <Box key={sec.title} title={sec.title}>
               {sec.note && <Note>{sec.note}</Note>}
               {sec.title === "Especialidades y Terapias" ? (
-                <EspecialidadesPicker variant="profesional" />
+                <EspecialidadesPicker max={10} variant="profesional" />
               ) : sec.title === "Áreas de Especialización" ? (
                 <AreasPicker variant="profesional" />
               ) : sec.title === "Público al que acompaño" ? (
@@ -429,15 +429,8 @@ function PresenciaStep({
   if (step === 2) {
     return (
       <>
-        <Box title={isOrg ? "Servicios, terapias y actividades" : "Especialidades y terapias"}>
-          <Note>Máximo 3</Note>
-          {isOrg && (
-            <Ayuda>
-              Selecciona los principales servicios, terapias o actividades que ofrece vuestro
-              centro.
-            </Ayuda>
-          )}
-          <EspecialidadesPicker variant="profesional" />
+        <Box title={isOrg ? "Servicios, terapias y actividades" : "Especialidades y Terapias"}>
+          <EspecialidadesPicker max={3} variant="profesional" />
         </Box>
         <Box title={isOrg ? "Áreas de especialización del centro" : "Áreas de especialización"}>
           <AreasPicker max={5} variant="profesional" />
@@ -2347,11 +2340,7 @@ function VerificadoFormulario() {
                 ordenarlas según su importancia.
               </Ayuda>
             )}
-            <EspecialidadesPicker
-              max={0}
-              note={isOrg ? null : undefined}
-              variant={isOrg ? "organizacion" : "profesional"}
-            />
+            <EspecialidadesPicker max={10} variant={isOrg ? "organizacion" : "profesional"} />
           </Box>
           <Box title="Áreas de Especialización">
             <AreasPicker max={15} variant={isOrg ? "organizacion" : "profesional"} />
@@ -3187,7 +3176,7 @@ function PresenciaOrganizacionFormulario() {
               Seleccionad todas las terapias, servicios o especialidades que formen parte de vuestra
               actividad. Podréis ordenarlas según su importancia.
             </Ayuda>
-            <EspecialidadesPicker max={0} note={null} variant="organizacion" />
+            <EspecialidadesPicker max={3} variant="organizacion" />
           </Box>
           <Box title="Áreas de Especialización">
             <AreasPicker max={15} variant="organizacion" />
@@ -3501,7 +3490,7 @@ function PresenciaProfesionalFormulario() {
               Puedes añadir hasta 3 especialidades o terapias principales y ordenarlas según su
               importancia.
             </Ayuda>
-            <EspecialidadesPicker max={3} note={null} variant="profesional" />
+            <EspecialidadesPicker max={3} variant="profesional" />
           </Box>
           <Box title="Áreas de Especialización">
             <AreasPicker max={5} variant="profesional" />
