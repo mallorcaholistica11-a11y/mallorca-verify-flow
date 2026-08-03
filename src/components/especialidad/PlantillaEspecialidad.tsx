@@ -101,20 +101,30 @@ export function PlantillaEspecialidad({
           </a>
         </header>
 
-        <BloqueTexto titulo="¿Qué es?" texto={contenido.queEs} />
+        <BloqueTexto
+          titulo="¿Qué es?"
+          texto={contenido.queEs}
+          pendiente="Contenido pendiente en la Base de Conocimiento."
+        />
 
-        {areas.length > 0 && (
-          <section style={{ marginBottom: 40 }}>
-            <TituloBloque>¿En qué puede acompañarte?</TituloBloque>
+        <section style={{ marginBottom: 40 }}>
+          <TituloBloque>¿En qué puede acompañarte?</TituloBloque>
+          {areas.length > 0 ? (
             <ul style={{ margin: 0, paddingLeft: 18, fontSize: 14, lineHeight: 2 }}>
               {areas.map((a) => (
                 <li key={a}>{a}</li>
               ))}
             </ul>
-          </section>
-        )}
+          ) : (
+            <TextoPendiente>Áreas relacionadas pendientes.</TextoPendiente>
+          )}
+        </section>
 
-        <BloqueTexto titulo="¿Cómo es una sesión?" texto={contenido.comoEsUnaSesion} />
+        <BloqueTexto
+          titulo="¿Cómo es una sesión?"
+          texto={contenido.comoEsUnaSesion}
+          pendiente="Descripción de la sesión pendiente."
+        />
 
         {/* Nota importante · común a todas las especialidades */}
         <section
@@ -196,12 +206,31 @@ function TituloBloque({ children }: { children: React.ReactNode }) {
   );
 }
 
-function BloqueTexto({ titulo, texto }: { titulo: string; texto: string }) {
-  if (!texto) return null;
+function TextoPendiente({ children }: { children: React.ReactNode }) {
+  return (
+    <p style={{ fontSize: 13, lineHeight: 1.9, margin: 0, color: "#888", fontStyle: "italic" }}>
+      {children}
+    </p>
+  );
+}
+
+function BloqueTexto({
+  titulo,
+  texto,
+  pendiente,
+}: {
+  titulo: string;
+  texto: string;
+  pendiente?: string;
+}) {
   return (
     <section style={{ marginBottom: 40 }}>
       <TituloBloque>{titulo}</TituloBloque>
-      <p style={{ fontSize: 14, lineHeight: 1.9, margin: 0, color: "#333" }}>{texto}</p>
+      {texto ? (
+        <p style={{ fontSize: 14, lineHeight: 1.9, margin: 0, color: "#333" }}>{texto}</p>
+      ) : (
+        <TextoPendiente>{pendiente ?? "Contenido pendiente."}</TextoPendiente>
+      )}
     </section>
   );
 }

@@ -53,3 +53,24 @@ export function areasValidas(areas: string[]): string[] {
   const catalogo = new Set<string>(AREAS as readonly string[]);
   return areas.filter((a) => catalogo.has(a));
 }
+
+/**
+ * Devuelve el contenido de la especialidad o, si aún no existe en la Base de
+ * Conocimiento, una versión provisional con la misma estructura.
+ */
+export function contenidoEspecialidad(
+  slug: string,
+  nombre: string,
+  categoria?: string,
+): EspecialidadContenido {
+  const existente = CONTENIDO_ESPECIALIDADES[slug];
+  if (existente) return { ...existente, categoria: existente.categoria ?? categoria };
+  return {
+    nombre,
+    categoria,
+    definicionBreve: "Definición pendiente.",
+    queEs: "",
+    areasRelacionadas: [],
+    comoEsUnaSesion: "",
+  };
+}
