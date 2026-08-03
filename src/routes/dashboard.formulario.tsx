@@ -440,8 +440,7 @@ function PresenciaStep({
           <EspecialidadesPicker variant="profesional" />
         </Box>
         <Box title={isOrg ? "Áreas de especialización del centro" : "Áreas de especialización"}>
-          <Note>Máximo 5</Note>
-          <AreasPicker variant="profesional" />
+          <AreasPicker max={5} variant="profesional" />
         </Box>
         <Box title={isOrg ? "¿A quién acompañáis?" : "¿A quién acompañas?"}>
           <PublicoCheckboxes options={PRESENCIA_PUBLICO_OPTIONS} />
@@ -2356,21 +2355,7 @@ function VerificadoFormulario() {
           </Box>
           <Box title="Áreas de Especialización">
             {isOrg ? (
-              <Ayuda>
-                Seleccionad las áreas en las que trabajáis habitualmente. También podréis ordenarlas
-                según su relevancia.
-              </Ayuda>
-            ) : (
-              <Ayuda>
-                Selecciona todas las áreas en las que acompañas habitualmente. También podrás
-                ordenarlas por relevancia.
-              </Ayuda>
-            )}
-            <AreasPicker
-              max={0}
-              note={isOrg ? null : undefined}
-              variant={isOrg ? "organizacion" : "profesional"}
-            />
+            <AreasPicker max={15} variant={isOrg ? "organizacion" : "profesional"} />
           </Box>
           <Box title={isOrg ? "¿A quién acompañáis?" : "¿A quién acompañas?"}>
             <Note>Selecciona todas las opciones que correspondan.</Note>
@@ -3206,11 +3191,7 @@ function PresenciaOrganizacionFormulario() {
             <EspecialidadesPicker max={0} note={null} variant="organizacion" />
           </Box>
           <Box title="Áreas de Especialización">
-            <Ayuda>
-              Seleccionad las áreas en las que trabajáis habitualmente. También podréis ordenarlas
-              según su relevancia.
-            </Ayuda>
-            <AreasPicker max={0} note={null} variant="organizacion" />
+            <AreasPicker max={15} variant="organizacion" />
           </Box>
           <Box title="¿A quién acompañáis?">
             <Note>Selecciona todas las opciones que correspondan.</Note>
@@ -3524,10 +3505,7 @@ function PresenciaProfesionalFormulario() {
             <EspecialidadesPicker max={3} note={null} variant="profesional" />
           </Box>
           <Box title="Áreas de Especialización">
-            <Ayuda>
-              Puedes seleccionar hasta 5 áreas de especialización y ordenarlas según su relevancia.
-            </Ayuda>
-            <AreasPicker max={5} note={null} variant="profesional" />
+            <AreasPicker max={5} variant="profesional" />
           </Box>
           <Box title="¿A quién acompañas?">
             <Note>Selecciona todas las opciones que correspondan.</Note>
