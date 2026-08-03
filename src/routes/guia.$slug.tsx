@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Placeholder } from "@/components/ficha/primitives";
 import { useMobile } from "@/components/ficha/useMobile";
 import { CATEGORIAS_ESPECIALIDADES } from "@/components/TaxonomiaPickers";
+import { PlantillaEspecialidad } from "@/components/especialidad/PlantillaEspecialidad";
+import { CONTENIDO_ESPECIALIDADES } from "@/data/especialidades-contenido";
 import { slugEspecialidad } from "./guia.index";
 
 export const Route = createFileRoute("/guia/$slug")({
@@ -34,9 +36,17 @@ function FichaEspecialidad() {
     g.especialidades.map((e) => ({ nombre: e, categoria: g.categoria })),
   ).find((e) => slugEspecialidad(e.nombre) === slug);
 
+  const contenido = CONTENIDO_ESPECIALIDADES[slug];
+
+  // Plantilla Oficial reutilizable: todas las especialidades con contenido
+  // en la Base de Conocimiento usan exactamente esta misma estructura.
+  if (contenido) {
+    return <PlantillaEspecialidad contenido={contenido} categoria={encontrada?.categoria} />;
+  }
+
   return (
     <div style={{ fontFamily: MONO, background: "#fafafa", color: "#111", minHeight: "100vh" }}>
-      <main style={{ maxWidth: 780, margin: "0 auto", padding: isMobile ? "24px 16px" : "32px 24px" }}>
+      <main style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "24px 16px" : "32px 24px" }}>
         <Link to="/guia" style={{ fontSize: 12, color: "#666" }}>
           ← Volver a la Guía de Especialidades y Terapias
         </Link>
@@ -50,7 +60,7 @@ function FichaEspecialidad() {
 
         {encontrada && (
           <Placeholder alto={180}>
-            [Plantilla común de ficha de especialidad · pendiente de contenido]
+            [Plantilla Oficial de Especialidad · contenido pendiente en la Base de Conocimiento]
           </Placeholder>
         )}
       </main>
