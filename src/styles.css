@@ -146,3 +146,20 @@
 .ficha-galeria-pista::-webkit-scrollbar {
   display: none;
 }
+
+/* Cuadrícula responsive del bloque "Áreas de Especialización" */
+.areas-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px 16px;
+}
+@media (min-width: 640px) {
+  .areas-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .areas-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

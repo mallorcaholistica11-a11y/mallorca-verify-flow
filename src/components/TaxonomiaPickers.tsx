@@ -359,16 +359,188 @@ export function EspecialidadesPicker({
   );
 }
 
+export const CATEGORIAS_AREAS: { categoria: string; areas: string[] }[] = [
+  {
+    categoria: "Bienestar Emocional y Desarrollo Personal",
+    areas: [
+      "Adicciones",
+      "Ansiedad",
+      "Autoestima",
+      "Bloqueos emocionales",
+      "Burnout",
+      "Crecimiento personal",
+      "Desarrollo personal",
+      "Duelo",
+      "Estrés",
+      "Gestión emocional",
+      "Miedos",
+      "Regulación emocional",
+      "Soledad",
+      "Trauma",
+    ],
+  },
+  {
+    categoria: "Relaciones y Sexualidad",
+    areas: [
+      "Comunicación",
+      "Dependencia emocional",
+      "Límites personales",
+      "Relaciones de pareja",
+      "Relaciones familiares",
+      "Separación",
+      "Sexualidad",
+    ],
+  },
+  {
+    categoria: "Salud Femenina y Hormonal",
+    areas: [
+      "Embarazo",
+      "Endometriosis",
+      "Fertilidad",
+      "Lactancia",
+      "Menopausia",
+      "Menstruación",
+      "Postparto",
+      "Salud hormonal",
+      "Síndrome de ovario poliquístico (SOP)",
+    ],
+  },
+  {
+    categoria: "Sueño y Energía",
+    areas: [
+      "Baja energía",
+      "Cansancio crónico",
+      "Equilibrio energético",
+      "Fatiga",
+      "Insomnio",
+      "Relajación",
+      "Sueño no reparador",
+    ],
+  },
+  {
+    categoria: "Alimentación y Digestión",
+    areas: [
+      "Alimentación saludable",
+      "Estreñimiento",
+      "Hinchazón abdominal",
+      "Intolerancias alimentarias",
+      "Nutrición",
+      "Salud digestiva",
+      "Salud intestinal",
+    ],
+  },
+  {
+    categoria: "Dolor y Sistema Musculoesquelético",
+    areas: [
+      "Bruxismo",
+      "Dolor articular",
+      "Dolor cervical",
+      "Dolor de espalda",
+      "Dolor lumbar",
+      "Fibromialgia",
+      "Movilidad",
+      "Postura corporal",
+      "Recuperación física",
+      "Recuperación deportiva",
+      "Tensión muscular",
+    ],
+  },
+  {
+    categoria: "Salud Física",
+    areas: [
+      "Dolor crónico",
+      "Enfermedades autoinmunes",
+      "Inflamación",
+      "Prevención y autocuidado",
+      "Salud bucodental",
+      "Salud cardiovascular",
+      "Salud respiratoria",
+      "Salud visual",
+      "Sistema inmunitario",
+    ],
+  },
+  {
+    categoria: "Neurodiversidad",
+    areas: [
+      "Altas capacidades",
+      "Autismo (TEA)",
+      "Dificultades de aprendizaje",
+      "Dislexia",
+      "Regulación sensorial",
+      "TDAH",
+    ],
+  },
+  {
+    categoria: "Infancia y Adolescencia",
+    areas: [
+      "Adolescencia",
+      "Crianza",
+      "Desarrollo infantil",
+      "Gestión emocional infantil",
+      "Vínculo familiar",
+    ],
+  },
+  {
+    categoria: "Salud Cognitiva y Neurológica",
+    areas: [
+      "Cefaleas y migrañas",
+      "Concentración",
+      "Memoria",
+      "Rehabilitación neurológica",
+      "Salud neurológica",
+    ],
+  },
+  {
+    categoria: "Procesos de Salud Complejos",
+    areas: [
+      "Cáncer (acompañamiento)",
+      "Dolor persistente",
+      "Enfermedades crónicas",
+      "Recuperación tras enfermedad",
+    ],
+  },
+  {
+    categoria: "Rendimiento y Hábitos",
+    areas: [
+      "Creatividad",
+      "Gestión del cambio",
+      "Hábitos saludables",
+      "Liderazgo",
+      "Rendimiento deportivo",
+      "Rendimiento profesional",
+    ],
+  },
+  {
+    categoria: "Espiritualidad y Conciencia",
+    areas: [
+      "Autoconocimiento",
+      "Conexión interior",
+      "Desarrollo espiritual",
+      "Meditación",
+      "Mindfulness",
+      "Propósito de vida",
+    ],
+  },
+  {
+    categoria: "Espacios y Entorno",
+    areas: ["Armonización de espacios", "Feng Shui", "Geobiología"],
+  },
+  {
+    categoria: "Bienestar Integral",
+    areas: ["Bienestar integral", "Calidad de vida", "Equilibrio cuerpo-mente"],
+  },
+];
+
 const DEFAULT_MAX_AREAS = 5;
-const PROFESIONAL_AREAS_NOTE =
-  "Elige las áreas en las que acompañas principalmente. Puedes ordenarlas según la importancia que tienen en tu práctica.";
-const ORGANIZACION_AREAS_NOTE =
-  "Selecciona las áreas en las que trabaja principalmente vuestra organización. Puedes ordenarlas según su importancia.";
+const LIMITE_MSG =
+  "Has alcanzado el número máximo de áreas disponibles para tu plan. Si deseas seleccionar otra, primero desmarca una de las ya seleccionadas.";
+
+const introAreas = (max: number) =>
+  `Selecciona hasta ${max} áreas en las que acompañas habitualmente a las personas. Elige las que mejor representan tu práctica profesional y ordénalas según su importancia.`;
 
 export function AreasPicker({
   max = DEFAULT_MAX_AREAS,
   note,
-  variant = "profesional",
 }: {
   max?: number;
   note?: string | null;
@@ -377,31 +549,27 @@ export function AreasPicker({
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
   const [warning, setWarning] = useState<string | null>(null);
-  const [open, setOpen] = useState(false);
   const [dragIndex, setDragIndex] = useState<number | null>(null);
   const hasMax = max > 0;
-  const displayNote =
-    note === null
-      ? null
-      : (note ?? (variant === "organizacion" ? ORGANIZACION_AREAS_NOTE : PROFESIONAL_AREAS_NOTE));
+  const displayNote = note === null ? null : (note ?? (hasMax ? introAreas(max) : null));
 
-  const filtered = AREAS.filter(
-    (a) => !selected.includes(a) && (query === "" || a.toLowerCase().includes(query.toLowerCase())),
-  );
+  const q = query.trim().toLowerCase();
+  const grupos = CATEGORIAS_AREAS.map((g) => ({
+    categoria: g.categoria,
+    areas: q === "" ? g.areas : g.areas.filter((a) => a.toLowerCase().includes(q)),
+  })).filter((g) => g.areas.length > 0);
 
-  const add = (item: string) => {
-    if (selected.includes(item)) return;
+  const toggle = (item: string) => {
+    if (selected.includes(item)) {
+      setSelected(selected.filter((s) => s !== item));
+      setWarning(null);
+      return;
+    }
     if (hasMax && selected.length >= max) {
-      setWarning(`Puedes seleccionar hasta ${max} áreas de especialización en el Plan Free.`);
+      setWarning(LIMITE_MSG);
       return;
     }
     setSelected([...selected, item]);
-    setWarning(null);
-    setQuery("");
-  };
-
-  const remove = (item: string) => {
-    setSelected(selected.filter((s) => s !== item));
     setWarning(null);
   };
 
@@ -414,61 +582,90 @@ export function AreasPicker({
     setDragIndex(null);
   };
 
+  const atLimit = hasMax && selected.length >= max;
+
   return (
     <div>
       {displayNote && <Note>{displayNote}</Note>}
 
-      <div style={{ position: "relative", marginBottom: 12 }}>
-        <input
-          type="text"
-          value={query}
-          placeholder="Buscar un área de especialización…"
-          onChange={(e) => {
-            setQuery(e.target.value);
-            setOpen(true);
-          }}
-          onFocus={() => setOpen(true)}
-          onBlur={() => setTimeout(() => setOpen(false), 150)}
+      <input
+        type="text"
+        value={query}
+        placeholder="Buscar un área de especialización…"
+        onChange={(e) => setQuery(e.target.value)}
+        style={{
+          width: "100%",
+          padding: "8px 10px",
+          border: "1px dashed #888",
+          background: "#fff",
+          fontFamily: "inherit",
+          fontSize: 13,
+          boxSizing: "border-box",
+          marginBottom: 16,
+        }}
+      />
+
+      <div
+        style={{
+          border: "1px dashed #888",
+          background: "#fff",
+          padding: "10px 12px",
+          marginBottom: 16,
+        }}
+      >
+        <div
           style={{
-            width: "100%",
-            padding: "8px 10px",
-            border: "1px dashed #888",
-            background: "#fff",
-            fontFamily: "inherit",
-            fontSize: 13,
-            boxSizing: "border-box",
+            fontSize: 11,
+            color: "#666",
+            textTransform: "uppercase",
+            letterSpacing: 1,
+            marginBottom: 6,
           }}
-        />
-        {open && filtered.length > 0 && (
-          <div
-            style={{
-              position: "absolute",
-              top: "100%",
-              left: 0,
-              right: 0,
-              zIndex: 10,
-              maxHeight: 220,
-              overflowY: "auto",
-              border: "1px dashed #888",
-              borderTop: "none",
-              background: "#fff",
-            }}
-          >
-            {filtered.map((item) => (
+        >
+          Áreas seleccionadas
+        </div>
+        <div style={{ fontSize: 13, marginBottom: selected.length > 0 ? 10 : 0 }}>
+          {selected.length} / {hasMax ? max : "—"} seleccionadas
+        </div>
+        {selected.length > 0 && (
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+            {selected.map((item, idx) => (
               <div
                 key={item}
-                onMouseDown={(e) => {
-                  e.preventDefault();
-                  add(item);
-                }}
+                draggable
+                onDragStart={() => setDragIndex(idx)}
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={() => onDrop(idx)}
+                title="Arrastra para reordenar"
                 style={{
-                  padding: "6px 10px",
-                  fontSize: 13,
-                  cursor: "pointer",
-                  borderBottom: "1px dotted #ddd",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "4px 8px",
+                  border: "1px dashed #666",
+                  background: "#fff",
+                  fontSize: 12,
+                  cursor: "grab",
                 }}
               >
-                {item}
+                <span style={{ color: "#888" }}>⋮⋮</span>
+                <span>
+                  {idx + 1}. {item}
+                </span>
+                <button
+                  onClick={() => toggle(item)}
+                  style={{
+                    border: "none",
+                    background: "transparent",
+                    cursor: "pointer",
+                    fontSize: 12,
+                    padding: 0,
+                    color: "#666",
+                  }}
+                  aria-label={`Eliminar ${item}`}
+                >
+                  ✕
+                </button>
               </div>
             ))}
           </div>
@@ -482,7 +679,7 @@ export function AreasPicker({
             color: "#a00",
             border: "1px dashed #a00",
             padding: "6px 10px",
-            marginBottom: 12,
+            marginBottom: 16,
             background: "#fff",
           }}
         >
@@ -490,64 +687,56 @@ export function AreasPicker({
         </div>
       )}
 
-      <div
-        style={{
-          fontSize: 11,
-          color: "#666",
-          textTransform: "uppercase",
-          letterSpacing: 1,
-          marginBottom: 6,
-        }}
-      >
-        Seleccionadas ({selected.length}
-        {hasMax ? `/${max}` : ""})
-      </div>
-      {selected.length === 0 ? (
+      {grupos.length === 0 ? (
         <div style={{ fontSize: 12, color: "#aaa", fontStyle: "italic" }}>
-          [sin selección — busca y elige {hasMax ? `hasta ${max}` : "las que desees"}]
+          [sin resultados para “{query}”]
         </div>
       ) : (
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-          {selected.map((item, idx) => (
+        grupos.map((g) => (
+          <div key={g.categoria} style={{ marginBottom: 20 }}>
             <div
-              key={item}
-              draggable
-              onDragStart={() => setDragIndex(idx)}
-              onDragOver={(e) => e.preventDefault()}
-              onDrop={() => onDrop(idx)}
-              title="Arrastra para reordenar"
               style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                padding: "4px 8px",
-                border: "1px dashed #666",
-                background: "#fff",
-                fontSize: 12,
-                cursor: "grab",
+                fontSize: 11,
+                textTransform: "uppercase",
+                letterSpacing: 1,
+                color: "#666",
+                borderBottom: "1px dotted #ccc",
+                paddingBottom: 4,
+                marginBottom: 8,
               }}
             >
-              <span style={{ color: "#888" }}>⋮⋮</span>
-              <span>
-                {idx + 1}. {item}
-              </span>
-              <button
-                onClick={() => remove(item)}
-                style={{
-                  border: "none",
-                  background: "transparent",
-                  cursor: "pointer",
-                  fontSize: 12,
-                  padding: 0,
-                  color: "#666",
-                }}
-                aria-label={`Eliminar ${item}`}
-              >
-                ✕
-              </button>
+              {g.categoria}
             </div>
-          ))}
-        </div>
+            <div className="areas-grid">
+              {g.areas.map((item) => {
+                const checked = selected.includes(item);
+                const bloqueada = atLimit && !checked;
+                return (
+                  <label
+                    key={item}
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: 8,
+                      fontSize: 13,
+                      lineHeight: 1.4,
+                      cursor: "pointer",
+                      color: bloqueada ? "#aaa" : "#111",
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={checked}
+                      onChange={() => toggle(item)}
+                      style={{ marginTop: 2, flexShrink: 0 }}
+                    />
+                    <span>{item}</span>
+                  </label>
+                );
+              })}
+            </div>
+          </div>
+        ))
       )}
     </div>
   );
