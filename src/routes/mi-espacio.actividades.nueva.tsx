@@ -352,12 +352,6 @@ function NuevaActividadPagina() {
               />
             </div>
             <div style={{ marginTop: 12 }}>
-              <MunicipioPicker
-                value={form.municipio}
-                onChange={(v) => update("municipio", v)}
-              />
-            </div>
-            <div style={{ marginTop: 12 }}>
               <FieldLabel>Enlace de Google Maps</FieldLabel>
               <input
                 type="url"
@@ -384,6 +378,45 @@ function NuevaActividadPagina() {
             </Note>
           </div>
         )}
+
+        <div style={{ marginTop: 20 }}>
+          <MunicipioPicker
+            value={form.municipio}
+            onChange={(v) => update("municipio", v)}
+            obligatorio={esPresencial}
+          />
+        </div>
+
+        <div style={{ marginTop: 20 }}>
+          <FieldLabel>Idiomas</FieldLabel>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "8px 18px" }}>
+            {IDIOMAS.map((i) => (
+              <label key={i} style={radioLabel}>
+                <input
+                  type="checkbox"
+                  checked={form.idiomas.includes(i)}
+                  onChange={() =>
+                    update(
+                      "idiomas",
+                      form.idiomas.includes(i)
+                        ? form.idiomas.filter((x) => x !== i)
+                        : [...form.idiomas, i],
+                    )
+                  }
+                />
+                {i}
+              </label>
+            ))}
+          </div>
+          {form.idiomas.length > 0 && (
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 10 }}>
+              {form.idiomas.map((i) => (
+                <span key={i} style={tagStyle}>{i}</span>
+              ))}
+            </div>
+          )}
+          <Note>Este dato permitirá filtrar la Agenda por idioma.</Note>
+        </div>
       </Box>
 
       <Box title="Bloque 5 · Reservas">
@@ -393,6 +426,7 @@ function NuevaActividadPagina() {
             ["gratuito", "Gratuito"],
             ["pago", "De pago"],
             ["aportacion", "Aportación voluntaria"],
+            ["consultar", "Consultar"],
           ] as [PrecioTipo, string][]).map(([val, label]) => (
             <label key={val} style={radioLabel}>
               <input
