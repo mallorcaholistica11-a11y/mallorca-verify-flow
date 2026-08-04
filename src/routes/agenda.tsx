@@ -575,43 +575,42 @@ function TarjetaActividad({ a, isMobile }: { a: Actividad; isMobile: boolean }) 
         [cartel de la actividad]
       </div>
 
-      <div style={{ padding: isMobile ? 12 : 16, minWidth: 0, display: "grid", gap: 10, alignContent: "start" }}>
-        <div style={{ fontSize: 10, letterSpacing: 1, textTransform: "uppercase", color: "#888" }}>
+      <div style={{ padding: isMobile ? 10 : 12, minWidth: 0, display: "grid", gap: 6, alignContent: "start" }}>
+        <div style={{ fontSize: 9, letterSpacing: 1, textTransform: "uppercase", color: "#999" }}>
           {a.categoria}
         </div>
-        <div style={{ fontSize: 12, color: "#2f5d3a" }}>{a.fecha}</div>
 
-        <div style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.4 }}>{a.titulo}</div>
+        <div style={{ display: "flex", alignItems: "baseline", gap: 6, color: "#2f5d3a" }}>
+          <span style={{ fontSize: 10, letterSpacing: 1 }}>{a.diaSemana}</span>
+          <span style={{ fontSize: 26, fontWeight: 700, lineHeight: 1 }}>{a.dia}</span>
+          <span style={{ fontSize: 10, letterSpacing: 1 }}>{a.mes}</span>
+        </div>
 
-        <p
+        <div
           style={{
-            fontSize: 12,
-            color: "#555",
-            lineHeight: 1.6,
-            margin: 0,
+            fontSize: 12.5,
+            fontWeight: 600,
+            lineHeight: 1.35,
             display: "-webkit-box",
             WebkitLineClamp: 2,
             WebkitBoxOrient: "vertical",
             overflow: "hidden",
           }}
         >
-          {a.descripcion}
-        </p>
-
-        <div style={{ fontSize: 12, color: "#333", display: "grid", gap: 5 }}>
-          <div>{a.hora}</div>
-          <div>{a.municipio}</div>
-          {a.precio && <div>{a.precio}</div>}
+          {a.titulo}
         </div>
+
+        <div style={{ fontSize: 11, color: "#555" }}>{a.municipio}</div>
+        <div style={{ fontSize: 11, color: "#333" }}>{a.precio ?? "Consultar"}</div>
 
         <span
           style={{
             justifySelf: "start",
-            marginTop: 4,
-            border: "1px dashed #888",
-            padding: "7px 12px",
-            fontSize: 11,
-            color: "#333",
+            marginTop: 2,
+            border: "1px dashed #999",
+            padding: "5px 9px",
+            fontSize: 10,
+            color: "#444",
           }}
         >
           Más información →
