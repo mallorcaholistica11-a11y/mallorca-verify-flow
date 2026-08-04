@@ -41,13 +41,35 @@ const MODALIDADES = ["Presencial", "Online", "Híbrida"];
 const IDIOMAS = ["Español", "Català", "English", "Deutsch"];
 const RANGOS = ["Hoy", "Mañana", "Esta semana", "Fin de semana", "Este mes"];
 
+const TIPOS_ACTIVIDAD = [
+  "Todas las actividades",
+  "Ceremonia",
+  "Charla",
+  "Círculo",
+  "Clase",
+  "Conferencia",
+  "Congreso",
+  "Curso",
+  "Encuentro",
+  "Excursión",
+  "Festival",
+  "Formación",
+  "Jornada",
+  "Masterclass",
+  "Meditación guiada",
+  "Presentación",
+  "Retiro",
+  "Taller",
+  "Otro",
+];
+
 type Actividad = {
   id: string;
   categoria: string;
   titulo: string;
-  descripcion: string;
-  fecha: string;
-  hora: string;
+  diaSemana: string;
+  dia: string;
+  mes: string;
   municipio: string;
   precio?: string;
   modalidad: string;
@@ -58,10 +80,9 @@ const ACTIVIDADES: Actividad[] = [
     id: "taller-respiracion-consciente",
     categoria: "Taller",
     titulo: "Respiración consciente para el día a día",
-    descripcion:
-      "Una mañana para aprender herramientas sencillas de respiración que puedes integrar en tu rutina.",
-    fecha: "Sábado 12 de septiembre",
-    hora: "10:00 – 13:00",
+    diaSemana: "SÁB",
+    dia: "12",
+    mes: "SEP",
     municipio: "Palma",
     precio: "35 €",
     modalidad: "Presencial",
@@ -70,9 +91,9 @@ const ACTIVIDADES: Actividad[] = [
     id: "retiro-otono-tramuntana",
     categoria: "Retiro",
     titulo: "Retiro de otoño en la Tramuntana",
-    descripcion: "Dos días de yoga, silencio y naturaleza para reconectar con tu ritmo.",
-    fecha: "18 – 19 de septiembre",
-    hora: "Desde las 17:00",
+    diaSemana: "VIE",
+    dia: "18",
+    mes: "SEP",
     municipio: "Sóller",
     precio: "180 €",
     modalidad: "Presencial",
@@ -81,9 +102,9 @@ const ACTIVIDADES: Actividad[] = [
     id: "curso-introduccion-reiki",
     categoria: "Curso",
     titulo: "Introducción al Reiki · Nivel I",
-    descripcion: "Formación inicial para conocer los fundamentos del Reiki y su práctica personal.",
-    fecha: "Domingo 20 de septiembre",
-    hora: "09:30 – 18:00",
+    diaSemana: "DOM",
+    dia: "20",
+    mes: "SEP",
     municipio: "Inca",
     precio: "120 €",
     modalidad: "Presencial",
@@ -92,19 +113,20 @@ const ACTIVIDADES: Actividad[] = [
     id: "encuentro-circulo-mujeres",
     categoria: "Encuentro",
     titulo: "Círculo de mujeres de luna nueva",
-    descripcion: "Un espacio de escucha y palabra compartida, abierto a todas las edades.",
-    fecha: "Viernes 25 de septiembre",
-    hora: "19:00 – 21:00",
+    diaSemana: "VIE",
+    dia: "25",
+    mes: "SEP",
     municipio: "Pollença",
+    precio: "Consultar",
     modalidad: "Presencial",
   },
   {
     id: "sesion-meditacion-online",
-    categoria: "Sesión",
+    categoria: "Meditación guiada",
     titulo: "Meditación guiada de cierre de semana",
-    descripcion: "Práctica online de 45 minutos para soltar la tensión acumulada.",
-    fecha: "Todos los viernes",
-    hora: "20:00 – 20:45",
+    diaSemana: "VIE",
+    dia: "26",
+    mes: "SEP",
     municipio: "Online",
     precio: "Gratuita",
     modalidad: "Online",
@@ -113,9 +135,9 @@ const ACTIVIDADES: Actividad[] = [
     id: "formacion-alimentacion-consciente",
     categoria: "Formación",
     titulo: "Alimentación consciente: primeros pasos",
-    descripcion: "Cuatro sesiones para observar tu relación con la comida sin dietas ni exigencias.",
-    fecha: "A partir del 1 de octubre",
-    hora: "18:30 – 20:00",
+    diaSemana: "JUE",
+    dia: "01",
+    mes: "OCT",
     municipio: "Manacor",
     precio: "90 €",
     modalidad: "Híbrida",
@@ -272,7 +294,11 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
             gap: 10,
           }}
         >
-          <input type="text" placeholder="¿Qué actividad buscas?" style={inputStyle} />
+          <select style={inputStyle} defaultValue="Todas las actividades" aria-label="Tipo de actividad">
+            {TIPOS_ACTIVIDAD.map((t) => (
+              <option key={t}>{t}</option>
+            ))}
+          </select>
           <button type="button" style={botonSecundario}>
             Buscar
           </button>
@@ -489,7 +515,7 @@ function Resultados({
         style={{
           display: "grid",
           gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0,1fr))",
-          gap: 28,
+          gap: 18,
         }}
       >
         {lista.map((a) => (
@@ -549,43 +575,42 @@ function TarjetaActividad({ a, isMobile }: { a: Actividad; isMobile: boolean }) 
         [cartel de la actividad]
       </div>
 
-      <div style={{ padding: isMobile ? 12 : 16, minWidth: 0, display: "grid", gap: 10, alignContent: "start" }}>
-        <div style={{ fontSize: 10, letterSpacing: 1, textTransform: "uppercase", color: "#888" }}>
+      <div style={{ padding: isMobile ? 10 : 12, minWidth: 0, display: "grid", gap: 6, alignContent: "start" }}>
+        <div style={{ fontSize: 9, letterSpacing: 1, textTransform: "uppercase", color: "#999" }}>
           {a.categoria}
         </div>
-        <div style={{ fontSize: 12, color: "#2f5d3a" }}>{a.fecha}</div>
 
-        <div style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.4 }}>{a.titulo}</div>
+        <div style={{ display: "flex", alignItems: "baseline", gap: 6, color: "#2f5d3a" }}>
+          <span style={{ fontSize: 10, letterSpacing: 1 }}>{a.diaSemana}</span>
+          <span style={{ fontSize: 26, fontWeight: 700, lineHeight: 1 }}>{a.dia}</span>
+          <span style={{ fontSize: 10, letterSpacing: 1 }}>{a.mes}</span>
+        </div>
 
-        <p
+        <div
           style={{
-            fontSize: 12,
-            color: "#555",
-            lineHeight: 1.6,
-            margin: 0,
+            fontSize: 12.5,
+            fontWeight: 600,
+            lineHeight: 1.35,
             display: "-webkit-box",
             WebkitLineClamp: 2,
             WebkitBoxOrient: "vertical",
             overflow: "hidden",
           }}
         >
-          {a.descripcion}
-        </p>
-
-        <div style={{ fontSize: 12, color: "#333", display: "grid", gap: 5 }}>
-          <div>{a.hora}</div>
-          <div>{a.municipio}</div>
-          {a.precio && <div>{a.precio}</div>}
+          {a.titulo}
         </div>
+
+        <div style={{ fontSize: 11, color: "#555" }}>{a.municipio}</div>
+        <div style={{ fontSize: 11, color: "#333" }}>{a.precio ?? "Consultar"}</div>
 
         <span
           style={{
             justifySelf: "start",
-            marginTop: 4,
-            border: "1px dashed #888",
-            padding: "7px 12px",
-            fontSize: 11,
-            color: "#333",
+            marginTop: 2,
+            border: "1px dashed #999",
+            padding: "5px 9px",
+            fontSize: 10,
+            color: "#444",
           }}
         >
           Más información →
