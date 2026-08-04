@@ -141,10 +141,10 @@ function NuevaActividadPagina() {
 
       <Box title="Solo eventos grupales">
         <p style={{ fontSize: 13, lineHeight: 1.7, color: "#333", margin: "0 0 8px 0" }}>
-          En la Agenda de Mallorca Holística únicamente pueden publicarse actividades grupales como talleres, cursos, retiros, conferencias, clases, encuentros o festivales.
+          La Agenda de Mallorca Holística está pensada para compartir actividades abiertas a varias personas, como talleres, cursos, retiros, conferencias, clases, encuentros o festivales.
         </p>
         <p style={{ fontSize: 13, lineHeight: 1.7, color: "#666", margin: 0 }}>
-          No pueden publicarse sesiones individuales, consultas privadas ni servicios profesionales.
+          Si deseas ofrecer sesiones individuales o consultas privadas, puedes hacerlo desde tu perfil profesional.
         </p>
       </Box>
 
@@ -180,6 +180,13 @@ function NuevaActividadPagina() {
               />
             </div>
           )}
+        </div>
+
+        <div style={{ marginTop: 16 }}>
+          <EspecialidadesActividad
+            selected={form.especialidades}
+            onChange={(v) => update("especialidades", v)}
+          />
         </div>
 
         <div style={{ marginTop: 16 }}>
