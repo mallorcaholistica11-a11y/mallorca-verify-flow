@@ -272,7 +272,7 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
             gap: 10,
           }}
         >
-          <input type="text" placeholder="Buscar una actividad..." style={inputStyle} />
+          <input type="text" placeholder="🔍 ¿Qué actividad buscas?" style={inputStyle} />
           <button type="button" style={botonSecundario}>
             Buscar
           </button>
@@ -286,10 +286,10 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
             alignItems: "end",
           }}
         >
-          <Campo label="Fecha">
+          <Campo label="📅 ¿Cuándo?">
             <input type="date" style={selectStyle} />
           </Campo>
-          <Campo label="Municipio">
+          <Campo label="📍 ¿Dónde?">
             <select style={selectStyle} defaultValue="Todos los municipios">
               <option>Todos los municipios</option>
               {MUNICIPIOS_MALLORCA.map((m) => (
@@ -297,7 +297,7 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
               ))}
             </select>
           </Campo>
-          <Campo label="Modalidad">
+          <Campo label="💻 ¿Cómo prefieres asistir?">
             <select style={selectStyle} defaultValue="Todas las modalidades">
               <option>Todas las modalidades</option>
               {MODALIDADES.map((m) => (
@@ -305,10 +305,10 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
               ))}
             </select>
           </Campo>
-          <Campo label="Terapia o especialidad">
+          <Campo label="🌿 ¿Sobre qué tema?">
             <AutocompletadoEspecialidad />
           </Campo>
-          <Campo label="Idioma">
+          <Campo label="🌍 ¿En qué idioma?">
             <select style={selectStyle} defaultValue="Todos los idiomas">
               <option>Todos los idiomas</option>
               {IDIOMAS.map((i) => (
