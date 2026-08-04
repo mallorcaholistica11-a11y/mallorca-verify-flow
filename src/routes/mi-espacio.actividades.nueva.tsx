@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, type CSSProperties, type ReactNode } from "react";
 import { WireframeShell, Box, NavButton, TrackBadge, parseTrack, type Track, Note } from "@/components/Wireframe";
 import { TelefonoField, type TelefonoValue } from "@/components/TelefonoField";
+import { CATEGORIAS_ESPECIALIDADES } from "@/components/TaxonomiaPickers";
+import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
 
 export const Route = createFileRoute("/mi-espacio/actividades/nueva")({
   validateSearch: (s: Record<string, unknown>): { track: Track } => ({ track: parseTrack(s) }),
@@ -22,24 +24,22 @@ const TIPOS = [
 const MODALIDADES = ["Presencial", "Online", "Híbrida"] as const;
 type Modalidad = (typeof MODALIDADES)[number];
 
-const MUNICIPIOS = [
-  "Alaró","Alcúdia","Algaida","Andratx","Ariany","Artà","Banyalbufar","Binissalem",
-  "Búger","Bunyola","Calvià","Campanet","Campos","Capdepera","Consell","Costitx",
-  "Deià","Escorca","Esporles","Estellencs","Felanitx","Fornalutx","Inca",
-  "Lloret de Vistalegre","Lloseta","Llubí","Llucmajor","Manacor","Mancor de la Vall",
-  "Maria de la Salut","Marratxí","Montuïri","Muro","Palma","Petra","Pollença","Porreres",
-  "Puigpunyent","Sa Pobla","Sant Joan","Sant Llorenç des Cardassar","Santa Eugènia",
-  "Santa Margalida","Santa Maria del Camí","Santanyí","Selva","Sencelles","Ses Salines",
-  "Sineu","Sóller","Son Servera","Valldemossa","Vilafranca de Bonany",
-].sort((a, b) => a.localeCompare(b, "es"));
+const MUNICIPIOS = [...MUNICIPIOS_MALLORCA].sort((a, b) => a.localeCompare(b, "es"));
 
-type PrecioTipo = "gratuito" | "pago" | "aportacion";
+const IDIOMAS = ["Alemán", "Catalán", "Español", "Francés", "Inglés", "Italiano", "Otro"];
+
+const FRECUENCIAS = ["Cada semana", "Cada 15 días", "Cada mes", "Personalizado"];
+
+const MAX_ESPECIALIDADES_ACTIVIDAD = 3;
+
+type PrecioTipo = "gratuito" | "pago" | "aportacion" | "consultar";
 type Repite = "no" | "si";
 
 type FormState = {
   titulo: string;
   tipo: string;
   tipoOtro: string;
+  especialidades: string[];
   imagenNombre: string | null;
   imagenPreview: string | null;
   descripcion: string;
@@ -47,11 +47,13 @@ type FormState = {
   horaInicio: string;
   horaFin: string;
   repite: Repite | "";
+  frecuencia: string;
   repiteDetalle: string;
   modalidad: Modalidad | "";
   nombreEspacio: string;
   direccion: string;
   municipio: string;
+  idiomas: string[];
   mapsUrl: string;
   accesoOnline: string;
   precioTipo: PrecioTipo | "";
@@ -66,6 +68,7 @@ const initial: FormState = {
   titulo: "",
   tipo: "",
   tipoOtro: "",
+  especialidades: [],
   imagenNombre: null,
   imagenPreview: null,
   descripcion: "",
@@ -73,11 +76,13 @@ const initial: FormState = {
   horaInicio: "",
   horaFin: "",
   repite: "",
+  frecuencia: "",
   repiteDetalle: "",
   modalidad: "",
   nombreEspacio: "",
   direccion: "",
   municipio: "",
+  idiomas: [],
   mapsUrl: "",
   accesoOnline: "",
   precioTipo: "",
@@ -136,10 +141,10 @@ function NuevaActividadPagina() {
 
       <Box title="Solo eventos grupales">
         <p style={{ fontSize: 13, lineHeight: 1.7, color: "#333", margin: "0 0 8px 0" }}>
-          En la Agenda de Mallorca Holística únicamente pueden publicarse actividades grupales como talleres, cursos, retiros, conferencias, clases, encuentros o festivales.
+          La Agenda de Mallorca Holística está pensada para compartir actividades abiertas a varias personas, como talleres, cursos, retiros, conferencias, clases, encuentros o festivales.
         </p>
         <p style={{ fontSize: 13, lineHeight: 1.7, color: "#666", margin: 0 }}>
-          No pueden publicarse sesiones individuales, consultas privadas ni servicios profesionales.
+          Si deseas ofrecer sesiones individuales o consultas privadas, puedes hacerlo desde tu perfil profesional.
         </p>
       </Box>
 
@@ -175,6 +180,13 @@ function NuevaActividadPagina() {
               />
             </div>
           )}
+        </div>
+
+        <div style={{ marginTop: 16 }}>
+          <EspecialidadesActividad
+            selected={form.especialidades}
+            onChange={(v) => update("especialidades", v)}
+          />
         </div>
 
         <div style={{ marginTop: 16 }}>
@@ -274,6 +286,21 @@ function NuevaActividadPagina() {
           </div>
           {form.repite === "si" && (
             <div style={{ marginTop: 12 }}>
+              <FieldLabel>Frecuencia</FieldLabel>
+              <select
+                value={form.frecuencia}
+                onChange={(e) => update("frecuencia", e.target.value)}
+                style={selectStyle}
+              >
+                <option value="">— Selecciona una opción —</option>
+                {FRECUENCIAS.map((f) => (
+                  <option key={f} value={f}>{f}</option>
+                ))}
+              </select>
+            </div>
+          )}
+          {form.repite === "si" && (
+            <div style={{ marginTop: 12 }}>
               <FieldLabel>Indica las fechas o la frecuencia</FieldLabel>
               <input
                 type="text"
@@ -325,12 +352,6 @@ function NuevaActividadPagina() {
               />
             </div>
             <div style={{ marginTop: 12 }}>
-              <MunicipioPicker
-                value={form.municipio}
-                onChange={(v) => update("municipio", v)}
-              />
-            </div>
-            <div style={{ marginTop: 12 }}>
               <FieldLabel>Enlace de Google Maps</FieldLabel>
               <input
                 type="url"
@@ -357,6 +378,45 @@ function NuevaActividadPagina() {
             </Note>
           </div>
         )}
+
+        <div style={{ marginTop: 20 }}>
+          <MunicipioPicker
+            value={form.municipio}
+            onChange={(v) => update("municipio", v)}
+            obligatorio={esPresencial}
+          />
+        </div>
+
+        <div style={{ marginTop: 20 }}>
+          <FieldLabel>Idiomas</FieldLabel>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "8px 18px" }}>
+            {IDIOMAS.map((i) => (
+              <label key={i} style={radioLabel}>
+                <input
+                  type="checkbox"
+                  checked={form.idiomas.includes(i)}
+                  onChange={() =>
+                    update(
+                      "idiomas",
+                      form.idiomas.includes(i)
+                        ? form.idiomas.filter((x) => x !== i)
+                        : [...form.idiomas, i],
+                    )
+                  }
+                />
+                {i}
+              </label>
+            ))}
+          </div>
+          {form.idiomas.length > 0 && (
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 10 }}>
+              {form.idiomas.map((i) => (
+                <span key={i} style={tagStyle}>{i}</span>
+              ))}
+            </div>
+          )}
+          <Note>Este dato permitirá filtrar la Agenda por idioma.</Note>
+        </div>
       </Box>
 
       <Box title="Bloque 5 · Reservas">
@@ -366,6 +426,7 @@ function NuevaActividadPagina() {
             ["gratuito", "Gratuito"],
             ["pago", "De pago"],
             ["aportacion", "Aportación voluntaria"],
+            ["consultar", "Consultar"],
           ] as [PrecioTipo, string][]).map(([val, label]) => (
             <label key={val} style={radioLabel}>
               <input
@@ -435,16 +496,8 @@ function NuevaActividadPagina() {
         </div>
       </Box>
 
-      <Box title="Bloque 6 · Vista previa">
-        <Note>
-          Simulación visual de cómo se verá la actividad publicada en Mallorca Holística.
-        </Note>
-        <VistaPrevia form={form} />
-      </Box>
-
       <Box title="Navegación">
         <button type="button" style={secondaryBtn}>Guardar como borrador</button>
-        <button type="button" style={secondaryBtn}>Vista previa</button>
         <button type="button" onClick={() => setEnviado(true)} style={primaryBtn}>
           Enviar para revisión
         </button>
@@ -467,65 +520,6 @@ function NuevaActividadPagina() {
   );
 }
 
-function VistaPrevia({ form }: { form: FormState }) {
-  const tipoLabel = form.tipo === "Otro" ? form.tipoOtro : form.tipo;
-  const precioLabel =
-    form.precioTipo === "gratuito"
-      ? "Gratuito"
-      : form.precioTipo === "aportacion"
-        ? "Aportación voluntaria"
-        : form.precioTipo === "pago"
-          ? form.precio ? `${form.precio} €` : "De pago"
-          : "—";
-  const descripcionCorta = form.descripcion.length > 180
-    ? form.descripcion.slice(0, 180) + "…"
-    : form.descripcion;
-  return (
-    <div style={{ border: "1px dashed #888", background: "#fff", marginTop: 8 }}>
-      <div style={{
-        height: 160,
-        background: "#f0f0f0",
-        borderBottom: "1px dashed #888",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        color: "#888",
-        fontSize: 12,
-        overflow: "hidden",
-      }}>
-        {form.imagenPreview ? (
-          <img src={form.imagenPreview} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-        ) : (
-          "[ Imagen ]"
-        )}
-      </div>
-      <div style={{ padding: 14 }}>
-        <div style={{ fontSize: 11, color: "#666", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>
-          {tipoLabel || "Categoría"}
-        </div>
-        <div style={{ fontSize: 16, fontWeight: 600, marginBottom: 8, color: "#111" }}>
-          {form.titulo || "Título de la actividad"}
-        </div>
-        <div style={{ fontSize: 12, color: "#333", marginBottom: 4 }}>
-          📅 {form.fecha || "Fecha"} · 🕒 {form.horaInicio || "--:--"} – {form.horaFin || "--:--"}
-        </div>
-        <div style={{ fontSize: 12, color: "#333", marginBottom: 4 }}>
-          📍 {form.municipio || (form.modalidad === "Online" ? "Online" : "Municipio")}
-        </div>
-        <div style={{ fontSize: 12, color: "#333", marginBottom: 4 }}>
-          💶 {precioLabel}
-        </div>
-        <div style={{ fontSize: 12, color: "#333", marginBottom: 10 }}>
-          🌐 {form.modalidad || "Modalidad"}
-        </div>
-        <div style={{ fontSize: 12, color: "#444", lineHeight: 1.6, whiteSpace: "pre-wrap" }}>
-          {descripcionCorta || "Breve descripción de la actividad…"}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function FieldLabel({ children }: { children: ReactNode }) {
   return (
     <div style={{ fontSize: 11, color: "#666", textTransform: "uppercase", letterSpacing: 1, marginBottom: 4 }}>
@@ -534,7 +528,176 @@ function FieldLabel({ children }: { children: ReactNode }) {
   );
 }
 
-function MunicipioPicker({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+function EspecialidadesActividad({
+  selected,
+  onChange,
+}: {
+  selected: string[];
+  onChange: (v: string[]) => void;
+}) {
+  const [query, setQuery] = useState("");
+  const [explorar, setExplorar] = useState(false);
+  const [abiertas, setAbiertas] = useState<string[]>([]);
+  const atLimit = selected.length >= MAX_ESPECIALIDADES_ACTIVIDAD;
+
+  const q = query.trim().toLowerCase();
+  const sugerencias =
+    q === ""
+      ? []
+      : CATEGORIAS_ESPECIALIDADES.flatMap((g) => g.especialidades)
+          .filter((e) => e.toLowerCase().includes(q) && !selected.includes(e))
+          .slice(0, 8);
+
+  const toggle = (item: string) => {
+    if (selected.includes(item)) {
+      onChange(selected.filter((s) => s !== item));
+      return;
+    }
+    if (atLimit) return;
+    onChange([...selected, item]);
+  };
+
+  return (
+    <div>
+      <FieldLabel>Terapia o Especialidad</FieldLabel>
+      <div style={{ position: "relative" }}>
+        <input
+          type="text"
+          value={query}
+          placeholder="Buscar una terapia o especialidad…"
+          onChange={(e) => setQuery(e.target.value)}
+          style={inputStyle}
+        />
+        {sugerencias.length > 0 && (
+          <div
+            style={{
+              position: "absolute",
+              top: "100%",
+              left: 0,
+              right: 0,
+              zIndex: 10,
+              maxHeight: 220,
+              overflowY: "auto",
+              border: "1px dashed #888",
+              borderTop: "none",
+              background: "#fff",
+            }}
+          >
+            {sugerencias.map((e) => (
+              <div
+                key={e}
+                onMouseDown={(ev) => {
+                  ev.preventDefault();
+                  toggle(e);
+                  setQuery("");
+                }}
+                style={{ padding: "6px 10px", fontSize: 13, cursor: "pointer", borderBottom: "1px dotted #ddd" }}
+              >
+                {e}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <button
+        type="button"
+        onClick={() => setExplorar((v) => !v)}
+        style={{
+          ...secondaryBtn,
+          marginRight: 0,
+          padding: "6px 10px",
+          fontSize: 12,
+        }}
+      >
+        {explorar ? "▾ Ocultar especialidades" : "▸ Explorar todas las especialidades"}
+      </button>
+
+      {explorar && (
+        <div style={{ marginTop: 10, border: "1px dashed #888", background: "#fff" }}>
+          {CATEGORIAS_ESPECIALIDADES.map((g) => {
+            const open = abiertas.includes(g.categoria);
+            return (
+              <div key={g.categoria} style={{ borderBottom: "1px dotted #ddd" }}>
+                <div
+                  onClick={() =>
+                    setAbiertas((a) =>
+                      a.includes(g.categoria) ? a.filter((c) => c !== g.categoria) : [...a, g.categoria],
+                    )
+                  }
+                  style={{ padding: "8px 10px", fontSize: 13, cursor: "pointer", fontWeight: 600, color: "#111" }}
+                >
+                  {open ? "▾" : "▸"} {g.categoria}
+                </div>
+                {open && (
+                  <div style={{ padding: "0 10px 10px 22px", display: "flex", flexDirection: "column", gap: 6 }}>
+                    {g.especialidades.map((e) => {
+                      const checked = selected.includes(e);
+                      return (
+                        <label
+                          key={e}
+                          style={{ ...radioLabel, opacity: !checked && atLimit ? 0.45 : 1 }}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={checked}
+                            disabled={!checked && atLimit}
+                            onChange={() => toggle(e)}
+                          />
+                          {e}
+                        </label>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {selected.length > 0 && (
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 10 }}>
+          {selected.map((e) => (
+            <span key={e} style={tagStyle}>
+              {e}
+              <button
+                type="button"
+                onClick={() => toggle(e)}
+                aria-label={`Quitar ${e}`}
+                style={{
+                  border: "none",
+                  background: "transparent",
+                  cursor: "pointer",
+                  fontSize: 12,
+                  color: "#666",
+                  padding: 0,
+                }}
+              >
+                ✕
+              </button>
+            </span>
+          ))}
+        </div>
+      )}
+
+      <Note>
+        Puedes seleccionar hasta {MAX_ESPECIALIDADES_ACTIVIDAD} especialidades relacionadas con la actividad
+        ({selected.length}/{MAX_ESPECIALIDADES_ACTIVIDAD}).
+      </Note>
+    </div>
+  );
+}
+
+function MunicipioPicker({
+  value,
+  onChange,
+  obligatorio = false,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  obligatorio?: boolean;
+}) {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const filtered = MUNICIPIOS.filter(
@@ -544,7 +707,7 @@ function MunicipioPicker({ value, onChange }: { value: string; onChange: (v: str
 
   return (
     <div>
-      <FieldLabel>Municipio</FieldLabel>
+      <FieldLabel>Municipio {obligatorio ? "(obligatorio)" : "(opcional)"}</FieldLabel>
       <div style={{ position: "relative" }}>
         <input
           type="text"
@@ -644,4 +807,15 @@ const radioLabel: CSSProperties = {
   alignItems: "center",
   gap: 8,
   cursor: "pointer",
+};
+
+const tagStyle: CSSProperties = {
+  display: "inline-flex",
+  alignItems: "center",
+  gap: 6,
+  padding: "4px 8px",
+  border: "1px dashed #666",
+  background: "#fff",
+  fontSize: 12,
+  color: "#111",
 };
