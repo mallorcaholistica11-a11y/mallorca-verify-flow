@@ -294,7 +294,11 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
             gap: 10,
           }}
         >
-          <input type="text" placeholder="¿Qué actividad buscas?" style={inputStyle} />
+          <select style={inputStyle} defaultValue="Todas las actividades" aria-label="Tipo de actividad">
+            {TIPOS_ACTIVIDAD.map((t) => (
+              <option key={t}>{t}</option>
+            ))}
+          </select>
           <button type="button" style={botonSecundario}>
             Buscar
           </button>
