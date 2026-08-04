@@ -528,7 +528,176 @@ function FieldLabel({ children }: { children: ReactNode }) {
   );
 }
 
-function MunicipioPicker({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+function EspecialidadesActividad({
+  selected,
+  onChange,
+}: {
+  selected: string[];
+  onChange: (v: string[]) => void;
+}) {
+  const [query, setQuery] = useState("");
+  const [explorar, setExplorar] = useState(false);
+  const [abiertas, setAbiertas] = useState<string[]>([]);
+  const atLimit = selected.length >= MAX_ESPECIALIDADES_ACTIVIDAD;
+
+  const q = query.trim().toLowerCase();
+  const sugerencias =
+    q === ""
+      ? []
+      : CATEGORIAS_ESPECIALIDADES.flatMap((g) => g.especialidades)
+          .filter((e) => e.toLowerCase().includes(q) && !selected.includes(e))
+          .slice(0, 8);
+
+  const toggle = (item: string) => {
+    if (selected.includes(item)) {
+      onChange(selected.filter((s) => s !== item));
+      return;
+    }
+    if (atLimit) return;
+    onChange([...selected, item]);
+  };
+
+  return (
+    <div>
+      <FieldLabel>Terapia o Especialidad</FieldLabel>
+      <div style={{ position: "relative" }}>
+        <input
+          type="text"
+          value={query}
+          placeholder="Buscar una terapia o especialidad…"
+          onChange={(e) => setQuery(e.target.value)}
+          style={inputStyle}
+        />
+        {sugerencias.length > 0 && (
+          <div
+            style={{
+              position: "absolute",
+              top: "100%",
+              left: 0,
+              right: 0,
+              zIndex: 10,
+              maxHeight: 220,
+              overflowY: "auto",
+              border: "1px dashed #888",
+              borderTop: "none",
+              background: "#fff",
+            }}
+          >
+            {sugerencias.map((e) => (
+              <div
+                key={e}
+                onMouseDown={(ev) => {
+                  ev.preventDefault();
+                  toggle(e);
+                  setQuery("");
+                }}
+                style={{ padding: "6px 10px", fontSize: 13, cursor: "pointer", borderBottom: "1px dotted #ddd" }}
+              >
+                {e}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <button
+        type="button"
+        onClick={() => setExplorar((v) => !v)}
+        style={{
+          ...secondaryBtn,
+          marginRight: 0,
+          padding: "6px 10px",
+          fontSize: 12,
+        }}
+      >
+        {explorar ? "▾ Ocultar especialidades" : "▸ Explorar todas las especialidades"}
+      </button>
+
+      {explorar && (
+        <div style={{ marginTop: 10, border: "1px dashed #888", background: "#fff" }}>
+          {CATEGORIAS_ESPECIALIDADES.map((g) => {
+            const open = abiertas.includes(g.categoria);
+            return (
+              <div key={g.categoria} style={{ borderBottom: "1px dotted #ddd" }}>
+                <div
+                  onClick={() =>
+                    setAbiertas((a) =>
+                      a.includes(g.categoria) ? a.filter((c) => c !== g.categoria) : [...a, g.categoria],
+                    )
+                  }
+                  style={{ padding: "8px 10px", fontSize: 13, cursor: "pointer", fontWeight: 600, color: "#111" }}
+                >
+                  {open ? "▾" : "▸"} {g.categoria}
+                </div>
+                {open && (
+                  <div style={{ padding: "0 10px 10px 22px", display: "flex", flexDirection: "column", gap: 6 }}>
+                    {g.especialidades.map((e) => {
+                      const checked = selected.includes(e);
+                      return (
+                        <label
+                          key={e}
+                          style={{ ...radioLabel, opacity: !checked && atLimit ? 0.45 : 1 }}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={checked}
+                            disabled={!checked && atLimit}
+                            onChange={() => toggle(e)}
+                          />
+                          {e}
+                        </label>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {selected.length > 0 && (
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 10 }}>
+          {selected.map((e) => (
+            <span key={e} style={tagStyle}>
+              {e}
+              <button
+                type="button"
+                onClick={() => toggle(e)}
+                aria-label={`Quitar ${e}`}
+                style={{
+                  border: "none",
+                  background: "transparent",
+                  cursor: "pointer",
+                  fontSize: 12,
+                  color: "#666",
+                  padding: 0,
+                }}
+              >
+                ✕
+              </button>
+            </span>
+          ))}
+        </div>
+      )}
+
+      <Note>
+        Puedes seleccionar hasta {MAX_ESPECIALIDADES_ACTIVIDAD} especialidades relacionadas con la actividad
+        ({selected.length}/{MAX_ESPECIALIDADES_ACTIVIDAD}).
+      </Note>
+    </div>
+  );
+}
+
+function MunicipioPicker({
+  value,
+  onChange,
+  obligatorio = false,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  obligatorio?: boolean;
+}) {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const filtered = MUNICIPIOS.filter(
@@ -538,7 +707,7 @@ function MunicipioPicker({ value, onChange }: { value: string; onChange: (v: str
 
   return (
     <div>
-      <FieldLabel>Municipio</FieldLabel>
+      <FieldLabel>Municipio {obligatorio ? "(obligatorio)" : "(opcional)"}</FieldLabel>
       <div style={{ position: "relative" }}>
         <input
           type="text"
@@ -638,4 +807,15 @@ const radioLabel: CSSProperties = {
   alignItems: "center",
   gap: 8,
   cursor: "pointer",
+};
+
+const tagStyle: CSSProperties = {
+  display: "inline-flex",
+  alignItems: "center",
+  gap: 6,
+  padding: "4px 8px",
+  border: "1px dashed #666",
+  background: "#fff",
+  fontSize: 12,
+  color: "#111",
 };
