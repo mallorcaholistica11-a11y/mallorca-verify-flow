@@ -286,6 +286,21 @@ function NuevaActividadPagina() {
           </div>
           {form.repite === "si" && (
             <div style={{ marginTop: 12 }}>
+              <FieldLabel>Frecuencia</FieldLabel>
+              <select
+                value={form.frecuencia}
+                onChange={(e) => update("frecuencia", e.target.value)}
+                style={selectStyle}
+              >
+                <option value="">— Selecciona una opción —</option>
+                {FRECUENCIAS.map((f) => (
+                  <option key={f} value={f}>{f}</option>
+                ))}
+              </select>
+            </div>
+          )}
+          {form.repite === "si" && (
+            <div style={{ marginTop: 12 }}>
               <FieldLabel>Indica las fechas o la frecuencia</FieldLabel>
               <input
                 type="text"
