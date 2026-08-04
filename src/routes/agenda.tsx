@@ -272,7 +272,7 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
             gap: 10,
           }}
         >
-          <input type="text" placeholder="Buscar una actividad..." style={inputStyle} />
+          <input type="text" placeholder="🔍 ¿Qué actividad buscas?" style={inputStyle} />
           <button type="button" style={botonSecundario}>
             Buscar
           </button>
@@ -286,10 +286,10 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
             alignItems: "end",
           }}
         >
-          <Campo label="Fecha">
+          <Campo label="📅 ¿Cuándo?">
             <input type="date" style={selectStyle} />
           </Campo>
-          <Campo label="Municipio">
+          <Campo label="📍 ¿Dónde?">
             <select style={selectStyle} defaultValue="Todos los municipios">
               <option>Todos los municipios</option>
               {MUNICIPIOS_MALLORCA.map((m) => (
@@ -297,7 +297,7 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
               ))}
             </select>
           </Campo>
-          <Campo label="Modalidad">
+          <Campo label="💻 ¿Cómo prefieres asistir?">
             <select style={selectStyle} defaultValue="Todas las modalidades">
               <option>Todas las modalidades</option>
               {MODALIDADES.map((m) => (
@@ -305,10 +305,10 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
               ))}
             </select>
           </Campo>
-          <Campo label="Terapia o especialidad">
+          <Campo label="🌿 ¿Sobre qué tema?">
             <AutocompletadoEspecialidad />
           </Campo>
-          <Campo label="Idioma">
+          <Campo label="🌍 ¿En qué idioma?">
             <select style={selectStyle} defaultValue="Todos los idiomas">
               <option>Todos los idiomas</option>
               {IDIOMAS.map((i) => (
@@ -488,12 +488,12 @@ function Resultados({
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0,1fr))",
-          gap: 16,
+          gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0,1fr))",
+          gap: 18,
         }}
       >
         {lista.map((a) => (
-          <TarjetaActividad key={a.id} a={a} />
+          <TarjetaActividad key={a.id} a={a} isMobile={isMobile} />
         ))}
       </div>
 
@@ -517,7 +517,7 @@ function Resultados({
   );
 }
 
-function TarjetaActividad({ a }: { a: Actividad }) {
+function TarjetaActividad({ a, isMobile }: { a: Actividad; isMobile: boolean }) {
   return (
     <Link
       to="/actividad/$id"
@@ -528,43 +528,48 @@ function TarjetaActividad({ a }: { a: Actividad }) {
         border: "1px dashed #888",
         background: "#fff",
         display: "grid",
-        gridTemplateRows: "auto 1fr auto",
+        gridTemplateColumns: isMobile ? "120px minmax(0,1fr)" : "160px minmax(0,1fr)",
         minWidth: 0,
       }}
     >
       <div
         aria-hidden
         style={{
-          borderBottom: "1px dashed #888",
-          aspectRatio: "16 / 9",
+          borderRight: "1px dashed #888",
+          aspectRatio: "3 / 4",
+          alignSelf: "start",
           display: "grid",
           placeItems: "center",
-          fontSize: 11,
+          fontSize: 10,
           color: "#aaa",
+          textAlign: "center",
+          padding: 6,
         }}
       >
-        [imagen de la actividad]
+        [cartel de la actividad]
       </div>
 
-      <div style={{ padding: 14, minWidth: 0 }}>
-        <div style={{ fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: "#666" }}>
-          {a.categoria}
+      <div style={{ padding: isMobile ? 14 : 18, minWidth: 0, display: "grid", gap: 12, alignContent: "start" }}>
+        <div>
+          <div style={{ fontSize: 10, letterSpacing: 1, textTransform: "uppercase", color: "#888" }}>
+            {a.categoria}
+          </div>
+          <div style={{ fontSize: 13, fontWeight: 600, color: "#2f5d3a", marginTop: 6 }}>📅 {a.fecha}</div>
         </div>
-        <div style={{ fontSize: 14, fontWeight: 600, margin: "6px 0 8px 0", lineHeight: 1.4 }}>{a.titulo}</div>
-        <p style={{ fontSize: 12, color: "#555", lineHeight: 1.7, margin: 0 }}>{a.descripcion}</p>
 
-        <div style={{ fontSize: 12, color: "#333", lineHeight: 1.8, marginTop: 12 }}>
-          <div>📅 {a.fecha}</div>
+        <div style={{ fontSize: 15, fontWeight: 600, lineHeight: 1.45 }}>{a.titulo}</div>
+
+        <p style={{ fontSize: 12, color: "#555", lineHeight: 1.75, margin: 0 }}>{a.descripcion}</p>
+
+        <div style={{ fontSize: 12, color: "#333", display: "grid", gap: 7 }}>
           <div>🕒 {a.hora}</div>
           <div>📍 {a.municipio}</div>
-          <div>
-            {a.modalidad}
-            {a.precio ? ` · ${a.precio}` : ""}
-          </div>
+          <div>{a.modalidad}</div>
+          {a.precio && <div style={{ fontWeight: 600 }}>{a.precio}</div>}
         </div>
-      </div>
 
-      <div style={{ borderTop: "1px dotted #ccc", padding: "10px 14px", fontSize: 12 }}>Más información →</div>
+        <div style={{ fontSize: 11, color: "#777", marginTop: 2 }}>Más información →</div>
+      </div>
     </Link>
   );
 }
