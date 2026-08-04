@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, type CSSProperties, type ReactNode } from "react";
 import { WireframeShell, Box, NavButton, TrackBadge, parseTrack, type Track, Note } from "@/components/Wireframe";
 import { TelefonoField, type TelefonoValue } from "@/components/TelefonoField";
+import { CATEGORIAS_ESPECIALIDADES } from "@/components/TaxonomiaPickers";
+import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
 
 export const Route = createFileRoute("/mi-espacio/actividades/nueva")({
   validateSearch: (s: Record<string, unknown>): { track: Track } => ({ track: parseTrack(s) }),
@@ -22,24 +24,22 @@ const TIPOS = [
 const MODALIDADES = ["Presencial", "Online", "Híbrida"] as const;
 type Modalidad = (typeof MODALIDADES)[number];
 
-const MUNICIPIOS = [
-  "Alaró","Alcúdia","Algaida","Andratx","Ariany","Artà","Banyalbufar","Binissalem",
-  "Búger","Bunyola","Calvià","Campanet","Campos","Capdepera","Consell","Costitx",
-  "Deià","Escorca","Esporles","Estellencs","Felanitx","Fornalutx","Inca",
-  "Lloret de Vistalegre","Lloseta","Llubí","Llucmajor","Manacor","Mancor de la Vall",
-  "Maria de la Salut","Marratxí","Montuïri","Muro","Palma","Petra","Pollença","Porreres",
-  "Puigpunyent","Sa Pobla","Sant Joan","Sant Llorenç des Cardassar","Santa Eugènia",
-  "Santa Margalida","Santa Maria del Camí","Santanyí","Selva","Sencelles","Ses Salines",
-  "Sineu","Sóller","Son Servera","Valldemossa","Vilafranca de Bonany",
-].sort((a, b) => a.localeCompare(b, "es"));
+const MUNICIPIOS = [...MUNICIPIOS_MALLORCA].sort((a, b) => a.localeCompare(b, "es"));
 
-type PrecioTipo = "gratuito" | "pago" | "aportacion";
+const IDIOMAS = ["Alemán", "Catalán", "Español", "Francés", "Inglés", "Italiano", "Otro"];
+
+const FRECUENCIAS = ["Cada semana", "Cada 15 días", "Cada mes", "Personalizado"];
+
+const MAX_ESPECIALIDADES_ACTIVIDAD = 3;
+
+type PrecioTipo = "gratuito" | "pago" | "aportacion" | "consultar";
 type Repite = "no" | "si";
 
 type FormState = {
   titulo: string;
   tipo: string;
   tipoOtro: string;
+  especialidades: string[];
   imagenNombre: string | null;
   imagenPreview: string | null;
   descripcion: string;
@@ -47,11 +47,13 @@ type FormState = {
   horaInicio: string;
   horaFin: string;
   repite: Repite | "";
+  frecuencia: string;
   repiteDetalle: string;
   modalidad: Modalidad | "";
   nombreEspacio: string;
   direccion: string;
   municipio: string;
+  idiomas: string[];
   mapsUrl: string;
   accesoOnline: string;
   precioTipo: PrecioTipo | "";
@@ -66,6 +68,7 @@ const initial: FormState = {
   titulo: "",
   tipo: "",
   tipoOtro: "",
+  especialidades: [],
   imagenNombre: null,
   imagenPreview: null,
   descripcion: "",
@@ -73,11 +76,13 @@ const initial: FormState = {
   horaInicio: "",
   horaFin: "",
   repite: "",
+  frecuencia: "",
   repiteDetalle: "",
   modalidad: "",
   nombreEspacio: "",
   direccion: "",
   municipio: "",
+  idiomas: [],
   mapsUrl: "",
   accesoOnline: "",
   precioTipo: "",
