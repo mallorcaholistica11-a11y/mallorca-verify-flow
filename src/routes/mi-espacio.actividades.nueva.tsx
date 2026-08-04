@@ -496,16 +496,8 @@ function NuevaActividadPagina() {
         </div>
       </Box>
 
-      <Box title="Bloque 6 · Vista previa">
-        <Note>
-          Simulación visual de cómo se verá la actividad publicada en Mallorca Holística.
-        </Note>
-        <VistaPrevia form={form} />
-      </Box>
-
       <Box title="Navegación">
         <button type="button" style={secondaryBtn}>Guardar como borrador</button>
-        <button type="button" style={secondaryBtn}>Vista previa</button>
         <button type="button" onClick={() => setEnviado(true)} style={primaryBtn}>
           Enviar para revisión
         </button>
@@ -525,65 +517,6 @@ function NuevaActividadPagina() {
       </div>
 
     </WireframeShell>
-  );
-}
-
-function VistaPrevia({ form }: { form: FormState }) {
-  const tipoLabel = form.tipo === "Otro" ? form.tipoOtro : form.tipo;
-  const precioLabel =
-    form.precioTipo === "gratuito"
-      ? "Gratuito"
-      : form.precioTipo === "aportacion"
-        ? "Aportación voluntaria"
-        : form.precioTipo === "pago"
-          ? form.precio ? `${form.precio} €` : "De pago"
-          : "—";
-  const descripcionCorta = form.descripcion.length > 180
-    ? form.descripcion.slice(0, 180) + "…"
-    : form.descripcion;
-  return (
-    <div style={{ border: "1px dashed #888", background: "#fff", marginTop: 8 }}>
-      <div style={{
-        height: 160,
-        background: "#f0f0f0",
-        borderBottom: "1px dashed #888",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        color: "#888",
-        fontSize: 12,
-        overflow: "hidden",
-      }}>
-        {form.imagenPreview ? (
-          <img src={form.imagenPreview} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-        ) : (
-          "[ Imagen ]"
-        )}
-      </div>
-      <div style={{ padding: 14 }}>
-        <div style={{ fontSize: 11, color: "#666", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>
-          {tipoLabel || "Categoría"}
-        </div>
-        <div style={{ fontSize: 16, fontWeight: 600, marginBottom: 8, color: "#111" }}>
-          {form.titulo || "Título de la actividad"}
-        </div>
-        <div style={{ fontSize: 12, color: "#333", marginBottom: 4 }}>
-          📅 {form.fecha || "Fecha"} · 🕒 {form.horaInicio || "--:--"} – {form.horaFin || "--:--"}
-        </div>
-        <div style={{ fontSize: 12, color: "#333", marginBottom: 4 }}>
-          📍 {form.municipio || (form.modalidad === "Online" ? "Online" : "Municipio")}
-        </div>
-        <div style={{ fontSize: 12, color: "#333", marginBottom: 4 }}>
-          💶 {precioLabel}
-        </div>
-        <div style={{ fontSize: 12, color: "#333", marginBottom: 10 }}>
-          🌐 {form.modalidad || "Modalidad"}
-        </div>
-        <div style={{ fontSize: 12, color: "#444", lineHeight: 1.6, whiteSpace: "pre-wrap" }}>
-          {descripcionCorta || "Breve descripción de la actividad…"}
-        </div>
-      </div>
-    </div>
   );
 }
 
