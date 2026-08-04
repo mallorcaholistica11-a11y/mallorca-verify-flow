@@ -1,0 +1,612 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import type { CSSProperties, ReactNode } from "react";
+import { useMemo, useState } from "react";
+import { useMobile } from "@/components/ficha/useMobile";
+import { ESPECIALIDADES_OFICIALES, MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
+
+export const Route = createFileRoute("/agenda")({
+  head: () => ({
+    meta: [
+      { title: "Agenda de Actividades — Mallorca Holística" },
+      {
+        name: "description",
+        content:
+          "Talleres, cursos, retiros y encuentros de bienestar, salud integrativa y crecimiento personal en Mallorca.",
+      },
+      { property: "og:title", content: "Agenda de Actividades — Mallorca Holística" },
+      {
+        property: "og:description",
+        content:
+          "Descubre talleres, cursos, retiros y experiencias para cuidar de ti, aprender y seguir creciendo.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+    ],
+  }),
+  component: Agenda,
+});
+
+const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
+
+const NAV = [
+  "Inicio",
+  "Directorio de Profesionales",
+  "Guía de Especialidades y Terapias",
+  "Agenda de Actividades",
+  "Blog",
+  "Nuestra Mirada",
+];
+
+const MODALIDADES = ["Presencial", "Online", "Híbrida"];
+const IDIOMAS = ["Español", "Català", "English", "Deutsch"];
+const RANGOS = ["Hoy", "Mañana", "Esta semana", "Fin de semana", "Este mes"];
+
+type Actividad = {
+  id: string;
+  categoria: string;
+  titulo: string;
+  descripcion: string;
+  fecha: string;
+  hora: string;
+  municipio: string;
+  precio?: string;
+  modalidad: string;
+};
+
+const ACTIVIDADES: Actividad[] = [
+  {
+    id: "taller-respiracion-consciente",
+    categoria: "Taller",
+    titulo: "Respiración consciente para el día a día",
+    descripcion:
+      "Una mañana para aprender herramientas sencillas de respiración que puedes integrar en tu rutina.",
+    fecha: "Sábado 12 de septiembre",
+    hora: "10:00 – 13:00",
+    municipio: "Palma",
+    precio: "35 €",
+    modalidad: "Presencial",
+  },
+  {
+    id: "retiro-otono-tramuntana",
+    categoria: "Retiro",
+    titulo: "Retiro de otoño en la Tramuntana",
+    descripcion: "Dos días de yoga, silencio y naturaleza para reconectar con tu ritmo.",
+    fecha: "18 – 19 de septiembre",
+    hora: "Desde las 17:00",
+    municipio: "Sóller",
+    precio: "180 €",
+    modalidad: "Presencial",
+  },
+  {
+    id: "curso-introduccion-reiki",
+    categoria: "Curso",
+    titulo: "Introducción al Reiki · Nivel I",
+    descripcion: "Formación inicial para conocer los fundamentos del Reiki y su práctica personal.",
+    fecha: "Domingo 20 de septiembre",
+    hora: "09:30 – 18:00",
+    municipio: "Inca",
+    precio: "120 €",
+    modalidad: "Presencial",
+  },
+  {
+    id: "encuentro-circulo-mujeres",
+    categoria: "Encuentro",
+    titulo: "Círculo de mujeres de luna nueva",
+    descripcion: "Un espacio de escucha y palabra compartida, abierto a todas las edades.",
+    fecha: "Viernes 25 de septiembre",
+    hora: "19:00 – 21:00",
+    municipio: "Pollença",
+    modalidad: "Presencial",
+  },
+  {
+    id: "sesion-meditacion-online",
+    categoria: "Sesión",
+    titulo: "Meditación guiada de cierre de semana",
+    descripcion: "Práctica online de 45 minutos para soltar la tensión acumulada.",
+    fecha: "Todos los viernes",
+    hora: "20:00 – 20:45",
+    municipio: "Online",
+    precio: "Gratuita",
+    modalidad: "Online",
+  },
+  {
+    id: "formacion-alimentacion-consciente",
+    categoria: "Formación",
+    titulo: "Alimentación consciente: primeros pasos",
+    descripcion: "Cuatro sesiones para observar tu relación con la comida sin dietas ni exigencias.",
+    fecha: "A partir del 1 de octubre",
+    hora: "18:30 – 20:00",
+    municipio: "Manacor",
+    precio: "90 €",
+    modalidad: "Híbrida",
+  },
+];
+
+function Agenda() {
+  const isMobile = useMobile(900);
+  const [visibles, setVisibles] = useState(6);
+
+  return (
+    <div style={{ fontFamily: MONO, background: "#fafafa", color: "#111", minHeight: "100vh" }}>
+      <HeaderPublico isMobile={isMobile} />
+
+      <main style={{ maxWidth: 1080, margin: "0 auto", padding: isMobile ? "0 16px" : "0 24px" }}>
+        <Hero isMobile={isMobile} />
+        <Filtros isMobile={isMobile} />
+        <NavegacionTemporal isMobile={isMobile} />
+        <Resultados isMobile={isMobile} visibles={visibles} onMas={() => setVisibles((v) => v + 6)} />
+      </main>
+
+      <footer
+        style={{
+          marginTop: 80,
+          padding: 24,
+          borderTop: "1px dashed #999",
+          fontSize: 11,
+          color: "#777",
+          textAlign: "center",
+        }}
+      >
+        Wireframe funcional · Agenda de Actividades · sin diseño visual definitivo
+      </footer>
+    </div>
+  );
+}
+
+/* ---------- Header público (mismo que Directorio) ---------- */
+
+function HeaderPublico({ isMobile }: { isMobile: boolean }) {
+  return (
+    <header
+      style={{
+        borderBottom: "1px dashed #999",
+        background: "#fff",
+        padding: isMobile ? "12px 16px" : "14px 24px",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: 1080,
+          margin: "0 auto",
+          display: "grid",
+          gridTemplateColumns: "minmax(0,1fr) auto",
+          alignItems: "center",
+          gap: 16,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 16, minWidth: 0, flexWrap: "wrap" }}>
+          <span style={{ fontWeight: 600, fontSize: 13, whiteSpace: "nowrap" }}>
+            [LOGO] Mallorca Holística
+          </span>
+          {!isMobile && (
+            <nav style={{ display: "flex", gap: 10, flexWrap: "wrap", fontSize: 12 }}>
+              {NAV.map((n) => (
+                <span key={n} style={{ color: n === "Agenda de Actividades" ? "#111" : "#555" }}>
+                  {n}
+                </span>
+              ))}
+            </nav>
+          )}
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
+          <span
+            style={{
+              border: "1px solid #2f5d3a",
+              background: "#2f5d3a",
+              color: "#fff",
+              padding: "8px 14px",
+              fontSize: 12,
+              borderRadius: 999,
+              whiteSpace: "nowrap",
+            }}
+          >
+            Soy profesional
+          </span>
+          <span
+            aria-hidden
+            style={{
+              width: 32,
+              height: 32,
+              borderRadius: "50%",
+              border: "1px dashed #888",
+              display: "grid",
+              placeItems: "center",
+              fontSize: 12,
+              color: "#666",
+            }}
+          >
+            ☺
+          </span>
+        </div>
+      </div>
+      {isMobile && (
+        <nav style={{ display: "flex", gap: 8, flexWrap: "wrap", fontSize: 11, marginTop: 10, color: "#555" }}>
+          {NAV.map((n) => (
+            <span key={n}>{n}</span>
+          ))}
+        </nav>
+      )}
+    </header>
+  );
+}
+
+function Bloque({ children, top = 56 }: { children: ReactNode; top?: number }) {
+  return <section style={{ padding: `${top}px 0` }}>{children}</section>;
+}
+
+function Hero({ isMobile }: { isMobile: boolean }) {
+  return (
+    <Bloque top={44}>
+      <div style={{ maxWidth: 680 }}>
+        <div style={{ fontSize: 11, letterSpacing: 2, color: "#666", marginBottom: 10 }}>AGENDA</div>
+        <h1 style={{ fontSize: isMobile ? 22 : 26, lineHeight: 1.35, margin: "0 0 14px 0", fontWeight: 600 }}>
+          Agenda de Actividades
+        </h1>
+        <p style={{ fontSize: 13, lineHeight: 1.8, color: "#444", margin: 0 }}>
+          Descubre talleres, cursos, retiros, encuentros y experiencias para cuidar de ti, aprender,
+          compartir y seguir creciendo.
+        </p>
+      </div>
+    </Bloque>
+  );
+}
+
+/* ---------- Buscador y filtros ---------- */
+
+function Filtros({ isMobile }: { isMobile: boolean }) {
+  return (
+    <Bloque top={16}>
+      <div
+        style={{
+          border: "1px dashed #888",
+          background: "#fff",
+          padding: isMobile ? 14 : 18,
+          display: "grid",
+          gap: 14,
+        }}
+      >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: isMobile ? "1fr" : "minmax(0,1.6fr) auto",
+            gap: 10,
+          }}
+        >
+          <input type="text" placeholder="Buscar una actividad..." style={inputStyle} />
+          <button type="button" style={botonSecundario}>
+            Buscar
+          </button>
+        </div>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: isMobile ? "1fr" : "repeat(5, minmax(0,1fr))",
+            gap: 12,
+            alignItems: "end",
+          }}
+        >
+          <Campo label="Fecha">
+            <input type="date" style={selectStyle} />
+          </Campo>
+          <Campo label="Municipio">
+            <select style={selectStyle} defaultValue="Todos los municipios">
+              <option>Todos los municipios</option>
+              {MUNICIPIOS_MALLORCA.map((m) => (
+                <option key={m}>{m}</option>
+              ))}
+            </select>
+          </Campo>
+          <Campo label="Modalidad">
+            <select style={selectStyle} defaultValue="Todas las modalidades">
+              <option>Todas las modalidades</option>
+              {MODALIDADES.map((m) => (
+                <option key={m}>{m}</option>
+              ))}
+            </select>
+          </Campo>
+          <Campo label="Terapia o especialidad">
+            <AutocompletadoEspecialidad />
+          </Campo>
+          <Campo label="Idioma">
+            <select style={selectStyle} defaultValue="Todos los idiomas">
+              <option>Todos los idiomas</option>
+              {IDIOMAS.map((i) => (
+                <option key={i}>{i}</option>
+              ))}
+            </select>
+          </Campo>
+        </div>
+
+        <button
+          type="button"
+          style={{ ...selectStyle, width: "auto", cursor: "pointer", color: "#555", justifySelf: "start" }}
+        >
+          ↺ Limpiar filtros
+        </button>
+      </div>
+    </Bloque>
+  );
+}
+
+// Mismo Catálogo Oficial de Especialidades que el Directorio y la Guía.
+function AutocompletadoEspecialidad() {
+  const [texto, setTexto] = useState("");
+  const [abierto, setAbierto] = useState(false);
+
+  const sugerencias = useMemo(() => {
+    const q = texto.trim().toLowerCase();
+    if (!q) return [];
+    return ESPECIALIDADES_OFICIALES.filter((e) => e.toLowerCase().includes(q)).slice(0, 8);
+  }, [texto]);
+
+  return (
+    <div style={{ position: "relative", minWidth: 0 }}>
+      <input
+        type="text"
+        value={texto}
+        placeholder="Escribe una terapia..."
+        onChange={(e) => {
+          setTexto(e.target.value);
+          setAbierto(true);
+        }}
+        onFocus={() => setAbierto(true)}
+        onBlur={() => window.setTimeout(() => setAbierto(false), 120)}
+        style={selectStyle}
+      />
+      {abierto && sugerencias.length > 0 && (
+        <ul
+          style={{
+            position: "absolute",
+            zIndex: 5,
+            top: "100%",
+            left: 0,
+            right: 0,
+            margin: 0,
+            padding: 0,
+            listStyle: "none",
+            border: "1px dashed #888",
+            borderTop: "none",
+            background: "#fff",
+            maxHeight: 200,
+            overflowY: "auto",
+          }}
+        >
+          {sugerencias.map((s) => (
+            <li key={s}>
+              <button
+                type="button"
+                onMouseDown={() => {
+                  setTexto(s);
+                  setAbierto(false);
+                }}
+                style={{
+                  display: "block",
+                  width: "100%",
+                  textAlign: "left",
+                  background: "transparent",
+                  border: "none",
+                  borderBottom: "1px dotted #ddd",
+                  padding: "8px 10px",
+                  fontSize: 12,
+                  fontFamily: "inherit",
+                  cursor: "pointer",
+                  color: "#111",
+                }}
+              >
+                {s}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+function Campo({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <div style={{ minWidth: 0 }}>
+      <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: 1, color: "#666", marginBottom: 6 }}>
+        {label}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+/* ---------- Navegación temporal ---------- */
+
+function NavegacionTemporal({ isMobile }: { isMobile: boolean }) {
+  const [activo, setActivo] = useState("Esta semana");
+
+  return (
+    <Bloque top={16}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: 12,
+          flexWrap: "wrap",
+        }}
+      >
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+          {RANGOS.map((r) => (
+            <button
+              key={r}
+              type="button"
+              onClick={() => setActivo(r)}
+              style={{
+                border: activo === r ? "1px solid #111" : "1px dashed #888",
+                background: activo === r ? "#111" : "#fff",
+                color: activo === r ? "#fff" : "#111",
+                padding: "7px 12px",
+                fontSize: 12,
+                fontFamily: "inherit",
+                cursor: "pointer",
+              }}
+            >
+              {r}
+            </button>
+          ))}
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 12 }}>
+          <button type="button" style={navMesStyle} aria-label="Mes anterior">
+            ←
+          </button>
+          <span style={{ minWidth: isMobile ? 0 : 130, textAlign: "center" }}>Septiembre 2026</span>
+          <button type="button" style={navMesStyle} aria-label="Mes siguiente">
+            →
+          </button>
+        </div>
+      </div>
+    </Bloque>
+  );
+}
+
+/* ---------- Resultados ---------- */
+
+function Resultados({
+  isMobile,
+  visibles,
+  onMas,
+}: {
+  isMobile: boolean;
+  visibles: number;
+  onMas: () => void;
+}) {
+  const lista = ACTIVIDADES.slice(0, visibles);
+  const hayMas = visibles < ACTIVIDADES.length;
+
+  return (
+    <Bloque top={12}>
+      <div style={{ fontSize: 13, color: "#333", marginBottom: 18 }}>
+        {ACTIVIDADES.length} actividades encontradas
+      </div>
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0,1fr))",
+          gap: 16,
+        }}
+      >
+        {lista.map((a) => (
+          <TarjetaActividad key={a.id} a={a} />
+        ))}
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "center", marginTop: 28 }}>
+        <button
+          type="button"
+          onClick={onMas}
+          disabled={!hayMas}
+          style={{ ...botonSecundario, opacity: hayMas ? 1 : 0.45, cursor: hayMas ? "pointer" : "default" }}
+        >
+          Cargar más actividades
+        </button>
+      </div>
+
+      <div style={{ marginTop: 40, fontSize: 11, color: "#888" }}>
+        <Link to="/" style={{ color: "#888" }}>
+          ← Volver al índice del wireframe
+        </Link>
+      </div>
+    </Bloque>
+  );
+}
+
+function TarjetaActividad({ a }: { a: Actividad }) {
+  return (
+    <Link
+      to="/actividad/$id"
+      params={{ id: a.id }}
+      style={{
+        textDecoration: "none",
+        color: "#111",
+        border: "1px dashed #888",
+        background: "#fff",
+        display: "grid",
+        gridTemplateRows: "auto 1fr auto",
+        minWidth: 0,
+      }}
+    >
+      <div
+        aria-hidden
+        style={{
+          borderBottom: "1px dashed #888",
+          aspectRatio: "16 / 9",
+          display: "grid",
+          placeItems: "center",
+          fontSize: 11,
+          color: "#aaa",
+        }}
+      >
+        [imagen de la actividad]
+      </div>
+
+      <div style={{ padding: 14, minWidth: 0 }}>
+        <div style={{ fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: "#666" }}>
+          {a.categoria}
+        </div>
+        <div style={{ fontSize: 14, fontWeight: 600, margin: "6px 0 8px 0", lineHeight: 1.4 }}>{a.titulo}</div>
+        <p style={{ fontSize: 12, color: "#555", lineHeight: 1.7, margin: 0 }}>{a.descripcion}</p>
+
+        <div style={{ fontSize: 12, color: "#333", lineHeight: 1.8, marginTop: 12 }}>
+          <div>📅 {a.fecha}</div>
+          <div>🕒 {a.hora}</div>
+          <div>📍 {a.municipio}</div>
+          <div>
+            {a.modalidad}
+            {a.precio ? ` · ${a.precio}` : ""}
+          </div>
+        </div>
+      </div>
+
+      <div style={{ borderTop: "1px dotted #ccc", padding: "10px 14px", fontSize: 12 }}>Más información →</div>
+    </Link>
+  );
+}
+
+const navMesStyle: CSSProperties = {
+  border: "1px dashed #888",
+  background: "#fff",
+  color: "#111",
+  padding: "6px 11px",
+  fontSize: 12,
+  fontFamily: "inherit",
+  cursor: "pointer",
+};
+
+const inputStyle: CSSProperties = {
+  width: "100%",
+  border: "1px dashed #888",
+  background: "#fff",
+  padding: "12px 14px",
+  fontSize: 13,
+  fontFamily: "inherit",
+  color: "#111",
+  boxSizing: "border-box",
+};
+
+const selectStyle: CSSProperties = {
+  width: "100%",
+  border: "1px dashed #888",
+  background: "#fff",
+  padding: "10px 12px",
+  fontSize: 12,
+  fontFamily: "inherit",
+  color: "#111",
+  boxSizing: "border-box",
+};
+
+const botonSecundario: CSSProperties = {
+  border: "1px dashed #666",
+  background: "#fff",
+  color: "#111",
+  padding: "12px 22px",
+  fontSize: 13,
+  fontFamily: "inherit",
+  cursor: "pointer",
+};

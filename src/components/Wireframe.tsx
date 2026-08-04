@@ -41,6 +41,7 @@ export function WireframeShell({
           <Link to="/home-mvp" style={linkStyle}>Home MVP</Link>
           <Link to="/directorio" style={linkStyle}>Directorio</Link>
           <Link to="/guia" style={linkStyle}>Guía de Especialidades y Terapias</Link>
+          <Link to="/agenda" style={linkStyle}>Agenda de Actividades</Link>
         </nav>
       </header>
 
