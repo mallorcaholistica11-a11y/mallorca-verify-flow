@@ -272,7 +272,7 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
             gap: 10,
           }}
         >
-          <input type="text" placeholder="🔍 ¿Qué actividad buscas?" style={inputStyle} />
+          <input type="text" placeholder="¿Qué actividad buscas?" style={inputStyle} />
           <button type="button" style={botonSecundario}>
             Buscar
           </button>
@@ -286,10 +286,10 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
             alignItems: "end",
           }}
         >
-          <Campo label="📅 ¿Cuándo?">
+          <Campo label="Fecha">
             <input type="date" style={selectStyle} />
           </Campo>
-          <Campo label="📍 ¿Dónde?">
+          <Campo label="Municipio">
             <select style={selectStyle} defaultValue="Todos los municipios">
               <option>Todos los municipios</option>
               {MUNICIPIOS_MALLORCA.map((m) => (
@@ -297,18 +297,18 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
               ))}
             </select>
           </Campo>
-          <Campo label="💻 ¿Cómo prefieres asistir?">
-            <select style={selectStyle} defaultValue="Todas las modalidades">
-              <option>Todas las modalidades</option>
+          <Campo label="Modalidad">
+            <select style={selectStyle} defaultValue="Todas">
+              <option>Todas</option>
               {MODALIDADES.map((m) => (
                 <option key={m}>{m}</option>
               ))}
             </select>
           </Campo>
-          <Campo label="🌿 ¿Sobre qué tema?">
+          <Campo label="Terapia o Especialidad">
             <AutocompletadoEspecialidad />
           </Campo>
-          <Campo label="🌍 ¿En qué idioma?">
+          <Campo label="Idioma">
             <select style={selectStyle} defaultValue="Todos los idiomas">
               <option>Todos los idiomas</option>
               {IDIOMAS.map((i) => (
@@ -322,7 +322,7 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
           type="button"
           style={{ ...selectStyle, width: "auto", cursor: "pointer", color: "#555", justifySelf: "start" }}
         >
-          ↺ Limpiar filtros
+          Limpiar filtros
         </button>
       </div>
     </Bloque>
