@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useMobile } from "@/components/ficha/useMobile";
 
 export const Route = createFileRoute("/actividad/$id")({
   head: () => ({
@@ -7,12 +8,38 @@ export const Route = createFileRoute("/actividad/$id")({
       { name: "description", content: "Ficha pública de una actividad publicada en la Agenda de Mallorca Holística." },
       { property: "og:title", content: "Actividad · Mallorca Holística" },
       { property: "og:description", content: "Descubre esta actividad publicada en la Agenda de Mallorca Holística." },
+      { property: "og:type", content: "article" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: ActividadPublica,
 });
 
+// Datos provisionales del MVP. enlaceReserva puede no existir.
+const actividad = {
+  tipo: "Taller",
+  titulo: "Título de la actividad",
+  fecha: "Sábado 12 de septiembre de 2026",
+  hora: "10:00 – 13:00",
+  municipio: "Palma de Mallorca",
+  precio: "35 €",
+  whatsapp: "+34600000000",
+  enlaceReserva: "",
+  etiquetaReserva: "Reservar online",
+  descripcion:
+    "Un espacio tranquilo para reconectar con el cuerpo y la respiración, acompañado por una guía sencilla y accesible.\n\nLa sesión se desarrolla en grupo reducido, con tiempo para la práctica y para compartir. No se necesita experiencia previa.",
+  practica: [
+    { label: "Idioma", value: "Español · Catalán" },
+    { label: "Plazas", value: "12 plazas disponibles" },
+    { label: "Qué traer", value: "Ropa cómoda y una manta" },
+    { label: "Nivel", value: "Abierto a todos los niveles" },
+  ],
+  organizador: { nombre: "Nombre del profesional", profesion: "Terapeuta holística" },
+};
+
 function ActividadPublica() {
+  const isMobile = useMobile();
+
   return (
     <div
       style={{
@@ -35,145 +62,197 @@ function ActividadPublica() {
         <Link to="/" style={{ textDecoration: "none", color: "#111", fontWeight: 600 }}>
           [LOGO] Mallorca Holística
         </Link>
-        <div style={{ fontSize: 11, color: "#666" }}>Agenda › Actividad</div>
+        <Link to="/agenda" style={{ fontSize: 11, color: "#666" }}>
+          ← Agenda de Actividades
+        </Link>
       </header>
 
-      <main style={{ maxWidth: 720, margin: "0 auto", padding: "40px 24px 80px" }}>
-        <div style={{ fontSize: 11, color: "#888", letterSpacing: 1, marginBottom: 8 }}>
-          PANTALLA · FICHA PÚBLICA DE ACTIVIDAD
-        </div>
-
-        {/* ─────────────────────────────────────────────────────────
-            BLOQUE 1 · Imagen principal + esenciales + CTA
-           ───────────────────────────────────────────────────────── */}
+      {/* HERO · dos columnas, como la ficha del profesional */}
+      <section style={{ borderBottom: "1px dashed #ccc", background: "#fff" }}>
         <div
           style={{
-            border: "1px dashed #888",
-            background: "#fff",
-            aspectRatio: "16 / 9",
-            display: "flex",
+            maxWidth: 1080,
+            margin: "0 auto",
+            padding: "40px 24px",
+            display: "grid",
+            gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) minmax(0, 1fr)",
+            gap: isMobile ? 24 : 48,
             alignItems: "center",
-            justifyContent: "center",
-            color: "#aaa",
-            fontSize: 13,
-            marginBottom: 32,
           }}
         >
-          [ Imagen principal de la actividad ]
-        </div>
-
-        <h1 style={{ fontSize: 30, lineHeight: 1.25, margin: "0 0 20px 0", fontWeight: 600 }}>
-          Título de la actividad
-        </h1>
-
-        <dl style={{ margin: "0 0 32px 0", padding: 0, fontSize: 14, lineHeight: 1.9, color: "#222" }}>
-          <Detalle label="Tipo" value="Taller" />
-          <Detalle label="Fecha" value="Sábado 12 de octubre de 2026" />
-          <Detalle label="Hora" value="10:00 – 13:00" />
-          <Detalle label="Lugar" value="Palma de Mallorca" />
-          <Detalle label="Precio" value="35 €" />
-        </dl>
-
-        <div style={{ margin: "0 0 12px 0" }}>
-          <button
-            type="button"
-            style={{
-              display: "inline-block",
-              padding: "14px 28px",
-              border: "2px solid #111",
-              background: "#111",
-              color: "#fff",
-              fontSize: 15,
-              fontFamily: "inherit",
-              cursor: "pointer",
-              letterSpacing: 0.3,
-            }}
-          >
-            🌿 Reservar mi plaza
-          </button>
-        </div>
-        <p style={{ fontSize: 12, color: "#666", fontStyle: "italic", margin: "0 0 56px 0", lineHeight: 1.6 }}>
-          La reserva o solicitud de información se gestionará directamente con el organizador.
-        </p>
-
-        {/* ─────────────────────────────────────────────────────────
-            BLOQUE 2 · Más información
-           ───────────────────────────────────────────────────────── */}
-        <section style={{ marginBottom: 56 }}>
-          <h2 style={{ fontSize: 18, fontWeight: 600, margin: "0 0 16px 0" }}>Más información</h2>
           <div
             style={{
-              fontSize: 14,
-              lineHeight: 1.8,
-              color: "#333",
-              whiteSpace: "pre-wrap",
+              border: "1px dashed #888",
+              background: "#fff",
+              aspectRatio: "4 / 5",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#aaa",
+              fontSize: 12,
             }}
           >
-            Aquí el organizador podrá describir libremente su actividad con un único texto: contexto,
-            enfoque, tono, y todo aquello que quiera compartir con la persona que descubre esta
-            propuesta.{"\n\n"}
-            La lectura debe resultar natural y agradable, sin secciones fragmentadas, para que quien
-            llegue a esta ficha entienda de forma sencilla en qué consiste la experiencia.
+            [ Imagen de la actividad ]
           </div>
-        </section>
 
-        {/* ─────────────────────────────────────────────────────────
-            BLOQUE 3 · Organiza esta actividad
-           ───────────────────────────────────────────────────────── */}
-        <section
-          style={{
-            borderTop: "1px dashed #ccc",
-            paddingTop: 32,
-          }}
-        >
-          <h2 style={{ fontSize: 14, fontWeight: 600, color: "#666", letterSpacing: 1, margin: "0 0 20px 0", textTransform: "uppercase" }}>
-            Organiza esta actividad
-          </h2>
+          <div>
+            <div style={{ fontSize: 11, letterSpacing: 1, color: "#888", textTransform: "uppercase", marginBottom: 10 }}>
+              {actividad.tipo}
+            </div>
+            <h1 style={{ fontSize: 28, lineHeight: 1.3, margin: "0 0 18px 0", fontWeight: 600 }}>
+              {actividad.titulo}
+            </h1>
+            <div style={{ fontSize: 14, lineHeight: 2, color: "#333", marginBottom: 26 }}>
+              <div>{actividad.fecha} · {actividad.hora}</div>
+              <div>{actividad.municipio}</div>
+              <div>{actividad.precio}</div>
+            </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+            <div style={{ display: "grid", gap: 10, maxWidth: 320 }}>
+              <a
+                href={`https://wa.me/${actividad.whatsapp.replace(/[^0-9]/g, "")}`}
+                style={{
+                  display: "block",
+                  textAlign: "center",
+                  padding: "13px 24px",
+                  border: "2px solid #111",
+                  background: "#111",
+                  color: "#fff",
+                  textDecoration: "none",
+                  fontSize: 14,
+                }}
+              >
+                Contactar por WhatsApp
+              </a>
+              {actividad.enlaceReserva && (
+                <a
+                  href={actividad.enlaceReserva}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    display: "block",
+                    textAlign: "center",
+                    padding: "12px 24px",
+                    border: "1px solid #111",
+                    background: "#fff",
+                    color: "#111",
+                    textDecoration: "none",
+                    fontSize: 14,
+                  }}
+                >
+                  {actividad.etiquetaReserva}
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <main
+        style={{
+          maxWidth: 1080,
+          margin: "0 auto",
+          padding: "40px 24px 80px",
+          display: "grid",
+          gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 2.4fr) minmax(0, 1fr)",
+          gap: isMobile ? 0 : 40,
+          alignItems: "start",
+        }}
+      >
+        <div>
+          <Bloque titulo="Sobre la actividad">
+            <p style={{ fontSize: 14, lineHeight: 1.8, margin: 0, whiteSpace: "pre-wrap", color: "#333" }}>
+              {actividad.descripcion}
+            </p>
+          </Bloque>
+
+          <Bloque titulo="Organiza esta actividad">
+            <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
+              <div
+                style={{
+                  width: 64,
+                  height: 64,
+                  borderRadius: "50%",
+                  border: "1px dashed #888",
+                  background: "#fff",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#aaa",
+                  fontSize: 11,
+                  flexShrink: 0,
+                }}
+              >
+                [foto]
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 15, fontWeight: 600 }}>{actividad.organizador.nombre}</div>
+                <div style={{ fontSize: 13, color: "#666" }}>{actividad.organizador.profesion}</div>
+              </div>
+              <Link
+                to="/"
+                style={{
+                  padding: "10px 16px",
+                  border: "1px solid #111",
+                  background: "#fff",
+                  color: "#111",
+                  textDecoration: "none",
+                  fontSize: 13,
+                  whiteSpace: "nowrap",
+                }}
+              >
+                Ver perfil
+              </Link>
+            </div>
+          </Bloque>
+
+          <Bloque titulo="Información práctica">
+            <div style={{ border: "1px dashed #888", background: "#fff" }}>
+              {actividad.practica.map((p, i) => (
+                <div
+                  key={p.label}
+                  style={{
+                    display: "flex",
+                    gap: 16,
+                    padding: "10px 12px",
+                    fontSize: 13,
+                    borderTop: i === 0 ? "none" : "1px dotted #ddd",
+                  }}
+                >
+                  <span style={{ width: 110, color: "#888", flexShrink: 0 }}>{p.label}</span>
+                  <span>{p.value}</span>
+                </div>
+              ))}
+            </div>
+          </Bloque>
+        </div>
+
+        <aside>
+          <Bloque titulo="Ubicación">
             <div
               style={{
-                width: 72,
-                height: 72,
-                borderRadius: "50%",
                 border: "1px dashed #888",
                 background: "#fff",
+                height: 140,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 color: "#aaa",
-                fontSize: 11,
-                flexShrink: 0,
+                fontSize: 12,
               }}
             >
-              [foto]
+              [mapa · {actividad.municipio}]
             </div>
-            <div style={{ flex: 1, fontSize: 15, fontWeight: 500 }}>
-              Nombre del profesional u organización
-            </div>
-            <Link
-              to="/"
-              style={{
-                display: "inline-block",
-                padding: "10px 18px",
-                border: "1px solid #111",
-                background: "#fff",
-                color: "#111",
-                textDecoration: "none",
-                fontSize: 13,
-                fontFamily: "inherit",
-                whiteSpace: "nowrap",
-              }}
-            >
-              Ver perfil
-            </Link>
-          </div>
-        </section>
+            <div style={{ fontSize: 13, marginTop: 8 }}>{actividad.municipio}</div>
+            <p style={{ fontSize: 12, color: "#777", lineHeight: 1.6, margin: "8px 0 0 0" }}>
+              La dirección exacta se facilitará tras la reserva cuando sea necesario.
+            </p>
+          </Bloque>
+        </aside>
       </main>
 
       <footer
         style={{
-          marginTop: 40,
           padding: 20,
           borderTop: "1px dashed #999",
           fontSize: 11,
@@ -187,13 +266,22 @@ function ActividadPublica() {
   );
 }
 
-function Detalle({ label, value }: { label: string; value: string }) {
+function Bloque({ titulo, children }: { titulo: string; children: React.ReactNode }) {
   return (
-    <div style={{ display: "flex", gap: 16, borderBottom: "1px dotted #e0e0e0", padding: "8px 0" }}>
-      <dt style={{ width: 90, color: "#888", fontSize: 12, textTransform: "uppercase", letterSpacing: 0.5, flexShrink: 0, paddingTop: 2 }}>
-        {label}
-      </dt>
-      <dd style={{ margin: 0, color: "#111", fontSize: 15 }}>{value}</dd>
-    </div>
+    <section style={{ marginBottom: 40 }}>
+      <h2
+        style={{
+          fontSize: 12,
+          fontWeight: 600,
+          color: "#666",
+          letterSpacing: 1,
+          textTransform: "uppercase",
+          margin: "0 0 14px 0",
+        }}
+      >
+        {titulo}
+      </h2>
+      {children}
+    </section>
   );
 }
