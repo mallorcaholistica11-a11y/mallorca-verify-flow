@@ -515,7 +515,7 @@ function Resultados({
         style={{
           display: "grid",
           gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0,1fr))",
-          gap: 28,
+          gap: 18,
         }}
       >
         {lista.map((a) => (
