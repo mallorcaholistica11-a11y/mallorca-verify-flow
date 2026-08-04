@@ -22,6 +22,7 @@ import { Route as ComunidadFundadoraCentrosRouteImport } from './routes/comunida
 import { Route as ComunidadFundadoraBienvenidaRouteImport } from './routes/comunidad-fundadora-bienvenida'
 import { Route as ComunidadFundadoraAccesoRouteImport } from './routes/comunidad-fundadora-acceso'
 import { Route as ComunidadFundadoraRouteImport } from './routes/comunidad-fundadora'
+import { Route as AgendaRouteImport } from './routes/agenda'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as MiEspacioIndexRouteImport } from './routes/mi-espacio.index'
 import { Route as GuiaIndexRouteImport } from './routes/guia.index'
@@ -115,6 +116,11 @@ const ComunidadFundadoraAccesoRoute =
 const ComunidadFundadoraRoute = ComunidadFundadoraRouteImport.update({
   id: '/comunidad-fundadora',
   path: '/comunidad-fundadora',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgendaRoute = AgendaRouteImport.update({
+  id: '/agenda',
+  path: '/agenda',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -251,6 +257,7 @@ const MiEspacioActividadesNuevaRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/agenda': typeof AgendaRoute
   '/comunidad-fundadora': typeof ComunidadFundadoraRoute
   '/comunidad-fundadora-acceso': typeof ComunidadFundadoraAccesoRoute
   '/comunidad-fundadora-bienvenida': typeof ComunidadFundadoraBienvenidaRoute
@@ -291,6 +298,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/agenda': typeof AgendaRoute
   '/comunidad-fundadora': typeof ComunidadFundadoraRoute
   '/comunidad-fundadora-acceso': typeof ComunidadFundadoraAccesoRoute
   '/comunidad-fundadora-bienvenida': typeof ComunidadFundadoraBienvenidaRoute
@@ -330,6 +338,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/agenda': typeof AgendaRoute
   '/comunidad-fundadora': typeof ComunidadFundadoraRoute
   '/comunidad-fundadora-acceso': typeof ComunidadFundadoraAccesoRoute
   '/comunidad-fundadora-bienvenida': typeof ComunidadFundadoraBienvenidaRoute
@@ -372,6 +381,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/agenda'
     | '/comunidad-fundadora'
     | '/comunidad-fundadora-acceso'
     | '/comunidad-fundadora-bienvenida'
@@ -412,6 +422,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/agenda'
     | '/comunidad-fundadora'
     | '/comunidad-fundadora-acceso'
     | '/comunidad-fundadora-bienvenida'
@@ -450,6 +461,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/agenda'
     | '/comunidad-fundadora'
     | '/comunidad-fundadora-acceso'
     | '/comunidad-fundadora-bienvenida'
@@ -491,6 +503,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AgendaRoute: typeof AgendaRoute
   ComunidadFundadoraRoute: typeof ComunidadFundadoraRoute
   ComunidadFundadoraAccesoRoute: typeof ComunidadFundadoraAccesoRoute
   ComunidadFundadoraBienvenidaRoute: typeof ComunidadFundadoraBienvenidaRoute
@@ -609,6 +622,13 @@ declare module '@tanstack/react-router' {
       path: '/comunidad-fundadora'
       fullPath: '/comunidad-fundadora'
       preLoaderRoute: typeof ComunidadFundadoraRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agenda': {
+      id: '/agenda'
+      path: '/agenda'
+      fullPath: '/agenda'
+      preLoaderRoute: typeof AgendaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -844,6 +864,7 @@ const MiEspacioRouteWithChildren = MiEspacioRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AgendaRoute: AgendaRoute,
   ComunidadFundadoraRoute: ComunidadFundadoraRoute,
   ComunidadFundadoraAccesoRoute: ComunidadFundadoraAccesoRoute,
   ComunidadFundadoraBienvenidaRoute: ComunidadFundadoraBienvenidaRoute,
