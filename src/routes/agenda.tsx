@@ -488,8 +488,8 @@ function Resultados({
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0,1fr))",
-          gap: 18,
+          gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0,1fr))",
+          gap: 28,
         }}
       >
         {lista.map((a) => (
@@ -528,7 +528,7 @@ function TarjetaActividad({ a, isMobile }: { a: Actividad; isMobile: boolean }) 
         border: "1px dashed #888",
         background: "#fff",
         display: "grid",
-        gridTemplateColumns: isMobile ? "120px minmax(0,1fr)" : "160px minmax(0,1fr)",
+        gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)",
         minWidth: 0,
       }}
     >
@@ -536,7 +536,7 @@ function TarjetaActividad({ a, isMobile }: { a: Actividad; isMobile: boolean }) 
         aria-hidden
         style={{
           borderRight: "1px dashed #888",
-          aspectRatio: "3 / 4",
+          aspectRatio: "4 / 5",
           alignSelf: "start",
           display: "grid",
           placeItems: "center",
@@ -549,26 +549,47 @@ function TarjetaActividad({ a, isMobile }: { a: Actividad; isMobile: boolean }) 
         [cartel de la actividad]
       </div>
 
-      <div style={{ padding: isMobile ? 14 : 18, minWidth: 0, display: "grid", gap: 12, alignContent: "start" }}>
-        <div>
-          <div style={{ fontSize: 10, letterSpacing: 1, textTransform: "uppercase", color: "#888" }}>
-            {a.categoria}
-          </div>
-          <div style={{ fontSize: 13, fontWeight: 600, color: "#2f5d3a", marginTop: 6 }}>📅 {a.fecha}</div>
+      <div style={{ padding: isMobile ? 12 : 16, minWidth: 0, display: "grid", gap: 10, alignContent: "start" }}>
+        <div style={{ fontSize: 10, letterSpacing: 1, textTransform: "uppercase", color: "#888" }}>
+          {a.categoria}
+        </div>
+        <div style={{ fontSize: 12, color: "#2f5d3a" }}>{a.fecha}</div>
+
+        <div style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.4 }}>{a.titulo}</div>
+
+        <p
+          style={{
+            fontSize: 12,
+            color: "#555",
+            lineHeight: 1.6,
+            margin: 0,
+            display: "-webkit-box",
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+          }}
+        >
+          {a.descripcion}
+        </p>
+
+        <div style={{ fontSize: 12, color: "#333", display: "grid", gap: 5 }}>
+          <div>{a.hora}</div>
+          <div>{a.municipio}</div>
+          {a.precio && <div>{a.precio}</div>}
         </div>
 
-        <div style={{ fontSize: 15, fontWeight: 600, lineHeight: 1.45 }}>{a.titulo}</div>
-
-        <p style={{ fontSize: 12, color: "#555", lineHeight: 1.75, margin: 0 }}>{a.descripcion}</p>
-
-        <div style={{ fontSize: 12, color: "#333", display: "grid", gap: 7 }}>
-          <div>🕒 {a.hora}</div>
-          <div>📍 {a.municipio}</div>
-          <div>{a.modalidad}</div>
-          {a.precio && <div style={{ fontWeight: 600 }}>{a.precio}</div>}
-        </div>
-
-        <div style={{ fontSize: 11, color: "#777", marginTop: 2 }}>Más información →</div>
+        <span
+          style={{
+            justifySelf: "start",
+            marginTop: 4,
+            border: "1px dashed #888",
+            padding: "7px 12px",
+            fontSize: 11,
+            color: "#333",
+          }}
+        >
+          Más información →
+        </span>
       </div>
     </Link>
   );
