@@ -34,7 +34,7 @@ const demo: FichaCentroData = {
     "Casa Serena es un espacio tranquilo donde acompañamos procesos de calma y bienestar. Ofrecemos sesiones y talleres en grupos reducidos, con una atención cercana y un ritmo pausado.",
   idiomas: ["Català", "Español", "English"],
   especialidades: ["Yoga", "Meditación", "Respiración Consciente", "Masaje Holístico"],
-  areas: ["Estrés", "Ansiedad", "Insomnio", "Bienestar emocional"],
+  areas: ["Estrés", "Ansiedad", "Insomnio", "Gestión emocional"],
   publicos: ["Todas las personas"],
   instalaciones: ["Salas de terapia", "Salas de formación", "Jardín"],
   ubicaciones: [

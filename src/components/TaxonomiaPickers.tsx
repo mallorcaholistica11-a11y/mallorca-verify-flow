@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { Note } from "@/components/Wireframe";
 import {
+  MAX_AREAS_PRESENCIA,
+  buscarAreasPorCategoria,
+} from "@/data/areas";
+import {
   CATEGORIAS_CON_DISCIPLINAS,
   DISCIPLINAS_OFICIALES,
   OTRA_OPCION,
@@ -10,88 +14,6 @@ import {
 /** Nombres de disciplina del Catálogo Oficial + opción libre. */
 export const DISCIPLINAS = [...DISCIPLINAS_OFICIALES, OTRA_OPCION];
 
-export const AREAS = [
-  "Adicciones",
-  "Adolescencia",
-  "Alergias",
-  "Alimentación",
-  "Alzheimer",
-  "Altas Capacidades",
-  "Ansiedad",
-  "Articular",
-  "Autoestima",
-  "Autismo (TEA)",
-  "Autoconocimiento",
-  "Bienestar Animal",
-  "Burnout",
-  "Cáncer y Procesos Oncológicos",
-  "Cardiovascular",
-  "Ciclo Menstrual",
-  "Circulación",
-  "Comportamiento Animal",
-  "Crecimiento Personal",
-  "Crianza",
-  "Depresión",
-  "Desarrollo Espiritual",
-  "Deterioro Cognitivo",
-  "Digestión",
-  "Discalculia",
-  "Dislexia",
-  "Dolor Articular",
-  "Dolor Cervical",
-  "Dolor Crónico",
-  "Dolor de Cabeza",
-  "Dolor de Espalda",
-  "Dolor Muscular",
-  "Duelo",
-  "Enfermedades Autoinmunes",
-  "Equilibrio Hormonal",
-  "Espiritualidad",
-  "Estimulación Cognitiva",
-  "Estrés",
-  "Expansión de Conciencia",
-  "Fatiga",
-  "Fatiga Crónica",
-  "Feng Shui",
-  "Fertilidad",
-  "Fibromialgia",
-  "Fobias",
-  "Gestión Emocional",
-  "Hábitos Saludables",
-  "Hipersensibilidad",
-  "Hogar y Espacios",
-  "Infancia",
-  "Inflamación Crónica",
-  "Inmunidad",
-  "Insomnio",
-  "Intolerancias",
-  "Maternidad",
-  "Meditación",
-  "Memoria",
-  "Menopausia",
-  "Microbiota Intestinal",
-  "Otro (especificar)",
-  "Pareja",
-  "Parkinson",
-  "Pérdida de Peso",
-  "Piel",
-  "Preparación Mental",
-  "Procesamiento Sensorial",
-  "Propósito de Vida",
-  "Rendimiento Deportivo",
-  "Respiratorio",
-  "Rupturas",
-  "Salud Bucodental",
-  "Salud Femenina",
-  "Salud Neurológica",
-  "Sexualidad",
-  "TDAH",
-  "Trastornos del Aprendizaje",
-  "Trauma",
-  "Urinario",
-  "Visión",
-  "Vitalidad",
-].sort((a, b) => a.localeCompare(b, "es"));
 
 export type PickerVariant = "profesional" | "organizacion";
 
@@ -407,184 +329,13 @@ export function EspecialidadesPicker({
   );
 }
 
-export const CATEGORIAS_AREAS: { categoria: string; areas: string[] }[] = [
-  {
-    categoria: "Bienestar Emocional y Desarrollo Personal",
-    areas: [
-      "Adicciones",
-      "Ansiedad",
-      "Autoestima",
-      "Bloqueos emocionales",
-      "Burnout",
-      "Crecimiento personal",
-      "Desarrollo personal",
-      "Duelo",
-      "Estrés",
-      "Gestión emocional",
-      "Miedos",
-      "Regulación emocional",
-      "Soledad",
-      "Trauma",
-    ],
-  },
-  {
-    categoria: "Relaciones y Sexualidad",
-    areas: [
-      "Comunicación",
-      "Dependencia emocional",
-      "Límites personales",
-      "Relaciones de pareja",
-      "Relaciones familiares",
-      "Separación",
-      "Sexualidad",
-    ],
-  },
-  {
-    categoria: "Salud Femenina y Hormonal",
-    areas: [
-      "Embarazo",
-      "Endometriosis",
-      "Fertilidad",
-      "Lactancia",
-      "Menopausia",
-      "Menstruación",
-      "Postparto",
-      "Salud hormonal",
-      "Síndrome de ovario poliquístico (SOP)",
-    ],
-  },
-  {
-    categoria: "Sueño y Energía",
-    areas: [
-      "Baja energía",
-      "Cansancio crónico",
-      "Equilibrio energético",
-      "Fatiga",
-      "Insomnio",
-      "Relajación",
-      "Sueño no reparador",
-    ],
-  },
-  {
-    categoria: "Alimentación y Digestión",
-    areas: [
-      "Alimentación saludable",
-      "Estreñimiento",
-      "Hinchazón abdominal",
-      "Intolerancias alimentarias",
-      "Nutrición",
-      "Salud digestiva",
-      "Salud intestinal",
-    ],
-  },
-  {
-    categoria: "Dolor y Sistema Musculoesquelético",
-    areas: [
-      "Bruxismo",
-      "Dolor articular",
-      "Dolor cervical",
-      "Dolor de espalda",
-      "Dolor lumbar",
-      "Fibromialgia",
-      "Movilidad",
-      "Postura corporal",
-      "Recuperación física",
-      "Recuperación deportiva",
-      "Tensión muscular",
-    ],
-  },
-  {
-    categoria: "Salud Física",
-    areas: [
-      "Dolor crónico",
-      "Enfermedades autoinmunes",
-      "Inflamación",
-      "Prevención y autocuidado",
-      "Salud bucodental",
-      "Salud cardiovascular",
-      "Salud respiratoria",
-      "Salud visual",
-      "Sistema inmunitario",
-    ],
-  },
-  {
-    categoria: "Neurodiversidad",
-    areas: [
-      "Altas capacidades",
-      "Autismo (TEA)",
-      "Dificultades de aprendizaje",
-      "Dislexia",
-      "Regulación sensorial",
-      "TDAH",
-    ],
-  },
-  {
-    categoria: "Infancia y Adolescencia",
-    areas: [
-      "Adolescencia",
-      "Crianza",
-      "Desarrollo infantil",
-      "Gestión emocional infantil",
-      "Vínculo familiar",
-    ],
-  },
-  {
-    categoria: "Salud Cognitiva y Neurológica",
-    areas: [
-      "Cefaleas y migrañas",
-      "Concentración",
-      "Memoria",
-      "Rehabilitación neurológica",
-      "Salud neurológica",
-    ],
-  },
-  {
-    categoria: "Procesos de Salud Complejos",
-    areas: [
-      "Cáncer (acompañamiento)",
-      "Dolor persistente",
-      "Enfermedades crónicas",
-      "Recuperación tras enfermedad",
-    ],
-  },
-  {
-    categoria: "Rendimiento y Hábitos",
-    areas: [
-      "Creatividad",
-      "Gestión del cambio",
-      "Hábitos saludables",
-      "Liderazgo",
-      "Rendimiento deportivo",
-      "Rendimiento profesional",
-    ],
-  },
-  {
-    categoria: "Espiritualidad y Conciencia",
-    areas: [
-      "Autoconocimiento",
-      "Conexión interior",
-      "Desarrollo espiritual",
-      "Meditación",
-      "Mindfulness",
-      "Propósito de vida",
-    ],
-  },
-  {
-    categoria: "Espacios y Entorno",
-    areas: ["Armonización de espacios", "Feng Shui", "Geobiología"],
-  },
-  {
-    categoria: "Bienestar Integral",
-    areas: ["Bienestar integral", "Calidad de vida", "Equilibrio cuerpo-mente"],
-  },
-];
 
-const DEFAULT_MAX_AREAS = 5;
+const DEFAULT_MAX_AREAS = MAX_AREAS_PRESENCIA;
 const LIMITE_MSG =
   "Has alcanzado el número máximo de áreas disponibles para tu plan. Si deseas seleccionar otra, primero desmarca una de las ya seleccionadas.";
 
 const introAreas = (max: number) =>
-  `Selecciona hasta ${max} áreas en las que acompañas habitualmente a las personas. Elige las que mejor representan tu práctica profesional y ordénalas según su importancia.`;
+  `Selecciona las áreas en las que puedes acompañar a las personas (máximo ${max}). Elige las que mejor representan tu práctica profesional y ordénalas según su importancia.`;
 
 export function AreasPicker({
   max = DEFAULT_MAX_AREAS,
@@ -601,14 +352,9 @@ export function AreasPicker({
   const hasMax = max > 0;
   const displayNote = note === null ? null : (note ?? (hasMax ? introAreas(max) : null));
 
-  const q = query.trim().toLowerCase();
-  const grupos = CATEGORIAS_AREAS.map((g) => ({
-    categoria: g.categoria,
-    // Orden oficial: alfabético dentro de cada grupo.
-    areas: (q === "" ? g.areas : g.areas.filter((a) => a.toLowerCase().includes(q)))
-      .slice()
-      .sort((a, b) => a.localeCompare(b, "es")),
-  })).filter((g) => g.areas.length > 0);
+  // Catálogo Oficial de Áreas de Acompañamiento (src/data/areas.ts).
+  // El buscador reconoce también los sinónimos retirados del catálogo visible.
+  const grupos = buscarAreasPorCategoria(query);
 
   const toggle = (item: string) => {
     if (selected.includes(item)) {
@@ -642,7 +388,7 @@ export function AreasPicker({
       <input
         type="text"
         value={query}
-        placeholder="Buscar un área de especialización…"
+        placeholder="Buscar un área de acompañamiento…"
         onChange={(e) => setQuery(e.target.value)}
         style={{
           width: "100%",

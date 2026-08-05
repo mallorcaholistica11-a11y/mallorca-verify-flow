@@ -3,7 +3,10 @@ import type { CSSProperties, ReactNode } from "react";
 import { Chips, Placeholder, Seccion } from "@/components/ficha/primitives";
 import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
+import { SelectorAreas } from "@/components/SelectorAreas";
+import { MAX_AREAS_PRESENCIA } from "@/data/areas";
 import { DISCIPLINAS_OFICIALES, MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
+import { useState } from "react";
 
 export const Route = createFileRoute("/directorio")({
   head: () => ({
@@ -42,6 +45,7 @@ type ResultadoProfesional = {
   identidad: string;
   ubicacion: string;
   especialidades: string[];
+  areas: string[];
   verificado: boolean;
   slug: string;
 };
@@ -52,6 +56,7 @@ type ResultadoOrganizacion = {
   identidad: string;
   ubicacion: string;
   especialidades: string[];
+  areas: string[];
   verificado: boolean;
   slug: string;
 };
@@ -65,6 +70,7 @@ const RESULTADOS: Resultado[] = [
     identidad: "Psicoterapeuta integrativa",
     ubicacion: "Palma",
     especialidades: ["Psicología Integrativa", "Mindfulness", "Terapia Gestalt"],
+    areas: ["Ansiedad", "Autoestima", "Duelo", "Estrés"],
     verificado: true,
     slug: "lucia-gelabert",
   },
@@ -74,6 +80,7 @@ const RESULTADOS: Resultado[] = [
     identidad: "Centro de terapias y formación",
     ubicacion: "Palma",
     especialidades: ["Yoga", "Masaje Terapéutico", "Meditación"],
+    areas: ["Estrés", "Dolor de espalda", "Bienestar integral"],
     verificado: true,
     slug: "espai-sa-font",
   },
@@ -83,6 +90,7 @@ const RESULTADOS: Resultado[] = [
     identidad: "Terapeuta floral",
     ubicacion: "Sóller",
     especialidades: ["Flores de Bach", "Meditación", "Breathwork / Respiración"],
+    areas: ["Gestión emocional", "Insomnio", "Ansiedad"],
     verificado: false,
     slug: "marta-ferrer",
   },
@@ -92,6 +100,7 @@ const RESULTADOS: Resultado[] = [
     identidad: "Espacio de bienestar y talleres",
     ubicacion: "Pollença",
     especialidades: ["Yoga", "Meditación", "Masaje Relajante"],
+    areas: ["Relajación", "Estrés", "Calidad de vida"],
     verificado: false,
     slug: "casa-serena",
   },
@@ -101,6 +110,7 @@ const RESULTADOS: Resultado[] = [
     identidad: "Osteópata",
     ubicacion: "Palma",
     especialidades: ["Osteopatía", "Fasciaterapia", "Quiromasaje"],
+    areas: ["Dolor cervical", "Dolor lumbar", "Postura corporal"],
     verificado: true,
     slug: "lucia-gelabert",
   },
@@ -110,6 +120,7 @@ const RESULTADOS: Resultado[] = [
     identidad: "Terapeuta energética",
     ubicacion: "Inca",
     especialidades: ["Reiki", "Sanación Energética"],
+    areas: ["Fatiga", "Estrés", "Equilibrio cuerpo-mente"],
     verificado: false,
     slug: "marta-ferrer",
   },
@@ -122,6 +133,11 @@ const DESCUBRE = [
 
 function Directorio() {
   const isMobile = useMobile(900);
+  // Filtro por Áreas de Acompañamiento · Catálogo Oficial (src/data/areas.ts)
+  const [areas, setAreas] = useState<string[]>([]);
+  const resultados = RESULTADOS.filter(
+    (r) => areas.length === 0 || areas.some((a) => r.areas.includes(a)),
+  );
 
   return (
     <div style={{ fontFamily: MONO, background: "#fafafa", color: "#111", minHeight: "100vh" }}>
@@ -130,8 +146,8 @@ function Directorio() {
       <main style={{ maxWidth: 1080, margin: "0 auto", padding: isMobile ? "0 16px" : "0 24px" }}>
         <Hero isMobile={isMobile} />
         <Buscador isMobile={isMobile} />
-        <Filtros isMobile={isMobile} />
-        <Resultados isMobile={isMobile} />
+        <Filtros isMobile={isMobile} areas={areas} onAreas={setAreas} />
+        <Resultados isMobile={isMobile} resultados={resultados} />
       </main>
 
       <footer
@@ -194,7 +210,15 @@ function Buscador({ isMobile }: { isMobile: boolean }) {
   );
 }
 
-function Filtros({ isMobile }: { isMobile: boolean }) {
+function Filtros({
+  isMobile,
+  areas,
+  onAreas,
+}: {
+  isMobile: boolean;
+  areas: string[];
+  onAreas: (v: string[]) => void;
+}) {
   return (
     <Bloque top={12}>
       <div
@@ -251,6 +275,16 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
           <input type="checkbox" />
           Solo perfiles verificados
         </label>
+
+        <div style={{ borderTop: "1px dotted #ddd", paddingTop: 14 }}>
+          <SelectorAreas
+            label="¿En qué necesitas acompañamiento?"
+            ayuda="Filtra profesionales y centros según el área en la que necesitas apoyo."
+            selected={areas}
+            onChange={onAreas}
+            max={MAX_AREAS_PRESENCIA}
+          />
+        </div>
       </div>
     </Bloque>
   );
@@ -267,7 +301,7 @@ function Campo({ label, children }: { label: string; children: ReactNode }) {
   );
 }
 
-function Resultados({ isMobile }: { isMobile: boolean }) {
+function Resultados({ isMobile, resultados }: { isMobile: boolean; resultados: Resultado[] }) {
   return (
     <Bloque top={24}>
       <div
@@ -280,7 +314,9 @@ function Resultados({ isMobile }: { isMobile: boolean }) {
           marginBottom: 18,
         }}
       >
-        <div style={{ fontSize: 13, color: "#333" }}>128 resultados encontrados</div>
+        <div style={{ fontSize: 13, color: "#333" }}>
+          {resultados.length} resultados encontrados
+        </div>
       </div>
 
       <div
@@ -292,7 +328,7 @@ function Resultados({ isMobile }: { isMobile: boolean }) {
         }}
       >
         <div style={{ display: "grid", gap: 14, minWidth: 0 }}>
-          {RESULTADOS.map((r) => (
+          {resultados.map((r) => (
             <TarjetaResultado key={`${r.tipo}-${r.nombre}`} r={r} isMobile={isMobile} />
           ))}
           <Paginacion />

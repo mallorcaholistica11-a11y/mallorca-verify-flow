@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMobile } from "@/components/ficha/useMobile";
+import { areasOficiales } from "@/data/areas";
 
 export const Route = createFileRoute("/actividad/$id")({
   head: () => ({
@@ -36,6 +37,15 @@ const actividad = {
   ],
   organizador: { nombre: "Nombre del profesional", profesion: "Terapeuta holística" },
 };
+
+// Áreas seleccionadas al crear la actividad. Provienen únicamente del
+// Catálogo Oficial de Áreas de Acompañamiento (src/data/areas.ts).
+const areasActividad = areasOficiales([
+  "Estrés",
+  "Ansiedad",
+  "Regulación emocional",
+  "Bienestar integral",
+]);
 
 function ActividadPublica() {
   const isMobile = useMobile();
@@ -165,6 +175,26 @@ function ActividadPublica() {
               {actividad.descripcion}
             </p>
           </Bloque>
+
+          {areasActividad.length > 0 && (
+            <Bloque titulo="¿Qué aborda esta actividad?">
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                {areasActividad.map((a) => (
+                  <span
+                    key={a}
+                    style={{
+                      border: "1px dashed #888",
+                      background: "#fff",
+                      padding: "5px 10px",
+                      fontSize: 12,
+                    }}
+                  >
+                    {a}
+                  </span>
+                ))}
+              </div>
+            </Bloque>
+          )}
 
           <Bloque titulo="Organiza esta actividad">
             <div style={{ display: "flex", alignItems: "center", gap: 18 }}>

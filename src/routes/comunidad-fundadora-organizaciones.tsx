@@ -31,7 +31,7 @@ function PlanCentrosOrganizadores() {
 
             <h2 style={{ fontSize: 14, fontWeight: 600, margin: "0 0 8px 0" }}>Vuestro proyecto</h2>
             <p style={{ margin: "0 0 4px 0" }}>✓ Disciplinas y Especialidades ilimitadas.</p>
-            <p style={{ margin: "0 0 4px 0" }}>✓ Áreas de Especialización ilimitadas.</p>
+            <p style={{ margin: "0 0 4px 0" }}>✓ Áreas de Acompañamiento ilimitadas.</p>
             <p style={{ margin: "0 0 16px 0" }}>✓ Una ubicación principal.</p>
 
             <h2 style={{ fontSize: 14, fontWeight: 600, margin: "0 0 8px 0" }}>Vuestra visibilidad</h2>

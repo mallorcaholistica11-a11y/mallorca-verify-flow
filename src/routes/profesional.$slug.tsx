@@ -49,7 +49,7 @@ const demo: FichaPublicaData = {
     "Insomnio",
     "Duelo",
     "Menopausia",
-    "Dolor Crónico",
+    "Dolor crónico",
     "Autoestima",
   ],
   publicos: ["Adultos", "Parejas", "Empresas y organizaciones"],
