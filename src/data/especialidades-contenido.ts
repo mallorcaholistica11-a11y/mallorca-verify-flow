@@ -8,7 +8,7 @@ import { AREAS } from "@/components/TaxonomiaPickers";
 export type EspecialidadContenido = {
   /** Nombre oficial, tal y como aparece en la taxonomía de especialidades. */
   nombre: string;
-  /** Categoría de la Guía de Especialidades y Terapias. */
+  /** Categoría de la Guía de Terapias y Disciplinas. */
   categoria?: string;
   /** Definición breve (3–4 líneas) para el hero. */
   definicionBreve: string;

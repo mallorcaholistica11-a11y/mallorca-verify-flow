@@ -246,7 +246,7 @@ function GuiaEspecialidades() {
           textAlign: "center",
         }}
       >
-        Wireframe funcional · Guía de Especialidades y Terapias · sin diseño visual definitivo
+        Wireframe funcional · Guía de Terapias y Disciplinas · sin diseño visual definitivo
       </footer>
     </div>
   );
