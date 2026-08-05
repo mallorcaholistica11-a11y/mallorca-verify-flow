@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Placeholder } from "@/components/ficha/primitives";
+import { Chips, Placeholder } from "@/components/ficha/primitives";
 import { useMobile } from "@/components/ficha/useMobile";
 import {
   NOTA_IMPORTANTE_ESPECIALIDAD,
@@ -16,6 +16,29 @@ const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
 export function urlDirectorioEspecialidad(nombre: string) {
   return `/directorio?especialidad=${encodeURIComponent(nombre)}`;
 }
+
+/**
+ * Enlace futuro: cada Área de Acompañamiento llevará al Directorio filtrado.
+ * Aún no se navega; la estructura queda preparada.
+ */
+export function urlDirectorioArea(area: string) {
+  return `/directorio?area=${encodeURIComponent(area)}`;
+}
+
+/**
+ * Chips de ejemplo SOLO visuales para disciplinas sin Áreas asignadas todavía.
+ * No forman parte de la Base de Conocimiento ni se guardan como relaciones.
+ */
+const AREAS_EJEMPLO_VISUAL = [
+  "Ansiedad",
+  "Estrés",
+  "Autoestima",
+  "Insomnio",
+  "Comunicación",
+  "Bienestar integral",
+  "Desarrollo personal",
+  "Duelo",
+];
 
 export function PlantillaEspecialidad({
   contenido,
@@ -110,15 +133,26 @@ export function PlantillaEspecialidad({
         />
 
         <section style={{ marginBottom: 40 }}>
-          <TituloBloque>¿En qué puede acompañarte?</TituloBloque>
+          <TituloBloque>¿En qué puede ayudarte?</TituloBloque>
           {areas.length > 0 ? (
-            <ul style={{ margin: 0, paddingLeft: 18, fontSize: 14, lineHeight: 2 }}>
-              {areas.map((a) => (
-                <li key={a}>{a}</li>
-              ))}
-            </ul>
+            <Chips items={areas} />
           ) : (
-            <TextoPendiente>Áreas relacionadas pendientes.</TextoPendiente>
+            <>
+              <Chips items={areasValidas(AREAS_EJEMPLO_VISUAL)} />
+              <p
+                style={{
+                  fontSize: 11,
+                  lineHeight: 1.7,
+                  color: "#888",
+                  margin: "10px 0 0 0",
+                  fontStyle: "italic",
+                }}
+              >
+                Ejemplo visual. Las Áreas de Acompañamiento definitivas se asignarán
+                individualmente a cada disciplina durante la construcción de la Base de
+                Conocimiento.
+              </p>
+            </>
           )}
         </section>
 
