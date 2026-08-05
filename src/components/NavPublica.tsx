@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 export type SeccionPublica =
   | "Inicio"
   | "Directorio de Profesionales"
-  | "Guía de Terapias"
+  | "Guía de Disciplinas y Especialidades"
   | "Agenda de Actividades"
   | "Blog"
   | "Nuestra Mirada";
@@ -11,7 +11,7 @@ export type SeccionPublica =
 const NAV: { label: SeccionPublica; to: string }[] = [
   { label: "Inicio", to: "/" },
   { label: "Directorio de Profesionales", to: "/directorio" },
-  { label: "Guía de Terapias", to: "/guia" },
+  { label: "Guía de Disciplinas y Especialidades", to: "/guia" },
   { label: "Agenda de Actividades", to: "/agenda" },
   { label: "Blog", to: "/blog" },
   { label: "Nuestra Mirada", to: "/nuestra-mirada" },
@@ -84,6 +84,7 @@ export function NavPublica({
           </Link>
           <Link
             to="/mi-espacio"
+            search={{ track: "presencia" as const }}
             aria-label="Mi Espacio"
             style={{
               width: 32,

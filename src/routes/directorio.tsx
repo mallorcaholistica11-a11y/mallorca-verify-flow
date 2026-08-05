@@ -117,7 +117,7 @@ const RESULTADOS: Resultado[] = [
 
 const DESCUBRE = [
   { titulo: "📅 Agenda de Actividades", enlace: "Ver agenda →", to: "/agenda" },
-  { titulo: "📖 Guía de Terapias", enlace: "Explorar guía →", to: "/guia" },
+  { titulo: "📖 Guía de Disciplinas y Especialidades", enlace: "Explorar guía →", to: "/guia" },
 ];
 
 function Directorio() {

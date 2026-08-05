@@ -1,4 +1,4 @@
-// Base de Conocimiento · Especialidades y Terapias
+// Base de Conocimiento · Disciplinas y Especialidades
 // Fuente única de verdad para el contenido de las fichas de especialidad.
 // El bloque "¿En qué puede acompañarte?" NO se escribe libremente: se declara
 // como relación con el catálogo oficial de Áreas de Especialización (AREAS).
@@ -8,7 +8,7 @@ import { AREAS } from "@/components/TaxonomiaPickers";
 export type EspecialidadContenido = {
   /** Nombre oficial, tal y como aparece en la taxonomía de especialidades. */
   nombre: string;
-  /** Categoría de la Guía de Terapias y Disciplinas. */
+  /** Categoría de la Guía de Disciplinas y Especialidades. */
   categoria?: string;
   /** Definición breve (3–4 líneas) para el hero. */
   definicionBreve: string;

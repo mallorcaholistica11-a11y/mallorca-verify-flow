@@ -36,7 +36,7 @@ export const CATEGORIAS: Categoria[] = [
   { nombre: "Salud Integrativa", emoji: "❤️" },
 ];
 
-export const DISCIPLINAS: Disciplina[] = [
+const DISCIPLINAS_RAW: Disciplina[] = [
   { nombre: "Acupuntura", categoria: "Medicina Natural e Integrativa", especialidades: ["Acupresión", "Acupuntura Tradicional China", "Acupuntura Japonesa", "Acupuntura Coreana", "Acupuntura Auricular (Auriculoterapia)", "Acupuntura Estética", "Acupuntura Pediátrica", "Electroacupuntura", "Cráneo Acupuntura", "Acupuntura del Dr. Tan", "Acupuntura Tung"] },
   { nombre: "Aromaterapia", categoria: "Medicina Natural e Integrativa", especialidades: ["Aromaterapia Científica", "Aromaterapia Energética", "Aromaterapia Emocional", "Aromaterapia Clínica", "Aromaterapia Cosmética"] },
   { nombre: "Arteterapia", categoria: "Movimiento, Expresión y Creatividad", especialidades: ["Arteterapia Plástica", "Arteterapia Infantil", "Arteterapia para Adultos", "Arteterapia Expresiva"] },
@@ -53,7 +53,6 @@ export const DISCIPLINAS: Disciplina[] = [
   { nombre: "Danzaterapia", categoria: "Movimiento, Expresión y Creatividad", especialidades: ["Danzaterapia Creativa", "Danzaterapia Integrativa", "Danzaterapia Terapéutica"] },
   { nombre: "EFT (Técnicas de Liberación Emocional)", categoria: "Psicología, Psicoterapia y Bienestar Emocional", especialidades: ["EFT Clínico", "EFT para Trauma", "Matrix Reimprinting"] },
   { nombre: "EMDR", categoria: "Psicología, Psicoterapia y Bienestar Emocional", especialidades: ["EMDR para Trauma", "EMDR para Ansiedad", "EMDR para Depresión", "EMDR Infantil y Adolescente", "EMDR para Duelo", "EMDR para Estrés Postraumático (TEPT)"] },
-  { nombre: "Equinoterapia", categoria: "Terapias Manuales y Corporales", especialidades: ["Hipoterapia", "Equitación Terapéutica", "Intervenciones Asistidas con Caballos"] },
   { nombre: "Eutonía", categoria: "Movimiento, Expresión y Creatividad", especialidades: ["Eutonía Gerda Alexander", "Eutonía Terapéutica"] },
   { nombre: "Feng Shui", categoria: "Energía y Espiritualidad", especialidades: ["Feng Shui Clásico", "Feng Shui Occidental", "Feng Shui Intuitivo"] },
   { nombre: "Fitoterapia", categoria: "Medicina Natural e Integrativa", especialidades: ["Fitoterapia Occidental", "Fitoterapia China", "Fitoterapia Ayurvédica", "Gemoterapia"] },
@@ -102,7 +101,7 @@ export const DISCIPLINAS: Disciplina[] = [
   { nombre: "Sonoterapia", categoria: "Energía y Espiritualidad", especialidades: ["Cuencos Tibetanos", "Gong Terapéutico", "Diapasones Terapéuticos", "Baños de Sonido"] },
   { nombre: "Tai Chi", categoria: "Movimiento, Expresión y Creatividad", especialidades: ["Estilo Yang", "Estilo Chen", "Estilo Wu", "Tai Chi Terapéutico"] },
   { nombre: "Teatroterapia", categoria: "Movimiento, Expresión y Creatividad", especialidades: ["Teatroterapia Gestáltica", "Teatro Espontáneo", "Dramaterapia"] },
-  { nombre: "Terapia Asistida con Animales", categoria: "Psicología, Psicoterapia y Bienestar Emocional", especialidades: ["Terapia Asistida con Perros", "Terapia Asistida con Caballos", "Terapia Asistida con Otros Animales"] },
+  { nombre: "Terapia Asistida con Animales", categoria: "Psicología, Psicoterapia y Bienestar Emocional", especialidades: ["Equinoterapia", "Hipoterapia", "Equitación Terapéutica", "Intervenciones Asistidas con Caballos", "Terapia Asistida con Perros", "Terapia Asistida con Caballos", "Terapia Asistida con Otros Animales"] },
   { nombre: "Terapia Craneosacral", categoria: "Terapias Manuales y Corporales", especialidades: ["Biodinámica Craneosacral", "Terapia Craneosacral Upledger", "Terapia Craneosacral Pediátrica"] },
   { nombre: "Terapia Floral", categoria: "Medicina Natural e Integrativa", especialidades: ["Flores de Bach", "Flores de California (FES)", "Flores del Bush Australiano", "Flores de Saint Germain", "Flores de Alaska", "Flores del Mediterráneo"] },
   { nombre: "Terapia Gestalt", categoria: "Psicología, Psicoterapia y Bienestar Emocional", especialidades: ["Gestalt Individual", "Gestalt de Pareja", "Gestalt Familiar", "Gestalt Grupal", "Gestalt Infantil"] },
@@ -110,6 +109,19 @@ export const DISCIPLINAS: Disciplina[] = [
   { nombre: "Técnica Bowen", categoria: "Terapias Manuales y Corporales", especialidades: ["Bowen Original", "Bowen Integrativa"] },
   { nombre: "Yoga", categoria: "Movimiento, Expresión y Creatividad", especialidades: ["Hatha Yoga", "Ashtanga Yoga", "Vinyasa Yoga", "Yin Yoga", "Kundalini Yoga", "Iyengar Yoga", "Sivananda Yoga", "Jivamukti Yoga", "Yoga Integral", "Yoga Terapéutico", "Yoga Restaurativo", "Yoga Nidra", "Yoga Prenatal", "Yoga Postnatal", "Yoga Infantil", "Yoga para Mayores", "Yoga Aéreo", "Bhakti Yoga", "Karma Yoga", "Raja Yoga"] },
 ];
+
+const alfabetico = (a: string, b: string) => a.localeCompare(b, "es");
+
+/**
+ * Orden oficial de visualización en todo el proyecto:
+ * - Categorías: orden editorial de CATEGORIAS.
+ * - Disciplinas: alfabético dentro de cada categoría.
+ * - Especialidades: alfabético dentro de cada disciplina.
+ */
+export const DISCIPLINAS: Disciplina[] = DISCIPLINAS_RAW.map((d) => ({
+  ...d,
+  especialidades: [...d.especialidades].sort(alfabetico),
+})).sort((a, b) => alfabetico(a.nombre, b.nombre));
 
 /** Opción libre disponible en formularios, fuera del catálogo oficial. */
 export const OTRA_OPCION = "Otra especialidad o terapia (especificar)";

@@ -8,7 +8,7 @@ import { slugEspecialidad } from "./guia.index";
 export const Route = createFileRoute("/guia/$slug")({
   head: () => ({
     meta: [
-      { title: "Ficha de especialidad — Guía de Mallorca Holística" },
+      { title: "Ficha de especialidad — Guía de Disciplinas y Especialidades — Mallorca Holística" },
       {
         name: "description",
         content: "Ficha individual de una especialidad o terapia dentro de la guía de Mallorca Holística.",
@@ -26,6 +26,21 @@ export const Route = createFileRoute("/guia/$slug")({
 });
 
 const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
+
+/**
+ * Arquitectura oficial de la Base de Conocimiento:
+ *   Categoría → Disciplina → Especialidad
+ *
+ * Evolución futura de esta página de disciplina (aún NO implementada):
+ *   1. Introducción
+ *   2. Qué es esta disciplina
+ *   3. Especialidades relacionadas
+ *   4. Profesionales que la ofrecen
+ *   5. Actividades relacionadas
+ *   6. Artículos relacionados
+ * Cualquier bloque nuevo debe alimentarse de src/data/catalogo.ts.
+ * No crear listas paralelas ni nuevas estructuras de taxonomía.
+ */
 
 function FichaEspecialidad() {
   const { slug } = Route.useParams();
@@ -46,7 +61,7 @@ function FichaEspecialidad() {
     <div style={{ fontFamily: MONO, background: "#fafafa", color: "#111", minHeight: "100vh" }}>
       <main style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "24px 16px" : "32px 24px" }}>
         <Link to="/guia" style={{ fontSize: 12, color: "#666" }}>
-          ← Volver a la Guía de Terapias
+          ← Volver a la Guía de Disciplinas y Especialidades
         </Link>
 
         <h1 style={{ fontSize: 22, margin: "16px 0 6px 0" }}>Disciplina no encontrada</h1>

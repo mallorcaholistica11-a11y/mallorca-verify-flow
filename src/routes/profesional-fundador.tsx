@@ -34,7 +34,7 @@ function PlanProfesionalVerificado() {
             <p>✓ Galería de hasta 5 imágenes.</p>
             
             <p style={{ marginTop: 16 }}><strong>Tu actividad</strong></p>
-            <p>✓ Especialidades y Terapias ilimitadas.</p>
+            <p>✓ Disciplinas y Especialidades ilimitadas.</p>
             <p>✓ Áreas de Especialización ilimitadas.</p>
             <p>✓ Una ubicación principal.</p>
             <p>✓ Modalidades de atención.</p>
