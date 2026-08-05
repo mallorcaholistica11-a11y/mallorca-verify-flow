@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Note } from "@/components/Wireframe";
 import {
-  CATEGORIAS_AREAS,
   MAX_AREAS_PRESENCIA,
   buscarAreasPorCategoria,
 } from "@/data/areas";
