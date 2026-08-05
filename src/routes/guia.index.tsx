@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Placeholder } from "@/components/ficha/primitives";
 import { useMobile } from "@/components/ficha/useMobile";
+import { NavPublica } from "@/components/NavPublica";
 import { CATEGORIAS_ESPECIALIDADES } from "@/components/TaxonomiaPickers";
 
 export const Route = createFileRoute("/guia/")({
@@ -28,14 +29,6 @@ export const Route = createFileRoute("/guia/")({
 
 const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
 
-const NAV = [
-  "Inicio",
-  "Directorio de Profesionales",
-  "Guía de Terapias",
-  "Agenda de Actividades",
-  "Blog",
-  "Nuestra Mirada",
-];
 
 export function slugEspecialidad(nombre: string) {
   return nombre
@@ -77,7 +70,7 @@ function GuiaEspecialidades() {
         .guia-link:hover { color: #000; text-decoration: underline; text-decoration-color: #bbb; text-underline-offset: 3px; }
       `}</style>
 
-      <HeaderPublico isMobile={isMobile} />
+      <NavPublica isMobile={isMobile} activo="Guía de Terapias" />
 
       <main style={{ maxWidth: 1080, margin: "0 auto", padding: isMobile ? "0 16px" : "0 24px" }}>
         {/* Hero */}
@@ -249,38 +242,3 @@ function GuiaEspecialidades() {
   );
 }
 
-function HeaderPublico({ isMobile }: { isMobile: boolean }) {
-  return (
-    <header
-      style={{
-        borderBottom: "1px dashed #999",
-        background: "#fff",
-        padding: isMobile ? "12px 16px" : "14px 24px",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 1080,
-          margin: "0 auto",
-          display: "flex",
-          alignItems: "center",
-          gap: 16,
-          flexWrap: "wrap",
-        }}
-      >
-        <span style={{ fontWeight: 600, fontSize: 13, whiteSpace: "nowrap" }}>
-          [LOGO] Mallorca Holística
-        </span>
-        {!isMobile && (
-          <nav style={{ display: "flex", gap: 10, flexWrap: "wrap", fontSize: 12 }}>
-            {NAV.map((n) => (
-              <span key={n} style={{ color: n === "Guía de Terapias" ? "#111" : "#555" }}>
-                {n}
-              </span>
-            ))}
-          </nav>
-        )}
-      </div>
-    </header>
-  );
-}

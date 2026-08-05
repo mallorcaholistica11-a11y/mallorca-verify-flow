@@ -47,9 +47,9 @@ const PROFESIONALES = [
 ];
 
 const DESCUBRE = [
-  { titulo: "📅 Agenda de Actividades", enlace: "Ver agenda →" },
-  { titulo: "📖 Guía de Terapias", enlace: "Explorar guía →" },
-  { titulo: "🌿 Blog", enlace: "Próximamente" },
+  { titulo: "📅 Agenda de Actividades", enlace: "Ver agenda →", to: "/agenda" },
+  { titulo: "📖 Guía de Terapias", enlace: "Explorar guía →", to: "/guia" },
+  { titulo: "🌿 Blog", enlace: "Próximamente", to: "/blog" },
 ];
 
 export function HomeMvpPage() {
@@ -286,7 +286,11 @@ function Profesionales({ isMobile, isTablet }: { isMobile: boolean; isTablet: bo
           </div>
         ))}
       </div>
-      <div style={{ marginTop: 18, textAlign: "right", fontSize: 12 }}>Ver todos los profesionales →</div>
+      <div style={{ marginTop: 18, textAlign: "right", fontSize: 12 }}>
+        <Link to="/directorio" style={{ color: "#111" }}>
+          Ver todos los profesionales →
+        </Link>
+      </div>
     </Bloque>
   );
 }
@@ -304,12 +308,14 @@ function Descubre({ isMobile }: { isMobile: boolean }) {
         {DESCUBRE.map((d) => (
           <div key={d.titulo} style={{ border: "1px dashed #888", background: "#fff", padding: 20 }}>
             <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 24 }}>{d.titulo}</div>
-            <div style={{ fontSize: 12, color: "#555" }}>{d.enlace}</div>
+            <Link to={d.to as never} style={{ fontSize: 12, color: "#555" }}>
+              {d.enlace}
+            </Link>
           </div>
         ))}
       </div>
       <div style={{ marginTop: 32, fontSize: 11, color: "#888" }}>
-        <Link to="/" style={{ color: "#888" }}>
+        <Link to="/inicio-tecnico" style={{ color: "#888" }}>
           ← Volver al índice del wireframe
         </Link>
       </div>
