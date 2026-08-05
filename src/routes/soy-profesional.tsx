@@ -2,6 +2,23 @@ import { createFileRoute } from "@tanstack/react-router";
 import { WireframeShell, Box, Card, Row, NavButton } from "@/components/Wireframe";
 
 export const Route = createFileRoute("/soy-profesional")({
+  head: () => ({
+    meta: [
+      { title: "Soy profesional — Planes de Mallorca Holística" },
+      {
+        name: "description",
+        content:
+          "Descubre los planes para profesionales, centros y organizadores de Mallorca Holística.",
+      },
+      { property: "og:title", content: "Soy profesional — Mallorca Holística" },
+      {
+        property: "og:description",
+        content: "Planes para formar parte del directorio de Mallorca Holística.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+    ],
+  }),
   component: SoyProfesional,
 });
 
