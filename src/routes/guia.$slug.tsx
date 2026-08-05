@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMobile } from "@/components/ficha/useMobile";
-import { CATEGORIAS_ESPECIALIDADES } from "@/components/TaxonomiaPickers";
 import { PlantillaEspecialidad } from "@/components/especialidad/PlantillaEspecialidad";
+import { CATEGORIAS_CON_DISCIPLINAS } from "@/data/catalogo";
 import { contenidoEspecialidad } from "@/data/especialidades-contenido";
 import { slugEspecialidad } from "./guia.index";
 
@@ -31,9 +31,9 @@ function FichaEspecialidad() {
   const { slug } = Route.useParams();
   const isMobile = useMobile(900);
 
-  const encontrada = CATEGORIAS_ESPECIALIDADES.flatMap((g) =>
-    g.especialidades.map((e) => ({ nombre: e, categoria: g.categoria })),
-  ).find((e) => slugEspecialidad(e.nombre) === slug);
+  const encontrada = CATEGORIAS_CON_DISCIPLINAS.flatMap((c) =>
+    c.disciplinas.map((d) => ({ nombre: d.nombre, categoria: `${c.emoji} ${c.categoria}` })),
+  ).find((d) => slugEspecialidad(d.nombre) === slug);
 
   // Plantilla Oficial reutilizable: TODAS las especialidades usan exactamente
   // esta misma estructura; si falta contenido se muestran textos provisionales.
@@ -46,10 +46,10 @@ function FichaEspecialidad() {
     <div style={{ fontFamily: MONO, background: "#fafafa", color: "#111", minHeight: "100vh" }}>
       <main style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "24px 16px" : "32px 24px" }}>
         <Link to="/guia" style={{ fontSize: 12, color: "#666" }}>
-          ← Volver a la Guía de Especialidades y Terapias
+          ← Volver a la Guía de Terapias
         </Link>
 
-        <h1 style={{ fontSize: 22, margin: "16px 0 6px 0" }}>Especialidad no encontrada</h1>
+        <h1 style={{ fontSize: 22, margin: "16px 0 6px 0" }}>Disciplina no encontrada</h1>
         <div style={{ fontSize: 12, color: "#666", marginBottom: 20 }}>
           Prueba a explorar la guía completa.
         </div>
