@@ -192,6 +192,7 @@ function Hero({ isMobile }: { isMobile: boolean }) {
 /* ---------- Buscador y filtros ---------- */
 
 function Filtros({ isMobile }: { isMobile: boolean }) {
+  const [areas, setAreas] = useState<string[]>([]);
   return (
     <Bloque top={16}>
       <div
@@ -258,6 +259,17 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
               ))}
             </select>
           </Campo>
+        </div>
+
+        {/* Áreas de Acompañamiento · Catálogo Oficial (src/data/areas.ts) */}
+        <div style={{ borderTop: "1px dotted #ddd", paddingTop: 14 }}>
+          <SelectorAreas
+            label="¿Qué necesitas?"
+            ayuda="Filtra las actividades por el área que quieres acompañar."
+            selected={areas}
+            onChange={setAreas}
+            max={MAX_AREAS_ACTIVIDAD}
+          />
         </div>
 
         <button
