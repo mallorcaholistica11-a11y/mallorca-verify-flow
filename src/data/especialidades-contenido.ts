@@ -1,9 +1,10 @@
 // Base de Conocimiento · Disciplinas y Especialidades
 // Fuente única de verdad para el contenido de las fichas de especialidad.
 // El bloque "¿En qué puede acompañarte?" NO se escribe libremente: se declara
-// como relación con el catálogo oficial de Áreas de Especialización (AREAS).
+// como relación con el Catálogo Oficial de Áreas de Acompañamiento
+// (src/data/areas.ts). Cualquier valor fuera del catálogo se descarta.
 
-import { AREAS } from "@/components/TaxonomiaPickers";
+import { areasOficiales } from "@/data/areas";
 
 export type EspecialidadContenido = {
   /** Nombre oficial, tal y como aparece en la taxonomía de especialidades. */
@@ -16,7 +17,7 @@ export type EspecialidadContenido = {
   imagenUrl?: string;
   /** ¿Qué es? (5–8 líneas). */
   queEs: string;
-  /** Relación con Áreas de Especialización del catálogo oficial. */
+  /** Relación con Áreas de Acompañamiento del catálogo oficial. */
   areasRelacionadas: string[];
   /** ¿Cómo es una sesión? (6–8 líneas). */
   comoEsUnaSesion: string;
@@ -37,9 +38,9 @@ export const CONTENIDO_ESPECIALIDADES: Record<string, EspecialidadContenido> = {
     areasRelacionadas: [
       "Estrés",
       "Ansiedad",
-      "Dolor Cervical",
-      "Dolor de Espalda",
-      "Dolor de Cabeza",
+      "Dolor cervical",
+      "Dolor de espalda",
+      "Cefaleas y migrañas",
       "Insomnio",
       "Fatiga",
     ],
@@ -48,10 +49,9 @@ export const CONTENIDO_ESPECIALIDADES: Record<string, EspecialidadContenido> = {
   },
 };
 
-/** Devuelve solo las áreas que existen en el catálogo oficial. */
+/** Devuelve solo las áreas que existen en el Catálogo Oficial. */
 export function areasValidas(areas: string[]): string[] {
-  const catalogo = new Set<string>(AREAS as readonly string[]);
-  return areas.filter((a) => catalogo.has(a));
+  return areasOficiales(areas);
 }
 
 /**

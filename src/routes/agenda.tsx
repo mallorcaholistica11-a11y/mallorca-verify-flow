@@ -3,6 +3,8 @@ import type { CSSProperties, ReactNode } from "react";
 import { useMemo, useState } from "react";
 import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
+import { SelectorAreas } from "@/components/SelectorAreas";
+import { MAX_AREAS_ACTIVIDAD } from "@/data/areas";
 import { MUNICIPIOS_MALLORCA, buscarCatalogo } from "@/data/taxonomia";
 
 export const Route = createFileRoute("/agenda")({
