@@ -6,6 +6,7 @@ import {
   areasValidas,
   type EspecialidadContenido,
 } from "@/data/especialidades-contenido";
+import { especialidadesDe } from "@/data/catalogo";
 
 // Plantilla Oficial · Especialidades y Terapias.
 // Una única plantilla reutilizable: solo cambian los datos.
@@ -27,6 +28,7 @@ export function PlantillaEspecialidad({
   const areas = areasValidas(contenido.areasRelacionadas);
   const cat = categoria ?? contenido.categoria;
   const urlDirectorio = urlDirectorioEspecialidad(contenido.nombre);
+  const especialidades = especialidadesDe(contenido.nombre);
 
   return (
     <div style={{ fontFamily: MONO, background: "#fafafa", color: "#111", minHeight: "100vh" }}>
@@ -38,7 +40,7 @@ export function PlantillaEspecialidad({
         }}
       >
         <Link to="/guia" style={{ fontSize: 12, color: "#666" }}>
-          ← Volver a la Guía de Especialidades y Terapias
+          ← Volver a la Guía de Terapias
         </Link>
 
         {/* Hero */}
@@ -80,7 +82,7 @@ export function PlantillaEspecialidad({
           ) : (
             <div style={{ marginBottom: 20 }}>
               <Placeholder alto={isMobile ? 140 : 200}>
-                [Imagen representativa de la especialidad · opcional]
+                [Imagen representativa de la disciplina · opcional]
               </Placeholder>
             </div>
           )}
@@ -119,6 +121,28 @@ export function PlantillaEspecialidad({
             <TextoPendiente>Áreas relacionadas pendientes.</TextoPendiente>
           )}
         </section>
+
+        {especialidades.length > 0 && (
+          <section style={{ marginBottom: 40 }}>
+            <TituloBloque>Especialidades dentro de esta disciplina</TituloBloque>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+              {especialidades.map((e) => (
+                <span
+                  key={e}
+                  style={{
+                    border: "1px dashed #999",
+                    background: "#fff",
+                    padding: "5px 9px",
+                    fontSize: 12,
+                    color: "#333",
+                  }}
+                >
+                  {e}
+                </span>
+              ))}
+            </div>
+          </section>
+        )}
 
         <BloqueTexto
           titulo="¿Cómo es una sesión?"
@@ -165,7 +189,7 @@ export function PlantillaEspecialidad({
               maxWidth: 560,
             }}
           >
-            Si sientes que esta especialidad puede encajar contigo, descubre los profesionales de
+            Si sientes que esta disciplina puede encajar contigo, descubre los profesionales de
             Mallorca Holística que la ofrecen.
           </p>
           <a
