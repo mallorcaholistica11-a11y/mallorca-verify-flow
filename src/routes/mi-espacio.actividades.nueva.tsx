@@ -3,6 +3,8 @@ import { useState, type CSSProperties, type ReactNode } from "react";
 import { WireframeShell, Box, NavButton, TrackBadge, parseTrack, type Track, Note } from "@/components/Wireframe";
 import { TelefonoField, type TelefonoValue } from "@/components/TelefonoField";
 import { CATEGORIAS_DISCIPLINAS } from "@/components/TaxonomiaPickers";
+import { SelectorAreas } from "@/components/SelectorAreas";
+import { MAX_AREAS_ACTIVIDAD } from "@/data/areas";
 import { buscarCatalogo } from "@/data/catalogo";
 import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
 
@@ -41,6 +43,7 @@ type FormState = {
   tipo: string;
   tipoOtro: string;
   especialidades: string[];
+  areas: string[];
   imagenNombre: string | null;
   imagenPreview: string | null;
   descripcion: string;
@@ -70,6 +73,7 @@ const initial: FormState = {
   tipo: "",
   tipoOtro: "",
   especialidades: [],
+  areas: [],
   imagenNombre: null,
   imagenPreview: null,
   descripcion: "",
@@ -187,6 +191,17 @@ function NuevaActividadPagina() {
           <EspecialidadesActividad
             selected={form.especialidades}
             onChange={(v) => update("especialidades", v)}
+          />
+        </div>
+
+        {/* Áreas de Acompañamiento · opcional · Catálogo Oficial (src/data/areas.ts) */}
+        <div style={{ marginTop: 16 }}>
+          <SelectorAreas
+            label="Áreas de Acompañamiento (opcional)"
+            ayuda={`Selecciona hasta ${MAX_AREAS_ACTIVIDAD} áreas que describan mejor el objetivo o enfoque de esta actividad.`}
+            selected={form.areas}
+            onChange={(v) => update("areas", v)}
+            max={MAX_AREAS_ACTIVIDAD}
           />
         </div>
 
