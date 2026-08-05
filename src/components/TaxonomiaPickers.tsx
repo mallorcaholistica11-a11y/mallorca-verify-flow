@@ -604,7 +604,10 @@ export function AreasPicker({
   const q = query.trim().toLowerCase();
   const grupos = CATEGORIAS_AREAS.map((g) => ({
     categoria: g.categoria,
-    areas: q === "" ? g.areas : g.areas.filter((a) => a.toLowerCase().includes(q)),
+    // Orden oficial: alfabético dentro de cada grupo.
+    areas: (q === "" ? g.areas : g.areas.filter((a) => a.toLowerCase().includes(q)))
+      .slice()
+      .sort((a, b) => a.localeCompare(b, "es")),
   })).filter((g) => g.areas.length > 0);
 
   const toggle = (item: string) => {
