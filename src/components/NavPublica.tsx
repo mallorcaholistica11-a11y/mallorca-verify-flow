@@ -84,6 +84,7 @@ export function NavPublica({
           </Link>
           <Link
             to="/mi-espacio"
+            search={{ track: "presencia" as const }}
             aria-label="Mi Espacio"
             style={{
               width: 32,
