@@ -3,7 +3,7 @@ import type { CSSProperties, ReactNode } from "react";
 import { useMemo, useState } from "react";
 import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
-import { ESPECIALIDADES_OFICIALES, MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
+import { MUNICIPIOS_MALLORCA, buscarCatalogo } from "@/data/taxonomia";
 
 export const Route = createFileRoute("/agenda")({
   head: () => ({
@@ -247,7 +247,7 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
               ))}
             </select>
           </Campo>
-          <Campo label="Terapia o Especialidad">
+          <Campo label="Disciplina o Especialidad">
             <AutocompletadoEspecialidad />
           </Campo>
           <Campo label="Idioma">
@@ -271,7 +271,7 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
   );
 }
 
-// Mismo Catálogo Oficial de Especialidades que el Directorio y la Guía.
+// Mismo Catálogo Oficial (Disciplinas y Especialidades) que el Directorio y la Guía.
 function AutocompletadoEspecialidad() {
   const [texto, setTexto] = useState("");
   const [abierto, setAbierto] = useState(false);
@@ -279,7 +279,9 @@ function AutocompletadoEspecialidad() {
   const sugerencias = useMemo(() => {
     const q = texto.trim().toLowerCase();
     if (!q) return [];
-    return ESPECIALIDADES_OFICIALES.filter((e) => e.toLowerCase().includes(q)).slice(0, 8);
+    return buscarCatalogo(q)
+      .map((r) => r.nombre)
+      .slice(0, 8);
   }, [texto]);
 
   return (
@@ -287,7 +289,7 @@ function AutocompletadoEspecialidad() {
       <input
         type="text"
         value={texto}
-        placeholder="Escribe una terapia..."
+        placeholder="Escribe una disciplina..."
         onChange={(e) => {
           setTexto(e.target.value);
           setAbierto(true);

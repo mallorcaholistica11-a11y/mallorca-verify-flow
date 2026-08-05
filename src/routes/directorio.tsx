@@ -3,7 +3,7 @@ import type { CSSProperties, ReactNode } from "react";
 import { Chips, Placeholder, Seccion } from "@/components/ficha/primitives";
 import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
-import { ESPECIALIDADES_OFICIALES, MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
+import { DISCIPLINAS_OFICIALES, MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
 
 export const Route = createFileRoute("/directorio")({
   head: () => ({
@@ -32,7 +32,7 @@ const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
 
 const MUNICIPIOS = ["Todos los municipios", ...MUNICIPIOS_MALLORCA];
 
-const ESPECIALIDADES = ["Todas las especialidades", ...ESPECIALIDADES_OFICIALES];
+const ESPECIALIDADES = ["Todas las disciplinas", ...DISCIPLINAS_OFICIALES];
 
 const MODALIDADES = ["Presencial", "Online", "A domicilio", "A distancia"];
 
@@ -64,7 +64,7 @@ const RESULTADOS: Resultado[] = [
     nombre: "Lucía Gelabert",
     identidad: "Psicoterapeuta integrativa",
     ubicacion: "Palma",
-    especialidades: ["Psicología Integrativa", "Mindfulness", "Terapia Emocional"],
+    especialidades: ["Psicología Integrativa", "Mindfulness", "Terapia Gestalt"],
     verificado: true,
     slug: "lucia-gelabert",
   },
@@ -82,7 +82,7 @@ const RESULTADOS: Resultado[] = [
     nombre: "Marta Ferrer",
     identidad: "Terapeuta floral",
     ubicacion: "Sóller",
-    especialidades: ["Flores de Bach", "Meditación", "Respiración Consciente"],
+    especialidades: ["Flores de Bach", "Meditación", "Breathwork / Respiración"],
     verificado: false,
     slug: "marta-ferrer",
   },
@@ -183,7 +183,7 @@ function Buscador({ isMobile }: { isMobile: boolean }) {
             gap: 10,
           }}
         >
-          <input type="text" placeholder="Profesional, terapia, especialidad o síntoma..." style={inputStyle} />
+          <input type="text" placeholder="Profesional, disciplina, especialidad o síntoma..." style={inputStyle} />
           <input type="text" placeholder="Localidad o código postal..." style={inputStyle} />
           <button type="button" style={botonSecundario}>
             Buscar
@@ -221,8 +221,8 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
               <option>Organizaciones</option>
             </select>
           </Campo>
-          <Campo label="Especialidad">
-            <select style={selectStyle} defaultValue="Todas las especialidades">
+          <Campo label="Disciplina">
+            <select style={selectStyle} defaultValue="Todas las disciplinas">
               {ESPECIALIDADES.map((e) => (
                 <option key={e}>{e}</option>
               ))}
