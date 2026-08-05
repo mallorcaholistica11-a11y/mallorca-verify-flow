@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, type CSSProperties, type ReactNode } from "react";
 import { WireframeShell, Box, NavButton, TrackBadge, parseTrack, type Track, Note } from "@/components/Wireframe";
 import { TelefonoField, type TelefonoValue } from "@/components/TelefonoField";
-import { CATEGORIAS_ESPECIALIDADES } from "@/components/TaxonomiaPickers";
+import { CATEGORIAS_DISCIPLINAS } from "@/components/TaxonomiaPickers";
+import { buscarCatalogo } from "@/data/catalogo";
 import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
 
 export const Route = createFileRoute("/mi-espacio/actividades/nueva")({
@@ -544,8 +545,9 @@ function EspecialidadesActividad({
   const sugerencias =
     q === ""
       ? []
-      : CATEGORIAS_ESPECIALIDADES.flatMap((g) => g.especialidades)
-          .filter((e) => e.toLowerCase().includes(q) && !selected.includes(e))
+      : buscarCatalogo(q)
+          .map((r) => r.nombre)
+          .filter((e) => !selected.includes(e))
           .slice(0, 8);
 
   const toggle = (item: string) => {
@@ -559,12 +561,12 @@ function EspecialidadesActividad({
 
   return (
     <div>
-      <FieldLabel>Terapia o Especialidad</FieldLabel>
+      <FieldLabel>Disciplinas y Especialidades</FieldLabel>
       <div style={{ position: "relative" }}>
         <input
           type="text"
           value={query}
-          placeholder="Buscar una terapia o especialidad…"
+          placeholder="Buscar una disciplina o especialidad…"
           onChange={(e) => setQuery(e.target.value)}
           style={inputStyle}
         />
@@ -610,12 +612,12 @@ function EspecialidadesActividad({
           fontSize: 12,
         }}
       >
-        {explorar ? "▾ Ocultar especialidades" : "▸ Explorar todas las especialidades"}
+        {explorar ? "▾ Ocultar el catálogo" : "▸ Explorar todas las disciplinas"}
       </button>
 
       {explorar && (
         <div style={{ marginTop: 10, border: "1px dashed #888", background: "#fff" }}>
-          {CATEGORIAS_ESPECIALIDADES.map((g) => {
+          {CATEGORIAS_DISCIPLINAS.map((g) => {
             const open = abiertas.includes(g.categoria);
             return (
               <div key={g.categoria} style={{ borderBottom: "1px dotted #ddd" }}>
@@ -631,7 +633,7 @@ function EspecialidadesActividad({
                 </div>
                 {open && (
                   <div style={{ padding: "0 10px 10px 22px", display: "flex", flexDirection: "column", gap: 6 }}>
-                    {g.especialidades.map((e) => {
+                    {g.disciplinas.map((e) => {
                       const checked = selected.includes(e);
                       return (
                         <label
