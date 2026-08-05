@@ -36,7 +36,7 @@ export const CATEGORIAS: Categoria[] = [
   { nombre: "Salud Integrativa", emoji: "❤️" },
 ];
 
-export const DISCIPLINAS: Disciplina[] = [
+const DISCIPLINAS_RAW: Disciplina[] = [
   { nombre: "Acupuntura", categoria: "Medicina Natural e Integrativa", especialidades: ["Acupresión", "Acupuntura Tradicional China", "Acupuntura Japonesa", "Acupuntura Coreana", "Acupuntura Auricular (Auriculoterapia)", "Acupuntura Estética", "Acupuntura Pediátrica", "Electroacupuntura", "Cráneo Acupuntura", "Acupuntura del Dr. Tan", "Acupuntura Tung"] },
   { nombre: "Aromaterapia", categoria: "Medicina Natural e Integrativa", especialidades: ["Aromaterapia Científica", "Aromaterapia Energética", "Aromaterapia Emocional", "Aromaterapia Clínica", "Aromaterapia Cosmética"] },
   { nombre: "Arteterapia", categoria: "Movimiento, Expresión y Creatividad", especialidades: ["Arteterapia Plástica", "Arteterapia Infantil", "Arteterapia para Adultos", "Arteterapia Expresiva"] },
@@ -109,6 +109,19 @@ export const DISCIPLINAS: Disciplina[] = [
   { nombre: "Técnica Bowen", categoria: "Terapias Manuales y Corporales", especialidades: ["Bowen Original", "Bowen Integrativa"] },
   { nombre: "Yoga", categoria: "Movimiento, Expresión y Creatividad", especialidades: ["Hatha Yoga", "Ashtanga Yoga", "Vinyasa Yoga", "Yin Yoga", "Kundalini Yoga", "Iyengar Yoga", "Sivananda Yoga", "Jivamukti Yoga", "Yoga Integral", "Yoga Terapéutico", "Yoga Restaurativo", "Yoga Nidra", "Yoga Prenatal", "Yoga Postnatal", "Yoga Infantil", "Yoga para Mayores", "Yoga Aéreo", "Bhakti Yoga", "Karma Yoga", "Raja Yoga"] },
 ];
+
+const alfabetico = (a: string, b: string) => a.localeCompare(b, "es");
+
+/**
+ * Orden oficial de visualización en todo el proyecto:
+ * - Categorías: orden editorial de CATEGORIAS.
+ * - Disciplinas: alfabético dentro de cada categoría.
+ * - Especialidades: alfabético dentro de cada disciplina.
+ */
+export const DISCIPLINAS: Disciplina[] = DISCIPLINAS_RAW.map((d) => ({
+  ...d,
+  especialidades: [...d.especialidades].sort(alfabetico),
+})).sort((a, b) => alfabetico(a.nombre, b.nombre));
 
 /** Opción libre disponible en formularios, fuera del catálogo oficial. */
 export const OTRA_OPCION = "Otra especialidad o terapia (especificar)";
