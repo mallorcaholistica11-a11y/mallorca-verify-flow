@@ -107,7 +107,7 @@ const LIMITE_ESP_MSG =
   "Has alcanzado el número máximo de disciplinas disponibles para tu plan. Si deseas seleccionar otra, primero desmarca una de las ya seleccionadas.";
 
 const introDisciplinas = (max: number) =>
-  `Selecciona hasta ${max} disciplinas que mejor representen tu práctica profesional y ordénalas según su importancia. Después podrás concretar tus especialidades dentro de cada disciplina.`;
+  `Selecciona hasta ${max} disciplinas que mejor representen tu práctica profesional y ordénalas según su importancia. Después podrás seleccionar las especialidades que practicas dentro de cada disciplina.`;
 
 const boxStyle = {
   border: "1px dashed #888",
@@ -269,7 +269,7 @@ export function EspecialidadesPicker({
 
       {selected.length > 0 && (
         <div style={{ ...boxStyle, marginBottom: 16 }}>
-          <div style={rotuloStyle}>Tus especialidades dentro de cada disciplina</div>
+          <div style={rotuloStyle}>Selecciona las especialidades que practicas.</div>
           <div style={{ fontSize: 12, color: "#555", marginBottom: 10, lineHeight: 1.5 }}>
             Opcional. Marca las especialidades concretas que practicas para que las personas te
             encuentren con mayor precisión.
