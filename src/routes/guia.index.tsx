@@ -3,22 +3,22 @@ import { useMemo, useState } from "react";
 import { Placeholder } from "@/components/ficha/primitives";
 import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
-import { CATEGORIAS_ESPECIALIDADES } from "@/components/TaxonomiaPickers";
+import { CATEGORIAS_CON_DISCIPLINAS, especialidadesDe } from "@/data/catalogo";
 
 export const Route = createFileRoute("/guia/")({
   head: () => ({
     meta: [
-      { title: "Guía de Especialidades y Terapias — Mallorca Holística" },
+      { title: "Guía de Terapias y Disciplinas — Mallorca Holística" },
       {
         name: "description",
         content:
-          "Explora las especialidades y terapias complementarias de Mallorca Holística y descubre en qué consiste cada una.",
+          "Explora las disciplinas y especialidades del catálogo oficial de Mallorca Holística y descubre en qué consiste cada una.",
       },
-      { property: "og:title", content: "Guía de Especialidades y Terapias — Mallorca Holística" },
+      { property: "og:title", content: "Guía de Terapias y Disciplinas — Mallorca Holística" },
       {
         property: "og:description",
         content:
-          "Una guía abierta para descubrir terapias complementarias y salud integrativa, categoría a categoría.",
+          "Una guía abierta para descubrir disciplinas y especialidades de salud integrativa, categoría a categoría.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -52,12 +52,22 @@ function GuiaEspecialidades() {
   const [query, setQuery] = useState("");
 
   const grupos = useMemo(() => {
+    const base = CATEGORIAS_CON_DISCIPLINAS.map((c) => ({
+      categoria: `${c.emoji} ${c.categoria}`,
+      disciplinas: c.disciplinas.map((d) => d.nombre),
+    }));
     const q = normaliza(query.trim());
-    if (!q) return CATEGORIAS_ESPECIALIDADES;
-    return CATEGORIAS_ESPECIALIDADES.map((g) => ({
-      categoria: g.categoria,
-      especialidades: g.especialidades.filter((e) => normaliza(e).includes(q)),
-    })).filter((g) => g.especialidades.length > 0);
+    if (!q) return base;
+    // La búsqueda también encuentra disciplinas a través de sus especialidades.
+    return base
+      .map((g) => ({
+        categoria: g.categoria,
+        disciplinas: g.disciplinas.filter(
+          (d) =>
+            normaliza(d).includes(q) || especialidadesDe(d).some((e) => normaliza(e).includes(q)),
+        ),
+      }))
+      .filter((g) => g.disciplinas.length > 0);
   }, [query]);
 
   return (
@@ -85,15 +95,15 @@ function GuiaEspecialidades() {
           >
             <div>
               <h1 style={{ fontSize: isMobile ? 22 : 26, margin: "0 0 12px 0", lineHeight: 1.3 }}>
-                Guía de Especialidades y Terapias
+                Guía de Terapias y Disciplinas
               </h1>
               <p style={{ fontSize: 14, lineHeight: 1.7, margin: "0 0 10px 0" }}>
-                Explora las diferentes terapias y descubre en qué consiste cada una. Haz clic en la
-                especialidad que te interese para acceder a su guía completa.
+                Explora las diferentes disciplinas y descubre en qué consiste cada una. Haz clic en
+                la que te interese para acceder a su guía completa y a sus especialidades.
               </p>
               <p style={{ fontSize: 12, lineHeight: 1.7, color: "#666", margin: 0 }}>
                 Estamos ampliando esta guía de forma progresiva para ofrecer información clara y de
-                calidad sobre cada especialidad y terapia.
+                calidad sobre cada disciplina y especialidad.
               </p>
             </div>
             <Placeholder alto={isMobile ? 140 : 200}>
@@ -108,8 +118,8 @@ function GuiaEspecialidades() {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Buscar una especialidad o terapia..."
-            aria-label="Buscar una especialidad o terapia"
+            placeholder="Buscar una disciplina o especialidad..."
+            aria-label="Buscar una disciplina o especialidad"
             style={{
               width: "100%",
               border: "1px dashed #888",
@@ -127,8 +137,8 @@ function GuiaEspecialidades() {
         {grupos.length === 0 ? (
           <section style={{ marginBottom: 40 }}>
             <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 8px 0" }}>
-              No hemos encontrado ninguna especialidad con ese nombre. Prueba con otro término o
-              explora las categorías disponibles.
+              No hemos encontrado ninguna disciplina ni especialidad con ese nombre. Prueba con otro
+              término o explora las categorías disponibles.
             </p>
             <button
               type="button"
@@ -144,7 +154,7 @@ function GuiaEspecialidades() {
                 cursor: "pointer",
               }}
             >
-              Ver todas las especialidades
+              Ver todas las disciplinas
             </button>
           </section>
         ) : (
@@ -164,7 +174,7 @@ function GuiaEspecialidades() {
                 {g.categoria}
               </h2>
               <div className="guia-grid">
-                {g.especialidades.map((e) => (
+                {g.disciplinas.map((e) => (
                   <Link
                     key={e}
                     to="/guia/$slug"
@@ -236,7 +246,7 @@ function GuiaEspecialidades() {
           textAlign: "center",
         }}
       >
-        Wireframe funcional · Guía de Especialidades y Terapias · sin diseño visual definitivo
+        Wireframe funcional · Guía de Terapias y Disciplinas · sin diseño visual definitivo
       </footer>
     </div>
   );
