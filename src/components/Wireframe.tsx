@@ -30,18 +30,13 @@ export function WireframeShell({
         </Link>
         <nav style={{ display: "flex", gap: 16, fontSize: 12 }}>
           <Link to="/" style={linkStyle}>Inicio</Link>
-          <Link to="/soy-profesional" style={linkStyle}>Soy profesional</Link>
-          <Link to="/plan-presencia" style={linkStyle}>Plan Presencia</Link>
-          <Link to="/profesional-fundador" style={linkStyle}>Profesional Verificado</Link>
-          <Link to="/comunidad-fundadora-organizaciones" style={linkStyle}>Centros & Organizadores</Link>
-          <Link to="/profesional/$slug" params={{ slug: "lucia-gelabert" }} style={linkStyle}>Ficha pública Verificada</Link>
-          <Link to="/profesional-free/$slug" params={{ slug: "marta-ferrer" }} style={linkStyle}>Profesional Free</Link>
-          <Link to="/centro/$slug" params={{ slug: "espai-sa-font" }} style={linkStyle}>Centro Verificado</Link>
-          <Link to="/centro-free/$slug" params={{ slug: "casa-serena" }} style={linkStyle}>Centro Free</Link>
-          <Link to="/home-mvp" style={linkStyle}>Home MVP</Link>
-          <Link to="/directorio" style={linkStyle}>Directorio</Link>
-          <Link to="/guia" style={linkStyle}>Guía de Especialidades y Terapias</Link>
+          <Link to="/directorio" style={linkStyle}>Directorio de Profesionales</Link>
+          <Link to="/guia" style={linkStyle}>Guía de Terapias</Link>
           <Link to="/agenda" style={linkStyle}>Agenda de Actividades</Link>
+          <Link to="/blog" style={linkStyle}>Blog</Link>
+          <Link to="/nuestra-mirada" style={linkStyle}>Nuestra Mirada</Link>
+          <Link to="/soy-profesional" style={linkStyle}>Soy profesional</Link>
+          <Link to="/inicio-tecnico" style={linkStyle}>Índice técnico</Link>
         </nav>
       </header>
 

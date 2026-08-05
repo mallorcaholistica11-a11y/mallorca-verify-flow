@@ -116,8 +116,8 @@ const RESULTADOS: Resultado[] = [
 ];
 
 const DESCUBRE = [
-  { titulo: "📅 Agenda de Actividades", enlace: "Ver agenda →" },
-  { titulo: "📖 Guía de Terapias", enlace: "Explorar guía →" },
+  { titulo: "📅 Agenda de Actividades", enlace: "Ver agenda →", to: "/agenda" },
+  { titulo: "📖 Guía de Terapias", enlace: "Explorar guía →", to: "/guia" },
 ];
 
 function Directorio() {
@@ -317,7 +317,9 @@ function Resultados({ isMobile }: { isMobile: boolean }) {
             {DESCUBRE.map((d) => (
               <div key={d.titulo} style={{ border: "1px dashed #888", background: "#fff", padding: 16 }}>
                 <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 14 }}>{d.titulo}</div>
-                <div style={{ fontSize: 12, color: "#555" }}>{d.enlace}</div>
+                <Link to={d.to as never} style={{ fontSize: 12, color: "#555" }}>
+                  {d.enlace}
+                </Link>
               </div>
             ))}
           </div>
@@ -325,7 +327,7 @@ function Resultados({ isMobile }: { isMobile: boolean }) {
       </div>
 
       <div style={{ marginTop: 40, fontSize: 11, color: "#888" }}>
-        <Link to="/" style={{ color: "#888" }}>
+        <Link to="/inicio-tecnico" style={{ color: "#888" }}>
           ← Volver al índice del wireframe
         </Link>
       </div>
