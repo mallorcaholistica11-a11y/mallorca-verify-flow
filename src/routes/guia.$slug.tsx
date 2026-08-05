@@ -27,6 +27,21 @@ export const Route = createFileRoute("/guia/$slug")({
 
 const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
 
+/**
+ * Arquitectura oficial de la Base de Conocimiento:
+ *   Categoría → Disciplina → Especialidad
+ *
+ * Evolución futura de esta página de disciplina (aún NO implementada):
+ *   1. Introducción
+ *   2. Qué es esta disciplina
+ *   3. Especialidades relacionadas
+ *   4. Profesionales que la ofrecen
+ *   5. Actividades relacionadas
+ *   6. Artículos relacionados
+ * Cualquier bloque nuevo debe alimentarse de src/data/catalogo.ts.
+ * No crear listas paralelas ni nuevas estructuras de taxonomía.
+ */
+
 function FichaEspecialidad() {
   const { slug } = Route.useParams();
   const isMobile = useMobile(900);
