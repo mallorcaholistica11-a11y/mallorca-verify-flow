@@ -230,7 +230,7 @@ function FormularioBase() {
         ? current.sections.map((sec) => (
             <Box key={sec.title} title={sec.title}>
               {sec.note && <Note>{sec.note}</Note>}
-              {sec.title === "Especialidades y Terapias" ? (
+              {sec.title === "Disciplinas y Especialidades" ? (
                 <EspecialidadesPicker max={10} variant="profesional" />
               ) : sec.title === "Áreas de Especialización" ? (
                 <AreasPicker variant="profesional" />
@@ -429,7 +429,7 @@ function PresenciaStep({
   if (step === 2) {
     return (
       <>
-        <Box title={isOrg ? "Servicios, terapias y actividades" : "Especialidades y Terapias"}>
+        <Box title={isOrg ? "Servicios, terapias y actividades" : "Disciplinas y Especialidades"}>
           <EspecialidadesPicker max={3} variant="profesional" />
         </Box>
         <Box title={isOrg ? "Áreas de especialización del centro" : "Áreas de especialización"}>
@@ -2328,7 +2328,7 @@ function VerificadoFormulario() {
 
       {step === 2 && (
         <div style={{ display: "flex", flexDirection: "column", gap: isOrg ? 0 : 12 }}>
-          <Box title="Especialidades y Terapias">
+          <Box title="Disciplinas y Especialidades">
             <EspecialidadesPicker max={10} variant={isOrg ? "organizacion" : "profesional"} />
           </Box>
           <Box title="Áreas de Especialización">
@@ -3160,7 +3160,7 @@ function PresenciaOrganizacionFormulario() {
 
       {step === 2 && (
         <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-          <Box title="Especialidades y Terapias">
+          <Box title="Disciplinas y Especialidades">
             <EspecialidadesPicker max={3} variant="organizacion" />
           </Box>
           <Box title="Áreas de Especialización">
@@ -3470,7 +3470,7 @@ function PresenciaProfesionalFormulario() {
 
       {step === 2 && (
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          <Box title="Especialidades y Terapias">
+          <Box title="Disciplinas y Especialidades">
             <EspecialidadesPicker max={3} variant="profesional" />
           </Box>
           <Box title="Áreas de Especialización">

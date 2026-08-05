@@ -8,7 +8,7 @@ import {
 } from "@/data/especialidades-contenido";
 import { especialidadesDe } from "@/data/catalogo";
 
-// Plantilla Oficial · Especialidades y Terapias.
+// Plantilla Oficial · Disciplinas y Especialidades.
 // Una única plantilla reutilizable: solo cambian los datos.
 
 const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
@@ -40,7 +40,7 @@ export function PlantillaEspecialidad({
         }}
       >
         <Link to="/guia" style={{ fontSize: 12, color: "#666" }}>
-          ← Volver a la Guía de Terapias
+          ← Volver a la Guía de Disciplinas y Especialidades
         </Link>
 
         {/* Hero */}

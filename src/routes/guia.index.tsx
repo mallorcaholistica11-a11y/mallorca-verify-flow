@@ -8,13 +8,13 @@ import { CATEGORIAS_CON_DISCIPLINAS, especialidadesDe } from "@/data/catalogo";
 export const Route = createFileRoute("/guia/")({
   head: () => ({
     meta: [
-      { title: "Guía de Terapias y Disciplinas — Mallorca Holística" },
+      { title: "Guía de Disciplinas y Especialidades — Mallorca Holística" },
       {
         name: "description",
         content:
           "Explora las disciplinas y especialidades del catálogo oficial de Mallorca Holística y descubre en qué consiste cada una.",
       },
-      { property: "og:title", content: "Guía de Terapias y Disciplinas — Mallorca Holística" },
+      { property: "og:title", content: "Guía de Disciplinas y Especialidades — Mallorca Holística" },
       {
         property: "og:description",
         content:
@@ -80,7 +80,7 @@ function GuiaEspecialidades() {
         .guia-link:hover { color: #000; text-decoration: underline; text-decoration-color: #bbb; text-underline-offset: 3px; }
       `}</style>
 
-      <NavPublica isMobile={isMobile} activo="Guía de Terapias" />
+      <NavPublica isMobile={isMobile} activo="Guía de Disciplinas y Especialidades" />
 
       <main style={{ maxWidth: 1080, margin: "0 auto", padding: isMobile ? "0 16px" : "0 24px" }}>
         {/* Hero */}
@@ -95,7 +95,7 @@ function GuiaEspecialidades() {
           >
             <div>
               <h1 style={{ fontSize: isMobile ? 22 : 26, margin: "0 0 12px 0", lineHeight: 1.3 }}>
-                Guía de Terapias y Disciplinas
+                Guía de Disciplinas y Especialidades
               </h1>
               <p style={{ fontSize: 14, lineHeight: 1.7, margin: "0 0 10px 0" }}>
                 Explora las diferentes disciplinas y descubre en qué consiste cada una. Haz clic en
@@ -246,7 +246,7 @@ function GuiaEspecialidades() {
           textAlign: "center",
         }}
       >
-        Wireframe funcional · Guía de Terapias y Disciplinas · sin diseño visual definitivo
+        Wireframe funcional · Guía de Disciplinas y Especialidades · sin diseño visual definitivo
       </footer>
     </div>
   );
