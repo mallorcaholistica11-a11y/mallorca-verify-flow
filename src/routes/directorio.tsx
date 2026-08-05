@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import type { CSSProperties, ReactNode } from "react";
 import { Chips, Placeholder, Seccion } from "@/components/ficha/primitives";
 import { useMobile } from "@/components/ficha/useMobile";
+import { NavPublica } from "@/components/NavPublica";
 import { ESPECIALIDADES_OFICIALES, MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
 
 export const Route = createFileRoute("/directorio")({
@@ -28,14 +29,6 @@ export const Route = createFileRoute("/directorio")({
 
 const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
 
-const NAV = [
-  "Inicio",
-  "Directorio de Profesionales",
-  "Guía de Terapias",
-  "Agenda de Actividades",
-  "Blog",
-  "Nuestra Mirada",
-];
 
 const MUNICIPIOS = ["Todos los municipios", ...MUNICIPIOS_MALLORCA];
 
@@ -123,8 +116,8 @@ const RESULTADOS: Resultado[] = [
 ];
 
 const DESCUBRE = [
-  { titulo: "📅 Agenda de Actividades", enlace: "Ver agenda →" },
-  { titulo: "📖 Guía de Terapias", enlace: "Explorar guía →" },
+  { titulo: "📅 Agenda de Actividades", enlace: "Ver agenda →", to: "/agenda" },
+  { titulo: "📖 Guía de Terapias", enlace: "Explorar guía →", to: "/guia" },
 ];
 
 function Directorio() {
@@ -132,7 +125,7 @@ function Directorio() {
 
   return (
     <div style={{ fontFamily: MONO, background: "#fafafa", color: "#111", minHeight: "100vh" }}>
-      <HeaderPublico isMobile={isMobile} />
+      <NavPublica isMobile={isMobile} activo="Directorio de Profesionales" />
 
       <main style={{ maxWidth: 1080, margin: "0 auto", padding: isMobile ? "0 16px" : "0 24px" }}>
         <Hero isMobile={isMobile} />
@@ -156,85 +149,6 @@ function Directorio() {
     </div>
   );
 }
-
-/* ---------- Header público (misma composición que la Home) ---------- */
-
-function HeaderPublico({ isMobile }: { isMobile: boolean }) {
-  return (
-    <header
-      style={{
-        borderBottom: "1px dashed #999",
-        background: "#fff",
-        padding: isMobile ? "12px 16px" : "14px 24px",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 1080,
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "minmax(0,1fr) auto",
-          alignItems: "center",
-          gap: 16,
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: 16, minWidth: 0, flexWrap: "wrap" }}>
-          <span style={{ fontWeight: 600, fontSize: 13, whiteSpace: "nowrap" }}>
-            [LOGO] Mallorca Holística
-          </span>
-          {!isMobile && (
-            <nav style={{ display: "flex", gap: 10, flexWrap: "wrap", fontSize: 12 }}>
-              {NAV.map((n) => (
-                <span key={n} style={{ color: n === "Directorio de Profesionales" ? "#111" : "#555" }}>
-                  {n}
-                </span>
-              ))}
-            </nav>
-          )}
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
-          <span
-            style={{
-              border: "1px solid #2f5d3a",
-              background: "#2f5d3a",
-              color: "#fff",
-              padding: "8px 14px",
-              fontSize: 12,
-              borderRadius: 999,
-              whiteSpace: "nowrap",
-            }}
-          >
-            Soy profesional
-          </span>
-          <span
-            aria-hidden
-            style={{
-              width: 32,
-              height: 32,
-              borderRadius: "50%",
-              border: "1px dashed #888",
-              display: "grid",
-              placeItems: "center",
-              fontSize: 12,
-              color: "#666",
-            }}
-          >
-            ☺
-          </span>
-        </div>
-      </div>
-      {isMobile && (
-        <nav style={{ display: "flex", gap: 8, flexWrap: "wrap", fontSize: 11, marginTop: 10, color: "#555" }}>
-          {NAV.map((n) => (
-            <span key={n}>{n}</span>
-          ))}
-        </nav>
-      )}
-    </header>
-  );
-}
-
-/* ---------- Bloques ---------- */
 
 function Bloque({ children, top = 56 }: { children: ReactNode; top?: number }) {
   return <section style={{ padding: `${top}px 0` }}>{children}</section>;
@@ -403,7 +317,9 @@ function Resultados({ isMobile }: { isMobile: boolean }) {
             {DESCUBRE.map((d) => (
               <div key={d.titulo} style={{ border: "1px dashed #888", background: "#fff", padding: 16 }}>
                 <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 14 }}>{d.titulo}</div>
-                <div style={{ fontSize: 12, color: "#555" }}>{d.enlace}</div>
+                <Link to={d.to as never} style={{ fontSize: 12, color: "#555" }}>
+                  {d.enlace}
+                </Link>
               </div>
             ))}
           </div>
@@ -411,7 +327,7 @@ function Resultados({ isMobile }: { isMobile: boolean }) {
       </div>
 
       <div style={{ marginTop: 40, fontSize: 11, color: "#888" }}>
-        <Link to="/" style={{ color: "#888" }}>
+        <Link to="/inicio-tecnico" style={{ color: "#888" }}>
           ← Volver al índice del wireframe
         </Link>
       </div>

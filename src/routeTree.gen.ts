@@ -12,8 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SoyProfesionalRouteImport } from './routes/soy-profesional'
 import { Route as ProfesionalFundadorRouteImport } from './routes/profesional-fundador'
 import { Route as PlanPresenciaRouteImport } from './routes/plan-presencia'
+import { Route as NuestraMiradaRouteImport } from './routes/nuestra-mirada'
 import { Route as MiEspacioRouteImport } from './routes/mi-espacio'
 import { Route as ListaEsperaRouteImport } from './routes/lista-espera'
+import { Route as InicioTecnicoRouteImport } from './routes/inicio-tecnico'
 import { Route as HomeMvpRouteImport } from './routes/home-mvp'
 import { Route as DirectorioRouteImport } from './routes/directorio'
 import { Route as DashboardRouteImport } from './routes/dashboard'
@@ -22,6 +24,7 @@ import { Route as ComunidadFundadoraCentrosRouteImport } from './routes/comunida
 import { Route as ComunidadFundadoraBienvenidaRouteImport } from './routes/comunidad-fundadora-bienvenida'
 import { Route as ComunidadFundadoraAccesoRouteImport } from './routes/comunidad-fundadora-acceso'
 import { Route as ComunidadFundadoraRouteImport } from './routes/comunidad-fundadora'
+import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AgendaRouteImport } from './routes/agenda'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as MiEspacioIndexRouteImport } from './routes/mi-espacio.index'
@@ -64,6 +67,11 @@ const PlanPresenciaRoute = PlanPresenciaRouteImport.update({
   path: '/plan-presencia',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NuestraMiradaRoute = NuestraMiradaRouteImport.update({
+  id: '/nuestra-mirada',
+  path: '/nuestra-mirada',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MiEspacioRoute = MiEspacioRouteImport.update({
   id: '/mi-espacio',
   path: '/mi-espacio',
@@ -72,6 +80,11 @@ const MiEspacioRoute = MiEspacioRouteImport.update({
 const ListaEsperaRoute = ListaEsperaRouteImport.update({
   id: '/lista-espera',
   path: '/lista-espera',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InicioTecnicoRoute = InicioTecnicoRouteImport.update({
+  id: '/inicio-tecnico',
+  path: '/inicio-tecnico',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HomeMvpRoute = HomeMvpRouteImport.update({
@@ -116,6 +129,11 @@ const ComunidadFundadoraAccesoRoute =
 const ComunidadFundadoraRoute = ComunidadFundadoraRouteImport.update({
   id: '/comunidad-fundadora',
   path: '/comunidad-fundadora',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AgendaRoute = AgendaRouteImport.update({
@@ -258,6 +276,7 @@ const MiEspacioActividadesNuevaRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agenda': typeof AgendaRoute
+  '/blog': typeof BlogRoute
   '/comunidad-fundadora': typeof ComunidadFundadoraRoute
   '/comunidad-fundadora-acceso': typeof ComunidadFundadoraAccesoRoute
   '/comunidad-fundadora-bienvenida': typeof ComunidadFundadoraBienvenidaRoute
@@ -266,8 +285,10 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRouteWithChildren
   '/directorio': typeof DirectorioRoute
   '/home-mvp': typeof HomeMvpRoute
+  '/inicio-tecnico': typeof InicioTecnicoRoute
   '/lista-espera': typeof ListaEsperaRoute
   '/mi-espacio': typeof MiEspacioRouteWithChildren
+  '/nuestra-mirada': typeof NuestraMiradaRoute
   '/plan-presencia': typeof PlanPresenciaRoute
   '/profesional-fundador': typeof ProfesionalFundadorRoute
   '/soy-profesional': typeof SoyProfesionalRoute
@@ -299,6 +320,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/agenda': typeof AgendaRoute
+  '/blog': typeof BlogRoute
   '/comunidad-fundadora': typeof ComunidadFundadoraRoute
   '/comunidad-fundadora-acceso': typeof ComunidadFundadoraAccesoRoute
   '/comunidad-fundadora-bienvenida': typeof ComunidadFundadoraBienvenidaRoute
@@ -307,7 +329,9 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRouteWithChildren
   '/directorio': typeof DirectorioRoute
   '/home-mvp': typeof HomeMvpRoute
+  '/inicio-tecnico': typeof InicioTecnicoRoute
   '/lista-espera': typeof ListaEsperaRoute
+  '/nuestra-mirada': typeof NuestraMiradaRoute
   '/plan-presencia': typeof PlanPresenciaRoute
   '/profesional-fundador': typeof ProfesionalFundadorRoute
   '/soy-profesional': typeof SoyProfesionalRoute
@@ -339,6 +363,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/agenda': typeof AgendaRoute
+  '/blog': typeof BlogRoute
   '/comunidad-fundadora': typeof ComunidadFundadoraRoute
   '/comunidad-fundadora-acceso': typeof ComunidadFundadoraAccesoRoute
   '/comunidad-fundadora-bienvenida': typeof ComunidadFundadoraBienvenidaRoute
@@ -347,8 +372,10 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRouteWithChildren
   '/directorio': typeof DirectorioRoute
   '/home-mvp': typeof HomeMvpRoute
+  '/inicio-tecnico': typeof InicioTecnicoRoute
   '/lista-espera': typeof ListaEsperaRoute
   '/mi-espacio': typeof MiEspacioRouteWithChildren
+  '/nuestra-mirada': typeof NuestraMiradaRoute
   '/plan-presencia': typeof PlanPresenciaRoute
   '/profesional-fundador': typeof ProfesionalFundadorRoute
   '/soy-profesional': typeof SoyProfesionalRoute
@@ -382,6 +409,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/agenda'
+    | '/blog'
     | '/comunidad-fundadora'
     | '/comunidad-fundadora-acceso'
     | '/comunidad-fundadora-bienvenida'
@@ -390,8 +418,10 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/directorio'
     | '/home-mvp'
+    | '/inicio-tecnico'
     | '/lista-espera'
     | '/mi-espacio'
+    | '/nuestra-mirada'
     | '/plan-presencia'
     | '/profesional-fundador'
     | '/soy-profesional'
@@ -423,6 +453,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/agenda'
+    | '/blog'
     | '/comunidad-fundadora'
     | '/comunidad-fundadora-acceso'
     | '/comunidad-fundadora-bienvenida'
@@ -431,7 +462,9 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/directorio'
     | '/home-mvp'
+    | '/inicio-tecnico'
     | '/lista-espera'
+    | '/nuestra-mirada'
     | '/plan-presencia'
     | '/profesional-fundador'
     | '/soy-profesional'
@@ -462,6 +495,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/agenda'
+    | '/blog'
     | '/comunidad-fundadora'
     | '/comunidad-fundadora-acceso'
     | '/comunidad-fundadora-bienvenida'
@@ -470,8 +504,10 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/directorio'
     | '/home-mvp'
+    | '/inicio-tecnico'
     | '/lista-espera'
     | '/mi-espacio'
+    | '/nuestra-mirada'
     | '/plan-presencia'
     | '/profesional-fundador'
     | '/soy-profesional'
@@ -504,6 +540,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AgendaRoute: typeof AgendaRoute
+  BlogRoute: typeof BlogRoute
   ComunidadFundadoraRoute: typeof ComunidadFundadoraRoute
   ComunidadFundadoraAccesoRoute: typeof ComunidadFundadoraAccesoRoute
   ComunidadFundadoraBienvenidaRoute: typeof ComunidadFundadoraBienvenidaRoute
@@ -512,8 +549,10 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRouteWithChildren
   DirectorioRoute: typeof DirectorioRoute
   HomeMvpRoute: typeof HomeMvpRoute
+  InicioTecnicoRoute: typeof InicioTecnicoRoute
   ListaEsperaRoute: typeof ListaEsperaRoute
   MiEspacioRoute: typeof MiEspacioRouteWithChildren
+  NuestraMiradaRoute: typeof NuestraMiradaRoute
   PlanPresenciaRoute: typeof PlanPresenciaRoute
   ProfesionalFundadorRoute: typeof ProfesionalFundadorRoute
   SoyProfesionalRoute: typeof SoyProfesionalRoute
@@ -554,6 +593,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlanPresenciaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nuestra-mirada': {
+      id: '/nuestra-mirada'
+      path: '/nuestra-mirada'
+      fullPath: '/nuestra-mirada'
+      preLoaderRoute: typeof NuestraMiradaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mi-espacio': {
       id: '/mi-espacio'
       path: '/mi-espacio'
@@ -566,6 +612,13 @@ declare module '@tanstack/react-router' {
       path: '/lista-espera'
       fullPath: '/lista-espera'
       preLoaderRoute: typeof ListaEsperaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inicio-tecnico': {
+      id: '/inicio-tecnico'
+      path: '/inicio-tecnico'
+      fullPath: '/inicio-tecnico'
+      preLoaderRoute: typeof InicioTecnicoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/home-mvp': {
@@ -622,6 +675,13 @@ declare module '@tanstack/react-router' {
       path: '/comunidad-fundadora'
       fullPath: '/comunidad-fundadora'
       preLoaderRoute: typeof ComunidadFundadoraRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/agenda': {
@@ -865,6 +925,7 @@ const MiEspacioRouteWithChildren = MiEspacioRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgendaRoute: AgendaRoute,
+  BlogRoute: BlogRoute,
   ComunidadFundadoraRoute: ComunidadFundadoraRoute,
   ComunidadFundadoraAccesoRoute: ComunidadFundadoraAccesoRoute,
   ComunidadFundadoraBienvenidaRoute: ComunidadFundadoraBienvenidaRoute,
@@ -873,8 +934,10 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRouteWithChildren,
   DirectorioRoute: DirectorioRoute,
   HomeMvpRoute: HomeMvpRoute,
+  InicioTecnicoRoute: InicioTecnicoRoute,
   ListaEsperaRoute: ListaEsperaRoute,
   MiEspacioRoute: MiEspacioRouteWithChildren,
+  NuestraMiradaRoute: NuestraMiradaRoute,
   PlanPresenciaRoute: PlanPresenciaRoute,
   ProfesionalFundadorRoute: ProfesionalFundadorRoute,
   SoyProfesionalRoute: SoyProfesionalRoute,

@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import type { CSSProperties, ReactNode } from "react";
 import { useMemo, useState } from "react";
 import { useMobile } from "@/components/ficha/useMobile";
+import { NavPublica } from "@/components/NavPublica";
 import { ESPECIALIDADES_OFICIALES, MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
 
 export const Route = createFileRoute("/agenda")({
@@ -28,14 +29,6 @@ export const Route = createFileRoute("/agenda")({
 
 const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
 
-const NAV = [
-  "Inicio",
-  "Directorio de Profesionales",
-  "Guía de Especialidades y Terapias",
-  "Agenda de Actividades",
-  "Blog",
-  "Nuestra Mirada",
-];
 
 const MODALIDADES = ["Presencial", "Online", "Híbrida"];
 const IDIOMAS = ["Español", "Català", "English", "Deutsch"];
@@ -150,7 +143,7 @@ function Agenda() {
 
   return (
     <div style={{ fontFamily: MONO, background: "#fafafa", color: "#111", minHeight: "100vh" }}>
-      <HeaderPublico isMobile={isMobile} />
+      <NavPublica isMobile={isMobile} activo="Agenda de Actividades" />
 
       <main style={{ maxWidth: 1080, margin: "0 auto", padding: isMobile ? "0 16px" : "0 24px" }}>
         <Hero isMobile={isMobile} />
@@ -172,83 +165,6 @@ function Agenda() {
         Wireframe funcional · Agenda de Actividades · sin diseño visual definitivo
       </footer>
     </div>
-  );
-}
-
-/* ---------- Header público (mismo que Directorio) ---------- */
-
-function HeaderPublico({ isMobile }: { isMobile: boolean }) {
-  return (
-    <header
-      style={{
-        borderBottom: "1px dashed #999",
-        background: "#fff",
-        padding: isMobile ? "12px 16px" : "14px 24px",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 1080,
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "minmax(0,1fr) auto",
-          alignItems: "center",
-          gap: 16,
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: 16, minWidth: 0, flexWrap: "wrap" }}>
-          <span style={{ fontWeight: 600, fontSize: 13, whiteSpace: "nowrap" }}>
-            [LOGO] Mallorca Holística
-          </span>
-          {!isMobile && (
-            <nav style={{ display: "flex", gap: 10, flexWrap: "wrap", fontSize: 12 }}>
-              {NAV.map((n) => (
-                <span key={n} style={{ color: n === "Agenda de Actividades" ? "#111" : "#555" }}>
-                  {n}
-                </span>
-              ))}
-            </nav>
-          )}
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
-          <span
-            style={{
-              border: "1px solid #2f5d3a",
-              background: "#2f5d3a",
-              color: "#fff",
-              padding: "8px 14px",
-              fontSize: 12,
-              borderRadius: 999,
-              whiteSpace: "nowrap",
-            }}
-          >
-            Soy profesional
-          </span>
-          <span
-            aria-hidden
-            style={{
-              width: 32,
-              height: 32,
-              borderRadius: "50%",
-              border: "1px dashed #888",
-              display: "grid",
-              placeItems: "center",
-              fontSize: 12,
-              color: "#666",
-            }}
-          >
-            ☺
-          </span>
-        </div>
-      </div>
-      {isMobile && (
-        <nav style={{ display: "flex", gap: 8, flexWrap: "wrap", fontSize: 11, marginTop: 10, color: "#555" }}>
-          {NAV.map((n) => (
-            <span key={n}>{n}</span>
-          ))}
-        </nav>
-      )}
-    </header>
   );
 }
 
