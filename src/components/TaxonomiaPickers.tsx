@@ -104,11 +104,30 @@ export const CATEGORIAS_DISCIPLINAS: { categoria: string; disciplinas: string[] 
   }));
 
 const LIMITE_ESP_MSG =
-  "Has alcanzado el número máximo de especialidades disponibles para tu plan. Si deseas seleccionar otra, primero desmarca una de las ya seleccionadas.";
+  "Has alcanzado el número máximo de disciplinas disponibles para tu plan. Si deseas seleccionar otra, primero desmarca una de las ya seleccionadas.";
 
-const introEspecialidades = (max: number) =>
-  `Selecciona hasta ${max} especialidades o terapias que mejor representen tu práctica profesional y ordénalas según su importancia.`;
+const introDisciplinas = (max: number) =>
+  `Selecciona hasta ${max} disciplinas que mejor representen tu práctica profesional y ordénalas según su importancia. Después podrás concretar tus especialidades dentro de cada disciplina.`;
 
+const boxStyle = {
+  border: "1px dashed #888",
+  background: "#fff",
+  padding: "10px 12px",
+} as const;
+
+const rotuloStyle = {
+  fontSize: 11,
+  color: "#666",
+  textTransform: "uppercase",
+  letterSpacing: 1,
+  marginBottom: 6,
+} as const;
+
+/**
+ * Selector encadenado Disciplina → Especialidad del Catálogo Oficial.
+ * El profesional elige primero sus disciplinas y, dentro de cada una,
+ * las especialidades concretas que practica.
+ */
 export function EspecialidadesPicker({
   max = DEFAULT_MAX_ESPECIALIDADES,
   note,
@@ -119,22 +138,30 @@ export function EspecialidadesPicker({
 }) {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
+  const [especialidades, setEspecialidades] = useState<Record<string, string[]>>({});
   const [warning, setWarning] = useState<string | null>(null);
   const [dragIndex, setDragIndex] = useState<number | null>(null);
   const [propuesta, setPropuesta] = useState("");
   const hasMax = max > 0;
-  const displayNote = note === null ? null : (note ?? (hasMax ? introEspecialidades(max) : null));
+  const displayNote = note === null ? null : (note ?? (hasMax ? introDisciplinas(max) : null));
 
   const q = query.trim().toLowerCase();
-  const grupos = CATEGORIAS_ESPECIALIDADES.map((g) => ({
+  const grupos = CATEGORIAS_DISCIPLINAS.map((g) => ({
     categoria: g.categoria,
-    especialidades:
-      q === "" ? g.especialidades : g.especialidades.filter((e) => e.toLowerCase().includes(q)),
-  })).filter((g) => g.especialidades.length > 0);
+    disciplinas:
+      q === ""
+        ? g.disciplinas
+        : g.disciplinas.filter(
+            (d) =>
+              d.toLowerCase().includes(q) ||
+              especialidadesDe(d).some((e) => e.toLowerCase().includes(q)),
+          ),
+  })).filter((g) => g.disciplinas.length > 0);
 
   const toggle = (item: string) => {
     if (selected.includes(item)) {
       setSelected(selected.filter((s) => s !== item));
+      setEspecialidades(({ [item]: _quitada, ...resto }) => resto);
       setWarning(null);
       return;
     }
@@ -144,6 +171,18 @@ export function EspecialidadesPicker({
     }
     setSelected([...selected, item]);
     setWarning(null);
+  };
+
+  const toggleEspecialidad = (disciplina: string, esp: string) => {
+    setEspecialidades((prev) => {
+      const actuales = prev[disciplina] ?? [];
+      return {
+        ...prev,
+        [disciplina]: actuales.includes(esp)
+          ? actuales.filter((e) => e !== esp)
+          : [...actuales, esp],
+      };
+    });
   };
 
   const onDrop = (targetIdx: number) => {
@@ -164,7 +203,7 @@ export function EspecialidadesPicker({
       <input
         type="text"
         value={query}
-        placeholder="Buscar una terapia o especialidad…"
+        placeholder="Buscar una disciplina o especialidad…"
         onChange={(e) => setQuery(e.target.value)}
         style={{
           width: "100%",
@@ -178,25 +217,8 @@ export function EspecialidadesPicker({
         }}
       />
 
-      <div
-        style={{
-          border: "1px dashed #888",
-          background: "#fff",
-          padding: "10px 12px",
-          marginBottom: 16,
-        }}
-      >
-        <div
-          style={{
-            fontSize: 11,
-            color: "#666",
-            textTransform: "uppercase",
-            letterSpacing: 1,
-            marginBottom: 6,
-          }}
-        >
-          Especialidades seleccionadas
-        </div>
+      <div style={{ ...boxStyle, marginBottom: 16 }}>
+        <div style={rotuloStyle}>Disciplinas seleccionadas</div>
         <div style={{ fontSize: 13, marginBottom: selected.length > 0 ? 10 : 0 }}>
           {selected.length} / {hasMax ? max : "—"} seleccionadas
         </div>
@@ -245,6 +267,53 @@ export function EspecialidadesPicker({
         )}
       </div>
 
+      {selected.length > 0 && (
+        <div style={{ ...boxStyle, marginBottom: 16 }}>
+          <div style={rotuloStyle}>Tus especialidades dentro de cada disciplina</div>
+          <div style={{ fontSize: 12, color: "#555", marginBottom: 10, lineHeight: 1.5 }}>
+            Opcional. Marca las especialidades concretas que practicas para que las personas te
+            encuentren con mayor precisión.
+          </div>
+          {selected.map((d) => {
+            const lista = especialidadesDe(d);
+            return (
+              <div key={d} style={{ marginBottom: 14 }}>
+                <div style={{ fontSize: 12, fontWeight: 600, marginBottom: 6 }}>{d}</div>
+                {lista.length === 0 ? (
+                  <div style={{ fontSize: 12, color: "#999", fontStyle: "italic" }}>
+                    Esta disciplina todavía no tiene especialidades en el catálogo.
+                  </div>
+                ) : (
+                  <div className="areas-grid">
+                    {lista.map((e) => (
+                      <label
+                        key={e}
+                        style={{
+                          display: "flex",
+                          alignItems: "flex-start",
+                          gap: 8,
+                          fontSize: 13,
+                          lineHeight: 1.4,
+                          cursor: "pointer",
+                        }}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={(especialidades[d] ?? []).includes(e)}
+                          onChange={() => toggleEspecialidad(d, e)}
+                          style={{ marginTop: 2, flexShrink: 0 }}
+                        />
+                        <span>{e}</span>
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+
       {warning && (
         <div
           style={{
@@ -281,7 +350,7 @@ export function EspecialidadesPicker({
               {g.categoria}
             </div>
             <div className="areas-grid">
-              {g.especialidades.map((item) => {
+              {g.disciplinas.map((item) => {
                 const checked = selected.includes(item);
                 const bloqueada = atLimit && !checked;
                 return (
@@ -312,18 +381,8 @@ export function EspecialidadesPicker({
         ))
       )}
 
-      <div style={{ border: "1px dashed #888", background: "#fff", padding: "10px 12px" }}>
-        <div
-          style={{
-            fontSize: 11,
-            textTransform: "uppercase",
-            letterSpacing: 1,
-            color: "#666",
-            marginBottom: 6,
-          }}
-        >
-          ¿No encuentras tu especialidad o terapia?
-        </div>
+      <div style={boxStyle}>
+        <div style={rotuloStyle}>¿No encuentras tu disciplina o especialidad?</div>
         <div style={{ fontSize: 12, color: "#555", marginBottom: 8, lineHeight: 1.5 }}>
           Escríbela aquí. Revisamos periódicamente todas las propuestas para seguir ampliando y
           mejorar el catálogo de Mallorca Holística.
@@ -332,7 +391,7 @@ export function EspecialidadesPicker({
           type="text"
           value={propuesta}
           onChange={(e) => setPropuesta(e.target.value)}
-          placeholder="Escribe aquí tu especialidad o terapia…"
+          placeholder="Escribe aquí tu disciplina o especialidad…"
           style={{
             width: "100%",
             padding: "8px 10px",
