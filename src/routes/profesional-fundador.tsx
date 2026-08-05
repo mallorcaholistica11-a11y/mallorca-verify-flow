@@ -35,7 +35,7 @@ function PlanProfesionalVerificado() {
             
             <p style={{ marginTop: 16 }}><strong>Tu actividad</strong></p>
             <p>✓ Disciplinas y Especialidades ilimitadas.</p>
-            <p>✓ Áreas de Especialización ilimitadas.</p>
+            <p>✓ Áreas de Acompañamiento ilimitadas.</p>
             <p>✓ Una ubicación principal.</p>
             <p>✓ Modalidades de atención.</p>
             <p>✓ Idiomas.</p>

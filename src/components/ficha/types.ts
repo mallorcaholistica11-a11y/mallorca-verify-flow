@@ -81,7 +81,7 @@ export type FichaPublicaData = {
 };
 
 export const MAX_ESPECIALIDADES_FICHA = 15;
-export const MAX_AREAS_FICHA = 20;
+export const MAX_AREAS_FICHA = 15;
 
 export type MiembroEquipo = {
   nombre: string;

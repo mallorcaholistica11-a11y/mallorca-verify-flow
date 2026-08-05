@@ -147,7 +147,7 @@
   display: none;
 }
 
-/* Cuadrícula responsive del bloque "Áreas de Especialización" */
+/* Cuadrícula responsive del bloque "Áreas de Acompañamiento" */
 .areas-grid {
   display: grid;
   grid-template-columns: 1fr;

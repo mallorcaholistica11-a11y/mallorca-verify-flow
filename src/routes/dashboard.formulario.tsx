@@ -232,7 +232,7 @@ function FormularioBase() {
               {sec.note && <Note>{sec.note}</Note>}
               {sec.title === "Disciplinas y Especialidades" ? (
                 <EspecialidadesPicker max={10} variant="profesional" />
-              ) : sec.title === "Áreas de Especialización" ? (
+              ) : sec.title === "Áreas de Acompañamiento" ? (
                 <AreasPicker variant="profesional" />
               ) : sec.title === "Público al que acompaño" ? (
                 <PublicoCheckboxes />
@@ -432,7 +432,7 @@ function PresenciaStep({
         <Box title={isOrg ? "Servicios, terapias y actividades" : "Disciplinas y Especialidades"}>
           <EspecialidadesPicker max={3} variant="profesional" />
         </Box>
-        <Box title={isOrg ? "Áreas de especialización del centro" : "Áreas de especialización"}>
+        <Box title="Áreas de Acompañamiento">
           <AreasPicker max={5} variant="profesional" />
         </Box>
         <Box title={isOrg ? "¿A quién acompañáis?" : "¿A quién acompañas?"}>
@@ -2331,7 +2331,7 @@ function VerificadoFormulario() {
           <Box title="Disciplinas y Especialidades">
             <EspecialidadesPicker max={10} variant={isOrg ? "organizacion" : "profesional"} />
           </Box>
-          <Box title="Áreas de Especialización">
+          <Box title="Áreas de Acompañamiento">
             <AreasPicker max={15} variant={isOrg ? "organizacion" : "profesional"} />
           </Box>
           <Box title={isOrg ? "¿A quién acompañáis?" : "¿A quién acompañas?"}>
@@ -3163,7 +3163,7 @@ function PresenciaOrganizacionFormulario() {
           <Box title="Disciplinas y Especialidades">
             <EspecialidadesPicker max={3} variant="organizacion" />
           </Box>
-          <Box title="Áreas de Especialización">
+          <Box title="Áreas de Acompañamiento">
             <AreasPicker max={15} variant="organizacion" />
           </Box>
           <Box title="¿A quién acompañáis?">
@@ -3473,7 +3473,7 @@ function PresenciaProfesionalFormulario() {
           <Box title="Disciplinas y Especialidades">
             <EspecialidadesPicker max={3} variant="profesional" />
           </Box>
-          <Box title="Áreas de Especialización">
+          <Box title="Áreas de Acompañamiento">
             <AreasPicker max={5} variant="profesional" />
           </Box>
           <Box title="¿A quién acompañas?">
