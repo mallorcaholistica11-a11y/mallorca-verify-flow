@@ -97,112 +97,11 @@ export type PickerVariant = "profesional" | "organizacion";
 
 const DEFAULT_MAX_ESPECIALIDADES = 3;
 
-export const CATEGORIAS_ESPECIALIDADES: { categoria: string; especialidades: string[] }[] = [
-  {
-    categoria: "Terapias Manuales y Corporales",
-    especialidades: [
-      "Acupresión",
-      "Drenaje Linfático Manual",
-      "Fasciaterapia",
-      "Masaje Relajante",
-      "Masaje Terapéutico",
-      "Osteopatía",
-      "Quiromasaje",
-      "Reflexología",
-      "Rolfing",
-      "Shiatsu",
-      "Técnica Alexander",
-      "Terapia Craneosacral",
-    ],
-  },
-  {
-    categoria: "Medicina Natural e Integrativa",
-    especialidades: [
-      "Acupuntura",
-      "Ayurveda",
-      "Biodescodificación",
-      "Biomagnetismo",
-      "Fitoterapia",
-      "Homeopatía",
-      "Iridología",
-      "Medicina Funcional",
-      "Medicina Integrativa",
-      "Medicina Ortomolecular",
-      "Medicina Tradicional China",
-      "Naturopatía",
-    ],
-  },
-  {
-    categoria: "Nutrición y Alimentación",
-    especialidades: ["Alimentación Consciente", "Nutrición Consciente", "Nutrición Integrativa"],
-  },
-  {
-    categoria: "Psicología, Psicoterapia y Bienestar Emocional",
-    especialidades: [
-      "Coaching de Vida",
-      "Coaching Emocional",
-      "EFT (Liberación Emocional)",
-      "EMDR",
-      "Eneagrama",
-      "Gestalt",
-      "Hipnosis",
-      "Mindfulness",
-      "PNL (Programación Neurolingüística)",
-      "Psicología Integrativa",
-      "Psicoterapia",
-      "Relajación Guiada",
-      "Respiración Consciente",
-      "Terapia de Pareja",
-      "Terapia Emocional",
-      "Terapia Familiar",
-      "Terapia Somática",
-      "Terapia Transpersonal",
-    ],
-  },
-  {
-    categoria: "Energía y Espiritualidad",
-    especialidades: [
-      "Astrología Evolutiva",
-      "Astrología Terapéutica",
-      "Chi Kung (Qi Gong)",
-      "Cromoterapia",
-      "Equilibrio Energético",
-      "Flores de Bach",
-      "Meditación",
-      "Registros Akáshicos",
-      "Reiki",
-      "Sanación Energética",
-      "Sonoterapia",
-      "Yoga",
-      "Yoga Terapéutico",
-    ],
-  },
-  {
-    categoria: "Movimiento, Expresión y Creatividad",
-    especialidades: [
-      "Arteterapia",
-      "Danzaterapia",
-      "Equinoterapia",
-      "Feldenkrais",
-      "Pilates Terapéutico",
-    ],
-  },
-  {
-    categoria: "Salud Integrativa",
-    especialidades: [
-      "Dentista Holístico",
-      "Ginecología Holística",
-      "Ginecología Integrativa",
-      "Oftalmología Integrativa",
-      "Optometría Holística",
-      "Salud Bucodental",
-    ],
-  },
-  {
-    categoria: "Espacios y Otras Especialidades",
-    especialidades: ["Comunicación Animal", "Feng Shui"],
-  },
-];
+export const CATEGORIAS_DISCIPLINAS: { categoria: string; disciplinas: string[] }[] =
+  CATEGORIAS_CON_DISCIPLINAS.map((c) => ({
+    categoria: `${c.emoji} ${c.categoria}`,
+    disciplinas: c.disciplinas.map((d) => d.nombre),
+  }));
 
 const LIMITE_ESP_MSG =
   "Has alcanzado el número máximo de especialidades disponibles para tu plan. Si deseas seleccionar otra, primero desmarca una de las ya seleccionadas.";
