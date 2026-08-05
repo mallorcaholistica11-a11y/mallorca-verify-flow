@@ -14,6 +14,7 @@ import { Route as ProfesionalFundadorRouteImport } from './routes/profesional-fu
 import { Route as PlanPresenciaRouteImport } from './routes/plan-presencia'
 import { Route as MiEspacioRouteImport } from './routes/mi-espacio'
 import { Route as ListaEsperaRouteImport } from './routes/lista-espera'
+import { Route as InicioTecnicoRouteImport } from './routes/inicio-tecnico'
 import { Route as HomeMvpRouteImport } from './routes/home-mvp'
 import { Route as DirectorioRouteImport } from './routes/directorio'
 import { Route as DashboardRouteImport } from './routes/dashboard'
@@ -23,7 +24,6 @@ import { Route as ComunidadFundadoraBienvenidaRouteImport } from './routes/comun
 import { Route as ComunidadFundadoraAccesoRouteImport } from './routes/comunidad-fundadora-acceso'
 import { Route as ComunidadFundadoraRouteImport } from './routes/comunidad-fundadora'
 import { Route as AgendaRouteImport } from './routes/agenda'
-import { Route as IndexRouteImport } from './routes/index'
 import { Route as MiEspacioIndexRouteImport } from './routes/mi-espacio.index'
 import { Route as GuiaIndexRouteImport } from './routes/guia.index'
 import { Route as ProfesionalSlugRouteImport } from './routes/profesional.$slug'
@@ -74,6 +74,11 @@ const ListaEsperaRoute = ListaEsperaRouteImport.update({
   path: '/lista-espera',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InicioTecnicoRoute = InicioTecnicoRouteImport.update({
+  id: '/inicio-tecnico',
+  path: '/inicio-tecnico',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HomeMvpRoute = HomeMvpRouteImport.update({
   id: '/home-mvp',
   path: '/home-mvp',
@@ -121,11 +126,6 @@ const ComunidadFundadoraRoute = ComunidadFundadoraRouteImport.update({
 const AgendaRoute = AgendaRouteImport.update({
   id: '/agenda',
   path: '/agenda',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MiEspacioIndexRoute = MiEspacioIndexRouteImport.update({
@@ -256,7 +256,6 @@ const MiEspacioActividadesNuevaRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/agenda': typeof AgendaRoute
   '/comunidad-fundadora': typeof ComunidadFundadoraRoute
   '/comunidad-fundadora-acceso': typeof ComunidadFundadoraAccesoRoute
@@ -266,6 +265,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRouteWithChildren
   '/directorio': typeof DirectorioRoute
   '/home-mvp': typeof HomeMvpRoute
+  '/inicio-tecnico': typeof InicioTecnicoRoute
   '/lista-espera': typeof ListaEsperaRoute
   '/mi-espacio': typeof MiEspacioRouteWithChildren
   '/plan-presencia': typeof PlanPresenciaRoute
@@ -297,7 +297,6 @@ export interface FileRoutesByFullPath {
   '/mi-espacio/actividades/': typeof MiEspacioActividadesIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/agenda': typeof AgendaRoute
   '/comunidad-fundadora': typeof ComunidadFundadoraRoute
   '/comunidad-fundadora-acceso': typeof ComunidadFundadoraAccesoRoute
@@ -307,6 +306,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRouteWithChildren
   '/directorio': typeof DirectorioRoute
   '/home-mvp': typeof HomeMvpRoute
+  '/inicio-tecnico': typeof InicioTecnicoRoute
   '/lista-espera': typeof ListaEsperaRoute
   '/plan-presencia': typeof PlanPresenciaRoute
   '/profesional-fundador': typeof ProfesionalFundadorRoute
@@ -337,7 +337,6 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
   '/agenda': typeof AgendaRoute
   '/comunidad-fundadora': typeof ComunidadFundadoraRoute
   '/comunidad-fundadora-acceso': typeof ComunidadFundadoraAccesoRoute
@@ -347,6 +346,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRouteWithChildren
   '/directorio': typeof DirectorioRoute
   '/home-mvp': typeof HomeMvpRoute
+  '/inicio-tecnico': typeof InicioTecnicoRoute
   '/lista-espera': typeof ListaEsperaRoute
   '/mi-espacio': typeof MiEspacioRouteWithChildren
   '/plan-presencia': typeof PlanPresenciaRoute
@@ -380,7 +380,6 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/agenda'
     | '/comunidad-fundadora'
     | '/comunidad-fundadora-acceso'
@@ -390,6 +389,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/directorio'
     | '/home-mvp'
+    | '/inicio-tecnico'
     | '/lista-espera'
     | '/mi-espacio'
     | '/plan-presencia'
@@ -421,7 +421,6 @@ export interface FileRouteTypes {
     | '/mi-espacio/actividades/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/agenda'
     | '/comunidad-fundadora'
     | '/comunidad-fundadora-acceso'
@@ -431,6 +430,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/directorio'
     | '/home-mvp'
+    | '/inicio-tecnico'
     | '/lista-espera'
     | '/plan-presencia'
     | '/profesional-fundador'
@@ -460,7 +460,6 @@ export interface FileRouteTypes {
     | '/mi-espacio/actividades'
   id:
     | '__root__'
-    | '/'
     | '/agenda'
     | '/comunidad-fundadora'
     | '/comunidad-fundadora-acceso'
@@ -470,6 +469,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/directorio'
     | '/home-mvp'
+    | '/inicio-tecnico'
     | '/lista-espera'
     | '/mi-espacio'
     | '/plan-presencia'
@@ -502,7 +502,6 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   AgendaRoute: typeof AgendaRoute
   ComunidadFundadoraRoute: typeof ComunidadFundadoraRoute
   ComunidadFundadoraAccesoRoute: typeof ComunidadFundadoraAccesoRoute
@@ -512,6 +511,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRouteWithChildren
   DirectorioRoute: typeof DirectorioRoute
   HomeMvpRoute: typeof HomeMvpRoute
+  InicioTecnicoRoute: typeof InicioTecnicoRoute
   ListaEsperaRoute: typeof ListaEsperaRoute
   MiEspacioRoute: typeof MiEspacioRouteWithChildren
   PlanPresenciaRoute: typeof PlanPresenciaRoute
@@ -566,6 +566,13 @@ declare module '@tanstack/react-router' {
       path: '/lista-espera'
       fullPath: '/lista-espera'
       preLoaderRoute: typeof ListaEsperaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inicio-tecnico': {
+      id: '/inicio-tecnico'
+      path: '/inicio-tecnico'
+      fullPath: '/inicio-tecnico'
+      preLoaderRoute: typeof InicioTecnicoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/home-mvp': {
@@ -629,13 +636,6 @@ declare module '@tanstack/react-router' {
       path: '/agenda'
       fullPath: '/agenda'
       preLoaderRoute: typeof AgendaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mi-espacio/': {
@@ -863,7 +863,6 @@ const MiEspacioRouteWithChildren = MiEspacioRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   AgendaRoute: AgendaRoute,
   ComunidadFundadoraRoute: ComunidadFundadoraRoute,
   ComunidadFundadoraAccesoRoute: ComunidadFundadoraAccesoRoute,
@@ -873,6 +872,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRouteWithChildren,
   DirectorioRoute: DirectorioRoute,
   HomeMvpRoute: HomeMvpRoute,
+  InicioTecnicoRoute: InicioTecnicoRoute,
   ListaEsperaRoute: ListaEsperaRoute,
   MiEspacioRoute: MiEspacioRouteWithChildren,
   PlanPresenciaRoute: PlanPresenciaRoute,

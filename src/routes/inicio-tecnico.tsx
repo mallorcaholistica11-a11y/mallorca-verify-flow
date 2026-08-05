@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { WireframeShell, Box, NavButton, Note } from "@/components/Wireframe";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/inicio-tecnico")({
   head: () => ({ meta: [{ title: "Mallorca Holística — Wireframe" }] }),
   component: Inicio,
 });
