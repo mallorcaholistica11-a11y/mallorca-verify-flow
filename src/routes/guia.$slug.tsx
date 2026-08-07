@@ -41,7 +41,7 @@ function FichaPractica() {
 
   if (encontrada) {
     const contenido = contenidoPractica(slugPractica(encontrada.nombre), encontrada.nombre);
-    return <PlantillaPractica contenido={contenido} relacionadaCon={encontrada.relacionadaCon} />;
+    return <PlantillaPractica contenido={contenido} />;
   }
 
   return (
