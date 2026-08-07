@@ -14,8 +14,9 @@ import {
   type PerfilTipo,
 } from "@/components/Wireframe";
 import { TelefonoField } from "@/components/TelefonoField";
-import { AreasPicker } from "@/components/TaxonomiaPickers";
+import { SelectorAreas } from "@/components/SelectorAreas";
 import { SelectorPracticas } from "@/components/SelectorPracticas";
+import { MAX_AREAS_PRESENCIA } from "@/data/areas";
 import {
   MAX_PRACTICAS_CENTRO,
   MAX_PRACTICAS_PRESENCIA,
@@ -239,7 +240,11 @@ function FormularioBase() {
               {sec.title === "Prácticas" ? (
                 <SelectorPracticas max={MAX_PRACTICAS_VERIFICADO} />
               ) : sec.title === "Áreas de Acompañamiento" ? (
-                <AreasPicker variant="profesional" />
+                <SelectorAreas
+                  label="¿En qué puedes acompañar?"
+                  ayuda="Selecciona las áreas en las que puedes acompañar a las personas."
+                  max={MAX_AREAS_PRESENCIA}
+                />
               ) : sec.title === "Público al que acompaño" ? (
                 <PublicoCheckboxes />
               ) : sec.title === "Modalidades de acompañamiento" ? (
@@ -439,7 +444,11 @@ function PresenciaStep({
           <SelectorPracticas max={MAX_PRACTICAS_PRESENCIA} />
         </Box>
         <Box title="Áreas de Acompañamiento">
-          <AreasPicker max={5} variant="profesional" />
+          <SelectorAreas
+                  label="¿En qué puedes acompañar?"
+                  ayuda="Selecciona las áreas en las que puedes acompañar a las personas."
+                  max={5}
+                />
         </Box>
         <Box title={isOrg ? "¿A quién acompañáis?" : "¿A quién acompañas?"}>
           <PublicoCheckboxes options={PRESENCIA_PUBLICO_OPTIONS} />
@@ -2338,7 +2347,11 @@ function VerificadoFormulario() {
             <SelectorPracticas max={isOrg ? MAX_PRACTICAS_CENTRO : MAX_PRACTICAS_VERIFICADO} />
           </Box>
           <Box title="Áreas de Acompañamiento">
-            <AreasPicker max={15} variant={isOrg ? "organizacion" : "profesional"} />
+            <SelectorAreas
+                  label="¿En qué puedes acompañar?"
+                  ayuda="Selecciona las áreas en las que puedes acompañar a las personas."
+                  max={15}
+                />
           </Box>
           <Box title={isOrg ? "¿A quién acompañáis?" : "¿A quién acompañas?"}>
             <Note>Selecciona todas las opciones que correspondan.</Note>
@@ -3170,7 +3183,11 @@ function PresenciaOrganizacionFormulario() {
             <SelectorPracticas max={MAX_PRACTICAS_CENTRO} />
           </Box>
           <Box title="Áreas de Acompañamiento">
-            <AreasPicker max={15} variant="organizacion" />
+            <SelectorAreas
+                  label="¿En qué puedes acompañar?"
+                  ayuda="Selecciona las áreas en las que puedes acompañar a las personas."
+                  max={15}
+                />
           </Box>
           <Box title="¿A quién acompañáis?">
             <Note>Selecciona todas las opciones que correspondan.</Note>
@@ -3480,7 +3497,11 @@ function PresenciaProfesionalFormulario() {
             <SelectorPracticas max={MAX_PRACTICAS_PRESENCIA} />
           </Box>
           <Box title="Áreas de Acompañamiento">
-            <AreasPicker max={5} variant="profesional" />
+            <SelectorAreas
+                  label="¿En qué puedes acompañar?"
+                  ayuda="Selecciona las áreas en las que puedes acompañar a las personas."
+                  max={5}
+                />
           </Box>
           <Box title="¿A quién acompañas?">
             <Note>Selecciona todas las opciones que correspondan.</Note>

@@ -1,12 +1,11 @@
 import { Link } from "@tanstack/react-router";
-import { Chips, Placeholder } from "@/components/ficha/primitives";
+import { Placeholder } from "@/components/ficha/primitives";
 import { useMobile } from "@/components/ficha/useMobile";
 import {
   NOTA_IMPORTANTE_PRACTICA,
   areasValidas,
   type PracticaContenido,
 } from "@/data/practicas-contenido";
-import { practicasDerivadas, slugPractica } from "@/data/practicas";
 
 // Plantilla Oficial · Prácticas.
 // Una única plantilla reutilizable: solo cambian los datos.
@@ -26,15 +25,12 @@ export function urlDirectorioArea(area: string) {
 
 export function PlantillaPractica({
   contenido,
-  relacionadaCon,
 }: {
   contenido: PracticaContenido;
-  relacionadaCon?: string | null;
 }) {
   const isMobile = useMobile(900);
   const areas = areasValidas(contenido.areasRelacionadas);
   const urlDirectorio = urlDirectorioPractica(contenido.nombre);
-  const relacionadas = practicasDerivadas(contenido.nombre);
 
   return (
     <div style={{ fontFamily: MONO, background: "#fafafa", color: "#111", minHeight: "100vh" }}>
@@ -54,19 +50,6 @@ export function PlantillaPractica({
           <h1 style={{ fontSize: isMobile ? 24 : 30, margin: "0 0 14px 0", lineHeight: 1.25 }}>
             {contenido.nombre}
           </h1>
-
-          {relacionadaCon && (
-            <div style={{ fontSize: 12, color: "#666", margin: "0 0 14px 0" }}>
-              Relacionado con{" "}
-              <Link
-                to="/guia/$slug"
-                params={{ slug: slugPractica(relacionadaCon) }}
-                style={{ color: "#222" }}
-              >
-                {relacionadaCon}
-              </Link>
-            </div>
-          )}
 
           {contenido.definicionBreve && (
             <p style={{ fontSize: 14, lineHeight: 1.8, margin: "0 0 20px 0", color: "#333" }}>
@@ -114,10 +97,10 @@ export function PlantillaPractica({
 
         <BloqueTexto titulo="¿Qué es?" texto={contenido.queEs} />
 
-        {areas.length > 0 && (
-          <section style={{ marginBottom: 40 }}>
-            <TituloBloque>¿En qué puede ayudarte?</TituloBloque>
-            {/* Chips informativos: las Áreas de Acompañamiento no tienen ficha propia. */}
+        <section style={{ marginBottom: 40 }}>
+          <TituloBloque>¿En qué puede ayudarte?</TituloBloque>
+          {/* Chips informativos: las Áreas de Acompañamiento no tienen ficha propia. */}
+          {areas.length > 0 ? (
             <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
               {areas.map((a) => (
                 <span key={a} style={chipArea}>
@@ -125,15 +108,10 @@ export function PlantillaPractica({
                 </span>
               ))}
             </div>
-          </section>
-        )}
-
-        {relacionadas.length > 0 && (
-          <section style={{ marginBottom: 40 }}>
-            <TituloBloque>Prácticas relacionadas</TituloBloque>
-            <Chips items={relacionadas} />
-          </section>
-        )}
+          ) : (
+            <TextoPendiente />
+          )}
+        </section>
 
         <BloqueTexto titulo="¿Cómo es una sesión?" texto={contenido.comoEsUnaSesion} />
 
@@ -232,11 +210,22 @@ function BloqueTexto({
   titulo: string;
   texto: string;
 }) {
-  if (!texto) return null;
   return (
     <section style={{ marginBottom: 40 }}>
       <TituloBloque>{titulo}</TituloBloque>
-      <p style={{ fontSize: 14, lineHeight: 1.9, margin: 0, color: "#333" }}>{texto}</p>
+      {texto ? (
+        <p style={{ fontSize: 14, lineHeight: 1.9, margin: 0, color: "#333" }}>{texto}</p>
+      ) : (
+        <TextoPendiente />
+      )}
     </section>
+  );
+}
+
+function TextoPendiente() {
+  return (
+    <p style={{ fontSize: 13, lineHeight: 1.8, margin: 0, color: "#aaa", fontStyle: "italic" }}>
+      [contenido pendiente de publicación]
+    </p>
   );
 }

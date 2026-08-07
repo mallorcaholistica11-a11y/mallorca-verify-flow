@@ -13,7 +13,7 @@ import { MAX_AREAS_ACTIVIDAD, areasPorLetra, buscarAreas } from "@/data/areas";
  *  - Filtros públicos (Directorio/Agenda): mostrarContador={false}.
  */
 export function SelectorAreas({
-  selected,
+  selected: selectedProp,
   onChange,
   max = MAX_AREAS_ACTIVIDAD,
   label = "Áreas de Acompañamiento",
@@ -22,8 +22,8 @@ export function SelectorAreas({
   mostrarContador = true,
   compacto = false,
 }: {
-  selected: string[];
-  onChange: (v: string[]) => void;
+  selected?: string[];
+  onChange?: (v: string[]) => void;
   max?: number;
   label?: string | null;
   ayuda?: string | null;
@@ -31,6 +31,12 @@ export function SelectorAreas({
   mostrarContador?: boolean;
   compacto?: boolean;
 }) {
+  const [interno, setInterno] = useState<string[]>([]);
+  const selected = selectedProp ?? interno;
+  const setSelected = (v: string[]) => {
+    if (onChange) onChange(v);
+    else setInterno(v);
+  };
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const [aviso, setAviso] = useState(false);
@@ -40,7 +46,7 @@ export function SelectorAreas({
 
   const toggle = (area: string) => {
     if (selected.includes(area)) {
-      onChange(selected.filter((a) => a !== area));
+      setSelected(selected.filter((a) => a !== area));
       setAviso(false);
       return;
     }
@@ -49,7 +55,7 @@ export function SelectorAreas({
       return;
     }
     setAviso(false);
-    onChange([...selected, area]);
+    setSelected([...selected, area]);
   };
 
   return (

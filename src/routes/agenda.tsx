@@ -1,12 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { CSSProperties, ReactNode } from "react";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
-import { SelectorAreas } from "@/components/SelectorAreas";
-import { MAX_AREAS_ACTIVIDAD } from "@/data/areas";
+import { CampoCatalogo, PanelCatalogo, type TipoCatalogo } from "@/components/FiltroCatalogo";
 import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
-import { buscarPracticas } from "@/data/practicas";
 
 export const Route = createFileRoute("/agenda")({
   head: () => ({
@@ -195,7 +193,28 @@ function Hero({ isMobile }: { isMobile: boolean }) {
 /* ---------- Buscador y filtros ---------- */
 
 function Filtros({ isMobile }: { isMobile: boolean }) {
+  // Mismo patrón que el Directorio: catálogo expandido a ancho completo,
+  // uno solo abierto a la vez.
+  const [catalogo, setCatalogo] = useState<TipoCatalogo | null>(null);
+  const [practicas, setPracticas] = useState<string[]>([]);
   const [areas, setAreas] = useState<string[]>([]);
+  const [qPractica, setQPractica] = useState("");
+  const [qArea, setQArea] = useState("");
+
+  const abrir = (t: TipoCatalogo) => setCatalogo((c) => (c === t ? null : t));
+  const togglePractica = (p: string) =>
+    setPracticas(practicas.includes(p) ? practicas.filter((x) => x !== p) : [...practicas, p]);
+  const toggleArea = (a: string) =>
+    setAreas(areas.includes(a) ? areas.filter((x) => x !== a) : [...areas, a]);
+
+  const limpiar = () => {
+    setPracticas([]);
+    setAreas([]);
+    setQPractica("");
+    setQArea("");
+    setCatalogo(null);
+  };
+
   return (
     <Bloque top={16}>
       <div
@@ -233,17 +252,27 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
           }}
         >
           <Campo label="Práctica">
-            <AutocompletadoPractica />
+            <CampoCatalogo
+              tipo="practicas"
+              query={qPractica}
+              onQuery={setQPractica}
+              placeholder="Buscar una práctica..."
+              abierto={catalogo === "practicas"}
+              onToggle={() => abrir("practicas")}
+              seleccion={practicas}
+              onQuitar={togglePractica}
+            />
           </Campo>
           <Campo label="Área de acompañamiento">
-            <SelectorAreas
-              label={null}
-              selected={areas}
-              onChange={setAreas}
-              max={MAX_AREAS_ACTIVIDAD}
-              placeholder="Buscar por necesidad: ansiedad, estrés, insomnio..."
-              mostrarContador={false}
-              compacto
+            <CampoCatalogo
+              tipo="areas"
+              query={qArea}
+              onQuery={setQArea}
+              placeholder="Buscar por necesidad..."
+              abierto={catalogo === "areas"}
+              onToggle={() => abrir("areas")}
+              seleccion={areas}
+              onQuitar={toggleArea}
             />
           </Campo>
           <Campo label="Fecha">
@@ -275,89 +304,25 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
           </Campo>
         </div>
 
+        {catalogo && (
+          <PanelCatalogo
+            tipo={catalogo}
+            query={catalogo === "practicas" ? qPractica : qArea}
+            seleccion={catalogo === "practicas" ? practicas : areas}
+            onToggleItem={catalogo === "practicas" ? togglePractica : toggleArea}
+            onCerrar={() => setCatalogo(null)}
+          />
+        )}
+
         <button
           type="button"
+          onClick={limpiar}
           style={{ ...selectStyle, width: "auto", cursor: "pointer", color: "#555", justifySelf: "start" }}
         >
           Limpiar filtros
         </button>
       </div>
     </Bloque>
-  );
-}
-
-// Mismo Catálogo Oficial Maestro de Prácticas que el Directorio y la Guía.
-function AutocompletadoPractica() {
-  const [texto, setTexto] = useState("");
-  const [abierto, setAbierto] = useState(false);
-
-  const sugerencias = useMemo(() => {
-    const q = texto.trim().toLowerCase();
-    if (!q) return [];
-    return buscarPracticas(q).slice(0, 8);
-  }, [texto]);
-
-  return (
-    <div style={{ position: "relative", minWidth: 0 }}>
-      <input
-        type="text"
-        value={texto}
-        placeholder="Escribe una práctica..."
-        onChange={(e) => {
-          setTexto(e.target.value);
-          setAbierto(true);
-        }}
-        onFocus={() => setAbierto(true)}
-        onBlur={() => window.setTimeout(() => setAbierto(false), 120)}
-        style={selectStyle}
-      />
-      {abierto && sugerencias.length > 0 && (
-        <ul
-          style={{
-            position: "absolute",
-            zIndex: 5,
-            top: "100%",
-            left: 0,
-            right: 0,
-            margin: 0,
-            padding: 0,
-            listStyle: "none",
-            border: "1px dashed #888",
-            borderTop: "none",
-            background: "#fff",
-            maxHeight: 200,
-            overflowY: "auto",
-          }}
-        >
-          {sugerencias.map((s) => (
-            <li key={s}>
-              <button
-                type="button"
-                onMouseDown={() => {
-                  setTexto(s);
-                  setAbierto(false);
-                }}
-                style={{
-                  display: "block",
-                  width: "100%",
-                  textAlign: "left",
-                  background: "transparent",
-                  border: "none",
-                  borderBottom: "1px dotted #ddd",
-                  padding: "8px 10px",
-                  fontSize: 12,
-                  fontFamily: "inherit",
-                  cursor: "pointer",
-                  color: "#111",
-                }}
-              >
-                {s}
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
   );
 }
 
