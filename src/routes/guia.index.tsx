@@ -45,9 +45,11 @@ function GuiaPracticas() {
   return (
     <div style={{ fontFamily: MONO, background: "#fafafa", color: "#111", minHeight: "100vh" }}>
       <style>{`
-        .guia-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 4px 24px; }
-        @media (max-width: 900px) { .guia-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
-        @media (max-width: 560px) { .guia-grid { grid-template-columns: minmax(0,1fr); } }
+        .guia-indice { column-count: 4; column-gap: 28px; }
+        @media (max-width: 900px) { .guia-indice { column-count: 2; } }
+        @media (max-width: 560px) { .guia-indice { column-count: 1; } }
+        .guia-bloque { break-inside: avoid; margin-bottom: 18px; }
+        .guia-letra { font-size: 14px; letter-spacing: 2px; color: #111; border-bottom: 1px dashed #ccc; padding-bottom: 4px; margin: 0 0 8px 0; }
         .guia-link { color: #222; text-decoration: none; font-size: 13px; line-height: 2; display: block; }
         .guia-link:hover { color: #000; text-decoration: underline; text-decoration-color: #bbb; text-underline-offset: 3px; }
       `}</style>
@@ -71,11 +73,8 @@ function GuiaPracticas() {
               </h1>
               <p style={{ fontSize: 14, lineHeight: 1.7, margin: "0 0 10px 0" }}>
                 Busca directamente la práctica que te interese o recórrela de la A a la Z. Haz clic
-                en cualquiera para descubrir en qué consiste.
-              </p>
-              <p style={{ fontSize: 12, lineHeight: 1.7, color: "#666", margin: 0 }}>
-                Estamos ampliando esta guía de forma progresiva para ofrecer información clara y de
-                calidad sobre cada práctica.
+                en cualquiera para descubrir en qué consiste y encontrar profesionales que la
+                ofrecen.
               </p>
             </div>
             <Placeholder alto={isMobile ? 140 : 200}>
