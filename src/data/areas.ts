@@ -289,3 +289,19 @@ export function buscarAreasPorCategoria(query: string): CategoriaAreas[] {
 export const MAX_AREAS_PRESENCIA = 5;
 export const MAX_AREAS_VERIFICADO = 15;
 export const MAX_AREAS_ACTIVIDAD = 5;
+
+/**
+ * Agrupa áreas por letra inicial (A–Z) para el patrón UX de catálogo abierto.
+ * Las categorías internas se conservan en los datos pero no se exponen aquí.
+ */
+export function areasPorLetra(areas: string[] = AREAS_OFICIALES) {
+  const mapa = new Map<string, string[]>();
+  for (const a of [...areas].sort((x, y) => x.localeCompare(y, "es"))) {
+    const l = (normalizar(a)[0] ?? "#").toUpperCase();
+    if (!mapa.has(l)) mapa.set(l, []);
+    mapa.get(l)!.push(a);
+  }
+  return Array.from(mapa.entries())
+    .map(([letra, items]) => ({ letra, areas: items }))
+    .sort((a, b) => a.letra.localeCompare(b.letra, "es"));
+}

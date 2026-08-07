@@ -68,21 +68,9 @@ export function PlantillaPractica({
             </div>
           )}
 
-          {contenido.definicionBreve ? (
+          {contenido.definicionBreve && (
             <p style={{ fontSize: 14, lineHeight: 1.8, margin: "0 0 20px 0", color: "#333" }}>
               {contenido.definicionBreve}
-            </p>
-          ) : (
-            <p
-              style={{
-                fontSize: 13,
-                lineHeight: 1.8,
-                margin: "0 0 20px 0",
-                color: "#888",
-                fontStyle: "italic",
-              }}
-            >
-              Descripción pendiente. Estamos ampliando la Guía de Prácticas de forma progresiva.
             </p>
           )}
 
@@ -124,28 +112,21 @@ export function PlantillaPractica({
           </a>
         </header>
 
-        <BloqueTexto
-          titulo="¿Qué es?"
-          texto={contenido.queEs}
-          pendiente="Contenido pendiente en la Base de Conocimiento."
-        />
+        <BloqueTexto titulo="¿Qué es?" texto={contenido.queEs} />
 
-        <section style={{ marginBottom: 40 }}>
-          <TituloBloque>¿En qué puede ayudarte?</TituloBloque>
-          {areas.length > 0 ? (
+        {areas.length > 0 && (
+          <section style={{ marginBottom: 40 }}>
+            <TituloBloque>¿En qué puede ayudarte?</TituloBloque>
+            {/* Chips informativos: las Áreas de Acompañamiento no tienen ficha propia. */}
             <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
               {areas.map((a) => (
-                <a key={a} href={urlDirectorioArea(a)} style={chipLink}>
+                <span key={a} style={chipArea}>
                   {a}
-                </a>
+                </span>
               ))}
             </div>
-          ) : (
-            <TextoPendiente>
-              Áreas de Acompañamiento pendientes de asignar para esta práctica.
-            </TextoPendiente>
-          )}
-        </section>
+          </section>
+        )}
 
         {relacionadas.length > 0 && (
           <section style={{ marginBottom: 40 }}>
@@ -154,11 +135,7 @@ export function PlantillaPractica({
           </section>
         )}
 
-        <BloqueTexto
-          titulo="¿Cómo es una sesión?"
-          texto={contenido.comoEsUnaSesion}
-          pendiente="Descripción de la sesión pendiente."
-        />
+        <BloqueTexto titulo="¿Cómo es una sesión?" texto={contenido.comoEsUnaSesion} />
 
         {/* Nota importante · común a todas las prácticas */}
         <section
@@ -222,13 +199,12 @@ export function PlantillaPractica({
   );
 }
 
-const chipLink = {
+const chipArea = {
   border: "1px dashed #999",
   background: "#fff",
   padding: "5px 9px",
   fontSize: 12,
   color: "#333",
-  textDecoration: "none",
 };
 
 function TituloBloque({ children }: { children: React.ReactNode }) {
@@ -249,31 +225,18 @@ function TituloBloque({ children }: { children: React.ReactNode }) {
   );
 }
 
-function TextoPendiente({ children }: { children: React.ReactNode }) {
-  return (
-    <p style={{ fontSize: 13, lineHeight: 1.9, margin: 0, color: "#888", fontStyle: "italic" }}>
-      {children}
-    </p>
-  );
-}
-
 function BloqueTexto({
   titulo,
   texto,
-  pendiente,
 }: {
   titulo: string;
   texto: string;
-  pendiente?: string;
 }) {
+  if (!texto) return null;
   return (
     <section style={{ marginBottom: 40 }}>
       <TituloBloque>{titulo}</TituloBloque>
-      {texto ? (
-        <p style={{ fontSize: 14, lineHeight: 1.9, margin: 0, color: "#333" }}>{texto}</p>
-      ) : (
-        <TextoPendiente>{pendiente ?? "Contenido pendiente."}</TextoPendiente>
-      )}
+      <p style={{ fontSize: 14, lineHeight: 1.9, margin: 0, color: "#333" }}>{texto}</p>
     </section>
   );
 }

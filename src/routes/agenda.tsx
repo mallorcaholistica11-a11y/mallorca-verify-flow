@@ -227,11 +227,25 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "repeat(5, minmax(0,1fr))",
+            gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0,1fr))",
             gap: 12,
-            alignItems: "end",
+            alignItems: "start",
           }}
         >
+          <Campo label="Práctica">
+            <AutocompletadoPractica />
+          </Campo>
+          <Campo label="Área de acompañamiento">
+            <SelectorAreas
+              label={null}
+              selected={areas}
+              onChange={setAreas}
+              max={MAX_AREAS_ACTIVIDAD}
+              placeholder="Buscar por necesidad: ansiedad, estrés, insomnio..."
+              mostrarContador={false}
+              compacto
+            />
+          </Campo>
           <Campo label="Fecha">
             <input type="date" style={selectStyle} />
           </Campo>
@@ -251,9 +265,6 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
               ))}
             </select>
           </Campo>
-          <Campo label="Práctica">
-            <AutocompletadoPractica />
-          </Campo>
           <Campo label="Idioma">
             <select style={selectStyle} defaultValue="Todos los idiomas">
               <option>Todos los idiomas</option>
@@ -262,17 +273,6 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
               ))}
             </select>
           </Campo>
-        </div>
-
-        {/* Áreas de Acompañamiento · Catálogo Oficial (src/data/areas.ts) */}
-        <div style={{ borderTop: "1px dotted #ddd", paddingTop: 14 }}>
-          <SelectorAreas
-            label="¿Qué necesitas?"
-            ayuda="Filtra las actividades por el área que quieres acompañar."
-            selected={areas}
-            onChange={setAreas}
-            max={MAX_AREAS_ACTIVIDAD}
-          />
         </div>
 
         <button

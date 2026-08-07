@@ -1,11 +1,16 @@
-import { useState } from "react";
-import { MAX_AREAS_ACTIVIDAD, buscarAreasPorCategoria } from "@/data/areas";
+import { useMemo, useState } from "react";
+import { MAX_AREAS_ACTIVIDAD, areasPorLetra, buscarAreas } from "@/data/areas";
 
 /**
  * Selector compartido de Áreas de Acompañamiento.
- * Fuente única: src/data/areas.ts (Catálogo Oficial · MVP v1.0).
- * Se reutiliza en: Crear actividad, Directorio y Agenda.
- * No usar desplegables planos: el catálogo tiene 109 áreas.
+ * Fuente única: src/data/areas.ts (Catálogo Oficial · 115 áreas).
+ * Patrón UX común: buscador + catálogo A–Z plegable (cerrado por defecto),
+ * en varias columnas con lectura vertical. Las categorías internas del
+ * catálogo se conservan en los datos pero NO se exponen al usuario.
+ *
+ * Variantes:
+ *  - Formularios: contador de límite visible (por defecto).
+ *  - Filtros públicos (Directorio/Agenda): mostrarContador={false}.
  */
 export function SelectorAreas({
   selected,
@@ -14,45 +19,56 @@ export function SelectorAreas({
   label = "Áreas de Acompañamiento",
   ayuda,
   placeholder = "Buscar un área de acompañamiento…",
+  mostrarContador = true,
+  compacto = false,
 }: {
   selected: string[];
   onChange: (v: string[]) => void;
   max?: number;
-  label?: string;
-  ayuda?: string;
+  label?: string | null;
+  ayuda?: string | null;
   placeholder?: string;
+  mostrarContador?: boolean;
+  compacto?: boolean;
 }) {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
-  const [abiertas, setAbiertas] = useState<string[]>([]);
+  const [aviso, setAviso] = useState(false);
 
-  const grupos = buscarAreasPorCategoria(query);
+  const grupos = useMemo(() => areasPorLetra(buscarAreas(query)), [query]);
   const atLimit = selected.length >= max;
 
   const toggle = (area: string) => {
     if (selected.includes(area)) {
       onChange(selected.filter((a) => a !== area));
+      setAviso(false);
       return;
     }
-    if (atLimit) return;
+    if (atLimit) {
+      setAviso(true);
+      return;
+    }
+    setAviso(false);
     onChange([...selected, area]);
   };
 
   return (
     <div>
-      <div style={rotulo}>{label}</div>
+      <style>{`
+        .areas-cols { column-count: 4; column-gap: 20px; }
+        @media (max-width: 900px) { .areas-cols { column-count: 2; } }
+        @media (max-width: 560px) { .areas-cols { column-count: 1; } }
+      `}</style>
+
+      {label && <div style={rotulo}>{label}</div>}
       {ayuda && <div style={ayudaStyle}>{ayuda}</div>}
 
       <input
         type="text"
         value={query}
         placeholder={placeholder}
-        onFocus={() => setOpen(true)}
-        onChange={(e) => {
-          setQuery(e.target.value);
-          setOpen(true);
-        }}
-        style={input}
+        onChange={(e) => setQuery(e.target.value)}
+        style={compacto ? { ...input, padding: "7px 9px", fontSize: 12 } : input}
       />
 
       <button type="button" onClick={() => setOpen((o) => !o)} style={toggleBtn}>
@@ -60,72 +76,45 @@ export function SelectorAreas({
       </button>
 
       {open && (
-        <div style={{ border: "1px dashed #888", background: "#fff", marginTop: 8 }}>
+        <div style={{ border: "1px dashed #888", background: "#fff", marginTop: 8, padding: 10 }}>
           {grupos.length === 0 ? (
-            <div style={{ padding: 10, fontSize: 12, color: "#aaa", fontStyle: "italic" }}>
+            <div style={{ padding: 6, fontSize: 12, color: "#aaa", fontStyle: "italic" }}>
               [sin resultados para “{query}”]
             </div>
           ) : (
-            grupos.map((g) => {
-              const abierta = query.trim() !== "" || abiertas.includes(g.categoria);
-              return (
-                <div key={g.categoria} style={{ borderBottom: "1px dotted #ddd" }}>
-                  <div
-                    onClick={() =>
-                      setAbiertas((a) =>
-                        a.includes(g.categoria)
-                          ? a.filter((c) => c !== g.categoria)
-                          : [...a, g.categoria],
-                      )
-                    }
-                    style={{
-                      padding: "8px 10px",
-                      fontSize: 13,
-                      fontWeight: 600,
-                      cursor: "pointer",
-                      color: "#111",
-                    }}
-                  >
-                    {abierta ? "▾" : "▸"} {g.categoria}
-                  </div>
-                  {abierta && (
-                    <div
-                      style={{
-                        padding: "0 10px 10px 22px",
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 6,
-                      }}
-                    >
-                      {g.areas.map((a) => {
-                        const checked = selected.includes(a);
-                        return (
-                          <label
-                            key={a}
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              gap: 8,
-                              fontSize: 13,
-                              cursor: "pointer",
-                              opacity: !checked && atLimit ? 0.45 : 1,
-                            }}
-                          >
-                            <input
-                              type="checkbox"
-                              checked={checked}
-                              disabled={!checked && atLimit}
-                              onChange={() => toggle(a)}
-                            />
-                            {a}
-                          </label>
-                        );
-                      })}
-                    </div>
-                  )}
+            <div className="areas-cols">
+              {grupos.map((g) => (
+                <div key={g.letra} style={{ breakInside: "avoid", marginBottom: 12 }}>
+                  <div style={letraTitulo}>{g.letra}</div>
+                  {g.areas.map((a) => {
+                    const checked = selected.includes(a);
+                    return (
+                      <label
+                        key={a}
+                        style={{
+                          display: "flex",
+                          alignItems: "flex-start",
+                          gap: 7,
+                          fontSize: 13,
+                          lineHeight: 1.7,
+                          cursor: "pointer",
+                          breakInside: "avoid",
+                          opacity: !checked && atLimit ? 0.45 : 1,
+                        }}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={checked}
+                          onChange={() => toggle(a)}
+                          style={{ marginTop: 4 }}
+                        />
+                        <span>{a}</span>
+                      </label>
+                    );
+                  })}
                 </div>
-              );
-            })
+              ))}
+            </div>
           )}
         </div>
       )}
@@ -139,14 +128,7 @@ export function SelectorAreas({
                 type="button"
                 onClick={() => toggle(a)}
                 aria-label={`Quitar ${a}`}
-                style={{
-                  border: "none",
-                  background: "transparent",
-                  cursor: "pointer",
-                  fontSize: 12,
-                  color: "#666",
-                  padding: 0,
-                }}
+                style={quitarBtn}
               >
                 ✕
               </button>
@@ -155,9 +137,17 @@ export function SelectorAreas({
         </div>
       )}
 
-      <div style={{ fontSize: 11, color: "#888", marginTop: 8 }}>
-        {selected.length}/{max} áreas seleccionadas
-      </div>
+      {aviso && atLimit && (
+        <div style={{ fontSize: 11, color: "#a33", marginTop: 8 }}>
+          Puedes seleccionar un máximo de {max} áreas.
+        </div>
+      )}
+
+      {mostrarContador && (
+        <div style={{ fontSize: 11, color: "#888", marginTop: 8 }}>
+          {selected.length}/{max} áreas seleccionadas
+        </div>
+      )}
     </div>
   );
 }
@@ -171,6 +161,15 @@ const rotulo = {
 };
 
 const ayudaStyle = { fontSize: 12, color: "#555", lineHeight: 1.6, marginBottom: 8 };
+
+const letraTitulo = {
+  fontSize: 12,
+  letterSpacing: 1,
+  color: "#666",
+  borderBottom: "1px dashed #ddd",
+  paddingBottom: 3,
+  marginBottom: 6,
+};
 
 const input = {
   width: "100%",
@@ -192,6 +191,7 @@ const toggleBtn = {
   fontFamily: "inherit",
   color: "#555",
   cursor: "pointer",
+  whiteSpace: "nowrap" as const,
 };
 
 const tag = {
@@ -202,4 +202,13 @@ const tag = {
   background: "#fff",
   padding: "4px 8px",
   fontSize: 12,
+};
+
+const quitarBtn = {
+  border: "none",
+  background: "transparent",
+  cursor: "pointer",
+  fontSize: 12,
+  color: "#666",
+  padding: 0,
 };

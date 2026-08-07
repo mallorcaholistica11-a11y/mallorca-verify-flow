@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useMobile } from "@/components/ficha/useMobile";
-import { Boton, Chips, LineaTexto, Placeholder, Seccion } from "@/components/ficha/primitives";
+import { Boton, Chips, ChipsPracticas, LineaTexto, Placeholder, Seccion } from "@/components/ficha/primitives";
 import {
   MAX_AREAS_FICHA,
   MAX_ESPECIALIDADES_FICHA,
@@ -184,8 +184,8 @@ function ColumnaPrincipal({ data, esPresencia }: { data: FichaCentroData; esPres
         )}
       </Seccion>
 
-      <Seccion titulo="Especialidades" vacio={!data.especialidades?.length}>
-        <Chips items={(data.especialidades ?? []).slice(0, MAX_ESPECIALIDADES_FICHA)} clicable />
+      <Seccion titulo="Prácticas" vacio={!data.especialidades?.length}>
+        <ChipsPracticas items={(data.especialidades ?? []).slice(0, MAX_ESPECIALIDADES_FICHA)} />
       </Seccion>
 
       <Seccion titulo="¿En qué podemos ayudarte?" vacio={!data.areas?.length}>

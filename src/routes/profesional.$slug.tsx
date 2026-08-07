@@ -27,7 +27,7 @@ export const Route = createFileRoute("/profesional/$slug")({
 const demo: FichaPublicaData = {
   nombre: "Lucía Gelabert",
   identidadProfesional: "Terapeuta energética",
-  especialidadesPrincipales: ["Reiki", "Sanación Energética", "Chi Kung (Qi Gong)"],
+  especialidadesPrincipales: ["Reiki", "Sanación Energética", "Qi Gong"],
   anioInicioActividad: 2011,
   municipio: "Marratxí, Mallorca",
   modalidades: ["Presencial", "Online", "A domicilio"],
@@ -39,7 +39,7 @@ const demo: FichaPublicaData = {
   especialidades: [
     "Reiki",
     "Sanación Energética",
-    "Chi Kung (Qi Gong)",
+    "Qi Gong",
     "Meditación",
     "Respiración Consciente",
   ],
