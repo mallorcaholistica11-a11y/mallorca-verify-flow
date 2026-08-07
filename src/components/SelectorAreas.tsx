@@ -191,6 +191,7 @@ const toggleBtn = {
   fontFamily: "inherit",
   color: "#555",
   cursor: "pointer",
+  whiteSpace: "nowrap" as const,
 };
 
 const tag = {
