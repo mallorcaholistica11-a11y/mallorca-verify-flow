@@ -25,8 +25,11 @@ export function urlDirectorioArea(area: string) {
 
 export function PlantillaPractica({
   contenido,
+  relacionadaCon,
 }: {
   contenido: PracticaContenido;
+  /** Relación interna definida en los datos; se muestra de forma discreta. */
+  relacionadaCon?: string | null;
 }) {
   const isMobile = useMobile(900);
   const areas = areasValidas(contenido.areasRelacionadas);
@@ -50,6 +53,12 @@ export function PlantillaPractica({
           <h1 style={{ fontSize: isMobile ? 24 : 30, margin: "0 0 14px 0", lineHeight: 1.25 }}>
             {contenido.nombre}
           </h1>
+
+          {relacionadaCon && relacionadaCon !== contenido.nombre && (
+            <div style={{ fontSize: 12, color: "#777", margin: "-6px 0 16px 0" }}>
+              Relacionado con {relacionadaCon}
+            </div>
+          )}
 
           {contenido.definicionBreve && (
             <p style={{ fontSize: 14, lineHeight: 1.8, margin: "0 0 20px 0", color: "#333" }}>

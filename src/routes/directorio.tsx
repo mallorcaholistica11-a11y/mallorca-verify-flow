@@ -279,7 +279,7 @@ function Filtros({
               onQuitar={togglePractica}
             />
           </Campo>
-          <Campo label="Área de acompañamiento">
+          <Campo label="Áreas de acompañamiento">
             <CampoCatalogo
               tipo="areas"
               query={qArea}
