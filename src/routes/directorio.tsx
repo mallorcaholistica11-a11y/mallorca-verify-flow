@@ -5,9 +5,15 @@ import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
 import { CampoCatalogo, PanelCatalogo, type TipoCatalogo } from "@/components/FiltroCatalogo";
 import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
+import { BuscadorSimple } from "@/components/BuscadorSimple";
+import { coincideLugar, coincidePerfil, PERFILES, type Resultado } from "@/data/perfiles";
 import { useState } from "react";
 
 export const Route = createFileRoute("/directorio")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    q: typeof search["q"] === "string" ? (search["q"] as string) : "",
+    lugar: typeof search["lugar"] === "string" ? (search["lugar"] as string) : "",
+  }),
   head: () => ({
     meta: [
       { title: "Directorio de Profesionales — Mallorca Holística (wireframe)" },
@@ -37,93 +43,6 @@ const MUNICIPIOS = ["Todos los municipios", ...MUNICIPIOS_MALLORCA];
 
 const MODALIDADES = ["Presencial", "Online", "A domicilio", "A distancia"];
 
-type ResultadoProfesional = {
-  tipo: "profesional";
-  nombre: string;
-  identidad: string;
-  ubicacion: string;
-  especialidades: string[];
-  areas: string[];
-  verificado: boolean;
-  slug: string;
-};
-
-type ResultadoOrganizacion = {
-  tipo: "organizacion";
-  nombre: string;
-  identidad: string;
-  ubicacion: string;
-  especialidades: string[];
-  areas: string[];
-  verificado: boolean;
-  slug: string;
-};
-
-type Resultado = ResultadoProfesional | ResultadoOrganizacion;
-
-const RESULTADOS: Resultado[] = [
-  {
-    tipo: "profesional",
-    nombre: "Lucía Gelabert",
-    identidad: "Psicoterapeuta integrativa",
-    ubicacion: "Palma",
-    especialidades: ["Psicología Integrativa", "Mindfulness", "Terapia Gestalt"],
-    areas: ["Ansiedad", "Autoestima", "Duelo", "Estrés"],
-    verificado: true,
-    slug: "lucia-gelabert",
-  },
-  {
-    tipo: "organizacion",
-    nombre: "Espai Sa Font",
-    identidad: "Centro de terapias y formación",
-    ubicacion: "Palma",
-    especialidades: ["Yoga", "Masaje Terapéutico", "Meditación"],
-    areas: ["Estrés", "Dolor de espalda", "Bienestar integral"],
-    verificado: true,
-    slug: "espai-sa-font",
-  },
-  {
-    tipo: "profesional",
-    nombre: "Marta Ferrer",
-    identidad: "Terapeuta floral",
-    ubicacion: "Sóller",
-    especialidades: ["Flores de Bach", "Meditación", "Breathwork / Respiración"],
-    areas: ["Gestión emocional", "Insomnio", "Ansiedad"],
-    verificado: false,
-    slug: "marta-ferrer",
-  },
-  {
-    tipo: "organizacion",
-    nombre: "Casa Serena",
-    identidad: "Espacio de bienestar y talleres",
-    ubicacion: "Pollença",
-    especialidades: ["Yoga", "Meditación", "Masaje Relajante"],
-    areas: ["Relajación", "Estrés", "Calidad de vida"],
-    verificado: false,
-    slug: "casa-serena",
-  },
-  {
-    tipo: "profesional",
-    nombre: "Andrés López",
-    identidad: "Osteópata",
-    ubicacion: "Palma",
-    especialidades: ["Osteopatía", "Fasciaterapia", "Quiromasaje"],
-    areas: ["Dolor cervical", "Dolor lumbar", "Postura corporal"],
-    verificado: true,
-    slug: "lucia-gelabert",
-  },
-  {
-    tipo: "profesional",
-    nombre: "Núria Camps",
-    identidad: "Terapeuta energética",
-    ubicacion: "Inca",
-    especialidades: ["Reiki", "Sanación Energética"],
-    areas: ["Fatiga", "Estrés", "Equilibrio cuerpo-mente"],
-    verificado: false,
-    slug: "marta-ferrer",
-  },
-];
-
 const DESCUBRE = [
   { titulo: "📅 Agenda de Actividades", enlace: "Ver agenda →", to: "/agenda" },
   { titulo: "📖 Guía de Prácticas", enlace: "Explorar guía →", to: "/guia" },
@@ -131,10 +50,15 @@ const DESCUBRE = [
 
 function Directorio() {
   const isMobile = useMobile(900);
+  const { q, lugar } = Route.useSearch();
+  const navigate = Route.useNavigate();
   // Filtro por Áreas de Acompañamiento · Catálogo Oficial (src/data/areas.ts)
   const [areas, setAreas] = useState<string[]>([]);
-  const resultados = RESULTADOS.filter(
-    (r) => areas.length === 0 || areas.some((a) => r.areas.includes(a)),
+  const resultados = PERFILES.filter(
+    (r) =>
+      (areas.length === 0 || areas.some((a) => r.areas.includes(a))) &&
+      coincidePerfil(r, q) &&
+      coincideLugar(r, lugar),
   );
 
   return (
@@ -143,7 +67,12 @@ function Directorio() {
 
       <main style={{ maxWidth: 1080, margin: "0 auto", padding: isMobile ? "0 16px" : "0 24px" }}>
         <Hero isMobile={isMobile} />
-        <Buscador isMobile={isMobile} />
+        <Buscador
+          isMobile={isMobile}
+          q={q}
+          lugar={lugar}
+          onBuscar={(nq, nlugar) => navigate({ search: { q: nq, lugar: nlugar } })}
+        />
         <Filtros isMobile={isMobile} areas={areas} onAreas={setAreas} />
         <Resultados isMobile={isMobile} resultados={resultados} />
       </main>
@@ -185,28 +114,28 @@ function Hero({ isMobile }: { isMobile: boolean }) {
   );
 }
 
-// Mismo buscador clásico utilizado en la Home.
-function Buscador({ isMobile }: { isMobile: boolean }) {
+// Mismo buscador simple compartido con la Home.
+function Buscador({
+  isMobile,
+  q,
+  lugar,
+  onBuscar,
+}: {
+  isMobile: boolean;
+  q: string;
+  lugar: string;
+  onBuscar: (q: string, lugar: string) => void;
+}) {
   return (
     <Bloque top={16}>
       <Seccion>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "minmax(0,1.4fr) minmax(0,1fr) auto",
-            gap: 10,
-          }}
-        >
-          <input
-            type="text"
-            placeholder="Buscar profesional, práctica o necesidad..."
-            style={inputStyle}
-          />
-          <input type="text" placeholder="Localidad o código postal..." style={inputStyle} />
-          <button type="button" style={botonSecundario}>
-            Buscar
-          </button>
-        </div>
+        <BuscadorSimple
+          key={`${q}|${lugar}`}
+          isMobile={isMobile}
+          valorInicial={q}
+          lugarInicial={lugar}
+          onBuscar={onBuscar}
+        />
       </Seccion>
     </Bloque>
   );
@@ -553,16 +482,6 @@ const paginaStyle: CSSProperties = {
   color: "#111",
 };
 
-const inputStyle: CSSProperties = {
-  width: "100%",
-  border: "1px dashed #888",
-  background: "#fff",
-  padding: "12px 14px",
-  fontSize: 13,
-  fontFamily: "inherit",
-  color: "#111",
-  boxSizing: "border-box",
-};
 
 const selectStyle: CSSProperties = {
   width: "100%",
@@ -573,14 +492,4 @@ const selectStyle: CSSProperties = {
   fontFamily: "inherit",
   color: "#111",
   boxSizing: "border-box",
-};
-
-const botonSecundario: CSSProperties = {
-  border: "1px dashed #666",
-  background: "#fff",
-  color: "#111",
-  padding: "12px 22px",
-  fontSize: 13,
-  fontFamily: "inherit",
-  cursor: "pointer",
 };

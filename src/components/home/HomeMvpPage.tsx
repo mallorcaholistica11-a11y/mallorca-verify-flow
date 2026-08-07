@@ -1,8 +1,9 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import type { CSSProperties, ReactNode } from "react";
 import { Chips, Placeholder, Seccion } from "@/components/ficha/primitives";
 import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
+import { BuscadorSimple } from "@/components/BuscadorSimple";
 
 const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
 
@@ -179,6 +180,7 @@ function BuscadorIA({ isMobile }: { isMobile: boolean }) {
 }
 
 function BusquedaClasica({ isMobile }: { isMobile: boolean }) {
+  const navigate = useNavigate();
   return (
     <Bloque>
       <Seccion>
@@ -186,19 +188,10 @@ function BusquedaClasica({ isMobile }: { isMobile: boolean }) {
         <p style={{ fontSize: 13, color: "#555", margin: "0 0 16px 0" }}>
           Busca directamente por profesional, práctica o ubicación.
         </p>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "minmax(0,1.4fr) minmax(0,1fr) auto",
-            gap: 10,
-          }}
-        >
-          <input type="text" placeholder="Profesional, práctica o síntoma..." style={inputStyle} />
-          <input type="text" placeholder="Localidad o código postal..." style={inputStyle} />
-          <button type="button" style={botonSecundario}>
-            Buscar
-          </button>
-        </div>
+        <BuscadorSimple
+          isMobile={isMobile}
+          onBuscar={(q, lugar) => navigate({ to: "/directorio", search: { q, lugar } })}
+        />
       </Seccion>
     </Bloque>
   );
@@ -339,16 +332,6 @@ const botonPrincipal: CSSProperties = {
   background: "#111",
   color: "#fff",
   padding: "12px 26px",
-  fontSize: 13,
-  fontFamily: "inherit",
-  cursor: "pointer",
-};
-
-const botonSecundario: CSSProperties = {
-  border: "1px dashed #666",
-  background: "#fff",
-  color: "#111",
-  padding: "12px 22px",
   fontSize: 13,
   fontFamily: "inherit",
   cursor: "pointer",
