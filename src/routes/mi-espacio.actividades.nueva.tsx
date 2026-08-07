@@ -188,8 +188,8 @@ function NuevaActividadPagina() {
 
         <div style={{ marginTop: 16 }}>
           <SelectorPracticas
-            label="¿Qué prácticas trabaja esta actividad?"
-            ayuda="Selecciona las prácticas relacionadas con la actividad para que las personas puedan encontrarla."
+            label="¿Con qué prácticas está relacionada esta actividad?"
+            ayuda={`Selecciona hasta ${MAX_PRACTICAS_ACTIVIDAD} prácticas relacionadas con la actividad para que las personas puedan encontrarla.`}
             selected={form.practicas}
             onChange={(v) => update("practicas", v)}
             max={MAX_PRACTICAS_ACTIVIDAD}
