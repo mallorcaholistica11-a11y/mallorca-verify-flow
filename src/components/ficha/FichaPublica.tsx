@@ -3,6 +3,7 @@ import { useMobile } from "@/components/ficha/useMobile";
 import {
   Boton,
   Chips,
+  ChipsPracticas,
   LineaTexto,
   Placeholder,
   Seccion,
@@ -178,8 +179,8 @@ function ColumnaPrincipal({ data, plan }: { data: FichaPublicaData; plan: PlanFi
         <p style={{ fontSize: 14, lineHeight: 1.7, margin: 0, whiteSpace: "pre-wrap" }}>{data.sobreMi}</p>
       </Seccion>
 
-      <Seccion titulo="Especialidades" vacio={!data.especialidades?.length}>
-        <Chips items={(data.especialidades ?? []).slice(0, MAX_ESPECIALIDADES_FICHA)} clicable />
+      <Seccion titulo="Prácticas" vacio={!data.especialidades?.length}>
+        <ChipsPracticas items={(data.especialidades ?? []).slice(0, MAX_ESPECIALIDADES_FICHA)} />
       </Seccion>
 
       <Seccion titulo="¿En qué puedo ayudarte?" vacio={!data.areas?.length}>
