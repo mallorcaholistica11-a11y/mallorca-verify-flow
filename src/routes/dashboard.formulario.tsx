@@ -16,6 +16,7 @@ import {
 import { TelefonoField } from "@/components/TelefonoField";
 import { SelectorAreas } from "@/components/SelectorAreas";
 import { SelectorPracticas } from "@/components/SelectorPracticas";
+import { MAX_AREAS_PRESENCIA } from "@/data/areas";
 import {
   MAX_PRACTICAS_CENTRO,
   MAX_PRACTICAS_PRESENCIA,
