@@ -1,18 +1,6 @@
-// Listas oficiales del proyecto. Las disciplinas y especialidades viven en
-// src/data/catalogo.ts (Catálogo Oficial · MVP v1.0); aquí solo se reexportan.
-
-export {
-  CATEGORIAS,
-  CATEGORIAS_CON_DISCIPLINAS,
-  DISCIPLINAS,
-  DISCIPLINAS_OFICIALES,
-  ESPECIALIDADES_OFICIALES,
-  OTRA_OPCION,
-  buscarCatalogo,
-  disciplinaDeEspecialidad,
-  especialidadesDe,
-  slugCatalogo,
-} from "./catalogo";
+// Municipios oficiales de Mallorca.
+// Las prácticas viven en src/data/practicas.ts (Catálogo Oficial Maestro) y las
+// Áreas de Acompañamiento en src/data/areas.ts. No crear listas paralelas.
 
 export const MUNICIPIOS_MALLORCA = [
   "Alaró",
