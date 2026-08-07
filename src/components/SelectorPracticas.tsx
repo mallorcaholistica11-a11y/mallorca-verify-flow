@@ -24,6 +24,8 @@ export function SelectorPracticas({
   label = "¿Qué practicas?",
   ayuda = AYUDA_DEFECTO,
   placeholder = "Buscar una práctica…",
+  mostrarContador = true,
+  compacto = false,
 }: {
   selected?: string[];
   onChange?: (v: string[]) => void;
@@ -31,6 +33,8 @@ export function SelectorPracticas({
   label?: string | null;
   ayuda?: string | null;
   placeholder?: string;
+  mostrarContador?: boolean;
+  compacto?: boolean;
 }) {
   const [interno, setInterno] = useState<string[]>([]);
   const selected = selectedProp ?? interno;
@@ -60,9 +64,14 @@ export function SelectorPracticas({
   const toggle = (p: string) => {
     if (selected.includes(p)) {
       setSelected(selected.filter((x) => x !== p));
+      setAviso(false);
       return;
     }
-    if (atLimit) return;
+    if (atLimit) {
+      setAviso(true);
+      return;
+    }
+    setAviso(false);
     setSelected([...selected, p]);
   };
 
@@ -86,7 +95,7 @@ export function SelectorPracticas({
           setQuery(e.target.value);
           setOpen(true);
         }}
-        style={input}
+        style={compacto ? { ...input, padding: "7px 9px", fontSize: 12 } : input}
       />
 
       <button type="button" onClick={() => setOpen((o) => !o)} style={toggleBtn}>
