@@ -1,5 +1,7 @@
+import { Link } from "@tanstack/react-router";
 import type { CSSProperties, ReactNode } from "react";
 import { useState } from "react";
+import { slugPractica } from "@/data/practicas";
 
 // Primitivas de wireframe reutilizables por todas las fichas públicas.
 
@@ -71,6 +73,28 @@ const chipStyle: CSSProperties = {
   fontSize: 12,
   color: "#111",
 };
+
+/**
+ * Chips de PRÁCTICAS: siempre clicables y siempre enlazan a la ficha de la
+ * Guía (/guia/$slug) resolviendo el slug desde el catálogo oficial.
+ * Los chips de Áreas de Acompañamiento son informativos (usar <Chips />).
+ */
+export function ChipsPracticas({ items }: { items: string[] }) {
+  return (
+    <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+      {items.map((item) => (
+        <Link
+          key={item}
+          to="/guia/$slug"
+          params={{ slug: slugPractica(item) }}
+          style={{ ...chipStyle, textDecoration: "none" }}
+        >
+          {item}
+        </Link>
+      ))}
+    </div>
+  );
+}
 
 export function LineaTexto({ items }: { items: string[] }) {
   return <div style={{ fontSize: 13 }}>{items.join(" · ")}</div>;
