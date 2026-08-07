@@ -2,56 +2,39 @@ import { Link } from "@tanstack/react-router";
 import { Chips, Placeholder } from "@/components/ficha/primitives";
 import { useMobile } from "@/components/ficha/useMobile";
 import {
-  NOTA_IMPORTANTE_ESPECIALIDAD,
+  NOTA_IMPORTANTE_PRACTICA,
   areasValidas,
-  type EspecialidadContenido,
-} from "@/data/especialidades-contenido";
-import { especialidadesDe } from "@/data/catalogo";
+  type PracticaContenido,
+} from "@/data/practicas-contenido";
+import { practicasDerivadas, slugPractica } from "@/data/practicas";
 
-// Plantilla Oficial · Disciplinas y Especialidades.
+// Plantilla Oficial · Prácticas.
 // Una única plantilla reutilizable: solo cambian los datos.
+// El usuario consulta simplemente una PRÁCTICA: no se muestra terminología
+// interna (disciplina, especialidad, práctica raíz o derivada).
 
 const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
 
-export function urlDirectorioEspecialidad(nombre: string) {
-  return `/directorio?especialidad=${encodeURIComponent(nombre)}`;
+export function urlDirectorioPractica(nombre: string) {
+  return `/directorio?practica=${encodeURIComponent(nombre)}`;
 }
 
-/**
- * Enlace futuro: cada Área de Acompañamiento llevará al Directorio filtrado.
- * Aún no se navega; la estructura queda preparada.
- */
+/** Cada Área de Acompañamiento enlaza al Directorio filtrado. */
 export function urlDirectorioArea(area: string) {
   return `/directorio?area=${encodeURIComponent(area)}`;
 }
 
-/**
- * Chips de ejemplo SOLO visuales para disciplinas sin Áreas asignadas todavía.
- * No forman parte de la Base de Conocimiento ni se guardan como relaciones.
- */
-const AREAS_EJEMPLO_VISUAL = [
-  "Ansiedad",
-  "Estrés",
-  "Autoestima",
-  "Insomnio",
-  "Comunicación",
-  "Bienestar integral",
-  "Desarrollo personal",
-  "Duelo",
-];
-
-export function PlantillaEspecialidad({
+export function PlantillaPractica({
   contenido,
-  categoria,
+  relacionadaCon,
 }: {
-  contenido: EspecialidadContenido;
-  categoria?: string;
+  contenido: PracticaContenido;
+  relacionadaCon?: string | null;
 }) {
   const isMobile = useMobile(900);
   const areas = areasValidas(contenido.areasRelacionadas);
-  const cat = categoria ?? contenido.categoria;
-  const urlDirectorio = urlDirectorioEspecialidad(contenido.nombre);
-  const especialidades = especialidadesDe(contenido.nombre);
+  const urlDirectorio = urlDirectorioPractica(contenido.nombre);
+  const relacionadas = practicasDerivadas(contenido.nombre);
 
   return (
     <div style={{ fontFamily: MONO, background: "#fafafa", color: "#111", minHeight: "100vh" }}>
@@ -63,30 +46,45 @@ export function PlantillaEspecialidad({
         }}
       >
         <Link to="/guia" style={{ fontSize: 12, color: "#666" }}>
-          ← Volver a la Guía de Disciplinas y Especialidades
+          ← Volver a la Guía de Prácticas
         </Link>
 
         {/* Hero */}
         <header style={{ margin: "24px 0 40px 0" }}>
-          {cat && (
-            <div
-              style={{
-                fontSize: 11,
-                letterSpacing: 1,
-                textTransform: "uppercase",
-                color: "#666",
-                marginBottom: 8,
-              }}
-            >
-              {cat}
-            </div>
-          )}
           <h1 style={{ fontSize: isMobile ? 24 : 30, margin: "0 0 14px 0", lineHeight: 1.25 }}>
             {contenido.nombre}
           </h1>
-          <p style={{ fontSize: 14, lineHeight: 1.8, margin: "0 0 20px 0", color: "#333" }}>
-            {contenido.definicionBreve}
-          </p>
+
+          {relacionadaCon && (
+            <div style={{ fontSize: 12, color: "#666", margin: "0 0 14px 0" }}>
+              Relacionado con{" "}
+              <Link
+                to="/guia/$slug"
+                params={{ slug: slugPractica(relacionadaCon) }}
+                style={{ color: "#222" }}
+              >
+                {relacionadaCon}
+              </Link>
+            </div>
+          )}
+
+          {contenido.definicionBreve ? (
+            <p style={{ fontSize: 14, lineHeight: 1.8, margin: "0 0 20px 0", color: "#333" }}>
+              {contenido.definicionBreve}
+            </p>
+          ) : (
+            <p
+              style={{
+                fontSize: 13,
+                lineHeight: 1.8,
+                margin: "0 0 20px 0",
+                color: "#888",
+                fontStyle: "italic",
+              }}
+            >
+              Descripción pendiente. Estamos ampliando la Guía de Prácticas de forma progresiva.
+            </p>
+          )}
 
           {contenido.imagenUrl ? (
             <img
@@ -105,7 +103,7 @@ export function PlantillaEspecialidad({
           ) : (
             <div style={{ marginBottom: 20 }}>
               <Placeholder alto={isMobile ? 140 : 200}>
-                [Imagen representativa de la disciplina · opcional]
+                [Imagen representativa de la práctica · opcional]
               </Placeholder>
             </div>
           )}
@@ -135,46 +133,24 @@ export function PlantillaEspecialidad({
         <section style={{ marginBottom: 40 }}>
           <TituloBloque>¿En qué puede ayudarte?</TituloBloque>
           {areas.length > 0 ? (
-            <Chips items={areas} />
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+              {areas.map((a) => (
+                <a key={a} href={urlDirectorioArea(a)} style={chipLink}>
+                  {a}
+                </a>
+              ))}
+            </div>
           ) : (
-            <>
-              <Chips items={areasValidas(AREAS_EJEMPLO_VISUAL)} />
-              <p
-                style={{
-                  fontSize: 11,
-                  lineHeight: 1.7,
-                  color: "#888",
-                  margin: "10px 0 0 0",
-                  fontStyle: "italic",
-                }}
-              >
-                Ejemplo visual. Las Áreas de Acompañamiento definitivas se asignarán
-                individualmente a cada disciplina durante la construcción de la Base de
-                Conocimiento.
-              </p>
-            </>
+            <TextoPendiente>
+              Áreas de Acompañamiento pendientes de asignar para esta práctica.
+            </TextoPendiente>
           )}
         </section>
 
-        {especialidades.length > 0 && (
+        {relacionadas.length > 0 && (
           <section style={{ marginBottom: 40 }}>
-            <TituloBloque>Especialidades dentro de esta disciplina</TituloBloque>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-              {especialidades.map((e) => (
-                <span
-                  key={e}
-                  style={{
-                    border: "1px dashed #999",
-                    background: "#fff",
-                    padding: "5px 9px",
-                    fontSize: 12,
-                    color: "#333",
-                  }}
-                >
-                  {e}
-                </span>
-              ))}
-            </div>
+            <TituloBloque>Prácticas relacionadas</TituloBloque>
+            <Chips items={relacionadas} />
           </section>
         )}
 
@@ -184,7 +160,7 @@ export function PlantillaEspecialidad({
           pendiente="Descripción de la sesión pendiente."
         />
 
-        {/* Nota importante · común a todas las especialidades */}
+        {/* Nota importante · común a todas las prácticas */}
         <section
           style={{
             border: "1px dashed #888",
@@ -205,7 +181,7 @@ export function PlantillaEspecialidad({
             Nota importante
           </div>
           <p style={{ fontSize: 13, lineHeight: 1.8, margin: 0, color: "#333" }}>
-            {NOTA_IMPORTANTE_ESPECIALIDAD}
+            {NOTA_IMPORTANTE_PRACTICA}
           </p>
         </section>
 
@@ -223,7 +199,7 @@ export function PlantillaEspecialidad({
               maxWidth: 560,
             }}
           >
-            Si sientes que esta disciplina puede encajar contigo, descubre los profesionales de
+            Si sientes que esta práctica puede encajar contigo, descubre los profesionales de
             Mallorca Holística que la ofrecen.
           </p>
           <a
@@ -245,6 +221,15 @@ export function PlantillaEspecialidad({
     </div>
   );
 }
+
+const chipLink = {
+  border: "1px dashed #999",
+  background: "#fff",
+  padding: "5px 9px",
+  fontSize: 12,
+  color: "#333",
+  textDecoration: "none",
+};
 
 function TituloBloque({ children }: { children: React.ReactNode }) {
   return (
