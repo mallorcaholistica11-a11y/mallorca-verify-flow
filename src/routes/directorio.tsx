@@ -482,16 +482,6 @@ const paginaStyle: CSSProperties = {
   color: "#111",
 };
 
-const inputStyle: CSSProperties = {
-  width: "100%",
-  border: "1px dashed #888",
-  background: "#fff",
-  padding: "12px 14px",
-  fontSize: 13,
-  fontFamily: "inherit",
-  color: "#111",
-  boxSizing: "border-box",
-};
 
 const selectStyle: CSSProperties = {
   width: "100%",
@@ -502,14 +492,4 @@ const selectStyle: CSSProperties = {
   fontFamily: "inherit",
   color: "#111",
   boxSizing: "border-box",
-};
-
-const botonSecundario: CSSProperties = {
-  border: "1px dashed #666",
-  background: "#fff",
-  color: "#111",
-  padding: "12px 22px",
-  fontSize: 13,
-  fontFamily: "inherit",
-  cursor: "pointer",
 };
