@@ -185,14 +185,16 @@ const campoInput = {
 
 const campoBoton = {
   marginTop: 8,
+  width: "100%",
+  textAlign: "left" as const,
   border: "1px dashed #888",
   background: "#fff",
-  padding: "6px 10px",
-  fontSize: 12,
+  padding: "6px 8px",
+  fontSize: 11,
   fontFamily: "inherit",
   color: "#555",
   cursor: "pointer",
-  whiteSpace: "nowrap" as const,
+  boxSizing: "border-box" as const,
 };
 
 const letraTitulo = {
