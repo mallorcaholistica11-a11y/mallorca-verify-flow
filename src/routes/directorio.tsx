@@ -199,7 +199,11 @@ function Buscador({ isMobile }: { isMobile: boolean }) {
             gap: 10,
           }}
         >
-          <input type="text" placeholder="Profesional, práctica o síntoma..." style={inputStyle} />
+          <input
+            type="text"
+            placeholder="Buscar profesional, práctica o necesidad..."
+            style={inputStyle}
+          />
           <input type="text" placeholder="Localidad o código postal..." style={inputStyle} />
           <button type="button" style={botonSecundario}>
             Buscar
@@ -233,9 +237,9 @@ function Filtros({
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0,1fr)) auto",
+            gridTemplateColumns: isMobile ? "1fr" : "repeat(5, minmax(0,1fr))",
             gap: 12,
-            alignItems: "end",
+            alignItems: "start",
           }}
         >
           <Campo label="Tipo de perfil">
@@ -247,6 +251,17 @@ function Filtros({
           </Campo>
           <Campo label="Práctica">
             <AutocompletadoPractica />
+          </Campo>
+          <Campo label="Área de acompañamiento">
+            <SelectorAreas
+              label={null}
+              selected={areas}
+              onChange={onAreas}
+              max={MAX_AREAS_PRESENCIA}
+              placeholder="Buscar por necesidad: ansiedad, estrés, insomnio..."
+              mostrarContador={false}
+              compacto
+            />
           </Campo>
           <Campo label="Ubicación">
             <select style={selectStyle} defaultValue="Todos los municipios">
@@ -263,23 +278,26 @@ function Filtros({
               ))}
             </select>
           </Campo>
-          <button type="button" style={{ ...selectStyle, width: "auto", cursor: "pointer", whiteSpace: "nowrap", color: "#555" }}>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 12,
+          }}
+        >
+          <label style={{ fontSize: 12, color: "#333", display: "flex", alignItems: "center", gap: 8 }}>
+            <input type="checkbox" />
+            Solo perfiles verificados
+          </label>
+          <button
+            type="button"
+            style={{ ...selectStyle, width: "auto", cursor: "pointer", whiteSpace: "nowrap", color: "#555" }}
+          >
             ↺ Limpiar filtros
           </button>
-        </div>
-        <label style={{ fontSize: 12, color: "#333", display: "flex", alignItems: "center", gap: 8 }}>
-          <input type="checkbox" />
-          Solo perfiles verificados
-        </label>
-
-        <div style={{ borderTop: "1px dotted #ddd", paddingTop: 14 }}>
-          <SelectorAreas
-            label="¿En qué necesitas acompañamiento?"
-            ayuda="Filtra profesionales y centros según el área en la que necesitas apoyo."
-            selected={areas}
-            onChange={onAreas}
-            max={MAX_AREAS_PRESENCIA}
-          />
         </div>
       </div>
     </Bloque>
