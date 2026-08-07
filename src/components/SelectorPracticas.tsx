@@ -131,21 +131,21 @@ export function SelectorPracticas({
               [sin resultados para “{query}”]
             </div>
           ) : (
-            grupos.map((g) => (
-              <div key={g.letra} style={{ marginBottom: 14 }}>
-                <div
-                  style={{
-                    fontSize: 12,
-                    letterSpacing: 1,
-                    color: "#666",
-                    borderBottom: "1px dashed #ddd",
-                    paddingBottom: 4,
-                    marginBottom: 8,
-                  }}
-                >
-                  {g.letra}
-                </div>
-                <div className="practicas-cols">
+            <div className="practicas-cols">
+              {grupos.map((g) => (
+                <div key={g.letra} style={{ breakInside: "avoid", marginBottom: 12 }}>
+                  <div
+                    style={{
+                      fontSize: 12,
+                      letterSpacing: 1,
+                      color: "#666",
+                      borderBottom: "1px dashed #ddd",
+                      paddingBottom: 3,
+                      marginBottom: 6,
+                    }}
+                  >
+                    {g.letra}
+                  </div>
                   {g.practicas.map((p) => {
                     const checked = selected.includes(p);
                     return (
@@ -165,7 +165,6 @@ export function SelectorPracticas({
                         <input
                           type="checkbox"
                           checked={checked}
-                          disabled={!checked && atLimit}
                           onChange={() => toggle(p)}
                           style={{ marginTop: 4 }}
                         />
@@ -174,8 +173,8 @@ export function SelectorPracticas({
                     );
                   })}
                 </div>
-              </div>
-            ))
+              ))}
+            </div>
           )}
         </div>
       )}
@@ -205,9 +204,17 @@ export function SelectorPracticas({
         </div>
       )}
 
-      <div style={{ fontSize: 11, color: "#888", marginTop: 8 }}>
-        {selected.length}/{max} prácticas seleccionadas
-      </div>
+      {aviso && atLimit && (
+        <div style={{ fontSize: 11, color: "#a33", marginTop: 8 }}>
+          Puedes seleccionar un máximo de {max} prácticas.
+        </div>
+      )}
+
+      {mostrarContador && (
+        <div style={{ fontSize: 11, color: "#888", marginTop: 8 }}>
+          {selected.length}/{max} prácticas seleccionadas
+        </div>
+      )}
     </div>
   );
 }
