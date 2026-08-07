@@ -5,7 +5,8 @@ import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
 import { SelectorAreas } from "@/components/SelectorAreas";
 import { MAX_AREAS_PRESENCIA } from "@/data/areas";
-import { DISCIPLINAS_OFICIALES, MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
+import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
+import { buscarPracticas } from "@/data/practicas";
 import { useState } from "react";
 
 export const Route = createFileRoute("/directorio")({
@@ -35,7 +36,6 @@ const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
 
 const MUNICIPIOS = ["Todos los municipios", ...MUNICIPIOS_MALLORCA];
 
-const ESPECIALIDADES = ["Todas las disciplinas", ...DISCIPLINAS_OFICIALES];
 
 const MODALIDADES = ["Presencial", "Online", "A domicilio", "A distancia"];
 
@@ -128,7 +128,7 @@ const RESULTADOS: Resultado[] = [
 
 const DESCUBRE = [
   { titulo: "📅 Agenda de Actividades", enlace: "Ver agenda →", to: "/agenda" },
-  { titulo: "📖 Guía de Disciplinas y Especialidades", enlace: "Explorar guía →", to: "/guia" },
+  { titulo: "📖 Guía de Prácticas", enlace: "Explorar guía →", to: "/guia" },
 ];
 
 function Directorio() {
@@ -199,7 +199,7 @@ function Buscador({ isMobile }: { isMobile: boolean }) {
             gap: 10,
           }}
         >
-          <input type="text" placeholder="Profesional, disciplina, especialidad o síntoma..." style={inputStyle} />
+          <input type="text" placeholder="Profesional, práctica o síntoma..." style={inputStyle} />
           <input type="text" placeholder="Localidad o código postal..." style={inputStyle} />
           <button type="button" style={botonSecundario}>
             Buscar
@@ -245,12 +245,8 @@ function Filtros({
               <option>Organizaciones</option>
             </select>
           </Campo>
-          <Campo label="Disciplina">
-            <select style={selectStyle} defaultValue="Todas las disciplinas">
-              {ESPECIALIDADES.map((e) => (
-                <option key={e}>{e}</option>
-              ))}
-            </select>
+          <Campo label="Práctica">
+            <AutocompletadoPractica />
           </Campo>
           <Campo label="Ubicación">
             <select style={selectStyle} defaultValue="Todos los municipios">

@@ -5,7 +5,8 @@ import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
 import { SelectorAreas } from "@/components/SelectorAreas";
 import { MAX_AREAS_ACTIVIDAD } from "@/data/areas";
-import { MUNICIPIOS_MALLORCA, buscarCatalogo } from "@/data/taxonomia";
+import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
+import { buscarPracticas } from "@/data/practicas";
 
 export const Route = createFileRoute("/agenda")({
   head: () => ({
@@ -250,8 +251,8 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
               ))}
             </select>
           </Campo>
-          <Campo label="Disciplina o Especialidad">
-            <AutocompletadoEspecialidad />
+          <Campo label="Práctica">
+            <AutocompletadoPractica />
           </Campo>
           <Campo label="Idioma">
             <select style={selectStyle} defaultValue="Todos los idiomas">
@@ -285,17 +286,15 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
   );
 }
 
-// Mismo Catálogo Oficial (Disciplinas y Especialidades) que el Directorio y la Guía.
-function AutocompletadoEspecialidad() {
+// Mismo Catálogo Oficial Maestro de Prácticas que el Directorio y la Guía.
+function AutocompletadoPractica() {
   const [texto, setTexto] = useState("");
   const [abierto, setAbierto] = useState(false);
 
   const sugerencias = useMemo(() => {
     const q = texto.trim().toLowerCase();
     if (!q) return [];
-    return buscarCatalogo(q)
-      .map((r) => r.nombre)
-      .slice(0, 8);
+    return buscarPracticas(q).slice(0, 8);
   }, [texto]);
 
   return (
@@ -303,7 +302,7 @@ function AutocompletadoEspecialidad() {
       <input
         type="text"
         value={texto}
-        placeholder="Escribe una disciplina..."
+        placeholder="Escribe una práctica..."
         onChange={(e) => {
           setTexto(e.target.value);
           setAbierto(true);
