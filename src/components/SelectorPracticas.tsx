@@ -46,6 +46,7 @@ export function SelectorPracticas({
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const [letra, setLetra] = useState<string | null>(null);
+  const [aviso, setAviso] = useState(false);
 
   const grupos = useMemo(() => {
     const encontradas = buscarPracticas(query);
@@ -90,10 +91,9 @@ export function SelectorPracticas({
         type="text"
         value={query}
         placeholder={placeholder}
-        onFocus={() => setOpen(true)}
         onChange={(e) => {
           setQuery(e.target.value);
-          setOpen(true);
+          if (e.target.value.trim() !== "") setOpen(true);
         }}
         style={compacto ? { ...input, padding: "7px 9px", fontSize: 12 } : input}
       />
