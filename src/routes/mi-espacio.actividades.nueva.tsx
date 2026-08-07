@@ -2,10 +2,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, type CSSProperties, type ReactNode } from "react";
 import { WireframeShell, Box, NavButton, TrackBadge, parseTrack, type Track, Note } from "@/components/Wireframe";
 import { TelefonoField, type TelefonoValue } from "@/components/TelefonoField";
-import { CATEGORIAS_DISCIPLINAS } from "@/components/TaxonomiaPickers";
+import { SelectorPracticas } from "@/components/SelectorPracticas";
 import { SelectorAreas } from "@/components/SelectorAreas";
 import { MAX_AREAS_ACTIVIDAD } from "@/data/areas";
-import { buscarCatalogo } from "@/data/catalogo";
+import { MAX_PRACTICAS_ACTIVIDAD } from "@/data/practicas";
 import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
 
 export const Route = createFileRoute("/mi-espacio/actividades/nueva")({
@@ -33,7 +33,6 @@ const IDIOMAS = ["Alemán", "Catalán", "Español", "Francés", "Inglés", "Ital
 
 const FRECUENCIAS = ["Cada semana", "Cada 15 días", "Cada mes", "Personalizado"];
 
-const MAX_ESPECIALIDADES_ACTIVIDAD = 3;
 
 type PrecioTipo = "gratuito" | "pago" | "aportacion" | "consultar";
 type Repite = "no" | "si";
@@ -42,7 +41,7 @@ type FormState = {
   titulo: string;
   tipo: string;
   tipoOtro: string;
-  especialidades: string[];
+  practicas: string[];
   areas: string[];
   imagenNombre: string | null;
   imagenPreview: string | null;
@@ -72,7 +71,7 @@ const initial: FormState = {
   titulo: "",
   tipo: "",
   tipoOtro: "",
-  especialidades: [],
+  practicas: [],
   areas: [],
   imagenNombre: null,
   imagenPreview: null,
@@ -188,9 +187,12 @@ function NuevaActividadPagina() {
         </div>
 
         <div style={{ marginTop: 16 }}>
-          <EspecialidadesActividad
-            selected={form.especialidades}
-            onChange={(v) => update("especialidades", v)}
+          <SelectorPracticas
+            label="¿Qué prácticas trabaja esta actividad?"
+            ayuda="Selecciona las prácticas relacionadas con la actividad para que las personas puedan encontrarla."
+            selected={form.practicas}
+            onChange={(v) => update("practicas", v)}
+            max={MAX_PRACTICAS_ACTIVIDAD}
           />
         </div>
 
@@ -540,168 +542,6 @@ function FieldLabel({ children }: { children: ReactNode }) {
   return (
     <div style={{ fontSize: 11, color: "#666", textTransform: "uppercase", letterSpacing: 1, marginBottom: 4 }}>
       {children}
-    </div>
-  );
-}
-
-function EspecialidadesActividad({
-  selected,
-  onChange,
-}: {
-  selected: string[];
-  onChange: (v: string[]) => void;
-}) {
-  const [query, setQuery] = useState("");
-  const [explorar, setExplorar] = useState(false);
-  const [abiertas, setAbiertas] = useState<string[]>([]);
-  const atLimit = selected.length >= MAX_ESPECIALIDADES_ACTIVIDAD;
-
-  const q = query.trim().toLowerCase();
-  const sugerencias =
-    q === ""
-      ? []
-      : buscarCatalogo(q)
-          .map((r) => r.nombre)
-          .filter((e) => !selected.includes(e))
-          .slice(0, 8);
-
-  const toggle = (item: string) => {
-    if (selected.includes(item)) {
-      onChange(selected.filter((s) => s !== item));
-      return;
-    }
-    if (atLimit) return;
-    onChange([...selected, item]);
-  };
-
-  return (
-    <div>
-      <FieldLabel>Disciplinas y Especialidades</FieldLabel>
-      <div style={{ position: "relative" }}>
-        <input
-          type="text"
-          value={query}
-          placeholder="Buscar una disciplina o especialidad…"
-          onChange={(e) => setQuery(e.target.value)}
-          style={inputStyle}
-        />
-        {sugerencias.length > 0 && (
-          <div
-            style={{
-              position: "absolute",
-              top: "100%",
-              left: 0,
-              right: 0,
-              zIndex: 10,
-              maxHeight: 220,
-              overflowY: "auto",
-              border: "1px dashed #888",
-              borderTop: "none",
-              background: "#fff",
-            }}
-          >
-            {sugerencias.map((e) => (
-              <div
-                key={e}
-                onMouseDown={(ev) => {
-                  ev.preventDefault();
-                  toggle(e);
-                  setQuery("");
-                }}
-                style={{ padding: "6px 10px", fontSize: 13, cursor: "pointer", borderBottom: "1px dotted #ddd" }}
-              >
-                {e}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      <button
-        type="button"
-        onClick={() => setExplorar((v) => !v)}
-        style={{
-          ...secondaryBtn,
-          marginRight: 0,
-          padding: "6px 10px",
-          fontSize: 12,
-        }}
-      >
-        {explorar ? "▾ Ocultar el catálogo" : "▸ Explorar todas las disciplinas"}
-      </button>
-
-      {explorar && (
-        <div style={{ marginTop: 10, border: "1px dashed #888", background: "#fff" }}>
-          {CATEGORIAS_DISCIPLINAS.map((g) => {
-            const open = abiertas.includes(g.categoria);
-            return (
-              <div key={g.categoria} style={{ borderBottom: "1px dotted #ddd" }}>
-                <div
-                  onClick={() =>
-                    setAbiertas((a) =>
-                      a.includes(g.categoria) ? a.filter((c) => c !== g.categoria) : [...a, g.categoria],
-                    )
-                  }
-                  style={{ padding: "8px 10px", fontSize: 13, cursor: "pointer", fontWeight: 600, color: "#111" }}
-                >
-                  {open ? "▾" : "▸"} {g.categoria}
-                </div>
-                {open && (
-                  <div style={{ padding: "0 10px 10px 22px", display: "flex", flexDirection: "column", gap: 6 }}>
-                    {g.disciplinas.map((e) => {
-                      const checked = selected.includes(e);
-                      return (
-                        <label
-                          key={e}
-                          style={{ ...radioLabel, opacity: !checked && atLimit ? 0.45 : 1 }}
-                        >
-                          <input
-                            type="checkbox"
-                            checked={checked}
-                            disabled={!checked && atLimit}
-                            onChange={() => toggle(e)}
-                          />
-                          {e}
-                        </label>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      )}
-
-      {selected.length > 0 && (
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 10 }}>
-          {selected.map((e) => (
-            <span key={e} style={tagStyle}>
-              {e}
-              <button
-                type="button"
-                onClick={() => toggle(e)}
-                aria-label={`Quitar ${e}`}
-                style={{
-                  border: "none",
-                  background: "transparent",
-                  cursor: "pointer",
-                  fontSize: 12,
-                  color: "#666",
-                  padding: 0,
-                }}
-              >
-                ✕
-              </button>
-            </span>
-          ))}
-        </div>
-      )}
-
-      <Note>
-        Puedes seleccionar hasta {MAX_ESPECIALIDADES_ACTIVIDAD} especialidades relacionadas con la actividad
-        ({selected.length}/{MAX_ESPECIALIDADES_ACTIVIDAD}).
-      </Note>
     </div>
   );
 }

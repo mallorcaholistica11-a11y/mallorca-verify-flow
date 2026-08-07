@@ -5,8 +5,9 @@ import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
 import { SelectorAreas } from "@/components/SelectorAreas";
 import { MAX_AREAS_PRESENCIA } from "@/data/areas";
-import { DISCIPLINAS_OFICIALES, MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
-import { useState } from "react";
+import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
+import { buscarPracticas } from "@/data/practicas";
+import { useMemo, useState } from "react";
 
 export const Route = createFileRoute("/directorio")({
   head: () => ({
@@ -35,7 +36,6 @@ const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
 
 const MUNICIPIOS = ["Todos los municipios", ...MUNICIPIOS_MALLORCA];
 
-const ESPECIALIDADES = ["Todas las disciplinas", ...DISCIPLINAS_OFICIALES];
 
 const MODALIDADES = ["Presencial", "Online", "A domicilio", "A distancia"];
 
@@ -128,7 +128,7 @@ const RESULTADOS: Resultado[] = [
 
 const DESCUBRE = [
   { titulo: "📅 Agenda de Actividades", enlace: "Ver agenda →", to: "/agenda" },
-  { titulo: "📖 Guía de Disciplinas y Especialidades", enlace: "Explorar guía →", to: "/guia" },
+  { titulo: "📖 Guía de Prácticas", enlace: "Explorar guía →", to: "/guia" },
 ];
 
 function Directorio() {
@@ -199,7 +199,7 @@ function Buscador({ isMobile }: { isMobile: boolean }) {
             gap: 10,
           }}
         >
-          <input type="text" placeholder="Profesional, disciplina, especialidad o síntoma..." style={inputStyle} />
+          <input type="text" placeholder="Profesional, práctica o síntoma..." style={inputStyle} />
           <input type="text" placeholder="Localidad o código postal..." style={inputStyle} />
           <button type="button" style={botonSecundario}>
             Buscar
@@ -245,12 +245,8 @@ function Filtros({
               <option>Organizaciones</option>
             </select>
           </Campo>
-          <Campo label="Disciplina">
-            <select style={selectStyle} defaultValue="Todas las disciplinas">
-              {ESPECIALIDADES.map((e) => (
-                <option key={e}>{e}</option>
-              ))}
-            </select>
+          <Campo label="Práctica">
+            <AutocompletadoPractica />
           </Campo>
           <Campo label="Ubicación">
             <select style={selectStyle} defaultValue="Todos los municipios">
@@ -287,6 +283,81 @@ function Filtros({
         </div>
       </div>
     </Bloque>
+  );
+}
+
+// Mismo Catálogo Oficial Maestro de Prácticas que el Directorio y la Guía.
+function AutocompletadoPractica() {
+  const [texto, setTexto] = useState("");
+  const [abierto, setAbierto] = useState(false);
+
+  const sugerencias = useMemo(() => {
+    const q = texto.trim().toLowerCase();
+    if (!q) return [];
+    return buscarPracticas(q).slice(0, 8);
+  }, [texto]);
+
+  return (
+    <div style={{ position: "relative", minWidth: 0 }}>
+      <input
+        type="text"
+        value={texto}
+        placeholder="Escribe una práctica..."
+        onChange={(e) => {
+          setTexto(e.target.value);
+          setAbierto(true);
+        }}
+        onFocus={() => setAbierto(true)}
+        onBlur={() => window.setTimeout(() => setAbierto(false), 120)}
+        style={selectStyle}
+      />
+      {abierto && sugerencias.length > 0 && (
+        <ul
+          style={{
+            position: "absolute",
+            zIndex: 5,
+            top: "100%",
+            left: 0,
+            right: 0,
+            margin: 0,
+            padding: 0,
+            listStyle: "none",
+            border: "1px dashed #888",
+            borderTop: "none",
+            background: "#fff",
+            maxHeight: 200,
+            overflowY: "auto",
+          }}
+        >
+          {sugerencias.map((s) => (
+            <li key={s}>
+              <button
+                type="button"
+                onMouseDown={() => {
+                  setTexto(s);
+                  setAbierto(false);
+                }}
+                style={{
+                  display: "block",
+                  width: "100%",
+                  textAlign: "left",
+                  background: "transparent",
+                  border: "none",
+                  borderBottom: "1px dotted #ddd",
+                  padding: "8px 10px",
+                  fontSize: 12,
+                  fontFamily: "inherit",
+                  cursor: "pointer",
+                  color: "#111",
+                }}
+              >
+                {s}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }
 

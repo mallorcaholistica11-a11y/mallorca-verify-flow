@@ -48,7 +48,7 @@ const PROFESIONALES = [
 
 const DESCUBRE = [
   { titulo: "📅 Agenda de Actividades", enlace: "Ver agenda →", to: "/agenda" },
-  { titulo: "📖 Guía de Disciplinas y Especialidades", enlace: "Explorar guía →", to: "/guia" },
+  { titulo: "📖 Guía de Prácticas", enlace: "Explorar guía →", to: "/guia" },
   { titulo: "🌿 Blog", enlace: "Próximamente", to: "/blog" },
 ];
 
@@ -184,7 +184,7 @@ function BusquedaClasica({ isMobile }: { isMobile: boolean }) {
       <Seccion>
         <h2 style={{ fontSize: 16, margin: "0 0 6px 0", fontWeight: 600 }}>¿Ya sabes lo que buscas?</h2>
         <p style={{ fontSize: 13, color: "#555", margin: "0 0 16px 0" }}>
-          Busca directamente por profesional, terapia, especialidad o ubicación.
+          Busca directamente por profesional, práctica o ubicación.
         </p>
         <div
           style={{
@@ -193,7 +193,7 @@ function BusquedaClasica({ isMobile }: { isMobile: boolean }) {
             gap: 10,
           }}
         >
-          <input type="text" placeholder="Profesional, terapia, especialidad o síntoma..." style={inputStyle} />
+          <input type="text" placeholder="Profesional, práctica o síntoma..." style={inputStyle} />
           <input type="text" placeholder="Localidad o código postal..." style={inputStyle} />
           <button type="button" style={botonSecundario}>
             Buscar

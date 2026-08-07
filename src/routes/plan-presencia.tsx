@@ -27,7 +27,7 @@ function PlanPresencia() {
             <p style={{ margin: "0 0 16px 0" }}>✓ Presentación profesional.</p>
 
             <h2 style={{ fontSize: 14, fontWeight: 600, margin: "0 0 8px 0" }}>Tu actividad</h2>
-            <p style={{ margin: "0 0 4px 0" }}>✓ Hasta 3 Disciplinas y Especialidades.</p>
+            <p style={{ margin: "0 0 4px 0" }}>✓ Hasta 5 Prácticas.</p>
             <p style={{ margin: "0 0 4px 0" }}>✓ Hasta 5 Áreas de Acompañamiento.</p>
             <p style={{ margin: "0 0 4px 0" }}>✓ Una ubicación principal.</p>
             <p style={{ margin: "0 0 4px 0" }}>✓ Modalidades de atención.</p>

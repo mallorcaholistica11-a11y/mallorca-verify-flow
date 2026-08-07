@@ -14,7 +14,13 @@ import {
   type PerfilTipo,
 } from "@/components/Wireframe";
 import { TelefonoField } from "@/components/TelefonoField";
-import { AreasPicker, EspecialidadesPicker } from "@/components/TaxonomiaPickers";
+import { AreasPicker } from "@/components/TaxonomiaPickers";
+import { SelectorPracticas } from "@/components/SelectorPracticas";
+import {
+  MAX_PRACTICAS_CENTRO,
+  MAX_PRACTICAS_PRESENCIA,
+  MAX_PRACTICAS_VERIFICADO,
+} from "@/data/practicas";
 import { HorarioSemanal } from "@/components/HorarioSemanal";
 
 export const Route = createFileRoute("/dashboard/formulario")({
@@ -230,8 +236,8 @@ function FormularioBase() {
         ? current.sections.map((sec) => (
             <Box key={sec.title} title={sec.title}>
               {sec.note && <Note>{sec.note}</Note>}
-              {sec.title === "Disciplinas y Especialidades" ? (
-                <EspecialidadesPicker max={10} variant="profesional" />
+              {sec.title === "Prácticas" ? (
+                <SelectorPracticas max={MAX_PRACTICAS_VERIFICADO} />
               ) : sec.title === "Áreas de Acompañamiento" ? (
                 <AreasPicker variant="profesional" />
               ) : sec.title === "Público al que acompaño" ? (
@@ -429,8 +435,8 @@ function PresenciaStep({
   if (step === 2) {
     return (
       <>
-        <Box title={isOrg ? "Servicios, terapias y actividades" : "Disciplinas y Especialidades"}>
-          <EspecialidadesPicker max={3} variant="profesional" />
+        <Box title={isOrg ? "Servicios, terapias y actividades" : "Prácticas"}>
+          <SelectorPracticas max={MAX_PRACTICAS_PRESENCIA} />
         </Box>
         <Box title="Áreas de Acompañamiento">
           <AreasPicker max={5} variant="profesional" />
@@ -2328,8 +2334,8 @@ function VerificadoFormulario() {
 
       {step === 2 && (
         <div style={{ display: "flex", flexDirection: "column", gap: isOrg ? 0 : 12 }}>
-          <Box title="Disciplinas y Especialidades">
-            <EspecialidadesPicker max={10} variant={isOrg ? "organizacion" : "profesional"} />
+          <Box title="Prácticas">
+            <SelectorPracticas max={isOrg ? MAX_PRACTICAS_CENTRO : MAX_PRACTICAS_VERIFICADO} />
           </Box>
           <Box title="Áreas de Acompañamiento">
             <AreasPicker max={15} variant={isOrg ? "organizacion" : "profesional"} />
@@ -3160,8 +3166,8 @@ function PresenciaOrganizacionFormulario() {
 
       {step === 2 && (
         <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-          <Box title="Disciplinas y Especialidades">
-            <EspecialidadesPicker max={3} variant="organizacion" />
+          <Box title="Prácticas">
+            <SelectorPracticas max={MAX_PRACTICAS_CENTRO} />
           </Box>
           <Box title="Áreas de Acompañamiento">
             <AreasPicker max={15} variant="organizacion" />
@@ -3470,8 +3476,8 @@ function PresenciaProfesionalFormulario() {
 
       {step === 2 && (
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          <Box title="Disciplinas y Especialidades">
-            <EspecialidadesPicker max={3} variant="profesional" />
+          <Box title="Prácticas">
+            <SelectorPracticas max={MAX_PRACTICAS_PRESENCIA} />
           </Box>
           <Box title="Áreas de Acompañamiento">
             <AreasPicker max={5} variant="profesional" />

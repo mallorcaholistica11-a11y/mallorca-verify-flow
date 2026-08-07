@@ -1,4 +1,4 @@
-// Catálogo Oficial de Áreas de Acompañamiento · MVP v1.0
+// Catálogo Oficial de Áreas de Acompañamiento · BASE MVP v1.0 · VERIFICADO (115 áreas)
 // FUENTE ÚNICA del proyecto. Toda pantalla (formularios, directorio, agenda,
 // guía, fichas públicas, IA) debe leer de aquí. No crear listas paralelas.
 //
@@ -119,10 +119,16 @@ export const CATEGORIAS_AREAS: CategoriaAreas[] = [
   {
     categoria: "Neurodiversidad",
     areas: [
+      "Alta sensibilidad (PAS)",
       "Altas capacidades",
       "Autismo (TEA)",
+      "Comunicación y habilidades sociales",
       "Dificultades de aprendizaje",
       "Dislexia",
+      "Dispraxia / Trastorno del Desarrollo de la Coordinación (TDC)",
+      "Funciones ejecutivas",
+      "Hipersensibilidad sensorial",
+      "Procesamiento sensorial",
       "Regulación sensorial",
       "TDAH",
     ],

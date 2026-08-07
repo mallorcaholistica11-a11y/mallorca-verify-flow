@@ -3,84 +3,56 @@ import { useMemo, useState } from "react";
 import { Placeholder } from "@/components/ficha/primitives";
 import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
-import { CATEGORIAS_CON_DISCIPLINAS, especialidadesDe } from "@/data/catalogo";
+import { LETRAS_AZ, buscarPracticas, practicasPorLetra, slugPractica } from "@/data/practicas";
 
 export const Route = createFileRoute("/guia/")({
   head: () => ({
     meta: [
-      { title: "Guía de Disciplinas y Especialidades — Mallorca Holística" },
+      { title: "Guía de Prácticas — Mallorca Holística" },
       {
         name: "description",
         content:
-          "Explora las disciplinas y especialidades del catálogo oficial de Mallorca Holística y descubre en qué consiste cada una.",
+          "Índice alfabético de todas las prácticas, terapias y especialidades del catálogo oficial de Mallorca Holística.",
       },
-      { property: "og:title", content: "Guía de Disciplinas y Especialidades — Mallorca Holística" },
+      { property: "og:title", content: "Guía de Prácticas — Mallorca Holística" },
       {
         property: "og:description",
         content:
-          "Una guía abierta para descubrir disciplinas y especialidades de salud integrativa, categoría a categoría.",
+          "Una guía abierta para descubrir prácticas y terapias de salud integrativa, de la A a la Z.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
   }),
-  component: GuiaEspecialidades,
+  component: GuiaPracticas,
 });
 
 const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
 
-
-export function slugEspecialidad(nombre: string) {
-  return nombre
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .replace(/\(.*?\)/g, " ")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
-function normaliza(s: string) {
-  return s
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase();
-}
-
-function GuiaEspecialidades() {
+/**
+ * Guía de Prácticas · índice A–Z.
+ * Fuente única: src/data/practicas.ts. Sin categorías como puerta de entrada,
+ * sin paginación: buscador + navegación alfabética sobre las 403 prácticas.
+ */
+function GuiaPracticas() {
   const isMobile = useMobile(900);
   const [query, setQuery] = useState("");
 
-  const grupos = useMemo(() => {
-    const base = CATEGORIAS_CON_DISCIPLINAS.map((c) => ({
-      categoria: `${c.emoji} ${c.categoria}`,
-      disciplinas: c.disciplinas.map((d) => d.nombre),
-    }));
-    const q = normaliza(query.trim());
-    if (!q) return base;
-    // La búsqueda también encuentra disciplinas a través de sus especialidades.
-    return base
-      .map((g) => ({
-        categoria: g.categoria,
-        disciplinas: g.disciplinas.filter(
-          (d) =>
-            normaliza(d).includes(q) || especialidadesDe(d).some((e) => normaliza(e).includes(q)),
-        ),
-      }))
-      .filter((g) => g.disciplinas.length > 0);
-  }, [query]);
+  const encontradas = useMemo(() => buscarPracticas(query), [query]);
+  const grupos = useMemo(() => practicasPorLetra(encontradas), [encontradas]);
+  const letrasDisponibles = useMemo(() => new Set(grupos.map((g) => g.letra)), [grupos]);
 
   return (
     <div style={{ fontFamily: MONO, background: "#fafafa", color: "#111", minHeight: "100vh" }}>
       <style>{`
-        .guia-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 6px 20px; }
+        .guia-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 4px 24px; }
         @media (max-width: 900px) { .guia-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
         @media (max-width: 560px) { .guia-grid { grid-template-columns: minmax(0,1fr); } }
-        .guia-link { color: #222; text-decoration: none; font-size: 13px; line-height: 1.9; display: block; }
+        .guia-link { color: #222; text-decoration: none; font-size: 13px; line-height: 2; display: block; }
         .guia-link:hover { color: #000; text-decoration: underline; text-decoration-color: #bbb; text-underline-offset: 3px; }
       `}</style>
 
-      <NavPublica isMobile={isMobile} activo="Guía de Disciplinas y Especialidades" />
+      <NavPublica isMobile={isMobile} activo="Guía de Prácticas" />
 
       <main style={{ maxWidth: 1080, margin: "0 auto", padding: isMobile ? "0 16px" : "0 24px" }}>
         {/* Hero */}
@@ -95,15 +67,15 @@ function GuiaEspecialidades() {
           >
             <div>
               <h1 style={{ fontSize: isMobile ? 22 : 26, margin: "0 0 12px 0", lineHeight: 1.3 }}>
-                Guía de Disciplinas y Especialidades
+                Guía de Prácticas
               </h1>
               <p style={{ fontSize: 14, lineHeight: 1.7, margin: "0 0 10px 0" }}>
-                Explora las diferentes disciplinas y descubre en qué consiste cada una. Haz clic en
-                la que te interese para acceder a su guía completa y a sus especialidades.
+                Busca directamente la práctica que te interese o recórrela de la A a la Z. Haz clic
+                en cualquiera para descubrir en qué consiste.
               </p>
               <p style={{ fontSize: 12, lineHeight: 1.7, color: "#666", margin: 0 }}>
                 Estamos ampliando esta guía de forma progresiva para ofrecer información clara y de
-                calidad sobre cada disciplina y especialidad.
+                calidad sobre cada práctica.
               </p>
             </div>
             <Placeholder alto={isMobile ? 140 : 200}>
@@ -113,13 +85,13 @@ function GuiaEspecialidades() {
         </section>
 
         {/* Buscador */}
-        <section style={{ marginBottom: 28 }}>
+        <section style={{ marginBottom: 16 }}>
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Buscar una disciplina o especialidad..."
-            aria-label="Buscar una disciplina o especialidad"
+            placeholder="Buscar una práctica…"
+            aria-label="Buscar una práctica"
             style={{
               width: "100%",
               border: "1px dashed #888",
@@ -133,12 +105,36 @@ function GuiaEspecialidades() {
           />
         </section>
 
-        {/* Categorías */}
+        {/* Navegación A–Z */}
+        <nav
+          aria-label="Navegación alfabética"
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 6,
+            padding: "10px 0 22px 0",
+            borderBottom: "1px dashed #ddd",
+            marginBottom: 26,
+          }}
+        >
+          {LETRAS_AZ.map((l) =>
+            letrasDisponibles.has(l) ? (
+              <a key={l} href={`#letra-${l}`} style={{ ...letraStyle, color: "#222" }}>
+                {l}
+              </a>
+            ) : (
+              <span key={l} style={{ ...letraStyle, color: "#ccc" }}>
+                {l}
+              </span>
+            ),
+          )}
+        </nav>
+
+        {/* Índice A–Z */}
         {grupos.length === 0 ? (
           <section style={{ marginBottom: 40 }}>
             <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 8px 0" }}>
-              No hemos encontrado ninguna disciplina ni especialidad con ese nombre. Prueba con otro
-              término o explora las categorías disponibles.
+              No hemos encontrado ninguna práctica con ese nombre. Prueba con otro término.
             </p>
             <button
               type="button"
@@ -154,34 +150,32 @@ function GuiaEspecialidades() {
                 cursor: "pointer",
               }}
             >
-              Ver todas las disciplinas
+              Ver todas las prácticas
             </button>
           </section>
         ) : (
           grupos.map((g) => (
-            <section key={g.categoria} style={{ marginBottom: 30 }}>
+            <section key={g.letra} id={`letra-${g.letra}`} style={{ marginBottom: 34 }}>
               <h2
                 style={{
-                  fontSize: 12,
-                  letterSpacing: 1,
-                  textTransform: "uppercase",
-                  color: "#666",
+                  fontSize: 15,
+                  color: "#111",
                   borderBottom: "1px dashed #ccc",
                   paddingBottom: 6,
                   margin: "0 0 12px 0",
                 }}
               >
-                {g.categoria}
+                {g.letra}
               </h2>
               <div className="guia-grid">
-                {g.disciplinas.map((e) => (
+                {g.practicas.map((p) => (
                   <Link
-                    key={e}
+                    key={p}
                     to="/guia/$slug"
-                    params={{ slug: slugEspecialidad(e) }}
+                    params={{ slug: slugPractica(p) }}
                     className="guia-link"
                   >
-                    {e}
+                    {p}
                   </Link>
                 ))}
               </div>
@@ -246,9 +240,15 @@ function GuiaEspecialidades() {
           textAlign: "center",
         }}
       >
-        Wireframe funcional · Guía de Disciplinas y Especialidades · sin diseño visual definitivo
+        Wireframe funcional · Guía de Prácticas · sin diseño visual definitivo
       </footer>
     </div>
   );
 }
 
+const letraStyle = {
+  fontSize: 13,
+  padding: "2px 7px",
+  border: "1px dashed #ddd",
+  textDecoration: "none",
+} as const;
