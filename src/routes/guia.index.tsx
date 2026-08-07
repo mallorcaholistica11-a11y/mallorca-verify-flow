@@ -153,20 +153,10 @@ function GuiaPracticas() {
             </button>
           </section>
         ) : (
-          grupos.map((g) => (
-            <section key={g.letra} id={`letra-${g.letra}`} style={{ marginBottom: 34 }}>
-              <h2
-                style={{
-                  fontSize: 15,
-                  color: "#111",
-                  borderBottom: "1px dashed #ccc",
-                  paddingBottom: 6,
-                  margin: "0 0 12px 0",
-                }}
-              >
-                {g.letra}
-              </h2>
-              <div className="guia-grid">
+          <div className="guia-indice">
+            {grupos.map((g) => (
+              <section key={g.letra} id={`letra-${g.letra}`} className="guia-bloque">
+                <h2 className="guia-letra">{g.letra}</h2>
                 {g.practicas.map((p) => (
                   <Link
                     key={p}
@@ -177,9 +167,9 @@ function GuiaPracticas() {
                     {p}
                   </Link>
                 ))}
-              </div>
-            </section>
-          ))
+              </section>
+            ))}
+          </div>
         )}
 
         {/* Bloque final */}
