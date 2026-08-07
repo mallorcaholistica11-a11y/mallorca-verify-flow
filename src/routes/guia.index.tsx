@@ -236,8 +236,9 @@ function GuiaPracticas() {
 }
 
 const letraStyle = {
-  fontSize: 13,
-  padding: "2px 7px",
+  fontSize: 14,
+  letterSpacing: 1,
+  padding: "4px 10px",
   border: "1px dashed #ddd",
   textDecoration: "none",
 } as const;
