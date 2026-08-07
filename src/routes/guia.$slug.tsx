@@ -1,70 +1,57 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMobile } from "@/components/ficha/useMobile";
-import { PlantillaEspecialidad } from "@/components/especialidad/PlantillaEspecialidad";
-import { CATEGORIAS_CON_DISCIPLINAS } from "@/data/catalogo";
-import { contenidoEspecialidad } from "@/data/especialidades-contenido";
-import { slugEspecialidad } from "./guia.index";
+import { PlantillaPractica } from "@/components/practica/PlantillaPractica";
+import { practicaPorSlug, slugPractica } from "@/data/practicas";
+import { contenidoPractica } from "@/data/practicas-contenido";
 
 export const Route = createFileRoute("/guia/$slug")({
   head: () => ({
     meta: [
-      { title: "Ficha de especialidad — Guía de Disciplinas y Especialidades — Mallorca Holística" },
+      { title: "Ficha de práctica — Guía de Prácticas — Mallorca Holística" },
       {
         name: "description",
-        content: "Ficha individual de una especialidad o terapia dentro de la guía de Mallorca Holística.",
+        content: "Ficha individual de una práctica dentro de la Guía de Prácticas de Mallorca Holística.",
       },
-      { property: "og:title", content: "Ficha de especialidad — Mallorca Holística" },
+      { property: "og:title", content: "Ficha de práctica — Mallorca Holística" },
       {
         property: "og:description",
-        content: "Explicación sencilla de una especialidad o terapia complementaria.",
+        content: "Explicación sencilla de una práctica o terapia complementaria.",
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary" },
     ],
   }),
-  component: FichaEspecialidad,
+  component: FichaPractica,
 });
 
 const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
 
 /**
- * Arquitectura oficial de la Base de Conocimiento:
- *   Categoría → Disciplina → Especialidad
- *
- * Evolución futura de esta página de disciplina (aún NO implementada):
- *   1. Introducción
- *   2. Qué es esta disciplina
- *   3. Especialidades relacionadas
- *   4. Profesionales que la ofrecen
- *   5. Actividades relacionadas
- *   6. Artículos relacionados
- * Cualquier bloque nuevo debe alimentarse de src/data/catalogo.ts.
- * No crear listas paralelas ni nuevas estructuras de taxonomía.
+ * Ficha pública de una PRÁCTICA.
+ * Fuente única: src/data/practicas.ts (403 prácticas). Todas las prácticas
+ * —antiguas disciplinas y antiguas especialidades— tienen su propia URL.
+ * El contenido editorial vive en src/data/practicas-contenido.ts; cuando falta
+ * se muestra el estado de contenido pendiente, nunca contenido inventado.
  */
-
-function FichaEspecialidad() {
+function FichaPractica() {
   const { slug } = Route.useParams();
   const isMobile = useMobile(900);
 
-  const encontrada = CATEGORIAS_CON_DISCIPLINAS.flatMap((c) =>
-    c.disciplinas.map((d) => ({ nombre: d.nombre, categoria: `${c.emoji} ${c.categoria}` })),
-  ).find((d) => slugEspecialidad(d.nombre) === slug);
+  const encontrada = practicaPorSlug(slug);
 
-  // Plantilla Oficial reutilizable: TODAS las especialidades usan exactamente
-  // esta misma estructura; si falta contenido se muestran textos provisionales.
   if (encontrada) {
-    const contenido = contenidoEspecialidad(slug, encontrada.nombre, encontrada.categoria);
-    return <PlantillaEspecialidad contenido={contenido} categoria={encontrada.categoria} />;
+    const contenido = contenidoPractica(slugPractica(encontrada.nombre), encontrada.nombre);
+    return <PlantillaPractica contenido={contenido} relacionadaCon={encontrada.relacionadaCon} />;
   }
 
   return (
     <div style={{ fontFamily: MONO, background: "#fafafa", color: "#111", minHeight: "100vh" }}>
       <main style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "24px 16px" : "32px 24px" }}>
         <Link to="/guia" style={{ fontSize: 12, color: "#666" }}>
-          ← Volver a la Guía de Disciplinas y Especialidades
+          ← Volver a la Guía de Prácticas
         </Link>
 
-        <h1 style={{ fontSize: 22, margin: "16px 0 6px 0" }}>Disciplina no encontrada</h1>
+        <h1 style={{ fontSize: 22, margin: "16px 0 6px 0" }}>Práctica no encontrada</h1>
         <div style={{ fontSize: 12, color: "#666", marginBottom: 20 }}>
           Prueba a explorar la guía completa.
         </div>
