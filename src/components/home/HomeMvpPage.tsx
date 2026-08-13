@@ -280,7 +280,7 @@ function Profesionales({ isMobile, isTablet }: { isMobile: boolean; isTablet: bo
         ))}
       </div>
       <div style={{ marginTop: 18, textAlign: "right", fontSize: 12 }}>
-        <Link to="/directorio" style={{ color: "#111" }}>
+        <Link to="/directorio" search={{ q: "", lugar: "" }} style={{ color: "#111" }}>
           Ver todos los profesionales →
         </Link>
       </div>

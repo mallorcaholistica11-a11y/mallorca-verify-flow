@@ -198,6 +198,7 @@ function GuiaPracticas() {
           </p>
           <Link
             to="/directorio"
+            search={{ q: "", lugar: "" }}
             style={{
               display: "inline-block",
               border: "1px solid #111",
