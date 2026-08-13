@@ -212,7 +212,7 @@ function GuiaPracticas() {
             Descubrir profesionales
           </Link>
           <div style={{ marginTop: 12 }}>
-            <Link to="/directorio" style={{ fontSize: 11, color: "#666" }}>
+            <Link to="/directorio" search={{ q: "", lugar: "" }} style={{ fontSize: 11, color: "#666" }}>
               ¿No sabes por dónde empezar? Explora el Directorio de Profesionales y encuentra el
               acompañamiento que mejor se adapte a ti.
             </Link>
