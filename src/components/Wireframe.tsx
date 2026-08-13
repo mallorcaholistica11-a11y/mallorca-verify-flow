@@ -30,7 +30,7 @@ export function WireframeShell({
         </Link>
         <nav style={{ display: "flex", gap: 16, fontSize: 12 }}>
           <Link to="/" style={linkStyle}>Inicio</Link>
-          <Link to="/directorio" style={linkStyle}>Directorio de Profesionales</Link>
+          <Link to="/directorio" search={{ q: "", lugar: "" }} style={linkStyle}>Directorio de Profesionales</Link>
           <Link to="/guia" style={linkStyle}>Guía de Prácticas</Link>
           <Link to="/agenda" style={linkStyle}>Agenda de Actividades</Link>
           <Link to="/blog" style={linkStyle}>Blog</Link>
