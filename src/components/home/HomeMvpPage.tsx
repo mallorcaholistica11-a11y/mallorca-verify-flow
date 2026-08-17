@@ -41,10 +41,10 @@ const CONFIANZA = [
 const PROFESIONALES = [
   { nombre: "Lucía Gelabert", especialidad: "Psicoterapia integrativa", lugar: "Palma" },
   { nombre: "Andrés López", especialidad: "Osteopatía", lugar: "Palma" },
-  { nombre: "Marta Ferrer", especialidad: "Masaje terapéutico", lugar: "Sóller" },
-  { nombre: "Jordi Ramis", especialidad: "Terapia holística", lugar: "Manacor" },
-  { nombre: "Núria Camps", especialidad: "Terapia energética", lugar: "Inca" },
-  { nombre: "Elena Vidal", especialidad: "Nutrición integrativa", lugar: "Alcúdia" },
+  { nombre: "Marta Ferrer", especialidad: "Masaje Terapéutico", lugar: "Sóller" },
+  { nombre: "Jordi Ramis", especialidad: "Terapia Energética", lugar: "Manacor" },
+  { nombre: "Núria Camps", especialidad: "Sanación Energética", lugar: "Inca" },
+  { nombre: "Elena Vidal", especialidad: "Nutrición Integrativa", lugar: "Alcúdia" },
 ];
 
 const DESCUBRE = [

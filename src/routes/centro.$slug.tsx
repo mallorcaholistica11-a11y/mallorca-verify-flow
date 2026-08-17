@@ -27,7 +27,7 @@ export const Route = createFileRoute("/centro/$slug")({
 const demo: FichaCentroData = {
   nombre: "Espai Sa Font",
   tipoOrganizacion: "Centro de terapias y formación",
-  especialidadesPrincipales: ["Yoga", "Masaje Holístico", "Meditación"],
+  especialidadesPrincipales: ["Yoga", "Masaje Terapéutico", "Meditación"],
   anioInicioActividad: 2014,
   municipio: "Palma, Mallorca",
   modalidades: ["Sesiones individuales", "Talleres", "Cursos y formaciones", "Charlas", "Retiros", "Eventos"],
@@ -39,13 +39,13 @@ const demo: FichaCentroData = {
   sobreNosotros:
     "Somos un centro dedicado al bienestar integral desde 2014. Reunimos a un equipo de terapeutas y formadores que acompañan procesos de salud, calma y desarrollo personal en un espacio luminoso y sereno.",
   idiomas: ["Català", "Español", "English", "Deutsch"],
-  especialidades: ["Yoga", "Masaje Holístico", "Meditación", "Reiki", "Acupuntura", "Nutrición"],
+  especialidades: ["Yoga", "Masaje Terapéutico", "Meditación", "Reiki", "Acupuntura", "Nutrición Integrativa"],
   areas: ["Estrés", "Ansiedad", "Dolor crónico", "Fertilidad", "Desarrollo personal", "Gestión emocional"],
   publicos: ["Niños", "Familias", "Empresas", "Profesionales"],
   instalaciones: ["Salas de terapia", "Salas de formación", "Jardín", "Cafetería", "Espacios para eventos"],
   equipo: [
     { nombre: "Joana Riera", rol: "Directora · Yoga" },
-    { nombre: "Miquel Serra", rol: "Masaje Holístico" },
+    { nombre: "Miquel Serra", rol: "Masaje Terapéutico" },
     { nombre: "Aina Pons", rol: "Acupuntura" },
   ],
   totalEquipo: 7,
@@ -56,7 +56,7 @@ const demo: FichaCentroData = {
   ],
   tarifas: [
     { servicio: "Clase de Yoga", duracion: "75 min", precio: "18 €" },
-    { servicio: "Masaje Holístico", duracion: "60 min", precio: "80 €" },
+    { servicio: "Masaje Terapéutico", duracion: "60 min", precio: "80 €" },
     { servicio: "Alquiler de sala", duracion: "1 hora", precio: "25 €" },
     { servicio: "Bono 10 clases", duracion: "", precio: "150 €" },
   ],
