@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { SugerenciaCatalogo } from "@/components/SugerenciaCatalogo";
 import { MAX_AREAS_ACTIVIDAD, areasPorLetra, buscarAreas } from "@/data/areas";
 
 /**
@@ -21,6 +22,7 @@ export function SelectorAreas({
   placeholder = "Buscar un área de acompañamiento…",
   mostrarContador = true,
   compacto = false,
+  mostrarSugerencia,
 }: {
   selected?: string[];
   onChange?: (v: string[]) => void;
@@ -30,6 +32,7 @@ export function SelectorAreas({
   placeholder?: string;
   mostrarContador?: boolean;
   compacto?: boolean;
+  mostrarSugerencia?: boolean;
 }) {
   const [interno, setInterno] = useState<string[]>([]);
   const selected = selectedProp ?? interno;
@@ -153,6 +156,14 @@ export function SelectorAreas({
         <div style={{ fontSize: 11, color: "#888", marginTop: 8 }}>
           {selected.length}/{max} áreas seleccionadas
         </div>
+      )}
+
+      {(mostrarSugerencia ?? mostrarContador) && (
+        <SugerenciaCatalogo
+          tipo="areas"
+          pregunta="¿No encuentras alguna de tus áreas de acompañamiento?"
+          placeholder="Escribe aquí las áreas que no encuentres…"
+        />
       )}
     </div>
   );

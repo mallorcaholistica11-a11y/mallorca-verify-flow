@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { SugerenciaCatalogo } from "@/components/SugerenciaCatalogo";
 import {
   LETRAS_AZ,
   MAX_PRACTICAS_ACTIVIDAD,
@@ -26,6 +27,7 @@ export function SelectorPracticas({
   placeholder = "Buscar una práctica…",
   mostrarContador = true,
   compacto = false,
+  mostrarSugerencia,
 }: {
   selected?: string[];
   onChange?: (v: string[]) => void;
@@ -35,6 +37,7 @@ export function SelectorPracticas({
   placeholder?: string;
   mostrarContador?: boolean;
   compacto?: boolean;
+  mostrarSugerencia?: boolean;
 }) {
   const [interno, setInterno] = useState<string[]>([]);
   const selected = selectedProp ?? interno;
@@ -214,6 +217,14 @@ export function SelectorPracticas({
         <div style={{ fontSize: 11, color: "#888", marginTop: 8 }}>
           {selected.length}/{max} prácticas seleccionadas
         </div>
+      )}
+
+      {(mostrarSugerencia ?? mostrarContador) && (
+        <SugerenciaCatalogo
+          tipo="practicas"
+          pregunta="¿No encuentras alguna de tus prácticas?"
+          placeholder="Escribe aquí las prácticas que no encuentres…"
+        />
       )}
     </div>
   );
