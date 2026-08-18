@@ -107,15 +107,12 @@ function Hero({
               overflow: "hidden",
             }}
           >
-            {data.fotoUrl ? (
-              <img
-                src={data.fotoUrl}
-                alt={`Fotografía de ${data.nombre}`}
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              />
-            ) : (
-              "[foto]"
-            )}
+            <img
+              src={data.fotoUrl ?? retratoDe(data.nombre)}
+              alt={`Fotografía de ${data.nombre}`}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+
           </div>
         </div>
 

@@ -109,15 +109,12 @@ function HeroCentro({
               overflow: "hidden",
             }}
           >
-            {data.imagenPrincipal ? (
-              <img
-                src={data.imagenPrincipal}
-                alt={`Imagen principal de ${data.nombre}`}
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              />
-            ) : (
-              "[imagen del centro]"
-            )}
+            <img
+              src={data.imagenPrincipal ?? ambienteDe(data.nombre)}
+              alt={`Imagen principal de ${data.nombre}`}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+
           </div>
         </div>
 
