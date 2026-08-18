@@ -40,9 +40,23 @@ function indiceEstable(clave: string, total: number) {
   return h % total;
 }
 
+/**
+ * Asignación explícita para los perfiles de demostración, de modo que el
+ * retrato provisional resulte coherente con cada persona.
+ */
+const RETRATO_POR_NOMBRE: Record<string, string> = {
+  "Lucía Gelabert": RETRATOS[0]!,
+  "Marta Ferrer": RETRATOS[2]!,
+  "Núria Camps": RETRATOS[4]!,
+  "Elena Vidal": RETRATOS[5]!,
+  "Andrés López": RETRATOS[1]!,
+  "Jordi Ramis": RETRATOS[3]!,
+  "Pau Elenco": RETRATOS[3]!,
+};
+
 /** Retrato provisional coherente y estable para un nombre de profesional. */
 export function retratoDe(clave: string): string {
-  return RETRATOS[indiceEstable(clave, RETRATOS.length)]!;
+  return RETRATO_POR_NOMBRE[clave] ?? RETRATOS[indiceEstable(clave, RETRATOS.length)]!;
 }
 
 /** Imagen de ambiente/espacio provisional y estable para centros o actividades. */

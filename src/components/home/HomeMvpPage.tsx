@@ -149,7 +149,7 @@ function BuscadorIA({ isMobile }: { isMobile: boolean }) {
       >
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-[0.10]"
+          className="pointer-events-none absolute inset-0 opacity-[0.07]"
           style={{
             backgroundImage: `url(${IMG.detalle1})`,
             backgroundSize: "cover",
