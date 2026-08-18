@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMobile } from "@/components/ficha/useMobile";
 import { areasOficiales } from "@/data/areas";
+import { ambienteDe, retratoDe } from "@/data/imagenes";
 
 export const Route = createFileRoute("/actividad/$id")({
   head: () => ({
