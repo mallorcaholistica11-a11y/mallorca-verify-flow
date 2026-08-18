@@ -144,7 +144,20 @@ function Hero({ isMobile }: { isMobile: boolean }) {
 function BuscadorIA({ isMobile }: { isMobile: boolean }) {
   return (
     <Bloque>
-      <div className="border border-border bg-card p-6 md:p-12">
+      <div
+        className="relative overflow-hidden rounded-[28px] border border-border/70 bg-card p-6 shadow-[var(--shadow-soft)] md:p-14"
+      >
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.10]"
+          style={{
+            backgroundImage: `url(${IMG.detalle1})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+        <div className="relative">
+
         <div className="mx-auto mb-7 max-w-xl text-center">
           <h2 className="mb-3 font-display text-xl font-semibold md:text-2xl">
             ¿Cómo te sientes hoy?
