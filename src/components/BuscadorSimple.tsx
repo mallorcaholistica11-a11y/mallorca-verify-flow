@@ -93,7 +93,7 @@ export function BuscadorSimple({
                     fontSize: 10,
                     letterSpacing: 1,
                     textTransform: "uppercase",
-                    color: "#888",
+                    color: "var(--muted-foreground)",
                     padding: "0 12px 6px 12px",
                   }}
                 >
@@ -137,20 +137,23 @@ export function BuscadorSimple({
 }
 
 const inputStyle: CSSProperties = {
+  borderRadius: 10,
   width: "100%",
-  border: "1px dashed #888",
-  background: "#fff",
+  border: "1px solid var(--border)",
+  background: "var(--card)",
   padding: "12px 14px",
   fontSize: 13,
   fontFamily: "inherit",
-  color: "#111",
+  color: "var(--foreground)",
   boxSizing: "border-box",
 };
 
 const botonStyle: CSSProperties = {
-  border: "1px dashed #666",
-  background: "#fff",
-  color: "#111",
+  borderRadius: 999,
+  border: "1px solid var(--primary)",
+  background: "var(--primary)",
+  color: "var(--primary-foreground)",
+  boxShadow: "var(--shadow-soft)",
   padding: "12px 22px",
   fontSize: 13,
   fontFamily: "inherit",
@@ -158,13 +161,15 @@ const botonStyle: CSSProperties = {
 };
 
 const sugerenciasStyle: CSSProperties = {
+  borderRadius: 12,
+  boxShadow: "var(--shadow-lift)",
   position: "absolute",
   top: "calc(100% + 4px)",
   left: 0,
   right: 0,
   zIndex: 20,
-  background: "#fff",
-  border: "1px dashed #888",
+  background: "var(--card)",
+  border: "1px solid var(--border)",
   maxHeight: 320,
   overflowY: "auto",
 };
@@ -178,6 +183,6 @@ const itemStyle: CSSProperties = {
   padding: "6px 12px",
   fontSize: 12,
   fontFamily: "inherit",
-  color: "#111",
+  color: "var(--foreground)",
   cursor: "pointer",
 };

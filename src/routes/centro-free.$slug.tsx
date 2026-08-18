@@ -62,15 +62,15 @@ function FichaCentroPresencia() {
     <div>
       <div
         style={{
-          fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+          fontFamily: "var(--font-body)",
           fontSize: 11,
-          color: "#666",
+          color: "var(--muted-foreground)",
           padding: "10px 24px",
-          borderBottom: "1px dashed #ddd",
-          background: "#fff",
+          borderBottom: "1px solid var(--border)",
+          background: "var(--card)",
         }}
       >
-        <Link to="/" style={{ color: "#111" }}>
+        <Link to="/" style={{ color: "var(--foreground)" }}>
           ← Volver a resultados
         </Link>
       </div>

@@ -23,7 +23,7 @@ export function Seccion({
             fontSize: 12,
             letterSpacing: 1,
             textTransform: "uppercase",
-            color: "#666",
+            color: "var(--muted-foreground)",
             margin: "0 0 10px 0",
           }}
         >
@@ -67,11 +67,12 @@ export function Chips({
 }
 
 const chipStyle: CSSProperties = {
-  border: "1px dashed #888",
-  background: "#fff",
+  borderRadius: 999,
+  background: "var(--secondary)",
+  color: "var(--secondary-foreground)",
+  border: "1px solid transparent",
   padding: "4px 10px",
   fontSize: 12,
-  color: "#111",
 };
 
 /**
@@ -103,7 +104,7 @@ export function LineaTexto({ items }: { items: string[] }) {
 export function Acordeon({ titulo, children }: { titulo: string; children: ReactNode }) {
   const [abierto, setAbierto] = useState(false);
   return (
-    <div style={{ border: "1px dashed #888", background: "#fff" }}>
+    <div style={{ border: "1px solid var(--border)", borderRadius: 12, background: "var(--card)" }}>
       <button
         type="button"
         onClick={() => setAbierto((v) => !v)}
@@ -123,10 +124,10 @@ export function Acordeon({ titulo, children }: { titulo: string; children: React
         }}
       >
         <span>{titulo}</span>
-        <span style={{ color: "#888" }}>{abierto ? "−" : "+"}</span>
+        <span style={{ color: "var(--muted-foreground)" }}>{abierto ? "−" : "+"}</span>
       </button>
       {abierto && (
-        <div style={{ borderTop: "1px dotted #ccc", padding: "12px" }}>{children}</div>
+        <div style={{ borderTop: "1px dotted var(--border)", padding: "12px" }}>{children}</div>
       )}
     </div>
   );
@@ -136,7 +137,7 @@ export function ListaSimple({ titulo, items }: { titulo: string; items?: string[
   if (!items || items.length === 0) return null;
   return (
     <div style={{ marginBottom: 12 }}>
-      <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: 1, color: "#666", marginBottom: 4 }}>
+      <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: 1, color: "var(--muted-foreground)", marginBottom: 4 }}>
         {titulo}
       </div>
       <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, lineHeight: 1.7 }}>
@@ -159,9 +160,9 @@ export function Boton({
 }) {
   const style: CSSProperties = {
     display: "inline-block",
-    border: variante === "principal" ? "1px solid #111" : "1px dashed #888",
-    background: variante === "principal" ? "#111" : "#fff",
-    color: variante === "principal" ? "#fff" : "#111",
+    border: variante === "principal" ? "1px solid var(--foreground)" : "1px solid var(--border)",
+    background: variante === "principal" ? "var(--foreground)" : "var(--card)",
+    color: variante === "principal" ? "var(--card)" : "var(--foreground)",
     padding: "8px 14px",
     fontSize: 13,
     textDecoration: "none",
@@ -177,13 +178,14 @@ export function Placeholder({ children, alto = 120 }: { children: ReactNode; alt
   return (
     <div
       style={{
-        border: "1px dashed #888",
-        background: "#fff",
+        border: "1px dashed var(--border)",
+        borderRadius: 14,
+        background: "var(--cream)",
         minHeight: alto,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        color: "#aaa",
+        color: "var(--muted-foreground)",
         fontSize: 12,
         textAlign: "center",
         padding: 8,

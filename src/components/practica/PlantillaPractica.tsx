@@ -12,7 +12,7 @@ import {
 // El usuario consulta simplemente una PRÁCTICA: no se muestra terminología
 // interna (disciplina, especialidad, práctica raíz o derivada).
 
-const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
+const MONO = "var(--font-body)";
 
 export function urlDirectorioPractica(nombre: string) {
   return `/directorio?practica=${encodeURIComponent(nombre)}`;
@@ -36,7 +36,7 @@ export function PlantillaPractica({
   const urlDirectorio = urlDirectorioPractica(contenido.nombre);
 
   return (
-    <div style={{ fontFamily: MONO, background: "#fafafa", color: "#111", minHeight: "100vh" }}>
+    <div style={{ fontFamily: MONO, background: "var(--muted)", color: "var(--foreground)", minHeight: "100vh" }}>
       <main
         style={{
           maxWidth: 720,
@@ -44,7 +44,7 @@ export function PlantillaPractica({
           padding: isMobile ? "24px 16px 60px" : "36px 24px 80px",
         }}
       >
-        <Link to="/guia" style={{ fontSize: 12, color: "#666" }}>
+        <Link to="/guia" style={{ fontSize: 12, color: "var(--muted-foreground)" }}>
           ← Volver a la Guía de Prácticas
         </Link>
 
@@ -55,13 +55,13 @@ export function PlantillaPractica({
           </h1>
 
           {relacionadaCon && relacionadaCon !== contenido.nombre && (
-            <div style={{ fontSize: 12, color: "#777", margin: "-6px 0 16px 0" }}>
+            <div style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "-6px 0 16px 0" }}>
               Relacionado con {relacionadaCon}
             </div>
           )}
 
           {contenido.definicionBreve && (
-            <p style={{ fontSize: 14, lineHeight: 1.8, margin: "0 0 20px 0", color: "#333" }}>
+            <p style={{ fontSize: 14, lineHeight: 1.8, margin: "0 0 20px 0", color: "var(--foreground)" }}>
               {contenido.definicionBreve}
             </p>
           )}
@@ -75,7 +75,7 @@ export function PlantillaPractica({
                 width: "100%",
                 height: isMobile ? 160 : 240,
                 objectFit: "cover",
-                border: "1px dashed #888",
+                border: "1px solid var(--border)", borderRadius: 12,
                 display: "block",
                 marginBottom: 20,
               }}
@@ -92,9 +92,9 @@ export function PlantillaPractica({
             href={urlDirectorio}
             style={{
               display: "inline-block",
-              border: "1px solid #111",
-              background: "#111",
-              color: "#fff",
+              border: "1px solid var(--foreground)",
+              background: "var(--foreground)",
+              color: "var(--card)",
               padding: "10px 18px",
               fontSize: 13,
               textDecoration: "none",
@@ -127,8 +127,8 @@ export function PlantillaPractica({
         {/* Nota importante · común a todas las prácticas */}
         <section
           style={{
-            border: "1px dashed #888",
-            background: "#fff",
+            border: "1px solid var(--border)", borderRadius: 12,
+            background: "var(--card)",
             padding: isMobile ? 16 : 20,
             marginBottom: 40,
           }}
@@ -138,13 +138,13 @@ export function PlantillaPractica({
               fontSize: 11,
               letterSpacing: 1,
               textTransform: "uppercase",
-              color: "#666",
+              color: "var(--muted-foreground)",
               marginBottom: 8,
             }}
           >
             Nota importante
           </div>
-          <p style={{ fontSize: 13, lineHeight: 1.8, margin: 0, color: "#333" }}>
+          <p style={{ fontSize: 13, lineHeight: 1.8, margin: 0, color: "var(--foreground)" }}>
             {NOTA_IMPORTANTE_PRACTICA}
           </p>
         </section>
@@ -158,7 +158,7 @@ export function PlantillaPractica({
             style={{
               fontSize: 13,
               lineHeight: 1.8,
-              color: "#333",
+              color: "var(--foreground)",
               margin: "0 auto 18px auto",
               maxWidth: 560,
             }}
@@ -170,9 +170,9 @@ export function PlantillaPractica({
             href={urlDirectorio}
             style={{
               display: "inline-block",
-              border: "1px solid #111",
-              background: "#111",
-              color: "#fff",
+              border: "1px solid var(--foreground)",
+              background: "var(--foreground)",
+              color: "var(--card)",
               padding: "10px 18px",
               fontSize: 13,
               textDecoration: "none",
@@ -187,11 +187,12 @@ export function PlantillaPractica({
 }
 
 const chipArea = {
-  border: "1px dashed #999",
-  background: "#fff",
+  borderRadius: 999,
+  background: "var(--secondary)",
+  color: "var(--secondary-foreground)",
+  border: "1px solid transparent",
   padding: "5px 9px",
   fontSize: 12,
-  color: "#333",
 };
 
 function TituloBloque({ children }: { children: React.ReactNode }) {
@@ -201,8 +202,8 @@ function TituloBloque({ children }: { children: React.ReactNode }) {
         fontSize: 12,
         letterSpacing: 1,
         textTransform: "uppercase",
-        color: "#666",
-        borderBottom: "1px dashed #ccc",
+        color: "var(--muted-foreground)",
+        borderBottom: "1px solid var(--border)",
         paddingBottom: 6,
         margin: "0 0 14px 0",
       }}
@@ -223,7 +224,7 @@ function BloqueTexto({
     <section style={{ marginBottom: 40 }}>
       <TituloBloque>{titulo}</TituloBloque>
       {texto ? (
-        <p style={{ fontSize: 14, lineHeight: 1.9, margin: 0, color: "#333" }}>{texto}</p>
+        <p style={{ fontSize: 14, lineHeight: 1.9, margin: 0, color: "var(--foreground)" }}>{texto}</p>
       ) : (
         <TextoPendiente />
       )}
@@ -233,7 +234,7 @@ function BloqueTexto({
 
 function TextoPendiente() {
   return (
-    <p style={{ fontSize: 13, lineHeight: 1.8, margin: 0, color: "#aaa", fontStyle: "italic" }}>
+    <p style={{ fontSize: 13, lineHeight: 1.8, margin: 0, color: "var(--muted-foreground)", fontStyle: "italic" }}>
       [contenido pendiente de publicación]
     </p>
   );

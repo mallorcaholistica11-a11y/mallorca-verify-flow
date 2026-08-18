@@ -17,7 +17,7 @@ function ComunidadFundadoraAcceso() {
           Introduce el correo electrónico o el código de invitación con el que has recibido tu invitación.
         </p>
         <FakeField label="Correo electrónico" type="email" />
-        <div style={{ fontSize: 12, textAlign: "center", margin: "8px 0", color: "#666" }}>o</div>
+        <div style={{ fontSize: 12, textAlign: "center", margin: "8px 0", color: "var(--muted-foreground)" }}>o</div>
         <FakeField label="Código de invitación" />
         <NavButton to="/comunidad-fundadora-bienvenida">
           👉 Continuar

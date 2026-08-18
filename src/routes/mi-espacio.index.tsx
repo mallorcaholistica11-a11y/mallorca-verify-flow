@@ -19,26 +19,26 @@ function MiEspacio() {
       <TrackBadge track={track} />
 
       <div style={{ maxWidth: 620, margin: "0 auto 24px", textAlign: "center" }}>
-        <div style={{ fontSize: 12, color: "#888", letterSpacing: 2, marginBottom: 8 }}>
+        <div style={{ fontSize: 12, color: "var(--muted-foreground)", letterSpacing: 2, marginBottom: 8 }}>
           MI ESPACIO
         </div>
-        <p style={{ fontSize: 13, lineHeight: 1.7, color: "#333" }}>
+        <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)" }}>
           Gracias por completar tu inscripción.
         </p>
-        <p style={{ fontSize: 13, lineHeight: 1.7, color: "#333" }}>
+        <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)" }}>
           Hemos recibido correctamente tu solicitud y ya estamos revisando la información y la documentación que nos has enviado.
         </p>
-        <p style={{ fontSize: 13, lineHeight: 1.7, color: "#333" }}>
+        <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)" }}>
           Te avisaremos por correo electrónico en cuanto el proceso de revisión haya finalizado.
         </p>
-        <p style={{ fontSize: 13, lineHeight: 1.7, color: "#333" }}>
+        <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)" }}>
           Mientras tanto puedes consultar tu perfil y acceder a la información de tu cuenta.
         </p>
       </div>
 
       <EstadoPerfilBox estado="en_revision" track={track} />
 
-      <div style={{ fontSize: 11, color: "#888", letterSpacing: 1, margin: "24px 0 8px 0" }}>
+      <div style={{ fontSize: 11, color: "var(--muted-foreground)", letterSpacing: 1, margin: "24px 0 8px 0" }}>
         ACCIONES DISPONIBLES
       </div>
 

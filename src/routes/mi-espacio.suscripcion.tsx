@@ -76,7 +76,7 @@ function MiSuscripcion() {
       <TrackBadge track={track} />
 
       <div style={{ maxWidth: 640, margin: "0 auto 32px" }}>
-        <p style={{ fontSize: 14, lineHeight: 1.7, color: "#333", margin: 0 }}>
+        <p style={{ fontSize: 14, lineHeight: 1.7, color: "var(--foreground)", margin: 0 }}>
           Desde aquí puedes consultar el plan que tienes contratado, tu estado de suscripción, tu método de pago y tu historial de facturación.
         </p>
       </div>
@@ -98,7 +98,7 @@ function MiSuscripcion() {
       <Box title="Bloque 2 · Qué incluye tu suscripción">
         <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
           {plan.incluye.map((item, i) => (
-            <li key={i} style={{ padding: "6px 0", borderBottom: "1px dotted #ccc", fontSize: 13 }}>
+            <li key={i} style={{ padding: "6px 0", borderBottom: "1px dotted var(--border)", fontSize: 13 }}>
               ✓ {item}
             </li>
           ))}
@@ -114,7 +114,7 @@ function MiSuscripcion() {
         <NavButton to="/mi-espacio/suscripcion" search={{ track }} variant="secondary">
           Actualizar método de pago
         </NavButton>
-        <p style={{ fontSize: 11, color: "#888", fontStyle: "italic", margin: "12px 0 0 0" }}>
+        <p style={{ fontSize: 11, color: "var(--muted-foreground)", fontStyle: "italic", margin: "12px 0 0 0" }}>
           Este bloque quedará preparado para integrarse con Stripe.
         </p>
       </Box>
@@ -128,7 +128,7 @@ function MiSuscripcion() {
           <Card title="Pendientes de revisión">1</Card>
           <Card title="Archivadas">7</Card>
         </Row>
-        <p style={{ fontSize: 11, color: "#888", fontStyle: "italic", margin: "12px 0 0 0" }}>
+        <p style={{ fontSize: 11, color: "var(--muted-foreground)", fontStyle: "italic", margin: "12px 0 0 0" }}>
           Estos valores se obtendrán posteriormente desde la base de datos.
         </p>
       </Box>
@@ -144,11 +144,11 @@ function MiSuscripcion() {
                     style={{
                       textAlign: "left",
                       padding: "8px 10px",
-                      borderBottom: "1px dashed #888",
+                      borderBottom: "1px solid var(--border)",
                       fontSize: 11,
                       textTransform: "uppercase",
                       letterSpacing: 1,
-                      color: "#666",
+                      color: "var(--muted-foreground)",
                     }}
                   >
                     {h}
@@ -163,7 +163,7 @@ function MiSuscripcion() {
                 <td style={cellStyle}>{plan.precio === "Gratuito" ? "—" : plan.precio.split("/")[0]}</td>
                 <td style={cellStyle}>Pagado</td>
                 <td style={cellStyle}>
-                  <a href="#" style={{ color: "#111", textDecoration: "underline", fontSize: 12 }}>
+                  <a href="#" style={{ color: "var(--foreground)", textDecoration: "underline", fontSize: 12 }}>
                     Descargar factura
                   </a>
                 </td>
@@ -171,7 +171,7 @@ function MiSuscripcion() {
             </tbody>
           </table>
         </div>
-        <p style={{ fontSize: 11, color: "#888", fontStyle: "italic", margin: "12px 0 0 0" }}>
+        <p style={{ fontSize: 11, color: "var(--muted-foreground)", fontStyle: "italic", margin: "12px 0 0 0" }}>
           Esta tabla se conectará posteriormente con Stripe.
         </p>
       </Box>
@@ -183,16 +183,16 @@ function MiSuscripcion() {
         <NavButton to="/mi-espacio/suscripcion" search={{ track }} variant="secondary">
           Cancelar suscripción
         </NavButton>
-        <p style={{ fontSize: 12, lineHeight: 1.6, color: "#444", margin: "16px 0 0 0" }}>
+        <p style={{ fontSize: 12, lineHeight: 1.6, color: "var(--foreground)", margin: "16px 0 0 0" }}>
           Si decides cancelar tu suscripción, seguirás disfrutando de todas las funcionalidades hasta el final del período ya abonado.
         </p>
-        <p style={{ fontSize: 12, lineHeight: 1.6, color: "#444", margin: "8px 0 0 0" }}>
+        <p style={{ fontSize: 12, lineHeight: 1.6, color: "var(--foreground)", margin: "8px 0 0 0" }}>
           Recuerda que siempre puedes seguir formando parte de Mallorca Holística con el Plan Presencia gratuito. Estaremos felices de seguir caminando contigo, sea cual sea el plan que elijas. Gracias por formar parte de esta comunidad.
         </p>
       </Box>
 
       <Box title="Bloque 7 · Próximamente en Mallorca Holística">
-        <p style={{ fontSize: 13, lineHeight: 1.6, color: "#444", margin: "0 0 12px 0" }}>
+        <p style={{ fontSize: 13, lineHeight: 1.6, color: "var(--foreground)", margin: "0 0 12px 0" }}>
           Estamos desarrollando nuevas funcionalidades que estarán disponibles en futuras actualizaciones de la plataforma.
         </p>
         <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
@@ -204,7 +204,7 @@ function MiSuscripcion() {
             "Promoción destacada de actividades.",
             "Nuevas herramientas para centros y organizadores.",
           ].map((item, i) => (
-            <li key={i} style={{ padding: "6px 0", borderBottom: "1px dotted #ccc", fontSize: 13 }}>
+            <li key={i} style={{ padding: "6px 0", borderBottom: "1px dotted var(--border)", fontSize: 13 }}>
               • {item}
             </li>
           ))}
@@ -222,7 +222,7 @@ function MiSuscripcion() {
 
 const cellStyle = {
   padding: "8px 10px",
-  borderBottom: "1px dotted #ccc",
+  borderBottom: "1px dotted var(--border)",
   fontSize: 12,
-  color: "#222",
+  color: "var(--foreground)",
 };

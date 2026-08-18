@@ -68,8 +68,8 @@ export function TelefonoField({
           value={dial}
           onChange={(e) => handleDialChange(e.target.value)}
           style={{
-            border: "1px dashed #888",
-            background: "#fff",
+            border: "1px solid var(--border)", borderRadius: 12,
+            background: "var(--card)",
             padding: "8px 6px",
             fontSize: 12,
             minWidth: 150,
@@ -88,8 +88,8 @@ export function TelefonoField({
             value={otroDial}
             onChange={(e) => setOtroDial(e.target.value)}
             style={{
-              border: "1px dashed #888",
-              background: "#fff",
+              border: "1px solid var(--border)", borderRadius: 12,
+              background: "var(--card)",
               padding: "8px 10px",
               fontSize: 12,
               width: 70,
@@ -103,8 +103,8 @@ export function TelefonoField({
           onChange={(e) => handleNumeroChange(e.target.value)}
           style={{
             flex: 1,
-            border: "1px dashed #888",
-            background: "#fff",
+            border: "1px solid var(--border)", borderRadius: 12,
+            background: "var(--card)",
             padding: "8px 10px",
             fontSize: 12,
           }}

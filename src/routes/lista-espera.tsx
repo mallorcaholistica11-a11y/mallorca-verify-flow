@@ -97,9 +97,9 @@ function ListaEspera() {
 
   const inputStyle: React.CSSProperties = {
     width: "100%",
-    border: "1px dashed #888",
+    border: "1px solid var(--border)", borderRadius: 12,
     padding: "8px 10px",
-    background: "#fff",
+    background: "var(--card)",
     fontSize: 13,
     fontFamily: "inherit",
     boxSizing: "border-box",
@@ -172,9 +172,9 @@ function ListaEspera() {
             disabled={!valid}
             style={{
               padding: "10px 16px",
-              border: "2px solid #111",
-              background: valid ? "#fff" : "#eee",
-              color: "#111",
+              border: "1.5px solid var(--primary)",
+              background: valid ? "var(--card)" : "var(--muted)",
+              color: "var(--foreground)",
               fontSize: 13,
               cursor: valid ? "pointer" : "not-allowed",
               fontFamily: "inherit",
@@ -189,9 +189,9 @@ function ListaEspera() {
             style={{
               display: "inline-block",
               padding: "10px 16px",
-              border: "1px dashed #666",
-              background: "#fff",
-              color: "#111",
+              border: "1px solid var(--border)", borderRadius: 12,
+              background: "var(--card)",
+              color: "var(--foreground)",
               textDecoration: "none",
               fontSize: 13,
               marginTop: 8,

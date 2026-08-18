@@ -69,7 +69,7 @@ export function EstadoPerfilBox({
   return (
     <Box title="Estado de tu perfil">
       {track && (
-        <p style={{ fontSize: 12, color: "#888", margin: "0 0 8px 0" }}>
+        <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "0 0 8px 0" }}>
           {PLAN_NOMBRE[track]}
         </p>
       )}
@@ -77,7 +77,7 @@ export function EstadoPerfilBox({
         {config.indicador} {config.titulo}
       </p>
       {config.mensajes.map((m, i) => (
-        <p key={i} style={{ fontSize: 13, margin: i === 0 ? 0 : "4px 0 0 0", color: "#444" }}>
+        <p key={i} style={{ fontSize: 13, margin: i === 0 ? 0 : "4px 0 0 0", color: "var(--foreground)" }}>
           {m}
         </p>
       ))}

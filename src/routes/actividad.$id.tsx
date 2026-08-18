@@ -53,32 +53,32 @@ function ActividadPublica() {
   return (
     <div
       style={{
-        fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+        fontFamily: "var(--font-body)",
         minHeight: "100vh",
-        background: "#fafafa",
-        color: "#111",
+        background: "var(--muted)",
+        color: "var(--foreground)",
       }}
     >
       <header
         style={{
-          borderBottom: "1px dashed #999",
+          borderBottom: "1px solid var(--border)",
           padding: "12px 20px",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          background: "#fff",
+          background: "var(--card)",
         }}
       >
-        <Link to="/" style={{ textDecoration: "none", color: "#111", fontWeight: 600 }}>
+        <Link to="/" style={{ textDecoration: "none", color: "var(--foreground)", fontWeight: 600 }}>
           [LOGO] Mallorca Holística
         </Link>
-        <Link to="/agenda" style={{ fontSize: 11, color: "#666" }}>
+        <Link to="/agenda" style={{ fontSize: 11, color: "var(--muted-foreground)" }}>
           ← Agenda de Actividades
         </Link>
       </header>
 
       {/* HERO · dos columnas, como la ficha del profesional */}
-      <section style={{ borderBottom: "1px dashed #ccc", background: "#fff" }}>
+      <section style={{ borderBottom: "1px solid var(--border)", background: "var(--card)" }}>
         <div
           style={{
             maxWidth: 1080,
@@ -92,13 +92,13 @@ function ActividadPublica() {
         >
           <div
             style={{
-              border: "1px dashed #888",
-              background: "#fff",
+              border: "1px solid var(--border)", borderRadius: 12,
+              background: "var(--card)",
               aspectRatio: "4 / 5",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              color: "#aaa",
+              color: "var(--muted-foreground)",
               fontSize: 12,
             }}
           >
@@ -106,13 +106,13 @@ function ActividadPublica() {
           </div>
 
           <div>
-            <div style={{ fontSize: 11, letterSpacing: 1, color: "#888", textTransform: "uppercase", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, letterSpacing: 1, color: "var(--muted-foreground)", textTransform: "uppercase", marginBottom: 10 }}>
               {actividad.tipo}
             </div>
             <h1 style={{ fontSize: 28, lineHeight: 1.3, margin: "0 0 18px 0", fontWeight: 600 }}>
               {actividad.titulo}
             </h1>
-            <div style={{ fontSize: 14, lineHeight: 2, color: "#333", marginBottom: 26 }}>
+            <div style={{ fontSize: 14, lineHeight: 2, color: "var(--foreground)", marginBottom: 26 }}>
               <div>{actividad.fecha} · {actividad.hora}</div>
               <div>{actividad.municipio}</div>
               <div>{actividad.precio}</div>
@@ -125,9 +125,9 @@ function ActividadPublica() {
                   display: "block",
                   textAlign: "center",
                   padding: "13px 24px",
-                  border: "2px solid #111",
-                  background: "#111",
-                  color: "#fff",
+                  border: "1.5px solid var(--primary)",
+                  background: "var(--foreground)",
+                  color: "var(--card)",
                   textDecoration: "none",
                   fontSize: 14,
                 }}
@@ -143,9 +143,9 @@ function ActividadPublica() {
                     display: "block",
                     textAlign: "center",
                     padding: "12px 24px",
-                    border: "1px solid #111",
-                    background: "#fff",
-                    color: "#111",
+                    border: "1px solid var(--foreground)",
+                    background: "var(--card)",
+                    color: "var(--foreground)",
                     textDecoration: "none",
                     fontSize: 14,
                   }}
@@ -171,7 +171,7 @@ function ActividadPublica() {
       >
         <div>
           <Bloque titulo="Sobre la actividad">
-            <p style={{ fontSize: 14, lineHeight: 1.8, margin: 0, whiteSpace: "pre-wrap", color: "#333" }}>
+            <p style={{ fontSize: 14, lineHeight: 1.8, margin: 0, whiteSpace: "pre-wrap", color: "var(--foreground)" }}>
               {actividad.descripcion}
             </p>
           </Bloque>
@@ -183,8 +183,8 @@ function ActividadPublica() {
                   <span
                     key={a}
                     style={{
-                      border: "1px dashed #888",
-                      background: "#fff",
+                      border: "1px solid var(--border)", borderRadius: 12,
+                      background: "var(--card)",
                       padding: "5px 10px",
                       fontSize: 12,
                     }}
@@ -203,12 +203,12 @@ function ActividadPublica() {
                   width: 64,
                   height: 64,
                   borderRadius: "50%",
-                  border: "1px dashed #888",
-                  background: "#fff",
+                  border: "1px solid var(--border)",
+                  background: "var(--card)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  color: "#aaa",
+                  color: "var(--muted-foreground)",
                   fontSize: 11,
                   flexShrink: 0,
                 }}
@@ -217,15 +217,15 @@ function ActividadPublica() {
               </div>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontSize: 15, fontWeight: 600 }}>{actividad.organizador.nombre}</div>
-                <div style={{ fontSize: 13, color: "#666" }}>{actividad.organizador.profesion}</div>
+                <div style={{ fontSize: 13, color: "var(--muted-foreground)" }}>{actividad.organizador.profesion}</div>
               </div>
               <Link
                 to="/"
                 style={{
                   padding: "10px 16px",
-                  border: "1px solid #111",
-                  background: "#fff",
-                  color: "#111",
+                  border: "1px solid var(--foreground)",
+                  background: "var(--card)",
+                  color: "var(--foreground)",
                   textDecoration: "none",
                   fontSize: 13,
                   whiteSpace: "nowrap",
@@ -237,7 +237,7 @@ function ActividadPublica() {
           </Bloque>
 
           <Bloque titulo="Información práctica">
-            <div style={{ border: "1px dashed #888", background: "#fff" }}>
+            <div style={{ border: "1px solid var(--border)", borderRadius: 12, background: "var(--card)" }}>
               {actividad.practica.map((p, i) => (
                 <div
                   key={p.label}
@@ -246,10 +246,10 @@ function ActividadPublica() {
                     gap: 16,
                     padding: "10px 12px",
                     fontSize: 13,
-                    borderTop: i === 0 ? "none" : "1px dotted #ddd",
+                    borderTop: i === 0 ? "none" : "1px dotted var(--border)",
                   }}
                 >
-                  <span style={{ width: 110, color: "#888", flexShrink: 0 }}>{p.label}</span>
+                  <span style={{ width: 110, color: "var(--muted-foreground)", flexShrink: 0 }}>{p.label}</span>
                   <span>{p.value}</span>
                 </div>
               ))}
@@ -261,20 +261,20 @@ function ActividadPublica() {
           <Bloque titulo="Ubicación">
             <div
               style={{
-                border: "1px dashed #888",
-                background: "#fff",
+                border: "1px solid var(--border)", borderRadius: 12,
+                background: "var(--card)",
                 height: 140,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                color: "#aaa",
+                color: "var(--muted-foreground)",
                 fontSize: 12,
               }}
             >
               [mapa · {actividad.municipio}]
             </div>
             <div style={{ fontSize: 13, marginTop: 8 }}>{actividad.municipio}</div>
-            <p style={{ fontSize: 12, color: "#777", lineHeight: 1.6, margin: "8px 0 0 0" }}>
+            <p style={{ fontSize: 12, color: "var(--muted-foreground)", lineHeight: 1.6, margin: "8px 0 0 0" }}>
               La dirección exacta se facilitará tras la reserva cuando sea necesario.
             </p>
           </Bloque>
@@ -284,9 +284,9 @@ function ActividadPublica() {
       <footer
         style={{
           padding: 20,
-          borderTop: "1px dashed #999",
+          borderTop: "1px solid var(--border)",
           fontSize: 11,
-          color: "#777",
+          color: "var(--muted-foreground)",
           textAlign: "center",
         }}
       >
@@ -303,7 +303,7 @@ function Bloque({ titulo, children }: { titulo: string; children: React.ReactNod
         style={{
           fontSize: 12,
           fontWeight: 600,
-          color: "#666",
+          color: "var(--muted-foreground)",
           letterSpacing: 1,
           textTransform: "uppercase",
           margin: "0 0 14px 0",

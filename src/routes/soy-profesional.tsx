@@ -121,11 +121,11 @@ function SoyProfesional() {
         </Row>
       </Box>
 
-      <div style={{ marginTop: 32, padding: 16, border: "1px dashed #bbb", background: "#fafafa", textAlign: "center" }}>
+      <div style={{ marginTop: 32, padding: 16, border: "1px solid var(--border)", borderRadius: 12, background: "var(--muted)", textAlign: "center" }}>
         <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 8, whiteSpace: "pre-wrap" }}>
           🌿 Comunidad Fundadora{"\n\n"}¿Has recibido una invitación personal?
         </div>
-        <p style={{ fontSize: 12, color: "#555", margin: "0 auto 12px", maxWidth: 560, lineHeight: 1.5 }}>
+        <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "0 auto 12px", maxWidth: 560, lineHeight: 1.5 }}>
           Si es así, accede desde aquí para completar tu incorporación a Mallorca Holística.
         </p>
         <NavButton to="/comunidad-fundadora-acceso" variant="secondary">

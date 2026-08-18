@@ -18,7 +18,7 @@ function MiPerfil() {
       <TrackBadge track={track} />
 
       <div style={{ maxWidth: 620, margin: "0 auto 24px", textAlign: "center" }}>
-        <p style={{ fontSize: 13, lineHeight: 1.7, color: "#333" }}>
+        <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)" }}>
           Consulta la información de tu perfil profesional y mantén tus datos siempre actualizados.
         </p>
       </div>
@@ -27,19 +27,19 @@ function MiPerfil() {
         <Row>
           <Card title="Estado">
             <div style={{ fontSize: 13, marginBottom: 6 }}>🟡 [estado dinámico]</div>
-            <div style={{ fontSize: 11, color: "#666" }}>
+            <div style={{ fontSize: 11, color: "var(--muted-foreground)" }}>
               Valores posibles: Publicado · En revisión · Pendiente de completar
             </div>
           </Card>
           <Card title="Última actualización">
             <div style={{ fontSize: 13, marginBottom: 6 }}>[fecha dinámica]</div>
-            <div style={{ fontSize: 11, color: "#666" }}>
+            <div style={{ fontSize: 11, color: "var(--muted-foreground)" }}>
               Se actualiza con cada modificación del perfil.
             </div>
           </Card>
           <Card title="Verificación">
             <div style={{ fontSize: 13, marginBottom: 6 }}>🔖 [insignia dinámica]</div>
-            <div style={{ fontSize: 11, color: "#666" }}>
+            <div style={{ fontSize: 11, color: "var(--muted-foreground)" }}>
               Perfil verificado · Verificación en proceso · Pendiente de verificar
             </div>
           </Card>
@@ -47,7 +47,7 @@ function MiPerfil() {
       </Box>
 
       <Box title="Bloque 2 · Información del perfil">
-        <div style={{ fontSize: 11, color: "#888", marginBottom: 12, fontStyle: "italic" }}>
+        <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginBottom: 12, fontStyle: "italic" }}>
           Datos cargados dinámicamente desde la base de datos.
         </div>
         <Row>
@@ -68,16 +68,16 @@ function MiPerfil() {
       </Box>
 
       <Box title="Bloque 3 · Sobre mí">
-        <div style={{ fontSize: 11, color: "#888", marginBottom: 8, fontStyle: "italic" }}>
+        <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginBottom: 8, fontStyle: "italic" }}>
           Texto descriptivo tal como aparecerá publicado.
         </div>
         <div
           style={{
-            border: "1px dashed #888",
+            border: "1px solid var(--border)", borderRadius: 12,
             padding: 12,
-            background: "#f9f9f9",
+            background: "var(--muted)",
             fontSize: 13,
-            color: "#333",
+            color: "var(--foreground)",
             minHeight: 100,
             whiteSpace: "pre-wrap",
           }}
@@ -90,13 +90,13 @@ function MiPerfil() {
         <div style={{ fontSize: 12, marginBottom: 8 }}>Fotografía principal</div>
         <div
           style={{
-            border: "1px dashed #888",
-            background: "#f3f3f3",
+            border: "1px solid var(--border)", borderRadius: 12,
+            background: "var(--muted)",
             height: 160,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            color: "#999",
+            color: "var(--muted-foreground)",
             fontSize: 12,
             marginBottom: 16,
           }}
@@ -109,14 +109,14 @@ function MiPerfil() {
             <div
               key={i}
               style={{
-                border: "1px dashed #888",
-                background: "#f3f3f3",
+                border: "1px solid var(--border)", borderRadius: 12,
+                background: "var(--muted)",
                 width: 100,
                 height: 100,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                color: "#999",
+                color: "var(--muted-foreground)",
                 fontSize: 11,
               }}
             >
@@ -127,7 +127,7 @@ function MiPerfil() {
       </Box>
 
       <Box title="Bloque 5 · Servicios">
-        <div style={{ fontSize: 11, color: "#888", marginBottom: 8, fontStyle: "italic" }}>
+        <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginBottom: 8, fontStyle: "italic" }}>
           Terapias, disciplinas o servicios cargados dinámicamente desde la base de datos.
         </div>
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
@@ -135,10 +135,10 @@ function MiPerfil() {
             <span
               key={i}
               style={{
-                border: "1px dashed #888",
+                border: "1px solid var(--border)",
                 padding: "4px 10px",
                 fontSize: 12,
-                background: "#fff",
+                background: "var(--card)",
                 borderRadius: 12,
               }}
             >
@@ -149,26 +149,26 @@ function MiPerfil() {
       </Box>
 
       <Box title="Bloque 6 · Vista previa pública">
-        <div style={{ fontSize: 11, color: "#888", marginBottom: 8, fontStyle: "italic" }}>
+        <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginBottom: 8, fontStyle: "italic" }}>
           Así aparece actualmente tu perfil publicado en Mallorca Holística.
         </div>
         <div
           style={{
-            border: "1px dashed #888",
+            border: "1px solid var(--border)", borderRadius: 12,
             padding: 16,
-            background: "#fff",
+            background: "var(--card)",
             maxWidth: 360,
           }}
         >
           <div
             style={{
-              border: "1px dashed #bbb",
-              background: "#f3f3f3",
+              border: "1px solid var(--border)", borderRadius: 12,
+              background: "var(--muted)",
               height: 120,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              color: "#999",
+              color: "var(--muted-foreground)",
               fontSize: 11,
               marginBottom: 10,
             }}
@@ -176,9 +176,9 @@ function MiPerfil() {
             [foto principal]
           </div>
           <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>[Nombre profesional]</div>
-          <div style={{ fontSize: 12, color: "#666", marginBottom: 6 }}>[Profesión principal]</div>
-          <div style={{ fontSize: 12, color: "#333", marginBottom: 4 }}>📍 [Municipio]</div>
-          <div style={{ fontSize: 12, color: "#333" }}>🌐 [Modalidad]</div>
+          <div style={{ fontSize: 12, color: "var(--muted-foreground)", marginBottom: 6 }}>[Profesión principal]</div>
+          <div style={{ fontSize: 12, color: "var(--foreground)", marginBottom: 4 }}>📍 [Municipio]</div>
+          <div style={{ fontSize: 12, color: "var(--foreground)" }}>🌐 [Modalidad]</div>
         </div>
         <div style={{ marginTop: 12 }}>
           <NavButton to="/mi-espacio/perfil" search={{ track }} variant="secondary">
@@ -188,7 +188,7 @@ function MiPerfil() {
       </Box>
 
       <Box title="Bloque 7 · Acciones">
-        <div style={{ fontSize: 12, color: "#444", marginBottom: 12 }}>
+        <div style={{ fontSize: 12, color: "var(--foreground)", marginBottom: 12 }}>
           Al pulsar "Actualizar mi perfil" se abrirá el formulario de inscripción con todos tus datos actuales precargados. Solo tendrás que modificar aquello que desees actualizar.
         </div>
         <NavButton to="/dashboard/formulario" search={{ track }}>

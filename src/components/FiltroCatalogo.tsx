@@ -66,7 +66,7 @@ export function CampoCatalogo({
                   background: "transparent",
                   cursor: "pointer",
                   fontSize: 11,
-                  color: "#666",
+                  color: "var(--muted-foreground)",
                   padding: 0,
                 }}
               >
@@ -97,7 +97,7 @@ export function PanelCatalogo({
   const titulo = tipo === "practicas" ? "Todas las prácticas" : "Todas las áreas de acompañamiento";
 
   return (
-    <div style={{ border: "1px dashed #888", background: "#fff", padding: 12 }}>
+    <div style={{ border: "1px solid var(--border)", borderRadius: 12, background: "var(--card)", padding: 12 }}>
       <style>{`
         .catalogo-cols { column-count: 4; column-gap: 24px; }
         @media (max-width: 900px) { .catalogo-cols { column-count: 2; } }
@@ -113,19 +113,19 @@ export function PanelCatalogo({
           marginBottom: 10,
         }}
       >
-        <div style={{ fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: "#666" }}>
+        <div style={{ fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: "var(--muted-foreground)" }}>
           {titulo}
         </div>
         <button
           type="button"
           onClick={onCerrar}
           style={{
-            border: "1px dashed #888",
-            background: "#fff",
+            border: "1px solid var(--border)", borderRadius: 12,
+            background: "var(--card)",
             padding: "4px 9px",
             fontSize: 11,
             fontFamily: "inherit",
-            color: "#555",
+            color: "var(--muted-foreground)",
             cursor: "pointer",
           }}
         >
@@ -134,7 +134,7 @@ export function PanelCatalogo({
       </div>
 
       {lista.length === 0 ? (
-        <div style={{ padding: 6, fontSize: 12, color: "#aaa", fontStyle: "italic" }}>
+        <div style={{ padding: 6, fontSize: 12, color: "var(--muted-foreground)", fontStyle: "italic" }}>
           [sin resultados para “{query}”]
         </div>
       ) : (
@@ -173,26 +173,28 @@ export function PanelCatalogo({
 }
 
 const campoInput = {
+  borderRadius: 10,
   width: "100%",
-  border: "1px dashed #888",
-  background: "#fff",
+  border: "1px solid var(--border)",
+  background: "var(--card)",
   padding: "10px 12px",
   fontSize: 12,
   fontFamily: "inherit",
-  color: "#111",
+  color: "var(--foreground)",
   boxSizing: "border-box" as const,
 };
 
 const campoBoton = {
+  borderRadius: 999,
   marginTop: 8,
   width: "100%",
   textAlign: "left" as const,
-  border: "1px dashed #888",
-  background: "#fff",
+  border: "1px solid var(--border)",
+  background: "var(--card)",
   padding: "6px 8px",
   fontSize: 11,
   fontFamily: "inherit",
-  color: "#555",
+  color: "var(--muted-foreground)",
   cursor: "pointer",
   boxSizing: "border-box" as const,
 };
@@ -200,18 +202,20 @@ const campoBoton = {
 const letraTitulo = {
   fontSize: 12,
   letterSpacing: 1,
-  color: "#666",
-  borderBottom: "1px dashed #ddd",
+  color: "var(--muted-foreground)",
+  borderBottom: "1px solid var(--border)",
   paddingBottom: 3,
   marginBottom: 6,
 };
 
 const chip = {
+  borderRadius: 999,
+  background: "var(--secondary)",
+  color: "var(--secondary-foreground)",
+  border: "1px solid transparent",
   display: "inline-flex",
   alignItems: "center",
   gap: 8,
-  border: "1px dashed #666",
-  background: "#fff",
   padding: "3px 7px",
   fontSize: 11,
 };

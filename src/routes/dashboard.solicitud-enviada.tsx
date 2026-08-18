@@ -29,7 +29,7 @@ function SolicitudEnviada() {
     >
       <TrackBadge track={track} />
       <Box title="Mensaje">
-        <p style={{ fontSize: 12, color: "#888", margin: "0 0 8px 0" }}>
+        <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "0 0 8px 0" }}>
           {PLAN_NOMBRE[track]}
         </p>
         {mensaje.map((text, i) => (

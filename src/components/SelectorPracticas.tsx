@@ -106,7 +106,7 @@ export function SelectorPracticas({
       </button>
 
       {open && (
-        <div style={{ border: "1px dashed #888", background: "#fff", marginTop: 8, padding: 10 }}>
+        <div style={{ border: "1px solid var(--border)", borderRadius: 12, background: "var(--card)", marginTop: 8, padding: 10 }}>
           {query.trim() === "" && (
             <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginBottom: 10 }}>
               <button type="button" onClick={() => setLetra(null)} style={letraBtn(letra === null)}>
@@ -130,7 +130,7 @@ export function SelectorPracticas({
           )}
 
           {grupos.length === 0 ? (
-            <div style={{ padding: 6, fontSize: 12, color: "#aaa", fontStyle: "italic" }}>
+            <div style={{ padding: 6, fontSize: 12, color: "var(--muted-foreground)", fontStyle: "italic" }}>
               [sin resultados para “{query}”]
             </div>
           ) : (
@@ -141,8 +141,8 @@ export function SelectorPracticas({
                     style={{
                       fontSize: 12,
                       letterSpacing: 1,
-                      color: "#666",
-                      borderBottom: "1px dashed #ddd",
+                      color: "var(--muted-foreground)",
+                      borderBottom: "1px solid var(--border)",
                       paddingBottom: 3,
                       marginBottom: 6,
                     }}
@@ -196,7 +196,7 @@ export function SelectorPracticas({
                   background: "transparent",
                   cursor: "pointer",
                   fontSize: 12,
-                  color: "#666",
+                  color: "var(--muted-foreground)",
                   padding: 0,
                 }}
               >
@@ -208,13 +208,13 @@ export function SelectorPracticas({
       )}
 
       {aviso && atLimit && (
-        <div style={{ fontSize: 11, color: "#a33", marginTop: 8 }}>
+        <div style={{ fontSize: 11, color: "var(--destructive)", marginTop: 8 }}>
           Puedes seleccionar un máximo de {max} prácticas.
         </div>
       )}
 
       {mostrarContador && (
-        <div style={{ fontSize: 11, color: "#888", marginTop: 8 }}>
+        <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginTop: 8 }}>
           {selected.length}/{max} prácticas seleccionadas
         </div>
       )}
@@ -234,39 +234,41 @@ const rotulo = {
   fontSize: 11,
   textTransform: "uppercase" as const,
   letterSpacing: 1,
-  color: "#666",
+  color: "var(--muted-foreground)",
   marginBottom: 6,
 };
 
-const ayudaStyle = { fontSize: 12, color: "#555", lineHeight: 1.6, marginBottom: 8 };
+const ayudaStyle = { fontSize: 12, color: "var(--muted-foreground)", lineHeight: 1.6, marginBottom: 8 };
 
 const input = {
+  borderRadius: 10,
   width: "100%",
-  border: "1px dashed #888",
-  background: "#fff",
+  border: "1px solid var(--border)",
+  background: "var(--card)",
   padding: "9px 11px",
   fontSize: 13,
   fontFamily: "inherit",
-  color: "#111",
+  color: "var(--foreground)",
   boxSizing: "border-box" as const,
 };
 
 const toggleBtn = {
+  borderRadius: 999,
   marginTop: 8,
-  border: "1px dashed #888",
-  background: "#fff",
+  border: "1px solid var(--border)",
+  background: "var(--card)",
   padding: "6px 10px",
   fontSize: 12,
   fontFamily: "inherit",
-  color: "#555",
+  color: "var(--muted-foreground)",
   cursor: "pointer",
   whiteSpace: "nowrap" as const,
 };
 
 const letraBtn = (activa: boolean) => ({
-  border: activa ? "1px solid #111" : "1px dashed #bbb",
-  background: activa ? "#111" : "#fff",
-  color: activa ? "#fff" : "#555",
+  border: activa ? "1px solid var(--foreground)" : "1px solid var(--border)",
+  background: activa ? "var(--foreground)" : "var(--card)",
+  color: activa ? "var(--card)" : "var(--muted-foreground)",
   padding: "2px 7px",
   fontSize: 11,
   fontFamily: "inherit",
@@ -274,11 +276,13 @@ const letraBtn = (activa: boolean) => ({
 });
 
 const tag = {
+  borderRadius: 999,
+  background: "var(--secondary)",
+  color: "var(--secondary-foreground)",
+  border: "1px solid transparent",
   display: "inline-flex",
   alignItems: "center",
   gap: 8,
-  border: "1px dashed #666",
-  background: "#fff",
   padding: "4px 8px",
   fontSize: 12,
 };
