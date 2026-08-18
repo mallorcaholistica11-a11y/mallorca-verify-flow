@@ -269,18 +269,31 @@ function Profesionales({ isMobile, isTablet }: { isMobile: boolean; isTablet: bo
 }
 
 function Descubre({ isMobile }: { isMobile: boolean }) {
+  const imagenes = [IMG.actividad1, IMG.guia, IMG.actividad3];
   return (
     <Bloque>
-      <div className={`grid gap-4 ${isMobile ? "grid-cols-1" : "grid-cols-3"}`}>
-        {DESCUBRE.map((d) => (
-          <div key={d.titulo} className="border border-border bg-card p-5">
-            <div className="mb-4 text-sm font-semibold text-foreground">{d.titulo}</div>
-            <Link to={d.to as never} className="text-xs text-muted-foreground no-underline hover:text-primary">
-              {d.enlace}
-            </Link>
+      <div className={`grid gap-5 ${isMobile ? "grid-cols-1" : "grid-cols-3"}`}>
+        {DESCUBRE.map((d, i) => (
+          <div
+            key={d.titulo}
+            className="overflow-hidden rounded-2xl border border-border/70 bg-card transition-shadow hover:shadow-[var(--shadow-lift)]"
+          >
+            <img
+              src={imagenes[i % imagenes.length]}
+              alt=""
+              loading="lazy"
+              className="h-36 w-full object-cover"
+            />
+            <div className="p-5">
+              <div className="mb-3 font-display text-sm text-foreground">{d.titulo}</div>
+              <Link to={d.to as never} className="text-xs text-muted-foreground no-underline hover:text-primary">
+                {d.enlace}
+              </Link>
+            </div>
           </div>
         ))}
       </div>
+
       <div className="mt-8 text-xs text-muted-foreground">
         <Link to="/inicio-tecnico" className="text-muted-foreground no-underline hover:text-primary">
           ← Volver al índice del wireframe
