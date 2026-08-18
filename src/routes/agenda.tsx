@@ -5,6 +5,8 @@ import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
 import { CampoCatalogo, PanelCatalogo, type TipoCatalogo } from "@/components/FiltroCatalogo";
 import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
+import { ambienteDe } from "@/data/imagenes";
+
 
 export const Route = createFileRoute("/agenda")({
   head: () => ({
