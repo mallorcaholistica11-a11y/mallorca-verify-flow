@@ -1,9 +1,11 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import type { ReactNode } from "react";
-import { Chips, Placeholder, Seccion } from "@/components/ficha/primitives";
+import { Chips, Foto, Retrato, Seccion } from "@/components/ficha/primitives";
 import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
 import { BuscadorSimple } from "@/components/BuscadorSimple";
+import { IMG, retratoDe } from "@/data/imagenes";
+
 
 const CHIPS = [
   "Me siento estresado/a",
@@ -86,32 +88,58 @@ function Bloque({ children, id }: { children: ReactNode; id?: string }) {
 
 function Hero({ isMobile }: { isMobile: boolean }) {
   return (
-    <Bloque>
-      <div className="grid items-center gap-8 md:grid-cols-[1fr_0.9fr]">
+    <section className="relative py-10 md:py-16">
+      {/* Fondo fotográfico muy suave, decorativo */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-[-24px] top-0 -z-10 h-[70%] rounded-b-[40px] opacity-[0.16]"
+        style={{
+          backgroundImage: `url(${IMG.heroBotanico})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center 30%",
+          maskImage: "linear-gradient(to bottom, black, transparent)",
+          WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
+        }}
+      />
+      <div className="grid items-center gap-10 md:grid-cols-[1.05fr_0.95fr] md:gap-14">
         <div className="min-w-0">
-          <div className="mb-3 text-xs font-medium uppercase tracking-widest text-sage-dark">
+          <div className="mb-4 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.18em] text-sage-dark">
+            <span className="h-px w-8 bg-sage-light" />
             Mallorca Holística
           </div>
-          <h1 className="mb-5 max-w-lg font-display text-[1.75rem] font-medium leading-[1.25] text-charcoal md:text-[2.5rem]">
+          <h1 className="mb-6 max-w-xl font-display text-[1.6rem] font-normal leading-[1.35] tracking-[-0.015em] text-charcoal md:text-[2.35rem] md:leading-[1.3]">
             Salud integrativa · Terapias complementarias
             <br />
             <span className="text-sage-dark">Medicina natural · Bienestar · Desarrollo personal</span>
           </h1>
-          <p className="mb-5 max-w-sm font-display text-base italic leading-relaxed text-muted-foreground md:text-lg">
+          <p className="mb-6 max-w-sm font-display text-sm italic leading-relaxed text-muted-foreground md:text-[0.95rem]">
             Toda persona merece sentirse escuchada, comprendida y acompañada.
           </p>
-          <p className="mb-2 max-w-md text-sm leading-relaxed text-muted-foreground">
+          <p className="mb-3 max-w-md text-sm leading-relaxed text-muted-foreground">
             Ampliamos la mirada sobre la salud para abrir nuevas posibilidades de acompañamiento.
           </p>
           <p className="text-sm font-semibold text-foreground">
             Al servicio de las personas y del cuidado.
           </p>
         </div>
-        <Placeholder alto={isMobile ? 220 : 380}>[Imagen principal del Hero]</Placeholder>
+        <div className="relative min-w-0">
+          <Foto
+            src={IMG.heroBotanico}
+            alt="Rama de almendro en flor sobre un muro de piedra con luz mediterránea"
+            alto={isMobile ? 260 : 440}
+            radio={20}
+            prioridad
+          />
+          <div
+            aria-hidden
+            className="absolute -bottom-5 -left-5 hidden h-24 w-24 rounded-full border border-sage-light/60 md:block"
+          />
+        </div>
       </div>
-    </Bloque>
+    </section>
   );
 }
+
 
 function BuscadorIA({ isMobile }: { isMobile: boolean }) {
   return (
