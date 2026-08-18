@@ -8,6 +8,8 @@ import {
   Placeholder,
   Seccion,
 } from "@/components/ficha/primitives";
+import { GALERIA_DEMO, ambienteDe, retratoDe } from "@/data/imagenes";
+
 import {
   MAX_AREAS_FICHA,
   MAX_ESPECIALIDADES_FICHA,
@@ -107,15 +109,12 @@ function Hero({
               overflow: "hidden",
             }}
           >
-            {data.fotoUrl ? (
-              <img
-                src={data.fotoUrl}
-                alt={`Fotografía de ${data.nombre}`}
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              />
-            ) : (
-              "[foto]"
-            )}
+            <img
+              src={data.fotoUrl ?? retratoDe(data.nombre)}
+              alt={`Fotografía de ${data.nombre}`}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+
           </div>
         </div>
 
@@ -224,8 +223,12 @@ function ColumnaPrincipal({ data, plan }: { data: FichaPublicaData; plan: PlanFi
         )}
       </Seccion>
 
-      <Seccion titulo="Galería" vacio={!completa || !data.galeria?.length}>
-        <Galeria imagenes={data.galeria ?? []} nombre={data.nombre} />
+      <Seccion titulo="Galería" vacio={!completa}>
+        <Galeria
+          imagenes={data.galeria?.length ? data.galeria : GALERIA_DEMO}
+          nombre={data.nombre}
+        />
+
       </Seccion>
 
       <Seccion titulo="Actividades" vacio={!completa}>
@@ -375,8 +378,8 @@ function Galeria({ imagenes, nombre }: { imagenes: string[]; nombre: string }) {
             }}
           >
             <img
-              src={src}
-              alt={`Imagen ${i + 1} de ${nombre}`}
+              src={fotoGaleria(src, i)}
+              alt={esRuta(src) ? `Imagen ${i + 1} de ${nombre}` : `${src} · ${nombre}`}
               loading="lazy"
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
@@ -407,7 +410,7 @@ function Galeria({ imagenes, nombre }: { imagenes: string[]; nombre: string }) {
         >
           <div onClick={(e) => e.stopPropagation()} style={{ maxWidth: 720, width: "100%", textAlign: "center" }}>
             <img
-              src={imagenes[visor]}
+              src={fotoGaleria(imagenes[visor] ?? "", visor)}
               alt={`Imagen ${visor + 1} de ${nombre}`}
               style={{ maxWidth: "100%", maxHeight: "70vh", objectFit: "contain", background: "var(--card)" }}
             />
@@ -438,4 +441,16 @@ function Galeria({ imagenes, nombre }: { imagenes: string[]; nombre: string }) {
       )}
     </>
   );
+}
+/**
+ * Las fichas de demostración guardan rótulos de galería en lugar de rutas.
+ * Mientras no haya fotografías definitivas, se muestran imágenes provisionales
+ * coherentes con la dirección artística, conservando el rótulo como alt.
+ */
+function esRuta(v: string) {
+  return v.startsWith("/") || v.startsWith("http");
+}
+
+function fotoGaleria(v: string, i: number) {
+  return esRuta(v) ? v : GALERIA_DEMO[i % GALERIA_DEMO.length]!;
 }

@@ -1,5 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { Placeholder } from "@/components/ficha/primitives";
+import { Foto } from "@/components/ficha/primitives";
+import { IMG } from "@/data/imagenes";
+
 import { useMobile } from "@/components/ficha/useMobile";
 import {
   NOTA_IMPORTANTE_PRACTICA,
@@ -82,11 +84,15 @@ export function PlantillaPractica({
             />
           ) : (
             <div style={{ marginBottom: 20 }}>
-              <Placeholder alto={isMobile ? 140 : 200}>
-                [Imagen representativa de la práctica · opcional]
-              </Placeholder>
+              <Foto
+                src={IMG.practica}
+                alt={`Imagen representativa de ${contenido.nombre}`}
+                alto={isMobile ? 160 : 240}
+                radio={16}
+              />
             </div>
           )}
+
 
           <a
             href={urlDirectorio}

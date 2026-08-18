@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { Placeholder } from "@/components/ficha/primitives";
+import { Foto } from "@/components/ficha/primitives";
+import { IMG } from "@/data/imagenes";
+
 import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
 import { LETRAS_AZ, buscarPracticas, practicasPorLetra, slugPractica } from "@/data/practicas";
@@ -77,9 +79,13 @@ function GuiaPracticas() {
                 ofrecen.
               </p>
             </div>
-            <Placeholder alto={isMobile ? 140 : 200}>
-              [Imagen inspiradora · bienestar y salud integrativa]
-            </Placeholder>
+            <Foto
+              src={IMG.guia}
+              alt="Jarrón de cerámica con ramas de olivo y luz mediterránea"
+              alto={isMobile ? 160 : 220}
+              radio={18}
+            />
+
           </div>
         </section>
 
@@ -182,7 +188,16 @@ function GuiaPracticas() {
             textAlign: "center",
           }}
         >
+          <div style={{ maxWidth: 620, margin: "0 auto 20px auto" }}>
+            <Foto
+              src={IMG.actividad3}
+              alt="Camino entre olivos y muros de piedra en Mallorca"
+              alto={isMobile ? 150 : 200}
+              radio={16}
+            />
+          </div>
           <h2 style={{ fontSize: 16, margin: "0 0 10px 0" }}>Cada camino es único</h2>
+
           <p
             style={{
               fontSize: 13,

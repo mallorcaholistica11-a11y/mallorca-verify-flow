@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { useMobile } from "@/components/ficha/useMobile";
 import { Boton, Chips, ChipsPracticas, LineaTexto, Placeholder, Seccion } from "@/components/ficha/primitives";
+import { GALERIA_DEMO, ambienteDe, retratoDe } from "@/data/imagenes";
 import {
   MAX_AREAS_FICHA,
   MAX_ESPECIALIDADES_FICHA,
@@ -109,15 +110,12 @@ function HeroCentro({
               overflow: "hidden",
             }}
           >
-            {data.imagenPrincipal ? (
-              <img
-                src={data.imagenPrincipal}
-                alt={`Imagen principal de ${data.nombre}`}
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              />
-            ) : (
-              "[imagen del centro]"
-            )}
+            <img
+              src={data.imagenPrincipal ?? ambienteDe(data.nombre)}
+              alt={`Imagen principal de ${data.nombre}`}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+
           </div>
         </div>
 
@@ -238,8 +236,12 @@ function ColumnaPrincipal({ data, esPresencia }: { data: FichaCentroData; esPres
         )}
       </Seccion>
 
-      <Seccion titulo="Galería" vacio={esPresencia || !data.galeria?.length}>
-        <CarruselGaleria imagenes={(data.galeria ?? []).slice(0, 10)} nombre={data.nombre} />
+      <Seccion titulo="Galería" vacio={esPresencia}>
+        <CarruselGaleria
+          imagenes={(data.galeria?.length ? data.galeria : GALERIA_DEMO).slice(0, 10)}
+          nombre={data.nombre}
+        />
+
       </Seccion>
 
       <Seccion titulo="Descubre nuestras actividades" vacio={esPresencia || !data.hayActividades}>
@@ -292,11 +294,12 @@ function Equipo({ miembros, total }: { miembros: MiembroEquipo[]; total?: number
                 flex: "0 0 auto",
               }}
             >
-              {m.fotoUrl ? (
-                <img src={m.fotoUrl} alt={m.nombre} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-              ) : (
-                "[foto]"
-              )}
+              <img
+                src={m.fotoUrl ?? retratoDe(m.nombre)}
+                alt={m.nombre}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+
             </div>
             <div style={{ fontSize: 12, lineHeight: 1.4 }}>
               <div>{m.nombre}</div>
@@ -356,8 +359,8 @@ function CarruselGaleria({ imagenes, nombre }: { imagenes: string[]; nombre: str
             }}
           >
             <img
-              src={src}
-              alt={`Imagen ${i + 1} de ${nombre}`}
+              src={fotoGaleria(src, i)}
+              alt={esRuta(src) ? `Imagen ${i + 1} de ${nombre}` : `${src} · ${nombre}`}
               loading="lazy"
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
@@ -394,7 +397,7 @@ function CarruselGaleria({ imagenes, nombre }: { imagenes: string[]; nombre: str
         >
           <div onClick={(e) => e.stopPropagation()} style={{ maxWidth: 720, width: "100%", textAlign: "center" }}>
             <img
-              src={imagenes[visor]}
+              src={fotoGaleria(imagenes[visor] ?? "", visor)}
               alt={`Imagen ${visor + 1} de ${nombre}`}
               style={{ maxWidth: "100%", maxHeight: "70vh", objectFit: "contain", background: "var(--card)" }}
             />
@@ -537,4 +540,16 @@ function LlamadaFinal({ data, esPresencia }: { data: FichaCentroData; esPresenci
       </div>
     </section>
   );
+}
+/**
+ * Las fichas de demostración guardan rótulos de galería en lugar de rutas.
+ * Mientras no haya fotografías definitivas, se muestran imágenes provisionales
+ * coherentes con la dirección artística, conservando el rótulo como alt.
+ */
+function esRuta(v: string) {
+  return v.startsWith("/") || v.startsWith("http");
+}
+
+function fotoGaleria(v: string, i: number) {
+  return esRuta(v) ? v : GALERIA_DEMO[i % GALERIA_DEMO.length]!;
 }

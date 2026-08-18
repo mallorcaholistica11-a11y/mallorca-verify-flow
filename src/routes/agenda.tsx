@@ -5,6 +5,8 @@ import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
 import { CampoCatalogo, PanelCatalogo, type TipoCatalogo } from "@/components/FiltroCatalogo";
 import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
+import { ambienteDe } from "@/data/imagenes";
+
 
 export const Route = createFileRoute("/agenda")({
   head: () => ({
@@ -454,22 +456,21 @@ function TarjetaActividad({ a, isMobile }: { a: Actividad; isMobile: boolean }) 
         minWidth: 0,
       }}
     >
-      <div
-        aria-hidden
+      <img
+        src={ambienteDe(a.id + (a.categoria ?? ""))}
+        alt=""
+        loading="lazy"
         style={{
-          borderRight: "1px solid var(--border)",
+          width: "100%",
           aspectRatio: "4 / 5",
+          objectFit: "cover",
           alignSelf: "start",
-          display: "grid",
-          placeItems: "center",
-          fontSize: 10,
-          color: "var(--muted-foreground)",
-          textAlign: "center",
-          padding: 6,
+          borderRight: "1px solid var(--border)",
+          borderRadius: "12px 0 0 12px",
+          display: "block",
         }}
-      >
-        [cartel de la actividad]
-      </div>
+      />
+
 
       <div style={{ padding: isMobile ? 10 : 12, minWidth: 0, display: "grid", gap: 6, alignContent: "start" }}>
         <div style={{ fontSize: 9, letterSpacing: 1, textTransform: "uppercase", color: "var(--muted-foreground)" }}>

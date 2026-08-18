@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { CSSProperties, ReactNode } from "react";
-import { Chips, Placeholder, Seccion } from "@/components/ficha/primitives";
+import { Chips, Foto, Placeholder, Retrato, Seccion } from "@/components/ficha/primitives";
+import { ambienteDe, retratoDe } from "@/data/imagenes";
+
 import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
 import { CampoCatalogo, PanelCatalogo, type TipoCatalogo } from "@/components/FiltroCatalogo";
@@ -389,37 +391,17 @@ function TarjetaResultado({ r, isMobile }: { r: Resultado; isMobile: boolean }) 
       }}
     >
       {esProfesional ? (
-        <div
-          aria-hidden
-          style={{
-            width: 72,
-            height: 72,
-            borderRadius: "50%",
-            border: "1px solid var(--border)",
-            display: "grid",
-            placeItems: "center",
-            fontSize: 10,
-            color: "var(--muted-foreground)",
-          }}
-        >
-          [foto]
-        </div>
+        <Retrato src={retratoDe(r.nombre)} alt={`Retrato de ${r.nombre}`} tamano={72} />
       ) : (
-        <div
-          aria-hidden
-          style={{
-            width: isMobile ? "100%" : 120,
-            height: 84,
-            border: "1px solid var(--border)", borderRadius: 12,
-            display: "grid",
-            placeItems: "center",
-            fontSize: 10,
-            color: "var(--muted-foreground)",
-          }}
-        >
-          [imagen]
-        </div>
+        <Foto
+          src={ambienteDe(r.nombre)}
+          alt={`Espacio de ${r.nombre}`}
+          alto={84}
+          radio={12}
+          estilo={{ width: isMobile ? "100%" : 120 }}
+        />
       )}
+
 
       <div style={{ minWidth: 0 }}>
         <div style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>

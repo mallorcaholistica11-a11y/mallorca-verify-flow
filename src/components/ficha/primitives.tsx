@@ -195,3 +195,77 @@ export function Placeholder({ children, alto = 120 }: { children: ReactNode; alt
     </div>
   );
 }
+
+/**
+ * Marco fotográfico editorial: imagen a sangre dentro de un contenedor de
+ * esquinas suaves, con borde fino y sombra muy sutil.
+ */
+export function Foto({
+  src,
+  alt,
+  alto = 220,
+  radio = 16,
+  prioridad = false,
+  estilo,
+}: {
+  src: string;
+  alt: string;
+  alto?: number | string;
+  radio?: number;
+  prioridad?: boolean;
+  estilo?: CSSProperties;
+}) {
+  return (
+    <div
+      style={{
+        borderRadius: radio,
+        overflow: "hidden",
+        background: "var(--cream)",
+        border: "1px solid var(--border)",
+        boxShadow: "var(--shadow-soft)",
+        ...estilo,
+      }}
+    >
+      <img
+        src={src}
+        alt={alt}
+        {...(prioridad ? {} : { loading: "lazy" as const })}
+        style={{
+          display: "block",
+          width: "100%",
+          height: typeof alto === "number" ? `${alto}px` : alto,
+          objectFit: "cover",
+        }}
+      />
+    </div>
+  );
+}
+
+/** Retrato circular provisional para profesionales. */
+export function Retrato({
+  src,
+  alt,
+  tamano = 72,
+}: {
+  src: string;
+  alt: string;
+  tamano?: number;
+}) {
+  return (
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      width={tamano}
+      height={tamano}
+      style={{
+        width: tamano,
+        height: tamano,
+        borderRadius: "50%",
+        objectFit: "cover",
+        border: "1px solid var(--border)",
+        boxShadow: "var(--shadow-soft)",
+      }}
+    />
+  );
+}

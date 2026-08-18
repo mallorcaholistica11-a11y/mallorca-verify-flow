@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMobile } from "@/components/ficha/useMobile";
 import { areasOficiales } from "@/data/areas";
+import { ambienteDe, retratoDe } from "@/data/imagenes";
 
 export const Route = createFileRoute("/actividad/$id")({
   head: () => ({
@@ -90,20 +91,20 @@ function ActividadPublica() {
             alignItems: "center",
           }}
         >
-          <div
+          <img
+            src={ambienteDe(actividad.titulo ?? actividad.tipo)}
+            alt={`Imagen de la actividad ${actividad.titulo ?? ""}`}
             style={{
-              border: "1px solid var(--border)", borderRadius: 12,
-              background: "var(--card)",
+              width: "100%",
               aspectRatio: "4 / 5",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "var(--muted-foreground)",
-              fontSize: 12,
+              objectFit: "cover",
+              borderRadius: 16,
+              border: "1px solid var(--border)",
+              boxShadow: "var(--shadow-soft)",
+              display: "block",
             }}
-          >
-            [ Imagen de la actividad ]
-          </div>
+          />
+
 
           <div>
             <div style={{ fontSize: 11, letterSpacing: 1, color: "var(--muted-foreground)", textTransform: "uppercase", marginBottom: 10 }}>
@@ -198,23 +199,20 @@ function ActividadPublica() {
 
           <Bloque titulo="Organiza esta actividad">
             <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-              <div
+              <img
+                src={retratoDe(actividad.organizador.nombre)}
+                alt={`Retrato de ${actividad.organizador.nombre}`}
+                loading="lazy"
                 style={{
                   width: 64,
                   height: 64,
                   borderRadius: "50%",
+                  objectFit: "cover",
                   border: "1px solid var(--border)",
-                  background: "var(--card)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "var(--muted-foreground)",
-                  fontSize: 11,
                   flexShrink: 0,
                 }}
-              >
-                [foto]
-              </div>
+              />
+
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontSize: 15, fontWeight: 600 }}>{actividad.organizador.nombre}</div>
                 <div style={{ fontSize: 13, color: "var(--muted-foreground)" }}>{actividad.organizador.profesion}</div>
