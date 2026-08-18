@@ -185,7 +185,9 @@ function BuscadorIA({ isMobile }: { isMobile: boolean }) {
         <div className="mx-auto mt-6 flex max-w-2xl justify-center">
           <Chips items={CHIPS} clicable />
         </div>
+        </div>
       </div>
+
     </Bloque>
   );
 }
