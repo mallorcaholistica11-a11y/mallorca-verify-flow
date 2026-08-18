@@ -8,6 +8,8 @@ import {
   Placeholder,
   Seccion,
 } from "@/components/ficha/primitives";
+import { ambienteDe, retratoDe } from "@/data/imagenes";
+
 import {
   MAX_AREAS_FICHA,
   MAX_ESPECIALIDADES_FICHA,
