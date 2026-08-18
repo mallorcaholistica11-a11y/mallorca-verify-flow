@@ -223,8 +223,12 @@ function ColumnaPrincipal({ data, plan }: { data: FichaPublicaData; plan: PlanFi
         )}
       </Seccion>
 
-      <Seccion titulo="Galería" vacio={!completa || !data.galeria?.length}>
-        <Galeria imagenes={data.galeria ?? []} nombre={data.nombre} />
+      <Seccion titulo="Galería" vacio={!completa}>
+        <Galeria
+          imagenes={data.galeria?.length ? data.galeria : GALERIA_DEMO}
+          nombre={data.nombre}
+        />
+
       </Seccion>
 
       <Seccion titulo="Actividades" vacio={!completa}>

@@ -236,8 +236,12 @@ function ColumnaPrincipal({ data, esPresencia }: { data: FichaCentroData; esPres
         )}
       </Seccion>
 
-      <Seccion titulo="Galería" vacio={esPresencia || !data.galeria?.length}>
-        <CarruselGaleria imagenes={(data.galeria ?? []).slice(0, 10)} nombre={data.nombre} />
+      <Seccion titulo="Galería" vacio={esPresencia}>
+        <CarruselGaleria
+          imagenes={(data.galeria?.length ? data.galeria : GALERIA_DEMO).slice(0, 10)}
+          nombre={data.nombre}
+        />
+
       </Seccion>
 
       <Seccion titulo="Descubre nuestras actividades" vacio={esPresencia || !data.hayActividades}>
