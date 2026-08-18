@@ -188,7 +188,16 @@ function GuiaPracticas() {
             textAlign: "center",
           }}
         >
+          <div style={{ maxWidth: 620, margin: "0 auto 20px auto" }}>
+            <Foto
+              src={IMG.actividad3}
+              alt="Camino entre olivos y muros de piedra en Mallorca"
+              alto={isMobile ? 150 : 200}
+              radio={16}
+            />
+          </div>
           <h2 style={{ fontSize: 16, margin: "0 0 10px 0" }}>Cada camino es único</h2>
+
           <p
             style={{
               fontSize: 13,
