@@ -25,40 +25,27 @@ export function NavPublica({
   activo?: SeccionPublica;
 }) {
   return (
-    <header
-      style={{
-        borderBottom: "1px dashed #999",
-        background: "#fff",
-        padding: isMobile ? "12px 16px" : "14px 24px",
-        fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 1080,
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "minmax(0,1fr) auto",
-          alignItems: "center",
-          gap: 16,
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: 16, minWidth: 0, flexWrap: "wrap" }}>
-          <Link to="/" style={{ fontWeight: 600, fontSize: 13, whiteSpace: "nowrap", color: "#111", textDecoration: "none" }}>
-            [LOGO] Mallorca Holística
+    <header className="border-b border-border bg-card">
+      <div className="mx-auto flex max-w-[1080px] items-center justify-between gap-4 px-4 py-3 md:px-6 md:py-4">
+        <div className="flex min-w-0 items-center gap-4 md:gap-6">
+          <Link
+            to="/"
+            className="font-display text-sm font-semibold whitespace-nowrap text-foreground no-underline"
+          >
+            Mallorca Holística
           </Link>
           {!isMobile && (
-            <nav style={{ display: "flex", gap: 10, flexWrap: "wrap", fontSize: 12 }}>
+            <nav className="flex flex-wrap gap-3 text-xs">
               {NAV.map((n) => (
                 <Link
                   key={n.label}
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   to={n.to as any}
-                  style={{
-                    color: activo === n.label ? "#111" : "#555",
-                    textDecoration: "none",
-                    fontWeight: activo === n.label ? 600 : 400,
-                  }}
+                  className={`no-underline transition-colors hover:text-primary ${
+                    activo === n.label
+                      ? "font-semibold text-foreground"
+                      : "text-muted-foreground"
+                  }`}
                 >
                   {n.label}
                 </Link>
@@ -66,19 +53,10 @@ export function NavPublica({
             </nav>
           )}
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
+        <div className="flex flex-shrink-0 items-center gap-3">
           <Link
             to="/soy-profesional"
-            style={{
-              border: "1px solid #2f5d3a",
-              background: "#2f5d3a",
-              color: "#fff",
-              padding: "8px 14px",
-              fontSize: 12,
-              borderRadius: 999,
-              whiteSpace: "nowrap",
-              textDecoration: "none",
-            }}
+            className="rounded-full bg-primary px-4 py-2 text-xs font-medium text-primary-foreground no-underline transition-colors hover:bg-sage-dark"
           >
             Soy profesional
           </Link>
@@ -86,27 +64,23 @@ export function NavPublica({
             to="/mi-espacio"
             search={{ track: "presencia" as const }}
             aria-label="Mi Espacio"
-            style={{
-              width: 32,
-              height: 32,
-              borderRadius: "50%",
-              border: "1px dashed #888",
-              display: "grid",
-              placeItems: "center",
-              fontSize: 12,
-              color: "#666",
-              textDecoration: "none",
-            }}
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-xs text-muted-foreground no-underline transition-colors hover:bg-secondary"
           >
             ☺
           </Link>
         </div>
       </div>
       {isMobile && (
-        <nav style={{ display: "flex", gap: 8, flexWrap: "wrap", fontSize: 11, marginTop: 10 }}>
+        <nav className="mx-auto flex max-w-[1080px] flex-wrap gap-2 px-4 pb-3 text-xs">
           {NAV.map((n) => (
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            <Link key={n.label} to={n.to as any} style={{ color: activo === n.label ? "#111" : "#555", textDecoration: "none" }}>
+            <Link
+              key={n.label}
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              to={n.to as any}
+              className={`no-underline ${
+                activo === n.label ? "text-foreground" : "text-muted-foreground"
+              }`}
+            >
               {n.label}
             </Link>
           ))}

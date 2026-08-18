@@ -77,16 +77,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Mallorca Verified Path streamlines professional verification for holistic practitioners." },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Mallorca Verified Path streamlines professional verification for holistic practitioners." },
+      { title: "Mallorca Holística — Salud integrativa y terapias en Mallorca" },
+      { name: "description", content: "Encuentra profesionales verificados, terapias complementarias y actividades de bienestar en Mallorca." },
+      { name: "author", content: "Mallorca Holística" },
+      { property: "og:title", content: "Mallorca Holística — Salud integrativa en Mallorca" },
+      { property: "og:description", content: "Directorio de profesionales, guía de terapias y agenda de actividades de bienestar en Mallorca." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Lovable App" },
-      { name: "twitter:description", content: "Mallorca Verified Path streamlines professional verification for holistic practitioners." },
+      { name: "twitter:site", content: "@MallorcaHolistica" },
+      { name: "twitter:title", content: "Mallorca Holística — Salud integrativa en Mallorca" },
+      { name: "twitter:description", content: "Directorio de profesionales, guía de terapias y agenda de actividades de bienestar en Mallorca." },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/05978f93-2b3d-44c9-b5b9-ecba909060c5/id-preview-0dea705c--9563bb70-993e-4af6-80d9-ece189c184c7.lovable.app-1782758516835.png" },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/05978f93-2b3d-44c9-b5b9-ecba909060c5/id-preview-0dea705c--9563bb70-993e-4af6-80d9-ece189c184c7.lovable.app-1782758516835.png" },
     ],
@@ -94,6 +94,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         rel: "stylesheet",
         href: appCss,
+      },
+      {
+        rel: "preconnect",
+        href: "https://fonts.googleapis.com",
+      },
+      {
+        rel: "preconnect",
+        href: "https://fonts.gstatic.com",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Nunito+Sans:wght@400;500;600;700&display=swap",
       },
     ],
   }),
@@ -105,7 +118,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="es">
       <head>
         <HeadContent />
       </head>
