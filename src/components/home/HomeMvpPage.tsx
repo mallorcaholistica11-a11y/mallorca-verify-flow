@@ -197,30 +197,35 @@ function BusquedaClasica({ isMobile }: { isMobile: boolean }) {
 
 function Confianza({ isMobile }: { isMobile: boolean }) {
   return (
-    <Bloque>
-      <div className="grid items-center gap-8 md:grid-cols-[0.8fr_1.2fr]">
-        <Placeholder alto={isMobile ? 180 : 320}>[Imagen bloque confianza]</Placeholder>
+    <section className="-mx-4 my-6 rounded-[28px] bg-cream/70 px-4 py-14 md:-mx-6 md:px-10">
+      <div className="grid items-center gap-10 md:grid-cols-[0.85fr_1.15fr]">
+        <Foto
+          src={IMG.confianza}
+          alt="Piedras apiladas junto a una rama de olivo con luz natural cálida"
+          alto={isMobile ? 220 : 340}
+          radio={20}
+        />
         <div className="min-w-0">
-          <h2 className="mb-3 font-display text-lg font-semibold md:text-xl">
+          <h2 className="mb-3 font-display text-lg font-normal md:text-2xl">
             La confianza también forma parte del cuidado.
           </h2>
-          <p className="mb-5 text-sm leading-relaxed text-muted-foreground">
+          <p className="mb-6 max-w-lg text-sm leading-relaxed text-muted-foreground">
             Revisamos cada perfil para que puedas explorar con tranquilidad y elegir con confianza.
           </p>
-          <div className="grid gap-3 md:grid-cols-4">
+          <div className="grid gap-3 sm:grid-cols-2">
             {CONFIANZA.map((c) => (
               <div
                 key={c.titulo}
-                className="border border-border bg-card p-4"
+                className="rounded-2xl border border-border/70 bg-card/80 p-5 backdrop-blur-[2px]"
               >
-                <div className="mb-2 text-sm font-semibold text-sage-dark">✓ {c.titulo}</div>
+                <div className="mb-2 font-display text-sm text-sage-dark">✓ {c.titulo}</div>
                 <p className="m-0 text-xs leading-relaxed text-muted-foreground">{c.texto}</p>
               </div>
             ))}
           </div>
         </div>
       </div>
-    </Bloque>
+    </section>
   );
 }
 
@@ -232,27 +237,28 @@ function Profesionales({ isMobile, isTablet }: { isMobile: boolean; isTablet: bo
       : "grid-cols-6";
   return (
     <Bloque>
-      <h2 className="mb-2 font-display text-lg font-semibold md:text-xl">
+      <h2 className="mb-2 font-display text-lg font-normal md:text-2xl">
         Personas que acompañan a personas.
       </h2>
-      <p className="mb-5 text-sm text-muted-foreground">
+      <p className="mb-6 text-sm text-muted-foreground">
         Conoce a algunos profesionales de nuestra comunidad.
       </p>
-      <div className={`grid gap-3 ${grid}`}>
+      <div className={`grid gap-4 ${grid}`}>
         {PROFESIONALES.map((p) => (
           <div
             key={p.nombre}
-            className="min-w-0 border border-border bg-card p-3 text-center"
+            className="min-w-0 rounded-2xl border border-border/70 bg-card p-4 text-center transition-shadow hover:shadow-[var(--shadow-lift)]"
           >
-            <div className="mx-auto mb-2 flex h-16 w-16 items-center justify-center rounded-full border border-border text-xs text-muted-foreground">
-              [foto]
+            <div className="mx-auto mb-3 w-fit">
+              <Retrato src={retratoDe(p.nombre)} alt={`Retrato de ${p.nombre}`} tamano={64} />
             </div>
-            <div className="text-xs font-semibold text-foreground">{p.nombre}</div>
-            <div className="text-xs text-muted-foreground">{p.especialidad}</div>
+            <div className="font-display text-xs text-foreground">{p.nombre}</div>
+            <div className="mt-1 text-xs text-muted-foreground">{p.especialidad}</div>
             <div className="text-xs text-muted-foreground">{p.lugar}</div>
           </div>
         ))}
       </div>
+
       <div className="mt-5 text-right text-xs">
         <Link to="/directorio" search={{ q: "", lugar: "" }} className="text-foreground no-underline hover:text-primary">
           Ver todos los profesionales →
