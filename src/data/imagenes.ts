@@ -49,3 +49,12 @@ export function retratoDe(clave: string): string {
 export function ambienteDe(clave: string): string {
   return AMBIENTES[indiceEstable(clave, AMBIENTES.length)]!;
 }
+
+/** Galería provisional para fichas sin fotografías propias todavía. */
+export const GALERIA_DEMO: string[] = [
+  IMG.espacio,
+  IMG.detalle2,
+  IMG.detalle1,
+  IMG.actividad3,
+  IMG.practica,
+];

@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useMobile } from "@/components/ficha/useMobile";
 import { Boton, Chips, ChipsPracticas, LineaTexto, Placeholder, Seccion } from "@/components/ficha/primitives";
-import { ambienteDe, retratoDe } from "@/data/imagenes";
+import { GALERIA_DEMO, ambienteDe, retratoDe } from "@/data/imagenes";
 import {
   MAX_AREAS_FICHA,
   MAX_ESPECIALIDADES_FICHA,
