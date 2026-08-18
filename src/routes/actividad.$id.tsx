@@ -198,23 +198,20 @@ function ActividadPublica() {
 
           <Bloque titulo="Organiza esta actividad">
             <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-              <div
+              <img
+                src={retratoDe(actividad.organizador.nombre)}
+                alt={`Retrato de ${actividad.organizador.nombre}`}
+                loading="lazy"
                 style={{
                   width: 64,
                   height: 64,
                   borderRadius: "50%",
+                  objectFit: "cover",
                   border: "1px solid var(--border)",
-                  background: "var(--card)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "var(--muted-foreground)",
-                  fontSize: 11,
                   flexShrink: 0,
                 }}
-              >
-                [foto]
-              </div>
+              />
+
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontSize: 15, fontWeight: 600 }}>{actividad.organizador.nombre}</div>
                 <div style={{ fontSize: 13, color: "var(--muted-foreground)" }}>{actividad.organizador.profesion}</div>

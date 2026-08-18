@@ -294,11 +294,12 @@ function Equipo({ miembros, total }: { miembros: MiembroEquipo[]; total?: number
                 flex: "0 0 auto",
               }}
             >
-              {m.fotoUrl ? (
-                <img src={m.fotoUrl} alt={m.nombre} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-              ) : (
-                "[foto]"
-              )}
+              <img
+                src={m.fotoUrl ?? retratoDe(m.nombre)}
+                alt={m.nombre}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+
             </div>
             <div style={{ fontSize: 12, lineHeight: 1.4 }}>
               <div>{m.nombre}</div>
