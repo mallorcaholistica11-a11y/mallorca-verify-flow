@@ -23,12 +23,12 @@ export function WireframeShell({
   children: ReactNode;
 }) {
   return (
-    <div style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", minHeight: "100vh", background: "#fafafa", color: "#111" }}>
-      <header style={{ borderBottom: "1px dashed #999", padding: "12px 20px", display: "flex", justifyContent: "space-between", alignItems: "center", background: "#fff" }}>
-        <Link to="/" style={{ textDecoration: "none", color: "#111", fontWeight: 600 }}>
+    <div style={{ fontFamily: "var(--font-body)", minHeight: "100vh", background: "var(--background)", color: "var(--foreground)" }}>
+      <header style={{ borderBottom: "1px solid var(--border)", padding: "16px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 20, flexWrap: "wrap", background: "var(--ivory)", position: "sticky", top: 0, zIndex: 20, backdropFilter: "blur(6px)" }}>
+        <Link to="/" style={{ textDecoration: "none", color: "var(--charcoal)", fontFamily: "var(--font-display)", fontSize: 17, letterSpacing: "-0.01em" }}>
           [LOGO] Mallorca Holística — wireframe
         </Link>
-        <nav style={{ display: "flex", gap: 16, fontSize: 12 }}>
+        <nav style={{ display: "flex", gap: 4, fontSize: 12.5, flexWrap: "wrap", minWidth: 0 }}>
           <Link to="/" style={linkStyle}>Inicio</Link>
           <Link to="/directorio" search={{ q: "", lugar: "" }} style={linkStyle}>Directorio de Profesionales</Link>
           <Link to="/guia" style={linkStyle}>Guía de Prácticas</Link>
@@ -40,31 +40,31 @@ export function WireframeShell({
         </nav>
       </header>
 
-      <div style={{ padding: "8px 20px", fontSize: 11, color: "#666", borderBottom: "1px dashed #ddd" }}>
+      <div style={{ padding: "10px 24px", fontSize: 11.5, color: "var(--muted-foreground)", borderBottom: "1px solid var(--border)", background: "var(--cream)" }}>
         {breadcrumb ?? "—"}
       </div>
 
-      <main style={{ maxWidth: 820, margin: "24px auto", padding: "0 20px" }}>
-        <div style={{ fontSize: 11, color: "#888", letterSpacing: 1, marginBottom: 4 }}>
+      <main style={{ maxWidth: 880, margin: "0 auto", padding: "48px 24px 0" }}>
+        <div style={{ fontSize: 10.5, color: "var(--sage-dark)", letterSpacing: 1.6, textTransform: "uppercase", marginBottom: 10 }}>
           PANTALLA · {screen}
         </div>
-        <h1 style={{ fontSize: 22, margin: "0 0 20px 0", whiteSpace: "pre-wrap" }}>{title.replace("Reserva tu plaza", "Activa tu suscripción")}</h1>
+        <h1 style={{ fontFamily: "var(--font-display)", fontSize: 30, lineHeight: 1.22, fontWeight: 500, margin: "0 0 28px 0", whiteSpace: "pre-wrap", color: "var(--charcoal)" }}>{title.replace("Reserva tu plaza", "Activa tu suscripción")}</h1>
         {children}
       </main>
 
-      <footer style={{ marginTop: 60, padding: 20, borderTop: "1px dashed #999", fontSize: 11, color: "#777", textAlign: "center" }}>
+      <footer style={{ marginTop: 80, padding: "28px 24px", borderTop: "1px solid var(--border)", fontSize: 11.5, color: "var(--muted-foreground)", textAlign: "center", background: "var(--cream)" }}>
         Wireframe funcional · sin diseño visual · validación de navegación
       </footer>
     </div>
   );
 }
 
-const linkStyle = { textDecoration: "none", color: "#111", padding: "4px 8px", border: "1px dashed #bbb", borderRadius: 4 };
+const linkStyle = { textDecoration: "none", color: "var(--muted-foreground)", padding: "6px 10px", borderRadius: 999, fontSize: 12.5 };
 
 export function Box({ children, title }: { children: ReactNode; title?: string }) {
   return (
-    <div style={{ border: "1px dashed #888", padding: 16, marginBottom: 16, background: "#fff" }}>
-      {title && <div style={{ fontSize: 11, color: "#666", marginBottom: 8, textTransform: "uppercase", letterSpacing: 1, whiteSpace: "pre-wrap" }}>{title === "Forma parte de Mallorca Holística" ? "\n" : title}</div>}
+    <div style={{ border: "1px solid var(--border)", borderRadius: 14, padding: "22px 24px", marginBottom: 20, background: "var(--card)", boxShadow: "var(--shadow-soft)" }}>
+      {title && <div style={{ fontSize: 10.5, color: "var(--sage-dark)", marginBottom: 12, textTransform: "uppercase", letterSpacing: 1.4, whiteSpace: "pre-wrap" }}>{title === "Forma parte de Mallorca Holística" ? "\n" : title}</div>}
       {children}
     </div>
   );
@@ -72,31 +72,32 @@ export function Box({ children, title }: { children: ReactNode; title?: string }
 
 export function Card({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <div style={{ border: "1px dashed #888", padding: 16, background: "#fff", flex: 1, minWidth: 220 }}>
-      <div style={{ fontWeight: 600, marginBottom: 8 }}>{title}</div>
-      <div style={{ fontSize: 13 }}>{children}</div>
+    <div style={{ border: "1px solid var(--border)", borderRadius: 14, padding: "20px 22px", background: "var(--card)", flex: 1, minWidth: 220, boxShadow: "var(--shadow-soft)" }}>
+      <div style={{ fontFamily: "var(--font-display)", fontSize: 17, marginBottom: 8, color: "var(--charcoal)" }}>{title}</div>
+      <div style={{ fontSize: 13.5, lineHeight: 1.7, color: "var(--muted-foreground)" }}>{children}</div>
     </div>
   );
 }
 
 export function Row({ children }: { children: ReactNode }) {
-  return <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 16 }}>{children}</div>;
+  return <div style={{ display: "flex", gap: 16, flexWrap: "wrap", marginBottom: 20 }}>{children}</div>;
 }
 
 export function ReadOnlyField({ label, value }: { label: string; value: string }) {
   return (
     <div style={{ marginBottom: 12 }}>
-      <div style={{ fontSize: 12, marginBottom: 4 }}>{label}</div>
+      <div style={{ fontSize: 12.5, marginBottom: 6, color: "var(--foreground)" }}>{label}</div>
       <input
         type="text"
         readOnly
         value={value}
         style={{
           width: "100%",
-          border: "1px dashed #888",
-          padding: "8px 10px",
-          background: "#f6f6f6",
-          color: "#111",
+          border: "1px solid var(--border)",
+          borderRadius: 10,
+          padding: "10px 14px",
+          background: "var(--muted)",
+          color: "var(--foreground)",
           fontSize: 12,
           fontFamily: "inherit",
           boxSizing: "border-box",
@@ -110,8 +111,8 @@ export function ReadOnlyField({ label, value }: { label: string; value: string }
 export function FakeField({ label, type = "text" }: { label: string; type?: string }) {
   return (
     <div style={{ marginBottom: 12 }}>
-      <div style={{ fontSize: 12, marginBottom: 4 }}>{label}</div>
-      <div style={{ border: "1px dashed #888", padding: "8px 10px", background: "#fff", color: "#aaa", fontSize: 12 }}>
+      <div style={{ fontSize: 12.5, marginBottom: 6, color: "var(--foreground)" }}>{label}</div>
+      <div style={{ border: "1px solid var(--border)", borderRadius: 12, padding: "10px 14px", background: "var(--card)", color: "var(--muted-foreground)", fontSize: 12 }}>
         [{type}]
       </div>
     </div>
@@ -136,17 +137,17 @@ export function LimitedTextField({
   const atLimit = count >= max;
   const sharedStyle = {
     width: "100%",
-    border: "1px dashed #888",
-    padding: "8px 10px",
-    background: "#fff",
-    color: "#111",
+    border: "1px solid var(--border)", borderRadius: 12,
+    padding: "10px 14px",
+    background: "var(--card)",
+    color: "var(--foreground)",
     fontSize: 13,
     fontFamily: "inherit",
     boxSizing: "border-box" as const,
   };
   return (
     <div style={{ marginBottom: 12 }}>
-      <div style={{ fontSize: 12, marginBottom: 4 }}>{label}</div>
+      <div style={{ fontSize: 12.5, marginBottom: 6, color: "var(--foreground)" }}>{label}</div>
       {multiline ? (
         <textarea
           value={value}
@@ -169,7 +170,7 @@ export function LimitedTextField({
       <div
         style={{
           fontSize: 11,
-          color: atLimit ? "#a00" : "#666",
+          color: atLimit ? "var(--destructive)" : "var(--muted-foreground)",
           marginTop: 4,
           textAlign: "right",
           fontStyle: "italic",
@@ -185,7 +186,7 @@ export function Checklist({ items }: { items: { label: string; done?: boolean }[
   return (
     <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
       {items.map((it, i) => (
-        <li key={i} style={{ padding: "6px 0", borderBottom: "1px dotted #ccc", fontSize: 13 }}>
+        <li key={i} style={{ padding: "9px 0", borderBottom: "1px solid var(--border)", fontSize: 13.5, color: "var(--muted-foreground)" }}>
           {it.done ? "☑" : "☐"} {it.label}
         </li>
       ))}
@@ -208,15 +209,18 @@ export function NavButton({
 }) {
   const style = {
     display: "inline-block",
-    padding: "10px 16px",
-    border: variant === "primary" ? "2px solid #111" : "1px dashed #666",
-    background: "#fff",
-    color: "#111",
+    padding: "11px 22px",
+    borderRadius: 999,
+    border: variant === "primary" ? "1px solid var(--primary)" : "1px solid var(--border)",
+    background: variant === "primary" ? "var(--primary)" : "var(--card)",
+    color: variant === "primary" ? "var(--primary-foreground)" : "var(--foreground)",
     textDecoration: "none",
-    fontSize: 13,
-    marginRight: 8,
-    marginTop: 8,
+    fontSize: 13.5,
+    letterSpacing: "0.01em",
+    marginRight: 10,
+    marginTop: 10,
     cursor: "pointer",
+    boxShadow: variant === "primary" ? "var(--shadow-soft)" : "none",
   };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (
@@ -228,7 +232,7 @@ export function NavButton({
 
 export function Note({ children }: { children: ReactNode }) {
   return (
-    <div style={{ fontSize: 11, color: "#666", fontStyle: "italic", padding: "8px 12px", borderLeft: "3px solid #ccc", background: "#f3f3f3", marginBottom: 12 }}>
+    <div style={{ fontSize: 12, color: "var(--muted-foreground)", lineHeight: 1.7, padding: "12px 16px", borderLeft: "2px solid var(--sage-light)", borderRadius: "0 10px 10px 0", background: "var(--cream)", marginBottom: 16 }}>
       {children}
     </div>
   );
@@ -244,7 +248,7 @@ const TRACK_LABEL: Record<Track, string> = {
 
 export function TrackBadge({ track }: { track: Track }) {
   return (
-    <div style={{ display: "inline-block", padding: "4px 8px", border: "1px dashed #666", fontSize: 11, marginBottom: 12 }}>
+    <div style={{ display: "inline-block", padding: "6px 14px", border: "1px solid var(--border)", borderRadius: 999, background: "var(--secondary)", color: "var(--secondary-foreground)", fontSize: 11.5, marginBottom: 16 }}>
       Track activo: <strong>{TRACK_LABEL[track]}</strong>
     </div>
   );

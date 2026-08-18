@@ -16,15 +16,15 @@ export const Route = createFileRoute("/nuestra-mirada")({
   component: NuestraMirada,
 });
 
-const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
+const MONO = "var(--font-body)";
 
 function NuestraMirada() {
   const isMobile = useMobile(900);
   return (
-    <div style={{ fontFamily: MONO, background: "#fafafa", color: "#111", minHeight: "100vh" }}>
+    <div style={{ fontFamily: MONO, background: "var(--muted)", color: "var(--foreground)", minHeight: "100vh" }}>
       <NavPublica isMobile={isMobile} activo="Nuestra Mirada" />
       <main style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "40px 16px" : "64px 24px" }}>
-        <div style={{ whiteSpace: "pre-wrap", fontSize: 13, color: "#555", lineHeight: 1.8 }}>
+        <div style={{ whiteSpace: "pre-wrap", fontSize: 13, color: "var(--muted-foreground)", lineHeight: 1.8 }}>
           <p>
             <b>NUESTRA MIRADA</b>
             <br />

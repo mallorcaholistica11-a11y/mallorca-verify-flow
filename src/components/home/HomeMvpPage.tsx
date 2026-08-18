@@ -92,18 +92,14 @@ function Hero({ isMobile }: { isMobile: boolean }) {
           <div className="mb-3 text-xs font-medium uppercase tracking-widest text-sage-dark">
             Mallorca Holística
           </div>
-          <div className="mb-5 text-sm leading-relaxed text-muted-foreground">
+          <h1 className="mb-5 max-w-lg font-display text-[1.75rem] font-medium leading-[1.25] text-charcoal md:text-[2.5rem]">
             Salud integrativa · Terapias complementarias
             <br />
-            Medicina natural · Bienestar · Desarrollo personal
-          </div>
-          <h1 className="mb-5 font-display text-2xl font-semibold leading-tight md:text-3xl">
-            Toda persona merece
-            <br />
-            sentirse escuchada,
-            <br />
-            comprendida y acompañada.
+            <span className="text-sage-dark">Medicina natural · Bienestar · Desarrollo personal</span>
           </h1>
+          <p className="mb-5 max-w-sm font-display text-base italic leading-relaxed text-muted-foreground md:text-lg">
+            Toda persona merece sentirse escuchada, comprendida y acompañada.
+          </p>
           <p className="mb-2 max-w-md text-sm leading-relaxed text-muted-foreground">
             Ampliamos la mirada sobre la salud para abrir nuevas posibilidades de acompañamiento.
           </p>

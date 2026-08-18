@@ -24,9 +24,9 @@ function ComunidadFundadoraBienvenida() {
       <Box title="🌿 ELIGE TU PLAN COMO MIEMBRO FUNDADOR">
         <Row>
           <Card title="⭐ Profesional Verificado">
-            <p style={{ fontSize: 12, color: "#666", marginBottom: 4 }}>Precio habitual</p>
+            <p style={{ fontSize: 12, color: "var(--muted-foreground)", marginBottom: 4 }}>Precio habitual</p>
             <p style={{ fontSize: 14, marginBottom: 12 }}>25 €/mes (IVA incluido)</p>
-            <p style={{ fontSize: 12, color: "#666", marginBottom: 4 }}>Condiciones exclusivas Comunidad Fundadora</p>
+            <p style={{ fontSize: 12, color: "var(--muted-foreground)", marginBottom: 4 }}>Condiciones exclusivas Comunidad Fundadora</p>
             <p style={{ fontSize: 13, margin: "0 0 4px 0" }}>✓ 6 meses gratuitos.</p>
             <p style={{ fontSize: 13, margin: "0 0 16px 0" }}>
               ✓ 15 €/mes (IVA incluido) para siempre, mientras mantengas activa tu suscripción.
@@ -37,9 +37,9 @@ function ComunidadFundadoraBienvenida() {
           </Card>
 
           <Card title="⭐ Centros & Organizadores">
-            <p style={{ fontSize: 12, color: "#666", marginBottom: 4 }}>Precio habitual</p>
+            <p style={{ fontSize: 12, color: "var(--muted-foreground)", marginBottom: 4 }}>Precio habitual</p>
             <p style={{ fontSize: 14, marginBottom: 12 }}>50 €/mes (IVA incluido)</p>
-            <p style={{ fontSize: 12, color: "#666", marginBottom: 4 }}>Condiciones exclusivas Comunidad Fundadora</p>
+            <p style={{ fontSize: 12, color: "var(--muted-foreground)", marginBottom: 4 }}>Condiciones exclusivas Comunidad Fundadora</p>
             <p style={{ fontSize: 13, margin: "0 0 4px 0" }}>✓ 6 meses gratuitos.</p>
             <p style={{ fontSize: 13, margin: "0 0 16px 0" }}>
               ✓ 35 €/mes (IVA incluido) para siempre, mientras mantengas activa tu suscripción.

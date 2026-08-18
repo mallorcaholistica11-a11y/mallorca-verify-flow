@@ -42,7 +42,7 @@ const OPCIONES: {
   },
 ];
 
-const ACCENT = "#2f6f5f";
+const ACCENT = "var(--primary)";
 const ACCENT_RGB = "47, 111, 95";
 
 function TipoPerfil() {
@@ -65,7 +65,7 @@ function TipoPerfil() {
         style={{
           fontSize: 15,
           lineHeight: 1.7,
-          color: "#444",
+          color: "var(--foreground)",
           maxWidth: 620,
           margin: "0 0 32px 0",
         }}
@@ -98,8 +98,8 @@ function TipoPerfil() {
                 cursor: "pointer",
                 padding: 28,
                 borderRadius: 10,
-                background: activa ? `rgba(${ACCENT_RGB}, 0.05)` : "#fff",
-                border: activa ? `2px solid ${ACCENT}` : "1px dashed #888",
+                background: activa ? `rgba(${ACCENT_RGB}, 0.05)` : "var(--card)",
+                border: activa ? `2px solid ${ACCENT}` : "1px solid var(--border)",
                 boxShadow: activa ? "0 8px 24px rgba(0, 0, 0, 0.06)" : "none",
                 transition: "all 180ms ease-out",
                 display: "flex",
@@ -118,7 +118,7 @@ function TipoPerfil() {
                     height: 24,
                     borderRadius: "50%",
                     background: ACCENT,
-                    color: "#fff",
+                    color: "var(--card)",
                     fontSize: 13,
                     display: "grid",
                     placeItems: "center",
@@ -133,7 +133,7 @@ function TipoPerfil() {
                 style={{
                   fontSize: 18,
                   fontWeight: 600,
-                  color: activa ? ACCENT : "#111",
+                  color: activa ? ACCENT : "var(--foreground)",
                   marginBottom: 12,
                   transition: "color 180ms ease-out",
                 }}
@@ -145,7 +145,7 @@ function TipoPerfil() {
                 style={{
                   fontSize: 14,
                   lineHeight: 1.7,
-                  color: "#444",
+                  color: "var(--foreground)",
                   margin: "0 0 24px 0",
                   flex: "1 1 auto",
                 }}
@@ -157,7 +157,7 @@ function TipoPerfil() {
                 <div
                   style={{
                     fontSize: 11,
-                    color: "#777",
+                    color: "var(--muted-foreground)",
                     marginBottom: 6,
                     letterSpacing: 0.5,
                     textTransform: "uppercase",
@@ -169,7 +169,7 @@ function TipoPerfil() {
                   style={{
                     fontSize: 13,
                     lineHeight: 1.6,
-                    color: "#555",
+                    color: "var(--muted-foreground)",
                   }}
                 >
                   {op.examples}
@@ -191,16 +191,16 @@ function TipoPerfil() {
             fontWeight: 500,
             padding: "12px 20px",
             borderRadius: 6,
-            border: seleccion ? `2px solid ${ACCENT}` : "1px dashed #ccc",
-            background: seleccion ? ACCENT : "#fff",
-            color: seleccion ? "#fff" : "#bbb",
+            border: seleccion ? `2px solid ${ACCENT}` : "1px solid var(--border)",
+            background: seleccion ? ACCENT : "var(--card)",
+            color: seleccion ? "var(--card)" : "var(--border)",
             cursor: seleccion ? "pointer" : "not-allowed",
             transition: "all 180ms ease-out",
           }}
         >
           Continuar
         </button>
-        <div style={{ fontSize: 12, color: "#777", marginTop: 14, lineHeight: 1.6 }}>
+        <div style={{ fontSize: 12, color: "var(--muted-foreground)", marginTop: 14, lineHeight: 1.6 }}>
           Podrás modificar esta elección más adelante si lo necesitas.
         </div>
       </Box>

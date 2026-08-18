@@ -19,9 +19,10 @@ export type DiaHorario = { apertura: string; cierre: string; cerrado: boolean };
 const vacio = (): DiaHorario => ({ apertura: "", cierre: "", cerrado: false });
 
 const inputStyle: React.CSSProperties = {
+  borderRadius: 10,
   padding: "6px 8px",
-  border: "1px dashed #888",
-  background: "#fff",
+  border: "1px solid var(--border)",
+  background: "var(--card)",
   fontFamily: "inherit",
   fontSize: 12,
   width: 90,
@@ -29,11 +30,12 @@ const inputStyle: React.CSSProperties = {
 };
 
 const linkBtn: React.CSSProperties = {
+  borderRadius: 999,
   border: "none",
   background: "transparent",
   padding: 0,
   fontSize: 11,
-  color: "#111",
+  color: "var(--foreground)",
   textDecoration: "underline",
   cursor: "pointer",
   fontFamily: "inherit",
@@ -56,8 +58,8 @@ function Checkbox({
         alignItems: "center",
         gap: 8,
         padding: "6px 10px",
-        border: "1px dashed #888",
-        background: checked ? "#f3f3f3" : "#fff",
+        border: "1px solid var(--border)", borderRadius: 12,
+        background: checked ? "var(--muted)" : "var(--card)",
         cursor: "pointer",
         fontSize: 12,
       }}
@@ -69,8 +71,8 @@ function Checkbox({
           justifyContent: "center",
           width: 14,
           height: 14,
-          border: "1px dashed #666",
-          background: "#fff",
+          border: "1px solid var(--border)", borderRadius: 12,
+          background: "var(--card)",
           fontSize: 10,
           flexShrink: 0,
         }}
@@ -116,7 +118,7 @@ export function HorarioSemanal({
       </div>
 
       {citaPrevia ? (
-        <div style={{ fontSize: 13, border: "1px dashed #bbb", padding: 12, background: "#fff" }}>
+        <div style={{ fontSize: 13, border: "1px solid var(--border)", borderRadius: 12, padding: 12, background: "var(--card)" }}>
           Atención con cita previa.
         </div>
       ) : (
@@ -135,7 +137,7 @@ export function HorarioSemanal({
                 alignItems: "center",
                 gap: 8,
                 padding: "8px 0",
-                borderBottom: "1px dotted #ddd",
+                borderBottom: "1px dotted var(--border)",
               }}
             >
               <div style={{ width: 90, fontSize: 12 }}>{dia}</div>
@@ -147,7 +149,7 @@ export function HorarioSemanal({
                 onChange={(e) => update(idx, { apertura: e.target.value })}
                 style={{ ...inputStyle, opacity: dias[idx].cerrado ? 0.5 : 1 }}
               />
-              <span style={{ fontSize: 12, color: "#888" }}>–</span>
+              <span style={{ fontSize: 12, color: "var(--muted-foreground)" }}>–</span>
               <input
                 type="text"
                 placeholder="Cierre"

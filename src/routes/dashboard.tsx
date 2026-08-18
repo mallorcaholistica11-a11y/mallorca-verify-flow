@@ -12,7 +12,7 @@ const subtitleStyle = {
   textAlign: "center" as const,
   fontSize: 13,
   lineHeight: 1.6,
-  color: "#444",
+  color: "var(--foreground)",
 };
 
 function DashboardWrapper() {
@@ -82,7 +82,7 @@ function DashboardHome() {
 
   return (
     <WireframeShell screen={screen} title="🌿 Bienvenido a Mallorca Holística" breadcrumb="Dashboard">
-      <div style={{ display: "inline-block", padding: "4px 8px", border: "1px dashed #666", fontSize: 11, marginBottom: 12 }}>
+      <div style={{ display: "inline-block", padding: "4px 8px", border: "1px solid var(--border)", borderRadius: 12, fontSize: 11, marginBottom: 12 }}>
         Plan seleccionado: <strong>{planLabel}</strong>
       </div>
 
@@ -97,16 +97,16 @@ function DashboardHome() {
         <p style={{ fontSize: 13, margin: "0 0 6px 0" }}>
           <strong>{estadoContent.badge}</strong>
         </p>
-        <p style={{ fontSize: 13, margin: 0, color: "#444", whiteSpace: "pre-wrap" }}>{estadoContent.description}</p>
+        <p style={{ fontSize: 13, margin: 0, color: "var(--foreground)", whiteSpace: "pre-wrap" }}>{estadoContent.description}</p>
       </Box>
 
       <Box title="Próximos pasos">
         <ol style={{ listStyle: "none", padding: 0, margin: 0 }}>
           {pasos.map((p) => (
-            <li key={p.title} style={{ padding: "10px 0", borderBottom: "1px dotted #ccc" }}>
+            <li key={p.title} style={{ padding: "10px 0", borderBottom: "1px dotted var(--border)" }}>
               <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 4 }}>{p.title}</div>
               {p.lines.map((l) => (
-                <p key={l} style={{ fontSize: 12, color: "#444", margin: "0 0 4px 0", lineHeight: 1.6 }}>
+                <p key={l} style={{ fontSize: 12, color: "var(--foreground)", margin: "0 0 4px 0", lineHeight: 1.6 }}>
                   {l}
                 </p>
               ))}

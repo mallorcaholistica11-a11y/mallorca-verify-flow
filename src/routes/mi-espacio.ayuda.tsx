@@ -86,7 +86,7 @@ const RECURSOS = [
 function Accordion({ id, question, children }: { id: string; question: string; children: ReactNode }) {
   const [open, setOpen] = useState(false);
   return (
-    <div style={{ borderBottom: "1px dotted #ccc" }}>
+    <div style={{ borderBottom: "1px dotted var(--border)" }}>
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -104,11 +104,11 @@ function Accordion({ id, question, children }: { id: string; question: string; c
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          color: "#111",
+          color: "var(--foreground)",
         }}
       >
         <span>{question}</span>
-        <span style={{ fontSize: 12, color: "#666", marginLeft: 8 }}>{open ? "−" : "+"}</span>
+        <span style={{ fontSize: 12, color: "var(--muted-foreground)", marginLeft: 8 }}>{open ? "−" : "+"}</span>
       </button>
       {open && (
         <div
@@ -116,7 +116,7 @@ function Accordion({ id, question, children }: { id: string; question: string; c
           style={{
             padding: "0 4px 12px 4px",
             fontSize: 13,
-            color: "#333",
+            color: "var(--foreground)",
             lineHeight: 1.6,
             whiteSpace: "pre-wrap",
           }}
@@ -140,13 +140,13 @@ function Ayuda() {
       <TrackBadge track={track} />
 
       <div style={{ maxWidth: 620, margin: "0 auto 24px", textAlign: "center" }}>
-        <p style={{ fontSize: 13, lineHeight: 1.7, color: "#333" }}>
+        <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)" }}>
           Resuelve tus dudas, consulta las preguntas más frecuentes o ponte en contacto con nosotros si necesitas ayuda.
         </p>
       </div>
 
       <Box title="Bloque 1 · Preguntas frecuentes">
-        <div style={{ fontSize: 11, color: "#888", marginBottom: 12, fontStyle: "italic" }}>
+        <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginBottom: 12, fontStyle: "italic" }}>
           Preguntas cargadas dinámicamente y agrupadas por temática.
         </div>
         {FAQ.map((group, gi) => (
@@ -154,11 +154,11 @@ function Ayuda() {
             <div
               style={{
                 fontSize: 12,
-                color: "#666",
+                color: "var(--muted-foreground)",
                 textTransform: "uppercase",
                 letterSpacing: 1,
                 marginBottom: 8,
-                borderBottom: "1px dashed #bbb",
+                borderBottom: "1px solid var(--border)",
                 paddingBottom: 4,
               }}
             >
@@ -174,10 +174,10 @@ function Ayuda() {
       </Box>
 
       <Box title="Bloque 2 · Contactar con nosotros">
-        <div style={{ fontSize: 13, color: "#333", marginBottom: 8 }}>
+        <div style={{ fontSize: 13, color: "var(--foreground)", marginBottom: 8 }}>
           Correo electrónico de soporte: <strong>[email dinámico]</strong>
         </div>
-        <div style={{ fontSize: 12, color: "#555", marginBottom: 12 }}>
+        <div style={{ fontSize: 12, color: "var(--muted-foreground)", marginBottom: 12 }}>
           Nuestro equipo responderá lo antes posible.
         </div>
         <NavButton to="/mi-espacio/ayuda" search={{ track }}>
@@ -186,7 +186,7 @@ function Ayuda() {
       </Box>
 
       <Box title="Bloque 3 · Recursos">
-        <div style={{ fontSize: 11, color: "#888", marginBottom: 8, fontStyle: "italic" }}>
+        <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginBottom: 8, fontStyle: "italic" }}>
           Enlaces gestionables dinámicamente desde la base de datos.
         </div>
         <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
@@ -195,14 +195,14 @@ function Ayuda() {
               key={i}
               style={{
                 padding: "8px 0",
-                borderBottom: "1px dotted #ccc",
+                borderBottom: "1px dotted var(--border)",
                 fontSize: 13,
               }}
             >
               <a
                 href={r.href}
                 onClick={(e) => e.preventDefault()}
-                style={{ color: "#111", textDecoration: "underline dashed" }}
+                style={{ color: "var(--foreground)", textDecoration: "underline dashed" }}
               >
                 {r.label}
               </a>

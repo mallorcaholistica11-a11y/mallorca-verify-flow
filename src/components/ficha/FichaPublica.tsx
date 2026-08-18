@@ -38,9 +38,9 @@ export function FichaPublica({
   return (
     <div
       style={{
-        fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
-        background: "#fafafa",
-        color: "#111",
+        fontFamily: "var(--font-body)",
+        background: "var(--muted)",
+        color: "var(--foreground)",
         minHeight: "100vh",
       }}
     >
@@ -79,7 +79,7 @@ function Hero({
   const mostrarReserva = plan !== "presencia" && !!data.enlaceReserva;
 
   return (
-    <header style={{ borderBottom: "1px dashed #ccc", background: "#fff" }}>
+    <header style={{ borderBottom: "1px solid var(--border)", background: "var(--card)" }}>
       <div
         style={{
           maxWidth: 1080,
@@ -97,12 +97,12 @@ function Hero({
               width: "100%",
               aspectRatio: "1 / 1",
               borderRadius: "50%",
-              border: "1px dashed #888",
-              background: "#fff",
+              border: "1px solid var(--border)",
+              background: "var(--card)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              color: "#aaa",
+              color: "var(--muted-foreground)",
               fontSize: 12,
               overflow: "hidden",
             }}
@@ -123,11 +123,11 @@ function Hero({
           <h1 style={{ fontSize: 26, margin: "0 0 6px 0" }}>{data.nombre}</h1>
 
           {data.identidadProfesional && (
-            <div style={{ fontSize: 14, color: "#444", marginBottom: 6 }}>{data.identidadProfesional}</div>
+            <div style={{ fontSize: 14, color: "var(--foreground)", marginBottom: 6 }}>{data.identidadProfesional}</div>
           )}
 
           {data.especialidadesPrincipales && data.especialidadesPrincipales.length > 0 && (
-            <div style={{ fontSize: 13, color: "#444", marginBottom: 6 }}>
+            <div style={{ fontSize: 13, color: "var(--foreground)", marginBottom: 6 }}>
               {data.especialidadesPrincipales.join(" · ")}
             </div>
           )}
@@ -139,7 +139,7 @@ function Hero({
           )}
 
           {meta.length > 0 && (
-            <div style={{ fontSize: 13, color: "#444", marginBottom: 10 }}>{meta.join(" · ")}</div>
+            <div style={{ fontSize: 13, color: "var(--foreground)", marginBottom: 10 }}>{meta.join(" · ")}</div>
           )}
 
           {(mostrarReserva || data.contacto?.whatsapp) && (
@@ -158,7 +158,7 @@ function Hero({
           )}
 
           {plan !== "presencia" && data.verificado && (
-            <div style={{ fontSize: 12, color: "#555" }}>
+            <div style={{ fontSize: 12, color: "var(--muted-foreground)" }}>
               ✔ Profesional Verificado por Mallorca Holística
             </div>
           )}
@@ -200,7 +200,7 @@ function ColumnaPrincipal({ data, plan }: { data: FichaPublicaData; plan: PlanFi
       </Seccion>
 
       <Seccion titulo="Tarifas" vacio={!completa || !data.tarifas?.length}>
-        <div style={{ border: "1px dashed #888", background: "#fff" }}>
+        <div style={{ border: "1px solid var(--border)", borderRadius: 12, background: "var(--card)" }}>
           {(data.tarifas ?? []).map((t, i) => (
             <div
               key={`${t.servicio}-${i}`}
@@ -210,17 +210,17 @@ function ColumnaPrincipal({ data, plan }: { data: FichaPublicaData; plan: PlanFi
                 gap: 12,
                 padding: "8px 12px",
                 fontSize: 13,
-                borderTop: i === 0 ? "none" : "1px dotted #ddd",
+                borderTop: i === 0 ? "none" : "1px dotted var(--border)",
               }}
             >
               <span>{t.servicio}</span>
-              <span style={{ color: "#666" }}>{t.duracion}</span>
+              <span style={{ color: "var(--muted-foreground)" }}>{t.duracion}</span>
               <span>{t.precio}</span>
             </div>
           ))}
         </div>
         {data.notaTarifas && (
-          <div style={{ fontSize: 11, color: "#777", marginTop: 6 }}>{data.notaTarifas}</div>
+          <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginTop: 6 }}>{data.notaTarifas}</div>
         )}
       </Seccion>
 
@@ -229,7 +229,7 @@ function ColumnaPrincipal({ data, plan }: { data: FichaPublicaData; plan: PlanFi
       </Seccion>
 
       <Seccion titulo="Actividades" vacio={!completa}>
-        <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 10px 0", color: "#444" }}>
+        <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 10px 0", color: "var(--foreground)" }}>
           Consulta los talleres, cursos, retiros y actividades organizadas por este profesional.
         </p>
         <Boton href={data.enlaceAgenda ?? "/actividades"}>Ver agenda de actividades →</Boton>
@@ -240,10 +240,10 @@ function ColumnaPrincipal({ data, plan }: { data: FichaPublicaData; plan: PlanFi
           {(data.opiniones ?? []).map((o, i) => (
             <blockquote
               key={`${o.autor}-${i}`}
-              style={{ border: "1px dashed #888", background: "#fff", margin: 0, padding: "12px", fontSize: 13 }}
+              style={{ border: "1px solid var(--border)", borderRadius: 12, background: "var(--card)", margin: 0, padding: "12px", fontSize: 13 }}
             >
               <p style={{ margin: "0 0 8px 0", lineHeight: 1.6 }}>“{o.texto}”</p>
-              <footer style={{ fontSize: 12, color: "#666" }}>
+              <footer style={{ fontSize: 12, color: "var(--muted-foreground)" }}>
                 {[o.autor, o.contexto].filter(Boolean).join(" · ")}
               </footer>
             </blockquote>
@@ -268,10 +268,10 @@ function BarraLateral({ data }: { data: FichaPublicaData }) {
         <div style={{ fontSize: 13, marginTop: 8 }}>
           {principal?.nombre && <div style={{ fontWeight: 600 }}>{principal.nombre}</div>}
           <div>{principal?.direccion}</div>
-          <div style={{ color: "#666" }}>{principal?.municipio}</div>
+          <div style={{ color: "var(--muted-foreground)" }}>{principal?.municipio}</div>
         </div>
         {otras.length > 0 && (
-          <ul style={{ margin: "10px 0 0 0", paddingLeft: 18, fontSize: 12, lineHeight: 1.7, color: "#444" }}>
+          <ul style={{ margin: "10px 0 0 0", paddingLeft: 18, fontSize: 12, lineHeight: 1.7, color: "var(--foreground)" }}>
             {otras.map((u, i) => (
               <li key={`${u.direccion}-${i}`}>
                 {[u.nombre, u.direccion, u.municipio].filter(Boolean).join(" · ")}
@@ -314,7 +314,7 @@ function BarraLateral({ data }: { data: FichaPublicaData }) {
   );
 }
 
-const enlace = { color: "#111", textDecoration: "underline" } as const;
+const enlace = { color: "var(--foreground)", textDecoration: "underline" } as const;
 
 const enlaceDiscreto = {
   background: "none",
@@ -323,7 +323,7 @@ const enlaceDiscreto = {
   marginTop: 8,
   fontFamily: "inherit",
   fontSize: 12,
-  color: "#555",
+  color: "var(--muted-foreground)",
   cursor: "pointer",
   textDecoration: "underline",
 } as const;
@@ -363,15 +363,15 @@ function Galeria({ imagenes, nombre }: { imagenes: string[]; nombre: string }) {
             type="button"
             onClick={() => setVisor(i)}
             style={{
-              border: "1px dashed #888",
+              border: "1px solid var(--border)", borderRadius: 12,
               aspectRatio: "1 / 1",
               overflow: "hidden",
-              background: "#fff",
+              background: "var(--card)",
               padding: 0,
               cursor: "pointer",
               fontFamily: "inherit",
               fontSize: 11,
-              color: "#aaa",
+              color: "var(--muted-foreground)",
             }}
           >
             <img
@@ -409,13 +409,13 @@ function Galeria({ imagenes, nombre }: { imagenes: string[]; nombre: string }) {
             <img
               src={imagenes[visor]}
               alt={`Imagen ${visor + 1} de ${nombre}`}
-              style={{ maxWidth: "100%", maxHeight: "70vh", objectFit: "contain", background: "#fff" }}
+              style={{ maxWidth: "100%", maxHeight: "70vh", objectFit: "contain", background: "var(--card)" }}
             />
-            <div style={{ display: "flex", justifyContent: "space-between", marginTop: 12, color: "#fff", fontSize: 12 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginTop: 12, color: "var(--card)", fontSize: 12 }}>
               <button
                 type="button"
                 onClick={() => setVisor((v) => ((v ?? 0) - 1 + imagenes.length) % imagenes.length)}
-                style={{ ...enlaceDiscreto, color: "#fff", marginTop: 0 }}
+                style={{ ...enlaceDiscreto, color: "var(--card)", marginTop: 0 }}
               >
                 ← Anterior
               </button>
@@ -425,12 +425,12 @@ function Galeria({ imagenes, nombre }: { imagenes: string[]; nombre: string }) {
               <button
                 type="button"
                 onClick={() => setVisor((v) => ((v ?? 0) + 1) % imagenes.length)}
-                style={{ ...enlaceDiscreto, color: "#fff", marginTop: 0 }}
+                style={{ ...enlaceDiscreto, color: "var(--card)", marginTop: 0 }}
               >
                 Siguiente →
               </button>
             </div>
-            <button type="button" onClick={() => setVisor(null)} style={{ ...enlaceDiscreto, color: "#fff" }}>
+            <button type="button" onClick={() => setVisor(null)} style={{ ...enlaceDiscreto, color: "var(--card)" }}>
               Cerrar
             </button>
           </div>

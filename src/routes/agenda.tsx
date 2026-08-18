@@ -28,7 +28,7 @@ export const Route = createFileRoute("/agenda")({
   component: Agenda,
 });
 
-const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
+const MONO = "var(--font-body)";
 
 
 const MODALIDADES = ["Presencial", "Online", "Híbrida"];
@@ -143,7 +143,7 @@ function Agenda() {
   const [visibles, setVisibles] = useState(6);
 
   return (
-    <div style={{ fontFamily: MONO, background: "#fafafa", color: "#111", minHeight: "100vh" }}>
+    <div style={{ fontFamily: MONO, background: "var(--muted)", color: "var(--foreground)", minHeight: "100vh" }}>
       <NavPublica isMobile={isMobile} activo="Agenda de Actividades" />
 
       <main style={{ maxWidth: 1080, margin: "0 auto", padding: isMobile ? "0 16px" : "0 24px" }}>
@@ -157,9 +157,9 @@ function Agenda() {
         style={{
           marginTop: 80,
           padding: 24,
-          borderTop: "1px dashed #999",
+          borderTop: "1px solid var(--border)",
           fontSize: 11,
-          color: "#777",
+          color: "var(--muted-foreground)",
           textAlign: "center",
         }}
       >
@@ -177,11 +177,11 @@ function Hero({ isMobile }: { isMobile: boolean }) {
   return (
     <Bloque top={44}>
       <div style={{ maxWidth: 680 }}>
-        <div style={{ fontSize: 11, letterSpacing: 2, color: "#666", marginBottom: 10 }}>AGENDA</div>
+        <div style={{ fontSize: 11, letterSpacing: 2, color: "var(--muted-foreground)", marginBottom: 10 }}>AGENDA</div>
         <h1 style={{ fontSize: isMobile ? 22 : 26, lineHeight: 1.35, margin: "0 0 14px 0", fontWeight: 600 }}>
           Agenda de Actividades
         </h1>
-        <p style={{ fontSize: 13, lineHeight: 1.8, color: "#444", margin: 0 }}>
+        <p style={{ fontSize: 13, lineHeight: 1.8, color: "var(--foreground)", margin: 0 }}>
           Descubre talleres, cursos, retiros, encuentros y experiencias para cuidar de ti, aprender,
           compartir y seguir creciendo.
         </p>
@@ -219,8 +219,8 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
     <Bloque top={16}>
       <div
         style={{
-          border: "1px dashed #888",
-          background: "#fff",
+          border: "1px solid var(--border)", borderRadius: 12,
+          background: "var(--card)",
           padding: isMobile ? 14 : 18,
           display: "grid",
           gap: 14,
@@ -317,7 +317,7 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
         <button
           type="button"
           onClick={limpiar}
-          style={{ ...selectStyle, width: "auto", cursor: "pointer", color: "#555", justifySelf: "start" }}
+          style={{ ...selectStyle, width: "auto", cursor: "pointer", color: "var(--muted-foreground)", justifySelf: "start" }}
         >
           Limpiar filtros
         </button>
@@ -329,7 +329,7 @@ function Filtros({ isMobile }: { isMobile: boolean }) {
 function Campo({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div style={{ minWidth: 0 }}>
-      <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: 1, color: "#666", marginBottom: 6 }}>
+      <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: 1, color: "var(--muted-foreground)", marginBottom: 6 }}>
         {label}
       </div>
       {children}
@@ -360,9 +360,9 @@ function NavegacionTemporal({ isMobile }: { isMobile: boolean }) {
               type="button"
               onClick={() => setActivo(r)}
               style={{
-                border: activo === r ? "1px solid #111" : "1px dashed #888",
-                background: activo === r ? "#111" : "#fff",
-                color: activo === r ? "#fff" : "#111",
+                border: activo === r ? "1px solid var(--foreground)" : "1px solid var(--border)",
+                background: activo === r ? "var(--foreground)" : "var(--card)",
+                color: activo === r ? "var(--card)" : "var(--foreground)",
                 padding: "7px 12px",
                 fontSize: 12,
                 fontFamily: "inherit",
@@ -403,7 +403,7 @@ function Resultados({
 
   return (
     <Bloque top={12}>
-      <div style={{ fontSize: 13, color: "#333", marginBottom: 18 }}>
+      <div style={{ fontSize: 13, color: "var(--foreground)", marginBottom: 18 }}>
         {ACTIVIDADES.length} actividades encontradas
       </div>
 
@@ -430,8 +430,8 @@ function Resultados({
         </button>
       </div>
 
-      <div style={{ marginTop: 40, fontSize: 11, color: "#888" }}>
-        <Link to="/" style={{ color: "#888" }}>
+      <div style={{ marginTop: 40, fontSize: 11, color: "var(--muted-foreground)" }}>
+        <Link to="/" style={{ color: "var(--muted-foreground)" }}>
           ← Volver al índice del wireframe
         </Link>
       </div>
@@ -446,9 +446,9 @@ function TarjetaActividad({ a, isMobile }: { a: Actividad; isMobile: boolean }) 
       params={{ id: a.id }}
       style={{
         textDecoration: "none",
-        color: "#111",
-        border: "1px dashed #888",
-        background: "#fff",
+        color: "var(--foreground)",
+        border: "1px solid var(--border)", borderRadius: 12,
+        background: "var(--card)",
         display: "grid",
         gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)",
         minWidth: 0,
@@ -457,13 +457,13 @@ function TarjetaActividad({ a, isMobile }: { a: Actividad; isMobile: boolean }) 
       <div
         aria-hidden
         style={{
-          borderRight: "1px dashed #888",
+          borderRight: "1px solid var(--border)",
           aspectRatio: "4 / 5",
           alignSelf: "start",
           display: "grid",
           placeItems: "center",
           fontSize: 10,
-          color: "#aaa",
+          color: "var(--muted-foreground)",
           textAlign: "center",
           padding: 6,
         }}
@@ -472,11 +472,11 @@ function TarjetaActividad({ a, isMobile }: { a: Actividad; isMobile: boolean }) 
       </div>
 
       <div style={{ padding: isMobile ? 10 : 12, minWidth: 0, display: "grid", gap: 6, alignContent: "start" }}>
-        <div style={{ fontSize: 9, letterSpacing: 1, textTransform: "uppercase", color: "#999" }}>
+        <div style={{ fontSize: 9, letterSpacing: 1, textTransform: "uppercase", color: "var(--muted-foreground)" }}>
           {a.categoria}
         </div>
 
-        <div style={{ display: "flex", alignItems: "baseline", gap: 6, color: "#2f5d3a" }}>
+        <div style={{ display: "flex", alignItems: "baseline", gap: 6, color: "var(--primary)" }}>
           <span style={{ fontSize: 10, letterSpacing: 1 }}>{a.diaSemana}</span>
           <span style={{ fontSize: 26, fontWeight: 700, lineHeight: 1 }}>{a.dia}</span>
           <span style={{ fontSize: 10, letterSpacing: 1 }}>{a.mes}</span>
@@ -496,17 +496,17 @@ function TarjetaActividad({ a, isMobile }: { a: Actividad; isMobile: boolean }) 
           {a.titulo}
         </div>
 
-        <div style={{ fontSize: 11, color: "#555" }}>{a.municipio}</div>
-        <div style={{ fontSize: 11, color: "#333" }}>{a.precio ?? "Consultar"}</div>
+        <div style={{ fontSize: 11, color: "var(--muted-foreground)" }}>{a.municipio}</div>
+        <div style={{ fontSize: 11, color: "var(--foreground)" }}>{a.precio ?? "Consultar"}</div>
 
         <span
           style={{
             justifySelf: "start",
             marginTop: 2,
-            border: "1px dashed #999",
+            border: "1px solid var(--border)", borderRadius: 12,
             padding: "5px 9px",
             fontSize: 10,
-            color: "#444",
+            color: "var(--foreground)",
           }}
         >
           Más información →
@@ -517,9 +517,9 @@ function TarjetaActividad({ a, isMobile }: { a: Actividad; isMobile: boolean }) 
 }
 
 const navMesStyle: CSSProperties = {
-  border: "1px dashed #888",
-  background: "#fff",
-  color: "#111",
+  border: "1px solid var(--border)", borderRadius: 12,
+  background: "var(--card)",
+  color: "var(--foreground)",
   padding: "6px 11px",
   fontSize: 12,
   fontFamily: "inherit",
@@ -528,30 +528,30 @@ const navMesStyle: CSSProperties = {
 
 const inputStyle: CSSProperties = {
   width: "100%",
-  border: "1px dashed #888",
-  background: "#fff",
+  border: "1px solid var(--border)", borderRadius: 12,
+  background: "var(--card)",
   padding: "12px 14px",
   fontSize: 13,
   fontFamily: "inherit",
-  color: "#111",
+  color: "var(--foreground)",
   boxSizing: "border-box",
 };
 
 const selectStyle: CSSProperties = {
   width: "100%",
-  border: "1px dashed #888",
-  background: "#fff",
+  border: "1px solid var(--border)", borderRadius: 12,
+  background: "var(--card)",
   padding: "10px 12px",
   fontSize: 12,
   fontFamily: "inherit",
-  color: "#111",
+  color: "var(--foreground)",
   boxSizing: "border-box",
 };
 
 const botonSecundario: CSSProperties = {
-  border: "1px dashed #666",
-  background: "#fff",
-  color: "#111",
+  border: "1px solid var(--border)", borderRadius: 12,
+  background: "var(--card)",
+  color: "var(--foreground)",
   padding: "12px 22px",
   fontSize: 13,
   fontFamily: "inherit",

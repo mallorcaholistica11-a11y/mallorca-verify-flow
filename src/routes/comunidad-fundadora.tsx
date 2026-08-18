@@ -50,7 +50,7 @@ function InvitacionFundadoraProfesionales() {
           <strong>15 €/mes (IVA incluido)</strong> para siempre mientras la suscripción permanezca activa.
         </p>
         <p style={{ fontSize: 13 }}>+ 6 meses gratuitos desde el lanzamiento oficial.</p>
-        <p style={{ fontSize: 13, color: "#666" }}>(Precio futuro del plan: 25 €/mes IVA incluido.)</p>
+        <p style={{ fontSize: 13, color: "var(--muted-foreground)" }}>(Precio futuro del plan: 25 €/mes IVA incluido.)</p>
       </Box>
 
       <Box title="¿Quieres conocer el plan?">

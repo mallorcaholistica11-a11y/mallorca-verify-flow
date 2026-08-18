@@ -27,7 +27,7 @@ export const Route = createFileRoute("/guia/")({
   component: GuiaPracticas,
 });
 
-const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
+const MONO = "var(--font-body)";
 
 /**
  * Guía de Prácticas · índice A–Z.
@@ -43,15 +43,15 @@ function GuiaPracticas() {
   const letrasDisponibles = useMemo(() => new Set(grupos.map((g) => g.letra)), [grupos]);
 
   return (
-    <div style={{ fontFamily: MONO, background: "#fafafa", color: "#111", minHeight: "100vh" }}>
+    <div style={{ fontFamily: MONO, background: "var(--muted)", color: "var(--foreground)", minHeight: "100vh" }}>
       <style>{`
         .guia-indice { column-count: 4; column-gap: 28px; }
         @media (max-width: 900px) { .guia-indice { column-count: 2; } }
         @media (max-width: 560px) { .guia-indice { column-count: 1; } }
         .guia-bloque { break-inside: avoid; margin-bottom: 18px; }
-        .guia-letra { font-size: 14px; letter-spacing: 2px; color: #111; border-bottom: 1px dashed #ccc; padding-bottom: 4px; margin: 0 0 8px 0; }
-        .guia-link { color: #222; text-decoration: none; font-size: 13px; line-height: 2; display: block; }
-        .guia-link:hover { color: #000; text-decoration: underline; text-decoration-color: #bbb; text-underline-offset: 3px; }
+        .guia-letra { font-size: 14px; letter-spacing: 2px; color: var(--foreground); border-bottom: 1px solid var(--border); padding-bottom: 4px; margin: 0 0 8px 0; }
+        .guia-link { color: var(--foreground); text-decoration: none; font-size: 13px; line-height: 2; display: block; }
+        .guia-link:hover { color: var(--foreground); text-decoration: underline; text-decoration-color: var(--border); text-underline-offset: 3px; }
       `}</style>
 
       <NavPublica isMobile={isMobile} activo="Guía de Prácticas" />
@@ -93,12 +93,12 @@ function GuiaPracticas() {
             aria-label="Buscar una práctica"
             style={{
               width: "100%",
-              border: "1px dashed #888",
-              background: "#fff",
+              border: "1px solid var(--border)", borderRadius: 12,
+              background: "var(--card)",
               padding: "12px 14px",
               fontSize: 13,
               fontFamily: "inherit",
-              color: "#111",
+              color: "var(--foreground)",
               boxSizing: "border-box",
             }}
           />
@@ -112,17 +112,17 @@ function GuiaPracticas() {
             flexWrap: "wrap",
             gap: 6,
             padding: "10px 0 22px 0",
-            borderBottom: "1px dashed #ddd",
+            borderBottom: "1px solid var(--border)",
             marginBottom: 26,
           }}
         >
           {LETRAS_AZ.map((l) =>
             letrasDisponibles.has(l) ? (
-              <a key={l} href={`#letra-${l}`} style={{ ...letraStyle, color: "#222" }}>
+              <a key={l} href={`#letra-${l}`} style={{ ...letraStyle, color: "var(--foreground)" }}>
                 {l}
               </a>
             ) : (
-              <span key={l} style={{ ...letraStyle, color: "#ccc" }}>
+              <span key={l} style={{ ...letraStyle, color: "var(--border)" }}>
                 {l}
               </span>
             ),
@@ -144,7 +144,7 @@ function GuiaPracticas() {
                 padding: 0,
                 fontFamily: "inherit",
                 fontSize: 13,
-                color: "#111",
+                color: "var(--foreground)",
                 textDecoration: "underline",
                 cursor: "pointer",
               }}
@@ -175,8 +175,8 @@ function GuiaPracticas() {
         {/* Bloque final */}
         <section
           style={{
-            border: "1px dashed #888",
-            background: "#fff",
+            border: "1px solid var(--border)", borderRadius: 12,
+            background: "var(--card)",
             padding: isMobile ? 16 : 24,
             marginTop: 40,
             textAlign: "center",
@@ -189,7 +189,7 @@ function GuiaPracticas() {
               lineHeight: 1.7,
               margin: "0 auto 16px auto",
               maxWidth: 620,
-              color: "#333",
+              color: "var(--foreground)",
             }}
           >
             No existe una única terapia adecuada para todo el mundo. Cada persona vive un momento
@@ -201,9 +201,9 @@ function GuiaPracticas() {
             search={{ q: "", lugar: "" }}
             style={{
               display: "inline-block",
-              border: "1px solid #111",
-              background: "#111",
-              color: "#fff",
+              border: "1px solid var(--foreground)",
+              background: "var(--foreground)",
+              color: "var(--card)",
               padding: "10px 18px",
               fontSize: 13,
               textDecoration: "none",
@@ -212,7 +212,7 @@ function GuiaPracticas() {
             Descubrir profesionales
           </Link>
           <div style={{ marginTop: 12 }}>
-            <Link to="/directorio" search={{ q: "", lugar: "" }} style={{ fontSize: 11, color: "#666" }}>
+            <Link to="/directorio" search={{ q: "", lugar: "" }} style={{ fontSize: 11, color: "var(--muted-foreground)" }}>
               ¿No sabes por dónde empezar? Explora el Directorio de Profesionales y encuentra el
               acompañamiento que mejor se adapte a ti.
             </Link>
@@ -224,9 +224,9 @@ function GuiaPracticas() {
         style={{
           marginTop: 60,
           padding: 24,
-          borderTop: "1px dashed #999",
+          borderTop: "1px solid var(--border)",
           fontSize: 11,
-          color: "#777",
+          color: "var(--muted-foreground)",
           textAlign: "center",
         }}
       >
@@ -240,6 +240,6 @@ const letraStyle = {
   fontSize: 14,
   letterSpacing: 1,
   padding: "4px 10px",
-  border: "1px dashed #ddd",
+  border: "1px solid var(--border)", borderRadius: 12,
   textDecoration: "none",
 } as const;

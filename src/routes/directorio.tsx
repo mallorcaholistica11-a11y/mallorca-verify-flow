@@ -35,7 +35,7 @@ export const Route = createFileRoute("/directorio")({
   component: Directorio,
 });
 
-const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
+const MONO = "var(--font-body)";
 
 
 const MUNICIPIOS = ["Todos los municipios", ...MUNICIPIOS_MALLORCA];
@@ -62,7 +62,7 @@ function Directorio() {
   );
 
   return (
-    <div style={{ fontFamily: MONO, background: "#fafafa", color: "#111", minHeight: "100vh" }}>
+    <div style={{ fontFamily: MONO, background: "var(--muted)", color: "var(--foreground)", minHeight: "100vh" }}>
       <NavPublica isMobile={isMobile} activo="Directorio de Profesionales" />
 
       <main style={{ maxWidth: 1080, margin: "0 auto", padding: isMobile ? "0 16px" : "0 24px" }}>
@@ -81,9 +81,9 @@ function Directorio() {
         style={{
           marginTop: 80,
           padding: 24,
-          borderTop: "1px dashed #999",
+          borderTop: "1px solid var(--border)",
           fontSize: 11,
-          color: "#777",
+          color: "var(--muted-foreground)",
           textAlign: "center",
         }}
       >
@@ -101,11 +101,11 @@ function Hero({ isMobile }: { isMobile: boolean }) {
   return (
     <Bloque top={44}>
       <div style={{ maxWidth: 680 }}>
-        <div style={{ fontSize: 11, letterSpacing: 2, color: "#666", marginBottom: 10 }}>DIRECTORIO</div>
+        <div style={{ fontSize: 11, letterSpacing: 2, color: "var(--muted-foreground)", marginBottom: 10 }}>DIRECTORIO</div>
         <h1 style={{ fontSize: isMobile ? 22 : 26, lineHeight: 1.35, margin: "0 0 14px 0", fontWeight: 600 }}>
           Encuentra el acompañamiento que necesitas.
         </h1>
-        <p style={{ fontSize: 13, lineHeight: 1.8, color: "#444", margin: 0 }}>
+        <p style={{ fontSize: 13, lineHeight: 1.8, color: "var(--foreground)", margin: 0 }}>
           Explora profesionales, centros y espacios dedicados a la salud integrativa, las terapias
           complementarias, la medicina natural, el bienestar y el desarrollo personal en Mallorca.
         </p>
@@ -174,8 +174,8 @@ function Filtros({
     <Bloque top={12}>
       <div
         style={{
-          border: "1px dashed #888",
-          background: "#fff",
+          border: "1px solid var(--border)", borderRadius: 12,
+          background: "var(--card)",
           padding: isMobile ? 14 : 18,
           display: "grid",
           gap: 14,
@@ -256,14 +256,14 @@ function Filtros({
             gap: 12,
           }}
         >
-          <label style={{ fontSize: 12, color: "#333", display: "flex", alignItems: "center", gap: 8 }}>
+          <label style={{ fontSize: 12, color: "var(--foreground)", display: "flex", alignItems: "center", gap: 8 }}>
             <input type="checkbox" />
             Solo perfiles verificados
           </label>
           <button
             type="button"
             onClick={limpiar}
-            style={{ ...selectStyle, width: "auto", cursor: "pointer", whiteSpace: "nowrap", color: "#555" }}
+            style={{ ...selectStyle, width: "auto", cursor: "pointer", whiteSpace: "nowrap", color: "var(--muted-foreground)" }}
           >
             ↺ Limpiar filtros
           </button>
@@ -276,7 +276,7 @@ function Filtros({
 function Campo({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div style={{ minWidth: 0 }}>
-      <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: 1, color: "#666", marginBottom: 6 }}>
+      <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: 1, color: "var(--muted-foreground)", marginBottom: 6 }}>
         {label}
       </div>
       {children}
@@ -297,7 +297,7 @@ function Resultados({ isMobile, resultados }: { isMobile: boolean; resultados: R
           marginBottom: 18,
         }}
       >
-        <div style={{ fontSize: 13, color: "#333" }}>
+        <div style={{ fontSize: 13, color: "var(--foreground)" }}>
           {resultados.length} resultados encontrados
         </div>
       </div>
@@ -318,25 +318,25 @@ function Resultados({ isMobile, resultados }: { isMobile: boolean; resultados: R
         </div>
 
         <div style={{ display: "grid", gap: 14, minWidth: 0 }}>
-          <div style={{ border: "1px dashed #888", background: "#fff", padding: 14, display: "grid", gap: 10 }}>
+          <div style={{ border: "1px solid var(--border)", borderRadius: 12, background: "var(--card)", padding: 14, display: "grid", gap: 10 }}>
             <div style={{ fontSize: 12, fontWeight: 600 }}>Mapa de resultados</div>
             <Placeholder alto={isMobile ? 180 : 210}>[Mapa de Mallorca]</Placeholder>
-            <div style={{ fontSize: 11, color: "#888", lineHeight: 1.7 }}>
+            <div style={{ fontSize: 11, color: "var(--muted-foreground)", lineHeight: 1.7 }}>
               El mapa sirve únicamente para orientarte sobre la zona de los resultados.
             </div>
           </div>
-          <div style={{ border: "1px dashed #888", background: "#fff", padding: 14 }}>
+          <div style={{ border: "1px solid var(--border)", borderRadius: 12, background: "var(--card)", padding: 14 }}>
             <div style={{ fontSize: 12, fontWeight: 600, marginBottom: 6 }}>¿No encuentras lo que buscas?</div>
-            <div style={{ fontSize: 12, color: "#555", lineHeight: 1.7 }}>
+            <div style={{ fontSize: 12, color: "var(--muted-foreground)", lineHeight: 1.7 }}>
               Prueba a utilizar menos filtros o explora directamente en el mapa.
             </div>
-            <div style={{ fontSize: 12, color: "#111", marginTop: 10 }}>Limpiar filtros →</div>
+            <div style={{ fontSize: 12, color: "var(--foreground)", marginTop: 10 }}>Limpiar filtros →</div>
           </div>
           <div style={{ display: "grid", gap: 12, marginTop: 8 }}>
             {DESCUBRE.map((d) => (
-              <div key={d.titulo} style={{ border: "1px dashed #888", background: "#fff", padding: 16 }}>
+              <div key={d.titulo} style={{ border: "1px solid var(--border)", borderRadius: 12, background: "var(--card)", padding: 16 }}>
                 <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 14 }}>{d.titulo}</div>
-                <Link to={d.to as never} style={{ fontSize: 12, color: "#555" }}>
+                <Link to={d.to as never} style={{ fontSize: 12, color: "var(--muted-foreground)" }}>
                   {d.enlace}
                 </Link>
               </div>
@@ -345,8 +345,8 @@ function Resultados({ isMobile, resultados }: { isMobile: boolean; resultados: R
         </div>
       </div>
 
-      <div style={{ marginTop: 40, fontSize: 11, color: "#888" }}>
-        <Link to="/inicio-tecnico" style={{ color: "#888" }}>
+      <div style={{ marginTop: 40, fontSize: 11, color: "var(--muted-foreground)" }}>
+        <Link to="/inicio-tecnico" style={{ color: "var(--muted-foreground)" }}>
           ← Volver al índice del wireframe
         </Link>
       </div>
@@ -374,9 +374,9 @@ function TarjetaResultado({ r, isMobile }: { r: Resultado; isMobile: boolean }) 
       {...destino}
       style={{
         textDecoration: "none",
-        color: "#111",
-        border: "1px dashed #888",
-        background: "#fff",
+        color: "var(--foreground)",
+        border: "1px solid var(--border)", borderRadius: 12,
+        background: "var(--card)",
         padding: 16,
         display: "grid",
         gridTemplateColumns: isMobile
@@ -395,11 +395,11 @@ function TarjetaResultado({ r, isMobile }: { r: Resultado; isMobile: boolean }) 
             width: 72,
             height: 72,
             borderRadius: "50%",
-            border: "1px dashed #888",
+            border: "1px solid var(--border)",
             display: "grid",
             placeItems: "center",
             fontSize: 10,
-            color: "#aaa",
+            color: "var(--muted-foreground)",
           }}
         >
           [foto]
@@ -410,11 +410,11 @@ function TarjetaResultado({ r, isMobile }: { r: Resultado; isMobile: boolean }) 
           style={{
             width: isMobile ? "100%" : 120,
             height: 84,
-            border: "1px dashed #888",
+            border: "1px solid var(--border)", borderRadius: 12,
             display: "grid",
             placeItems: "center",
             fontSize: 10,
-            color: "#aaa",
+            color: "var(--muted-foreground)",
           }}
         >
           [imagen]
@@ -425,20 +425,20 @@ function TarjetaResultado({ r, isMobile }: { r: Resultado; isMobile: boolean }) 
         <div style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
           <div style={{ fontSize: 14, fontWeight: 600 }}>{r.nombre}</div>
           {r.verificado && (
-            <div style={{ fontSize: 11, color: "#2f5d3a", whiteSpace: "nowrap" }}>
+            <div style={{ fontSize: 11, color: "var(--primary)", whiteSpace: "nowrap" }}>
               ✓ Verificado por Mallorca Holística
             </div>
           )}
         </div>
-        <div style={{ fontSize: 12, color: "#555", marginTop: 4 }}>{r.identidad}</div>
-        <div style={{ fontSize: 12, color: "#888", marginTop: 2, marginBottom: 10 }}>📍 {r.ubicacion}</div>
+        <div style={{ fontSize: 12, color: "var(--muted-foreground)", marginTop: 4 }}>{r.identidad}</div>
+        <div style={{ fontSize: 12, color: "var(--muted-foreground)", marginTop: 2, marginBottom: 10 }}>📍 {r.ubicacion}</div>
         <Chips items={r.especialidades.slice(0, 3)} />
       </div>
 
       <div
         style={{
-          border: "1px dashed #666",
-          background: "#fff",
+          border: "1px solid var(--border)", borderRadius: 12,
+          background: "var(--card)",
           padding: "9px 16px",
           fontSize: 12,
           whiteSpace: "nowrap",
@@ -468,7 +468,7 @@ function Paginacion() {
       <span style={{ ...paginaStyle, borderStyle: "solid", fontWeight: 600 }}>1</span>
       <span style={paginaStyle}>2</span>
       <span style={paginaStyle}>3</span>
-      <span style={{ color: "#888" }}>…</span>
+      <span style={{ color: "var(--muted-foreground)" }}>…</span>
       <span style={paginaStyle}>11</span>
       <span style={paginaStyle}>→</span>
     </nav>
@@ -476,20 +476,20 @@ function Paginacion() {
 }
 
 const paginaStyle: CSSProperties = {
-  border: "1px dashed #888",
-  background: "#fff",
+  border: "1px solid var(--border)", borderRadius: 12,
+  background: "var(--card)",
   padding: "6px 11px",
-  color: "#111",
+  color: "var(--foreground)",
 };
 
 
 const selectStyle: CSSProperties = {
   width: "100%",
-  border: "1px dashed #888",
-  background: "#fff",
+  border: "1px solid var(--border)", borderRadius: 12,
+  background: "var(--card)",
   padding: "10px 12px",
   fontSize: 12,
   fontFamily: "inherit",
-  color: "#111",
+  color: "var(--foreground)",
   boxSizing: "border-box",
 };

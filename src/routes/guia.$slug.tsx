@@ -24,7 +24,7 @@ export const Route = createFileRoute("/guia/$slug")({
   component: FichaPractica,
 });
 
-const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
+const MONO = "var(--font-body)";
 
 /**
  * Ficha pública de una PRÁCTICA.
@@ -45,14 +45,14 @@ function FichaPractica() {
   }
 
   return (
-    <div style={{ fontFamily: MONO, background: "#fafafa", color: "#111", minHeight: "100vh" }}>
+    <div style={{ fontFamily: MONO, background: "var(--muted)", color: "var(--foreground)", minHeight: "100vh" }}>
       <main style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "24px 16px" : "32px 24px" }}>
-        <Link to="/guia" style={{ fontSize: 12, color: "#666" }}>
+        <Link to="/guia" style={{ fontSize: 12, color: "var(--muted-foreground)" }}>
           ← Volver a la Guía de Prácticas
         </Link>
 
         <h1 style={{ fontSize: 22, margin: "16px 0 6px 0" }}>Práctica no encontrada</h1>
-        <div style={{ fontSize: 12, color: "#666", marginBottom: 20 }}>
+        <div style={{ fontSize: 12, color: "var(--muted-foreground)", marginBottom: 20 }}>
           Prueba a explorar la guía completa.
         </div>
       </main>

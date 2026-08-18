@@ -116,10 +116,10 @@ function NuevaActividadPagina() {
       >
         <TrackBadge track={track} />
         <Box title="En revisión">
-          <p style={{ fontSize: 14, lineHeight: 1.7, color: "#333", margin: "0 0 12px 0" }}>
+          <p style={{ fontSize: 14, lineHeight: 1.7, color: "var(--foreground)", margin: "0 0 12px 0" }}>
             Gracias por compartir tu propuesta con la comunidad de Mallorca Holística.
           </p>
-          <p style={{ fontSize: 14, lineHeight: 1.7, color: "#333", margin: 0 }}>
+          <p style={{ fontSize: 14, lineHeight: 1.7, color: "var(--foreground)", margin: 0 }}>
             La revisaremos antes de publicarla para garantizar la calidad y coherencia de la Agenda. Recibirás una notificación en cuanto haya sido aprobada.
           </p>
         </Box>
@@ -144,10 +144,10 @@ function NuevaActividadPagina() {
       <TrackBadge track={track} />
 
       <Box title="Solo eventos grupales">
-        <p style={{ fontSize: 13, lineHeight: 1.7, color: "#333", margin: "0 0 8px 0" }}>
+        <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)", margin: "0 0 8px 0" }}>
           La Agenda de Mallorca Holística está pensada para compartir actividades abiertas a varias personas, como talleres, cursos, retiros, conferencias, clases, encuentros o festivales.
         </p>
-        <p style={{ fontSize: 13, lineHeight: 1.7, color: "#666", margin: 0 }}>
+        <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--muted-foreground)", margin: 0 }}>
           Si deseas ofrecer sesiones individuales o consultas privadas, puedes hacerlo desde tu perfil profesional.
         </p>
       </Box>
@@ -227,7 +227,7 @@ function NuevaActividadPagina() {
               <img
                 src={form.imagenPreview}
                 alt="Vista previa"
-                style={{ maxWidth: "100%", maxHeight: 220, border: "1px dashed #888" }}
+                style={{ maxWidth: "100%", maxHeight: 220, border: "1px solid var(--border)" }}
               />
             </div>
           )}
@@ -519,7 +519,7 @@ function NuevaActividadPagina() {
         <button type="button" onClick={() => setEnviado(true)} style={primaryBtn}>
           Enviar para revisión
         </button>
-        <p style={{ fontSize: 12, color: "#666", fontStyle: "italic", margin: "12px 0 0 0", lineHeight: 1.6 }}>
+        <p style={{ fontSize: 12, color: "var(--muted-foreground)", fontStyle: "italic", margin: "12px 0 0 0", lineHeight: 1.6 }}>
           Una vez enviada, la actividad será revisada por el equipo de Mallorca Holística antes de ser publicada en la Agenda.
         </p>
       </Box>
@@ -540,7 +540,7 @@ function NuevaActividadPagina() {
 
 function FieldLabel({ children }: { children: ReactNode }) {
   return (
-    <div style={{ fontSize: 11, color: "#666", textTransform: "uppercase", letterSpacing: 1, marginBottom: 4 }}>
+    <div style={{ fontSize: 11, color: "var(--muted-foreground)", textTransform: "uppercase", letterSpacing: 1, marginBottom: 4 }}>
       {children}
     </div>
   );
@@ -589,9 +589,9 @@ function MunicipioPicker({
               zIndex: 10,
               maxHeight: 220,
               overflowY: "auto",
-              border: "1px dashed #888",
+              border: "1px solid var(--border)", borderRadius: 12,
               borderTop: "none",
-              background: "#fff",
+              background: "var(--card)",
             }}
           >
             {filtered.map((m) => (
@@ -603,7 +603,7 @@ function MunicipioPicker({
                   setQuery("");
                   setOpen(false);
                 }}
-                style={{ padding: "6px 10px", fontSize: 13, cursor: "pointer", borderBottom: "1px dotted #ddd" }}
+                style={{ padding: "6px 10px", fontSize: 13, cursor: "pointer", borderBottom: "1px dotted var(--border)" }}
               >
                 {m}
               </div>
@@ -611,7 +611,7 @@ function MunicipioPicker({
           </div>
         )}
       </div>
-      <div style={{ fontSize: 11, color: "#888", marginTop: 4, fontStyle: "italic" }}>
+      <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginTop: 4, fontStyle: "italic" }}>
         Solo se permiten municipios de Mallorca de la lista normalizada.
       </div>
     </div>
@@ -621,8 +621,8 @@ function MunicipioPicker({
 const inputStyle: CSSProperties = {
   width: "100%",
   padding: "8px 10px",
-  border: "1px dashed #888",
-  background: "#fff",
+  border: "1px solid var(--border)", borderRadius: 12,
+  background: "var(--card)",
   fontFamily: "inherit",
   fontSize: 13,
   boxSizing: "border-box",
@@ -636,9 +636,9 @@ const selectStyle: CSSProperties = {
 const primaryBtn: CSSProperties = {
   display: "inline-block",
   padding: "10px 16px",
-  border: "2px solid #111",
-  background: "#fff",
-  color: "#111",
+  border: "1.5px solid var(--primary)",
+  background: "var(--card)",
+  color: "var(--foreground)",
   fontSize: 13,
   fontFamily: "inherit",
   marginRight: 8,
@@ -648,9 +648,9 @@ const primaryBtn: CSSProperties = {
 const secondaryBtn: CSSProperties = {
   display: "inline-block",
   padding: "10px 16px",
-  border: "1px dashed #666",
-  background: "#fff",
-  color: "#111",
+  border: "1px solid var(--border)", borderRadius: 12,
+  background: "var(--card)",
+  color: "var(--foreground)",
   fontSize: 13,
   fontFamily: "inherit",
   marginRight: 8,
@@ -671,8 +671,8 @@ const tagStyle: CSSProperties = {
   alignItems: "center",
   gap: 6,
   padding: "4px 8px",
-  border: "1px dashed #666",
-  background: "#fff",
+  border: "1px solid var(--border)", borderRadius: 12,
+  background: "var(--card)",
   fontSize: 12,
-  color: "#111",
+  color: "var(--foreground)",
 };

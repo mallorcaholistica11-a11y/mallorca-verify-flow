@@ -128,7 +128,7 @@ function FakeCheckbox({ label }: { label: string }) {
           display: "inline-block",
           width: 14,
           height: 14,
-          border: "1px dashed #888",
+          border: "1px solid var(--border)", borderRadius: 12,
           marginRight: 8,
           verticalAlign: "middle",
         }}
@@ -196,9 +196,9 @@ function FormularioBase() {
                   padding: 6,
                   fontSize: 11,
                   textAlign: "center",
-                  border: "1px dashed #888",
-                  background: n === step ? "#111" : n < step ? "#ddd" : "#fff",
-                  color: n === step ? "#fff" : "#111",
+                  border: "1px solid var(--border)", borderRadius: 12,
+                  background: n === step ? "var(--foreground)" : n < step ? "var(--border)" : "var(--card)",
+                  color: n === step ? "var(--card)" : "var(--foreground)",
                 }}
               >
                 {n}
@@ -206,7 +206,7 @@ function FormularioBase() {
             );
           })}
         </div>
-        <div style={{ fontSize: 11, color: "#666", marginTop: 6 }}>
+        <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginTop: 6 }}>
           {STEPS.map((s, i) => `${i + 1}. ${s.title}`).join("  ·  ")}
         </div>
       </Box>
@@ -218,7 +218,7 @@ function FormularioBase() {
           style={{
             fontSize: 14,
             lineHeight: 1.7,
-            color: "#444",
+            color: "var(--foreground)",
             margin: "0 0 24px 0",
             maxWidth: 640,
           }}
@@ -307,7 +307,7 @@ function FormularioBase() {
 
 function Ayuda({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ fontSize: 11, color: "#777", marginTop: -6, marginBottom: 14, lineHeight: 1.6 }}>
+    <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginTop: -6, marginBottom: 14, lineHeight: 1.6 }}>
       {children}
     </div>
   );
@@ -330,8 +330,8 @@ function PresenciaToggleCheckbox({
         alignItems: "center",
         gap: 8,
         padding: "8px 10px",
-        border: "1px dashed #888",
-        background: checked ? "#f3f3f3" : "#fff",
+        border: "1px solid var(--border)", borderRadius: 12,
+        background: checked ? "var(--muted)" : "var(--card)",
         cursor: "pointer",
         fontSize: 13,
         marginBottom: 8,
@@ -344,8 +344,8 @@ function PresenciaToggleCheckbox({
           justifyContent: "center",
           width: 14,
           height: 14,
-          border: "1px dashed #666",
-          background: "#fff",
+          border: "1px solid var(--border)", borderRadius: 12,
+          background: "var(--card)",
           fontSize: 10,
           flexShrink: 0,
         }}
@@ -378,8 +378,8 @@ function PresenciaWhatsApp() {
               fontSize: 12,
               padding: "6px 14px",
               cursor: "pointer",
-              background: mismo === op.value ? "#f3f3f3" : "#fff",
-              border: mismo === op.value ? "2px solid #111" : "1px dashed #888",
+              background: mismo === op.value ? "var(--muted)" : "var(--card)",
+              border: mismo === op.value ? "1.5px solid var(--primary)" : "1px solid var(--border)",
             }}
           >
             {op.label}
@@ -387,7 +387,7 @@ function PresenciaWhatsApp() {
         ))}
       </div>
       {mismo ? (
-        <div style={{ fontSize: 12, color: "#3f6b4a", marginTop: 8, lineHeight: 1.6 }}>
+        <div style={{ fontSize: 12, color: "var(--primary)", marginTop: 8, lineHeight: 1.6 }}>
           ✅ Perfecto.
         </div>
       ) : (
@@ -581,8 +581,8 @@ function PresenciaRedesSociales() {
             value={r.plataforma}
             onChange={(e) => update(i, { plataforma: e.target.value })}
             style={{
-              border: "1px dashed #888",
-              background: "#fff",
+              border: "1px solid var(--border)", borderRadius: 12,
+              background: "var(--card)",
               padding: "8px 6px",
               fontSize: 12,
               fontFamily: "inherit",
@@ -602,8 +602,8 @@ function PresenciaRedesSociales() {
             onChange={(e) => update(i, { url: e.target.value })}
             style={{
               flex: 1,
-              border: "1px dashed #888",
-              background: "#fff",
+              border: "1px solid var(--border)", borderRadius: 12,
+              background: "var(--card)",
               padding: "8px 10px",
               fontSize: 12,
               fontFamily: "inherit",
@@ -614,8 +614,8 @@ function PresenciaRedesSociales() {
               type="button"
               onClick={() => setRedes((rs) => rs.filter((_, idx) => idx !== i))}
               style={{
-                border: "1px dashed #888",
-                background: "#fff",
+                border: "1px solid var(--border)", borderRadius: 12,
+                background: "var(--card)",
                 fontFamily: "inherit",
                 fontSize: 12,
                 padding: "6px 10px",
@@ -653,9 +653,9 @@ const PRESENCIA_CONSULTA_HELP: Record<string, string> = {
 function btn(variant: "primary" | "secondary"): React.CSSProperties {
   return {
     padding: "10px 16px",
-    border: variant === "primary" ? "2px solid #111" : "1px dashed #666",
-    background: "#fff",
-    color: "#111",
+    border: variant === "primary" ? "1.5px solid var(--primary)" : "1px solid var(--border)",
+    background: "var(--card)",
+    color: "var(--foreground)",
     fontSize: 13,
     marginRight: 8,
     marginTop: 8,
@@ -729,8 +729,8 @@ function CheckboxGroup({
               alignItems: "center",
               gap: 8,
               padding: "6px 8px",
-              border: "1px dashed #888",
-              background: checked ? "#f3f3f3" : "#fff",
+              border: "1px solid var(--border)", borderRadius: 12,
+              background: checked ? "var(--muted)" : "var(--card)",
               cursor: "pointer",
               fontSize: 13,
             }}
@@ -742,8 +742,8 @@ function CheckboxGroup({
                 justifyContent: "center",
                 width: 14,
                 height: 14,
-                border: "1px dashed #666",
-                background: "#fff",
+                border: "1px solid var(--border)", borderRadius: 12,
+                background: "var(--card)",
                 fontSize: 10,
                 flexShrink: 0,
               }}
@@ -753,7 +753,7 @@ function CheckboxGroup({
             <span>
               {opt}
               {descriptions?.[opt] && (
-                <span style={{ display: "block", fontSize: 11, color: "#777", marginTop: 2 }}>
+                <span style={{ display: "block", fontSize: 11, color: "var(--muted-foreground)", marginTop: 2 }}>
                   {descriptions[opt]}
                 </span>
               )}
@@ -777,7 +777,7 @@ function PublicoCheckboxes({ options = PUBLICO_OPTIONS }: { options?: string[] }
       <Note>Selecciona todas las opciones que correspondan.</Note>
       <CheckboxGroup options={options} columns={3} selected={selected} onToggle={toggle} />
       {selected.length > 0 && (
-        <div style={{ fontSize: 11, color: "#666", marginTop: 10 }}>
+        <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginTop: 10 }}>
           Seleccionadas: {selected.join(", ")}
         </div>
       )}
@@ -805,7 +805,7 @@ function ModalidadesCheckboxes({ options = MODALIDADES_OPTIONS }: { options?: st
         </div>
       )}
       {selected.length > 0 && (
-        <div style={{ fontSize: 11, color: "#666", marginTop: 10 }}>
+        <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginTop: 10 }}>
           Seleccionadas: {selected.filter((s) => s !== "Otro (especificar)").join(", ")}
           {showOtro && otro ? ` — ${otro}` : ""}
         </div>
@@ -843,7 +843,7 @@ function ModalidadesConsultaCheckboxes({
         descriptions={descriptions}
       />
       {selected.length > 0 && (
-        <div style={{ fontSize: 11, color: "#666", marginTop: 10 }}>
+        <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginTop: 10 }}>
           Seleccionadas: {selected.join(", ")}
         </div>
       )}
@@ -933,7 +933,7 @@ function MunicipioPicker({
       <div
         style={{
           fontSize: 11,
-          color: "#666",
+          color: "var(--muted-foreground)",
           textTransform: "uppercase",
           letterSpacing: 1,
           marginBottom: 4,
@@ -956,8 +956,8 @@ function MunicipioPicker({
           style={{
             width: "100%",
             padding: "8px 10px",
-            border: "1px dashed #888",
-            background: "#fff",
+            border: "1px solid var(--border)", borderRadius: 12,
+            background: "var(--card)",
             fontFamily: "inherit",
             fontSize: 13,
             boxSizing: "border-box",
@@ -973,9 +973,9 @@ function MunicipioPicker({
               zIndex: 10,
               maxHeight: 220,
               overflowY: "auto",
-              border: "1px dashed #888",
+              border: "1px solid var(--border)", borderRadius: 12,
               borderTop: "none",
-              background: "#fff",
+              background: "var(--card)",
             }}
           >
             {filtered.map((item) => (
@@ -991,7 +991,7 @@ function MunicipioPicker({
                   padding: "6px 10px",
                   fontSize: 13,
                   cursor: "pointer",
-                  borderBottom: "1px dotted #ddd",
+                  borderBottom: "1px dotted var(--border)",
                 }}
               >
                 {item}
@@ -1007,12 +1007,12 @@ function MunicipioPicker({
               left: 0,
               right: 0,
               zIndex: 10,
-              border: "1px dashed #888",
+              border: "1px solid var(--border)", borderRadius: 12,
               borderTop: "none",
-              background: "#fff",
+              background: "var(--card)",
               padding: "6px 10px",
               fontSize: 12,
-              color: "#a00",
+              color: "var(--destructive)",
             }}
           >
             No hay coincidencias. Solo se permiten municipios de la lista.
@@ -1020,7 +1020,7 @@ function MunicipioPicker({
         )}
       </div>
       {hint && (
-        <div style={{ fontSize: 11, color: "#888", marginTop: 4, fontStyle: "italic" }}>{hint}</div>
+        <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginTop: 4, fontStyle: "italic" }}>{hint}</div>
       )}
     </div>
   );
@@ -1060,7 +1060,7 @@ function DireccionPicker({
       <div
         style={{
           fontSize: 11,
-          color: "#666",
+          color: "var(--muted-foreground)",
           textTransform: "uppercase",
           letterSpacing: 1,
           marginBottom: 4,
@@ -1076,15 +1076,15 @@ function DireccionPicker({
         style={{
           width: "100%",
           padding: "8px 10px",
-          border: "1px dashed #888",
-          background: "#fff",
+          border: "1px solid var(--border)", borderRadius: 12,
+          background: "var(--card)",
           fontFamily: "inherit",
           fontSize: 13,
           boxSizing: "border-box",
         }}
       />
       {hint && (
-        <div style={{ fontSize: 11, color: "#888", marginTop: 4, fontStyle: "italic" }}>{hint}</div>
+        <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginTop: 4, fontStyle: "italic" }}>{hint}</div>
       )}
       {/* Estructura prevista (oculta en wireframe MVP):
           formatted_address, municipio, postal_code, isla, lat, lng, place_id */}
@@ -1135,7 +1135,7 @@ function ConsentimientoItem({
         }}
         style={{
           fontSize: 12,
-          color: "#111",
+          color: "var(--foreground)",
           textDecoration: "underline",
           display: "inline-block",
           marginBottom: 8,
@@ -1150,8 +1150,8 @@ function ConsentimientoItem({
           alignItems: "center",
           gap: 8,
           padding: "8px 10px",
-          border: "1px dashed #888",
-          background: checked ? "#f3f3f3" : "#fff",
+          border: "1px solid var(--border)", borderRadius: 12,
+          background: checked ? "var(--muted)" : "var(--card)",
           cursor: "pointer",
           fontSize: 13,
         }}
@@ -1163,8 +1163,8 @@ function ConsentimientoItem({
             justifyContent: "center",
             width: 14,
             height: 14,
-            border: "1px dashed #666",
-            background: "#fff",
+            border: "1px solid var(--border)", borderRadius: 12,
+            background: "var(--card)",
             fontSize: 10,
             flexShrink: 0,
           }}
@@ -1235,7 +1235,7 @@ function ConfirmacionesConsentimientos({ onFinish }: { onFinish: () => void }) {
       <div
         style={{
           fontSize: 12,
-          color: "#666",
+          color: "var(--muted-foreground)",
           marginTop: 20,
           marginBottom: 12,
           fontStyle: "italic",
@@ -1362,7 +1362,7 @@ function SelectField({ label, options }: { label: string; options: string[] }) {
       <div
         style={{
           fontSize: 11,
-          color: "#666",
+          color: "var(--muted-foreground)",
           textTransform: "uppercase",
           letterSpacing: 1,
           marginBottom: 4,
@@ -1376,8 +1376,8 @@ function SelectField({ label, options }: { label: string; options: string[] }) {
         style={{
           width: "100%",
           padding: "8px 10px",
-          border: "1px dashed #888",
-          background: "#fff",
+          border: "1px solid var(--border)", borderRadius: 12,
+          background: "var(--card)",
           fontFamily: "inherit",
           fontSize: 13,
           boxSizing: "border-box",
@@ -1416,8 +1416,8 @@ function OWhatsAppMismo() {
               fontSize: 12,
               padding: "6px 14px",
               cursor: "pointer",
-              background: mismo === op.value ? "#f3f3f3" : "#fff",
-              border: mismo === op.value ? "2px solid #111" : "1px dashed #888",
+              background: mismo === op.value ? "var(--muted)" : "var(--card)",
+              border: mismo === op.value ? "1.5px solid var(--primary)" : "1px solid var(--border)",
             }}
           >
             {op.label}
@@ -1425,7 +1425,7 @@ function OWhatsAppMismo() {
         ))}
       </div>
       {mismo ? (
-        <div style={{ fontSize: 12, color: "#3f6b4a", marginTop: 8, lineHeight: 1.6 }}>
+        <div style={{ fontSize: 12, color: "var(--primary)", marginTop: 8, lineHeight: 1.6 }}>
           ✅ Perfecto.
         </div>
       ) : (
@@ -1499,8 +1499,8 @@ function VWhatsAppMismo() {
               fontSize: 12,
               padding: "6px 14px",
               cursor: "pointer",
-              background: mismo === op.value ? "#f3f3f3" : "#fff",
-              border: mismo === op.value ? "2px solid #111" : "1px dashed #888",
+              background: mismo === op.value ? "var(--muted)" : "var(--card)",
+              border: mismo === op.value ? "1.5px solid var(--primary)" : "1px solid var(--border)",
             }}
           >
             {op.label}
@@ -1508,7 +1508,7 @@ function VWhatsAppMismo() {
         ))}
       </div>
       {mismo ? (
-        <div style={{ fontSize: 12, color: "#3f6b4a", marginTop: 8, lineHeight: 1.6 }}>
+        <div style={{ fontSize: 12, color: "var(--primary)", marginTop: 8, lineHeight: 1.6 }}>
           ✅ Perfecto.
         </div>
       ) : (
@@ -1532,8 +1532,8 @@ function VWhatsAppBusiness() {
           alignItems: "center",
           gap: 8,
           padding: "8px 10px",
-          border: "1px dashed #888",
-          background: distinto ? "#f3f3f3" : "#fff",
+          border: "1px solid var(--border)", borderRadius: 12,
+          background: distinto ? "var(--muted)" : "var(--card)",
           cursor: "pointer",
           fontSize: 13,
           marginBottom: 12,
@@ -1546,8 +1546,8 @@ function VWhatsAppBusiness() {
             justifyContent: "center",
             width: 14,
             height: 14,
-            border: "1px dashed #666",
-            background: "#fff",
+            border: "1px solid var(--border)", borderRadius: 12,
+            background: "var(--card)",
             fontSize: 10,
             flexShrink: 0,
           }}
@@ -1622,8 +1622,8 @@ function DireccionAutocomplete({ ayuda }: { ayuda?: string }) {
   const inputStyle: React.CSSProperties = {
     width: "100%",
     padding: "8px 10px",
-    border: "1px dashed #888",
-    background: "#fff",
+    border: "1px solid var(--border)", borderRadius: 12,
+    background: "var(--card)",
     fontFamily: "inherit",
     fontSize: 13,
     boxSizing: "border-box",
@@ -1633,7 +1633,7 @@ function DireccionAutocomplete({ ayuda }: { ayuda?: string }) {
       <div
         style={{
           fontSize: 11,
-          color: "#666",
+          color: "var(--muted-foreground)",
           textTransform: "uppercase",
           letterSpacing: 1,
           marginBottom: 4,
@@ -1649,7 +1649,7 @@ function DireccionAutocomplete({ ayuda }: { ayuda?: string }) {
         style={inputStyle}
       />
       {ayuda && (
-        <div style={{ fontSize: 12, color: "#666", marginTop: 6, lineHeight: 1.6 }}>{ayuda}</div>
+        <div style={{ fontSize: 12, color: "var(--muted-foreground)", marginTop: 6, lineHeight: 1.6 }}>{ayuda}</div>
       )}
       {/* Autocompletado (Google Places o equivalente). Al seleccionar una dirección se guardan
           automáticamente: calle, número, código postal, municipio, provincia, país, latitud,
@@ -1665,7 +1665,7 @@ function DireccionAutocomplete({ ayuda }: { ayuda?: string }) {
             marginTop: 6,
             fontFamily: "inherit",
             fontSize: 12,
-            color: "#555",
+            color: "var(--muted-foreground)",
             textDecoration: "underline",
             cursor: "pointer",
           }}
@@ -1674,7 +1674,7 @@ function DireccionAutocomplete({ ayuda }: { ayuda?: string }) {
         </button>
       )}
       {manual && (
-        <div style={{ marginTop: 10, borderTop: "1px dashed #ddd", paddingTop: 10 }}>
+        <div style={{ marginTop: 10, borderTop: "1px solid var(--border)", paddingTop: 10 }}>
           <FakeField label="Calle" />
           <FakeField label="Número" />
           <FakeField label="Código postal" />
@@ -1701,8 +1701,8 @@ function RedesSocialesList() {
             value={r.plataforma}
             onChange={(e) => update(i, { plataforma: e.target.value })}
             style={{
-              border: "1px dashed #888",
-              background: "#fff",
+              border: "1px solid var(--border)", borderRadius: 12,
+              background: "var(--card)",
               padding: "8px 6px",
               fontSize: 12,
               fontFamily: "inherit",
@@ -1722,8 +1722,8 @@ function RedesSocialesList() {
             onChange={(e) => update(i, { url: e.target.value })}
             style={{
               flex: 1,
-              border: "1px dashed #888",
-              background: "#fff",
+              border: "1px solid var(--border)", borderRadius: 12,
+              background: "var(--card)",
               padding: "8px 10px",
               fontSize: 12,
               fontFamily: "inherit",
@@ -1734,8 +1734,8 @@ function RedesSocialesList() {
               type="button"
               onClick={() => setRedes((rs) => rs.filter((_, idx) => idx !== i))}
               style={{
-                border: "1px dashed #888",
-                background: "#fff",
+                border: "1px solid var(--border)", borderRadius: 12,
+                background: "var(--card)",
                 fontFamily: "inherit",
                 fontSize: 12,
                 padding: "6px 10px",
@@ -1763,8 +1763,8 @@ function UbicacionesListInner() {
   return (
     <div>
       {items.map((it, idx) => (
-        <div key={it.id} style={{ border: "1px dashed #bbb", padding: 12, marginBottom: 12 }}>
-          <div style={{ fontSize: 11, color: "#666", marginBottom: 6 }}>
+        <div key={it.id} style={{ border: "1px solid var(--border)", borderRadius: 12, padding: 12, marginBottom: 12 }}>
+          <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginBottom: 6 }}>
             {idx === 0 ? "Ubicación principal" : `Ubicación adicional #${idx}`}
           </div>
           <DireccionAutocomplete />
@@ -1795,8 +1795,8 @@ function EquipoList() {
   return (
     <div>
       {items.map((it, idx) => (
-        <div key={it.id} style={{ border: "1px dashed #bbb", padding: 12, marginBottom: 12 }}>
-          <div style={{ fontSize: 11, color: "#666", marginBottom: 6 }}>Miembro #{idx + 1}</div>
+        <div key={it.id} style={{ border: "1px solid var(--border)", borderRadius: 12, padding: 12, marginBottom: 12 }}>
+          <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginBottom: 6 }}>Miembro #{idx + 1}</div>
           <FakeField label="Nombre" />
           <FakeField label="Cargo (opcional)" />
           <FakeField label="Fotografía (opcional)" type="file" />
@@ -1857,9 +1857,9 @@ function FormacionList({ single = false }: { single?: boolean }) {
   return (
     <div>
       {items.map((it, idx) => (
-        <div key={it.id} style={{ border: "1px dashed #bbb", padding: 12, marginBottom: 12 }}>
+        <div key={it.id} style={{ border: "1px solid var(--border)", borderRadius: 12, padding: 12, marginBottom: 12 }}>
           {!single && (
-            <div style={{ fontSize: 11, color: "#666", marginBottom: 6 }}>Formación #{idx + 1}</div>
+            <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginBottom: 6 }}>Formación #{idx + 1}</div>
           )}
           <FakeField label="Formación" />
           <FakeField label="Centro o escuela" />
@@ -1900,8 +1900,8 @@ function TarifasList({ variant = "profesional" }: { variant?: "profesional" | "o
         alignItems: "center",
         gap: 8,
         padding: "8px 10px",
-        border: "1px dashed #888",
-        background: mostrar === value ? "#f3f3f3" : "#fff",
+        border: "1px solid var(--border)", borderRadius: 12,
+        background: mostrar === value ? "var(--muted)" : "var(--card)",
         cursor: "pointer",
         fontSize: 13,
         marginBottom: 8,
@@ -1930,14 +1930,14 @@ function TarifasList({ variant = "profesional" }: { variant?: "profesional" | "o
       {mostrar === true && (
         <div style={{ marginTop: 12 }}>
           {isOrg && (
-            <div style={{ fontSize: 11, color: "#777", marginBottom: 10, lineHeight: 1.6 }}>
+            <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginBottom: 10, lineHeight: 1.6 }}>
               Ejemplos: Clase de Yoga · 60 min · 18 € · Consulta · 75 min · 80 € · Masaje · 90 min ·
               95 €
             </div>
           )}
           {items.map((it, idx) => (
-            <div key={it.id} style={{ border: "1px dashed #bbb", padding: 12, marginBottom: 12 }}>
-              <div style={{ fontSize: 11, color: "#666", marginBottom: 6 }}>Tarifa #{idx + 1}</div>
+            <div key={it.id} style={{ border: "1px solid var(--border)", borderRadius: 12, padding: 12, marginBottom: 12 }}>
+              <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginBottom: 6 }}>Tarifa #{idx + 1}</div>
               <FakeField label="Servicio" />
               <FakeField label="Duración (opcional)" />
               <FakeField label="Precio" />
@@ -1975,9 +1975,9 @@ function ConsultasList({ single = false }: { single?: boolean }) {
   return (
     <div>
       {items.map((it, idx) => (
-        <div key={it.id} style={{ border: "1px dashed #bbb", padding: 16, marginBottom: 20 }}>
+        <div key={it.id} style={{ border: "1px solid var(--border)", borderRadius: 12, padding: 16, marginBottom: 20 }}>
           {!single && (
-            <div style={{ fontSize: 11, color: "#666", marginBottom: 6 }}>
+            <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginBottom: 6 }}>
               {idx === 0 ? "Ubicación principal" : `Ubicación adicional #${idx}`}
             </div>
           )}
@@ -2037,7 +2037,7 @@ function VConsentItem({
           onClick={(e) => e.preventDefault()}
           style={{
             fontSize: 12,
-            color: "#111",
+            color: "var(--foreground)",
             textDecoration: "underline",
             display: "inline-block",
             marginBottom: 8,
@@ -2053,8 +2053,8 @@ function VConsentItem({
           alignItems: "center",
           gap: 8,
           padding: "8px 10px",
-          border: "1px dashed #888",
-          background: checked ? "#f3f3f3" : "#fff",
+          border: "1px solid var(--border)", borderRadius: 12,
+          background: checked ? "var(--muted)" : "var(--card)",
           cursor: "pointer",
           fontSize: 13,
         }}
@@ -2066,8 +2066,8 @@ function VConsentItem({
             justifyContent: "center",
             width: 14,
             height: 14,
-            border: "1px dashed #666",
-            background: "#fff",
+            border: "1px solid var(--border)", borderRadius: 12,
+            background: "var(--card)",
             fontSize: 10,
             flexShrink: 0,
           }}
@@ -2162,9 +2162,9 @@ function VerificadoFormulario() {
                   padding: 6,
                   fontSize: 11,
                   textAlign: "center",
-                  border: "1px dashed #888",
-                  background: n === step ? "#111" : n < step ? "#ddd" : "#fff",
-                  color: n === step ? "#fff" : "#111",
+                  border: "1px solid var(--border)", borderRadius: 12,
+                  background: n === step ? "var(--foreground)" : n < step ? "var(--border)" : "var(--card)",
+                  color: n === step ? "var(--card)" : "var(--foreground)",
                 }}
               >
                 {n}
@@ -2172,7 +2172,7 @@ function VerificadoFormulario() {
             );
           })}
         </div>
-        <div style={{ fontSize: 11, color: "#666", marginTop: 6 }}>
+        <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginTop: 6 }}>
           {titles.map((t, i) => `${i + 1}. ${t}`).join("  ·  ")}
         </div>
       </Box>
@@ -2182,7 +2182,7 @@ function VerificadoFormulario() {
           style={{
             fontSize: 14,
             lineHeight: 1.7,
-            color: "#444",
+            color: "var(--foreground)",
             margin: "0 0 24px 0",
             maxWidth: 640,
           }}
@@ -2259,7 +2259,7 @@ function VerificadoFormulario() {
                   width: "100%",
                   padding: "8px 10px",
                   marginBottom: 12,
-                  border: "1px dashed #888",
+                  border: "1px solid var(--border)", borderRadius: 12,
                   fontSize: 13,
                   fontFamily: "inherit",
                   boxSizing: "border-box",
@@ -2274,7 +2274,7 @@ function VerificadoFormulario() {
                   width: "100%",
                   padding: "8px 10px",
                   marginBottom: 12,
-                  border: "1px dashed #888",
+                  border: "1px solid var(--border)", borderRadius: 12,
                   fontSize: 13,
                   fontFamily: "inherit",
                   boxSizing: "border-box",
@@ -2289,7 +2289,7 @@ function VerificadoFormulario() {
                   width: "100%",
                   padding: "8px 10px",
                   marginBottom: 12,
-                  border: "1px dashed #888",
+                  border: "1px solid var(--border)", borderRadius: 12,
                   fontSize: 13,
                   fontFamily: "inherit",
                   boxSizing: "border-box",
@@ -2304,7 +2304,7 @@ function VerificadoFormulario() {
                   width: "100%",
                   padding: "8px 10px",
                   marginBottom: 12,
-                  border: "1px dashed #888",
+                  border: "1px solid var(--border)", borderRadius: 12,
                   fontSize: 13,
                   fontFamily: "inherit",
                   boxSizing: "border-box",
@@ -2429,7 +2429,7 @@ function VerificadoFormulario() {
                 Una frase breve que resuma tu manera de acompañar o tu filosofía profesional.
               </Ayuda>
             )}
-            <div style={{ fontSize: 12, color: "#666", fontStyle: "italic", marginTop: 8 }}>
+            <div style={{ fontSize: 12, color: "var(--muted-foreground)", fontStyle: "italic", marginTop: 8 }}>
               Algunas ideas:
               <ul style={{ paddingLeft: 18, marginTop: 6, marginBottom: 6 }}>
                 {isOrg ? (
@@ -2615,8 +2615,8 @@ function VerificadoFormulario() {
                     alignItems: "center",
                     gap: 8,
                     padding: "8px 10px",
-                    border: "1px dashed #888",
-                    background: consents.seguroRC ? "#f3f3f3" : "#fff",
+                    border: "1px solid var(--border)", borderRadius: 12,
+                    background: consents.seguroRC ? "var(--muted)" : "var(--card)",
                     cursor: "pointer",
                     fontSize: 13,
                   }}
@@ -2628,8 +2628,8 @@ function VerificadoFormulario() {
                       justifyContent: "center",
                       width: 14,
                       height: 14,
-                      border: "1px dashed #666",
-                      background: "#fff",
+                      border: "1px solid var(--border)", borderRadius: 12,
+                      background: "var(--card)",
                       fontSize: 10,
                     }}
                   >
@@ -2727,7 +2727,7 @@ function VerificadoFormulario() {
                   organización y que aceptas las declaraciones anteriores.
                 </Ayuda>
                 <FakeField label="Nombre completo" />
-                <div style={{ fontSize: 11, color: "#888", marginTop: 4, fontStyle: "italic" }}>
+                <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginTop: 4, fontStyle: "italic" }}>
                   La fecha, hora e IP quedarán registradas automáticamente.
                 </div>
               </div>
@@ -3050,7 +3050,7 @@ function PresenciaOrganizacionFormulario() {
     width: "100%",
     padding: "8px 10px",
     marginBottom: 12,
-    border: "1px dashed #888",
+    border: "1px solid var(--border)", borderRadius: 12,
     fontSize: 13,
     fontFamily: "inherit",
     boxSizing: "border-box",
@@ -3077,9 +3077,9 @@ function PresenciaOrganizacionFormulario() {
                   padding: 6,
                   fontSize: 11,
                   textAlign: "center",
-                  border: "1px dashed #888",
-                  background: n === step ? "#111" : n < step ? "#ddd" : "#fff",
-                  color: n === step ? "#fff" : "#111",
+                  border: "1px solid var(--border)", borderRadius: 12,
+                  background: n === step ? "var(--foreground)" : n < step ? "var(--border)" : "var(--card)",
+                  color: n === step ? "var(--card)" : "var(--foreground)",
                 }}
               >
                 {n}
@@ -3087,7 +3087,7 @@ function PresenciaOrganizacionFormulario() {
             );
           })}
         </div>
-        <div style={{ fontSize: 11, color: "#666", marginTop: 6 }}>
+        <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginTop: 6 }}>
           {titles.map((t, i) => `${i + 1}. ${t}`).join("  ·  ")}
         </div>
       </Box>
@@ -3097,7 +3097,7 @@ function PresenciaOrganizacionFormulario() {
           style={{
             fontSize: 14,
             lineHeight: 1.7,
-            color: "#444",
+            color: "var(--foreground)",
             margin: "0 0 24px 0",
             maxWidth: 640,
           }}
@@ -3222,7 +3222,7 @@ function PresenciaOrganizacionFormulario() {
               Una frase breve que resuma vuestra filosofía, vuestra misión o aquello que mejor define
               vuestro espacio.
             </Ayuda>
-            <div style={{ fontSize: 12, color: "#666", fontStyle: "italic", marginTop: 8 }}>
+            <div style={{ fontSize: 12, color: "var(--muted-foreground)", fontStyle: "italic", marginTop: 8 }}>
               Algunas ideas:
               <ul style={{ paddingLeft: 18, marginTop: 6, marginBottom: 6 }}>
                 <li>Centro holístico dedicado al bienestar integral en Mallorca.</li>
@@ -3324,7 +3324,7 @@ function PresenciaOrganizacionFormulario() {
               organización y que aceptas las declaraciones anteriores.
             </Ayuda>
             <FakeField label="Nombre completo" />
-            <div style={{ fontSize: 11, color: "#888", marginTop: 4, fontStyle: "italic" }}>
+            <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginTop: 4, fontStyle: "italic" }}>
               La fecha, hora e IP quedarán registradas automáticamente.
             </div>
           </div>
@@ -3441,9 +3441,9 @@ function PresenciaProfesionalFormulario() {
                   padding: 6,
                   fontSize: 11,
                   textAlign: "center",
-                  border: "1px dashed #888",
-                  background: n === step ? "#111" : n < step ? "#ddd" : "#fff",
-                  color: n === step ? "#fff" : "#111",
+                  border: "1px solid var(--border)", borderRadius: 12,
+                  background: n === step ? "var(--foreground)" : n < step ? "var(--border)" : "var(--card)",
+                  color: n === step ? "var(--card)" : "var(--foreground)",
                 }}
               >
                 {n}
@@ -3451,7 +3451,7 @@ function PresenciaProfesionalFormulario() {
             );
           })}
         </div>
-        <div style={{ fontSize: 11, color: "#666", marginTop: 6 }}>
+        <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginTop: 6 }}>
           {PP_STEP_TITLES.map((t, i) => `${i + 1}. ${t}`).join("  ·  ")}
         </div>
       </Box>
@@ -3461,7 +3461,7 @@ function PresenciaProfesionalFormulario() {
           style={{
             fontSize: 14,
             lineHeight: 1.7,
-            color: "#444",
+            color: "var(--foreground)",
             margin: "0 0 24px 0",
             maxWidth: 640,
           }}
@@ -3532,7 +3532,7 @@ function PresenciaProfesionalFormulario() {
             <Note>Describe tu actividad en una frase. Máximo 120 caracteres.</Note>
             <LimitedTextField label="Frase destacada" max={120} />
             <Ayuda>Una frase breve que resuma tu manera de acompañar o tu filosofía profesional.</Ayuda>
-            <div style={{ fontSize: 12, color: "#666", fontStyle: "italic", marginTop: 8 }}>
+            <div style={{ fontSize: 12, color: "var(--muted-foreground)", fontStyle: "italic", marginTop: 8 }}>
               Algunas ideas:
               <ul style={{ paddingLeft: 18, marginTop: 6, marginBottom: 6 }}>
                 <li>Psicóloga integrativa especializada en ansiedad y trauma.</li>
