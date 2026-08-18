@@ -91,20 +91,20 @@ function ActividadPublica() {
             alignItems: "center",
           }}
         >
-          <div
+          <img
+            src={ambienteDe(actividad.titulo ?? actividad.tipo)}
+            alt={`Imagen de la actividad ${actividad.titulo ?? ""}`}
             style={{
-              border: "1px solid var(--border)", borderRadius: 12,
-              background: "var(--card)",
+              width: "100%",
               aspectRatio: "4 / 5",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "var(--muted-foreground)",
-              fontSize: 12,
+              objectFit: "cover",
+              borderRadius: 16,
+              border: "1px solid var(--border)",
+              boxShadow: "var(--shadow-soft)",
+              display: "block",
             }}
-          >
-            [ Imagen de la actividad ]
-          </div>
+          />
+
 
           <div>
             <div style={{ fontSize: 11, letterSpacing: 1, color: "var(--muted-foreground)", textTransform: "uppercase", marginBottom: 10 }}>
