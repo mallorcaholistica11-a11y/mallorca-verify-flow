@@ -45,22 +45,38 @@ function GuiaPracticas() {
   const grupos = useMemo(() => practicasPorLetra(encontradas), [encontradas]);
   const letrasDisponibles = useMemo(() => new Set(grupos.map((g) => g.letra)), [grupos]);
 
-  // Reparto equilibrado de grupos alfabéticos en columnas, respetando el orden
-  // global A–Z: cada grupo se asigna a la columna menos cargada hasta el momento.
+  // Reparto equilibrado de grupos alfabéticos en columnas, manteniendo el orden
+  // global A–Z: cada columna es un bloque contiguo de letras (se lee de arriba
+  // abajo, columna 1 → 2 → 3 → 4) y los cortes se eligen donde la altura
+  // acumulada se acerca más al objetivo (total / nº de columnas).
   const columnas = useMemo(() => {
     const numCols = isNarrow ? 1 : isMobile ? 2 : 4;
-    const cols: { altura: number; gruposCol: typeof grupos }[] = Array.from(
-      { length: numCols },
-      () => ({ altura: 0, gruposCol: [] }),
-    );
-    for (const g of grupos) {
-      // Altura aproximada: cabecera de letra (~33 px) + 26 px por práctica + margen de grupo
-      const peso = 33 + g.practicas.length * 26 + 26;
-      const destino = cols.reduce((a, b) => (b.altura < a.altura ? b : a));
-      destino.gruposCol.push(g);
-      destino.altura += peso;
+    // Altura aproximada: cabecera de letra (~33 px) + 26 px por práctica + margen de grupo
+    const pesos = grupos.map((g) => 33 + g.practicas.length * 26 + 26);
+    const total = pesos.reduce((a, b) => a + b, 0);
+    const objetivo = total / numCols;
+    const cols: (typeof grupos)[] = [];
+    let inicio = 0;
+    let acumulado = 0;
+    for (let c = 1; c < numCols; c++) {
+      let corte = inicio;
+      let mejorDif = Infinity;
+      let suma = 0;
+      for (let i = inicio; i < grupos.length; i++) {
+        const candidato = acumulado + suma + pesos[i];
+        const dif = Math.abs(candidato - objetivo * c);
+        if (dif < mejorDif) {
+          mejorDif = dif;
+          corte = i + 1;
+        }
+        suma += pesos[i];
+      }
+      cols.push(grupos.slice(inicio, corte));
+      acumulado += pesos.slice(inicio, corte).reduce((a, b) => a + b, 0);
+      inicio = corte;
     }
-    return cols.map((c) => c.gruposCol);
+    cols.push(grupos.slice(inicio));
+    return cols;
   }, [grupos, isMobile, isNarrow]);
 
   return (
