@@ -136,7 +136,7 @@ function Hero() {
 function BuscadorIA({ isMobile }: { isMobile: boolean }) {
   return (
     <Bloque>
-      <div className="relative overflow-hidden rounded-[32px] border border-champagne/60 bg-cream/70 p-8 shadow-[var(--shadow-champagne)] md:rounded-[40px] md:p-16 lg:p-20">
+      <div className="relative overflow-hidden rounded-[32px] border border-champagne/60 bg-cream/70 p-6 shadow-[var(--shadow-champagne)] md:rounded-[40px] md:p-10 lg:p-12">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-[0.04]"
@@ -147,8 +147,8 @@ function BuscadorIA({ isMobile }: { isMobile: boolean }) {
           }}
         />
         <div className="relative">
-          <div className="mx-auto mb-10 max-w-xl text-center md:mb-14">
-            <h2 className="mb-4 font-display text-2xl font-semibold md:text-[1.875rem]">
+          <div className="mx-auto mb-6 max-w-[840px] text-center md:mb-8">
+            <h2 className="mb-3 font-display text-2xl font-semibold md:text-[1.875rem]">
               ¿Cómo te sientes hoy?
             </h2>
             <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
@@ -158,12 +158,12 @@ function BuscadorIA({ isMobile }: { isMobile: boolean }) {
           </div>
 
           <div className="mx-auto max-w-2xl">
-            <div className="relative rounded-[24px] border border-border/80 bg-card p-5 md:rounded-[28px] md:p-8">
+            <div className="relative rounded-[24px] border border-border/80 bg-card p-5 md:rounded-[28px] md:p-6">
               <textarea
                 placeholder="Escribe cómo te sientes, qué necesitas o qué te gustaría mejorar..."
-                className="h-auto min-h-[140px] w-full resize-none bg-transparent text-sm leading-relaxed text-foreground placeholder:text-muted-foreground focus:outline-none md:min-h-[170px] md:text-base"
+                className="h-auto min-h-[110px] w-full resize-none bg-transparent text-sm leading-relaxed text-foreground placeholder:text-muted-foreground focus:outline-none md:min-h-[120px] md:text-base"
               />
-              <div className="mt-4 flex justify-end md:mt-6">
+              <div className="mt-3 flex justify-end md:mt-4">
                 <button
                   type="button"
                   className="rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-sage-dark"
@@ -173,8 +173,8 @@ function BuscadorIA({ isMobile }: { isMobile: boolean }) {
               </div>
             </div>
 
-            <div className="mt-10 flex justify-center md:mt-14">
-              <Chips items={CHIPS} clicable gap={10} size="md" />
+            <div className="mt-6 flex justify-center md:mt-8">
+              <Chips items={CHIPS} clicable gap={10} size="md" center />
             </div>
           </div>
         </div>
