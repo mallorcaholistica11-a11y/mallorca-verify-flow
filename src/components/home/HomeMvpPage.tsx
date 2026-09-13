@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Award, Scale, ShieldCheck, UserRoundCheck } from "lucide-react";
+import { Award, BookOpen, CalendarDays, Leaf, Scale, ShieldCheck, UserRoundCheck } from "lucide-react";
 import type { ReactNode } from "react";
 import heroAlmendro from "@/assets/hero-almendro-original.jpg.asset.json";
 import { Chips, Retrato, Seccion } from "@/components/ficha/primitives";
