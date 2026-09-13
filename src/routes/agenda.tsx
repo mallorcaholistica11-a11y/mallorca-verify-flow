@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { CSSProperties, ReactNode } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { SlidersHorizontal, X } from "lucide-react";
 import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
-import { CampoCatalogo, PanelCatalogo, type TipoCatalogo } from "@/components/FiltroCatalogo";
+import { CampoCatalogoUnico, ModalCatalogo, type TipoCatalogo } from "@/components/FiltroCatalogo";
 import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
 import { ambienteDe } from "@/data/imagenes";
 
@@ -69,6 +70,26 @@ type Actividad = {
   municipio: string;
   precio?: string;
   modalidad: string;
+};
+
+type FiltrosAgenda = {
+  tipo: string;
+  practica: string | null;
+  area: string | null;
+  fecha: string;
+  municipio: string;
+  modalidad: string;
+  idioma: string;
+};
+
+const FILTROS_INICIALES: FiltrosAgenda = {
+  tipo: "Todas las actividades",
+  practica: null,
+  area: null,
+  fecha: "",
+  municipio: "",
+  modalidad: "",
+  idioma: "",
 };
 
 const ACTIVIDADES: Actividad[] = [
@@ -140,9 +161,42 @@ const ACTIVIDADES: Actividad[] = [
   },
 ];
 
+const MESES: Record<string, string> = { SEP: "09", OCT: "10" };
+
+function fechaActividad(actividad: Actividad) {
+  const mes = MESES[actividad.mes];
+  return mes ? `2026-${mes}-${actividad.dia.padStart(2, "0")}` : "";
+}
+
+function aplicarFiltros(actividades: Actividad[], filtros: FiltrosAgenda, busqueda: string) {
+  const termino = busqueda.trim().toLocaleLowerCase("es");
+  return actividades.filter((actividad) =>
+    (termino === "" || `${actividad.titulo} ${actividad.categoria} ${actividad.municipio}`.toLocaleLowerCase("es").includes(termino)) &&
+    (filtros.tipo === "Todas las actividades" || actividad.categoria === filtros.tipo) &&
+    (filtros.fecha === "" || fechaActividad(actividad) === filtros.fecha) &&
+    (filtros.municipio === "" || actividad.municipio === filtros.municipio) &&
+    (filtros.modalidad === "" || actividad.modalidad === filtros.modalidad)
+  );
+}
+
+function contarFiltros(filtros: FiltrosAgenda) {
+  return [
+    filtros.tipo !== "Todas las actividades",
+    filtros.practica !== null,
+    filtros.area !== null,
+    filtros.fecha !== "",
+    filtros.municipio !== "",
+    filtros.modalidad !== "",
+    filtros.idioma !== "",
+  ].filter(Boolean).length;
+}
+
 function Agenda() {
   const isMobile = useMobile(900);
   const [visibles, setVisibles] = useState(6);
+  const [busqueda, setBusqueda] = useState("");
+  const [filtros, setFiltros] = useState<FiltrosAgenda>(FILTROS_INICIALES);
+  const resultados = aplicarFiltros(ACTIVIDADES, filtros, busqueda);
 
   return (
     <div style={{ fontFamily: MONO, background: "var(--muted)", color: "var(--foreground)", minHeight: "100vh" }}>
@@ -150,9 +204,16 @@ function Agenda() {
 
       <main style={{ maxWidth: 1080, margin: "0 auto", padding: isMobile ? "0 16px" : "0 24px" }}>
         <Hero isMobile={isMobile} />
-        <Filtros isMobile={isMobile} />
+        <Busqueda isMobile={isMobile} onBuscar={setBusqueda} />
+        <Filtros
+          isMobile={isMobile}
+          filtros={filtros}
+          onAplicar={setFiltros}
+          busqueda={busqueda}
+          totalResultados={resultados.length}
+        />
         <NavegacionTemporal isMobile={isMobile} />
-        <Resultados isMobile={isMobile} visibles={visibles} onMas={() => setVisibles((v) => v + 6)} />
+        <Resultados actividades={resultados} isMobile={isMobile} visibles={visibles} onMas={() => setVisibles((v) => v + 6)} />
       </main>
 
       <footer
@@ -194,137 +255,228 @@ function Hero({ isMobile }: { isMobile: boolean }) {
 
 /* ---------- Buscador y filtros ---------- */
 
-function Filtros({ isMobile }: { isMobile: boolean }) {
-  // Mismo patrón que el Directorio: catálogo expandido a ancho completo,
-  // uno solo abierto a la vez.
+function Busqueda({ isMobile, onBuscar }: { isMobile: boolean; onBuscar: (valor: string) => void }) {
+  const [valor, setValor] = useState("");
+
+  return (
+    <section style={{ padding: "12px 0 0" }}>
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          onBuscar(valor);
+        }}
+        style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) auto", gap: 10 }}
+      >
+        <input
+          type="search"
+          value={valor}
+          onChange={(event) => setValor(event.target.value)}
+          placeholder="Buscar una actividad..."
+          aria-label="Buscar una actividad"
+          style={inputStyle}
+        />
+        <button type="submit" style={botonBuscar}>Buscar</button>
+      </form>
+    </section>
+  );
+}
+
+function Filtros({
+  isMobile,
+  filtros,
+  onAplicar,
+  busqueda,
+  totalResultados,
+}: {
+  isMobile: boolean;
+  filtros: FiltrosAgenda;
+  onAplicar: (filtros: FiltrosAgenda) => void;
+  busqueda: string;
+  totalResultados: number;
+}) {
+  const [abierto, setAbierto] = useState(false);
   const [catalogo, setCatalogo] = useState<TipoCatalogo | null>(null);
-  const [practicas, setPracticas] = useState<string[]>([]);
-  const [areas, setAreas] = useState<string[]>([]);
+  const [borrador, setBorrador] = useState<FiltrosAgenda>(filtros);
   const [qPractica, setQPractica] = useState("");
   const [qArea, setQArea] = useState("");
+  const activos = contarFiltros(filtros);
+  const resultadosBorrador = aplicarFiltros(ACTIVIDADES, borrador, busqueda).length;
 
-  const abrir = (t: TipoCatalogo) => setCatalogo((c) => (c === t ? null : t));
-  const togglePractica = (p: string) =>
-    setPracticas(practicas.includes(p) ? practicas.filter((x) => x !== p) : [...practicas, p]);
-  const toggleArea = (a: string) =>
-    setAreas(areas.includes(a) ? areas.filter((x) => x !== a) : [...areas, a]);
+  const abrir = () => {
+    setBorrador(filtros);
+    setQPractica("");
+    setQArea("");
+    setCatalogo(null);
+    setAbierto(true);
+  };
+
+  const cerrar = () => {
+    setCatalogo(null);
+    setAbierto(false);
+  };
 
   const limpiar = () => {
-    setPracticas([]);
-    setAreas([]);
+    setBorrador(FILTROS_INICIALES);
     setQPractica("");
     setQArea("");
     setCatalogo(null);
   };
 
+  useEffect(() => {
+    if (!abierto) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      if (catalogo) setCatalogo(null);
+      else cerrar();
+    };
+    const overflowAnterior = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = overflowAnterior;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [abierto, catalogo]);
+
   return (
-    <Bloque top={16}>
+    <section style={{ padding: "8px 0 0" }}>
       <div
         style={{
-          border: "1px solid var(--border)", borderRadius: 12,
-          background: "var(--card)",
-          padding: isMobile ? 14 : 18,
-          display: "grid",
+          display: "flex",
+          alignItems: "center",
           gap: 14,
         }}
       >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "minmax(0,1.6fr) auto",
-            gap: 10,
-          }}
-        >
-          <select style={inputStyle} defaultValue="Todas las actividades" aria-label="Tipo de actividad">
-            {TIPOS_ACTIVIDAD.map((t) => (
-              <option key={t}>{t}</option>
-            ))}
-          </select>
-          <button type="button" style={botonSecundario}>
-            Buscar
-          </button>
-        </div>
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0,1fr))",
-            gap: 12,
-            alignItems: "start",
-          }}
-        >
-          <Campo label="Práctica">
-            <CampoCatalogo
-              tipo="practicas"
-              query={qPractica}
-              onQuery={setQPractica}
-              placeholder="Buscar una práctica..."
-              abierto={catalogo === "practicas"}
-              onToggle={() => abrir("practicas")}
-              seleccion={practicas}
-              onQuitar={togglePractica}
-            />
-          </Campo>
-          <Campo label="Áreas de acompañamiento">
-            <CampoCatalogo
-              tipo="areas"
-              query={qArea}
-              onQuery={setQArea}
-              placeholder="Buscar por necesidad..."
-              abierto={catalogo === "areas"}
-              onToggle={() => abrir("areas")}
-              seleccion={areas}
-              onQuitar={toggleArea}
-            />
-          </Campo>
-          <Campo label="Fecha">
-            <input type="date" style={selectStyle} />
-          </Campo>
-          <Campo label="Municipio">
-            <select style={selectStyle} defaultValue="Todos los municipios">
-              <option>Todos los municipios</option>
-              {MUNICIPIOS_MALLORCA.map((m) => (
-                <option key={m}>{m}</option>
-              ))}
-            </select>
-          </Campo>
-          <Campo label="Modalidad">
-            <select style={selectStyle} defaultValue="Todas">
-              <option>Todas</option>
-              {MODALIDADES.map((m) => (
-                <option key={m}>{m}</option>
-              ))}
-            </select>
-          </Campo>
-          <Campo label="Idioma">
-            <select style={selectStyle} defaultValue="Todos los idiomas">
-              <option>Todos los idiomas</option>
-              {IDIOMAS.map((i) => (
-                <option key={i}>{i}</option>
-              ))}
-            </select>
-          </Campo>
-        </div>
-
-        {catalogo && (
-          <PanelCatalogo
-            tipo={catalogo}
-            query={catalogo === "practicas" ? qPractica : qArea}
-            seleccion={catalogo === "practicas" ? practicas : areas}
-            onToggleItem={catalogo === "practicas" ? togglePractica : toggleArea}
-            onCerrar={() => setCatalogo(null)}
-          />
-        )}
-
-        <button
-          type="button"
-          onClick={limpiar}
-          style={{ ...selectStyle, width: "auto", cursor: "pointer", color: "var(--muted-foreground)", justifySelf: "start" }}
-        >
-          Limpiar filtros
+        <button type="button" onClick={abrir} aria-haspopup="dialog" style={botonFiltros}>
+          <SlidersHorizontal size={15} strokeWidth={1.7} aria-hidden />
+          <span>Filtros{activos > 0 ? ` · ${activos}` : ""}</span>
         </button>
+        <span style={{ fontSize: 12, color: "var(--muted-foreground)", whiteSpace: "nowrap" }}>
+          {totalResultados} actividades encontradas
+        </span>
       </div>
-    </Bloque>
+
+      {abierto && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="titulo-filtros-agenda"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) cerrar();
+          }}
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 50,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: isMobile ? 10 : 20,
+            background: "color-mix(in srgb, var(--foreground) 24%, transparent)",
+            backdropFilter: "blur(2px)",
+          }}
+        >
+          <div style={modalFiltros}>
+            <header style={{ display: "grid", gridTemplateColumns: "32px 1fr 32px", alignItems: "center", padding: "13px 16px", borderBottom: "1px solid var(--border)" }}>
+              <span aria-hidden />
+              <h2 id="titulo-filtros-agenda" style={{ margin: 0, textAlign: "center", fontSize: 17, lineHeight: 1.3 }}>Filtros</h2>
+              <button type="button" onClick={cerrar} aria-label="Cerrar filtros" style={botonIcono}>
+                <X size={18} strokeWidth={1.6} aria-hidden />
+              </button>
+            </header>
+
+            <div style={{ overflowY: "auto", padding: isMobile ? 16 : 22 }}>
+              <div style={{ display: "grid", gap: 20 }}>
+                <Campo label="Tipo de actividad">
+                  <select style={selectStyle} value={borrador.tipo} onChange={(event) => setBorrador({ ...borrador, tipo: event.target.value })}>
+                    {TIPOS_ACTIVIDAD.map((tipo) => <option key={tipo}>{tipo}</option>)}
+                  </select>
+                </Campo>
+
+                <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 18 }}>
+                  <Campo label="Práctica">
+                    <CampoCatalogoUnico
+                      tipo="practicas"
+                      query={qPractica}
+                      onQuery={setQPractica}
+                      placeholder="Buscar una práctica..."
+                      onAbrir={() => setCatalogo("practicas")}
+                      seleccion={borrador.practica}
+                      onSeleccionar={(valor) => {
+                        setBorrador({ ...borrador, practica: valor });
+                        setQPractica("");
+                      }}
+                      onQuitar={() => setBorrador({ ...borrador, practica: null })}
+                    />
+                  </Campo>
+                  <Campo label="Área de acompañamiento">
+                    <CampoCatalogoUnico
+                      tipo="areas"
+                      query={qArea}
+                      onQuery={setQArea}
+                      placeholder="Buscar por necesidad..."
+                      onAbrir={() => setCatalogo("areas")}
+                      seleccion={borrador.area}
+                      onSeleccionar={(valor) => {
+                        setBorrador({ ...borrador, area: valor });
+                        setQArea("");
+                      }}
+                      onQuitar={() => setBorrador({ ...borrador, area: null })}
+                    />
+                  </Campo>
+                  <Campo label="Fecha">
+                    <input type="date" style={selectStyle} value={borrador.fecha} onChange={(event) => setBorrador({ ...borrador, fecha: event.target.value })} />
+                  </Campo>
+                  <Campo label="Municipio">
+                    <select style={selectStyle} value={borrador.municipio} onChange={(event) => setBorrador({ ...borrador, municipio: event.target.value })}>
+                      <option value="">Todos los municipios</option>
+                      {MUNICIPIOS_MALLORCA.map((municipio) => <option key={municipio}>{municipio}</option>)}
+                    </select>
+                  </Campo>
+                  <Campo label="Modalidad">
+                    <select style={selectStyle} value={borrador.modalidad} onChange={(event) => setBorrador({ ...borrador, modalidad: event.target.value })}>
+                      <option value="">Todas</option>
+                      {MODALIDADES.map((modalidad) => <option key={modalidad}>{modalidad}</option>)}
+                    </select>
+                  </Campo>
+                  <Campo label="Idioma">
+                    <select style={selectStyle} value={borrador.idioma} onChange={(event) => setBorrador({ ...borrador, idioma: event.target.value })}>
+                      <option value="">Todos los idiomas</option>
+                      {IDIOMAS.map((idioma) => <option key={idioma}>{idioma}</option>)}
+                    </select>
+                  </Campo>
+                </div>
+              </div>
+            </div>
+
+            <footer style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 14, padding: "12px 16px", borderTop: "1px solid var(--border)", background: "var(--card)" }}>
+              <button type="button" onClick={limpiar} style={botonLimpiar}>Limpiar filtros</button>
+              <button type="button" onClick={() => { onAplicar(borrador); cerrar(); }} style={botonMostrar}>
+                Mostrar {resultadosBorrador} actividades
+              </button>
+            </footer>
+          </div>
+
+          {catalogo && (
+            <ModalCatalogo
+              tipo={catalogo}
+              seleccion={catalogo === "practicas" ? borrador.practica : borrador.area}
+              onSeleccionar={(valor) => {
+                if (catalogo === "practicas") {
+                  setBorrador({ ...borrador, practica: valor });
+                  setQPractica("");
+                } else {
+                  setBorrador({ ...borrador, area: valor });
+                  setQArea("");
+                }
+                setCatalogo(null);
+              }}
+              onCerrar={() => setCatalogo(null)}
+            />
+          )}
+        </div>
+      )}
+    </section>
   );
 }
 
@@ -392,23 +544,21 @@ function NavegacionTemporal({ isMobile }: { isMobile: boolean }) {
 /* ---------- Resultados ---------- */
 
 function Resultados({
+  actividades,
   isMobile,
   visibles,
   onMas,
 }: {
+  actividades: Actividad[];
   isMobile: boolean;
   visibles: number;
   onMas: () => void;
 }) {
-  const lista = ACTIVIDADES.slice(0, visibles);
-  const hayMas = visibles < ACTIVIDADES.length;
+  const lista = actividades.slice(0, visibles);
+  const hayMas = visibles < actividades.length;
 
   return (
     <Bloque top={12}>
-      <div style={{ fontSize: 13, color: "var(--foreground)", marginBottom: 18 }}>
-        {ACTIVIDADES.length} actividades encontradas
-      </div>
-
       <div
         style={{
           display: "grid",
@@ -557,4 +707,75 @@ const botonSecundario: CSSProperties = {
   fontSize: 13,
   fontFamily: "inherit",
   cursor: "pointer",
+};
+
+const botonBuscar: CSSProperties = {
+  ...botonSecundario,
+  borderColor: "var(--primary)",
+  background: "var(--primary)",
+  color: "var(--primary-foreground)",
+  borderRadius: 999,
+};
+
+const botonFiltros: CSSProperties = {
+  display: "inline-flex",
+  alignItems: "center",
+  gap: 8,
+  border: "1px solid var(--border)",
+  borderRadius: 999,
+  background: "var(--card)",
+  color: "var(--foreground)",
+  padding: "8px 13px",
+  fontSize: 12.5,
+  fontFamily: "inherit",
+  cursor: "pointer",
+  boxShadow: "var(--shadow-soft)",
+};
+
+const modalFiltros: CSSProperties = {
+  width: "min(720px, 100%)",
+  maxHeight: "min(720px, calc(100vh - 24px))",
+  display: "flex",
+  flexDirection: "column",
+  border: "1px solid var(--border)",
+  borderRadius: 18,
+  background: "var(--card)",
+  boxShadow: "var(--shadow-lift)",
+  overflow: "hidden",
+};
+
+const botonIcono: CSSProperties = {
+  width: 32,
+  height: 32,
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  border: "none",
+  borderRadius: 999,
+  background: "transparent",
+  color: "var(--foreground)",
+  cursor: "pointer",
+};
+
+const botonLimpiar: CSSProperties = {
+  border: "none",
+  background: "transparent",
+  color: "var(--foreground)",
+  padding: "8px 2px",
+  fontSize: 12,
+  fontFamily: "inherit",
+  textDecoration: "underline",
+  cursor: "pointer",
+};
+
+const botonMostrar: CSSProperties = {
+  border: "1px solid var(--primary)",
+  borderRadius: 999,
+  background: "var(--primary)",
+  color: "var(--primary-foreground)",
+  padding: "10px 17px",
+  fontSize: 12.5,
+  fontFamily: "inherit",
+  cursor: "pointer",
+  whiteSpace: "nowrap",
 };
