@@ -90,6 +90,7 @@ export type MiembroEquipo = {
   nombre: string;
   rol?: string;
   fotoUrl?: string;
+  perfilUrl?: string;
 };
 
 export type FichaCentroData = Omit<FichaPublicaData, "sobreMi"> & {

@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useMobile } from "@/components/ficha/useMobile";
-import { Boton, Chips, ChipsPracticas, LineaTexto, Placeholder, Seccion } from "@/components/ficha/primitives";
+import { Boton, Chips, ChipsPracticas, LineaTexto, Seccion } from "@/components/ficha/primitives";
 import { GALERIA_DEMO, ambienteDe, retratoDe } from "@/data/imagenes";
 import {
   MAX_AREAS_FICHA,
@@ -68,7 +68,6 @@ export function FichaCentro({
         </aside>
       </div>
 
-      <LlamadaFinal data={data} esPresencia={esPresencia} />
     </div>
   );
 }
@@ -82,6 +81,9 @@ function HeroCentro({
   isMobile: boolean;
   esPresencia: boolean;
 }) {
+  const mostrarReserva = !esPresencia && esEnlaceReservaValido(data.enlaceReserva);
+  const mostrarTelefono = !!data.contacto?.telefono && data.contacto.telefonoPublico === true;
+
   return (
     <header style={{ borderBottom: "1px solid var(--border)", background: "var(--card)" }}>
       <div
@@ -120,7 +122,28 @@ function HeroCentro({
         </div>
 
         <div style={{ flex: 1, minWidth: 0 }}>
-          <h1 style={{ fontSize: 26, margin: "0 0 6px 0" }}>{data.nombre}</h1>
+          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "8px 12px", marginBottom: 8 }}>
+            <h1 style={{ fontSize: 28, lineHeight: 1.15, margin: 0 }}>{data.nombre}</h1>
+            {!esPresencia && data.verificado && (
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 5,
+                  border: "1px solid var(--sage-light)",
+                  borderRadius: 999,
+                  background: "var(--secondary)",
+                  color: "var(--sage-dark)",
+                  padding: "4px 9px",
+                  fontSize: 11,
+                  fontWeight: 700,
+                  lineHeight: 1,
+                }}
+              >
+                <span aria-hidden="true">✓</span> Entidad Verificada
+              </span>
+            )}
+          </div>
 
           {data.tipoOrganizacion && (
             <div style={{ fontSize: 14, color: "var(--foreground)", marginBottom: 6 }}>{data.tipoOrganizacion}</div>
@@ -142,23 +165,27 @@ function HeroCentro({
             </div>
           )}
 
-          {(data.contacto?.whatsapp || (!esPresencia && data.enlaceReserva)) && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 14, marginBottom: 12 }}>
+          {(mostrarReserva || data.contacto?.whatsapp || mostrarTelefono) && (
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "10px 14px", marginTop: 16 }}>
+              {mostrarReserva && data.enlaceReserva && (
+                <Boton href={data.enlaceReserva}>
+                  Reservar
+                </Boton>
+              )}
               {data.contacto?.whatsapp && (
-                <Boton href={`https://wa.me/${data.contacto.whatsapp.replace(/[^0-9]/g, "")}`}>
+                <Boton href={`https://wa.me/${data.contacto.whatsapp.replace(/[^0-9]/g, "")}`} variante="principal">
                   Hablar por WhatsApp
                 </Boton>
               )}
-              {!esPresencia && data.enlaceReserva && (
-                <Boton href={data.enlaceReserva} variante="principal">
-                  Reservar / Contactar
-                </Boton>
+              {mostrarTelefono && data.contacto?.telefono && (
+                <a
+                  href={`tel:${data.contacto.telefono.replace(/[^+0-9]/g, "")}`}
+                  style={{ ...enlace, display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13 }}
+                >
+                  <span aria-hidden="true">☎</span> {data.contacto.telefono}
+                </a>
               )}
             </div>
-          )}
-
-          {!esPresencia && data.verificado && (
-            <div style={{ fontSize: 12, color: "var(--muted-foreground)" }}>✔ Centro Verificado por Mallorca Holística</div>
           )}
         </div>
       </div>
@@ -182,31 +209,31 @@ function ColumnaPrincipal({ data, esPresencia }: { data: FichaCentroData; esPres
         )}
       </Seccion>
 
-      <Seccion titulo="Prácticas" vacio={!data.especialidades?.length}>
+      <Seccion titulo="Prácticas" vacio={!data.especialidades?.length} separador>
         <ChipsPracticas items={(data.especialidades ?? []).slice(0, MAX_ESPECIALIDADES_FICHA)} />
       </Seccion>
 
-      <Seccion titulo="¿En qué podemos ayudarte?" vacio={!data.areas?.length}>
+      <Seccion titulo="¿En qué podemos ayudarte?" vacio={!data.areas?.length} separador>
         <Chips items={(data.areas ?? []).slice(0, MAX_AREAS_FICHA)} />
       </Seccion>
 
-      <Seccion titulo="¿Qué ofrecemos?" vacio={!data.modalidades?.length}>
+      <Seccion titulo="¿Qué ofrecemos?" vacio={!data.modalidades?.length} separador>
         <LineaTexto items={data.modalidades ?? []} />
       </Seccion>
 
-      <Seccion titulo="¿A quién acompañamos?" vacio={publicos.length === 0}>
+      <Seccion titulo="¿A quién acompañamos?" vacio={publicos.length === 0} separador>
         <LineaTexto items={publicos} />
       </Seccion>
 
-      <Seccion titulo="Instalaciones" vacio={!data.instalaciones?.length}>
+      <Seccion titulo="Instalaciones" vacio={!data.instalaciones?.length} separador>
         <LineaTexto items={data.instalaciones ?? []} />
       </Seccion>
 
-      <Seccion titulo="Nuestro equipo" vacio={esPresencia || !data.equipo?.length}>
+      <Seccion titulo="Nuestro equipo" vacio={esPresencia || !data.equipo?.length} separador>
         <Equipo miembros={data.equipo ?? []} total={data.totalEquipo} />
       </Seccion>
 
-      <Seccion titulo="Servicios y tarifas (opcional)" vacio={esPresencia || !data.tarifas?.length}>
+      <Seccion titulo="Servicios y tarifas" vacio={esPresencia || !data.tarifas?.length} separador>
         <div style={{ border: "1px solid var(--border)", borderRadius: 12, background: "var(--card)" }}>
           {(data.tarifas ?? []).slice(0, 3).map((t, i) => (
             <div
@@ -236,7 +263,7 @@ function ColumnaPrincipal({ data, esPresencia }: { data: FichaCentroData; esPres
         )}
       </Seccion>
 
-      <Seccion titulo="Galería" vacio={esPresencia}>
+      <Seccion titulo="Galería" vacio={esPresencia || !data.galeria?.length} separador>
         <CarruselGaleria
           imagenes={(data.galeria?.length ? data.galeria : GALERIA_DEMO).slice(0, 10)}
           nombre={data.nombre}
@@ -244,13 +271,13 @@ function ColumnaPrincipal({ data, esPresencia }: { data: FichaCentroData; esPres
 
       </Seccion>
 
-      <Seccion titulo="Descubre nuestras actividades" vacio={esPresencia || !data.hayActividades}>
+      <Seccion titulo="Descubre nuestras actividades" vacio={esPresencia || !data.hayActividades} separador>
         <a href={data.enlaceAgenda ?? "/actividades"} style={{ ...enlace, fontSize: 13 }}>
           Descubre nuestras actividades →
         </a>
       </Seccion>
 
-      <Seccion titulo="Opiniones" vacio={esPresencia || !data.opiniones?.length}>
+      <Seccion titulo="Opiniones" vacio={esPresencia || !data.opiniones?.length} separador>
         <div style={{ display: "grid", gap: 8 }}>
           {(data.opiniones ?? []).map((o, i) => (
             <blockquote
@@ -278,6 +305,31 @@ function Equipo({ miembros, total }: { miembros: MiembroEquipo[]; total?: number
       <div style={{ display: "flex", flexWrap: "wrap", gap: 20 }}>
         {visibles.map((m, i) => (
           <div key={`${m.nombre}-${i}`} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            {m.perfilUrl ? (
+              <a href={m.perfilUrl} aria-label={`Ver perfil de ${m.nombre}`} style={{ display: "block", flex: "0 0 auto" }}>
+                <FotoMiembro miembro={m} />
+              </a>
+            ) : (
+              <FotoMiembro miembro={m} />
+            )}
+            <div style={{ fontSize: 12, lineHeight: 1.4 }}>
+              {m.perfilUrl ? <a href={m.perfilUrl} style={enlace}>{m.nombre}</a> : <div>{m.nombre}</div>}
+              {m.rol && <div style={{ fontSize: 11, color: "var(--muted-foreground)" }}>{m.rol}</div>}
+            </div>
+          </div>
+        ))}
+      </div>
+      {hayMas && (
+        <a href="#" style={{ ...enlace, display: "inline-block", fontSize: 12, marginTop: 10 }}>
+          Ver todo el equipo →
+        </a>
+      )}
+    </div>
+  );
+}
+
+function FotoMiembro({ miembro }: { miembro: MiembroEquipo }) {
+  return (
             <div
               style={{
                 width: 34,
@@ -295,25 +347,11 @@ function Equipo({ miembros, total }: { miembros: MiembroEquipo[]; total?: number
               }}
             >
               <img
-                src={m.fotoUrl ?? retratoDe(m.nombre)}
-                alt={m.nombre}
+                src={miembro.fotoUrl ?? retratoDe(miembro.nombre)}
+                alt={miembro.nombre}
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
-
             </div>
-            <div style={{ fontSize: 12, lineHeight: 1.4 }}>
-              <div>{m.nombre}</div>
-              {m.rol && <div style={{ fontSize: 11, color: "var(--muted-foreground)" }}>{m.rol}</div>}
-            </div>
-          </div>
-        ))}
-      </div>
-      {hayMas && (
-        <a href="#" style={{ ...enlace, display: "inline-block", fontSize: 12, marginTop: 10 }}>
-          Ver todo el equipo →
-        </a>
-      )}
-    </div>
   );
 }
 
@@ -433,7 +471,6 @@ function CarruselGaleria({ imagenes, nombre }: { imagenes: string[]; nombre: str
 function BarraLateral({ data, esPresencia }: { data: FichaCentroData; esPresencia: boolean }) {
   const ubicaciones = data.ubicaciones ?? [];
   const principal = ubicaciones.find((u) => u.principal) ?? ubicaciones[0];
-  const otras = ubicaciones.filter((u) => u !== principal);
   const contacto = data.contacto;
   const redes = contacto?.redes ?? [];
   const horario = data.horario ?? [];
@@ -441,31 +478,35 @@ function BarraLateral({ data, esPresencia }: { data: FichaCentroData; esPresenci
   return (
     <>
       <Seccion titulo="¿Dónde estamos?" vacio={!principal}>
-        <Placeholder alto={140}>[mapa · {principal?.municipio}]</Placeholder>
-        <div style={{ fontSize: 13, marginTop: 8 }}>
-          {principal?.nombre && <div style={{ fontWeight: 600 }}>{principal.nombre}</div>}
-          <div>{principal?.direccion}</div>
-          <div style={{ color: "var(--muted-foreground)" }}>{principal?.municipio}</div>
+        <iframe
+          title={`Mapa de ${data.nombre}`}
+          src={`https://www.google.com/maps?q=${encodeURIComponent(`${principal?.direccion ?? ""}, ${principal?.municipio ?? ""}`)}&output=embed`}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          style={{ display: "block", width: "100%", height: 140, border: "1px solid var(--border)", borderRadius: 8, background: "var(--cream)" }}
+        />
+        <div style={{ display: "grid", gap: 0, marginTop: 12 }}>
+          {ubicaciones.map((ubicacion, i) => (
+            <div
+              key={`${ubicacion.direccion}-${ubicacion.municipio}-${i}`}
+              style={{ padding: "12px 0", borderTop: i === 0 ? "none" : "1px solid var(--border)", fontSize: 13, lineHeight: 1.55 }}
+            >
+              <div style={{ fontWeight: 700 }}>{ubicacion.nombre || ubicacion.municipio}</div>
+              <div>{ubicacion.direccion}</div>
+              {ubicacion.nombre && <div style={{ color: "var(--muted-foreground)" }}>{ubicacion.municipio}</div>}
+              {ubicacion.direccion && (
+                <a
+                  href={ubicacion.enlaceMapa ?? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${ubicacion.direccion}, ${ubicacion.municipio}`)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ ...enlace, display: "inline-block", fontSize: 12, marginTop: 5 }}
+                >
+                  Cómo llegar →
+                </a>
+              )}
+            </div>
+          ))}
         </div>
-        <a
-          href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-            [principal?.direccion, principal?.municipio].filter(Boolean).join(", "),
-          )}`}
-          target="_blank"
-          rel="noreferrer"
-          style={{ ...enlace, display: "inline-block", fontSize: 12, marginTop: 8 }}
-        >
-          Cómo llegar →
-        </a>
-        {otras.length > 0 && (
-          <ul style={{ margin: "10px 0 0 0", paddingLeft: 18, fontSize: 12, lineHeight: 1.7, color: "var(--foreground)" }}>
-            {otras.map((u, i) => (
-              <li key={`${u.direccion}-${i}`}>
-                {[u.nombre, u.direccion, u.municipio].filter(Boolean).join(" · ")}
-              </li>
-            ))}
-          </ul>
-        )}
       </Seccion>
 
       <Seccion titulo="Horario" vacio={esPresencia || (!data.citaPrevia && horario.length === 0)}>
@@ -518,28 +559,14 @@ function BarraLateral({ data, esPresencia }: { data: FichaCentroData; esPresenci
   );
 }
 
-function LlamadaFinal({ data, esPresencia }: { data: FichaCentroData; esPresencia: boolean }) {
-  const enlaceReserva = esPresencia ? undefined : data.enlaceReserva;
-  if (!enlaceReserva && !data.contacto?.whatsapp) return null;
-  return (
-    <section style={{ borderTop: "1px solid var(--border)", background: "var(--card)" }}>
-      <div style={{ maxWidth: 1080, margin: "0 auto", padding: "32px 24px 48px" }}>
-        <h2 style={{ fontSize: 16, margin: "0 0 12px 0" }}>¿Te gustaría contactar con este centro?</h2>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-          {enlaceReserva && (
-            <Boton href={enlaceReserva} variante="principal">
-              Reservar / Contactar
-            </Boton>
-          )}
-          {data.contacto?.whatsapp && (
-            <Boton href={`https://wa.me/${data.contacto.whatsapp.replace(/[^0-9]/g, "")}`}>
-              Hablar por WhatsApp
-            </Boton>
-          )}
-        </div>
-      </div>
-    </section>
-  );
+function esEnlaceReservaValido(enlace?: string) {
+  if (!enlace) return false;
+  try {
+    const url = new URL(enlace);
+    return url.protocol === "https:" || url.protocol === "http:";
+  } catch {
+    return false;
+  }
 }
 /**
  * Las fichas de demostración guardan rótulos de galería en lugar de rutas.
