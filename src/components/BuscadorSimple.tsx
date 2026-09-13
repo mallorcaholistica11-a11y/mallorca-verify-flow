@@ -150,17 +150,36 @@ export function BuscadorSimple({
         )}
       </div>
 
-      <input
-        type="text"
-        value={lugar}
-        placeholder="Localidad o código postal..."
-        onChange={(e) => setLugar(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") lanzar(q);
-        }}
-        style={inputStyle}
-      />
-      <button type="button" onClick={() => lanzar(q)} style={botonStyle}>
+      <div
+        style={
+          unificado
+            ? {
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                minWidth: 0,
+                paddingLeft: isMobile ? 10 : 16,
+                borderLeft: isMobile ? "none" : "1px solid var(--border)",
+                borderTop: isMobile ? "1px solid var(--border)" : "none",
+                paddingTop: isMobile ? 4 : 0,
+                marginLeft: isMobile ? 0 : 12,
+              }
+            : { minWidth: 0 }
+        }
+      >
+        {unificado && <MapPin size={16} strokeWidth={1.75} style={{ color: "var(--primary)", flexShrink: 0 }} aria-hidden />}
+        <input
+          type="text"
+          value={lugar}
+          placeholder={unificado ? "Cerca de mí, municipio o código postal..." : "Localidad o código postal..."}
+          onChange={(e) => setLugar(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") lanzar(q);
+          }}
+          style={estiloInput}
+        />
+      </div>
+      <button type="button" onClick={() => lanzar(q)} style={unificado ? botonUnificadoStyle : botonStyle}>
         Buscar
       </button>
     </div>
