@@ -77,7 +77,13 @@ function Directorio() {
           lugar={lugar}
           onBuscar={(nq, nlugar) => navigate({ search: { q: nq, lugar: nlugar } })}
         />
-        <Filtros isMobile={isMobile} areas={areas} onAreas={setAreas} />
+        <Filtros
+          isMobile={isMobile}
+          area={area}
+          onArea={setArea}
+          practica={practica}
+          onPractica={setPractica}
+        />
         <Resultados isMobile={isMobile} resultados={resultados} />
       </main>
 
