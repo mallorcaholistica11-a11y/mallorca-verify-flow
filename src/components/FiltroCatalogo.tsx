@@ -234,13 +234,56 @@ export function CampoCatalogoUnico({
           </button>
         </div>
       ) : (
-        <input
-          type="text"
-          value={query}
-          placeholder={placeholder}
-          onChange={(e) => onQuery(e.target.value)}
-          style={campoInput}
-        />
+        <>
+          <input
+            type="text"
+            value={query}
+            placeholder={placeholder}
+            onChange={(e) => onQuery(e.target.value)}
+            style={campoInput}
+          />
+          {sugerencias.length > 0 && (
+            <div
+              style={{
+                position: "absolute",
+                top: "calc(100% - 12px)",
+                left: 0,
+                right: 0,
+                zIndex: 30,
+                border: "1px solid var(--border)",
+                borderRadius: 12,
+                background: "var(--card)",
+                boxShadow: "var(--shadow-lift)",
+                padding: 4,
+                maxHeight: 240,
+                overflowY: "auto",
+              }}
+            >
+              {sugerencias.map((s) => (
+                <button
+                  key={s}
+                  type="button"
+                  onClick={() => onSeleccionar(s)}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    textAlign: "left",
+                    border: "none",
+                    background: "transparent",
+                    borderRadius: 8,
+                    padding: "6px 8px",
+                    fontSize: 12,
+                    fontFamily: "inherit",
+                    color: "var(--foreground)",
+                    cursor: "pointer",
+                  }}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          )}
+        </>
       )}
       <button type="button" onClick={onAbrir} style={enlaceExplorar}>
         {texto}
