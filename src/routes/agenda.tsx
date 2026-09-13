@@ -409,6 +409,12 @@ function Filtros({
                       {MODALIDADES.map((modalidad) => <option key={modalidad}>{modalidad}</option>)}
                     </select>
                   </Campo>
+                  <Campo label="Idioma">
+                    <select style={selectStyle} value={borrador.idioma} onChange={(event) => setBorrador({ ...borrador, idioma: event.target.value })}>
+                      <option value="">Todos los idiomas</option>
+                      {IDIOMAS.map((idioma) => <option key={idioma}>{idioma}</option>)}
+                    </select>
+                  </Campo>
                   <Campo label="Práctica">
                     <CampoCatalogoUnico
                       tipo="practicas"
@@ -438,12 +444,6 @@ function Filtros({
                       }}
                       onQuitar={() => setBorrador({ ...borrador, area: null })}
                     />
-                  </Campo>
-                  <Campo label="Idioma">
-                    <select style={selectStyle} value={borrador.idioma} onChange={(event) => setBorrador({ ...borrador, idioma: event.target.value })}>
-                      <option value="">Todos los idiomas</option>
-                      {IDIOMAS.map((idioma) => <option key={idioma}>{idioma}</option>)}
-                    </select>
                   </Campo>
                 </div>
               </div>
