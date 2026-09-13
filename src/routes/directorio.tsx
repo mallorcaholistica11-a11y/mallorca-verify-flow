@@ -544,9 +544,23 @@ function TarjetaResultado({ r, isMobile }: { r: Resultado; isMobile: boolean }) 
         <div style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
           <div style={{ fontSize: 15, fontWeight: 600, letterSpacing: "-0.01em" }}>{r.nombre}</div>
           {r.verificado && (
-            <div style={{ fontSize: 10.5, color: "var(--muted-foreground)", whiteSpace: "nowrap" }}>
-              ✓ Verificado
-            </div>
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 4,
+                fontSize: 10.5,
+                fontWeight: 500,
+                color: "var(--primary)",
+                background: "color-mix(in srgb, var(--primary) 10%, transparent)",
+                border: "1px solid color-mix(in srgb, var(--primary) 22%, transparent)",
+                borderRadius: 999,
+                padding: "2px 8px",
+                whiteSpace: "nowrap",
+              }}
+            >
+              ✓ {r.tipo === "profesional" ? "Profesional Verificado" : "Entidad Verificada"}
+            </span>
           )}
         </div>
         <div style={{ fontSize: 12, color: "var(--muted-foreground)", marginTop: 3 }}>{r.identidad}</div>
