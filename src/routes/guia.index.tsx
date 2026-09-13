@@ -47,11 +47,12 @@ function GuiaPracticas() {
   return (
     <div style={{ fontFamily: MONO, background: "var(--muted)", color: "var(--foreground)", minHeight: "100vh" }}>
       <style>{`
-        .guia-indice { column-count: 4; column-gap: 28px; }
-        @media (max-width: 900px) { .guia-indice { column-count: 2; } }
-        @media (max-width: 560px) { .guia-indice { column-count: 1; } }
-        .guia-bloque { break-inside: avoid; margin-bottom: 18px; }
-        .guia-letra { font-size: 14px; letter-spacing: 2px; color: var(--foreground); border-bottom: 1px solid var(--border); padding-bottom: 4px; margin: 0 0 8px 0; }
+        .guia-indice { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; align-items: start; }
+        @media (max-width: 900px) { .guia-indice { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 560px) { .guia-indice { grid-template-columns: 1fr; } }
+        .guia-bloque { margin-bottom: 26px; }
+        .guia-bloque:last-child { margin-bottom: 0; }
+        .guia-letra { font-size: 14px; letter-spacing: 2px; color: var(--foreground); border-bottom: 1px solid var(--border); padding-bottom: 4px; margin: 0 0 7px 0; }
         .guia-link { color: var(--foreground); text-decoration: none; font-size: 13px; line-height: 2; display: block; }
         .guia-link:hover { color: var(--foreground); text-decoration: underline; text-decoration-color: var(--border); text-underline-offset: 3px; }
       `}</style>
