@@ -245,7 +245,15 @@ function Confianza() {
       {/* Degradado horizontal progresivo: imagen visible a la izquierda → crema integrado a la derecha */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-10"
+        className="pointer-events-none absolute inset-0 z-10 md:hidden"
+        style={{
+          background:
+            "linear-gradient(90deg, color-mix(in oklab, var(--cream) 52%, transparent) 0%, color-mix(in oklab, var(--cream) 70%, transparent) 42%, color-mix(in oklab, var(--cream) 92%, transparent) 74%, var(--cream) 100%), linear-gradient(180deg, color-mix(in oklab, var(--cream) 34%, transparent) 0%, color-mix(in oklab, var(--cream) 68%, transparent) 100%)",
+        }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-10 hidden md:block"
         style={{
           background:
             "linear-gradient(90deg, transparent 0%, color-mix(in oklab, var(--cream) 8%, transparent) 10%, color-mix(in oklab, var(--cream) 28%, transparent) 22%, color-mix(in oklab, var(--cream) 58%, transparent) 34%, color-mix(in oklab, var(--cream) 86%, transparent) 45%, var(--cream) 55%, var(--cream) 100%)",
