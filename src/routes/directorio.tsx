@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { CSSProperties, ReactNode } from "react";
-import { Check, SlidersHorizontal, X } from "lucide-react";
+import { SlidersHorizontal, X } from "lucide-react";
 import { Chips, Foto, Placeholder, Retrato, Seccion } from "@/components/ficha/primitives";
 import { ambienteDe, retratoDe } from "@/data/imagenes";
 
@@ -39,9 +39,6 @@ export const Route = createFileRoute("/directorio")({
 });
 
 const MONO = "var(--font-body)";
-
-
-const MUNICIPIOS = ["Todos los municipios", ...MUNICIPIOS_MALLORCA];
 
 
 const MODALIDADES = ["Presencial", "Online", "A domicilio", "A distancia"];
