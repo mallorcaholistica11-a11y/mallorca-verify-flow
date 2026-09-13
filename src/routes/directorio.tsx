@@ -204,27 +204,33 @@ function Filtros({
             </select>
           </Campo>
           <Campo label="Práctica">
-            <CampoCatalogo
+            <CampoCatalogoUnico
               tipo="practicas"
               query={qPractica}
               onQuery={setQPractica}
               placeholder="Buscar una práctica..."
-              abierto={catalogo === "practicas"}
-              onToggle={() => abrir("practicas")}
-              seleccion={practicas}
-              onQuitar={togglePractica}
+              onAbrir={() => setCatalogo("practicas")}
+              seleccion={practica}
+              onSeleccionar={(v) => {
+                onPractica(v);
+                setQPractica("");
+              }}
+              onQuitar={() => onPractica(null)}
             />
           </Campo>
           <Campo label="Áreas de acompañamiento">
-            <CampoCatalogo
+            <CampoCatalogoUnico
               tipo="areas"
               query={qArea}
               onQuery={setQArea}
               placeholder="Buscar por necesidad..."
-              abierto={catalogo === "areas"}
-              onToggle={() => abrir("areas")}
-              seleccion={areas}
-              onQuitar={toggleArea}
+              onAbrir={() => setCatalogo("areas")}
+              seleccion={area}
+              onSeleccionar={(v) => {
+                onArea(v);
+                setQArea("");
+              }}
+              onQuitar={() => onArea(null)}
             />
           </Campo>
           <Campo label="Ubicación">
