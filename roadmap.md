@@ -12,6 +12,6 @@
 - [x] Mejorar jerarquía, acciones condicionales y verificación de la ficha de Profesional Verificado.
 - [x] Organizar ubicaciones, mapa y separadores editoriales sin mostrar bloques vacíos.
 - [x] Verificar la ficha de Profesional Verificado en escritorio y móvil.
-- [ ] Mejorar jerarquía, acciones condicionales y verificación de la ficha de Entidad Verificada.
-- [ ] Organizar ubicaciones, separadores y eliminación del CTA final redundante de la entidad.
-- [ ] Verificar la ficha de Entidad Verificada en escritorio y móvil.
+- [x] Mejorar jerarquía, acciones condicionales y verificación de la ficha de Entidad Verificada.
+- [x] Organizar ubicaciones, separadores y eliminación del CTA final redundante de la entidad.
+- [x] Verificar la ficha de Entidad Verificada en escritorio y móvil.
