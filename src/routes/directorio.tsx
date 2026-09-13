@@ -103,7 +103,7 @@ function Directorio() {
   const resultados = aplicarFiltros(PERFILES, filtros, q, lugar);
 
   return (
-    <div style={{ fontFamily: MONO, background: "var(--muted)", color: "var(--foreground)", minHeight: "100vh" }}>
+    <div style={{ fontFamily: MONO, background: "var(--muted)", color: "var(--foreground)", minHeight: "auto" }}>
       <NavPublica isMobile={isMobile} activo="Directorio de Profesionales" />
 
       <main style={{ maxWidth: 1080, margin: "0 auto", padding: isMobile ? "0 16px" : "0 24px" }}>
@@ -127,7 +127,7 @@ function Directorio() {
 
       <footer
         style={{
-          marginTop: 40,
+          marginTop: 24,
           padding: 24,
           borderTop: "1px solid var(--border)",
           fontSize: 11,
