@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import heroAlmendro from "@/assets/hero-almendro-original.jpg.asset.json";
 import { Chips, Foto, Retrato, Seccion } from "@/components/ficha/primitives";
 import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
@@ -61,7 +62,7 @@ export function HomeMvpPage() {
       <NavPublica isMobile={isMobile} activo="Inicio" />
 
       <main className="mx-auto max-w-[1080px] px-4 md:px-6">
-        <Hero isMobile={isMobile} />
+        <Hero />
         <BuscadorIA isMobile={isMobile} />
         <BusquedaClasica isMobile={isMobile} />
         <Confianza isMobile={isMobile} />
@@ -86,33 +87,37 @@ function Bloque({ children, id }: { children: ReactNode; id?: string }) {
   );
 }
 
-function Hero({ isMobile }: { isMobile: boolean }) {
+function Hero() {
   return (
-    <section className="relative py-10 md:py-16">
-      {/* Fondo fotográfico muy suave, decorativo */}
+    <section className="relative -mx-4 min-h-[520px] overflow-hidden px-6 py-12 sm:min-h-[500px] sm:px-10 sm:py-16 md:-mx-6 md:min-h-[490px] md:px-14 md:py-20 lg:px-16">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-[-24px] top-0 -z-10 h-[70%] rounded-b-[40px] opacity-[0.16]"
+        className="pointer-events-none absolute inset-0 -z-20 bg-cover bg-[position:58%_center] sm:bg-[position:54%_center] md:bg-center"
         style={{
-          backgroundImage: `url(${IMG.heroBotanico})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center 30%",
-          maskImage: "linear-gradient(to bottom, black, transparent)",
-          WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
+          backgroundImage: `url(${heroAlmendro.url})`,
         }}
       />
-      <div className="grid items-center gap-10 md:grid-cols-[1.05fr_0.95fr] md:gap-14">
-        <div className="min-w-0">
-          <div className="mb-4 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.18em] text-sage-dark">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          background:
+            "linear-gradient(90deg, var(--background) 0%, color-mix(in oklab, var(--background) 97%, transparent) 34%, color-mix(in oklab, var(--background) 80%, transparent) 55%, color-mix(in oklab, var(--background) 20%, transparent) 82%, transparent 100%), linear-gradient(180deg, color-mix(in oklab, var(--background) 38%, transparent) 0%, transparent 48%, color-mix(in oklab, var(--background) 18%, transparent) 100%)",
+        }}
+      />
+      <div className="relative flex min-h-[424px] items-start sm:min-h-[372px] md:min-h-[330px] md:items-center">
+        <div className="max-w-[670px] min-w-0 pt-2 sm:pt-0">
+          <div className="mb-5 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.18em] text-sage-dark">
             <span className="h-px w-8 bg-sage-light" />
             Mallorca Holística
           </div>
-          <h1 className="mb-6 max-w-xl font-display text-[1.6rem] font-normal leading-[1.35] tracking-[-0.015em] text-charcoal md:text-[2.35rem] md:leading-[1.3]">
-            Salud integrativa · Terapias complementarias
-            <br />
-            <span className="text-sage-dark">Medicina natural · Bienestar · Desarrollo personal</span>
+          <h1 className="mb-7 max-w-[650px] font-display text-[2rem] font-normal leading-[1.2] text-charcoal sm:text-[2.45rem] md:text-[3rem] md:leading-[1.18]">
+            <span className="block">Salud integrativa · Terapias complementarias</span>
+            <span className="mt-2 block text-sage-dark">
+              Medicina tradicional · Bienestar · Desarrollo personal
+            </span>
           </h1>
-          <p className="mb-6 max-w-sm font-display text-sm italic leading-relaxed text-muted-foreground md:text-[0.95rem]">
+          <p className="mb-6 max-w-md font-display text-[0.95rem] italic leading-relaxed text-muted-foreground md:text-base">
             Toda persona merece sentirse escuchada, comprendida y acompañada.
           </p>
           <p className="mb-3 max-w-md text-sm leading-relaxed text-muted-foreground">
@@ -121,19 +126,6 @@ function Hero({ isMobile }: { isMobile: boolean }) {
           <p className="text-sm font-semibold text-foreground">
             Al servicio de las personas y del cuidado.
           </p>
-        </div>
-        <div className="relative min-w-0">
-          <Foto
-            src={IMG.heroBotanico}
-            alt="Rama de almendro en flor sobre un muro de piedra con luz mediterránea"
-            alto={isMobile ? 260 : 440}
-            radio={20}
-            prioridad
-          />
-          <div
-            aria-hidden
-            className="absolute -bottom-5 -left-5 hidden h-24 w-24 rounded-full border border-sage-light/60 md:block"
-          />
         </div>
       </div>
     </section>
