@@ -63,16 +63,43 @@ export function BuscadorSimple({
     onBuscar(texto.trim(), lugar.trim());
   };
 
+  const estiloInput = unificado ? inputUnificadoStyle : inputStyle;
+
   return (
     <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: isMobile ? "1fr" : "minmax(0,1.4fr) minmax(0,1fr) auto",
-        gap: 10,
-        position: "relative",
-      }}
+      style={
+        unificado
+          ? {
+              display: "grid",
+              gridTemplateColumns: isMobile ? "1fr" : "minmax(0,1.4fr) minmax(0,1fr) auto",
+              alignItems: "center",
+              position: "relative",
+              background: "var(--card)",
+              border: "1px solid var(--border)",
+              borderRadius: 999,
+              boxShadow: "var(--shadow-soft)",
+              padding: isMobile ? "10px 12px" : "6px 6px 6px 8px",
+              gap: isMobile ? 4 : 0,
+            }
+          : {
+              display: "grid",
+              gridTemplateColumns: isMobile ? "1fr" : "minmax(0,1.4fr) minmax(0,1fr) auto",
+              gap: 10,
+              position: "relative",
+            }
+      }
     >
-      <div style={{ position: "relative", minWidth: 0 }}>
+      <div
+        style={{
+          position: "relative",
+          minWidth: 0,
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          paddingLeft: unificado ? 10 : 0,
+        }}
+      >
+        {unificado && <Leaf size={16} strokeWidth={1.75} style={{ color: "var(--primary)", flexShrink: 0 }} aria-hidden />}
         <input
           type="text"
           value={q}
@@ -86,7 +113,7 @@ export function BuscadorSimple({
           onKeyDown={(e) => {
             if (e.key === "Enter") lanzar(q);
           }}
-          style={inputStyle}
+          style={estiloInput}
         />
         {abierto && grupos.length > 0 && (
           <div style={sugerenciasStyle}>
