@@ -127,7 +127,7 @@ function Directorio() {
 
       <footer
         style={{
-          marginTop: 80,
+          marginTop: 40,
           padding: 24,
           borderTop: "1px solid var(--border)",
           fontSize: 11,
@@ -147,7 +147,7 @@ function Bloque({ children, top = 56 }: { children: ReactNode; top?: number }) {
 
 function Hero({ isMobile }: { isMobile: boolean }) {
   return (
-    <section style={{ padding: isMobile ? "22px 0 10px" : "26px 0 12px" }}>
+    <section style={{ padding: isMobile ? "18px 0 8px" : "20px 0 10px" }}>
       <div style={{ maxWidth: 860 }}>
         <div style={{ fontSize: 10, letterSpacing: 2, color: "var(--muted-foreground)", marginBottom: 5 }}>DIRECTORIO</div>
         <h1 style={{ fontSize: isMobile ? 21 : 24, lineHeight: 1.2, margin: "0 0 6px 0", fontWeight: 600 }}>
@@ -175,7 +175,7 @@ function Buscador({
   onBuscar: (q: string, lugar: string) => void;
 }) {
   return (
-    <section style={{ padding: "8px 0 0" }}>
+    <section style={{ padding: "6px 0 0" }}>
       <Seccion>
         <BuscadorSimple
           key={`${q}|${lugar}`}
@@ -249,13 +249,13 @@ function Filtros({
   }, [abierto, catalogo]);
 
   return (
-    <section style={{ padding: "10px 0 0" }}>
+    <section style={{ padding: "8px 0 0" }}>
       <div
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
-          gap: 12,
+          justifyContent: "flex-start",
+          gap: 14,
         }}
       >
         <button
@@ -318,7 +318,7 @@ function Filtros({
                     {([
                       ["todos", "Todos"],
                       ["profesional", "Profesionales"],
-                      ["organizacion", "Organizaciones"],
+                      ["organizacion", "Centros / Espacios"],
                     ] as const).map(([valor, texto]) => (
                       <button
                         key={valor}
@@ -471,13 +471,6 @@ function Resultados({ isMobile, resultados }: { isMobile: boolean; resultados: R
               El mapa sirve únicamente para orientarte sobre la zona de los resultados.
             </div>
           </div>
-          <div style={{ border: "1px solid var(--border)", borderRadius: 12, background: "var(--card)", padding: 14 }}>
-            <div style={{ fontSize: 12, fontWeight: 600, marginBottom: 6 }}>¿No encuentras lo que buscas?</div>
-            <div style={{ fontSize: 12, color: "var(--muted-foreground)", lineHeight: 1.7 }}>
-              Prueba a utilizar menos filtros o explora directamente en el mapa.
-            </div>
-            <div style={{ fontSize: 12, color: "var(--foreground)", marginTop: 10 }}>Limpiar filtros →</div>
-          </div>
           <div style={{ display: "grid", gap: 12, marginTop: 8 }}>
             {DESCUBRE.map((d) => (
               <div key={d.titulo} style={{ border: "1px solid var(--border)", borderRadius: 12, background: "var(--card)", padding: 16 }}>
@@ -491,7 +484,7 @@ function Resultados({ isMobile, resultados }: { isMobile: boolean; resultados: R
         </div>
       </div>
 
-      <div style={{ marginTop: 40, fontSize: 11, color: "var(--muted-foreground)" }}>
+      <div style={{ marginTop: 24, fontSize: 11, color: "var(--muted-foreground)" }}>
         <Link to="/inicio-tecnico" style={{ color: "var(--muted-foreground)" }}>
           ← Volver al índice del wireframe
         </Link>
@@ -549,15 +542,15 @@ function TarjetaResultado({ r, isMobile }: { r: Resultado; isMobile: boolean }) 
 
       <div style={{ minWidth: 0 }}>
         <div style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
-          <div style={{ fontSize: 14, fontWeight: 600 }}>{r.nombre}</div>
+          <div style={{ fontSize: 15, fontWeight: 600, letterSpacing: "-0.01em" }}>{r.nombre}</div>
           {r.verificado && (
-            <div style={{ fontSize: 11, color: "var(--primary)", whiteSpace: "nowrap" }}>
-              ✓ Verificado por Mallorca Holística
+            <div style={{ fontSize: 10.5, color: "var(--muted-foreground)", whiteSpace: "nowrap" }}>
+              ✓ Verificado
             </div>
           )}
         </div>
-        <div style={{ fontSize: 12, color: "var(--muted-foreground)", marginTop: 4 }}>{r.identidad}</div>
-        <div style={{ fontSize: 12, color: "var(--muted-foreground)", marginTop: 2, marginBottom: 10 }}>📍 {r.ubicacion}</div>
+        <div style={{ fontSize: 12, color: "var(--muted-foreground)", marginTop: 3 }}>{r.identidad}</div>
+        <div style={{ fontSize: 12, color: "var(--muted-foreground)", marginTop: 2, marginBottom: 10 }}>{r.ubicacion}</div>
         <Chips items={r.especialidades.slice(0, 3)} />
       </div>
 
