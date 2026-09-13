@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Award, Scale, ShieldCheck, UserRoundCheck } from "lucide-react";
+import { Award, BookOpen, CalendarDays, Leaf, Scale, ShieldCheck, UserRoundCheck } from "lucide-react";
 import type { ReactNode } from "react";
 import heroAlmendro from "@/assets/hero-almendro-original.jpg.asset.json";
 import { Chips, Retrato, Seccion } from "@/components/ficha/primitives";
@@ -53,10 +53,35 @@ const PROFESIONALES = [
 ];
 
 const DESCUBRE = [
-  { titulo: "📅 Agenda de Actividades", enlace: "Ver agenda →", to: "/agenda" },
-  { titulo: "📖 Guía de Prácticas", enlace: "Explorar guía →", to: "/guia" },
-  { titulo: "🌿 Blog", enlace: "Próximamente", to: "/blog" },
+  {
+    titulo: "Agenda de Actividades",
+    descripcion: "Talleres, retiros y encuentros para tu bienestar.",
+    enlace: "Ver agenda →",
+    to: "/agenda",
+    icono: CalendarDays,
+    fondo: "bg-pastel-cream",
+    colorIcono: "text-terracotta",
+  },
+  {
+    titulo: "Guía de Prácticas",
+    descripcion: "Descubre las prácticas que pueden acompañarte.",
+    enlace: "Explorar guía →",
+    to: "/guia",
+    icono: BookOpen,
+    fondo: "bg-pastel-sage",
+    colorIcono: "text-sage-dark",
+  },
+  {
+    titulo: "Blog",
+    descripcion: null,
+    enlace: "Próximamente",
+    to: "/blog",
+    icono: Leaf,
+    fondo: "bg-pastel-sky",
+    colorIcono: "text-dusty-blue",
+  },
 ];
+
 
 export function HomeMvpPage() {
   const isMobile = useMobile(900);
@@ -305,29 +330,39 @@ function Profesionales({ isMobile, isTablet }: { isMobile: boolean; isTablet: bo
 }
 
 function Descubre({ isMobile }: { isMobile: boolean }) {
-  const imagenes = [IMG.actividad1, IMG.guia, IMG.actividad3];
   return (
     <Bloque>
+      <h2 className="mb-7 text-center font-display text-xl font-normal md:text-2xl">
+        Descubre también
+      </h2>
       <div className={`grid gap-5 ${isMobile ? "grid-cols-1" : "grid-cols-3"}`}>
-        {DESCUBRE.map((d, i) => (
-          <div
-            key={d.titulo}
-            className="overflow-hidden rounded-2xl border border-border/70 bg-card transition-shadow hover:shadow-[var(--shadow-lift)]"
-          >
-            <img
-              src={imagenes[i % imagenes.length]}
-              alt=""
-              loading="lazy"
-              className="h-36 w-full object-cover"
-            />
-            <div className="p-5">
-              <div className="mb-3 font-display text-sm text-foreground">{d.titulo}</div>
-              <Link to={d.to as never} className="text-xs text-muted-foreground no-underline hover:text-primary">
+        {DESCUBRE.map((d) => {
+          const Icono = d.icono;
+          return (
+            <Link
+              key={d.titulo}
+              to={d.to as never}
+              className={`group flex flex-col rounded-2xl p-6 transition-shadow hover:shadow-[var(--shadow-soft)] ${d.fondo}`}
+            >
+              <Icono
+                aria-hidden="true"
+                className={`mb-4 size-6 ${d.colorIcono}`}
+                strokeWidth={1.4}
+              />
+              <h3 className="mb-2 font-display text-sm font-medium text-foreground">
+                {d.titulo}
+              </h3>
+              {d.descripcion && (
+                <p className="mb-4 text-xs leading-relaxed text-foreground/80">
+                  {d.descripcion}
+                </p>
+              )}
+              <span className="mt-auto pt-2 text-xs font-medium text-foreground/70 transition-colors group-hover:text-foreground">
                 {d.enlace}
-              </Link>
-            </div>
-          </div>
-        ))}
+              </span>
+            </Link>
+          );
+        })}
       </div>
 
       <div className="mt-8 text-xs text-muted-foreground">
@@ -338,3 +373,4 @@ function Descubre({ isMobile }: { isMobile: boolean }) {
     </Bloque>
   );
 }
+
