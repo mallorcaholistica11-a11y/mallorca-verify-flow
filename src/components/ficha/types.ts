@@ -8,6 +8,7 @@ export type Ubicacion = {
   direccion: string;
   municipio: string;
   principal?: boolean;
+  enlaceMapa?: string;
 };
 
 export type Tarifa = {
@@ -48,6 +49,7 @@ export type Opinion = {
 
 export type Contacto = {
   telefono?: string;
+  telefonoPublico?: boolean;
   email?: string;
   whatsapp?: string;
   web?: string;
@@ -77,6 +79,7 @@ export type FichaPublicaData = {
   actividades?: Actividad[];
   opiniones?: Opinion[];
   ubicaciones?: Ubicacion[];
+  zonaDomicilio?: string;
   contacto?: Contacto;
 };
 
