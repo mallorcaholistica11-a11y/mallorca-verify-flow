@@ -136,12 +136,10 @@ function Hero() {
 function BuscadorIA({ isMobile }: { isMobile: boolean }) {
   return (
     <Bloque>
-      <div
-        className="relative overflow-hidden rounded-[28px] border border-border/70 bg-card p-6 shadow-[var(--shadow-soft)] md:p-14"
-      >
+      <div className="relative overflow-hidden rounded-[32px] border border-champagne/60 bg-cream/70 p-8 shadow-[var(--shadow-champagne)] md:rounded-[40px] md:p-16 lg:p-20">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-[0.07]"
+          className="pointer-events-none absolute inset-0 opacity-[0.04]"
           style={{
             backgroundImage: `url(${IMG.detalle1})`,
             backgroundSize: "cover",
@@ -149,37 +147,38 @@ function BuscadorIA({ isMobile }: { isMobile: boolean }) {
           }}
         />
         <div className="relative">
+          <div className="mx-auto mb-10 max-w-xl text-center md:mb-14">
+            <h2 className="mb-4 font-display text-2xl font-semibold md:text-[1.875rem]">
+              ¿Cómo te sientes hoy?
+            </h2>
+            <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
+              Cuéntanos cómo te sientes o qué necesitas en este momento. Te ayudaremos a encontrar el
+              acompañamiento más adecuado para ti.
+            </p>
+          </div>
 
-        <div className="mx-auto mb-7 max-w-xl text-center">
-          <h2 className="mb-3 font-display text-xl font-semibold md:text-2xl">
-            ¿Cómo te sientes hoy?
-          </h2>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            Cuéntanos cómo te sientes o qué necesitas en este momento. Te ayudaremos a encontrar el
-            acompañamiento más adecuado para ti.
-          </p>
-        </div>
+          <div className="mx-auto max-w-2xl">
+            <div className="relative rounded-[24px] border border-border/80 bg-card p-5 md:rounded-[28px] md:p-8">
+              <textarea
+                placeholder="Escribe cómo te sientes, qué necesitas o qué te gustaría mejorar..."
+                className="h-auto min-h-[140px] w-full resize-none bg-transparent text-sm leading-relaxed text-foreground placeholder:text-muted-foreground focus:outline-none md:min-h-[170px] md:text-base"
+              />
+              <div className="mt-4 flex justify-end md:mt-6">
+                <button
+                  type="button"
+                  className="rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-sage-dark"
+                >
+                  Buscar
+                </button>
+              </div>
+            </div>
 
-        <div className="mx-auto flex max-w-2xl flex-col gap-3 md:flex-row">
-          <input
-            type="text"
-            placeholder="Escribe cómo te sientes, qué necesitas o qué te gustaría mejorar..."
-            className="w-full flex-1 rounded-md border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-          />
-          <button
-            type="button"
-            className="rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-sage-dark"
-          >
-            Buscar
-          </button>
-        </div>
-
-        <div className="mx-auto mt-6 flex max-w-2xl justify-center">
-          <Chips items={CHIPS} clicable />
-        </div>
+            <div className="mt-10 flex justify-center md:mt-14">
+              <Chips items={CHIPS} clicable gap={10} size="md" />
+            </div>
+          </div>
         </div>
       </div>
-
     </Bloque>
   );
 }
