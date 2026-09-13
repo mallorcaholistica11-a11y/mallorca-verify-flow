@@ -239,8 +239,8 @@ function Confianza() {
       {/* Fotografía de fondo: cubre toda la sección para que el degradado la funda con el fondo */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-0 bg-cover bg-[position:44%_center] md:bg-[length:auto_100%] md:bg-left md:bg-no-repeat"
-        style={{ backgroundImage: `url(${IMG.confianza})` }}
+        className="pointer-events-none absolute inset-0 z-0 bg-cover bg-[position:30%_center] md:bg-[length:auto_100%] md:bg-left md:bg-no-repeat"
+        style={{ backgroundImage: `url(${IMG.guia})` }}
       />
       {/* Degradado horizontal progresivo: imagen visible a la izquierda → crema integrado a la derecha */}
       <div
