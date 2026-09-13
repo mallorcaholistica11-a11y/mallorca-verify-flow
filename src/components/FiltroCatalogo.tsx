@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { areasPorLetra, buscarAreas } from "@/data/areas";
 import { buscarPracticas, practicasPorLetra } from "@/data/practicas";
 
@@ -171,6 +171,291 @@ export function PanelCatalogo({
     </div>
   );
 }
+
+/* --- Variante pública del Directorio: selección ÚNICA + catálogo en modal --- */
+
+export function CampoCatalogoUnico({
+  tipo,
+  query,
+  onQuery,
+  placeholder,
+  onAbrir,
+  seleccion,
+  onSeleccionar,
+  onQuitar,
+}: {
+  tipo: TipoCatalogo;
+  query: string;
+  onQuery: (v: string) => void;
+  placeholder: string;
+  onAbrir: () => void;
+  seleccion: string | null;
+  onSeleccionar: (v: string) => void;
+  onQuitar: () => void;
+}) {
+  const texto =
+    tipo === "practicas" ? "Explorar todas las prácticas →" : "Explorar todas las áreas →";
+
+  const sugerencias = useMemo(() => {
+    if (query.trim().length < 2) return [];
+    const items = tipo === "practicas" ? buscarPracticas(query) : buscarAreas(query);
+    return items.slice(0, 8);
+  }, [tipo, query]);
+
+  return (
+    <div style={{ minWidth: 0, position: "relative" }}>
+      {seleccion ? (
+        <div style={{ ...campoInput, display: "flex", alignItems: "center", gap: 8 }}>
+          <span
+            style={{
+              flex: 1,
+              minWidth: 0,
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {seleccion}
+          </span>
+          <button
+            type="button"
+            onClick={onQuitar}
+            aria-label={`Quitar ${seleccion}`}
+            style={{
+              border: "none",
+              background: "transparent",
+              cursor: "pointer",
+              fontSize: 11,
+              color: "var(--muted-foreground)",
+              padding: 0,
+            }}
+          >
+            ✕
+          </button>
+        </div>
+      ) : (
+        <>
+          <input
+            type="text"
+            value={query}
+            placeholder={placeholder}
+            onChange={(e) => onQuery(e.target.value)}
+            style={campoInput}
+          />
+          {sugerencias.length > 0 && (
+            <div
+              style={{
+                position: "absolute",
+                top: "calc(100% - 12px)",
+                left: 0,
+                right: 0,
+                zIndex: 30,
+                border: "1px solid var(--border)",
+                borderRadius: 12,
+                background: "var(--card)",
+                boxShadow: "var(--shadow-lift)",
+                padding: 4,
+                maxHeight: 240,
+                overflowY: "auto",
+              }}
+            >
+              {sugerencias.map((s) => (
+                <button
+                  key={s}
+                  type="button"
+                  onClick={() => onSeleccionar(s)}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    textAlign: "left",
+                    border: "none",
+                    background: "transparent",
+                    borderRadius: 8,
+                    padding: "6px 8px",
+                    fontSize: 12,
+                    fontFamily: "inherit",
+                    color: "var(--foreground)",
+                    cursor: "pointer",
+                  }}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          )}
+        </>
+      )}
+      <button type="button" onClick={onAbrir} style={enlaceExplorar}>
+        {texto}
+      </button>
+    </div>
+  );
+}
+
+export function ModalCatalogo({
+  tipo,
+  onSeleccionar,
+  onCerrar,
+  seleccion,
+}: {
+  tipo: TipoCatalogo;
+  onSeleccionar: (v: string) => void;
+  onCerrar: () => void;
+  seleccion: string | null;
+}) {
+  const [q, setQ] = useState("");
+  const lista = useMemo(() => grupos(tipo, q), [tipo, q]);
+  const titulo = tipo === "practicas" ? "Todas las prácticas" : "Todas las áreas de acompañamiento";
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onCerrar();
+    };
+    window.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [onCerrar]);
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={titulo}
+      onClick={onCerrar}
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 60,
+        background: "rgba(40, 38, 32, 0.35)",
+        backdropFilter: "blur(2px)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 16,
+      }}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          width: "min(980px, 100%)",
+          maxHeight: "82vh",
+          display: "flex",
+          flexDirection: "column",
+          border: "1px solid var(--border)",
+          borderRadius: 18,
+          background: "var(--card)",
+          boxShadow: "var(--shadow-lift)",
+          overflow: "hidden",
+        }}
+      >
+        <style>{`
+          .catalogo-modal-cols { column-count: 4; column-gap: 24px; }
+          @media (max-width: 900px) { .catalogo-modal-cols { column-count: 2; } }
+          @media (max-width: 560px) { .catalogo-modal-cols { column-count: 1; } }
+        `}</style>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 12,
+            padding: "14px 16px",
+            borderBottom: "1px solid var(--border)",
+          }}
+        >
+          <div style={{ fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: "var(--muted-foreground)" }}>
+            {titulo}
+          </div>
+          <button
+            type="button"
+            onClick={onCerrar}
+            aria-label="Cerrar"
+            style={{
+              border: "1px solid var(--border)",
+              borderRadius: 999,
+              background: "var(--card)",
+              padding: "4px 12px",
+              fontSize: 11,
+              fontFamily: "inherit",
+              color: "var(--muted-foreground)",
+              cursor: "pointer",
+            }}
+          >
+            ✕ Cerrar
+          </button>
+        </div>
+
+        <div style={{ padding: "12px 16px 0" }}>
+          <input
+            type="text"
+            autoFocus
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder={tipo === "practicas" ? "Buscar una práctica..." : "Buscar por necesidad..."}
+            style={campoInput}
+          />
+        </div>
+
+        <div style={{ overflowY: "auto", padding: 16 }}>
+          {lista.length === 0 ? (
+            <div style={{ padding: 6, fontSize: 12, color: "var(--muted-foreground)", fontStyle: "italic" }}>
+              [sin resultados para “{q}”]
+            </div>
+          ) : (
+            <div className="catalogo-modal-cols">
+              {lista.map((g) => (
+                <div key={g.letra} style={{ breakInside: "avoid", marginBottom: 12 }}>
+                  <div style={letraTitulo}>{g.letra}</div>
+                  {g.items.map((item) => (
+                    <button
+                      key={item}
+                      type="button"
+                      onClick={() => onSeleccionar(item)}
+                      style={{
+                        display: "block",
+                        width: "100%",
+                        textAlign: "left",
+                        border: "none",
+                        background: seleccion === item ? "var(--secondary)" : "transparent",
+                        borderRadius: 8,
+                        padding: "4px 6px",
+                        fontSize: 13,
+                        lineHeight: 1.6,
+                        fontFamily: "inherit",
+                        color: "var(--foreground)",
+                        cursor: "pointer",
+                        breakInside: "avoid",
+                      }}
+                    >
+                      {item}
+                    </button>
+                  ))}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const enlaceExplorar = {
+  marginTop: 6,
+  border: "none",
+  background: "transparent",
+  padding: 0,
+  fontSize: 11,
+  fontFamily: "inherit",
+  color: "var(--muted-foreground)",
+  cursor: "pointer",
+  textAlign: "left" as const,
+};
 
 const campoInput = {
   borderRadius: 10,

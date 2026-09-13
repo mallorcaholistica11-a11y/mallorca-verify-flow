@@ -5,7 +5,7 @@ import { ambienteDe, retratoDe } from "@/data/imagenes";
 
 import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
-import { CampoCatalogo, PanelCatalogo, type TipoCatalogo } from "@/components/FiltroCatalogo";
+import { CampoCatalogoUnico, ModalCatalogo, type TipoCatalogo } from "@/components/FiltroCatalogo";
 import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
 import { BuscadorSimple } from "@/components/BuscadorSimple";
 import { coincideLugar, coincidePerfil, PERFILES, type Resultado } from "@/data/perfiles";
@@ -54,11 +54,13 @@ function Directorio() {
   const isMobile = useMobile(900);
   const { q, lugar } = Route.useSearch();
   const navigate = Route.useNavigate();
-  // Filtro por Áreas de Acompañamiento · Catálogo Oficial (src/data/areas.ts)
-  const [areas, setAreas] = useState<string[]>([]);
+  // Directorio público: selección ÚNICA de práctica y de área (catálogos sin cambios).
+  const [area, setArea] = useState<string | null>(null);
+  const [practica, setPractica] = useState<string | null>(null);
   const resultados = PERFILES.filter(
     (r) =>
-      (areas.length === 0 || areas.some((a) => r.areas.includes(a))) &&
+      (area === null || r.areas.includes(area)) &&
+      (practica === null || r.especialidades.includes(practica)) &&
       coincidePerfil(r, q) &&
       coincideLugar(r, lugar),
   );
@@ -75,7 +77,13 @@ function Directorio() {
           lugar={lugar}
           onBuscar={(nq, nlugar) => navigate({ search: { q: nq, lugar: nlugar } })}
         />
-        <Filtros isMobile={isMobile} areas={areas} onAreas={setAreas} />
+        <Filtros
+          isMobile={isMobile}
+          area={area}
+          onArea={setArea}
+          practica={practica}
+          onPractica={setPractica}
+        />
         <Resultados isMobile={isMobile} resultados={resultados} />
       </main>
 
@@ -145,28 +153,25 @@ function Buscador({
 
 function Filtros({
   isMobile,
-  areas,
-  onAreas,
+  area,
+  onArea,
+  practica,
+  onPractica,
 }: {
   isMobile: boolean;
-  areas: string[];
-  onAreas: (v: string[]) => void;
+  area: string | null;
+  onArea: (v: string | null) => void;
+  practica: string | null;
+  onPractica: (v: string | null) => void;
 }) {
-  // Un único catálogo expandido a la vez, siempre a ancho completo.
+  // El catálogo completo se abre en modal superpuesto (no expande la página).
   const [catalogo, setCatalogo] = useState<TipoCatalogo | null>(null);
-  const [practicas, setPracticas] = useState<string[]>([]);
   const [qPractica, setQPractica] = useState("");
   const [qArea, setQArea] = useState("");
 
-  const abrir = (t: TipoCatalogo) => setCatalogo((c) => (c === t ? null : t));
-  const togglePractica = (p: string) =>
-    setPracticas(practicas.includes(p) ? practicas.filter((x) => x !== p) : [...practicas, p]);
-  const toggleArea = (a: string) =>
-    onAreas(areas.includes(a) ? areas.filter((x) => x !== a) : [...areas, a]);
-
   const limpiar = () => {
-    setPracticas([]);
-    onAreas([]);
+    onPractica(null);
+    onArea(null);
     setQPractica("");
     setQArea("");
     setCatalogo(null);
@@ -178,9 +183,9 @@ function Filtros({
         style={{
           border: "1px solid var(--border)", borderRadius: 12,
           background: "var(--card)",
-          padding: isMobile ? 14 : 18,
+          padding: isMobile ? 12 : 14,
           display: "grid",
-          gap: 14,
+          gap: 10,
         }}
       >
         <div
@@ -199,27 +204,33 @@ function Filtros({
             </select>
           </Campo>
           <Campo label="Práctica">
-            <CampoCatalogo
+            <CampoCatalogoUnico
               tipo="practicas"
               query={qPractica}
               onQuery={setQPractica}
               placeholder="Buscar una práctica..."
-              abierto={catalogo === "practicas"}
-              onToggle={() => abrir("practicas")}
-              seleccion={practicas}
-              onQuitar={togglePractica}
+              onAbrir={() => setCatalogo("practicas")}
+              seleccion={practica}
+              onSeleccionar={(v) => {
+                onPractica(v);
+                setQPractica("");
+              }}
+              onQuitar={() => onPractica(null)}
             />
           </Campo>
           <Campo label="Áreas de acompañamiento">
-            <CampoCatalogo
+            <CampoCatalogoUnico
               tipo="areas"
               query={qArea}
               onQuery={setQArea}
               placeholder="Buscar por necesidad..."
-              abierto={catalogo === "areas"}
-              onToggle={() => abrir("areas")}
-              seleccion={areas}
-              onQuitar={toggleArea}
+              onAbrir={() => setCatalogo("areas")}
+              seleccion={area}
+              onSeleccionar={(v) => {
+                onArea(v);
+                setQArea("");
+              }}
+              onQuitar={() => onArea(null)}
             />
           </Campo>
           <Campo label="Ubicación">
@@ -240,11 +251,19 @@ function Filtros({
         </div>
 
         {catalogo && (
-          <PanelCatalogo
+          <ModalCatalogo
             tipo={catalogo}
-            query={catalogo === "practicas" ? qPractica : qArea}
-            seleccion={catalogo === "practicas" ? practicas : areas}
-            onToggleItem={catalogo === "practicas" ? togglePractica : toggleArea}
+            seleccion={catalogo === "practicas" ? practica : area}
+            onSeleccionar={(v) => {
+              if (catalogo === "practicas") {
+                onPractica(v);
+                setQPractica("");
+              } else {
+                onArea(v);
+                setQArea("");
+              }
+              setCatalogo(null);
+            }}
             onCerrar={() => setCatalogo(null)}
           />
         )}
@@ -255,17 +274,26 @@ function Filtros({
             flexWrap: "wrap",
             alignItems: "center",
             justifyContent: "space-between",
-            gap: 12,
+            gap: 10,
           }}
         >
-          <label style={{ fontSize: 12, color: "var(--foreground)", display: "flex", alignItems: "center", gap: 8 }}>
+          <label style={{ fontSize: 11.5, color: "var(--muted-foreground)", display: "flex", alignItems: "center", gap: 8 }}>
             <input type="checkbox" />
             Solo perfiles verificados
           </label>
           <button
             type="button"
             onClick={limpiar}
-            style={{ ...selectStyle, width: "auto", cursor: "pointer", whiteSpace: "nowrap", color: "var(--muted-foreground)" }}
+            style={{
+              border: "none",
+              background: "transparent",
+              padding: 0,
+              fontSize: 11.5,
+              fontFamily: "inherit",
+              color: "var(--muted-foreground)",
+              cursor: "pointer",
+              whiteSpace: "nowrap",
+            }}
           >
             ↺ Limpiar filtros
           </button>
