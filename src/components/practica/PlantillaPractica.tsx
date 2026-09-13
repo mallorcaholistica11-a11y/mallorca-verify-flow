@@ -49,7 +49,7 @@ export function PlantillaPractica({
         </Link>
 
         {/* Hero */}
-        <header style={{ margin: "20px 0 28px 0" }}>
+        <header style={{ margin: "20px 0 16px 0" }}>
           <h1 style={{ fontSize: isMobile ? 24 : 30, margin: "0 0 10px 0", lineHeight: 1.25 }}>
             {contenido.nombre}
           </h1>
@@ -61,25 +61,10 @@ export function PlantillaPractica({
           )}
 
           {contenido.definicionBreve && (
-            <p style={{ fontSize: 14, lineHeight: 1.8, margin: "0 0 16px 0", color: "var(--foreground)" }}>
+            <p style={{ fontSize: 14, lineHeight: 1.8, margin: 0, color: "var(--foreground)" }}>
               {contenido.definicionBreve}
             </p>
           )}
-
-          <a
-            href={urlDirectorio}
-            style={{
-              display: "inline-block",
-              border: "1px solid var(--foreground)",
-              background: "var(--foreground)",
-              color: "var(--card)",
-              padding: "10px 18px",
-              fontSize: 13,
-              textDecoration: "none",
-            }}
-          >
-            Encontrar profesionales
-          </a>
         </header>
 
         <BloqueTexto titulo="¿Qué es?" texto={contenido.queEs} />
