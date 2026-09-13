@@ -394,6 +394,21 @@ function Filtros({
                 </Campo>
 
                 <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 18 }}>
+                  <Campo label="Fecha">
+                    <input type="date" style={selectStyle} value={borrador.fecha} onChange={(event) => setBorrador({ ...borrador, fecha: event.target.value })} />
+                  </Campo>
+                  <Campo label="Municipio">
+                    <select style={selectStyle} value={borrador.municipio} onChange={(event) => setBorrador({ ...borrador, municipio: event.target.value })}>
+                      <option value="">Todos los municipios</option>
+                      {MUNICIPIOS_MALLORCA.map((municipio) => <option key={municipio}>{municipio}</option>)}
+                    </select>
+                  </Campo>
+                  <Campo label="Modalidad">
+                    <select style={selectStyle} value={borrador.modalidad} onChange={(event) => setBorrador({ ...borrador, modalidad: event.target.value })}>
+                      <option value="">Todas</option>
+                      {MODALIDADES.map((modalidad) => <option key={modalidad}>{modalidad}</option>)}
+                    </select>
+                  </Campo>
                   <Campo label="Práctica">
                     <CampoCatalogoUnico
                       tipo="practicas"
@@ -423,21 +438,6 @@ function Filtros({
                       }}
                       onQuitar={() => setBorrador({ ...borrador, area: null })}
                     />
-                  </Campo>
-                  <Campo label="Fecha">
-                    <input type="date" style={selectStyle} value={borrador.fecha} onChange={(event) => setBorrador({ ...borrador, fecha: event.target.value })} />
-                  </Campo>
-                  <Campo label="Municipio">
-                    <select style={selectStyle} value={borrador.municipio} onChange={(event) => setBorrador({ ...borrador, municipio: event.target.value })}>
-                      <option value="">Todos los municipios</option>
-                      {MUNICIPIOS_MALLORCA.map((municipio) => <option key={municipio}>{municipio}</option>)}
-                    </select>
-                  </Campo>
-                  <Campo label="Modalidad">
-                    <select style={selectStyle} value={borrador.modalidad} onChange={(event) => setBorrador({ ...borrador, modalidad: event.target.value })}>
-                      <option value="">Todas</option>
-                      {MODALIDADES.map((modalidad) => <option key={modalidad}>{modalidad}</option>)}
-                    </select>
                   </Campo>
                   <Campo label="Idioma">
                     <select style={selectStyle} value={borrador.idioma} onChange={(event) => setBorrador({ ...borrador, idioma: event.target.value })}>
