@@ -2,6 +2,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { Award, BookOpen, CalendarDays, Leaf, Scale, ShieldCheck, UserRoundCheck } from "lucide-react";
 import type { ReactNode } from "react";
 import heroAlmendro from "@/assets/hero-almendro-original.jpg.asset.json";
+import olivoHojas from "@/assets/olivo-hojas.jpg.asset.json";
 import { Chips, Retrato, Seccion } from "@/components/ficha/primitives";
 import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
