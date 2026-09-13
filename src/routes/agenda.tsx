@@ -497,7 +497,7 @@ function NavegacionTemporal({ isMobile }: { isMobile: boolean }) {
   const [activo, setActivo] = useState("Esta semana");
 
   return (
-    <Bloque top={16}>
+    <Bloque top={28}>
       <div
         style={{
           display: "flex",
