@@ -60,32 +60,16 @@ function GuiaPracticas() {
 
       <main style={{ maxWidth: 1080, margin: "0 auto", padding: isMobile ? "0 16px" : "0 24px" }}>
         {/* Hero */}
-        <section style={{ padding: isMobile ? "24px 0" : "36px 0" }}>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: isMobile ? "1fr" : "minmax(0,1.2fr) minmax(0,1fr)",
-              gap: 20,
-              alignItems: "center",
-            }}
-          >
-            <div>
-              <h1 style={{ fontSize: isMobile ? 22 : 26, margin: "0 0 12px 0", lineHeight: 1.3 }}>
-                Guía de Prácticas
-              </h1>
-              <p style={{ fontSize: 14, lineHeight: 1.7, margin: "0 0 10px 0" }}>
-                Busca directamente la práctica que te interese o recórrela de la A a la Z. Haz clic
-                en cualquiera para descubrir en qué consiste y encontrar profesionales que la
-                ofrecen.
-              </p>
-            </div>
-            <Foto
-              src={IMG.guia}
-              alt="Jarrón de cerámica con ramas de olivo y luz mediterránea"
-              alto={isMobile ? 160 : 220}
-              radio={18}
-            />
-
+        <section style={{ padding: isMobile ? "16px 0 12px" : "20px 0 14px" }}>
+          <div style={{ maxWidth: 720 }}>
+            <h1 style={{ fontSize: isMobile ? 22 : 26, margin: "0 0 8px 0", lineHeight: 1.25 }}>
+              Guía de Prácticas
+            </h1>
+            <p style={{ fontSize: 14, lineHeight: 1.65, margin: 0 }}>
+              Busca directamente la práctica que te interese o recórrela de la A a la Z. Haz clic
+              en cualquiera para descubrir en qué consiste y encontrar profesionales que la
+              ofrecen.
+            </p>
           </div>
         </section>
 
