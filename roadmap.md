@@ -9,3 +9,6 @@
 - [x] Verificar que la nueva continuidad visual se perciba en escritorio y móvil.
 - [x] Compactar la cabecera y búsqueda del Directorio y trasladar todos sus filtros a un modal.
 - [x] Verificar selección única, aplicación diferida y vistas de escritorio y móvil del Directorio.
+- [x] Mejorar jerarquía, acciones condicionales y verificación de la ficha de Profesional Verificado.
+- [x] Organizar ubicaciones, mapa y separadores editoriales sin mostrar bloques vacíos.
+- [x] Verificar la ficha de Profesional Verificado en escritorio y móvil.
