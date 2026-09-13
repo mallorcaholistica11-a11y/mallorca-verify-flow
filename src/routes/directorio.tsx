@@ -153,28 +153,25 @@ function Buscador({
 
 function Filtros({
   isMobile,
-  areas,
-  onAreas,
+  area,
+  onArea,
+  practica,
+  onPractica,
 }: {
   isMobile: boolean;
-  areas: string[];
-  onAreas: (v: string[]) => void;
+  area: string | null;
+  onArea: (v: string | null) => void;
+  practica: string | null;
+  onPractica: (v: string | null) => void;
 }) {
-  // Un único catálogo expandido a la vez, siempre a ancho completo.
+  // El catálogo completo se abre en modal superpuesto (no expande la página).
   const [catalogo, setCatalogo] = useState<TipoCatalogo | null>(null);
-  const [practicas, setPracticas] = useState<string[]>([]);
   const [qPractica, setQPractica] = useState("");
   const [qArea, setQArea] = useState("");
 
-  const abrir = (t: TipoCatalogo) => setCatalogo((c) => (c === t ? null : t));
-  const togglePractica = (p: string) =>
-    setPracticas(practicas.includes(p) ? practicas.filter((x) => x !== p) : [...practicas, p]);
-  const toggleArea = (a: string) =>
-    onAreas(areas.includes(a) ? areas.filter((x) => x !== a) : [...areas, a]);
-
   const limpiar = () => {
-    setPracticas([]);
-    onAreas([]);
+    onPractica(null);
+    onArea(null);
     setQPractica("");
     setQArea("");
     setCatalogo(null);
