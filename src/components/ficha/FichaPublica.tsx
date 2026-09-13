@@ -5,7 +5,6 @@ import {
   Chips,
   ChipsPracticas,
   LineaTexto,
-  Placeholder,
   Seccion,
 } from "@/components/ficha/primitives";
 import { GALERIA_DEMO, retratoDe } from "@/data/imagenes";
@@ -153,8 +152,9 @@ function Hero({
           )}
 
           {anios !== null && (
-            <div style={{ fontSize: 13, marginBottom: 6 }}>
-              ✨ Más de {anios} años acompañando personas
+            <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, marginBottom: 6 }}>
+              <span aria-hidden="true" style={{ color: "var(--terracotta)" }}>✦</span>
+              <span>Más de {anios} años acompañando personas</span>
             </div>
           )}
 
@@ -296,9 +296,20 @@ function BarraLateral({ data }: { data: FichaPublicaData }) {
     <>
       <Seccion titulo="¿Dónde atiendo?" vacio={!hayAtencion}>
         {ubicaciones.length > 0 && (
-          <Placeholder alto={140}>
-            [mapa · {ubicaciones.map((ubicacion) => ubicacion.municipio).filter(Boolean).join(" · ")}]
-          </Placeholder>
+          <iframe
+            title={`Mapa de ${ubicaciones.map((ubicacion) => ubicacion.municipio).filter(Boolean).join(" y ")}`}
+            src={`https://www.google.com/maps?q=${encodeURIComponent(`${ubicaciones[0]?.direccion ?? ""}, ${ubicaciones[0]?.municipio ?? ""}`)}&output=embed`}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            style={{
+              display: "block",
+              width: "100%",
+              height: 140,
+              border: "1px solid var(--border)",
+              borderRadius: 8,
+              background: "var(--cream)",
+            }}
+          />
         )}
         <div style={{ display: "grid", gap: 0, marginTop: ubicaciones.length > 0 ? 12 : 0 }}>
           {ubicaciones.map((ubicacion, i) => (
