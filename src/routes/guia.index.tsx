@@ -38,11 +38,30 @@ const MONO = "var(--font-body)";
  */
 function GuiaPracticas() {
   const isMobile = useMobile(900);
+  const isNarrow = useMobile(560);
   const [query, setQuery] = useState("");
 
   const encontradas = useMemo(() => buscarPracticas(query), [query]);
   const grupos = useMemo(() => practicasPorLetra(encontradas), [encontradas]);
   const letrasDisponibles = useMemo(() => new Set(grupos.map((g) => g.letra)), [grupos]);
+
+  // Reparto equilibrado de grupos alfabéticos en columnas, respetando el orden
+  // global A–Z: cada grupo se asigna a la columna menos cargada hasta el momento.
+  const columnas = useMemo(() => {
+    const numCols = isNarrow ? 1 : isMobile ? 2 : 4;
+    const cols: { altura: number; gruposCol: typeof grupos }[] = Array.from(
+      { length: numCols },
+      () => ({ altura: 0, gruposCol: [] }),
+    );
+    for (const g of grupos) {
+      // Altura aproximada: cabecera de letra (~33 px) + 26 px por práctica + margen de grupo
+      const peso = 33 + g.practicas.length * 26 + 26;
+      const destino = cols.reduce((a, b) => (b.altura < a.altura ? b : a));
+      destino.gruposCol.push(g);
+      destino.altura += peso;
+    }
+    return cols.map((c) => c.gruposCol);
+  }, [grupos, isMobile, isNarrow]);
 
   return (
     <div style={{ fontFamily: MONO, background: "var(--muted)", color: "var(--foreground)", minHeight: "100vh" }}>
