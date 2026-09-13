@@ -92,7 +92,7 @@ function Hero() {
     <section className="relative -mx-4 min-h-[410px] overflow-hidden px-6 py-9 sm:min-h-[400px] sm:px-10 sm:py-10 md:-mx-6 md:min-h-[390px] md:px-14 md:py-11 lg:px-16">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-0 bg-cover bg-[position:60%_center] sm:bg-[position:56%_center] md:bg-[position:54%_center]"
+        className="pointer-events-none absolute inset-0 z-0 bg-cover bg-[position:62%_center] sm:bg-[position:58%_center] md:bg-[position:55%_center]"
         style={{
           backgroundImage: `url(${heroAlmendro.url})`,
         }}
@@ -102,28 +102,28 @@ function Hero() {
         className="pointer-events-none absolute inset-0 z-10"
         style={{
           background:
-            "linear-gradient(90deg, var(--background) 0%, color-mix(in oklab, var(--background) 98%, transparent) 33%, color-mix(in oklab, var(--background) 82%, transparent) 54%, color-mix(in oklab, var(--background) 18%, transparent) 84%, transparent 100%), linear-gradient(180deg, color-mix(in oklab, var(--background) 44%, transparent) 0%, transparent 45%, color-mix(in oklab, var(--background) 42%, transparent) 76%, var(--background) 100%)",
+            "linear-gradient(90deg, var(--background) 0%, color-mix(in oklab, var(--background) 96%, transparent) 18%, color-mix(in oklab, var(--background) 78%, transparent) 36%, color-mix(in oklab, var(--background) 45%, transparent) 50%, color-mix(in oklab, var(--background) 14%, transparent) 66%, transparent 82%), linear-gradient(180deg, color-mix(in oklab, var(--background) 28%, transparent) 0%, transparent 30%, transparent 72%, color-mix(in oklab, var(--background) 28%, transparent) 88%, var(--background) 100%)",
         }}
       />
       <div className="relative z-20 flex min-h-[338px] items-center sm:min-h-[320px] md:min-h-[302px]">
         <div className="max-w-[600px] min-w-0">
-          <div className="mb-3 flex items-center gap-3 text-[0.65rem] font-medium uppercase tracking-[0.18em] text-sage-dark">
+          <div className="mb-3 flex items-center gap-3 text-[0.6rem] font-medium uppercase tracking-[0.18em] text-sage-dark">
             <span className="h-px w-8 bg-sage-light" />
             Mallorca Holística
           </div>
-          <h1 className="mb-5 max-w-[590px] font-display text-[1.85rem] font-normal leading-[1.17] text-charcoal sm:text-[2.05rem] md:text-[2.3rem] md:leading-[1.16]">
+          <h1 className="mb-5 max-w-[590px] font-display text-[1.65rem] font-normal leading-[1.12] text-charcoal sm:text-[1.8rem] md:text-[2.125rem] md:leading-[1.09]">
             <span className="block">Salud integrativa · Terapias complementarias</span>
             <span className="mt-1.5 block text-sage-dark">
               Medicina tradicional · Bienestar · Desarrollo personal
             </span>
           </h1>
-          <p className="mb-3.5 max-w-md font-display text-sm italic leading-relaxed text-muted-foreground md:text-[0.95rem]">
+          <p className="mb-3 max-w-md font-display text-[0.82rem] italic leading-relaxed text-muted-foreground md:text-[0.88rem]">
             Toda persona merece sentirse escuchada, comprendida y acompañada.
           </p>
-          <p className="mb-2 max-w-md text-[0.8rem] leading-relaxed text-muted-foreground md:text-[0.84rem]">
+          <p className="mb-2 max-w-md text-[0.75rem] leading-relaxed text-muted-foreground md:text-[0.78rem]">
             Ampliamos la mirada sobre la salud para abrir nuevas posibilidades de acompañamiento.
           </p>
-          <p className="text-[0.8rem] font-semibold text-foreground md:text-[0.84rem]">
+          <p className="text-[0.75rem] font-semibold text-foreground md:text-[0.78rem]">
             Al servicio de las personas y del cuidado.
           </p>
         </div>
