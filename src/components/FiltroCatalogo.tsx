@@ -181,6 +181,7 @@ export function CampoCatalogoUnico({
   placeholder,
   onAbrir,
   seleccion,
+  onSeleccionar,
   onQuitar,
 }: {
   tipo: TipoCatalogo;
@@ -189,13 +190,20 @@ export function CampoCatalogoUnico({
   placeholder: string;
   onAbrir: () => void;
   seleccion: string | null;
+  onSeleccionar: (v: string) => void;
   onQuitar: () => void;
 }) {
   const texto =
     tipo === "practicas" ? "Explorar todas las prácticas →" : "Explorar todas las áreas →";
 
+  const sugerencias = useMemo(() => {
+    if (query.trim().length < 2) return [];
+    const items = tipo === "practicas" ? buscarPracticas(query) : buscarAreas(query);
+    return items.slice(0, 8);
+  }, [tipo, query]);
+
   return (
-    <div style={{ minWidth: 0 }}>
+    <div style={{ minWidth: 0, position: "relative" }}>
       {seleccion ? (
         <div style={{ ...campoInput, display: "flex", alignItems: "center", gap: 8 }}>
           <span
