@@ -5,7 +5,7 @@ import { ambienteDe, retratoDe } from "@/data/imagenes";
 
 import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
-import { CampoCatalogo, PanelCatalogo, type TipoCatalogo } from "@/components/FiltroCatalogo";
+import { CampoCatalogoUnico, ModalCatalogo, type TipoCatalogo } from "@/components/FiltroCatalogo";
 import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
 import { BuscadorSimple } from "@/components/BuscadorSimple";
 import { coincideLugar, coincidePerfil, PERFILES, type Resultado } from "@/data/perfiles";
