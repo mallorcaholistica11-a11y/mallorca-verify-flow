@@ -152,8 +152,9 @@ function BuscadorIA({ isMobile }: { isMobile: boolean }) {
               ¿Cómo te sientes hoy?
             </h2>
             <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
-              Cuéntanos cómo te sientes o qué necesitas en este momento. Te ayudaremos a encontrar el
-              acompañamiento más adecuado para ti.
+              Cuéntanos cómo te sientes o qué necesitas en este momento.&nbsp;
+              <br />
+              Te guíamos para encontrar el acompañamiento más adecuado para ti.
             </p>
           </div>
 
