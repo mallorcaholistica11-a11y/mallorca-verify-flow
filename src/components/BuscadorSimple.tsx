@@ -1,4 +1,5 @@
 import { useMemo, useState, type CSSProperties } from "react";
+import { Leaf, MapPin } from "lucide-react";
 import { buscarPracticas } from "@/data/practicas";
 import { buscarAreas } from "@/data/areas";
 import { buscarPerfiles, type Resultado } from "@/data/perfiles";
@@ -19,11 +20,14 @@ export function BuscadorSimple({
   valorInicial = "",
   lugarInicial = "",
   onBuscar,
+  unificado = false,
 }: {
   isMobile: boolean;
   valorInicial?: string;
   lugarInicial?: string;
   onBuscar: (q: string, lugar: string) => void;
+  /** Barra única horizontal con iconos (Home). Por defecto, campos independientes (Directorio). */
+  unificado?: boolean;
 }) {
   const [q, setQ] = useState(valorInicial);
   const [lugar, setLugar] = useState(lugarInicial);
