@@ -198,6 +198,32 @@ const inputStyle: CSSProperties = {
   boxSizing: "border-box",
 };
 
+const inputUnificadoStyle: CSSProperties = {
+  border: "none",
+  outline: "none",
+  background: "transparent",
+  width: "100%",
+  minWidth: 0,
+  padding: "12px 4px",
+  fontSize: 13,
+  fontFamily: "inherit",
+  color: "var(--foreground)",
+  boxSizing: "border-box",
+};
+
+const botonUnificadoStyle: CSSProperties = {
+  borderRadius: 999,
+  border: "1px solid var(--primary)",
+  background: "var(--primary)",
+  color: "var(--primary-foreground)",
+  padding: "12px 26px",
+  fontSize: 13,
+  fontFamily: "inherit",
+  cursor: "pointer",
+  whiteSpace: "nowrap",
+  justifySelf: "end",
+};
+
 const botonStyle: CSSProperties = {
   borderRadius: 999,
   border: "1px solid var(--primary)",
