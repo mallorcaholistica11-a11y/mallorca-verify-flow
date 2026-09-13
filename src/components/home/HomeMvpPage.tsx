@@ -191,10 +191,11 @@ function BusquedaClasica({ isMobile }: { isMobile: boolean }) {
       <Seccion>
         <h2 className="mb-2 font-display text-base font-semibold">¿Ya sabes lo que buscas?</h2>
         <p className="mb-4 text-sm text-muted-foreground">
-          Busca directamente por profesional, práctica o ubicación.
+          Encuentra directamente una práctica, un profesional o una ubicación.
         </p>
         <BuscadorSimple
           isMobile={isMobile}
+          unificado
           onBuscar={(q, lugar) => navigate({ to: "/directorio", search: { q, lugar } })}
         />
       </Seccion>

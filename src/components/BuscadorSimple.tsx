@@ -1,4 +1,5 @@
 import { useMemo, useState, type CSSProperties } from "react";
+import { Leaf, MapPin } from "lucide-react";
 import { buscarPracticas } from "@/data/practicas";
 import { buscarAreas } from "@/data/areas";
 import { buscarPerfiles, type Resultado } from "@/data/perfiles";
@@ -19,11 +20,14 @@ export function BuscadorSimple({
   valorInicial = "",
   lugarInicial = "",
   onBuscar,
+  unificado = false,
 }: {
   isMobile: boolean;
   valorInicial?: string;
   lugarInicial?: string;
   onBuscar: (q: string, lugar: string) => void;
+  /** Barra única horizontal con iconos (Home). Por defecto, campos independientes (Directorio). */
+  unificado?: boolean;
 }) {
   const [q, setQ] = useState(valorInicial);
   const [lugar, setLugar] = useState(lugarInicial);
@@ -59,16 +63,43 @@ export function BuscadorSimple({
     onBuscar(texto.trim(), lugar.trim());
   };
 
+  const estiloInput = unificado ? inputUnificadoStyle : inputStyle;
+
   return (
     <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: isMobile ? "1fr" : "minmax(0,1.4fr) minmax(0,1fr) auto",
-        gap: 10,
-        position: "relative",
-      }}
+      style={
+        unificado
+          ? {
+              display: "grid",
+              gridTemplateColumns: isMobile ? "1fr" : "minmax(0,1.4fr) minmax(0,1fr) auto",
+              alignItems: "center",
+              position: "relative",
+              background: "var(--card)",
+              border: "1px solid var(--border)",
+              borderRadius: isMobile ? 24 : 999,
+              boxShadow: "var(--shadow-soft)",
+              padding: isMobile ? "10px 12px" : "6px 6px 6px 8px",
+              gap: isMobile ? 4 : 0,
+            }
+          : {
+              display: "grid",
+              gridTemplateColumns: isMobile ? "1fr" : "minmax(0,1.4fr) minmax(0,1fr) auto",
+              gap: 10,
+              position: "relative",
+            }
+      }
     >
-      <div style={{ position: "relative", minWidth: 0 }}>
+      <div
+        style={{
+          position: "relative",
+          minWidth: 0,
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          paddingLeft: unificado ? 10 : 0,
+        }}
+      >
+        {unificado && <Leaf size={16} strokeWidth={1.75} style={{ color: "var(--primary)", flexShrink: 0 }} aria-hidden />}
         <input
           type="text"
           value={q}
@@ -82,7 +113,7 @@ export function BuscadorSimple({
           onKeyDown={(e) => {
             if (e.key === "Enter") lanzar(q);
           }}
-          style={inputStyle}
+          style={estiloInput}
         />
         {abierto && grupos.length > 0 && (
           <div style={sugerenciasStyle}>
@@ -119,17 +150,36 @@ export function BuscadorSimple({
         )}
       </div>
 
-      <input
-        type="text"
-        value={lugar}
-        placeholder="Localidad o código postal..."
-        onChange={(e) => setLugar(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") lanzar(q);
-        }}
-        style={inputStyle}
-      />
-      <button type="button" onClick={() => lanzar(q)} style={botonStyle}>
+      <div
+        style={
+          unificado
+            ? {
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                minWidth: 0,
+                paddingLeft: isMobile ? 10 : 16,
+                borderLeft: isMobile ? "none" : "1px solid var(--border)",
+                borderTop: isMobile ? "1px solid var(--border)" : "none",
+                paddingTop: isMobile ? 4 : 0,
+                marginLeft: isMobile ? 0 : 12,
+              }
+            : { minWidth: 0 }
+        }
+      >
+        {unificado && <MapPin size={16} strokeWidth={1.75} style={{ color: "var(--primary)", flexShrink: 0 }} aria-hidden />}
+        <input
+          type="text"
+          value={lugar}
+          placeholder={unificado ? "Cerca de mí, municipio o código postal..." : "Localidad o código postal..."}
+          onChange={(e) => setLugar(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") lanzar(q);
+          }}
+          style={estiloInput}
+        />
+      </div>
+      <button type="button" onClick={() => lanzar(q)} style={unificado ? botonUnificadoStyle : botonStyle}>
         Buscar
       </button>
     </div>
@@ -146,6 +196,32 @@ const inputStyle: CSSProperties = {
   fontFamily: "inherit",
   color: "var(--foreground)",
   boxSizing: "border-box",
+};
+
+const inputUnificadoStyle: CSSProperties = {
+  border: "none",
+  outline: "none",
+  background: "transparent",
+  width: "100%",
+  minWidth: 0,
+  padding: "12px 4px",
+  fontSize: 13,
+  fontFamily: "inherit",
+  color: "var(--foreground)",
+  boxSizing: "border-box",
+};
+
+const botonUnificadoStyle: CSSProperties = {
+  borderRadius: 999,
+  border: "1px solid var(--primary)",
+  background: "var(--primary)",
+  color: "var(--primary-foreground)",
+  padding: "12px 26px",
+  fontSize: 13,
+  fontFamily: "inherit",
+  cursor: "pointer",
+  whiteSpace: "nowrap",
+  justifySelf: "end",
 };
 
 const botonStyle: CSSProperties = {
