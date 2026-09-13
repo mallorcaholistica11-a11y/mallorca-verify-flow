@@ -49,48 +49,22 @@ export function PlantillaPractica({
         </Link>
 
         {/* Hero */}
-        <header style={{ margin: "24px 0 40px 0" }}>
-          <h1 style={{ fontSize: isMobile ? 24 : 30, margin: "0 0 14px 0", lineHeight: 1.25 }}>
+        <header style={{ margin: "20px 0 28px 0" }}>
+          <h1 style={{ fontSize: isMobile ? 24 : 30, margin: "0 0 10px 0", lineHeight: 1.25 }}>
             {contenido.nombre}
           </h1>
 
           {relacionadaCon && relacionadaCon !== contenido.nombre && (
-            <div style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "-6px 0 16px 0" }}>
+            <div style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "0 0 12px 0" }}>
               Relacionado con {relacionadaCon}
             </div>
           )}
 
           {contenido.definicionBreve && (
-            <p style={{ fontSize: 14, lineHeight: 1.8, margin: "0 0 20px 0", color: "var(--foreground)" }}>
+            <p style={{ fontSize: 14, lineHeight: 1.8, margin: "0 0 16px 0", color: "var(--foreground)" }}>
               {contenido.definicionBreve}
             </p>
           )}
-
-          {contenido.imagenUrl ? (
-            <img
-              src={contenido.imagenUrl}
-              alt={`Imagen representativa de ${contenido.nombre}`}
-              loading="lazy"
-              style={{
-                width: "100%",
-                height: isMobile ? 160 : 240,
-                objectFit: "cover",
-                border: "1px solid var(--border)", borderRadius: 12,
-                display: "block",
-                marginBottom: 20,
-              }}
-            />
-          ) : (
-            <div style={{ marginBottom: 20 }}>
-              <Foto
-                src={IMG.practica}
-                alt={`Imagen representativa de ${contenido.nombre}`}
-                alto={isMobile ? 160 : 240}
-                radio={16}
-              />
-            </div>
-          )}
-
 
           <a
             href={urlDirectorio}
