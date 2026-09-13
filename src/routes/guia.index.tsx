@@ -164,20 +164,24 @@ function GuiaPracticas() {
           </section>
         ) : (
           <div className="guia-indice">
-            {grupos.map((g) => (
-              <section key={g.letra} id={`letra-${g.letra}`} className="guia-bloque">
-                <h2 className="guia-letra">{g.letra}</h2>
-                {g.practicas.map((p) => (
-                  <Link
-                    key={p}
-                    to="/guia/$slug"
-                    params={{ slug: slugPractica(p) }}
-                    className="guia-link"
-                  >
-                    {p}
-                  </Link>
+            {columnas.map((col, i) => (
+              <div key={i}>
+                {col.map((g) => (
+                  <section key={g.letra} id={`letra-${g.letra}`} className="guia-bloque">
+                    <h2 className="guia-letra">{g.letra}</h2>
+                    {g.practicas.map((p) => (
+                      <Link
+                        key={p}
+                        to="/guia/$slug"
+                        params={{ slug: slugPractica(p) }}
+                        className="guia-link"
+                      >
+                        {p}
+                      </Link>
+                    ))}
+                  </section>
                 ))}
-              </section>
+              </div>
             ))}
           </div>
         )}
