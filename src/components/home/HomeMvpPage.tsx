@@ -2,6 +2,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { Award, BookOpen, CalendarDays, Leaf, Scale, ShieldCheck, UserRoundCheck } from "lucide-react";
 import type { ReactNode } from "react";
 import heroAlmendro from "@/assets/hero-almendro-original.jpg.asset.json";
+import olivoHojas from "@/assets/olivo-hojas.jpg.asset.json";
 import { Chips, Retrato, Seccion } from "@/components/ficha/primitives";
 import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
@@ -240,7 +241,7 @@ function Confianza() {
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 z-0 bg-cover bg-[position:30%_center] md:bg-[length:auto_100%] md:bg-left md:bg-no-repeat"
-        style={{ backgroundImage: `url(${IMG.guia})` }}
+        style={{ backgroundImage: `url(${olivoHojas.url})` }}
       />
       {/* Degradado horizontal progresivo: imagen visible a la izquierda → crema integrado a la derecha */}
       <div
