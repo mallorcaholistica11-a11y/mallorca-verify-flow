@@ -41,19 +41,21 @@ export function Chips({
   clicable = false,
   gap = 6,
   size = "sm",
+  center = false,
 }: {
   items: string[];
   onSelect?: (item: string) => void;
   clicable?: boolean;
   gap?: number;
   size?: "sm" | "md";
+  center?: boolean;
 }) {
   const pillStyle: CSSProperties =
     size === "md"
       ? { ...chipStyle, padding: "8px 14px", fontSize: 13 }
       : chipStyle;
   return (
-    <div style={{ display: "flex", flexWrap: "wrap", gap }}>
+    <div style={{ display: "flex", flexWrap: "wrap", gap, justifyContent: center ? "center" : undefined }}>
       {items.map((item) =>
         clicable ? (
           <button
