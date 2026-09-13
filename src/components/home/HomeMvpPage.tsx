@@ -53,10 +53,35 @@ const PROFESIONALES = [
 ];
 
 const DESCUBRE = [
-  { titulo: "📅 Agenda de Actividades", enlace: "Ver agenda →", to: "/agenda" },
-  { titulo: "📖 Guía de Prácticas", enlace: "Explorar guía →", to: "/guia" },
-  { titulo: "🌿 Blog", enlace: "Próximamente", to: "/blog" },
+  {
+    titulo: "Agenda de Actividades",
+    descripcion: "Talleres, retiros y encuentros para tu bienestar.",
+    enlace: "Ver agenda →",
+    to: "/agenda",
+    icono: CalendarDays,
+    fondo: "bg-pastel-cream",
+    colorIcono: "text-terracotta",
+  },
+  {
+    titulo: "Guía de Prácticas",
+    descripcion: "Descubre las prácticas que pueden acompañarte.",
+    enlace: "Explorar guía →",
+    to: "/guia",
+    icono: BookOpen,
+    fondo: "bg-pastel-sage",
+    colorIcono: "text-sage-dark",
+  },
+  {
+    titulo: "Blog",
+    descripcion: null,
+    enlace: "Próximamente",
+    to: "/blog",
+    icono: Leaf,
+    fondo: "bg-pastel-sky",
+    colorIcono: "text-dusty-blue",
+  },
 ];
+
 
 export function HomeMvpPage() {
   const isMobile = useMobile(900);
