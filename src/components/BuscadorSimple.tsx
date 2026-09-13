@@ -76,7 +76,7 @@ export function BuscadorSimple({
               position: "relative",
               background: "var(--card)",
               border: "1px solid var(--border)",
-              borderRadius: 999,
+              borderRadius: isMobile ? 24 : 999,
               boxShadow: "var(--shadow-soft)",
               padding: isMobile ? "10px 12px" : "6px 6px 6px 8px",
               gap: isMobile ? 4 : 0,
