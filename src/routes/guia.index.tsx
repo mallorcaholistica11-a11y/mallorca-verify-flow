@@ -52,7 +52,7 @@ function GuiaPracticas() {
         @media (max-width: 560px) { .guia-indice { column-count: 1; } }
         .guia-bloque { margin: 0 0 18px 0; break-inside: auto; }
         .guia-bloque:last-child { margin-bottom: 0; }
-        .guia-letra { break-after: avoid; font-size: 14px; letter-spacing: 2px; color: var(--foreground); border-bottom: 1px solid var(--border); padding-bottom: 3px; margin: 0 0 5px 0; }
+        .guia-letra { break-after: avoid; font-size: 14px; letter-spacing: 2px; color: var(--foreground); border-bottom: 1px solid var(--border); padding-bottom: 2px; margin: 0 0 4px 0; }
         .guia-link { break-inside: avoid; color: var(--foreground); text-decoration: none; font-size: 13px; line-height: 2; display: block; }
         .guia-link:hover { color: var(--foreground); text-decoration: underline; text-decoration-color: var(--border); text-underline-offset: 3px; }
       `}</style>
