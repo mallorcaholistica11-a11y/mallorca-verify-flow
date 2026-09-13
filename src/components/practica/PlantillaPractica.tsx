@@ -1,6 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import { Foto } from "@/components/ficha/primitives";
-import { IMG } from "@/data/imagenes";
 
 import { useMobile } from "@/components/ficha/useMobile";
 import {
