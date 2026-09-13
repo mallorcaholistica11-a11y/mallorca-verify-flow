@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { areasPorLetra, buscarAreas } from "@/data/areas";
 import { buscarPracticas, practicasPorLetra } from "@/data/practicas";
 
