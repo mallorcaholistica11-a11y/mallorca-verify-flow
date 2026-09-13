@@ -211,48 +211,55 @@ function BusquedaClasica({ isMobile }: { isMobile: boolean }) {
 function Confianza() {
   return (
     <section className="relative -mx-4 my-6 overflow-hidden bg-cream/45 px-5 py-10 sm:px-8 md:-mx-6 md:px-10 md:py-11 lg:px-12 lg:py-10">
+      {/* Fotografía de fondo: cubre toda la sección para que el degradado la funda con el fondo */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-0 top-0 h-56 w-full bg-cover bg-[position:28%_58%] sm:inset-y-0 sm:h-auto sm:w-[68%] sm:bg-[position:18%_center] md:w-[54%] lg:w-[43%]"
+        className="pointer-events-none absolute inset-0 z-0 bg-cover bg-[position:22%_center]"
         style={{ backgroundImage: `url(${IMG.confianza})` }}
       />
+      {/* Degradado horizontal progresivo: imagen visible a la izquierda → crema integrado a la derecha */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--cream)_8%,transparent)_0%,color-mix(in_oklab,var(--cream)_20%,transparent)_18%,color-mix(in_oklab,var(--cream)_88%,transparent)_31%,var(--cream)_40%)] sm:bg-[linear-gradient(90deg,color-mix(in_oklab,var(--cream)_10%,transparent)_0%,color-mix(in_oklab,var(--cream)_24%,transparent)_25%,color-mix(in_oklab,var(--cream)_88%,transparent)_50%,var(--cream)_68%,var(--cream)_100%)]"
+        className="pointer-events-none absolute inset-0 z-10"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent 0%, color-mix(in oklab, var(--cream) 12%, transparent) 8%, color-mix(in oklab, var(--cream) 32%, transparent) 18%, color-mix(in oklab, var(--cream) 58%, transparent) 28%, color-mix(in oklab, var(--cream) 82%, transparent) 38%, var(--cream) 48%, var(--cream) 100%)",
+        }}
       />
 
-      <div className="relative z-10 pt-32 sm:pt-0 lg:ml-[31%]">
-        <h2 className="mb-2 max-w-2xl font-display text-xl font-normal leading-snug md:text-2xl">
-          La confianza también forma parte del cuidado.
-        </h2>
-        <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
-          Revisamos cada perfil para que puedas explorar con tranquilidad y elegir con confianza.
-        </p>
-      </div>
+      <div className="relative z-20 lg:ml-[30%]">
+        <div className="mb-7 max-w-2xl sm:mb-8">
+          <h2 className="mb-2 font-display text-xl font-normal leading-snug md:text-2xl">
+            La confianza también forma parte del cuidado.
+          </h2>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            Revisamos cada perfil para que puedas explorar con tranquilidad y elegir con confianza.
+          </p>
+        </div>
 
-      <div className="relative z-10 mt-7 grid grid-cols-2 gap-y-7 sm:ml-[30%] sm:mt-8 lg:ml-0 lg:grid-cols-[30%_repeat(4,minmax(0,1fr))] lg:gap-y-0">
-        <div aria-hidden className="hidden lg:block" />
-        {CONFIANZA.map((c, index) => {
-          const Icono = c.icono;
-          return (
-            <div
-              key={c.titulo}
-              className={`min-w-0 px-3 text-center sm:px-4 lg:px-5 ${
-                index % 2 === 1 ? "border-l border-border/70" : ""
-              } ${index > 0 ? "lg:border-l lg:border-border/70" : ""}`}
-            >
-              <Icono
-                aria-hidden="true"
-                className="mx-auto mb-3 size-6 text-sage-dark"
-                strokeWidth={1.4}
-              />
-              <h3 className="mb-2 font-display text-sm font-normal leading-snug text-foreground">
-                {c.titulo}
-              </h3>
-              <p className="m-0 text-[0.7rem] leading-relaxed text-muted-foreground">{c.texto}</p>
-            </div>
-          );
-        })}
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 sm:gap-0">
+          {CONFIANZA.map((c, index) => {
+            const Icono = c.icono;
+            return (
+              <div
+                key={c.titulo}
+                className={`min-w-0 px-3 text-center sm:px-4 lg:px-5 ${
+                  index > 0 ? "sm:border-l sm:border-border/70" : ""
+                }`}
+              >
+                <Icono
+                  aria-hidden="true"
+                  className="mx-auto mb-3 size-6 text-sage-dark"
+                  strokeWidth={1.4}
+                />
+                <h3 className="mb-2 font-display text-sm font-normal leading-snug text-foreground">
+                  {c.titulo}
+                </h3>
+                <p className="m-0 text-[0.7rem] leading-relaxed text-muted-foreground">{c.texto}</p>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
