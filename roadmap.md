@@ -5,3 +5,5 @@
 - [x] Verificar visualmente el Hero en escritorio y móvil sin cambios fuera del bloque.
 - [x] Armonizar visualmente el conjunto de la Home sin alterar contenidos ni funciones.
 - [x] Verificar el ritmo global y la adaptación de la Home en escritorio y móvil.
+- [ ] Reorientar la armonización de la Home hacia una sensación cálida, humana y envolvente.
+- [ ] Verificar que la nueva continuidad visual se perciba en escritorio y móvil.
