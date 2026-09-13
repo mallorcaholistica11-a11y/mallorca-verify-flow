@@ -54,11 +54,13 @@ function Directorio() {
   const isMobile = useMobile(900);
   const { q, lugar } = Route.useSearch();
   const navigate = Route.useNavigate();
-  // Filtro por Áreas de Acompañamiento · Catálogo Oficial (src/data/areas.ts)
-  const [areas, setAreas] = useState<string[]>([]);
+  // Directorio público: selección ÚNICA de práctica y de área (catálogos sin cambios).
+  const [area, setArea] = useState<string | null>(null);
+  const [practica, setPractica] = useState<string | null>(null);
   const resultados = PERFILES.filter(
     (r) =>
-      (areas.length === 0 || areas.some((a) => r.areas.includes(a))) &&
+      (area === null || r.areas.includes(area)) &&
+      (practica === null || r.especialidades.includes(practica)) &&
       coincidePerfil(r, q) &&
       coincideLugar(r, lugar),
   );
