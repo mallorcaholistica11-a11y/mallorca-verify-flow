@@ -183,9 +183,9 @@ function Filtros({
         style={{
           border: "1px solid var(--border)", borderRadius: 12,
           background: "var(--card)",
-          padding: isMobile ? 14 : 18,
+          padding: isMobile ? 12 : 14,
           display: "grid",
-          gap: 14,
+          gap: 10,
         }}
       >
         <div
