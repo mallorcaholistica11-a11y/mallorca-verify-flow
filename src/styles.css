@@ -113,6 +113,12 @@
   --champagne-light: oklch(0.93 0.022 85);
   --champagne-glow: oklch(0.86 0.038 82 / 0.28);
 
+  --pastel-cream: oklch(0.945 0.018 75);
+  --pastel-sage: oklch(0.945 0.012 140);
+  --pastel-sky: oklch(0.945 0.012 215);
+  --dusty-blue: oklch(0.58 0.045 220);
+
+
   /* Sombras muy suaves */
   --shadow-soft: 0 1px 2px oklch(0.42 0.03 90 / 0.04), 0 8px 24px -12px oklch(0.42 0.03 90 / 0.10);
   --shadow-lift: 0 2px 6px oklch(0.42 0.03 90 / 0.06), 0 18px 40px -20px oklch(0.42 0.03 90 / 0.16);
@@ -154,6 +160,12 @@
   --champagne: oklch(0.72 0.05 82);
   --champagne-light: oklch(0.45 0.03 82);
   --champagne-glow: oklch(0.72 0.05 82 / 0.25);
+
+  --pastel-cream: oklch(0.32 0.015 75);
+  --pastel-sage: oklch(0.32 0.012 140);
+  --pastel-sky: oklch(0.32 0.012 215);
+  --dusty-blue: oklch(0.72 0.04 220);
+
 }
 
 @layer base {
