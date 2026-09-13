@@ -47,35 +47,43 @@ function GuiaPracticas() {
 
   // Reparto equilibrado de grupos alfabéticos en columnas, manteniendo el orden
   // global A–Z: cada columna es un bloque contiguo de letras (se lee de arriba
-  // abajo, columna 1 → 2 → 3 → 4) y los cortes se eligen donde la altura
-  // acumulada se acerca más al objetivo (total / nº de columnas).
+  // abajo, columna 1 → 2 → 3 → 4) y los cortes se eligen para que las alturas
+  // queden lo más parecidas posible (partición óptima por programación dinámica).
   const columnas = useMemo(() => {
     const numCols = isNarrow ? 1 : isMobile ? 2 : 4;
+    const n = grupos.length;
+    if (n === 0) return [] as (typeof grupos)[];
+    if (numCols === 1 || n <= numCols) return [grupos];
     // Altura aproximada: cabecera de letra (~33 px) + 26 px por práctica + margen de grupo
     const pesos = grupos.map((g) => 33 + g.practicas.length * 26 + 26);
-    const total = pesos.reduce((a, b) => a + b, 0);
+    const pref = [0];
+    for (const p of pesos) pref.push(pref[pref.length - 1] + p);
+    const total = pref[n];
     const objetivo = total / numCols;
-    const cols: (typeof grupos)[] = [];
-    let inicio = 0;
-    let acumulado = 0;
-    for (let c = 1; c < numCols; c++) {
-      let corte = inicio;
-      let mejorDif = Infinity;
-      let suma = 0;
-      for (let i = inicio; i < grupos.length; i++) {
-        const candidato = acumulado + suma + pesos[i];
-        const dif = Math.abs(candidato - objetivo * c);
-        if (dif < mejorDif) {
-          mejorDif = dif;
-          corte = i + 1;
+    // dp[c][i] = coste mínimo de repartir los primeros i grupos en c columnas
+    const dp: number[][] = Array.from({ length: numCols + 1 }, () => new Array(n + 1).fill(Infinity));
+    const corte: number[][] = Array.from({ length: numCols + 1 }, () => new Array(n + 1).fill(0));
+    dp[0][0] = 0;
+    for (let c = 1; c <= numCols; c++) {
+      for (let i = 1; i <= n; i++) {
+        for (let j = c - 1; j < i; j++) {
+          if (dp[c - 1][j] === Infinity) continue;
+          const altura = pref[i] - pref[j];
+          const coste = dp[c - 1][j] + (altura - objetivo) ** 2;
+          if (coste < dp[c][i]) {
+            dp[c][i] = coste;
+            corte[c][i] = j;
+          }
         }
-        suma += pesos[i];
       }
-      cols.push(grupos.slice(inicio, corte));
-      acumulado += pesos.slice(inicio, corte).reduce((a, b) => a + b, 0);
-      inicio = corte;
     }
-    cols.push(grupos.slice(inicio));
+    const cols: (typeof grupos)[] = [];
+    let i = n;
+    for (let c = numCols; c >= 1; c--) {
+      const j = corte[c][i];
+      cols.unshift(grupos.slice(j, i));
+      i = j;
+    }
     return cols;
   }, [grupos, isMobile, isNarrow]);
 
