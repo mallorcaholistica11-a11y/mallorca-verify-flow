@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { Check, X } from "lucide-react";
 import { areasPorLetra, buscarAreas } from "@/data/areas";
 import { buscarPracticas, practicasPorLetra } from "@/data/practicas";
 
@@ -386,7 +387,7 @@ export function ModalCatalogo({
               cursor: "pointer",
             }}
           >
-            ✕ Cerrar
+            <X size={16} strokeWidth={1.6} aria-hidden />
           </button>
         </div>
 
@@ -432,7 +433,10 @@ export function ModalCatalogo({
                         breakInside: "avoid",
                       }}
                     >
-                      {item}
+                      <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+                        <span>{item}</span>
+                        {seleccion === item && <Check size={14} strokeWidth={1.7} aria-hidden />}
+                      </span>
                     </button>
                   ))}
                 </div>
