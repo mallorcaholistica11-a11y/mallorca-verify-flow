@@ -213,12 +213,12 @@ function Confianza() {
     <section className="relative -mx-4 my-6 overflow-hidden bg-cream/45 px-5 py-10 sm:px-8 md:-mx-6 md:px-10 md:py-11 lg:px-12 lg:py-10">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-0 w-full bg-cover bg-[position:18%_center] sm:w-[68%] md:w-[54%] lg:w-[43%]"
+        className="pointer-events-none absolute left-0 top-0 h-56 w-full bg-cover bg-[position:28%_58%] sm:inset-y-0 sm:h-auto sm:w-[68%] sm:bg-[position:18%_center] md:w-[54%] lg:w-[43%]"
         style={{ backgroundImage: `url(${IMG.confianza})` }}
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--cream)_18%,transparent)_0%,color-mix(in_oklab,var(--cream)_88%,transparent)_28%,var(--cream)_46%)] sm:bg-[linear-gradient(90deg,color-mix(in_oklab,var(--cream)_10%,transparent)_0%,color-mix(in_oklab,var(--cream)_24%,transparent)_25%,color-mix(in_oklab,var(--cream)_88%,transparent)_50%,var(--cream)_68%,var(--cream)_100%)]"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--cream)_8%,transparent)_0%,color-mix(in_oklab,var(--cream)_20%,transparent)_18%,color-mix(in_oklab,var(--cream)_88%,transparent)_31%,var(--cream)_40%)] sm:bg-[linear-gradient(90deg,color-mix(in_oklab,var(--cream)_10%,transparent)_0%,color-mix(in_oklab,var(--cream)_24%,transparent)_25%,color-mix(in_oklab,var(--cream)_88%,transparent)_50%,var(--cream)_68%,var(--cream)_100%)]"
       />
 
       <div className="relative z-10 pt-32 sm:pt-0 lg:ml-[31%]">
