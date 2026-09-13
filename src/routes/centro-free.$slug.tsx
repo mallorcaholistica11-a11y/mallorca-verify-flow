@@ -47,6 +47,7 @@ const demo: FichaCentroData = {
   ],
   contacto: {
     telefono: "971 123 456",
+    telefonoPublico: true,
     email: "hola@casaserena.com",
     whatsapp: "+34600555666",
     web: "https://www.casaserena.com",
