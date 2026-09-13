@@ -59,6 +59,12 @@
   --color-champagne-light: var(--champagne-light);
   --color-champagne-glow: var(--champagne-glow);
 
+  --color-pastel-cream: var(--pastel-cream);
+  --color-pastel-sage: var(--pastel-sage);
+  --color-pastel-sky: var(--pastel-sky);
+  --color-dusty-blue: var(--dusty-blue);
+
+
   --font-display: var(--font-display);
   --font-body: var(--font-body);
 }
