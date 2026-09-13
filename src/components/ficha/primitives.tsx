@@ -39,25 +39,33 @@ export function Chips({
   items,
   onSelect,
   clicable = false,
+  gap = 6,
+  size = "sm",
 }: {
   items: string[];
   onSelect?: (item: string) => void;
   clicable?: boolean;
+  gap?: number;
+  size?: "sm" | "md";
 }) {
+  const pillStyle: CSSProperties =
+    size === "md"
+      ? { ...chipStyle, padding: "8px 14px", fontSize: 13 }
+      : chipStyle;
   return (
-    <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+    <div style={{ display: "flex", flexWrap: "wrap", gap }}>
       {items.map((item) =>
         clicable ? (
           <button
             key={item}
             type="button"
             onClick={() => onSelect?.(item)}
-            style={{ ...chipStyle, cursor: "pointer", fontFamily: "inherit" }}
+            style={{ ...pillStyle, cursor: "pointer", fontFamily: "inherit" }}
           >
             {item}
           </button>
         ) : (
-          <span key={item} style={chipStyle}>
+          <span key={item} style={pillStyle}>
             {item}
           </span>
         ),
