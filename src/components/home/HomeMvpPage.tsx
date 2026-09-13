@@ -1,7 +1,8 @@
 import { Link, useNavigate } from "@tanstack/react-router";
+import { Award, Scale, ShieldCheck, UserRoundCheck } from "lucide-react";
 import type { ReactNode } from "react";
 import heroAlmendro from "@/assets/hero-almendro-original.jpg.asset.json";
-import { Chips, Foto, Retrato, Seccion } from "@/components/ficha/primitives";
+import { Chips, Retrato, Seccion } from "@/components/ficha/primitives";
 import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
 import { BuscadorSimple } from "@/components/BuscadorSimple";
@@ -23,18 +24,22 @@ const CONFIANZA = [
     titulo: "Profesionales verificados",
     texto:
       "Han acreditado su formación y cumplen los requisitos del proceso de verificación de Mallorca Holística.",
+    icono: Award,
   },
   {
     titulo: "Perfiles revisados",
     texto: "Revisamos la información publicada para que sea clara, completa y coherente.",
+    icono: ShieldCheck,
   },
   {
     titulo: "Código Deontológico",
     texto: "Todos los profesionales aceptan nuestro compromiso ético y de buenas prácticas.",
+    icono: Scale,
   },
   {
     titulo: "Transparencia",
     texto: "Mostramos la información necesaria para que puedas decidir con mayor claridad.",
+    icono: UserRoundCheck,
   },
 ];
 
@@ -65,7 +70,7 @@ export function HomeMvpPage() {
         <Hero />
         <BuscadorIA isMobile={isMobile} />
         <BusquedaClasica isMobile={isMobile} />
-        <Confianza isMobile={isMobile} />
+        <Confianza />
         <Profesionales isMobile={isMobile} isTablet={isTablet} />
         <Descubre isMobile={isMobile} />
       </main>
@@ -203,35 +208,51 @@ function BusquedaClasica({ isMobile }: { isMobile: boolean }) {
   );
 }
 
-function Confianza({ isMobile }: { isMobile: boolean }) {
+function Confianza() {
   return (
-    <section className="-mx-4 my-6 rounded-[28px] bg-cream/70 px-4 py-14 md:-mx-6 md:px-10">
-      <div className="grid items-center gap-10 md:grid-cols-[0.85fr_1.15fr]">
-        <Foto
-          src={IMG.confianza}
-          alt="Piedras apiladas junto a una rama de olivo con luz natural cálida"
-          alto={isMobile ? 220 : 340}
-          radio={20}
-        />
-        <div className="min-w-0">
-          <h2 className="mb-3 font-display text-lg font-normal md:text-2xl">
-            La confianza también forma parte del cuidado.
-          </h2>
-          <p className="mb-6 max-w-lg text-sm leading-relaxed text-muted-foreground">
-            Revisamos cada perfil para que puedas explorar con tranquilidad y elegir con confianza.
-          </p>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {CONFIANZA.map((c) => (
-              <div
-                key={c.titulo}
-                className="rounded-2xl border border-border/70 bg-card/80 p-5 backdrop-blur-[2px]"
-              >
-                <div className="mb-2 font-display text-sm text-sage-dark">✓ {c.titulo}</div>
-                <p className="m-0 text-xs leading-relaxed text-muted-foreground">{c.texto}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+    <section className="relative -mx-4 my-6 overflow-hidden bg-cream/45 px-5 py-10 sm:px-8 md:-mx-6 md:px-10 md:py-11 lg:px-12 lg:py-10">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-0 top-0 h-56 w-full bg-cover bg-[position:28%_58%] sm:inset-y-0 sm:h-auto sm:w-[68%] sm:bg-[position:18%_center] md:w-[54%] lg:w-[43%]"
+        style={{ backgroundImage: `url(${IMG.confianza})` }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--cream)_8%,transparent)_0%,color-mix(in_oklab,var(--cream)_20%,transparent)_18%,color-mix(in_oklab,var(--cream)_88%,transparent)_31%,var(--cream)_40%)] sm:bg-[linear-gradient(90deg,color-mix(in_oklab,var(--cream)_10%,transparent)_0%,color-mix(in_oklab,var(--cream)_24%,transparent)_25%,color-mix(in_oklab,var(--cream)_88%,transparent)_50%,var(--cream)_68%,var(--cream)_100%)]"
+      />
+
+      <div className="relative z-10 pt-32 sm:pt-0 lg:ml-[31%]">
+        <h2 className="mb-2 max-w-2xl font-display text-xl font-normal leading-snug md:text-2xl">
+          La confianza también forma parte del cuidado.
+        </h2>
+        <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
+          Revisamos cada perfil para que puedas explorar con tranquilidad y elegir con confianza.
+        </p>
+      </div>
+
+      <div className="relative z-10 mt-7 grid grid-cols-2 gap-y-7 sm:ml-[30%] sm:mt-8 lg:ml-0 lg:grid-cols-[30%_repeat(4,minmax(0,1fr))] lg:gap-y-0">
+        <div aria-hidden className="hidden lg:block" />
+        {CONFIANZA.map((c, index) => {
+          const Icono = c.icono;
+          return (
+            <div
+              key={c.titulo}
+              className={`min-w-0 px-3 text-center sm:px-4 lg:px-5 ${
+                index % 2 === 1 ? "border-l border-border/70" : ""
+              } ${index > 0 ? "lg:border-l lg:border-border/70" : ""}`}
+            >
+              <Icono
+                aria-hidden="true"
+                className="mx-auto mb-3 size-6 text-sage-dark"
+                strokeWidth={1.4}
+              />
+              <h3 className="mb-2 font-display text-sm font-normal leading-snug text-foreground">
+                {c.titulo}
+              </h3>
+              <p className="m-0 text-[0.7rem] leading-relaxed text-muted-foreground">{c.texto}</p>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
