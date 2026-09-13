@@ -38,20 +38,64 @@ const MONO = "var(--font-body)";
  */
 function GuiaPracticas() {
   const isMobile = useMobile(900);
+  const isNarrow = useMobile(560);
   const [query, setQuery] = useState("");
 
   const encontradas = useMemo(() => buscarPracticas(query), [query]);
   const grupos = useMemo(() => practicasPorLetra(encontradas), [encontradas]);
   const letrasDisponibles = useMemo(() => new Set(grupos.map((g) => g.letra)), [grupos]);
 
+  // Reparto equilibrado de grupos alfabéticos en columnas, manteniendo el orden
+  // global A–Z: cada columna es un bloque contiguo de letras (se lee de arriba
+  // abajo, columna 1 → 2 → 3 → 4) y los cortes se eligen para que las alturas
+  // queden lo más parecidas posible (partición óptima por programación dinámica).
+  const columnas = useMemo(() => {
+    const numCols = isNarrow ? 1 : isMobile ? 2 : 4;
+    const n = grupos.length;
+    if (n === 0) return [] as (typeof grupos)[];
+    if (numCols === 1 || n <= numCols) return [grupos];
+    // Altura aproximada: cabecera de letra (~33 px) + 26 px por práctica + margen de grupo
+    const pesos = grupos.map((g) => 33 + g.practicas.length * 26 + 26);
+    const pref = [0];
+    for (const p of pesos) pref.push(pref[pref.length - 1] + p);
+    const total = pref[n];
+    const objetivo = total / numCols;
+    // dp[c][i] = coste mínimo de repartir los primeros i grupos en c columnas
+    const dp: number[][] = Array.from({ length: numCols + 1 }, () => new Array(n + 1).fill(Infinity));
+    const corte: number[][] = Array.from({ length: numCols + 1 }, () => new Array(n + 1).fill(0));
+    dp[0][0] = 0;
+    for (let c = 1; c <= numCols; c++) {
+      for (let i = 1; i <= n; i++) {
+        for (let j = c - 1; j < i; j++) {
+          if (dp[c - 1][j] === Infinity) continue;
+          const altura = pref[i] - pref[j];
+          const coste = dp[c - 1][j] + (altura - objetivo) ** 2;
+          if (coste < dp[c][i]) {
+            dp[c][i] = coste;
+            corte[c][i] = j;
+          }
+        }
+      }
+    }
+    const cols: (typeof grupos)[] = [];
+    let i = n;
+    for (let c = numCols; c >= 1; c--) {
+      const j = corte[c][i];
+      cols.unshift(grupos.slice(j, i));
+      i = j;
+    }
+    return cols;
+  }, [grupos, isMobile, isNarrow]);
+
   return (
     <div style={{ fontFamily: MONO, background: "var(--muted)", color: "var(--foreground)", minHeight: "100vh" }}>
       <style>{`
-        .guia-indice { column-count: 4; column-gap: 28px; }
-        @media (max-width: 900px) { .guia-indice { column-count: 2; } }
-        @media (max-width: 560px) { .guia-indice { column-count: 1; } }
-        .guia-bloque { break-inside: avoid; margin-bottom: 18px; }
-        .guia-letra { font-size: 14px; letter-spacing: 2px; color: var(--foreground); border-bottom: 1px solid var(--border); padding-bottom: 4px; margin: 0 0 8px 0; }
+        .guia-indice { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; align-items: start; }
+        @media (max-width: 900px) { .guia-indice { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 560px) { .guia-indice { grid-template-columns: 1fr; } }
+        .guia-bloque { margin-bottom: 26px; }
+        .guia-bloque:last-child { margin-bottom: 0; }
+        .guia-letra { font-size: 14px; letter-spacing: 2px; color: var(--foreground); border-bottom: 1px solid var(--border); padding-bottom: 4px; margin: 0 0 7px 0; }
         .guia-link { color: var(--foreground); text-decoration: none; font-size: 13px; line-height: 2; display: block; }
         .guia-link:hover { color: var(--foreground); text-decoration: underline; text-decoration-color: var(--border); text-underline-offset: 3px; }
       `}</style>
@@ -144,20 +188,24 @@ function GuiaPracticas() {
           </section>
         ) : (
           <div className="guia-indice">
-            {grupos.map((g) => (
-              <section key={g.letra} id={`letra-${g.letra}`} className="guia-bloque">
-                <h2 className="guia-letra">{g.letra}</h2>
-                {g.practicas.map((p) => (
-                  <Link
-                    key={p}
-                    to="/guia/$slug"
-                    params={{ slug: slugPractica(p) }}
-                    className="guia-link"
-                  >
-                    {p}
-                  </Link>
+            {columnas.map((col, i) => (
+              <div key={i}>
+                {col.map((g) => (
+                  <section key={g.letra} id={`letra-${g.letra}`} className="guia-bloque">
+                    <h2 className="guia-letra">{g.letra}</h2>
+                    {g.practicas.map((p) => (
+                      <Link
+                        key={p}
+                        to="/guia/$slug"
+                        params={{ slug: slugPractica(p) }}
+                        className="guia-link"
+                      >
+                        {p}
+                      </Link>
+                    ))}
+                  </section>
                 ))}
-              </section>
+              </div>
             ))}
           </div>
         )}
