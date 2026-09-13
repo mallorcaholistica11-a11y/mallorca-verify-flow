@@ -67,7 +67,6 @@ export function FichaCentro({
           <BarraLateral data={data} esPresencia={esPresencia} />
         </aside>
       </div>
-
     </div>
   );
 }
@@ -97,12 +96,19 @@ function HeroCentro({
           alignItems: isMobile ? "flex-start" : "center",
         }}
       >
-        <div style={{ flex: isMobile ? "none" : "0 0 34%", maxWidth: isMobile ? "100%" : "34%", width: "100%" }}>
+        <div
+          style={{
+            flex: isMobile ? "none" : "0 0 34%",
+            maxWidth: isMobile ? "100%" : "34%",
+            width: "100%",
+          }}
+        >
           <div
             style={{
               width: "100%",
               aspectRatio: "16 / 10",
-              border: "1px solid var(--border)", borderRadius: 12,
+              border: "1px solid var(--border)",
+              borderRadius: 12,
               background: "var(--card)",
               display: "flex",
               alignItems: "center",
@@ -117,12 +123,19 @@ function HeroCentro({
               alt={`Imagen principal de ${data.nombre}`}
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
-
           </div>
         </div>
 
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "8px 12px", marginBottom: 8 }}>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              alignItems: "center",
+              gap: "8px 12px",
+              marginBottom: 8,
+            }}
+          >
             <h1 style={{ fontSize: 28, lineHeight: 1.15, margin: 0 }}>{data.nombre}</h1>
             {!esPresencia && data.verificado && (
               <span
@@ -146,7 +159,9 @@ function HeroCentro({
           </div>
 
           {data.tipoOrganizacion && (
-            <div style={{ fontSize: 14, color: "var(--foreground)", marginBottom: 6 }}>{data.tipoOrganizacion}</div>
+            <div style={{ fontSize: 14, color: "var(--foreground)", marginBottom: 6 }}>
+              {data.tipoOrganizacion}
+            </div>
           )}
 
           {data.especialidadesPrincipales && data.especialidadesPrincipales.length > 0 && (
@@ -156,7 +171,9 @@ function HeroCentro({
           )}
 
           {data.municipio && (
-            <div style={{ fontSize: 13, color: "var(--foreground)", marginBottom: 4 }}>{data.municipio}</div>
+            <div style={{ fontSize: 13, color: "var(--foreground)", marginBottom: 4 }}>
+              {data.municipio}
+            </div>
           )}
 
           {data.modalidades && data.modalidades.length > 0 && (
@@ -166,21 +183,36 @@ function HeroCentro({
           )}
 
           {(mostrarReserva || data.contacto?.whatsapp || mostrarTelefono) && (
-            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "10px 14px", marginTop: 16 }}>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                alignItems: "center",
+                gap: "10px 14px",
+                marginTop: 16,
+              }}
+            >
               {mostrarReserva && data.enlaceReserva && (
-                <Boton href={data.enlaceReserva}>
-                  Reservar
-                </Boton>
+                <Boton href={data.enlaceReserva}>Reservar</Boton>
               )}
               {data.contacto?.whatsapp && (
-                <Boton href={`https://wa.me/${data.contacto.whatsapp.replace(/[^0-9]/g, "")}`} variante="principal">
+                <Boton
+                  href={`https://wa.me/${data.contacto.whatsapp.replace(/[^0-9]/g, "")}`}
+                  variante="principal"
+                >
                   Hablar por WhatsApp
                 </Boton>
               )}
               {mostrarTelefono && data.contacto?.telefono && (
                 <a
                   href={`tel:${data.contacto.telefono.replace(/[^+0-9]/g, "")}`}
-                  style={{ ...enlace, display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13 }}
+                  style={{
+                    ...enlace,
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 6,
+                    fontSize: 13,
+                  }}
                 >
                   <span aria-hidden="true">☎</span> {data.contacto.telefono}
                 </a>
@@ -201,7 +233,9 @@ function ColumnaPrincipal({ data, esPresencia }: { data: FichaCentroData; esPres
   return (
     <>
       <Seccion titulo="Sobre nosotros" vacio={!data.sobreNosotros}>
-        <p style={{ fontSize: 14, lineHeight: 1.7, margin: 0, whiteSpace: "pre-wrap" }}>{data.sobreNosotros}</p>
+        <p style={{ fontSize: 14, lineHeight: 1.7, margin: 0, whiteSpace: "pre-wrap" }}>
+          {data.sobreNosotros}
+        </p>
         {data.idiomas && data.idiomas.length > 0 && (
           <div style={{ fontSize: 13, color: "var(--foreground)", marginTop: 12 }}>
             Idiomas: {data.idiomas.join(" · ")}
@@ -234,7 +268,9 @@ function ColumnaPrincipal({ data, esPresencia }: { data: FichaCentroData; esPres
       </Seccion>
 
       <Seccion titulo="Servicios y tarifas" vacio={esPresencia || !data.tarifas?.length} separador>
-        <div style={{ border: "1px solid var(--border)", borderRadius: 12, background: "var(--card)" }}>
+        <div
+          style={{ border: "1px solid var(--border)", borderRadius: 12, background: "var(--card)" }}
+        >
           {(data.tarifas ?? []).slice(0, 3).map((t, i) => (
             <div
               key={`${t.servicio}-${i}`}
@@ -254,12 +290,17 @@ function ColumnaPrincipal({ data, esPresencia }: { data: FichaCentroData; esPres
           ))}
         </div>
         {(data.tarifas ?? []).length > 3 && (
-          <a href={data.enlaceReserva ?? "#"} style={{ ...enlace, display: "inline-block", fontSize: 12, marginTop: 8 }}>
+          <a
+            href={data.enlaceReserva ?? "#"}
+            style={{ ...enlace, display: "inline-block", fontSize: 12, marginTop: 8 }}
+          >
             Ver todas las tarifas →
           </a>
         )}
         {data.notaTarifas && (
-          <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginTop: 6 }}>{data.notaTarifas}</div>
+          <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginTop: 6 }}>
+            {data.notaTarifas}
+          </div>
         )}
       </Seccion>
 
@@ -268,10 +309,13 @@ function ColumnaPrincipal({ data, esPresencia }: { data: FichaCentroData; esPres
           imagenes={(data.galeria?.length ? data.galeria : GALERIA_DEMO).slice(0, 10)}
           nombre={data.nombre}
         />
-
       </Seccion>
 
-      <Seccion titulo="Descubre nuestras actividades" vacio={esPresencia || !data.hayActividades} separador>
+      <Seccion
+        titulo="Descubre nuestras actividades"
+        vacio={esPresencia || !data.hayActividades}
+        separador
+      >
         <a href={data.enlaceAgenda ?? "/actividades"} style={{ ...enlace, fontSize: 13 }}>
           Descubre nuestras actividades →
         </a>
@@ -282,7 +326,14 @@ function ColumnaPrincipal({ data, esPresencia }: { data: FichaCentroData; esPres
           {(data.opiniones ?? []).map((o, i) => (
             <blockquote
               key={`${o.autor}-${i}`}
-              style={{ border: "1px solid var(--border)", borderRadius: 12, background: "var(--card)", margin: 0, padding: "12px", fontSize: 13 }}
+              style={{
+                border: "1px solid var(--border)",
+                borderRadius: 12,
+                background: "var(--card)",
+                margin: 0,
+                padding: "12px",
+                fontSize: 13,
+              }}
             >
               <p style={{ margin: "0 0 8px 0", lineHeight: 1.6 }}>“{o.texto}”</p>
               <footer style={{ fontSize: 12, color: "var(--muted-foreground)" }}>
@@ -306,15 +357,27 @@ function Equipo({ miembros, total }: { miembros: MiembroEquipo[]; total?: number
         {visibles.map((m, i) => (
           <div key={`${m.nombre}-${i}`} style={{ display: "flex", alignItems: "center", gap: 8 }}>
             {m.perfilUrl ? (
-              <a href={m.perfilUrl} aria-label={`Ver perfil de ${m.nombre}`} style={{ display: "block", flex: "0 0 auto" }}>
+              <a
+                href={m.perfilUrl}
+                aria-label={`Ver perfil de ${m.nombre}`}
+                style={{ display: "block", flex: "0 0 auto" }}
+              >
                 <FotoMiembro miembro={m} />
               </a>
             ) : (
               <FotoMiembro miembro={m} />
             )}
             <div style={{ fontSize: 12, lineHeight: 1.4 }}>
-              {m.perfilUrl ? <a href={m.perfilUrl} style={enlace}>{m.nombre}</a> : <div>{m.nombre}</div>}
-              {m.rol && <div style={{ fontSize: 11, color: "var(--muted-foreground)" }}>{m.rol}</div>}
+              {m.perfilUrl ? (
+                <a href={m.perfilUrl} style={enlace}>
+                  {m.nombre}
+                </a>
+              ) : (
+                <div>{m.nombre}</div>
+              )}
+              {m.rol && (
+                <div style={{ fontSize: 11, color: "var(--muted-foreground)" }}>{m.rol}</div>
+              )}
             </div>
           </div>
         ))}
@@ -330,28 +393,28 @@ function Equipo({ miembros, total }: { miembros: MiembroEquipo[]; total?: number
 
 function FotoMiembro({ miembro }: { miembro: MiembroEquipo }) {
   return (
-            <div
-              style={{
-                width: 34,
-                height: 34,
-                borderRadius: "50%",
-                border: "1px solid var(--border)",
-                background: "var(--card)",
-                overflow: "hidden",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "var(--muted-foreground)",
-                fontSize: 9,
-                flex: "0 0 auto",
-              }}
-            >
-              <img
-                src={miembro.fotoUrl ?? retratoDe(miembro.nombre)}
-                alt={miembro.nombre}
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              />
-            </div>
+    <div
+      style={{
+        width: 34,
+        height: 34,
+        borderRadius: "50%",
+        border: "1px solid var(--border)",
+        background: "var(--card)",
+        overflow: "hidden",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        color: "var(--muted-foreground)",
+        fontSize: 9,
+        flex: "0 0 auto",
+      }}
+    >
+      <img
+        src={miembro.fotoUrl ?? retratoDe(miembro.nombre)}
+        alt={miembro.nombre}
+        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+      />
+    </div>
   );
 }
 
@@ -385,7 +448,8 @@ function CarruselGaleria({ imagenes, nombre }: { imagenes: string[]; nombre: str
               flex: "0 0 calc((100% - 40px) / 6)",
               minWidth: 110,
               aspectRatio: "1 / 1",
-              border: "1px solid var(--border)", borderRadius: 12,
+              border: "1px solid var(--border)",
+              borderRadius: 12,
               background: "var(--card)",
               overflow: "hidden",
               padding: 0,
@@ -433,13 +497,29 @@ function CarruselGaleria({ imagenes, nombre }: { imagenes: string[]; nombre: str
             padding: 24,
           }}
         >
-          <div onClick={(e) => e.stopPropagation()} style={{ maxWidth: 720, width: "100%", textAlign: "center" }}>
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{ maxWidth: 720, width: "100%", textAlign: "center" }}
+          >
             <img
               src={fotoGaleria(imagenes[visor] ?? "", visor)}
               alt={`Imagen ${visor + 1} de ${nombre}`}
-              style={{ maxWidth: "100%", maxHeight: "70vh", objectFit: "contain", background: "var(--card)" }}
+              style={{
+                maxWidth: "100%",
+                maxHeight: "70vh",
+                objectFit: "contain",
+                background: "var(--card)",
+              }}
             />
-            <div style={{ display: "flex", justifyContent: "space-between", marginTop: 12, color: "var(--card)", fontSize: 12 }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginTop: 12,
+                color: "var(--card)",
+                fontSize: 12,
+              }}
+            >
               <button
                 type="button"
                 onClick={() => setVisor((v) => ((v ?? 0) - 1 + imagenes.length) % imagenes.length)}
@@ -458,7 +538,11 @@ function CarruselGaleria({ imagenes, nombre }: { imagenes: string[]; nombre: str
                 Siguiente →
               </button>
             </div>
-            <button type="button" onClick={() => setVisor(null)} style={{ ...enlaceDiscreto, color: "var(--card)" }}>
+            <button
+              type="button"
+              onClick={() => setVisor(null)}
+              style={{ ...enlaceDiscreto, color: "var(--card)" }}
+            >
               Cerrar
             </button>
           </div>
@@ -483,20 +567,37 @@ function BarraLateral({ data, esPresencia }: { data: FichaCentroData; esPresenci
           src={`https://www.google.com/maps?q=${encodeURIComponent(`${principal?.direccion ?? ""}, ${principal?.municipio ?? ""}`)}&output=embed`}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          style={{ display: "block", width: "100%", height: 140, border: "1px solid var(--border)", borderRadius: 8, background: "var(--cream)" }}
+          style={{
+            display: "block",
+            width: "100%",
+            height: 140,
+            border: "1px solid var(--border)",
+            borderRadius: 8,
+            background: "var(--cream)",
+          }}
         />
         <div style={{ display: "grid", gap: 0, marginTop: 12 }}>
           {ubicaciones.map((ubicacion, i) => (
             <div
               key={`${ubicacion.direccion}-${ubicacion.municipio}-${i}`}
-              style={{ padding: "12px 0", borderTop: i === 0 ? "none" : "1px solid var(--border)", fontSize: 13, lineHeight: 1.55 }}
+              style={{
+                padding: "12px 0",
+                borderTop: i === 0 ? "none" : "1px solid var(--border)",
+                fontSize: 13,
+                lineHeight: 1.55,
+              }}
             >
               <div style={{ fontWeight: 700 }}>{ubicacion.nombre || ubicacion.municipio}</div>
               <div>{ubicacion.direccion}</div>
-              {ubicacion.nombre && <div style={{ color: "var(--muted-foreground)" }}>{ubicacion.municipio}</div>}
+              {ubicacion.nombre && (
+                <div style={{ color: "var(--muted-foreground)" }}>{ubicacion.municipio}</div>
+              )}
               {ubicacion.direccion && (
                 <a
-                  href={ubicacion.enlaceMapa ?? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${ubicacion.direccion}, ${ubicacion.municipio}`)}`}
+                  href={
+                    ubicacion.enlaceMapa ??
+                    `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${ubicacion.direccion}, ${ubicacion.municipio}`)}`
+                  }
                   target="_blank"
                   rel="noreferrer"
                   style={{ ...enlace, display: "inline-block", fontSize: 12, marginTop: 5 }}
@@ -521,7 +622,10 @@ function BarraLateral({ data, esPresencia }: { data: FichaCentroData; esPresenci
         )}
       </Seccion>
 
-      <Seccion titulo="Contacto" vacio={!contacto?.telefono && !contacto?.email && !contacto?.whatsapp}>
+      <Seccion
+        titulo="Contacto"
+        vacio={!contacto?.telefono && !contacto?.email && !contacto?.whatsapp}
+      >
         <div style={{ display: "grid", gap: 6, fontSize: 13 }}>
           {contacto?.whatsapp && (
             <a href={`https://wa.me/${contacto.whatsapp.replace(/[^0-9]/g, "")}`} style={enlace}>
