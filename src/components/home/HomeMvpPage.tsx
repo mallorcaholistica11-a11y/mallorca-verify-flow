@@ -92,20 +92,20 @@ function Hero() {
     <section className="relative -mx-4 min-h-[520px] overflow-hidden px-6 py-12 sm:min-h-[500px] sm:px-10 sm:py-16 md:-mx-6 md:min-h-[490px] md:px-14 md:py-20 lg:px-16">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-20 bg-cover bg-[position:58%_center] sm:bg-[position:54%_center] md:bg-center"
+        className="pointer-events-none absolute inset-0 z-0 bg-cover bg-[position:58%_center] sm:bg-[position:54%_center] md:bg-center"
         style={{
           backgroundImage: `url(${heroAlmendro.url})`,
         }}
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10"
+        className="pointer-events-none absolute inset-0 z-10"
         style={{
           background:
             "linear-gradient(90deg, var(--background) 0%, color-mix(in oklab, var(--background) 97%, transparent) 34%, color-mix(in oklab, var(--background) 80%, transparent) 55%, color-mix(in oklab, var(--background) 20%, transparent) 82%, transparent 100%), linear-gradient(180deg, color-mix(in oklab, var(--background) 38%, transparent) 0%, transparent 48%, color-mix(in oklab, var(--background) 18%, transparent) 100%)",
         }}
       />
-      <div className="relative flex min-h-[424px] items-start sm:min-h-[372px] md:min-h-[330px] md:items-center">
+      <div className="relative z-20 flex min-h-[424px] items-start sm:min-h-[372px] md:min-h-[330px] md:items-center">
         <div className="max-w-[670px] min-w-0 pt-2 sm:pt-0">
           <div className="mb-5 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.18em] text-sage-dark">
             <span className="h-px w-8 bg-sage-light" />
