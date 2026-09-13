@@ -9,14 +9,22 @@ export function Seccion({
   titulo,
   children,
   vacio,
+  separador = false,
 }: {
   titulo?: string;
   children: ReactNode;
   vacio?: boolean;
+  separador?: boolean;
 }) {
   if (vacio) return null;
   return (
-    <section style={{ marginBottom: 28 }}>
+    <section
+      style={{
+        marginBottom: 28,
+        paddingTop: separador ? 26 : 0,
+        borderTop: separador ? "1px solid color-mix(in oklch, var(--border) 72%, transparent)" : "none",
+      }}
+    >
       {titulo && (
         <h2
           style={{

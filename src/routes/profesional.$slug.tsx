@@ -98,6 +98,7 @@ const demo: FichaPublicaData = {
   ],
   contacto: {
     telefono: "971 123 456",
+    telefonoPublico: true,
     email: "hola@luciagelabert.com",
     whatsapp: "+34600000000",
     web: "https://www.luciagelabert.com",

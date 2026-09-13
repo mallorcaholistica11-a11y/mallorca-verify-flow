@@ -8,7 +8,7 @@ import {
   Placeholder,
   Seccion,
 } from "@/components/ficha/primitives";
-import { GALERIA_DEMO, ambienteDe, retratoDe } from "@/data/imagenes";
+import { GALERIA_DEMO, retratoDe } from "@/data/imagenes";
 
 import {
   MAX_AREAS_FICHA,
@@ -77,8 +77,8 @@ function Hero({
   isMobile: boolean;
   plan: PlanFicha;
 }) {
-  const meta = [data.municipio, data.modalidades?.join(" · ")].filter(Boolean) as string[];
   const mostrarReserva = plan !== "presencia" && !!data.enlaceReserva;
+  const mostrarTelefono = !!data.contacto?.telefono && data.contacto.telefonoPublico === true;
 
   return (
     <header style={{ borderBottom: "1px solid var(--border)", background: "var(--card)" }}>
@@ -119,7 +119,28 @@ function Hero({
         </div>
 
         <div style={{ flex: 1, minWidth: 0 }}>
-          <h1 style={{ fontSize: 26, margin: "0 0 6px 0" }}>{data.nombre}</h1>
+          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "8px 12px", marginBottom: 8 }}>
+            <h1 style={{ fontSize: 28, lineHeight: 1.15, margin: 0 }}>{data.nombre}</h1>
+            {plan !== "presencia" && data.verificado && (
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 5,
+                  border: "1px solid var(--sage-light)",
+                  borderRadius: 999,
+                  background: "var(--secondary)",
+                  color: "var(--sage-dark)",
+                  padding: "4px 9px",
+                  fontSize: 11,
+                  fontWeight: 700,
+                  lineHeight: 1,
+                }}
+              >
+                <span aria-hidden="true">✓</span> Profesional Verificado
+              </span>
+            )}
+          </div>
 
           {data.identidadProfesional && (
             <div style={{ fontSize: 14, color: "var(--foreground)", marginBottom: 6 }}>{data.identidadProfesional}</div>
@@ -137,28 +158,36 @@ function Hero({
             </div>
           )}
 
-          {meta.length > 0 && (
-            <div style={{ fontSize: 13, color: "var(--foreground)", marginBottom: 10 }}>{meta.join(" · ")}</div>
+          {data.municipio && (
+            <div style={{ fontSize: 13, color: "var(--foreground)", marginBottom: 4 }}>{data.municipio}</div>
           )}
 
-          {(mostrarReserva || data.contacto?.whatsapp) && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 14, marginBottom: 12 }}>
-              {data.contacto?.whatsapp && (
-                <Boton href={`https://wa.me/${data.contacto.whatsapp.replace(/[^0-9]/g, "")}`}>
-                  Hablar por WhatsApp
-                </Boton>
-              )}
-              {mostrarReserva && (
-                <Boton href={data.enlaceReserva} variante="principal">
-                  Reservar sesión
-                </Boton>
-              )}
+          {data.modalidades && data.modalidades.length > 0 && (
+            <div style={{ fontSize: 13, color: "var(--foreground)", marginBottom: 10 }}>
+              {data.modalidades.join(" · ")}
             </div>
           )}
 
-          {plan !== "presencia" && data.verificado && (
-            <div style={{ fontSize: 12, color: "var(--muted-foreground)" }}>
-              ✔ Profesional Verificado por Mallorca Holística
+          {(mostrarReserva || data.contacto?.whatsapp || mostrarTelefono) && (
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "10px 14px", marginTop: 16 }}>
+              {mostrarReserva && (
+                <Boton href={data.enlaceReserva}>
+                  Reservar sesión
+                </Boton>
+              )}
+              {data.contacto?.whatsapp && (
+                <Boton href={`https://wa.me/${data.contacto.whatsapp.replace(/[^0-9]/g, "")}`} variante="principal">
+                  Hablar por WhatsApp
+                </Boton>
+              )}
+              {mostrarTelefono && data.contacto?.telefono && (
+                <a
+                  href={`tel:${data.contacto.telefono.replace(/[^+0-9]/g, "")}`}
+                  style={{ ...enlace, display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13 }}
+                >
+                  <span aria-hidden="true">☎</span> {data.contacto.telefono}
+                </a>
+              )}
             </div>
           )}
         </div>
@@ -178,27 +207,27 @@ function ColumnaPrincipal({ data, plan }: { data: FichaPublicaData; plan: PlanFi
         <p style={{ fontSize: 14, lineHeight: 1.7, margin: 0, whiteSpace: "pre-wrap" }}>{data.sobreMi}</p>
       </Seccion>
 
-      <Seccion titulo="Prácticas" vacio={!data.especialidades?.length}>
+      <Seccion titulo="Prácticas" vacio={!data.especialidades?.length} separador>
         <ChipsPracticas items={(data.especialidades ?? []).slice(0, MAX_ESPECIALIDADES_FICHA)} />
       </Seccion>
 
-      <Seccion titulo="¿En qué puedo ayudarte?" vacio={!data.areas?.length}>
+      <Seccion titulo="¿En qué puedo ayudarte?" vacio={!data.areas?.length} separador>
         <Chips items={(data.areas ?? []).slice(0, MAX_AREAS_FICHA)} />
       </Seccion>
 
-      <Seccion titulo="¿Cómo trabajo?" vacio={!data.modalidades?.length}>
+      <Seccion titulo="¿Cómo trabajo?" vacio={!data.modalidades?.length} separador>
         <LineaTexto items={data.modalidades ?? []} />
       </Seccion>
 
-      <Seccion titulo="¿A quién acompaño?" vacio={!data.publicos?.length}>
+      <Seccion titulo="¿A quién acompaño?" vacio={!data.publicos?.length} separador>
         <LineaTexto items={data.publicos ?? []} />
       </Seccion>
 
-      <Seccion titulo="Formación" vacio={!hayFormacion}>
+      <Seccion titulo="Formación" vacio={!hayFormacion} separador>
         <BloqueFormaciones items={trayectoria?.formaciones ?? []} />
       </Seccion>
 
-      <Seccion titulo="Tarifas" vacio={!completa || !data.tarifas?.length}>
+      <Seccion titulo="Tarifas" vacio={!completa || !data.tarifas?.length} separador>
         <div style={{ border: "1px solid var(--border)", borderRadius: 12, background: "var(--card)" }}>
           {(data.tarifas ?? []).map((t, i) => (
             <div
@@ -223,22 +252,22 @@ function ColumnaPrincipal({ data, plan }: { data: FichaPublicaData; plan: PlanFi
         )}
       </Seccion>
 
-      <Seccion titulo="Galería" vacio={!completa}>
+      <Seccion titulo="Galería" vacio={!completa || !data.galeria?.length} separador>
         <Galeria
-          imagenes={data.galeria?.length ? data.galeria : GALERIA_DEMO}
+          imagenes={data.galeria ?? GALERIA_DEMO}
           nombre={data.nombre}
         />
 
       </Seccion>
 
-      <Seccion titulo="Actividades" vacio={!completa}>
+      <Seccion titulo="Actividades" vacio={!completa || (!data.actividades?.length && !data.enlaceAgenda)} separador>
         <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 10px 0", color: "var(--foreground)" }}>
           Consulta los talleres, cursos, retiros y actividades organizadas por este profesional.
         </p>
         <Boton href={data.enlaceAgenda ?? "/actividades"}>Ver agenda de actividades →</Boton>
       </Seccion>
 
-      <Seccion titulo="Opiniones" vacio={!completa || !data.opiniones?.length}>
+      <Seccion titulo="Opiniones" vacio={!completa || !data.opiniones?.length} separador>
         <div style={{ display: "grid", gap: 8 }}>
           {(data.opiniones ?? []).map((o, i) => (
             <blockquote
@@ -259,29 +288,60 @@ function ColumnaPrincipal({ data, plan }: { data: FichaPublicaData; plan: PlanFi
 
 function BarraLateral({ data }: { data: FichaPublicaData }) {
   const ubicaciones = data.ubicaciones ?? [];
-  const principal = ubicaciones.find((u) => u.principal) ?? ubicaciones[0];
-  const otras = ubicaciones.filter((u) => u !== principal);
   const contacto = data.contacto;
   const redes = contacto?.redes ?? [];
+  const hayAtencion = ubicaciones.length > 0 || !!data.zonaDomicilio;
 
   return (
     <>
-      <Seccion titulo="¿Dónde atiendo?" vacio={!principal}>
-        <Placeholder alto={140}>[mapa · {principal?.municipio}]</Placeholder>
-        <div style={{ fontSize: 13, marginTop: 8 }}>
-          {principal?.nombre && <div style={{ fontWeight: 600 }}>{principal.nombre}</div>}
-          <div>{principal?.direccion}</div>
-          <div style={{ color: "var(--muted-foreground)" }}>{principal?.municipio}</div>
-        </div>
-        {otras.length > 0 && (
-          <ul style={{ margin: "10px 0 0 0", paddingLeft: 18, fontSize: 12, lineHeight: 1.7, color: "var(--foreground)" }}>
-            {otras.map((u, i) => (
-              <li key={`${u.direccion}-${i}`}>
-                {[u.nombre, u.direccion, u.municipio].filter(Boolean).join(" · ")}
-              </li>
-            ))}
-          </ul>
+      <Seccion titulo="¿Dónde atiendo?" vacio={!hayAtencion}>
+        {ubicaciones.length > 0 && (
+          <Placeholder alto={140}>
+            [mapa · {ubicaciones.map((ubicacion) => ubicacion.municipio).filter(Boolean).join(" · ")}]
+          </Placeholder>
         )}
+        <div style={{ display: "grid", gap: 0, marginTop: ubicaciones.length > 0 ? 12 : 0 }}>
+          {ubicaciones.map((ubicacion, i) => (
+            <div
+              key={`${ubicacion.direccion}-${ubicacion.municipio}-${i}`}
+              style={{
+                padding: "12px 0",
+                borderTop: i === 0 ? "none" : "1px solid var(--border)",
+                fontSize: 13,
+                lineHeight: 1.55,
+              }}
+            >
+              <div style={{ fontWeight: 700 }}>{ubicacion.nombre || ubicacion.municipio}</div>
+              <div>{ubicacion.direccion}</div>
+              {ubicacion.nombre && (
+                <div style={{ color: "var(--muted-foreground)" }}>{ubicacion.municipio}</div>
+              )}
+              {ubicacion.direccion && (
+                <a
+                  href={ubicacion.enlaceMapa ?? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${ubicacion.direccion}, ${ubicacion.municipio}`)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ ...enlace, display: "inline-block", marginTop: 5, fontSize: 12 }}
+                >
+                  Cómo llegar →
+                </a>
+              )}
+            </div>
+          ))}
+          {data.zonaDomicilio && (
+            <div
+              style={{
+                padding: "12px 0",
+                borderTop: ubicaciones.length > 0 ? "1px solid var(--border)" : "none",
+                fontSize: 13,
+                lineHeight: 1.55,
+              }}
+            >
+              <div style={{ fontWeight: 700 }}>A domicilio</div>
+              <div style={{ color: "var(--muted-foreground)" }}>Zona de atención: {data.zonaDomicilio}</div>
+            </div>
+          )}
+        </div>
       </Seccion>
 
       <Seccion
