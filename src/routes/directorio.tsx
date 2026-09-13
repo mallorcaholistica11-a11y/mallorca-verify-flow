@@ -251,11 +251,19 @@ function Filtros({
         </div>
 
         {catalogo && (
-          <PanelCatalogo
+          <ModalCatalogo
             tipo={catalogo}
-            query={catalogo === "practicas" ? qPractica : qArea}
-            seleccion={catalogo === "practicas" ? practicas : areas}
-            onToggleItem={catalogo === "practicas" ? togglePractica : toggleArea}
+            seleccion={catalogo === "practicas" ? practica : area}
+            onSeleccionar={(v) => {
+              if (catalogo === "practicas") {
+                onPractica(v);
+                setQPractica("");
+              } else {
+                onArea(v);
+                setQArea("");
+              }
+              setCatalogo(null);
+            }}
             onCerrar={() => setCatalogo(null)}
           />
         )}
@@ -266,17 +274,26 @@ function Filtros({
             flexWrap: "wrap",
             alignItems: "center",
             justifyContent: "space-between",
-            gap: 12,
+            gap: 10,
           }}
         >
-          <label style={{ fontSize: 12, color: "var(--foreground)", display: "flex", alignItems: "center", gap: 8 }}>
+          <label style={{ fontSize: 11.5, color: "var(--muted-foreground)", display: "flex", alignItems: "center", gap: 8 }}>
             <input type="checkbox" />
             Solo perfiles verificados
           </label>
           <button
             type="button"
             onClick={limpiar}
-            style={{ ...selectStyle, width: "auto", cursor: "pointer", whiteSpace: "nowrap", color: "var(--muted-foreground)" }}
+            style={{
+              border: "none",
+              background: "transparent",
+              padding: 0,
+              fontSize: 11.5,
+              fontFamily: "inherit",
+              color: "var(--muted-foreground)",
+              cursor: "pointer",
+              whiteSpace: "nowrap",
+            }}
           >
             ↺ Limpiar filtros
           </button>
