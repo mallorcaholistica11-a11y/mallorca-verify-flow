@@ -232,13 +232,13 @@ function Agenda() {
   );
 }
 
-function Bloque({ children, top = 56 }: { children: ReactNode; top?: number }) {
-  return <section style={{ padding: `${top}px 0` }}>{children}</section>;
+function Bloque({ children, top = 56, bottom }: { children: ReactNode; top?: number; bottom?: number }) {
+  return <section style={{ padding: `${top}px 0 ${bottom ?? top}px` }}>{children}</section>;
 }
 
 function Hero({ isMobile }: { isMobile: boolean }) {
   return (
-    <Bloque top={44}>
+    <Bloque top={44} bottom={28}>
       <div style={{ maxWidth: 680 }}>
         <div style={{ fontSize: 11, letterSpacing: 2, color: "var(--muted-foreground)", marginBottom: 10 }}>AGENDA</div>
         <h1 style={{ fontSize: isMobile ? 22 : 26, lineHeight: 1.35, margin: "0 0 14px 0", fontWeight: 600 }}>
@@ -497,7 +497,7 @@ function NavegacionTemporal({ isMobile }: { isMobile: boolean }) {
   const [activo, setActivo] = useState("Esta semana");
 
   return (
-    <Bloque top={16}>
+    <Bloque top={28}>
       <div
         style={{
           display: "flex",
