@@ -100,7 +100,7 @@ export function HomeMvpPage() {
         <Descubre isMobile={isMobile} />
       </main>
 
-      <footer className="mt-20 border-t border-border px-6 py-6 text-center text-xs text-muted-foreground">
+      <footer className="mt-12 border-t border-border/70 px-6 py-7 text-center text-xs text-muted-foreground md:mt-14">
         Mallorca Holística · Wireframe funcional · Home MVP
       </footer>
     </div>
@@ -111,7 +111,7 @@ export function HomeMvpPage() {
 
 function Bloque({ children, id }: { children: ReactNode; id?: string }) {
   return (
-    <section id={id} className="py-10 md:py-11">
+    <section id={id} className="py-8 md:py-9">
       {children}
     </section>
   );
@@ -119,7 +119,7 @@ function Bloque({ children, id }: { children: ReactNode; id?: string }) {
 
 function Hero() {
   return (
-    <section className="relative -mx-4 min-h-[390px] overflow-hidden px-6 py-8 sm:min-h-[382px] sm:px-10 sm:py-9 md:-mx-6 md:min-h-[374px] md:px-14 md:py-10 lg:px-16">
+    <section className="relative -mx-4 min-h-[390px] overflow-hidden px-6 py-8 sm:min-h-[388px] sm:px-10 sm:py-9 md:-mx-6 md:min-h-[382px] md:px-14 md:py-10 lg:px-16">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 z-0 bg-cover bg-[position:62%_center] sm:bg-[position:58%_center] md:bg-[position:55%_center]"
@@ -132,28 +132,28 @@ function Hero() {
         className="pointer-events-none absolute inset-0 z-10"
         style={{
           background:
-            "linear-gradient(90deg, var(--background) 0%, color-mix(in oklab, var(--background) 96%, transparent) 18%, color-mix(in oklab, var(--background) 78%, transparent) 36%, color-mix(in oklab, var(--background) 45%, transparent) 50%, color-mix(in oklab, var(--background) 14%, transparent) 66%, transparent 82%), linear-gradient(180deg, color-mix(in oklab, var(--background) 28%, transparent) 0%, transparent 30%, transparent 72%, color-mix(in oklab, var(--background) 28%, transparent) 88%, var(--background) 100%)",
+            "linear-gradient(90deg, var(--background) 0%, color-mix(in oklab, var(--background) 94%, transparent) 20%, color-mix(in oklab, var(--background) 70%, transparent) 38%, color-mix(in oklab, var(--background) 32%, transparent) 54%, transparent 76%), linear-gradient(180deg, color-mix(in oklab, var(--background) 12%, transparent) 0%, transparent 72%, color-mix(in oklab, var(--background) 20%, transparent) 90%, var(--background) 100%)",
         }}
       />
-      <div className="relative z-20 flex min-h-[326px] items-center sm:min-h-[310px] md:min-h-[294px]">
+      <div className="relative z-20 flex min-h-[326px] items-center sm:min-h-[316px] md:min-h-[302px]">
         <div className="max-w-[600px] min-w-0">
-          <div className="mb-3 flex items-center gap-3 text-[0.6rem] font-medium uppercase tracking-[0.18em] text-sage-dark">
+          <div className="mb-4 flex items-center gap-3 text-[0.62rem] font-medium uppercase tracking-[0.18em] text-sage-dark">
             <span className="h-px w-8 bg-sage-light" />
             Mallorca Holística
           </div>
-          <h1 className="mb-4 max-w-[570px] font-display text-[1.6rem] font-normal leading-[1.12] text-charcoal sm:text-[1.75rem] md:text-[2.05rem] md:leading-[1.1]">
+          <h1 className="mb-5 max-w-[570px] font-display text-[1.65rem] font-normal leading-[1.12] text-charcoal sm:text-[1.85rem] md:text-[2.125rem] md:leading-[1.1]">
             <span className="block">Salud integrativa · Terapias complementarias</span>
             <span className="mt-1.5 block text-sage-dark">
               Medicina tradicional · Bienestar · Desarrollo personal
             </span>
           </h1>
-          <p className="mb-3 max-w-md font-display text-[0.82rem] italic leading-relaxed text-muted-foreground md:text-[0.88rem]">
+          <p className="mb-3 max-w-md font-display text-[0.84rem] italic leading-relaxed text-muted-foreground md:text-[0.92rem]">
             Toda persona merece sentirse escuchada, comprendida y acompañada.
           </p>
-          <p className="mb-2 max-w-md text-[0.75rem] leading-relaxed text-muted-foreground md:text-[0.78rem]">
+          <p className="mb-2 max-w-md text-[0.78rem] leading-relaxed text-muted-foreground md:text-[0.82rem]">
             Ampliamos la mirada sobre la salud para abrir nuevas posibilidades de acompañamiento.
           </p>
-          <p className="text-[0.75rem] font-semibold text-foreground md:text-[0.78rem]">
+          <p className="text-[0.78rem] font-semibold text-foreground md:text-[0.82rem]">
             Al servicio de las personas y del cuidado.
           </p>
         </div>
@@ -165,8 +165,8 @@ function Hero() {
 
 function BuscadorIA({ isMobile }: { isMobile: boolean }) {
   return (
-    <Bloque>
-      <div className="relative overflow-hidden rounded-[30px] border border-champagne/60 bg-cream/70 p-6 shadow-[var(--shadow-champagne)] md:rounded-[36px] md:px-10 md:py-9 lg:px-12 lg:py-10">
+    <section className="pb-8 pt-5 md:pb-9 md:pt-6">
+      <div className="relative overflow-hidden rounded-[28px] border border-champagne/60 bg-cream/80 p-6 shadow-[var(--shadow-champagne)] md:rounded-[32px] md:px-10 md:py-8 lg:px-12 lg:py-9">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-[0.04]"
@@ -177,8 +177,8 @@ function BuscadorIA({ isMobile }: { isMobile: boolean }) {
           }}
         />
         <div className="relative">
-          <div className="mx-auto mb-5 max-w-[920px] text-center md:mb-6">
-            <h2 className="mb-3 font-display text-2xl font-semibold md:text-[1.875rem]">
+          <div className="mx-auto mb-5 max-w-[920px] text-center md:mb-5">
+            <h2 className="mb-2.5 font-display text-2xl font-medium md:text-[1.75rem]">
               ¿Cómo te sientes hoy?
             </h2>
             <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
@@ -189,10 +189,10 @@ function BuscadorIA({ isMobile }: { isMobile: boolean }) {
           </div>
 
           <div className="mx-auto max-w-2xl">
-            <div className="relative rounded-[22px] border border-border/80 bg-card p-5 md:rounded-[24px] md:px-6 md:py-5">
+            <div className="relative rounded-[20px] border border-border/70 bg-card/95 p-5 shadow-[var(--shadow-soft)] md:rounded-[22px] md:px-6 md:py-5">
               <textarea
                 placeholder="Escribe cómo te sientes, qué necesitas o qué te gustaría mejorar..."
-                className="h-auto min-h-[96px] w-full resize-none bg-transparent text-sm leading-relaxed text-foreground placeholder:text-muted-foreground focus:outline-none md:min-h-[104px] md:text-base"
+                className="h-auto min-h-[82px] w-full resize-none bg-transparent text-sm leading-relaxed text-foreground placeholder:text-muted-foreground focus:outline-none md:min-h-[88px] md:text-[0.95rem]"
               />
               <div className="mt-2 flex justify-end md:mt-3">
                 <button
@@ -204,23 +204,23 @@ function BuscadorIA({ isMobile }: { isMobile: boolean }) {
               </div>
             </div>
 
-            <div className="mt-5 flex justify-center md:mt-6">
+            <div className="mt-5 flex justify-center">
               <Chips items={CHIPS} clicable gap={10} size="md" center />
             </div>
           </div>
         </div>
       </div>
-    </Bloque>
+    </section>
   );
 }
 
 function BusquedaClasica({ isMobile }: { isMobile: boolean }) {
   const navigate = useNavigate();
   return (
-    <Bloque>
+    <section className="pb-9 pt-7 md:pb-10 md:pt-8">
       <Seccion>
-        <h2 className="mb-1.5 font-display text-base font-semibold">¿Ya sabes lo que buscas?</h2>
-        <p className="mb-3.5 text-sm text-muted-foreground">
+        <h2 className="mb-1.5 font-display text-lg font-medium">¿Ya sabes lo que buscas?</h2>
+        <p className="mb-4 text-sm text-muted-foreground">
           Encuentra directamente una práctica, un profesional o una ubicación.
         </p>
         <BuscadorSimple
@@ -229,13 +229,13 @@ function BusquedaClasica({ isMobile }: { isMobile: boolean }) {
           onBuscar={(q, lugar) => navigate({ to: "/directorio", search: { q, lugar } })}
         />
       </Seccion>
-    </Bloque>
+    </section>
   );
 }
 
 function Confianza() {
   return (
-    <section className="relative -mx-4 my-4 overflow-hidden bg-cream/45 px-5 py-9 sm:px-8 md:-mx-6 md:px-10 md:py-10 lg:px-12 lg:py-9">
+    <section className="relative -mx-4 my-3 overflow-hidden bg-cream/55 px-5 py-10 sm:px-8 md:-mx-6 md:px-10 md:py-10 lg:px-12 lg:py-10">
       {/* Fotografía de fondo: cubre toda la sección para que el degradado la funda con el fondo */}
       <div
         aria-hidden
@@ -262,10 +262,10 @@ function Confianza() {
 
       <div className="relative z-20 lg:ml-[31%]">
         <div className="mb-6 max-w-2xl sm:mb-7">
-          <h2 className="mb-2 font-display text-xl font-normal leading-snug md:text-2xl">
+          <h2 className="mb-2.5 font-display text-xl font-normal leading-snug md:text-[1.65rem]">
             La confianza también forma parte del cuidado.
           </h2>
-          <p className="text-sm leading-relaxed text-muted-foreground">
+          <p className="text-[0.92rem] leading-relaxed text-muted-foreground">
             Revisamos cada perfil para que puedas explorar con tranquilidad y elegir con confianza.
           </p>
         </div>
@@ -285,10 +285,10 @@ function Confianza() {
                   className="mx-auto mb-3 size-6 text-sage-dark"
                   strokeWidth={1.4}
                 />
-                <h3 className="mb-2 font-display text-[0.82rem] font-normal leading-snug text-foreground">
+                <h3 className="mb-2 font-display text-[0.88rem] font-medium leading-snug text-foreground">
                   {c.titulo}
                 </h3>
-                <p className="m-0 text-[0.7rem] leading-relaxed text-muted-foreground">{c.texto}</p>
+                <p className="m-0 text-[0.74rem] leading-relaxed text-muted-foreground">{c.texto}</p>
               </div>
             );
           })}
@@ -305,23 +305,23 @@ function Profesionales({ isMobile, isTablet }: { isMobile: boolean; isTablet: bo
       ? "grid-cols-3"
       : "grid-cols-6";
   return (
-    <Bloque>
-      <h2 className="mb-2 font-display text-lg font-normal md:text-2xl">
+    <section className="pb-9 pt-12 md:pb-10 md:pt-14">
+      <h2 className="mb-2 font-display text-xl font-normal md:text-[1.65rem]">
         Personas que acompañan a personas.
       </h2>
-      <p className="mb-5 text-sm text-muted-foreground">
+      <p className="mb-6 text-sm text-muted-foreground">
         Conoce a algunos profesionales de nuestra comunidad.
       </p>
       <div className={`grid gap-3.5 ${grid}`}>
         {PROFESIONALES.map((p) => (
           <div
             key={p.nombre}
-            className="min-w-0 rounded-2xl border border-border/70 bg-card p-4 text-center transition-shadow hover:shadow-[var(--shadow-lift)]"
+            className="min-w-0 rounded-2xl border border-border/60 bg-card/80 p-4 text-center shadow-[var(--shadow-soft)] transition-shadow hover:shadow-[var(--shadow-lift)]"
           >
             <div className="mx-auto mb-3 w-fit">
               <Retrato src={retratoDe(p.nombre)} alt={`Retrato de ${p.nombre}`} tamano={64} />
             </div>
-            <div className="font-display text-xs text-foreground">{p.nombre}</div>
+            <div className="font-display text-[0.82rem] font-medium text-foreground">{p.nombre}</div>
             <div className="mt-1 text-xs text-muted-foreground">{p.especialidad}</div>
             <div className="text-xs text-muted-foreground">{p.lugar}</div>
           </div>
@@ -333,14 +333,14 @@ function Profesionales({ isMobile, isTablet }: { isMobile: boolean; isTablet: bo
           Ver todos los profesionales →
         </Link>
       </div>
-    </Bloque>
+    </section>
   );
 }
 
 function Descubre({ isMobile }: { isMobile: boolean }) {
   return (
-    <Bloque>
-      <h2 className="mb-6 text-center font-display text-xl font-normal md:text-2xl">
+    <section className="pb-9 pt-10 md:pb-10 md:pt-12">
+      <h2 className="mb-7 text-center font-display text-xl font-normal md:text-[1.65rem]">
         Descubre también
       </h2>
       <div className={`grid gap-4 ${isMobile ? "grid-cols-1" : "grid-cols-3"}`}>
@@ -350,7 +350,7 @@ function Descubre({ isMobile }: { isMobile: boolean }) {
             <Link
               key={d.titulo}
               to={d.to as never}
-               className={`group flex min-h-[176px] flex-col rounded-2xl p-6 transition-shadow hover:shadow-[var(--shadow-soft)] ${d.fondo}`}
+               className={`group flex min-h-[168px] flex-col rounded-2xl border border-border/30 p-6 transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)] ${d.fondo}`}
             >
               <Icono
                 aria-hidden="true"
@@ -378,7 +378,7 @@ function Descubre({ isMobile }: { isMobile: boolean }) {
           ← Volver al índice del wireframe
         </Link>
       </div>
-    </Bloque>
+    </section>
   );
 }
 
