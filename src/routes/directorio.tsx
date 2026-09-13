@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { CSSProperties, ReactNode } from "react";
+import { Check, SlidersHorizontal, X } from "lucide-react";
 import { Chips, Foto, Placeholder, Retrato, Seccion } from "@/components/ficha/primitives";
 import { ambienteDe, retratoDe } from "@/data/imagenes";
 
@@ -9,7 +10,7 @@ import { CampoCatalogoUnico, ModalCatalogo, type TipoCatalogo } from "@/componen
 import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
 import { BuscadorSimple } from "@/components/BuscadorSimple";
 import { coincideLugar, coincidePerfil, PERFILES, type Resultado } from "@/data/perfiles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/directorio")({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -45,6 +46,53 @@ const MUNICIPIOS = ["Todos los municipios", ...MUNICIPIOS_MALLORCA];
 
 const MODALIDADES = ["Presencial", "Online", "A domicilio", "A distancia"];
 
+type FiltrosDirectorio = {
+  tipo: "todos" | "profesional" | "organizacion";
+  practica: string | null;
+  area: string | null;
+  ubicacion: string;
+  modalidad: string;
+  soloVerificados: boolean;
+};
+
+const FILTROS_INICIALES: FiltrosDirectorio = {
+  tipo: "todos",
+  practica: null,
+  area: null,
+  ubicacion: "",
+  modalidad: "",
+  soloVerificados: false,
+};
+
+function aplicarFiltros(
+  perfiles: Resultado[],
+  filtros: FiltrosDirectorio,
+  q: string,
+  lugar: string,
+) {
+  return perfiles.filter(
+    (r) =>
+      (filtros.tipo === "todos" || r.tipo === filtros.tipo) &&
+      (filtros.area === null || r.areas.includes(filtros.area)) &&
+      (filtros.practica === null || r.especialidades.includes(filtros.practica)) &&
+      (filtros.ubicacion === "" || r.ubicacion === filtros.ubicacion) &&
+      (!filtros.soloVerificados || r.verificado) &&
+      coincidePerfil(r, q) &&
+      coincideLugar(r, lugar),
+  );
+}
+
+function contarFiltros(filtros: FiltrosDirectorio) {
+  return [
+    filtros.tipo !== "todos",
+    filtros.practica !== null,
+    filtros.area !== null,
+    filtros.ubicacion !== "",
+    filtros.modalidad !== "",
+    filtros.soloVerificados,
+  ].filter(Boolean).length;
+}
+
 const DESCUBRE = [
   { titulo: "📅 Agenda de Actividades", enlace: "Ver agenda →", to: "/agenda" },
   { titulo: "📖 Guía de Prácticas", enlace: "Explorar guía →", to: "/guia" },
@@ -54,16 +102,8 @@ function Directorio() {
   const isMobile = useMobile(900);
   const { q, lugar } = Route.useSearch();
   const navigate = Route.useNavigate();
-  // Directorio público: selección ÚNICA de práctica y de área (catálogos sin cambios).
-  const [area, setArea] = useState<string | null>(null);
-  const [practica, setPractica] = useState<string | null>(null);
-  const resultados = PERFILES.filter(
-    (r) =>
-      (area === null || r.areas.includes(area)) &&
-      (practica === null || r.especialidades.includes(practica)) &&
-      coincidePerfil(r, q) &&
-      coincideLugar(r, lugar),
-  );
+  const [filtros, setFiltros] = useState<FiltrosDirectorio>(FILTROS_INICIALES);
+  const resultados = aplicarFiltros(PERFILES, filtros, q, lugar);
 
   return (
     <div style={{ fontFamily: MONO, background: "var(--muted)", color: "var(--foreground)", minHeight: "100vh" }}>
@@ -79,10 +119,11 @@ function Directorio() {
         />
         <Filtros
           isMobile={isMobile}
-          area={area}
-          onArea={setArea}
-          practica={practica}
-          onPractica={setPractica}
+          filtros={filtros}
+          onAplicar={setFiltros}
+          q={q}
+          lugar={lugar}
+          totalResultados={resultados.length}
         />
         <Resultados isMobile={isMobile} resultados={resultados} />
       </main>
@@ -109,18 +150,18 @@ function Bloque({ children, top = 56 }: { children: ReactNode; top?: number }) {
 
 function Hero({ isMobile }: { isMobile: boolean }) {
   return (
-    <Bloque top={44}>
-      <div style={{ maxWidth: 680 }}>
-        <div style={{ fontSize: 11, letterSpacing: 2, color: "var(--muted-foreground)", marginBottom: 10 }}>DIRECTORIO</div>
-        <h1 style={{ fontSize: isMobile ? 22 : 26, lineHeight: 1.35, margin: "0 0 14px 0", fontWeight: 600 }}>
+    <section style={{ padding: isMobile ? "22px 0 10px" : "26px 0 12px" }}>
+      <div style={{ maxWidth: 860 }}>
+        <div style={{ fontSize: 10, letterSpacing: 2, color: "var(--muted-foreground)", marginBottom: 5 }}>DIRECTORIO</div>
+        <h1 style={{ fontSize: isMobile ? 21 : 24, lineHeight: 1.2, margin: "0 0 6px 0", fontWeight: 600 }}>
           Encuentra el acompañamiento que necesitas.
         </h1>
-        <p style={{ fontSize: 13, lineHeight: 1.8, color: "var(--foreground)", margin: 0 }}>
+        <p style={{ fontSize: 12.5, lineHeight: 1.55, color: "var(--foreground)", margin: 0 }}>
           Explora profesionales, centros y espacios dedicados a la salud integrativa, las terapias
           complementarias, la medicina natural, el bienestar y el desarrollo personal en Mallorca.
         </p>
       </div>
-    </Bloque>
+    </section>
   );
 }
 
@@ -137,7 +178,7 @@ function Buscador({
   onBuscar: (q: string, lugar: string) => void;
 }) {
   return (
-    <Bloque top={16}>
+    <section style={{ padding: "8px 0 0" }}>
       <Seccion>
         <BuscadorSimple
           key={`${q}|${lugar}`}
@@ -147,159 +188,252 @@ function Buscador({
           onBuscar={onBuscar}
         />
       </Seccion>
-    </Bloque>
+    </section>
   );
 }
 
 function Filtros({
   isMobile,
-  area,
-  onArea,
-  practica,
-  onPractica,
+  filtros,
+  onAplicar,
+  q,
+  lugar,
+  totalResultados,
 }: {
   isMobile: boolean;
-  area: string | null;
-  onArea: (v: string | null) => void;
-  practica: string | null;
-  onPractica: (v: string | null) => void;
+  filtros: FiltrosDirectorio;
+  onAplicar: (v: FiltrosDirectorio) => void;
+  q: string;
+  lugar: string;
+  totalResultados: number;
 }) {
-  // El catálogo completo se abre en modal superpuesto (no expande la página).
+  const [abierto, setAbierto] = useState(false);
   const [catalogo, setCatalogo] = useState<TipoCatalogo | null>(null);
+  const [borrador, setBorrador] = useState<FiltrosDirectorio>(filtros);
   const [qPractica, setQPractica] = useState("");
   const [qArea, setQArea] = useState("");
+  const activos = contarFiltros(filtros);
+  const resultadosBorrador = aplicarFiltros(PERFILES, borrador, q, lugar).length;
+
+  const abrir = () => {
+    setBorrador(filtros);
+    setQPractica("");
+    setQArea("");
+    setCatalogo(null);
+    setAbierto(true);
+  };
+
+  const cerrar = () => {
+    setCatalogo(null);
+    setAbierto(false);
+  };
 
   const limpiar = () => {
-    onPractica(null);
-    onArea(null);
+    setBorrador(FILTROS_INICIALES);
     setQPractica("");
     setQArea("");
     setCatalogo(null);
   };
 
+  useEffect(() => {
+    if (!abierto) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      if (catalogo) setCatalogo(null);
+      else cerrar();
+    };
+    const overflowAnterior = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = overflowAnterior;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [abierto, catalogo]);
+
   return (
-    <Bloque top={12}>
+    <section style={{ padding: "10px 0 0" }}>
       <div
         style={{
-          border: "1px solid var(--border)", borderRadius: 12,
-          background: "var(--card)",
-          padding: isMobile ? 12 : 14,
-          display: "grid",
-          gap: 10,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 12,
         }}
       >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "repeat(5, minmax(0,1fr))",
-            gap: 12,
-            alignItems: "start",
-          }}
+        <button
+          type="button"
+          onClick={abrir}
+          aria-haspopup="dialog"
+          style={botonFiltros}
         >
-          <Campo label="Tipo de perfil">
-            <select style={selectStyle} defaultValue="Todos">
-              <option>Todos</option>
-              <option>Profesionales</option>
-              <option>Organizaciones</option>
-            </select>
-          </Campo>
-          <Campo label="Práctica">
-            <CampoCatalogoUnico
-              tipo="practicas"
-              query={qPractica}
-              onQuery={setQPractica}
-              placeholder="Buscar una práctica..."
-              onAbrir={() => setCatalogo("practicas")}
-              seleccion={practica}
-              onSeleccionar={(v) => {
-                onPractica(v);
-                setQPractica("");
-              }}
-              onQuitar={() => onPractica(null)}
-            />
-          </Campo>
-          <Campo label="Áreas de acompañamiento">
-            <CampoCatalogoUnico
-              tipo="areas"
-              query={qArea}
-              onQuery={setQArea}
-              placeholder="Buscar por necesidad..."
-              onAbrir={() => setCatalogo("areas")}
-              seleccion={area}
-              onSeleccionar={(v) => {
-                onArea(v);
-                setQArea("");
-              }}
-              onQuitar={() => onArea(null)}
-            />
-          </Campo>
-          <Campo label="Ubicación">
-            <select style={selectStyle} defaultValue="Todos los municipios">
-              {MUNICIPIOS.map((m) => (
-                <option key={m}>{m}</option>
-              ))}
-            </select>
-          </Campo>
-          <Campo label="Modalidad">
-            <select style={selectStyle} defaultValue="Todas las modalidades">
-              <option>Todas las modalidades</option>
-              {MODALIDADES.map((m) => (
-                <option key={m}>{m}</option>
-              ))}
-            </select>
-          </Campo>
-        </div>
-
-        {catalogo && (
-          <ModalCatalogo
-            tipo={catalogo}
-            seleccion={catalogo === "practicas" ? practica : area}
-            onSeleccionar={(v) => {
-              if (catalogo === "practicas") {
-                onPractica(v);
-                setQPractica("");
-              } else {
-                onArea(v);
-                setQArea("");
-              }
-              setCatalogo(null);
-            }}
-            onCerrar={() => setCatalogo(null)}
-          />
-        )}
-
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: 10,
-          }}
-        >
-          <label style={{ fontSize: 11.5, color: "var(--muted-foreground)", display: "flex", alignItems: "center", gap: 8 }}>
-            <input type="checkbox" />
-            Solo perfiles verificados
-          </label>
-          <button
-            type="button"
-            onClick={limpiar}
-            style={{
-              border: "none",
-              background: "transparent",
-              padding: 0,
-              fontSize: 11.5,
-              fontFamily: "inherit",
-              color: "var(--muted-foreground)",
-              cursor: "pointer",
-              whiteSpace: "nowrap",
-            }}
-          >
-            ↺ Limpiar filtros
-          </button>
-        </div>
+          <SlidersHorizontal size={15} strokeWidth={1.7} aria-hidden />
+          <span>Filtros{activos > 0 ? ` · ${activos}` : ""}</span>
+        </button>
+        <span style={{ fontSize: 12, color: "var(--muted-foreground)", whiteSpace: "nowrap" }}>
+          {totalResultados} resultados encontrados
+        </span>
       </div>
-    </Bloque>
+
+      {abierto && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="titulo-filtros"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) cerrar();
+          }}
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 50,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: isMobile ? 10 : 20,
+            background: "color-mix(in srgb, var(--foreground) 24%, transparent)",
+            backdropFilter: "blur(2px)",
+          }}
+        >
+          <div style={modalFiltros}>
+            <header
+              style={{
+                display: "grid",
+                gridTemplateColumns: "32px 1fr 32px",
+                alignItems: "center",
+                padding: "13px 16px",
+                borderBottom: "1px solid var(--border)",
+              }}
+            >
+              <span aria-hidden />
+              <h2 id="titulo-filtros" style={{ margin: 0, textAlign: "center", fontSize: 17, lineHeight: 1.3 }}>
+                Filtros
+              </h2>
+              <button type="button" onClick={cerrar} aria-label="Cerrar filtros" style={botonIcono}>
+                <X size={18} strokeWidth={1.6} aria-hidden />
+              </button>
+            </header>
+
+            <div style={{ overflowY: "auto", padding: isMobile ? 16 : 22 }}>
+              <div style={{ display: "grid", gap: 20 }}>
+                <Campo label="Tipo de perfil">
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", border: "1px solid var(--border)", borderRadius: 10, overflow: "hidden" }}>
+                    {([
+                      ["todos", "Todos"],
+                      ["profesional", "Profesionales"],
+                      ["organizacion", "Organizaciones"],
+                    ] as const).map(([valor, texto]) => (
+                      <button
+                        key={valor}
+                        type="button"
+                        onClick={() => setBorrador({ ...borrador, tipo: valor })}
+                        style={{ ...opcionSegmentada, background: borrador.tipo === valor ? "var(--secondary)" : "var(--card)" }}
+                      >
+                        {texto}
+                      </button>
+                    ))}
+                  </div>
+                </Campo>
+
+                <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 18 }}>
+                  <Campo label="Práctica">
+                    <CampoCatalogoUnico
+                      tipo="practicas"
+                      query={qPractica}
+                      onQuery={setQPractica}
+                      placeholder="Buscar una práctica..."
+                      onAbrir={() => setCatalogo("practicas")}
+                      seleccion={borrador.practica}
+                      onSeleccionar={(v) => {
+                        setBorrador({ ...borrador, practica: v });
+                        setQPractica("");
+                      }}
+                      onQuitar={() => setBorrador({ ...borrador, practica: null })}
+                    />
+                  </Campo>
+                  <Campo label="Área de acompañamiento">
+                    <CampoCatalogoUnico
+                      tipo="areas"
+                      query={qArea}
+                      onQuery={setQArea}
+                      placeholder="Buscar por necesidad..."
+                      onAbrir={() => setCatalogo("areas")}
+                      seleccion={borrador.area}
+                      onSeleccionar={(v) => {
+                        setBorrador({ ...borrador, area: v });
+                        setQArea("");
+                      }}
+                      onQuitar={() => setBorrador({ ...borrador, area: null })}
+                    />
+                  </Campo>
+                  <Campo label="Ubicación">
+                    <select
+                      style={selectStyle}
+                      value={borrador.ubicacion}
+                      onChange={(event) => setBorrador({ ...borrador, ubicacion: event.target.value })}
+                    >
+                      <option value="">Todos los municipios</option>
+                      {MUNICIPIOS_MALLORCA.map((m) => <option key={m} value={m}>{m}</option>)}
+                    </select>
+                  </Campo>
+                  <Campo label="Modalidad">
+                    <select
+                      style={selectStyle}
+                      value={borrador.modalidad}
+                      onChange={(event) => setBorrador({ ...borrador, modalidad: event.target.value })}
+                    >
+                      <option value="">Todas las modalidades</option>
+                      {MODALIDADES.map((m) => <option key={m} value={m}>{m}</option>)}
+                    </select>
+                  </Campo>
+                </div>
+
+                <label style={{ fontSize: 12.5, color: "var(--foreground)", display: "flex", alignItems: "center", gap: 9 }}>
+                  <input
+                    type="checkbox"
+                    checked={borrador.soloVerificados}
+                    onChange={(event) => setBorrador({ ...borrador, soloVerificados: event.target.checked })}
+                  />
+                  Solo perfiles verificados
+                </label>
+              </div>
+            </div>
+
+            <footer style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 14, padding: "12px 16px", borderTop: "1px solid var(--border)", background: "var(--card)" }}>
+              <button type="button" onClick={limpiar} style={botonLimpiar}>Limpiar filtros</button>
+              <button
+                type="button"
+                onClick={() => {
+                  onAplicar(borrador);
+                  cerrar();
+                }}
+                style={botonMostrar}
+              >
+                Mostrar {resultadosBorrador} resultados
+              </button>
+            </footer>
+          </div>
+
+          {catalogo && (
+            <ModalCatalogo
+              tipo={catalogo}
+              seleccion={catalogo === "practicas" ? borrador.practica : borrador.area}
+              onSeleccionar={(v) => {
+                if (catalogo === "practicas") {
+                  setBorrador({ ...borrador, practica: v });
+                  setQPractica("");
+                } else {
+                  setBorrador({ ...borrador, area: v });
+                  setQArea("");
+                }
+                setCatalogo(null);
+              }}
+              onCerrar={() => setCatalogo(null)}
+            />
+          )}
+        </div>
+      )}
+    </section>
   );
 }
 
@@ -316,22 +450,7 @@ function Campo({ label, children }: { label: string; children: ReactNode }) {
 
 function Resultados({ isMobile, resultados }: { isMobile: boolean; resultados: Resultado[] }) {
   return (
-    <Bloque top={24}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          gap: 12,
-          flexWrap: "wrap",
-          marginBottom: 18,
-        }}
-      >
-        <div style={{ fontSize: 13, color: "var(--foreground)" }}>
-          {resultados.length} resultados encontrados
-        </div>
-      </div>
-
+    <Bloque top={14}>
       <div
         style={{
           display: "grid",
@@ -502,4 +621,78 @@ const selectStyle: CSSProperties = {
   fontFamily: "inherit",
   color: "var(--foreground)",
   boxSizing: "border-box",
+};
+
+const botonFiltros: CSSProperties = {
+  display: "inline-flex",
+  alignItems: "center",
+  gap: 8,
+  border: "1px solid var(--border)",
+  borderRadius: 999,
+  background: "var(--card)",
+  color: "var(--foreground)",
+  padding: "8px 13px",
+  fontSize: 12.5,
+  fontFamily: "inherit",
+  cursor: "pointer",
+  boxShadow: "var(--shadow-soft)",
+};
+
+const modalFiltros: CSSProperties = {
+  width: "min(720px, 100%)",
+  maxHeight: "min(720px, calc(100vh - 24px))",
+  display: "flex",
+  flexDirection: "column",
+  border: "1px solid var(--border)",
+  borderRadius: 18,
+  background: "var(--card)",
+  boxShadow: "var(--shadow-lift)",
+  overflow: "hidden",
+};
+
+const botonIcono: CSSProperties = {
+  width: 32,
+  height: 32,
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  border: "none",
+  borderRadius: 999,
+  background: "transparent",
+  color: "var(--foreground)",
+  cursor: "pointer",
+};
+
+const opcionSegmentada: CSSProperties = {
+  minWidth: 0,
+  border: "none",
+  borderRight: "1px solid var(--border)",
+  color: "var(--foreground)",
+  padding: "10px 6px",
+  fontSize: 12,
+  fontFamily: "inherit",
+  cursor: "pointer",
+};
+
+const botonLimpiar: CSSProperties = {
+  border: "none",
+  background: "transparent",
+  color: "var(--foreground)",
+  padding: "8px 2px",
+  fontSize: 12,
+  fontFamily: "inherit",
+  textDecoration: "underline",
+  cursor: "pointer",
+};
+
+const botonMostrar: CSSProperties = {
+  border: "1px solid var(--primary)",
+  borderRadius: 999,
+  background: "var(--primary)",
+  color: "var(--primary-foreground)",
+  padding: "10px 17px",
+  fontSize: 12.5,
+  fontFamily: "inherit",
+  cursor: "pointer",
+  whiteSpace: "nowrap",
 };

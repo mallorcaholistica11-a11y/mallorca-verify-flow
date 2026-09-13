@@ -7,3 +7,5 @@
 - [x] Verificar el ritmo global y la adaptación de la Home en escritorio y móvil.
 - [x] Reorientar la armonización de la Home hacia una sensación cálida, humana y envolvente.
 - [x] Verificar que la nueva continuidad visual se perciba en escritorio y móvil.
+- [ ] Compactar la cabecera y búsqueda del Directorio y trasladar todos sus filtros a un modal.
+- [ ] Verificar selección única, aplicación diferida y vistas de escritorio y móvil del Directorio.
