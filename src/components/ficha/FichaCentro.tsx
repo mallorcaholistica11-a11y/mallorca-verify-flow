@@ -395,8 +395,8 @@ function FotoMiembro({ miembro }: { miembro: MiembroEquipo }) {
   return (
     <div
       style={{
-        width: 34,
-        height: 34,
+        width: 44,
+        height: 44,
         borderRadius: "50%",
         border: "1px solid var(--border)",
         background: "var(--card)",
