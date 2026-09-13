@@ -15,3 +15,5 @@
 - [x] Mejorar jerarquía, acciones condicionales y verificación de la ficha de Entidad Verificada.
 - [x] Organizar ubicaciones, separadores y eliminación del CTA final redundante de la entidad.
 - [x] Verificar la ficha de Entidad Verificada en escritorio y móvil.
+- [ ] Compactar la búsqueda y trasladar los filtros avanzados de la Agenda a un modal.
+- [ ] Verificar búsqueda, filtros, catálogos y navegación temporal en escritorio y móvil.
