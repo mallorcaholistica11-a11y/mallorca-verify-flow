@@ -33,9 +33,6 @@ function NuestraMirada() {
       <main className="mirada-page overflow-hidden">
         <header className="mirada-hero relative mx-auto grid max-w-[1120px] grid-cols-1 px-5 pb-20 pt-16 sm:px-8 md:min-h-[560px] md:grid-cols-12 md:items-center md:px-10 md:pb-24 md:pt-20">
           <div className="relative z-10 md:col-span-8 md:col-start-2 lg:col-span-7">
-            <p className="mb-6 text-[11px] font-semibold uppercase tracking-[0.24em] text-primary">
-              Nuestra mirada
-            </p>
             <h1 className="font-display text-[clamp(3.75rem,9vw,7.5rem)] font-medium leading-[0.88] text-charcoal">
               Nuestra
               <br />
@@ -146,7 +143,6 @@ function NuestraMirada() {
 
           <section className="mirada-integrativa mx-auto max-w-[900px] bg-secondary px-6 py-12 sm:px-10 md:px-16 md:py-16">
             <div className="max-w-[720px]">
-              <p className="mirada-rotulo">Una mirada integradora</p>
               <h2>¿Qué entendemos por salud integrativa?</h2>
               <div className="mirada-copy">
                 <p>
@@ -228,14 +224,6 @@ function NuestraMirada() {
         .mirada-integrativa {
           border: 1px solid color-mix(in oklab, var(--champagne) 58%, transparent);
           border-radius: 0.5rem;
-        }
-        .mirada-rotulo {
-          margin: 0 0 1.25rem;
-          color: var(--earth);
-          font-size: 0.7rem;
-          font-weight: 700;
-          letter-spacing: 0.2em;
-          text-transform: uppercase;
         }
         .mirada-intencion { margin-top: 5rem; }
         .mirada-ideas p { margin-bottom: 1.4rem; }
