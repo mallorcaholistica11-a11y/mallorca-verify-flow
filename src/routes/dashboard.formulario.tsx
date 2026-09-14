@@ -3000,12 +3000,21 @@ function Paso7OrganizacionFundadora({ autoriza, onToggle }: Paso7Props) {
 // sin las funcionalidades exclusivas del plan de pago.
 // ================================================================
 
+const OP_STEP_TITLES = [
+  "Información General",
+  "Actividad del espacio o proyecto",
+  "Ubicación",
+  "Perfil del espacio o proyecto",
+  "Contacto y presencia online",
+  "Compromisos",
+];
+
 const OP_STEP_INTROS: Record<number, string> = {
-  1: O_STEP_INTROS[1],
-  2: O_STEP_INTROS[2],
+  1: "Empezamos con la información principal de vuestro espacio o proyecto. Estos datos ayudarán a las personas a conoceros, ponerse en contacto con vosotros y generar confianza desde el primer momento.",
+  2: "Cuéntanos qué propuestas y actividades ofrece vuestro espacio o proyecto. Esta información ayudará a las personas a comprender mejor vuestra actividad y a encontraros con mayor facilidad.",
   3: "Indícanos dónde se encuentra vuestro espacio y qué instalaciones ofrece.",
-  4: O_STEP_INTROS[4],
-  5: O_STEP_INTROS[5],
+  4: "Este es vuestro espacio para presentar la esencia de vuestro espacio o proyecto. Compartid quiénes sois, qué ofrecéis y aquello que lo hace especial.",
+  5: "Añade los enlaces y canales de contacto que quieras compartir para que las personas puedan conocer vuestro espacio o proyecto y ponerse en contacto con vosotros.",
   6: "Ya casi habéis terminado. Antes de enviar vuestra solicitud, necesitamos que aceptéis los siguientes documentos y declaraciones para poder revisar vuestro perfil y publicarlo en Mallorca Holística.",
 };
 
@@ -3043,7 +3052,7 @@ function PresenciaOrganizacionFormulario() {
 
   const finish = () => navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
 
-  const titles = O_STEP_TITLES.slice(0, 6);
+  const titles = OP_STEP_TITLES.slice(0, 6);
   const stepTitle = titles[step - 1];
 
   const inputStyle: React.CSSProperties = {
@@ -3058,9 +3067,9 @@ function PresenciaOrganizacionFormulario() {
 
   return (
     <WireframeShell
-      screen={`6 · FORMULARIO ORGANIZACIÓN · PASO ${step}/${total}`}
+      screen={`6 · FORMULARIO ESPACIO O PROYECTO · PASO ${step}/${total}`}
       title={`Paso ${step} de ${total} · ${stepTitle}`}
-      breadcrumb="Dashboard › Completar perfil de la organización"
+      breadcrumb="Dashboard › Completar perfil del espacio o proyecto"
     >
       <TrackBadge track={track} />
 
@@ -3109,19 +3118,14 @@ function PresenciaOrganizacionFormulario() {
       {step === 1 && (
         <>
           <Box title="Información General">
-            <FakeField label="Nombre de la organización" />
+            <FakeField label="Nombre del espacio, centro o proyecto" />
             <Ayuda>
               Es el nombre con el que las personas os encontrarán dentro de Mallorca Holística.
             </Ayuda>
           </Box>
 
-          <Box title="Datos de la organización">
-            <FakeField label="Nombre comercial (opcional)" />
-            <Ayuda>
-              Si vuestra organización es conocida por un nombre diferente al nombre legal, podéis
-              indicarlo aquí.
-            </Ayuda>
-            <SelectField label="Tipo de organización" options={O_TIPOS_ORGANIZACION} />
+          <Box title="Datos del espacio o proyecto">
+            <SelectField label="Tipo de espacio o proyecto" options={O_TIPOS_ORGANIZACION} />
             <MunicipioPicker label="Municipio principal" hint={null} />
             <FakeField label="Correo electrónico" type="email" />
             <Ayuda>Será el correo de contacto que aparecerá en vuestro perfil público.</Ayuda>
@@ -3131,14 +3135,15 @@ function PresenciaOrganizacionFormulario() {
             <Ayuda>Si disponéis de un logotipo o imagen de marca podéis añadirlo aquí.</Ayuda>
             <FakeField label="Imagen principal" type="file" />
             <Ayuda>
-              Será la imagen principal que representará vuestra organización en Mallorca Holística.
+              Será la imagen principal que representará vuestro espacio o proyecto en Mallorca
+              Holística.
             </Ayuda>
           </Box>
 
           <Box title="👤 Persona de contacto">
             <Note>
               Será la persona con la que Mallorca Holística se comunicará durante el proceso de
-              registro y verificación.
+              registro y revisión del perfil.
             </Note>
             <input
               type="text"
@@ -3180,13 +3185,13 @@ function PresenciaOrganizacionFormulario() {
       {step === 2 && (
         <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
           <Box title="Prácticas">
-            <SelectorPracticas max={MAX_PRACTICAS_CENTRO} />
+            <SelectorPracticas max={5} />
           </Box>
           <Box title="Áreas de Acompañamiento">
             <SelectorAreas
                   label="¿En qué puedes acompañar?"
                   ayuda="Selecciona las áreas en las que puedes acompañar a las personas."
-                  max={15}
+                  max={5}
                 />
           </Box>
           <Box title="¿A quién acompañáis?">
@@ -3207,7 +3212,8 @@ function PresenciaOrganizacionFormulario() {
           </Box>
           <Box title="Instalaciones">
             <Ayuda>
-              Seleccionad las instalaciones y espacios que forman parte de vuestra organización.
+              Seleccionad las instalaciones y espacios que forman parte de vuestro espacio o
+              proyecto.
             </Ayuda>
             <VCheckboxes options={O_INSTALACIONES} columns={3} />
           </Box>
@@ -3234,8 +3240,8 @@ function PresenciaOrganizacionFormulario() {
           <Box title="Sobre nosotros">
             <LimitedTextField label="Sobre nosotros" max={3000} multiline />
             <Ayuda>
-              Compartid vuestra historia, filosofía y aquello que hace especial vuestra
-              organización.
+              Compartid vuestra historia, filosofía y aquello que hace especial vuestro espacio o
+              proyecto.
             </Ayuda>
             <Note>
               No os preocupéis si ahora no tenéis el texto perfecto. Podréis modificarlo siempre que
@@ -3267,7 +3273,7 @@ function PresenciaOrganizacionFormulario() {
       )}
 
       {step === 6 && (
-        <Box title="Verificación y Compromisos">
+        <Box title="Compromisos">
           <VConsentItem
             icon="📜"
             title="Código Deontológico"
@@ -3303,14 +3309,14 @@ function PresenciaOrganizacionFormulario() {
             icon="🌐"
             title="Publicación del Perfil"
             linkText="Leer autorización"
-            label="Autorizo a Mallorca Holística a publicar el perfil de la organización en la plataforma."
+            label="Autorizo a Mallorca Holística a publicar el perfil del espacio o proyecto en la plataforma."
             checked={consents.publicacion}
             onToggle={() => toggleConsent("publicacion")}
           />
           <VConsentItem
             icon="📝"
             title="Declaración responsable"
-            label="Declaro representar legalmente o contar con autorización para actuar en nombre de esta organización."
+            label="Declaro contar con autorización para crear y gestionar este perfil en nombre del espacio, centro o proyecto."
             checked={consents.seguroRC}
             onToggle={() => toggleConsent("seguroRC")}
           />
@@ -3320,8 +3326,8 @@ function PresenciaOrganizacionFormulario() {
               ✍️ Confirmación final
             </div>
             <Ayuda>
-              Al introducir tu nombre completo confirmas que actúas en representación de esta
-              organización y que aceptas las declaraciones anteriores.
+              Al introducir tu nombre completo confirmas que actúas en representación de este
+              espacio o proyecto y que aceptas las declaraciones anteriores.
             </Ayuda>
             <FakeField label="Nombre completo" />
             <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginTop: 4, fontStyle: "italic" }}>
