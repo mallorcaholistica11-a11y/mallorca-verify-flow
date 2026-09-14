@@ -9,7 +9,7 @@ export const Route = createFileRoute("/auth/crear-cuenta")({
 function CrearCuenta() {
   const { track } = Route.useSearch();
   const breadcrumb =
-    track === "presencia"
+    track === "presencia" || track === "verificado"
       ? "Soy profesional › Crear cuenta"
       : track === "organizacion"
       ? "Invitación (Organización) › Crear cuenta"
@@ -21,8 +21,30 @@ function CrearCuenta() {
       ? "Has elegido el Plan Centros & Organizadores.\n\nDespués de crear tu cuenta podrás completar la información de tu organización."
       : "Has elegido el Plan Profesional Verificado.\n\nDespués de crear tu cuenta comenzarás el proceso para completar tu perfil y solicitar tu verificación.";
   return (
-    <WireframeShell screen="4 · CREAR CUENTA" title="Crear tu cuenta" breadcrumb={breadcrumb}>
-      <TrackBadge track={track} />
+    <WireframeShell
+      screen={track === "verificado" ? undefined : "4 · CREAR CUENTA"}
+      title="Crear tu cuenta"
+      breadcrumb={breadcrumb}
+    >
+      {track === "verificado" ? (
+        <div
+          className="wireframe-track-badge"
+          style={{
+            display: "inline-block",
+            padding: "6px 14px",
+            border: "1px solid var(--border)",
+            borderRadius: 999,
+            background: "var(--secondary)",
+            color: "var(--secondary-foreground)",
+            fontSize: 11.5,
+            marginBottom: 16,
+          }}
+        >
+          Plan seleccionado: <strong>Profesional Verificado</strong>
+        </div>
+      ) : (
+        <TrackBadge track={track} />
+      )}
       <p style={{ fontSize: 13, lineHeight: 1.6, margin: "0 0 16px 0" }}>
         Crea tu cuenta para empezar a formar parte de Mallorca Holística.
       </p>
