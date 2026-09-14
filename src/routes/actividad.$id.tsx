@@ -28,7 +28,7 @@ const actividad = {
   municipio: "Palma de Mallorca",
   precio: "35 €",
   whatsapp: "+34600000000",
-  enlaceReserva: "",
+  enlaceReserva: "https://www.ejemplo.com/reserva",
   etiquetaReserva: "Reservar online",
   descripcion:
     "Un espacio tranquilo para reconectar con el cuerpo y la respiración, acompañado por una guía sencilla y accesible.\n\nLa sesión se desarrolla en grupo reducido, con tiempo para la práctica y para compartir. No se necesita experiencia previa.",
