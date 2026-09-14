@@ -16,7 +16,7 @@ function CrearCuenta() {
       : "Invitación (Profesional) › Crear cuenta";
   const planInfo =
     track === "presencia"
-      ? "Has elegido el Plan Presencia.\n\nDespués de crear tu cuenta podrás completar tu perfil profesional."
+      ? "Has elegido el Plan Presencia.\n\nDespués de crear tu cuenta podrás completar tu perfil."
       : track === "organizacion" || track === "organizacionFundadora"
       ? "Has elegido el Plan Centros & Organizadores.\n\nDespués de crear tu cuenta podrás completar la información de tu organización."
       : "Has elegido el Plan Profesional Verificado.\n\nDespués de crear tu cuenta comenzarás el proceso para completar tu perfil y solicitar tu verificación.";
@@ -33,7 +33,12 @@ function CrearCuenta() {
         <FakeField label="Nombre" />
         <FakeField label="Correo electrónico" type="email" />
         <FakeField label="Contraseña" type="password" />
-        <NavButton to="/dashboard" search={{ track }}>Crear mi cuenta</NavButton>
+        <NavButton
+          to={track === "presencia" ? "/dashboard/tipo-perfil" : "/dashboard"}
+          search={{ track }}
+        >
+          Crear mi cuenta
+        </NavButton>
       </Box>
       <Note>¿Ya tienes una cuenta? Acceder</Note>
     </WireframeShell>
