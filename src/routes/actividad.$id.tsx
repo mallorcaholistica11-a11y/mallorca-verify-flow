@@ -98,7 +98,7 @@ function ActividadPublica() {
             margin: "0 auto",
             padding: "40px 24px",
             display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "minmax(280px, 310px) minmax(0, 1fr)",
+            gridTemplateColumns: isMobile ? "1fr" : "minmax(260px, 280px) minmax(0, 1fr)",
             gap: isMobile ? 24 : 44,
             alignItems: "start",
           }}
@@ -106,8 +106,8 @@ function ActividadPublica() {
           <div
             style={{
               width: "100%",
-              maxWidth: isMobile ? 360 : 310,
-              height: isMobile ? 300 : 350,
+              maxWidth: isMobile ? 320 : 280,
+              height: isMobile ? 280 : 340,
               margin: isMobile ? "0 auto" : 0,
               display: "flex",
               alignItems: "center",
@@ -141,44 +141,69 @@ function ActividadPublica() {
               {actividad.titulo}
             </h1>
             <div style={{ fontSize: 14, lineHeight: 2, color: "var(--foreground)", marginBottom: 26 }}>
-              <div>{actividad.fecha} · {actividad.hora}</div>
+              <div>{actividad.fecha}</div>
+              <div>{actividad.hora}</div>
               <div>{actividad.municipio}</div>
               <div>{actividad.precio}</div>
             </div>
 
-            <div style={{ display: "grid", gap: 10, maxWidth: 320 }}>
-              <a
-                href={`https://wa.me/${actividad.whatsapp.replace(/[^0-9]/g, "")}`}
-                style={{
-                  display: "block",
-                  textAlign: "center",
-                  padding: "13px 24px",
-                  border: "1.5px solid var(--primary)",
-                  background: "var(--foreground)",
-                  color: "var(--card)",
-                  textDecoration: "none",
-                  fontSize: 14,
-                }}
-              >
-                Contactar por WhatsApp
-              </a>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                alignItems: "center",
+                gap: isMobile ? 10 : 14,
+              }}
+            >
               {actividad.enlaceReserva && (
                 <a
                   href={actividad.enlaceReserva}
                   target="_blank"
                   rel="noreferrer"
                   style={{
-                    display: "block",
-                    textAlign: "center",
-                    padding: "12px 24px",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "11px 22px",
                     border: "1px solid var(--foreground)",
                     background: "var(--card)",
                     color: "var(--foreground)",
                     textDecoration: "none",
                     fontSize: 14,
+                    whiteSpace: "nowrap",
                   }}
                 >
-                  {actividad.etiquetaReserva}
+                  {actividad.etiquetaReserva || "Reservar"}
+                </a>
+              )}
+              <a
+                href={`https://wa.me/${actividad.whatsapp.replace(/[^0-9]/g, "")}`}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "12px 22px",
+                  border: "1.5px solid var(--primary)",
+                  background: "var(--foreground)",
+                  color: "var(--card)",
+                  textDecoration: "none",
+                  fontSize: 14,
+                  whiteSpace: "nowrap",
+                }}
+              >
+                Contactar por WhatsApp
+              </a>
+              {actividad.contacto?.telefono && actividad.contacto.telefonoPublico && (
+                <a
+                  href={`tel:${actividad.contacto.telefono.replace(/[^\d+]/g, "")}`}
+                  style={{
+                    color: "var(--foreground)",
+                    textDecoration: "none",
+                    fontSize: 14,
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {actividad.contacto.telefono}
                 </a>
               )}
             </div>
