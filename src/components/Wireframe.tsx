@@ -50,7 +50,7 @@ export function WireframeShell({
         <div style={{ fontSize: 10.5, color: "var(--sage-dark)", letterSpacing: 1.6, textTransform: "uppercase", marginBottom: 10 }}>
           PANTALLA · {screen}
         </div>
-        <h1 style={{ fontFamily: "var(--font-display)", fontSize: compact ? 25 : 30, lineHeight: 1.22, fontWeight: 500, margin: compact ? "0 0 18px 0" : "0 0 28px 0", whiteSpace: "pre-wrap", color: "var(--charcoal)" }}>{title.replace("Reserva tu plaza", "Activa tu suscripción")}</h1>
+        <h1 className="wireframe-page-title" style={{ fontFamily: "var(--font-display)", fontSize: compact ? 25 : 30, lineHeight: 1.22, fontWeight: 500, margin: compact ? "0 0 18px 0" : "0 0 28px 0", whiteSpace: "pre-wrap", color: "var(--charcoal)" }}>{title.replace("Reserva tu plaza", "Activa tu suscripción")}</h1>
         {children}
       </main>
 
@@ -65,8 +65,8 @@ const linkStyle = { textDecoration: "none", color: "var(--muted-foreground)", pa
 
 export function Box({ children, title }: { children: ReactNode; title?: string }) {
   return (
-    <div style={{ border: "1px solid var(--border)", borderRadius: 14, padding: "22px 24px", marginBottom: 20, background: "var(--card)", boxShadow: "var(--shadow-soft)" }}>
-      {title && <div style={{ fontSize: 10.5, color: "var(--sage-dark)", marginBottom: 12, textTransform: "uppercase", letterSpacing: 1.4, whiteSpace: "pre-wrap" }}>{title === "Forma parte de Mallorca Holística" ? "\n" : title}</div>}
+    <div className="wireframe-box" style={{ border: "1px solid var(--border)", borderRadius: 14, padding: "22px 24px", marginBottom: 20, background: "var(--card)", boxShadow: "var(--shadow-soft)" }}>
+      {title && <div className="wireframe-box-title" style={{ fontSize: 10.5, color: "var(--sage-dark)", marginBottom: 12, textTransform: "uppercase", letterSpacing: 1.4, whiteSpace: "pre-wrap" }}>{title === "Forma parte de Mallorca Holística" ? "\n" : title}</div>}
       {children}
     </div>
   );
@@ -112,9 +112,9 @@ export function ReadOnlyField({ label, value }: { label: string; value: string }
 
 export function FakeField({ label, type = "text" }: { label: string; type?: string }) {
   return (
-    <div style={{ marginBottom: 12 }}>
-      <div style={{ fontSize: 12.5, marginBottom: 6, color: "var(--foreground)" }}>{label}</div>
-      <div style={{ border: "1px solid var(--border)", borderRadius: 12, padding: "10px 14px", background: "var(--card)", color: "var(--muted-foreground)", fontSize: 12 }}>
+    <div className="wireframe-field" style={{ marginBottom: 12 }}>
+      <div className="wireframe-field-label" style={{ fontSize: 12.5, marginBottom: 6, color: "var(--foreground)" }}>{label}</div>
+      <div className="wireframe-field-control" style={{ border: "1px solid var(--border)", borderRadius: 12, padding: "10px 14px", background: "var(--card)", color: "var(--muted-foreground)", fontSize: 12 }}>
         [{type}]
       </div>
     </div>
@@ -148,8 +148,8 @@ export function LimitedTextField({
     boxSizing: "border-box" as const,
   };
   return (
-    <div style={{ marginBottom: 12 }}>
-      <div style={{ fontSize: 12.5, marginBottom: 6, color: "var(--foreground)" }}>{label}</div>
+    <div className="wireframe-field" style={{ marginBottom: 12 }}>
+      <div className="wireframe-field-label" style={{ fontSize: 12.5, marginBottom: 6, color: "var(--foreground)" }}>{label}</div>
       {multiline ? (
         <textarea
           value={value}
@@ -234,7 +234,7 @@ export function NavButton({
 
 export function Note({ children }: { children: ReactNode }) {
   return (
-    <div style={{ fontSize: 12, color: "var(--muted-foreground)", lineHeight: 1.7, padding: "12px 16px", borderLeft: "2px solid var(--sage-light)", borderRadius: "0 10px 10px 0", background: "var(--cream)", marginBottom: 16 }}>
+    <div className="wireframe-note" style={{ fontSize: 12, color: "var(--muted-foreground)", lineHeight: 1.7, padding: "12px 16px", borderLeft: "2px solid var(--sage-light)", borderRadius: "0 10px 10px 0", background: "var(--cream)", marginBottom: 16 }}>
       {children}
     </div>
   );
@@ -250,7 +250,7 @@ const TRACK_LABEL: Record<Track, string> = {
 
 export function TrackBadge({ track }: { track: Track }) {
   return (
-    <div style={{ display: "inline-block", padding: "6px 14px", border: "1px solid var(--border)", borderRadius: 999, background: "var(--secondary)", color: "var(--secondary-foreground)", fontSize: 11.5, marginBottom: 16 }}>
+    <div className="wireframe-track-badge" style={{ display: "inline-block", padding: "6px 14px", border: "1px solid var(--border)", borderRadius: 999, background: "var(--secondary)", color: "var(--secondary-foreground)", fontSize: 11.5, marginBottom: 16 }}>
       Track activo: <strong>{TRACK_LABEL[track]}</strong>
     </div>
   );

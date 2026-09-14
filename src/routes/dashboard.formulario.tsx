@@ -307,7 +307,7 @@ function FormularioBase() {
 
 function Ayuda({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginTop: -6, marginBottom: 14, lineHeight: 1.6 }}>
+    <div className="pp-help" style={{ fontSize: 11, color: "var(--muted-foreground)", marginTop: -6, marginBottom: 14, lineHeight: 1.6 }}>
       {children}
     </div>
   );
@@ -3427,7 +3427,7 @@ function PresenciaProfesionalFormulario() {
       breadcrumb="Dashboard › Completar perfil"
       compact
     >
-      <div className="presencia-profesional-compact">
+      <div className="presencia-profesional-compact pp-form">
       <TrackBadge track={track} />
 
       <div className="pp-progress">
@@ -3462,6 +3462,7 @@ function PresenciaProfesionalFormulario() {
 
       {PP_STEP_INTROS[step] && (
         <p
+          className="pp-intro"
           style={{
             fontSize: 14,
             lineHeight: 1.7,
@@ -3596,7 +3597,7 @@ function PresenciaProfesionalFormulario() {
       )}
 
       {step === 6 && (
-        <Box title="📄 Documentos y declaraciones">
+          <Box title="📄 Documentos y declaraciones">
           <VConsentItem
             icon="📜"
             title="Código Deontológico"
@@ -3644,6 +3645,7 @@ function PresenciaProfesionalFormulario() {
         </Box>
       )}
 
+      <div className="pp-navigation">
       <Box title="Navegación">
         <button
           onClick={() => setStep((s) => Math.max(1, s - 1))}
@@ -3670,6 +3672,7 @@ function PresenciaProfesionalFormulario() {
           </button>
         )}
       </Box>
+      </div>
       </div>
     </WireframeShell>
   );
