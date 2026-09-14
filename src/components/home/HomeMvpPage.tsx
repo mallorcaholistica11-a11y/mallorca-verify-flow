@@ -127,14 +127,14 @@ function Hero() {
         }}
       />
       <div className="relative z-20 flex min-h-[296px] items-center sm:min-h-[296px] lg:min-h-[298px]">
-        <div className="max-w-[560px] min-w-0">
+        <div className="max-w-[560px] min-w-0 md:max-w-[680px]">
           <div className="mb-3 flex items-center gap-3 text-[0.6rem] font-medium uppercase tracking-[0.18em] text-sage-dark">
             <span className="h-px w-8 bg-sage-light" />
             Mallorca Holística
           </div>
-          <h1 className="mb-4 max-w-[550px] font-display text-[1.55rem] font-normal leading-[1.13] text-charcoal sm:text-[1.75rem] md:text-[1.95rem] md:leading-[1.12]">
-            <span className="block">Salud integrativa · Terapias complementarias</span>
-            <span className="mt-1.5 block text-sage-dark">
+          <h1 className="mb-4 max-w-[550px] font-display text-[1.55rem] font-normal leading-[1.13] text-charcoal sm:text-[1.75rem] md:max-w-[660px] md:text-[1.55rem] md:leading-[1.12] lg:text-[1.62rem]">
+            <span className="block md:whitespace-nowrap">Salud integrativa · Terapias complementarias ·</span>
+            <span className="mt-1.5 block text-sage-dark md:whitespace-nowrap">
               Medicina tradicional · Bienestar · Desarrollo personal
             </span>
           </h1>
@@ -314,7 +314,7 @@ function Profesionales({ isMobile, isTablet }: { isMobile: boolean; isTablet: bo
             className="min-w-0 rounded-lg border border-border/60 bg-card/70 px-3 py-4 text-center shadow-[var(--shadow-soft)] transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-lift)]"
           >
             <div className="mx-auto mb-3 w-fit">
-              <Retrato src={retratoDe(p.nombre)} alt={`Retrato de ${p.nombre}`} tamano={60} />
+              <Retrato src={retratoDe(p.nombre)} alt={`Retrato de ${p.nombre}`} tamano={72} />
             </div>
             <div className="font-display text-[0.82rem] font-medium text-foreground">{p.nombre}</div>
             <div className="mt-1 text-xs text-muted-foreground">{p.especialidad}</div>
