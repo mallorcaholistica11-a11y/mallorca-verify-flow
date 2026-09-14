@@ -3425,9 +3425,12 @@ function PresenciaProfesionalFormulario() {
       screen={`6 · FORMULARIO PRESENCIA · PASO ${step}/${total}`}
       title={`Paso ${step} de ${total} · ${stepTitle}`}
       breadcrumb="Dashboard › Completar perfil"
+      compact
     >
+      <div className="presencia-profesional-compact">
       <TrackBadge track={track} />
 
+      <div className="pp-progress">
       <Box title={`Progreso · Paso ${step} de ${total}`}>
         <div style={{ display: "flex", gap: 4 }}>
           {PP_STEP_TITLES.map((t, i) => {
@@ -3455,6 +3458,7 @@ function PresenciaProfesionalFormulario() {
           {PP_STEP_TITLES.map((t, i) => `${i + 1}. ${t}`).join("  ·  ")}
         </div>
       </Box>
+      </div>
 
       {PP_STEP_INTROS[step] && (
         <p
@@ -3462,7 +3466,7 @@ function PresenciaProfesionalFormulario() {
             fontSize: 14,
             lineHeight: 1.7,
             color: "var(--foreground)",
-            margin: "0 0 24px 0",
+            margin: "0 0 16px 0",
             maxWidth: 640,
           }}
         >
@@ -3666,6 +3670,7 @@ function PresenciaProfesionalFormulario() {
           </button>
         )}
       </Box>
+      </div>
     </WireframeShell>
   );
 }

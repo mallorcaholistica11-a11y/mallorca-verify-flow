@@ -215,6 +215,78 @@
   display: none;
 }
 
+/* Compactación local: Profesional · Plan Presencia. */
+.presencia-profesional-compact {
+  max-width: 780px;
+}
+
+.presencia-profesional-compact > div[style*="margin-bottom: 16px"]:first-child {
+  margin-bottom: 12px !important;
+  padding: 5px 12px !important;
+}
+
+.presencia-profesional-compact > div[style*="box-shadow"],
+.presencia-profesional-compact > div > div[style*="box-shadow"] {
+  margin-bottom: 14px !important;
+  padding: 16px 18px !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+}
+
+.presencia-profesional-compact .pp-progress > div {
+  margin-bottom: 16px !important;
+  padding: 14px 18px !important;
+}
+
+.presencia-profesional-compact .pp-progress div[title] {
+  padding: 4px !important;
+  border-radius: 8px !important;
+}
+
+.presencia-profesional-compact input,
+.presencia-profesional-compact select,
+.presencia-profesional-compact textarea,
+.presencia-profesional-compact div[style*="padding: 10px 14px"] {
+  padding: 7px 10px !important;
+}
+
+.presencia-profesional-compact textarea {
+  min-height: 92px;
+}
+
+.presencia-profesional-compact button {
+  padding: 7px 13px !important;
+  font-size: 12px !important;
+  margin-top: 4px !important;
+}
+
+.presencia-profesional-compact div[style*="margin-bottom: 20px"] {
+  margin-bottom: 12px !important;
+}
+
+.presencia-profesional-compact div[style*="margin-bottom: 16px"] {
+  margin-bottom: 11px !important;
+}
+
+.presencia-profesional-compact div[style*="margin-bottom: 12px"] {
+  margin-bottom: 9px !important;
+}
+
+.presencia-profesional-compact div[style*="gap: 12px"] {
+  gap: 8px !important;
+}
+
+@media (max-width: 640px) {
+  .wireframe-shell-compact main {
+    padding: 24px 16px 0 !important;
+  }
+
+  .presencia-profesional-compact > div[style*="box-shadow"],
+  .presencia-profesional-compact > div > div[style*="box-shadow"] {
+    padding: 14px !important;
+  }
+}
+
 /* Cuadrícula responsive del bloque "Áreas de Acompañamiento" */
 .areas-grid {
   display: grid;
