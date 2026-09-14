@@ -368,3 +368,26 @@ function Bloque({ titulo, children }: { titulo: string; children: React.ReactNod
     </section>
   );
 }
+
+const enlaceContacto: React.CSSProperties = {
+  color: "var(--foreground)",
+  textDecoration: "none",
+  display: "block",
+};
+
+const enlaceRedSocial: React.CSSProperties = {
+  ...enlaceContacto,
+  display: "flex",
+  alignItems: "center",
+  gap: 8,
+};
+
+function IconoRed({ red }: { red: string }) {
+  const props = { size: 16, strokeWidth: 1.7 };
+  const nombre = red.toLowerCase();
+  if (nombre.includes("instagram")) return <Instagram {...props} />;
+  if (nombre.includes("facebook")) return <Facebook {...props} />;
+  if (nombre.includes("linkedin")) return <Linkedin {...props} />;
+  if (nombre.includes("youtube")) return <Youtube {...props} />;
+  return null;
+}
