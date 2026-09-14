@@ -215,39 +215,100 @@
   display: none;
 }
 
-/* Compactación local: Profesional · Plan Presencia. */
+/* Normalización local: Profesional · Plan Presencia. */
 .presencia-profesional-compact {
   max-width: 780px;
+  --pp-text: 12px;
+  --pp-label: 12px;
+  --pp-help: 11px;
+  --pp-section-title: 10.5px;
+  --pp-control-height: 34px;
+  font-size: var(--pp-text);
+  line-height: 1.55;
 }
 
-.presencia-profesional-compact > div[style*="margin-bottom: 16px"]:first-child {
+.wireframe-shell-compact .wireframe-page-title {
+  margin-bottom: 16px !important;
+  font-size: 25px !important;
+  line-height: 1.22 !important;
+}
+
+.presencia-profesional-compact > .wireframe-track-badge {
   margin-bottom: 12px !important;
   padding: 5px 12px !important;
+  font-size: 11px !important;
 }
 
-.presencia-profesional-compact > div[style*="box-shadow"],
-.presencia-profesional-compact > div > div[style*="box-shadow"] {
+.presencia-profesional-compact .wireframe-box {
   margin-bottom: 14px !important;
   padding: 16px 18px !important;
   border-radius: 12px !important;
   box-shadow: none !important;
 }
 
-.presencia-profesional-compact .pp-progress > div {
-  margin-bottom: 16px !important;
+.presencia-profesional-compact .wireframe-box-title {
+  margin-bottom: 10px !important;
+  font-size: var(--pp-section-title) !important;
+  line-height: 1.4 !important;
+}
+
+.presencia-profesional-compact .pp-progress .wireframe-box {
+  margin-bottom: 14px !important;
   padding: 14px 18px !important;
 }
 
 .presencia-profesional-compact .pp-progress div[title] {
   padding: 4px !important;
   border-radius: 8px !important;
+  font-size: 11px !important;
+  line-height: 1.35 !important;
+  min-height: 24px;
+  box-sizing: border-box;
+}
+
+.presencia-profesional-compact .pp-progress .wireframe-box > div:last-child {
+  margin-top: 6px !important;
+  font-size: 11px !important;
+  line-height: 1.45 !important;
+}
+
+.presencia-profesional-compact .pp-intro {
+  max-width: 640px !important;
+  margin-bottom: 14px !important;
+  font-size: 13px !important;
+  line-height: 1.65 !important;
+}
+
+.presencia-profesional-compact .wireframe-field {
+  margin-bottom: 10px !important;
+}
+
+.presencia-profesional-compact .wireframe-field-label,
+.presencia-profesional-compact div[style*="font-size: 12.5px"] {
+  margin-bottom: 5px !important;
+  font-size: var(--pp-label) !important;
+  line-height: 1.45 !important;
 }
 
 .presencia-profesional-compact input,
 .presencia-profesional-compact select,
 .presencia-profesional-compact textarea,
-.presencia-profesional-compact div[style*="padding: 10px 14px"] {
+.presencia-profesional-compact .wireframe-field-control {
   padding: 7px 10px !important;
+  font-size: var(--pp-text) !important;
+  line-height: 1.5 !important;
+  box-sizing: border-box;
+}
+
+.presencia-profesional-compact input:not([type="checkbox"]):not([type="radio"]),
+.presencia-profesional-compact select,
+.presencia-profesional-compact .wireframe-field-control {
+  min-height: var(--pp-control-height);
+}
+
+.presencia-profesional-compact input::placeholder,
+.presencia-profesional-compact textarea::placeholder {
+  font-size: var(--pp-text);
 }
 
 .presencia-profesional-compact textarea {
@@ -256,24 +317,52 @@
 
 .presencia-profesional-compact button {
   padding: 7px 13px !important;
-  font-size: 12px !important;
+  font-size: var(--pp-text) !important;
+  line-height: 1.4 !important;
   margin-top: 4px !important;
 }
 
-.presencia-profesional-compact div[style*="margin-bottom: 20px"] {
-  margin-bottom: 12px !important;
+.presencia-profesional-compact .pp-help {
+  margin-top: -4px !important;
+  margin-bottom: 10px !important;
+  font-size: var(--pp-help) !important;
+  line-height: 1.55 !important;
 }
 
-.presencia-profesional-compact div[style*="margin-bottom: 16px"] {
-  margin-bottom: 11px !important;
+.presencia-profesional-compact .wireframe-note {
+  margin-bottom: 10px !important;
+  padding: 9px 12px !important;
+  font-size: var(--pp-help) !important;
+  line-height: 1.55 !important;
 }
 
-.presencia-profesional-compact div[style*="margin-bottom: 12px"] {
-  margin-bottom: 9px !important;
+.presencia-profesional-compact div[style*="font-size: 11px"],
+.presencia-profesional-compact div[style*="fontSize: 11"] {
+  font-size: var(--pp-help) !important;
+  line-height: 1.55 !important;
+}
+
+.presencia-profesional-compact div[style*="font-size: 12px"],
+.presencia-profesional-compact div[style*="fontSize: 12"],
+.presencia-profesional-compact label {
+  font-size: var(--pp-text) !important;
+}
+
+.presencia-profesional-compact div[style*="font-size: 13px"],
+.presencia-profesional-compact div[style*="fontSize: 13"] {
+  font-size: var(--pp-text) !important;
 }
 
 .presencia-profesional-compact div[style*="gap: 12px"] {
   gap: 8px !important;
+}
+
+.presencia-profesional-compact .pp-navigation {
+  margin-top: 2px;
+}
+
+.presencia-profesional-compact .pp-navigation .wireframe-box {
+  margin-bottom: 0 !important;
 }
 
 @media (max-width: 640px) {
@@ -286,8 +375,7 @@
     grid-template-columns: 1fr !important;
   }
 
-  .presencia-profesional-compact > div[style*="box-shadow"],
-  .presencia-profesional-compact > div > div[style*="box-shadow"] {
+  .presencia-profesional-compact .wireframe-box {
     padding: 14px !important;
   }
 }

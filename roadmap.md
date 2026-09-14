@@ -26,3 +26,5 @@
 - [x] Verificar tarjetas, enlaces y adaptación de Soy profesional en escritorio y móvil.
 - [x] Compactar visualmente los seis pasos de Profesional · Plan Presencia sin alterar su contenido ni funcionamiento.
 - [x] Verificar los seis pasos en escritorio y móvil y confirmar que otros formularios no cambian.
+- [ ] Normalizar tipografía, espaciado, contenedores y progreso en los seis pasos de Profesional · Plan Presencia.
+- [ ] Verificar la coherencia de los seis pasos en escritorio y móvil sin afectar otros recorridos.
