@@ -2855,29 +2855,62 @@ function Paso7ProfesionalEstandar({ autoriza, onToggle }: Paso7Props) {
       <Box title="¡Enhorabuena! Ya has completado tu solicitud">
         <div style={{ marginBottom: 16 }}>
           <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-            Para completar tu solicitud solo necesitamos registrar un método de pago de forma
-            segura.
+            Plan Profesional Verificado: 25 €/mes (IVA incluido).
           </p>
           <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-            No realizaremos ningún cargo mientras tu solicitud esté en revisión. Si es aprobada, tu
-            suscripción se activará automáticamente al finalizar el período gratuito
-            correspondiente.
+            Para completar tu solicitud solo necesitamos registrar un método de pago de forma
+            segura. No realizaremos ningún cargo mientras tu solicitud esté pendiente de aprobación.
           </p>
         </div>
       </Box>
 
       <Box title="Oferta de lanzamiento">
-        <ul style={{ fontSize: 13, paddingLeft: 20, marginBottom: 8, lineHeight: 1.8 }}>
-          <li>2 meses gratuitos si te inscribes durante el primer mes tras el lanzamiento.</li>
-          <li>Después, 25 €/mes (IVA incluido).</li>
-          <li>Sin permanencia.</li>
-        </ul>
+        <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
+          2 meses gratuitos desde el lanzamiento oficial de Mallorca Holística.
+        </p>
+        <p style={{ fontSize: 13, marginBottom: 0, lineHeight: 1.7 }}>
+          Los 2 meses gratuitos comenzarán en la fecha oficial de lanzamiento de Mallorca Holística.
+          La fecha se comunicará antes de la activación de las suscripciones.
+        </p>
+      </Box>
+
+      <Box title="¿Cuándo empezarás a pagar?">
+        <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
+          Tu primer cobro se realizará cuando se cumplan estas dos condiciones:
+        </p>
+        <ol style={{ fontSize: 13, paddingLeft: 20, marginBottom: 10, lineHeight: 1.8 }}>
+          <li>Tu perfil haya sido aprobado como Profesional Verificado.</li>
+          <li>
+            Haya finalizado el periodo gratuito de 2 meses desde el lanzamiento oficial de Mallorca
+            Holística.
+          </li>
+        </ol>
+        <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
+          Si tu perfil es aprobado durante el periodo gratuito, no pagarás nada hasta que este
+          finalice.
+        </p>
+        <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
+          Si tu perfil es aprobado después de que haya finalizado el periodo gratuito, tu
+          suscripción comenzará en el momento de la aprobación.
+        </p>
+        <p style={{ fontSize: 13, marginBottom: 0, lineHeight: 1.7 }}>
+          Si tu solicitud no es aprobada, la suscripción no se activará y no se realizará ningún
+          cobro.
+        </p>
+      </Box>
+
+      <Box title="Aviso antes del primer cobro">
+        <p style={{ fontSize: 13, marginBottom: 0, lineHeight: 1.7 }}>
+          Mallorca Holística te informará por email antes del primer cobro de la suscripción,
+          indicándote la fecha y el importe, para que puedas decidir con tiempo si deseas continuar
+          o cancelar tu suscripción.
+        </p>
       </Box>
 
       <VConsentItem
         icon="🔒"
         title="Autorización"
-        label="Autorizo a Mallorca Holística a registrar mi método de pago de forma segura y activar automáticamente mi suscripción únicamente si mi solicitud es aprobada, una vez finalizado el período gratuito correspondiente."
+        label="Autorizo a Mallorca Holística a registrar mi método de pago mediante Stripe y, una vez aprobado mi perfil y finalizado el periodo gratuito de lanzamiento que me corresponda, activar mi suscripción de 25 €/mes (IVA incluido), salvo cancelación previa."
         checked={autoriza}
         onToggle={onToggle}
       />
