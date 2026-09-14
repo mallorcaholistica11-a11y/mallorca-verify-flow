@@ -2141,13 +2141,34 @@ function VerificadoFormulario() {
     ? "Dashboard › Completar perfil de la organización"
     : "Dashboard › Completar perfil verificado";
 
+  const esEstandarVerificado = track === "verificado";
+
   return (
     <WireframeShell
-      screen={`6 · ${screenLabel} · PASO ${step}/${total}`}
+      screen={esEstandarVerificado ? undefined : `6 · ${screenLabel} · PASO ${step}/${total}`}
       title={`Paso ${step} de ${total} · ${stepTitle}`}
       breadcrumb={breadcrumb}
     >
-      <TrackBadge track={track} />
+      {esEstandarVerificado ? (
+        <div
+          className="wireframe-track-badge"
+          style={{
+            display: "inline-block",
+            padding: "6px 14px",
+            border: "1px solid var(--border)",
+            borderRadius: 999,
+            background: "var(--secondary)",
+            color: "var(--secondary-foreground)",
+            fontSize: 11.5,
+            marginBottom: 16,
+          }}
+        >
+          Plan seleccionado: <strong>Profesional Verificado</strong>
+        </div>
+      ) : (
+        <TrackBadge track={track} />
+      )}
+
 
       <Box title={`Progreso · Paso ${step} de ${total}`}>
         <div style={{ display: "flex", gap: 4 }}>
