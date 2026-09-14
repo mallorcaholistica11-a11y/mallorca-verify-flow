@@ -2664,22 +2664,15 @@ function VerificadoFormulario() {
 
               <div style={{ marginBottom: 16 }}>
                 <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
-                  Formación acreditativa
+                  Documentación profesional
                 </div>
                 <Ayuda>
-                  Añade al menos un diploma o certificado que acredite tu formación principal.
+                  Adjunta entre 1 y 3 diplomas, certificados o titulaciones que acrediten tu
+                  formación profesional.
                 </Ayuda>
-                <FakeField label="Subir diploma o certificado" type="file" />
-              </div>
-
-              <div style={{ marginBottom: 16 }}>
-                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
-                  Certificados adicionales
-                </div>
-                <Ayuda>
-                  Puedes añadir hasta 5 documentos adicionales si lo consideras necesario.
-                </Ayuda>
-                <FakeField label="Subir certificados adicionales (opcional)" type="file" />
+                <FakeField label="Documento 1 (obligatorio)" type="file" />
+                <FakeField label="Documento 2 (opcional)" type="file" />
+                <FakeField label="Documento 3 (opcional)" type="file" />
               </div>
             </>
           )}
