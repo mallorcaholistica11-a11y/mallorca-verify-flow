@@ -33,13 +33,13 @@ function NuestraMirada() {
       <main className="mirada-page overflow-hidden">
         <header className="mirada-hero relative mx-auto grid max-w-[1120px] grid-cols-1 px-5 pb-8 pt-10 sm:px-8 md:grid-cols-12 md:items-center md:px-10 md:pb-10 md:pt-12">
           <div className="relative z-10 md:col-span-8 md:col-start-2 lg:col-span-7">
-            <h1 className="font-display text-[clamp(2.25rem,4.5vw,3.5rem)] font-medium leading-[0.95] text-charcoal">
+            <h1 className="font-display text-[clamp(1.85rem,3.8vw,2.65rem)] font-medium leading-[0.95] text-charcoal">
               Nuestra
               <br />
               <span className="font-normal italic">Mirada</span>
             </h1>
             <div className="my-3 h-px w-16 bg-champagne md:my-4" />
-            <p className="max-w-[580px] text-[11px] font-semibold uppercase leading-[1.8] tracking-[0.2em] text-earth sm:text-xs">
+            <p className="max-w-[580px] text-[10px] font-semibold uppercase leading-[1.8] tracking-[0.2em] text-earth sm:text-[11px]">
               UNA FORMA DE ENTENDER EL CUIDADO, LA SALUD Y EL BIENESTAR
             </p>
           </div>
@@ -193,12 +193,12 @@ function NuestraMirada() {
         .mirada-encuentro h2 {
           margin: 0 0 0.6rem;
           font-family: var(--font-display);
-          font-size: clamp(1.1rem, 1.9vw, 1.35rem);
+          font-size: clamp(0.95rem, 1.6vw, 1.15rem);
           font-weight: 500;
           line-height: 1.25;
           color: var(--charcoal);
         }
-        .mirada-copy { color: var(--foreground); font-size: 1rem; line-height: 1.65; }
+        .mirada-copy { color: var(--foreground); font-size: 0.875rem; line-height: 1.62; }
         .mirada-copy p { margin: 0 0 0.65rem; }
         .mirada-copy p:last-child { margin-bottom: 0; }
         .mirada-separador { position: relative; margin-top: 1rem; }
@@ -214,13 +214,13 @@ function NuestraMirada() {
         .mirada-pausa p {
           margin: 0;
           font-family: var(--font-display);
-          font-size: clamp(1.3rem, 2.4vw, 1.65rem);
+          font-size: clamp(1.15rem, 2vw, 1.35rem);
           font-weight: 400;
           line-height: 1.25;
           color: var(--sage-dark);
         }
         .mirada-enfasis { font-weight: 700; color: var(--charcoal); }
-        .mirada-encuentro h2 { font-size: clamp(1.3rem, 2.4vw, 1.65rem); }
+        .mirada-encuentro h2 { font-size: clamp(1.15rem, 2vw, 1.35rem); }
         .mirada-integrativa {
           border: 1px solid color-mix(in oklab, var(--champagne) 58%, transparent);
           border-radius: 0.5rem;
@@ -230,7 +230,7 @@ function NuestraMirada() {
         .mirada-ideas .mirada-enfasis {
           margin: 0.8rem 0;
           font-family: var(--font-display);
-          font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+          font-size: clamp(0.95rem, 1.6vw, 1.15rem);
           font-weight: 500;
           color: var(--sage-dark);
         }
@@ -238,15 +238,15 @@ function NuestraMirada() {
         .mirada-cierre p:first-child {
           margin: 0 0 0.5rem;
           font-family: var(--font-display);
-          font-size: clamp(1.3rem, 2.4vw, 1.65rem);
+          font-size: clamp(1.15rem, 2vw, 1.35rem);
           line-height: 1.25;
           color: var(--charcoal);
         }
         .mirada-cierre p:last-child {
           margin: 0;
           color: var(--muted-foreground);
-          font-size: 1rem;
-          line-height: 1.65;
+          font-size: 0.875rem;
+          line-height: 1.62;
         }
         .mirada-botanica { opacity: 0.1; filter: blur(11px); }
         .mirada-rama,
@@ -265,7 +265,7 @@ function NuestraMirada() {
         @media (max-width: 767px) {
           .mirada-bloque { padding-top: 1.75rem; }
           .mirada-separador { margin-top: 0.75rem; }
-          .mirada-copy { font-size: 0.96rem; line-height: 1.62; }
+          .mirada-copy { font-size: 0.875rem; line-height: 1.6; }
           .mirada-integrativa { border-radius: 0.375rem; }
           .mirada-intencion { margin-top: 1.5rem; }
         }
