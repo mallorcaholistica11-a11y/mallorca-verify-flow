@@ -57,7 +57,7 @@ function NuestraMirada() {
           </div>
         </header>
 
-        <article className="mx-auto max-w-[1120px] px-5 pb-28 sm:px-8 md:px-10 md:pb-40">
+        <article className="mx-auto max-w-[1120px] px-5 pb-16 sm:px-8 md:px-10 md:pb-24">
           <section className="mirada-bloque max-w-[610px] md:ml-[8%]">
             <h2>Todos somos personas.</h2>
             <div className="mirada-copy">
