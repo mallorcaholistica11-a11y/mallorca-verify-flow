@@ -227,20 +227,21 @@ function NuestraMirada() {
           color: var(--sage-dark);
         }
         .mirada-enfasis { font-weight: 700; color: var(--charcoal); }
-        .mirada-encuentro h2 { font-size: clamp(0.88rem, 1.2vw, 1rem); }
+        .mirada-encuentro h2 { font-size: clamp(0.9rem, 1.15vw, 1rem); }
         .mirada-integrativa {
           border: 1px solid color-mix(in oklab, var(--champagne) 58%, transparent);
           border-radius: 0.5rem;
         }
-        .mirada-intencion { margin-top: 0.7rem; }
-        .mirada-ideas p { margin-bottom: 0.2rem; }
+        .mirada-intencion { margin-top: 0.6rem; }
+        .mirada-ideas p { margin-bottom: 0.4rem; }
         .mirada-ideas .mirada-enfasis {
-          margin: 0.28rem 0;
+          margin: 0.4rem 0;
           font-family: var(--font-display);
-          font-size: clamp(0.85rem, 1.15vw, 0.95rem);
+          font-size: clamp(0.9rem, 1.15vw, 1rem);
           font-weight: 500;
           color: var(--sage-dark);
         }
+
         .mirada-cierre { border-top: 1px solid var(--champagne); }
         .mirada-cierre p:first-child {
           margin: 0 0 0.2rem;
