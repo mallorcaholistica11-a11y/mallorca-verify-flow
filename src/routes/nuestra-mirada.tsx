@@ -125,7 +125,7 @@ function NuestraMirada() {
             </div>
           </section>
 
-          <section className="mirada-encuentro mx-auto my-28 max-w-[840px] border-y border-champagne py-16 text-center md:my-40 md:py-20">
+          <section className="mirada-encuentro mx-auto my-16 max-w-[840px] border-y border-champagne py-10 text-center md:my-24 md:py-14">
             <h2>Mallorca Holística es un lugar de encuentro.</h2>
             <div className="mirada-copy mx-auto max-w-[650px] text-left sm:text-center">
               <p>No creemos que exista un único camino para cuidar de nuestra salud.</p>
