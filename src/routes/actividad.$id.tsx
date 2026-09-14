@@ -102,10 +102,13 @@ function ActividadPublica() {
         <Link to="/" style={{ textDecoration: "none", color: "var(--foreground)", fontWeight: 600 }}>
           [LOGO] Mallorca Holística
         </Link>
+      </header>
+
+      <div style={{ maxWidth: 1080, margin: "0 auto", padding: "16px 24px 0" }}>
         <Link to="/agenda" style={enlaceVolver}>
           ← Volver a la Agenda de Actividades
         </Link>
-      </header>
+      </div>
 
       {/* HERO · dos columnas, como la ficha del profesional */}
       <section style={{ borderBottom: "1px solid var(--border)", background: "var(--card)" }}>
