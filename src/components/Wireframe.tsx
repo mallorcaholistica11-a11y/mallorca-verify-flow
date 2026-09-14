@@ -18,12 +18,13 @@ export function WireframeShell({
   children,
   compact = false,
 }: {
-  screen: string;
+  screen?: string;
   title: string;
   breadcrumb?: string;
   children: ReactNode;
   compact?: boolean;
 }) {
+  const mainPaddingTop = compact ? 30 : screen ? 48 : 30;
   return (
     <div className={compact ? "wireframe-shell-compact" : undefined} style={{ fontFamily: "var(--font-body)", minHeight: "100vh", background: "var(--background)", color: "var(--foreground)" }}>
       <header style={{ borderBottom: "1px solid var(--border)", padding: "16px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 20, flexWrap: "wrap", background: "var(--ivory)", position: "sticky", top: 0, zIndex: 20, backdropFilter: "blur(6px)" }}>
@@ -46,10 +47,12 @@ export function WireframeShell({
         {breadcrumb ?? "—"}
       </div>
 
-      <main style={{ maxWidth: compact ? 820 : 880, margin: "0 auto", padding: compact ? "30px 24px 0" : "48px 24px 0" }}>
-        <div style={{ fontSize: 10.5, color: "var(--sage-dark)", letterSpacing: 1.6, textTransform: "uppercase", marginBottom: 10 }}>
-          PANTALLA · {screen}
-        </div>
+      <main style={{ maxWidth: compact ? 820 : 880, margin: "0 auto", padding: `${mainPaddingTop}px 24px 0` }}>
+        {screen && (
+          <div style={{ fontSize: 10.5, color: "var(--sage-dark)", letterSpacing: 1.6, textTransform: "uppercase", marginBottom: 10 }}>
+            PANTALLA · {screen}
+          </div>
+        )}
         <h1 className="wireframe-page-title" style={{ fontFamily: "var(--font-display)", fontSize: compact ? 25 : 30, lineHeight: 1.22, fontWeight: 500, margin: compact ? "0 0 18px 0" : "0 0 28px 0", whiteSpace: "pre-wrap", color: "var(--charcoal)" }}>{title.replace("Reserva tu plaza", "Activa tu suscripción")}</h1>
         {children}
       </main>
