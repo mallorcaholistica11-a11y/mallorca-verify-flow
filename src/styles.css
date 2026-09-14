@@ -281,6 +281,11 @@
     padding: 24px 16px 0 !important;
   }
 
+  .presencia-profesional-compact div[style*="grid-template-columns: repeat(3"],
+  .presencia-profesional-compact div[style*="grid-template-columns: repeat(2"] {
+    grid-template-columns: 1fr !important;
+  }
+
   .presencia-profesional-compact > div[style*="box-shadow"],
   .presencia-profesional-compact > div > div[style*="box-shadow"] {
     padding: 14px !important;
