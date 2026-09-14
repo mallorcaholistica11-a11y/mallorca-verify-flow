@@ -89,11 +89,11 @@ function NuestraMirada() {
             </div>
           </section>
 
-          <aside className="mirada-pausa mx-auto max-w-[760px] py-14 text-center md:py-20">
+          <aside className="mirada-pausa mx-auto max-w-[760px] py-10 text-center md:py-12">
             <p>Cada persona es única. Cada camino también.</p>
           </aside>
 
-          <section className="mirada-bloque max-w-[680px] md:ml-[3%]">
+          <section className="mirada-bloque max-w-[720px] md:ml-[3%]">
             <h2>Uno de los grandes tesoros de Mallorca.</h2>
             <div className="mirada-copy">
               <p>
