@@ -31,21 +31,26 @@ function DashboardHome() {
   const { track, estado: estadoSearch } = Route.useSearch();
   const isOrg = track === "organizacion" || track === "organizacionFundadora";
   const isVerificado = track === "verificado" || track === "verificadoFundador";
+  const esEstandarVerificado = track === "verificado";
   const isPresencia = track === "presencia";
 
-  const screen = isOrg
-    ? "5 · DASHBOARD ORGANIZACIÓN FUNDADORA"
-    : isVerificado
-      ? "5 · DASHBOARD PROFESIONAL FUNDADOR"
-      : isPresencia
-        ? "5 · DASHBOARD PLAN PRESENCIA"
-        : "5 · DASHBOARD PROFESIONAL";
+  const screen = esEstandarVerificado
+    ? undefined
+    : isOrg
+      ? "5 · DASHBOARD ORGANIZACIÓN FUNDADORA"
+      : isVerificado
+        ? "5 · DASHBOARD PROFESIONAL FUNDADOR"
+        : isPresencia
+          ? "5 · DASHBOARD PLAN PRESENCIA"
+          : "5 · DASHBOARD PROFESIONAL";
 
-  const planLabel = isOrg
-    ? "🌞 Plan Centros & Organizadores"
-    : isVerificado
-      ? "⭐ Plan Profesional Verificado"
-      : "🌿 Plan Presencia · Gratuito";
+  const planLabel = esEstandarVerificado
+    ? "Profesional Verificado"
+    : isOrg
+      ? "🌞 Plan Centros & Organizadores"
+      : isVerificado
+        ? "⭐ Plan Profesional Verificado"
+        : "🌿 Plan Presencia · Gratuito";
 
   // Estado actual del perfil. Se reutiliza la misma pantalla para
   // "pendiente" | "revision" | "publicado": solo cambian textos y acción.
@@ -77,17 +82,40 @@ function DashboardHome() {
             ],
       };
 
-  const pasos = [
+  const pasosVerificadoEstandar = [
     {
       title: "1. Completa tu perfil",
-      lines: ["Añade la información que deseas mostrar públicamente."],
+      lines: ["Cuéntanos quién eres, qué haces y cómo acompañas."],
     },
     {
       title: "2. Revisa y acepta las condiciones",
-      lines: ["Acepta la documentación necesaria para formar parte de Mallorca Holística."],
+      lines: [
+        "Código Deontológico, Política de Privacidad, Condiciones de Uso y documentación necesaria para solicitar tu verificación.",
+      ],
     },
-    tercerPaso,
+    {
+      title: "3. Registra tu método de pago y envía tu solicitud",
+      lines: [
+        "Al finalizar el formulario registrarás de forma segura tu método de pago mediante Stripe antes de enviar tu solicitud de verificación.",
+        "Registrar el método de pago no supone ningún cargo en ese momento.",
+        "No se realizará ningún cargo mientras tu solicitud esté pendiente de aprobación.",
+      ],
+    },
   ];
+
+  const pasos = esEstandarVerificado
+    ? pasosVerificadoEstandar
+    : [
+        {
+          title: "1. Completa tu perfil",
+          lines: ["Añade la información que deseas mostrar públicamente."],
+        },
+        {
+          title: "2. Revisa y acepta las condiciones",
+          lines: ["Acepta la documentación necesaria para formar parte de Mallorca Holística."],
+        },
+        tercerPaso,
+      ];
 
   return (
     <WireframeShell screen={screen} title="🌿 Bienvenido a Mallorca Holística" breadcrumb="Dashboard">
