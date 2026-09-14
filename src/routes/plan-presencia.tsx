@@ -76,7 +76,7 @@ function PlanPresencia() {
 
   return (
     <div className="min-h-screen bg-background font-body text-foreground">
-      <NavPublica isMobile={isMobile} activo="Soy profesional" />
+      <NavPublica isMobile={isMobile} />
 
       <div className="border-b border-border bg-cream/55">
         <nav
