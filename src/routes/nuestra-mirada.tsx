@@ -193,12 +193,12 @@ function NuestraMirada() {
         .mirada-encuentro h2 {
           margin: 0 0 0.6rem;
           font-family: var(--font-display);
-          font-size: clamp(1.1rem, 1.9vw, 1.35rem);
+          font-size: clamp(0.95rem, 1.6vw, 1.15rem);
           font-weight: 500;
           line-height: 1.25;
           color: var(--charcoal);
         }
-        .mirada-copy { color: var(--foreground); font-size: 1rem; line-height: 1.65; }
+        .mirada-copy { color: var(--foreground); font-size: 0.875rem; line-height: 1.62; }
         .mirada-copy p { margin: 0 0 0.65rem; }
         .mirada-copy p:last-child { margin-bottom: 0; }
         .mirada-separador { position: relative; margin-top: 1rem; }
@@ -214,13 +214,13 @@ function NuestraMirada() {
         .mirada-pausa p {
           margin: 0;
           font-family: var(--font-display);
-          font-size: clamp(1.3rem, 2.4vw, 1.65rem);
+          font-size: clamp(1.15rem, 2vw, 1.35rem);
           font-weight: 400;
           line-height: 1.25;
           color: var(--sage-dark);
         }
         .mirada-enfasis { font-weight: 700; color: var(--charcoal); }
-        .mirada-encuentro h2 { font-size: clamp(1.3rem, 2.4vw, 1.65rem); }
+        .mirada-encuentro h2 { font-size: clamp(1.15rem, 2vw, 1.35rem); }
         .mirada-integrativa {
           border: 1px solid color-mix(in oklab, var(--champagne) 58%, transparent);
           border-radius: 0.5rem;
@@ -230,7 +230,7 @@ function NuestraMirada() {
         .mirada-ideas .mirada-enfasis {
           margin: 0.8rem 0;
           font-family: var(--font-display);
-          font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+          font-size: clamp(0.95rem, 1.6vw, 1.15rem);
           font-weight: 500;
           color: var(--sage-dark);
         }
@@ -238,15 +238,15 @@ function NuestraMirada() {
         .mirada-cierre p:first-child {
           margin: 0 0 0.5rem;
           font-family: var(--font-display);
-          font-size: clamp(1.3rem, 2.4vw, 1.65rem);
+          font-size: clamp(1.15rem, 2vw, 1.35rem);
           line-height: 1.25;
           color: var(--charcoal);
         }
         .mirada-cierre p:last-child {
           margin: 0;
           color: var(--muted-foreground);
-          font-size: 1rem;
-          line-height: 1.65;
+          font-size: 0.875rem;
+          line-height: 1.62;
         }
         .mirada-botanica { opacity: 0.1; filter: blur(11px); }
         .mirada-rama,
@@ -265,7 +265,7 @@ function NuestraMirada() {
         @media (max-width: 767px) {
           .mirada-bloque { padding-top: 1.75rem; }
           .mirada-separador { margin-top: 0.75rem; }
-          .mirada-copy { font-size: 0.96rem; line-height: 1.62; }
+          .mirada-copy { font-size: 0.875rem; line-height: 1.6; }
           .mirada-integrativa { border-radius: 0.375rem; }
           .mirada-intencion { margin-top: 1.5rem; }
         }
