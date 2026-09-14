@@ -58,76 +58,80 @@ function NuestraMirada() {
         </header>
 
         <article className="mx-auto max-w-[1120px] px-5 pb-5 sm:px-8 md:px-10 md:pb-6">
-          <section className="mirada-bloque max-w-[650px] md:ml-[8%]">
-            <h2>Todos somos personas.</h2>
-            <div className="mirada-copy">
-              <p>Toda persona merece sentirse escuchada, comprendida y acompañada.</p>
-              <p>Todos, en algún momento de la vida, buscamos sentirnos mejor.</p>
-              <p>
-                A veces necesitamos una respuesta. Otras veces un diagnóstico.
-                <br />
-                Un tratamiento. Una conversación. Un abrazo.
-                <br />
-                Alguien que nos escuche. Que nos vea. Que nos cuide.
-                <br />
-                Porque, antes que pacientes, clientes o profesionales, todos somos personas.
-              </p>
-            </div>
-          </section>
+          <div className="mirada-grid">
+            <section className="mirada-bloque">
+              <h2>Todos somos personas.</h2>
+              <div className="mirada-copy">
+                <p>Toda persona merece sentirse escuchada, comprendida y acompañada.</p>
+                <p>Todos, en algún momento de la vida, buscamos sentirnos mejor.</p>
+                <p>
+                  A veces necesitamos una respuesta. Otras veces un diagnóstico.
+                  <br />
+                  Un tratamiento. Una conversación. Un abrazo.
+                  <br />
+                  Alguien que nos escuche. Que nos vea. Que nos cuide.
+                  <br />
+                  Porque, antes que pacientes, clientes o profesionales, todos somos personas.
+                </p>
+              </div>
+            </section>
 
-          <section className="mirada-bloque mirada-separador max-w-[680px] md:ml-auto md:mr-[4%]">
-            <h2>La salud forma parte de toda nuestra vida.</h2>
-            <div className="mirada-copy">
-              <p>La salud abarca mucho más que el cuerpo.</p>
-              <p>
-                También tiene que ver con nuestras emociones, nuestros pensamientos, nuestras relaciones, nuestro estilo de vida y la manera en que vivimos aquello que nos ocurre.
-              </p>
-              <p>Nuestras necesidades pueden cambiar en cada momento de la vida.</p>
-              <p>
-                Y precisamente por eso existen muchas formas de cuidar, acompañar y promover el bienestar.
-              </p>
-            </div>
-          </section>
+            <section className="mirada-bloque">
+              <h2>La salud forma parte de toda nuestra vida.</h2>
+              <div className="mirada-copy">
+                <p>La salud abarca mucho más que el cuerpo.</p>
+                <p>
+                  También tiene que ver con nuestras emociones, nuestros pensamientos, nuestras relaciones, nuestro estilo de vida y la manera en que vivimos aquello que nos ocurre.
+                </p>
+                <p>Nuestras necesidades pueden cambiar en cada momento de la vida.</p>
+                <p>
+                  Y precisamente por eso existen muchas formas de cuidar, acompañar y promover el bienestar.
+                </p>
+              </div>
+            </section>
+          </div>
 
-          <aside className="mirada-pausa mx-auto max-w-[760px] py-4 text-center md:py-5">
+          <aside className="mirada-pausa mx-auto max-w-[760px] py-3 text-center">
             <p>Cada persona es única. Cada camino también.</p>
           </aside>
 
-          <section className="mirada-bloque max-w-[720px] md:ml-[3%]">
-            <h2>Uno de los grandes tesoros de Mallorca.</h2>
-            <div className="mirada-copy">
-              <p>
-                En Mallorca existe una extraordinaria comunidad de profesionales que dedica su vida a comprender, acompañar y cuidar a las personas desde la salud integrativa, las terapias complementarias, la medicina natural y el desarrollo personal.
-              </p>
-              <p>
-                Personas que han dedicado años a aprender, formarse, investigar, crecer y poner sus conocimientos al servicio de los demás.
-              </p>
-              <p className="mirada-enfasis">
-                Para nosotros, esa comunidad es uno de los grandes tesoros de Mallorca.
-              </p>
-              <p>
-                Gran parte de esa riqueza está todavía por descubrir, y queremos acercarla a las personas que buscan el acompañamiento que mejor responda a sus necesidades.
-              </p>
-            </div>
-          </section>
+          <div className="mirada-grid">
+            <section className="mirada-bloque">
+              <h2>Uno de los grandes tesoros de Mallorca.</h2>
+              <div className="mirada-copy">
+                <p>
+                  En Mallorca existe una extraordinaria comunidad de profesionales que dedica su vida a comprender, acompañar y cuidar a las personas desde la salud integrativa, las terapias complementarias, la medicina natural y el desarrollo personal.
+                </p>
+                <p>
+                  Personas que han dedicado años a aprender, formarse, investigar, crecer y poner sus conocimientos al servicio de los demás.
+                </p>
+                <p className="mirada-enfasis">
+                  Para nosotros, esa comunidad es uno de los grandes tesoros de Mallorca.
+                </p>
+                <p>
+                  Gran parte de esa riqueza está todavía por descubrir, y queremos acercarla a las personas que buscan el acompañamiento que mejor responda a sus necesidades.
+                </p>
+              </div>
+            </section>
 
-          <section className="mirada-bloque mirada-separador max-w-[650px] md:ml-auto md:mr-[9%]">
-            <h2>Un lugar donde encontrarse.</h2>
-            <div className="mirada-copy">
-              <p>Mallorca Holística nace para dar visibilidad a ese tesoro.</p>
-              <p>
-                Para facilitar el encuentro entre las personas que buscan respuestas, orientación o acompañamiento y las personas que han dedicado su vida a cuidar de los demás.
-              </p>
-              <p>
-                Creemos que, cuando las personas se encuentran, también se encuentran sus conocimientos, sus experiencias y sus diferentes maneras de cuidar.
-              </p>
-              <p>Y que esos encuentros pueden abrir nuevas posibilidades para el bienestar de todos.</p>
-            </div>
-          </section>
+            <section className="mirada-bloque">
+              <h2>Un lugar donde encontrarse.</h2>
+              <div className="mirada-copy">
+                <p>Mallorca Holística nace para dar visibilidad a ese tesoro.</p>
+                <p>
+                  Para facilitar el encuentro entre las personas que buscan respuestas, orientación o acompañamiento y las personas que han dedicado su vida a cuidar de los demás.
+                </p>
+                <p>
+                  Creemos que, cuando las personas se encuentran, también se encuentran sus conocimientos, sus experiencias y sus diferentes maneras de cuidar.
+                </p>
+                <p>Y que esos encuentros pueden abrir nuevas posibilidades para el bienestar de todos.</p>
+              </div>
+            </section>
+          </div>
 
-          <section className="mirada-encuentro mx-auto my-4 max-w-[880px] border-y border-champagne py-3 text-center md:my-5 md:py-4">
+          <section className="mirada-encuentro mx-auto my-4 max-w-[920px] border-y border-champagne py-3 text-center">
             <h2>Mallorca Holística es un lugar de encuentro.</h2>
-            <div className="mirada-copy mx-auto max-w-[650px] text-left sm:text-center">
+            <div className="mirada-copy mx-auto max-w-[760px] text-left sm:text-center">
               <p>Creemos que existen diferentes caminos para cuidar de nuestra salud.</p>
               <p>
                 Creemos en la libertad de cada persona para recorrer el suyo, con consciencia, respeto y a su propio ritmo.
@@ -141,10 +145,10 @@ function NuestraMirada() {
             </div>
           </section>
 
-          <section className="mirada-integrativa mx-auto max-w-[920px] bg-secondary px-5 py-2 sm:px-8 md:px-12 md:py-3">
-            <div className="max-w-[760px]">
-              <h2>¿Qué entendemos por salud integrativa?</h2>
-              <div className="mirada-copy">
+          <section className="mirada-integrativa mx-auto max-w-[1000px] bg-secondary px-5 py-3 sm:px-8 md:px-10">
+            <h2>¿Qué entendemos por salud integrativa?</h2>
+            <div className="mirada-copy mirada-grid mirada-grid-tight">
+              <div>
                 <p>
                   Entendemos la salud como una realidad amplia que abarca el cuerpo, las emociones, la mente, las relaciones, el estilo de vida y el entorno.
                 </p>
@@ -154,6 +158,8 @@ function NuestraMirada() {
                 <p>
                   Al mismo tiempo, muchas personas encuentran un valioso apoyo en disciplinas complementarias que pueden contribuir a su bienestar y a mejorar su calidad de vida.
                 </p>
+              </div>
+              <div>
                 <p>
                   En Mallorca Holística creemos en una visión abierta, respetuosa e integradora, donde diferentes enfoques puedan dialogar y complementarse, siempre poniendo a la persona en el centro.
                 </p>
@@ -164,7 +170,7 @@ function NuestraMirada() {
             </div>
           </section>
 
-          <section className="mirada-intencion mirada-bloque max-w-[760px] md:ml-auto md:mr-[5%]">
+          <section className="mirada-intencion mirada-bloque mx-auto max-w-[1000px]">
             <h2>Nuestra intención</h2>
             <div className="mirada-copy mirada-ideas">
               <p>Mallorca Holística quiere facilitar que cada persona pueda encontrar y recorrer su propio camino.</p>
@@ -177,11 +183,12 @@ function NuestraMirada() {
             </div>
           </section>
 
-          <footer className="mirada-cierre mx-auto max-w-[780px] pb-3 pt-4 text-center md:pt-5">
+          <footer className="mirada-cierre mx-auto max-w-[780px] pb-2 pt-3 text-center">
             <p>Porque creemos que cuidar también es acompañar.</p>
             <p>Y que acompañar empieza, muchas veces, por hacer posible un encuentro.</p>
           </footer>
         </article>
+
       </main>
 
       <style>{`
