@@ -271,12 +271,12 @@ function NuestraMirada() {
         .mirada-hoja-6 { right: 0; top: 72%; transform: rotate(42deg) scale(.85); }
         .mirada-hoja-7 { right: 22%; top: 80%; transform: rotate(-35deg) scale(.68); }
         @media (max-width: 767px) {
-          .mirada-bloque { padding-top: 0.65rem; }
-          .mirada-separador { margin-top: 0.25rem; }
-          .mirada-copy { font-size: 0.8rem; line-height: 1.42; }
+          .mirada-bloque { padding-top: 0.5rem; }
+          .mirada-copy { font-size: 0.8rem; line-height: 1.5; }
           .mirada-integrativa { border-radius: 0.375rem; }
           .mirada-intencion { margin-top: 0.6rem; }
         }
+
       `}</style>
     </div>
   );
