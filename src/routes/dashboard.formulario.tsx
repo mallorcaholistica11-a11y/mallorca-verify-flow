@@ -2342,7 +2342,6 @@ function VerificadoFormulario() {
           {!isOrg && (
             <Box title="Datos de contacto">
               <>
-                <DireccionAutocomplete ayuda="Si atiendes en un centro o consulta, indica esa dirección. Si trabajas exclusivamente online o a domicilio, puedes indicar la ubicación de tu municipio o ciudad." />
                 <FakeField label="Correo electrónico" type="email" />
                 <Ayuda>Será el correo de contacto que aparecerá en tu perfil profesional.</Ayuda>
                 <TelefonoField label="Teléfono" />
@@ -2351,9 +2350,9 @@ function VerificadoFormulario() {
                 <Ayuda>Si dispones de un logotipo o imagen de marca puedes añadirlo aquí.</Ayuda>
                 <FakeField label="Foto principal" type="file" />
                 <Ayuda>Será la imagen principal de tu perfil profesional.</Ayuda>
-                <FakeField label="Galería de imágenes (opcional)" type="file" />
+                <FakeField label="Galería de imágenes (opcional, hasta 5)" type="file" />
                 <Ayuda>
-                  Puedes añadir hasta 3 imágenes para mostrar tu espacio, tu trabajo o aquello que
+                  Puedes añadir hasta 5 imágenes para mostrar tu espacio, tu trabajo o aquello que
                   mejor represente tu actividad.
                 </Ayuda>
               </>
