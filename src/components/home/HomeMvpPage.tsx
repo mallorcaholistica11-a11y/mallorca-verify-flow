@@ -1,12 +1,12 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Award, BookOpen, CalendarDays, Leaf, Scale, ShieldCheck, UserRoundCheck } from "lucide-react";
-import type { ReactNode } from "react";
 import heroAlmendro from "@/assets/hero-almendro-original.jpg.asset.json";
 import olivoHojas from "@/assets/olivo-hojas.jpg.asset.json";
 import { Chips, Retrato, Seccion } from "@/components/ficha/primitives";
 import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
 import { BuscadorSimple } from "@/components/BuscadorSimple";
+import { Button } from "@/components/ui/button";
 import { IMG, retratoDe } from "@/data/imagenes";
 
 
@@ -92,7 +92,7 @@ export function HomeMvpPage() {
     <div className="min-h-screen bg-background font-body text-foreground">
       <NavPublica isMobile={isMobile} activo="Inicio" />
 
-      <main className="mx-auto max-w-[1080px] px-4 md:px-6">
+      <main className="mx-auto max-w-[1180px] px-4 sm:px-6 lg:px-8">
         <Hero />
         <BuscadorIA isMobile={isMobile} />
         <BusquedaClasica isMobile={isMobile} />
@@ -101,29 +101,19 @@ export function HomeMvpPage() {
         <Descubre isMobile={isMobile} />
       </main>
 
-      <footer className="mt-12 border-t border-border/70 px-6 py-7 text-center text-xs text-muted-foreground md:mt-14">
+      <footer className="mt-6 border-t border-border/70 px-6 py-6 text-center text-xs text-muted-foreground md:mt-8">
         Mallorca Holística · Wireframe funcional · Home MVP
       </footer>
     </div>
   );
 }
 
-/* ---------- Bloques ---------- */
-
-function Bloque({ children, id }: { children: ReactNode; id?: string }) {
-  return (
-    <section id={id} className="py-8 md:py-9">
-      {children}
-    </section>
-  );
-}
-
 function Hero() {
   return (
-    <section className="relative -mx-4 min-h-[390px] overflow-hidden px-6 py-8 sm:min-h-[388px] sm:px-10 sm:py-9 md:-mx-6 md:min-h-[382px] md:px-14 md:py-10 lg:px-16">
+    <section className="relative -mx-4 min-h-[350px] overflow-hidden px-6 py-7 sm:-mx-6 sm:min-h-[360px] sm:px-10 sm:py-8 lg:-mx-8 lg:min-h-[370px] lg:px-14 lg:py-9">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-0 bg-cover bg-[position:62%_center] sm:bg-[position:58%_center] md:bg-[position:55%_center]"
+        className="pointer-events-none absolute inset-0 z-0 bg-cover bg-[position:67%_center] sm:bg-[position:62%_center] md:bg-[position:58%_center] lg:bg-[position:55%_center]"
         style={{
           backgroundImage: `url(${heroAlmendro.url})`,
         }}
@@ -133,28 +123,28 @@ function Hero() {
         className="pointer-events-none absolute inset-0 z-10"
         style={{
           background:
-            "linear-gradient(90deg, var(--background) 0%, color-mix(in oklab, var(--background) 94%, transparent) 20%, color-mix(in oklab, var(--background) 70%, transparent) 38%, color-mix(in oklab, var(--background) 32%, transparent) 54%, transparent 76%), linear-gradient(180deg, color-mix(in oklab, var(--background) 12%, transparent) 0%, transparent 72%, color-mix(in oklab, var(--background) 20%, transparent) 90%, var(--background) 100%)",
+            "linear-gradient(90deg, var(--background) 0%, color-mix(in oklab, var(--background) 96%, transparent) 24%, color-mix(in oklab, var(--background) 72%, transparent) 43%, color-mix(in oklab, var(--background) 18%, transparent) 67%, transparent 84%), linear-gradient(180deg, color-mix(in oklab, var(--background) 8%, transparent) 0%, transparent 68%, color-mix(in oklab, var(--background) 28%, transparent) 86%, var(--background) 100%)",
         }}
       />
-      <div className="relative z-20 flex min-h-[326px] items-center sm:min-h-[316px] md:min-h-[302px]">
-        <div className="max-w-[600px] min-w-0">
-          <div className="mb-4 flex items-center gap-3 text-[0.62rem] font-medium uppercase tracking-[0.18em] text-sage-dark">
+      <div className="relative z-20 flex min-h-[296px] items-center sm:min-h-[296px] lg:min-h-[298px]">
+        <div className="max-w-[560px] min-w-0">
+          <div className="mb-3 flex items-center gap-3 text-[0.6rem] font-medium uppercase tracking-[0.18em] text-sage-dark">
             <span className="h-px w-8 bg-sage-light" />
             Mallorca Holística
           </div>
-          <h1 className="mb-5 max-w-[570px] font-display text-[1.65rem] font-normal leading-[1.12] text-charcoal sm:text-[1.85rem] md:text-[2.125rem] md:leading-[1.1]">
+          <h1 className="mb-4 max-w-[550px] font-display text-[1.55rem] font-normal leading-[1.13] text-charcoal sm:text-[1.75rem] md:text-[1.95rem] md:leading-[1.12]">
             <span className="block">Salud integrativa · Terapias complementarias</span>
             <span className="mt-1.5 block text-sage-dark">
               Medicina tradicional · Bienestar · Desarrollo personal
             </span>
           </h1>
-          <p className="mb-3 max-w-md font-display text-[0.84rem] italic leading-relaxed text-muted-foreground md:text-[0.92rem]">
+          <p className="mb-2.5 max-w-md font-display text-[0.8rem] italic leading-relaxed text-muted-foreground md:text-[0.86rem]">
             Toda persona merece sentirse escuchada, comprendida y acompañada.
           </p>
-          <p className="mb-2 max-w-md text-[0.78rem] leading-relaxed text-muted-foreground md:text-[0.82rem]">
+          <p className="mb-1.5 max-w-md text-[0.75rem] leading-relaxed text-muted-foreground md:text-[0.8rem]">
             Ampliamos la mirada sobre la salud para abrir nuevas posibilidades de acompañamiento.
           </p>
-          <p className="text-[0.78rem] font-semibold text-foreground md:text-[0.82rem]">
+          <p className="text-[0.75rem] font-semibold text-foreground md:text-[0.8rem]">
             Al servicio de las personas y del cuidado.
           </p>
         </div>
@@ -166,11 +156,11 @@ function Hero() {
 
 function BuscadorIA({ isMobile }: { isMobile: boolean }) {
   return (
-    <section className="pb-8 pt-5 md:pb-9 md:pt-6">
-      <div className="relative overflow-hidden rounded-[28px] border border-champagne/60 bg-cream/80 p-6 shadow-[var(--shadow-champagne)] md:rounded-[32px] md:px-10 md:py-8 lg:px-12 lg:py-9">
+    <section className="pb-6 pt-3 md:pb-7 md:pt-4">
+      <div className="relative overflow-hidden border-y border-champagne/55 bg-cream/55 px-4 py-7 sm:px-6 md:px-10 md:py-8">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-[0.04]"
+          className="pointer-events-none absolute inset-0 opacity-[0.025]"
           style={{
             backgroundImage: `url(${IMG.detalle1})`,
             backgroundSize: "cover",
@@ -178,35 +168,32 @@ function BuscadorIA({ isMobile }: { isMobile: boolean }) {
           }}
         />
         <div className="relative">
-          <div className="mx-auto mb-5 max-w-[920px] text-center md:mb-5">
-            <h2 className="mb-2.5 font-display text-2xl font-medium md:text-[1.75rem]">
+          <div className="mx-auto mb-4 max-w-[720px] text-center">
+            <h2 className="mb-2 font-display text-xl font-medium md:text-[1.45rem]">
               ¿Cómo te sientes hoy?
             </h2>
-            <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
+            <p className="text-[0.78rem] leading-relaxed text-muted-foreground md:text-sm">
               Cuéntanos cómo te sientes o qué necesitas en este momento.&nbsp;
               <br />
               Te guíamos para encontrar el acompañamiento más adecuado para ti.
             </p>
           </div>
 
-          <div className="mx-auto max-w-2xl">
-            <div className="relative rounded-[20px] border border-border/70 bg-card/95 p-5 shadow-[var(--shadow-soft)] md:rounded-[22px] md:px-6 md:py-5">
+          <div className="mx-auto max-w-[760px]">
+            <div className="relative rounded-xl border border-border/70 bg-card/95 p-4 shadow-[var(--shadow-soft)] md:px-5 md:py-4">
               <textarea
                 placeholder="Escribe cómo te sientes, qué necesitas o qué te gustaría mejorar..."
-                className="h-auto min-h-[82px] w-full resize-none bg-transparent text-sm leading-relaxed text-foreground placeholder:text-muted-foreground focus:outline-none md:min-h-[88px] md:text-[0.95rem]"
+                className="h-auto min-h-[62px] w-full resize-none bg-transparent text-sm leading-relaxed text-foreground placeholder:text-muted-foreground focus:outline-none md:min-h-[66px]"
               />
-              <div className="mt-2 flex justify-end md:mt-3">
-                <button
-                  type="button"
-                  className="rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-sage-dark"
-                >
+              <div className="mt-1 flex justify-end md:mt-2">
+                <Button type="button" className="px-6">
                   Buscar
-                </button>
+                </Button>
               </div>
             </div>
 
-            <div className="mt-5 flex justify-center">
-              <Chips items={CHIPS} clicable gap={10} size="md" center />
+            <div className="mt-4 flex justify-center">
+              <Chips items={CHIPS} clicable gap={7} center />
             </div>
           </div>
         </div>
@@ -218,10 +205,10 @@ function BuscadorIA({ isMobile }: { isMobile: boolean }) {
 function BusquedaClasica({ isMobile }: { isMobile: boolean }) {
   const navigate = useNavigate();
   return (
-    <section className="pb-9 pt-7 md:pb-10 md:pt-8">
+    <section className="mx-auto max-w-[980px] pb-8 pt-5 md:pb-9 md:pt-6">
       <Seccion>
-        <h2 className="mb-1.5 font-display text-lg font-medium">¿Ya sabes lo que buscas?</h2>
-        <p className="mb-4 text-sm text-muted-foreground">
+        <h2 className="mb-1 font-display text-lg font-medium">¿Ya sabes lo que buscas?</h2>
+        <p className="mb-3 text-[0.8rem] text-muted-foreground">
           Encuentra directamente una práctica, un profesional o una ubicación.
         </p>
         <BuscadorSimple
@@ -236,11 +223,11 @@ function BusquedaClasica({ isMobile }: { isMobile: boolean }) {
 
 function Confianza() {
   return (
-    <section className="relative -mx-4 my-3 overflow-hidden bg-cream/55 px-5 py-10 sm:px-8 md:-mx-6 md:px-10 md:py-10 lg:px-12 lg:py-10">
+    <section className="relative -mx-4 overflow-hidden bg-cream/55 px-5 py-8 sm:-mx-6 sm:px-8 md:px-10 md:py-8 lg:-mx-8 lg:px-12">
       {/* Fotografía de fondo: cubre toda la sección para que el degradado la funda con el fondo */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-0 bg-cover bg-[position:30%_center] md:bg-[length:auto_100%] md:bg-left md:bg-no-repeat"
+        className="pointer-events-none absolute inset-0 z-0 bg-cover bg-[position:24%_center] md:bg-[length:auto_100%] md:bg-left md:bg-no-repeat"
         style={{ backgroundImage: `url(${olivoHojas.url})` }}
       />
       {/* Degradado horizontal progresivo: imagen visible a la izquierda → crema integrado a la derecha */}
@@ -261,35 +248,35 @@ function Confianza() {
         }}
       />
 
-      <div className="relative z-20 lg:ml-[31%]">
-        <div className="mb-6 max-w-2xl sm:mb-7">
-          <h2 className="mb-2.5 font-display text-xl font-normal leading-snug md:text-[1.65rem]">
+      <div className="relative z-20 md:ml-[26%] lg:ml-[30%]">
+        <div className="mb-5 max-w-2xl">
+          <h2 className="mb-2 font-display text-xl font-normal leading-snug md:text-[1.45rem]">
             La confianza también forma parte del cuidado.
           </h2>
-          <p className="text-[0.92rem] leading-relaxed text-muted-foreground">
+          <p className="text-[0.8rem] leading-relaxed text-muted-foreground md:text-[0.84rem]">
             Revisamos cada perfil para que puedas explorar con tranquilidad y elegir con confianza.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-x-5 gap-y-6 sm:grid-cols-4 sm:gap-0">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-5 sm:grid-cols-4 sm:gap-0">
           {CONFIANZA.map((c, index) => {
             const Icono = c.icono;
             return (
               <div
                 key={c.titulo}
-                  className={`min-w-0 px-2 text-center sm:px-3 lg:px-4 ${
+                  className={`min-w-0 px-1.5 text-center sm:px-3 lg:px-4 ${
                   index > 0 ? "sm:border-l sm:border-border/70" : ""
                 }`}
               >
                 <Icono
                   aria-hidden="true"
-                  className="mx-auto mb-3 size-6 text-sage-dark"
+                  className="mx-auto mb-2.5 size-5 text-sage-dark"
                   strokeWidth={1.4}
                 />
-                <h3 className="mb-2 font-display text-[0.88rem] font-medium leading-snug text-foreground">
+                <h3 className="mb-1.5 font-display text-[0.8rem] font-medium leading-snug text-foreground">
                   {c.titulo}
                 </h3>
-                <p className="m-0 text-[0.74rem] leading-relaxed text-muted-foreground">{c.texto}</p>
+                <p className="m-0 text-[0.68rem] leading-[1.5] text-muted-foreground">{c.texto}</p>
               </div>
             );
           })}
@@ -306,21 +293,28 @@ function Profesionales({ isMobile, isTablet }: { isMobile: boolean; isTablet: bo
       ? "grid-cols-3"
       : "grid-cols-6";
   return (
-    <section className="pb-9 pt-12 md:pb-10 md:pt-14">
-      <h2 className="mb-2 font-display text-xl font-normal md:text-[1.65rem]">
-        Personas que acompañan a personas.
-      </h2>
-      <p className="mb-6 text-sm text-muted-foreground">
-        Conoce a algunos profesionales de nuestra comunidad.
-      </p>
+    <section className="pb-8 pt-9 md:pb-9 md:pt-10">
+      <div className="mb-5 grid grid-cols-[minmax(0,1fr)_auto] items-end gap-4">
+        <div className="min-w-0">
+          <h2 className="mb-1 font-display text-xl font-normal md:text-[1.45rem]">
+            Personas que acompañan a personas.
+          </h2>
+          <p className="text-[0.8rem] text-muted-foreground">
+            Conoce a algunos profesionales de nuestra comunidad.
+          </p>
+        </div>
+        <Link to="/directorio" search={{ q: "", lugar: "" }} className="hidden shrink-0 text-xs text-foreground no-underline hover:text-primary sm:block">
+          Ver todos los profesionales →
+        </Link>
+      </div>
       <div className={`grid gap-3.5 ${grid}`}>
         {PROFESIONALES.map((p) => (
           <div
             key={p.nombre}
-            className="min-w-0 rounded-2xl border border-border/60 bg-card/80 p-4 text-center shadow-[var(--shadow-soft)] transition-shadow hover:shadow-[var(--shadow-lift)]"
+            className="min-w-0 rounded-lg border border-border/60 bg-card/70 px-3 py-4 text-center shadow-[var(--shadow-soft)] transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-lift)]"
           >
             <div className="mx-auto mb-3 w-fit">
-              <Retrato src={retratoDe(p.nombre)} alt={`Retrato de ${p.nombre}`} tamano={64} />
+              <Retrato src={retratoDe(p.nombre)} alt={`Retrato de ${p.nombre}`} tamano={60} />
             </div>
             <div className="font-display text-[0.82rem] font-medium text-foreground">{p.nombre}</div>
             <div className="mt-1 text-xs text-muted-foreground">{p.especialidad}</div>
@@ -329,7 +323,7 @@ function Profesionales({ isMobile, isTablet }: { isMobile: boolean; isTablet: bo
         ))}
       </div>
 
-      <div className="mt-5 text-right text-xs">
+      <div className="mt-4 text-right text-xs sm:hidden">
         <Link to="/directorio" search={{ q: "", lugar: "" }} className="text-foreground no-underline hover:text-primary">
           Ver todos los profesionales →
         </Link>
@@ -340,22 +334,22 @@ function Profesionales({ isMobile, isTablet }: { isMobile: boolean; isTablet: bo
 
 function Descubre({ isMobile }: { isMobile: boolean }) {
   return (
-    <section className="pb-9 pt-10 md:pb-10 md:pt-12">
-      <h2 className="mb-7 text-center font-display text-xl font-normal md:text-[1.65rem]">
+    <section className="pb-7 pt-8 md:pb-8 md:pt-9">
+      <h2 className="mb-5 text-center font-display text-xl font-normal md:text-[1.45rem]">
         Descubre también
       </h2>
-      <div className={`grid gap-4 ${isMobile ? "grid-cols-1" : "grid-cols-3"}`}>
+      <div className={`grid gap-3.5 ${isMobile ? "grid-cols-1" : "grid-cols-3"}`}>
         {DESCUBRE.map((d) => {
           const Icono = d.icono;
           return (
             <Link
               key={d.titulo}
               to={d.to as never}
-               className={`group flex min-h-[168px] flex-col rounded-2xl border border-border/30 p-6 transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)] ${d.fondo}`}
+               className={`group flex min-h-[142px] flex-col rounded-lg border border-border/30 p-5 transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)] ${d.fondo}`}
             >
               <Icono
                 aria-hidden="true"
-                className={`mb-4 size-6 ${d.colorIcono}`}
+                 className={`mb-3 size-5 ${d.colorIcono}`}
                 strokeWidth={1.4}
               />
               <h3 className="mb-2 font-display text-sm font-medium text-foreground">
@@ -374,7 +368,7 @@ function Descubre({ isMobile }: { isMobile: boolean }) {
         })}
       </div>
 
-      <div className="mt-8 text-xs text-muted-foreground">
+       <div className="mt-6 text-xs text-muted-foreground">
         <Link to="/inicio-tecnico" className="text-muted-foreground no-underline hover:text-primary">
           ← Volver al índice del wireframe
         </Link>
