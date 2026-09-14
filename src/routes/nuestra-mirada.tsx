@@ -33,13 +33,13 @@ function NuestraMirada() {
       <main className="mirada-page overflow-hidden">
         <header className="mirada-hero relative mx-auto grid max-w-[1120px] grid-cols-1 px-5 pb-8 pt-10 sm:px-8 md:grid-cols-12 md:items-center md:px-10 md:pb-10 md:pt-12">
           <div className="relative z-10 md:col-span-8 md:col-start-2 lg:col-span-7">
-            <h1 className="font-display text-[clamp(2.25rem,4.5vw,3.5rem)] font-medium leading-[0.95] text-charcoal">
+            <h1 className="font-display text-[clamp(1.85rem,3.8vw,2.65rem)] font-medium leading-[0.95] text-charcoal">
               Nuestra
               <br />
               <span className="font-normal italic">Mirada</span>
             </h1>
             <div className="my-3 h-px w-16 bg-champagne md:my-4" />
-            <p className="max-w-[580px] text-[11px] font-semibold uppercase leading-[1.8] tracking-[0.2em] text-earth sm:text-xs">
+            <p className="max-w-[580px] text-[10px] font-semibold uppercase leading-[1.8] tracking-[0.2em] text-earth sm:text-[11px]">
               UNA FORMA DE ENTENDER EL CUIDADO, LA SALUD Y EL BIENESTAR
             </p>
           </div>
