@@ -159,6 +159,72 @@ const ACTIVIDADES: Actividad[] = [
     precio: "90 €",
     modalidad: "Híbrida",
   },
+  {
+    id: "taller-movimiento-somatico",
+    categoria: "Taller",
+    titulo: "Movimiento somático y escucha corporal",
+    diaSemana: "SÁB",
+    dia: "03",
+    mes: "OCT",
+    municipio: "Palma",
+    precio: "40 €",
+    modalidad: "Presencial",
+  },
+  {
+    id: "encuentro-bienestar-emocional",
+    categoria: "Encuentro",
+    titulo: "Encuentro de bienestar emocional",
+    diaSemana: "DOM",
+    dia: "04",
+    mes: "OCT",
+    municipio: "Calvià",
+    precio: "25 €",
+    modalidad: "Presencial",
+  },
+  {
+    id: "meditacion-atencion-plena",
+    categoria: "Meditación guiada",
+    titulo: "Meditación y atención plena al amanecer",
+    diaSemana: "MAR",
+    dia: "06",
+    mes: "OCT",
+    municipio: "Online",
+    precio: "Gratuita",
+    modalidad: "Online",
+  },
+  {
+    id: "curso-aromaterapia-hogar",
+    categoria: "Curso",
+    titulo: "Aromaterapia para el bienestar en casa",
+    diaSemana: "SÁB",
+    dia: "10",
+    mes: "OCT",
+    municipio: "Marratxí",
+    precio: "65 €",
+    modalidad: "Presencial",
+  },
+  {
+    id: "charla-descanso-reparador",
+    categoria: "Charla",
+    titulo: "Claves para un descanso reparador",
+    diaSemana: "JUE",
+    dia: "15",
+    mes: "OCT",
+    municipio: "Llucmajor",
+    precio: "15 €",
+    modalidad: "Híbrida",
+  },
+  {
+    id: "retiro-silencio-mediterraneo",
+    categoria: "Retiro",
+    titulo: "Retiro de silencio y calma mediterránea",
+    diaSemana: "VIE",
+    dia: "23",
+    mes: "OCT",
+    municipio: "Artà",
+    precio: "210 €",
+    modalidad: "Presencial",
+  },
 ];
 
 const MESES: Record<string, string> = { SEP: "09", OCT: "10" };
@@ -193,10 +259,14 @@ function contarFiltros(filtros: FiltrosAgenda) {
 
 function Agenda() {
   const isMobile = useMobile(900);
-  const [visibles, setVisibles] = useState(6);
+  const [pagina, setPagina] = useState(1);
   const [busqueda, setBusqueda] = useState("");
   const [filtros, setFiltros] = useState<FiltrosAgenda>(FILTROS_INICIALES);
   const resultados = aplicarFiltros(ACTIVIDADES, filtros, busqueda);
+
+  useEffect(() => {
+    setPagina(1);
+  }, [busqueda, filtros]);
 
   return (
     <div style={{ fontFamily: MONO, background: "var(--muted)", color: "var(--foreground)", minHeight: "100vh" }}>
@@ -212,8 +282,8 @@ function Agenda() {
           busqueda={busqueda}
           totalResultados={resultados.length}
         />
-        <NavegacionTemporal isMobile={isMobile} />
-        <Resultados actividades={resultados} isMobile={isMobile} visibles={visibles} onMas={() => setVisibles((v) => v + 6)} />
+        <NavegacionTemporal isMobile={isMobile} onCambiar={() => setPagina(1)} />
+        <Resultados actividades={resultados} isMobile={isMobile} pagina={pagina} onPagina={setPagina} />
       </main>
 
       <footer
@@ -493,7 +563,7 @@ function Campo({ label, children }: { label: string; children: ReactNode }) {
 
 /* ---------- Navegación temporal ---------- */
 
-function NavegacionTemporal({ isMobile }: { isMobile: boolean }) {
+function NavegacionTemporal({ isMobile, onCambiar }: { isMobile: boolean; onCambiar: () => void }) {
   const [activo, setActivo] = useState("Esta semana");
 
   return (
@@ -512,7 +582,10 @@ function NavegacionTemporal({ isMobile }: { isMobile: boolean }) {
             <button
               key={r}
               type="button"
-              onClick={() => setActivo(r)}
+              onClick={() => {
+                setActivo(r);
+                onCambiar();
+              }}
               style={{
                 border: activo === r ? "1px solid var(--foreground)" : "1px solid var(--border)",
                 background: activo === r ? "var(--foreground)" : "var(--card)",
@@ -528,11 +601,11 @@ function NavegacionTemporal({ isMobile }: { isMobile: boolean }) {
           ))}
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 12 }}>
-          <button type="button" style={navMesStyle} aria-label="Mes anterior">
+          <button type="button" onClick={onCambiar} style={navMesStyle} aria-label="Mes anterior">
             ←
           </button>
           <span style={{ minWidth: isMobile ? 0 : 130, textAlign: "center" }}>Septiembre 2026</span>
-          <button type="button" style={navMesStyle} aria-label="Mes siguiente">
+          <button type="button" onClick={onCambiar} style={navMesStyle} aria-label="Mes siguiente">
             →
           </button>
         </div>
@@ -546,16 +619,18 @@ function NavegacionTemporal({ isMobile }: { isMobile: boolean }) {
 function Resultados({
   actividades,
   isMobile,
-  visibles,
-  onMas,
+  pagina,
+  onPagina,
 }: {
   actividades: Actividad[];
   isMobile: boolean;
-  visibles: number;
-  onMas: () => void;
+  pagina: number;
+  onPagina: (pagina: number) => void;
 }) {
-  const lista = actividades.slice(0, visibles);
-  const hayMas = visibles < actividades.length;
+  const porPagina = 9;
+  const totalPaginas = Math.ceil(actividades.length / porPagina);
+  const inicio = (pagina - 1) * porPagina;
+  const lista = actividades.slice(inicio, inicio + porPagina);
 
   return (
     <Bloque top={12}>
@@ -571,16 +646,45 @@ function Resultados({
         ))}
       </div>
 
-      <div style={{ display: "flex", justifyContent: "center", marginTop: 28 }}>
-        <button
-          type="button"
-          onClick={onMas}
-          disabled={!hayMas}
-          style={{ ...botonSecundario, opacity: hayMas ? 1 : 0.45, cursor: hayMas ? "pointer" : "default" }}
-        >
-          Cargar más actividades
-        </button>
-      </div>
+      {totalPaginas > 1 && (
+        <nav aria-label="Paginación de actividades" style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 5, marginTop: 28 }}>
+          <button
+            type="button"
+            aria-label="Página anterior"
+            onClick={() => onPagina(Math.max(1, pagina - 1))}
+            disabled={pagina === 1}
+            style={{ ...botonPagina, opacity: pagina === 1 ? 0.35 : 1 }}
+          >
+            ←
+          </button>
+          {Array.from({ length: totalPaginas }, (_, indice) => indice + 1).map((numero) => (
+            <button
+              key={numero}
+              type="button"
+              aria-label={`Página ${numero}`}
+              aria-current={pagina === numero ? "page" : undefined}
+              onClick={() => onPagina(numero)}
+              style={{
+                ...botonPagina,
+                borderColor: pagina === numero ? "var(--primary)" : "transparent",
+                background: pagina === numero ? "var(--primary)" : "transparent",
+                color: pagina === numero ? "var(--primary-foreground)" : "var(--foreground)",
+              }}
+            >
+              {numero}
+            </button>
+          ))}
+          <button
+            type="button"
+            aria-label="Página siguiente"
+            onClick={() => onPagina(Math.min(totalPaginas, pagina + 1))}
+            disabled={pagina === totalPaginas}
+            style={{ ...botonPagina, opacity: pagina === totalPaginas ? 0.35 : 1 }}
+          >
+            →
+          </button>
+        </nav>
+      )}
 
       <div style={{ marginTop: 40, fontSize: 11, color: "var(--muted-foreground)" }}>
         <Link to="/" style={{ color: "var(--muted-foreground)" }}>
@@ -705,6 +809,21 @@ const botonSecundario: CSSProperties = {
   color: "var(--foreground)",
   padding: "12px 22px",
   fontSize: 13,
+  fontFamily: "inherit",
+  cursor: "pointer",
+};
+
+const botonPagina: CSSProperties = {
+  width: 32,
+  height: 32,
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  border: "1px solid transparent",
+  borderRadius: 999,
+  background: "transparent",
+  color: "var(--foreground)",
+  fontSize: 12,
   fontFamily: "inherit",
   cursor: "pointer",
 };
