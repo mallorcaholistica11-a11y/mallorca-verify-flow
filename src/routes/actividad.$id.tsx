@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 import { useMobile } from "@/components/ficha/useMobile";
 import { areasOficiales } from "@/data/areas";
 import { ambienteDe, retratoDe } from "@/data/imagenes";
+import type { RedSocial } from "@/components/ficha/types";
 
 export const Route = createFileRoute("/actividad/$id")({
   head: () => ({
@@ -37,6 +39,16 @@ const actividad = {
     { label: "Nivel", value: "Abierto a todos los niveles" },
   ],
   organizador: { nombre: "Nombre del profesional", profesion: "Terapeuta holística" },
+  contacto: {
+    telefono: "+34600000000",
+    telefonoPublico: true,
+    email: "hola@ejemplo.com",
+    web: "https://www.ejemplo.com",
+    redes: [
+      { red: "Instagram", url: "https://instagram.com/" },
+      { red: "Facebook", url: "https://facebook.com/" },
+    ] as RedSocial[],
+  },
 };
 
 // Áreas seleccionadas al crear la actividad. Provienen únicamente del
@@ -291,6 +303,34 @@ function ActividadPublica() {
               La dirección exacta se facilitará tras la reserva cuando sea necesario.
             </p>
           </Bloque>
+
+          {(actividad.contacto?.telefono || actividad.contacto?.email || actividad.contacto?.web || actividad.contacto?.redes?.length) && (
+            <Bloque titulo="Contacto">
+              <div style={{ display: "grid", gap: 8, fontSize: 13 }}>
+                {actividad.contacto.telefono && actividad.contacto.telefonoPublico && (
+                  <a href={`tel:${actividad.contacto.telefono.replace(/[^\d+]/g, "")}`} style={enlaceContacto}>
+                    {actividad.contacto.telefono}
+                  </a>
+                )}
+                {actividad.contacto.email && (
+                  <a href={`mailto:${actividad.contacto.email}`} style={enlaceContacto}>
+                    {actividad.contacto.email}
+                  </a>
+                )}
+                {actividad.contacto.web && (
+                  <a href={actividad.contacto.web} target="_blank" rel="noreferrer" style={enlaceContacto}>
+                    {actividad.contacto.web.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+                  </a>
+                )}
+                {actividad.contacto.redes?.map((r) => (
+                  <a key={r.red} href={r.url} target="_blank" rel="noreferrer" style={enlaceRedSocial}>
+                    <IconoRed red={r.red} />
+                    <span>{r.red}</span>
+                  </a>
+                ))}
+              </div>
+            </Bloque>
+          )}
         </aside>
       </main>
 
@@ -327,4 +367,27 @@ function Bloque({ titulo, children }: { titulo: string; children: React.ReactNod
       {children}
     </section>
   );
+}
+
+const enlaceContacto: React.CSSProperties = {
+  color: "var(--foreground)",
+  textDecoration: "none",
+  display: "block",
+};
+
+const enlaceRedSocial: React.CSSProperties = {
+  ...enlaceContacto,
+  display: "flex",
+  alignItems: "center",
+  gap: 8,
+};
+
+function IconoRed({ red }: { red: string }) {
+  const props = { size: 16, strokeWidth: 1.7 };
+  const nombre = red.toLowerCase();
+  if (nombre.includes("instagram")) return <Instagram {...props} />;
+  if (nombre.includes("facebook")) return <Facebook {...props} />;
+  if (nombre.includes("linkedin")) return <Linkedin {...props} />;
+  if (nombre.includes("youtube")) return <Youtube {...props} />;
+  return null;
 }
