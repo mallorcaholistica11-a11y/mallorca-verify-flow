@@ -187,21 +187,21 @@ function NuestraMirada() {
 
       <style>{`
         .mirada-page { background: var(--background); }
-        .mirada-bloque { padding-top: 3.25rem; }
+        .mirada-bloque { padding-top: 2rem; }
         .mirada-bloque h2,
         .mirada-integrativa h2,
         .mirada-encuentro h2 {
-          margin: 0 0 1rem;
+          margin: 0 0 0.6rem;
           font-family: var(--font-display);
-          font-size: clamp(1.35rem, 2.2vw, 1.65rem);
+          font-size: clamp(1.1rem, 1.9vw, 1.35rem);
           font-weight: 500;
           line-height: 1.25;
           color: var(--charcoal);
         }
-        .mirada-copy { color: var(--foreground); font-size: 1rem; line-height: 1.72; }
-        .mirada-copy p { margin: 0 0 0.85rem; }
+        .mirada-copy { color: var(--foreground); font-size: 1rem; line-height: 1.65; }
+        .mirada-copy p { margin: 0 0 0.65rem; }
         .mirada-copy p:last-child { margin-bottom: 0; }
-        .mirada-separador { position: relative; margin-top: 2rem; }
+        .mirada-separador { position: relative; margin-top: 1rem; }
         .mirada-separador::before {
           content: "";
           position: absolute;
@@ -214,39 +214,39 @@ function NuestraMirada() {
         .mirada-pausa p {
           margin: 0;
           font-family: var(--font-display);
-          font-size: clamp(1.55rem, 3vw, 2rem);
+          font-size: clamp(1.3rem, 2.4vw, 1.65rem);
           font-weight: 400;
-          line-height: 1.3;
+          line-height: 1.25;
           color: var(--sage-dark);
         }
         .mirada-enfasis { font-weight: 700; color: var(--charcoal); }
-        .mirada-encuentro h2 { font-size: clamp(1.55rem, 2.8vw, 2rem); }
+        .mirada-encuentro h2 { font-size: clamp(1.3rem, 2.4vw, 1.65rem); }
         .mirada-integrativa {
           border: 1px solid color-mix(in oklab, var(--champagne) 58%, transparent);
           border-radius: 0.5rem;
         }
-        .mirada-intencion { margin-top: 3rem; }
-        .mirada-ideas p { margin-bottom: 1rem; }
+        .mirada-intencion { margin-top: 2rem; }
+        .mirada-ideas p { margin-bottom: 0.65rem; }
         .mirada-ideas .mirada-enfasis {
-          margin: 1.25rem 0;
+          margin: 0.8rem 0;
           font-family: var(--font-display);
-          font-size: clamp(1.2rem, 2vw, 1.55rem);
+          font-size: clamp(1.05rem, 1.8vw, 1.3rem);
           font-weight: 500;
           color: var(--sage-dark);
         }
         .mirada-cierre { border-top: 1px solid var(--champagne); }
         .mirada-cierre p:first-child {
-          margin: 0 0 0.75rem;
+          margin: 0 0 0.5rem;
           font-family: var(--font-display);
-          font-size: clamp(1.45rem, 2.8vw, 2rem);
-          line-height: 1.3;
+          font-size: clamp(1.3rem, 2.4vw, 1.65rem);
+          line-height: 1.25;
           color: var(--charcoal);
         }
         .mirada-cierre p:last-child {
           margin: 0;
           color: var(--muted-foreground);
           font-size: 1rem;
-          line-height: 1.7;
+          line-height: 1.65;
         }
         .mirada-botanica { opacity: 0.1; filter: blur(11px); }
         .mirada-rama,
@@ -263,11 +263,11 @@ function NuestraMirada() {
         .mirada-hoja-6 { right: 0; top: 72%; transform: rotate(42deg) scale(.85); }
         .mirada-hoja-7 { right: 22%; top: 80%; transform: rotate(-35deg) scale(.68); }
         @media (max-width: 767px) {
-          .mirada-bloque { padding-top: 2.75rem; }
-          .mirada-separador { margin-top: 1.5rem; }
-          .mirada-copy { font-size: 0.96rem; line-height: 1.7; }
+          .mirada-bloque { padding-top: 1.75rem; }
+          .mirada-separador { margin-top: 0.75rem; }
+          .mirada-copy { font-size: 0.96rem; line-height: 1.62; }
           .mirada-integrativa { border-radius: 0.375rem; }
-          .mirada-intencion { margin-top: 2rem; }
+          .mirada-intencion { margin-top: 1.5rem; }
         }
       `}</style>
     </div>
