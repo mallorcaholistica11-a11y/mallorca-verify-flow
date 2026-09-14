@@ -57,7 +57,7 @@ function NuestraMirada() {
           </div>
         </header>
 
-        <article className="mx-auto max-w-[1120px] px-5 pb-5 sm:px-8 md:px-10 md:pb-6">
+        <article className="mx-auto max-w-[950px] px-5 pb-5 sm:px-8 md:px-10 md:pb-6">
           <div className="mirada-grid">
             <section className="mirada-bloque">
               <h2>Todos somos personas.</h2>
@@ -91,7 +91,7 @@ function NuestraMirada() {
             </section>
           </div>
 
-          <aside className="mirada-pausa mx-auto max-w-[760px] py-3 text-center">
+          <aside className="mirada-pausa mx-auto max-w-[760px] py-1.5 text-center">
             <p>Cada persona es única. Cada camino también.</p>
           </aside>
 
@@ -129,7 +129,7 @@ function NuestraMirada() {
             </section>
           </div>
 
-          <section className="mirada-encuentro mx-auto my-4 max-w-[920px] border-y border-champagne py-3 text-center">
+          <section className="mirada-encuentro mx-auto my-3 max-w-[760px] py-2 text-center">
             <h2>Mallorca Holística es un lugar de encuentro.</h2>
             <div className="mirada-copy mx-auto max-w-[760px] text-left sm:text-center">
               <p>Creemos que existen diferentes caminos para cuidar de nuestra salud.</p>
@@ -145,7 +145,7 @@ function NuestraMirada() {
             </div>
           </section>
 
-          <section className="mirada-integrativa mx-auto max-w-[1000px] bg-secondary px-5 py-3 sm:px-8 md:px-10">
+          <section className="mirada-integrativa bg-secondary px-5 py-3 sm:px-8 md:px-10">
             <h2>¿Qué entendemos por salud integrativa?</h2>
             <div className="mirada-copy mirada-grid mirada-grid-tight">
               <div>
@@ -170,9 +170,9 @@ function NuestraMirada() {
             </div>
           </section>
 
-          <section className="mirada-intencion mirada-bloque mx-auto max-w-[1000px]">
+          <section className="mirada-intencion mirada-bloque mx-auto max-w-[720px] text-center">
             <h2>Nuestra intención</h2>
-            <div className="mirada-copy mirada-ideas">
+            <div className="mirada-copy mirada-ideas text-center">
               <p>Mallorca Holística quiere facilitar que cada persona pueda encontrar y recorrer su propio camino.</p>
               <p className="mirada-enfasis">Pretende facilitar el encuentro.</p>
               <p>Dar visibilidad a una comunidad de profesionales comprometidos.</p>
@@ -183,7 +183,7 @@ function NuestraMirada() {
             </div>
           </section>
 
-          <footer className="mirada-cierre mx-auto max-w-[780px] pb-2 pt-3 text-center">
+          <footer className="mirada-cierre mx-auto max-w-[760px] pb-2 pt-2 text-center">
             <p>Porque creemos que cuidar también es acompañar.</p>
             <p>Y que acompañar empieza, muchas veces, por hacer posible un encuentro.</p>
           </footer>
@@ -232,17 +232,16 @@ function NuestraMirada() {
           border: 1px solid color-mix(in oklab, var(--champagne) 58%, transparent);
           border-radius: 0.5rem;
         }
-        .mirada-intencion { margin-top: 0.6rem; }
+        .mirada-intencion { margin-top: 0.4rem; }
         .mirada-ideas p { margin-bottom: 0.4rem; }
         .mirada-ideas .mirada-enfasis {
-          margin: 0.4rem 0;
+          margin: 0.25rem 0;
           font-family: var(--font-display);
           font-size: clamp(0.9rem, 1.15vw, 1rem);
           font-weight: 500;
           color: var(--sage-dark);
         }
 
-        .mirada-cierre { border-top: 1px solid var(--champagne); }
         .mirada-cierre p:first-child {
           margin: 0 0 0.2rem;
           font-family: var(--font-display);
@@ -274,7 +273,7 @@ function NuestraMirada() {
           .mirada-bloque { padding-top: 0.5rem; }
           .mirada-copy { font-size: 0.8rem; line-height: 1.5; }
           .mirada-integrativa { border-radius: 0.375rem; }
-          .mirada-intencion { margin-top: 0.6rem; }
+          .mirada-intencion { margin-top: 0.4rem; }
         }
 
       `}</style>
