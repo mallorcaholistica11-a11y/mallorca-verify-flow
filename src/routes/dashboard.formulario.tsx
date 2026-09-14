@@ -3012,7 +3012,7 @@ const OP_STEP_TITLES = [
 const OP_STEP_INTROS: Record<number, string> = {
   1: "Empezamos con la información principal de vuestro espacio o proyecto. Estos datos ayudarán a las personas a conoceros, ponerse en contacto con vosotros y generar confianza desde el primer momento.",
   2: "Cuéntanos qué propuestas y actividades ofrece vuestro espacio o proyecto. Esta información ayudará a las personas a comprender mejor vuestra actividad y a encontraros con mayor facilidad.",
-  3: "Indícanos dónde se encuentra vuestro espacio y qué instalaciones ofrece.",
+  3: "Indícanos dónde se encuentra vuestro espacio o proyecto y, si corresponde, qué instalaciones ofrece.",
   4: "Este es vuestro espacio para presentar la esencia de vuestro espacio o proyecto. Compartid quiénes sois, qué ofrecéis y aquello que lo hace especial.",
   5: "Añade los enlaces y canales de contacto que quieras compartir para que las personas puedan conocer vuestro espacio o proyecto y ponerse en contacto con vosotros.",
   6: "Ya casi habéis terminado. Antes de enviar vuestra solicitud, necesitamos que aceptéis los siguientes documentos y declaraciones para poder revisar vuestro perfil y publicarlo en Mallorca Holística.",
@@ -3185,7 +3185,10 @@ function PresenciaOrganizacionFormulario() {
       {step === 2 && (
         <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
           <Box title="Prácticas">
-            <SelectorPracticas max={5} />
+            <SelectorPracticas
+              max={5}
+              ayuda="Selecciona las terapias, prácticas o especialidades que mejor representan las actividades de vuestro espacio o proyecto."
+            />
           </Box>
           <Box title="Áreas de Acompañamiento">
             <SelectorAreas
