@@ -96,10 +96,28 @@ function DashboardHome() {
       </div>
 
       <div style={subtitleStyle}>
-        <p style={{ fontWeight: 600, margin: "0 0 6px 0" }}>¡Tu cuenta ya está creada!</p>
-        <p style={{ margin: 0 }}>
-          Ahora solo queda completar tu perfil para que podamos revisarlo y publicarlo en Mallorca Holística.
-        </p>
+        {enProceso ? (
+          <>
+            <p style={{ fontWeight: 600, margin: "0 0 6px 0" }}>¡Tu cuenta ya está creada!</p>
+            <p style={{ margin: 0 }}>
+              Ahora solo queda completar tu perfil para que podamos revisarlo y publicarlo en Mallorca Holística.
+            </p>
+          </>
+        ) : estado === "revision" ? (
+          <>
+            <p style={{ fontWeight: 600, margin: "0 0 6px 0" }}>¡Tu solicitud ha sido enviada!</p>
+            <p style={{ margin: 0 }}>
+              Estamos revisando la información de tu perfil. Te avisaremos por correo electrónico cuando esté listo para publicarse.
+            </p>
+          </>
+        ) : (
+          <>
+            <p style={{ fontWeight: 600, margin: "0 0 6px 0" }}>Tu perfil ya está publicado.</p>
+            <p style={{ margin: 0 }}>
+              Desde aquí puedes consultar y gestionar tu presencia en Mallorca Holística.
+            </p>
+          </>
+        )}
       </div>
 
       <Box title="Estado de tu perfil">
@@ -109,20 +127,22 @@ function DashboardHome() {
         <p style={{ fontSize: 13, margin: 0, color: "var(--foreground)", whiteSpace: "pre-wrap" }}>{estadoContent.description}</p>
       </Box>
 
-      <Box title="Próximos pasos">
-        <ol style={{ listStyle: "none", padding: 0, margin: 0 }}>
-          {pasos.map((p) => (
-            <li key={p.title} style={{ padding: "10px 0", borderBottom: "1px dotted var(--border)" }}>
-              <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 4 }}>{p.title}</div>
-              {p.lines.map((l) => (
-                <p key={l} style={{ fontSize: 12, color: "var(--foreground)", margin: "0 0 4px 0", lineHeight: 1.6 }}>
-                  {l}
-                </p>
-              ))}
-            </li>
-          ))}
-        </ol>
-      </Box>
+      {enProceso && (
+        <Box title="Próximos pasos">
+          <ol style={{ listStyle: "none", padding: 0, margin: 0 }}>
+            {pasos.map((p) => (
+              <li key={p.title} style={{ padding: "10px 0", borderBottom: "1px dotted var(--border)" }}>
+                <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 4 }}>{p.title}</div>
+                {p.lines.map((l) => (
+                  <p key={l} style={{ fontSize: 12, color: "var(--foreground)", margin: "0 0 4px 0", lineHeight: 1.6 }}>
+                    {l}
+                  </p>
+                ))}
+              </li>
+            ))}
+          </ol>
+        </Box>
+      )}
 
       <Box title="Siguiente paso">
         <NavButton to={ctaTo} search={{ track }}>
@@ -142,8 +162,8 @@ const PROFILE_STATES: Record<
   pendiente: {
     badge: "🟡 Perfil pendiente de completar",
     description:
-      "Todavía necesitamos que completes la información de tu perfil antes de enviarlo a revisión.\n\n\nNOTA: 8. Preparar esta misma pantalla para los siguientes estados\n\nDiseñar esta pantalla para que en el futuro pueda reutilizarse simplemente cambiando el contenido según el estado del perfil.\n\nEstados previstos:\n\n🟡 Perfil pendiente de completar\n🟡 Solicitud en revisión\n🟢 Perfil publicado\n\nLa estructura visual debe mantenerse igual para todos los estados, cambiando únicamente los textos, el estado y la acción principal.",
-    ctaLabel: "👉 Comenzar",
+      "Todavía necesitamos que completes la información de tu perfil antes de enviarlo a revisión. Puedes continuar donde lo dejaste: la información que ya has guardado se conserva.",
+    ctaLabel: "👉 Continuar mi perfil",
     ctaTo: "/dashboard/tipo-perfil",
   },
   revision: {
