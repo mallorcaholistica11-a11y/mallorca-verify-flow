@@ -86,27 +86,42 @@ function ActividadPublica() {
             margin: "0 auto",
             padding: "40px 24px",
             display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) minmax(0, 1fr)",
-            gap: isMobile ? 24 : 48,
-            alignItems: "center",
+            gridTemplateColumns: isMobile ? "1fr" : "minmax(280px, 310px) minmax(0, 1fr)",
+            gap: isMobile ? 24 : 44,
+            alignItems: "start",
           }}
         >
-          <img
-            src={ambienteDe(actividad.titulo ?? actividad.tipo)}
-            alt={`Imagen de la actividad ${actividad.titulo ?? ""}`}
+          <div
             style={{
               width: "100%",
-              aspectRatio: "4 / 5",
-              objectFit: "cover",
+              maxWidth: isMobile ? 360 : 310,
+              height: isMobile ? 300 : 350,
+              margin: isMobile ? "0 auto" : 0,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
               borderRadius: 16,
               border: "1px solid var(--border)",
+              background: "var(--muted)",
               boxShadow: "var(--shadow-soft)",
-              display: "block",
+              overflow: "hidden",
             }}
-          />
+          >
+            <img
+              src={ambienteDe(actividad.titulo ?? actividad.tipo)}
+              alt={`Imagen de la actividad ${actividad.titulo ?? ""}`}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "contain",
+                borderRadius: 15,
+                display: "block",
+              }}
+            />
+          </div>
 
 
-          <div>
+          <div style={{ paddingTop: isMobile ? 0 : 4 }}>
             <div style={{ fontSize: 11, letterSpacing: 1, color: "var(--muted-foreground)", textTransform: "uppercase", marginBottom: 10 }}>
               {actividad.tipo}
             </div>

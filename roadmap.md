@@ -18,3 +18,4 @@
 - [x] Compactar la búsqueda y trasladar los filtros avanzados de la Agenda a un modal.
 - [x] Verificar búsqueda, filtros, catálogos y navegación temporal en escritorio y móvil.
 - [x] Mostrar hasta 9 actividades por página y sustituir “Cargar más” por paginación local en la Agenda.
+- [x] Compactar la imagen y composición de la cabecera común de las fichas de actividad.
