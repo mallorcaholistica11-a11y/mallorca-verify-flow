@@ -60,6 +60,23 @@ const areasActividad = areasOficiales([
   "Bienestar integral",
 ]);
 
+function formatearTelefono(telefono: string) {
+  const limpio = telefono.replace(/[^+\d]/g, "");
+  const prefijo = ["+351", "+34", "+33", "+49", "+44", "+39", "+31", "+32", "+41", "+43"]
+    .find((codigo) => limpio.startsWith(codigo));
+
+  if (!prefijo) return telefono;
+
+  const numero = limpio.slice(prefijo.length);
+  if (!numero) return prefijo;
+
+  if (prefijo === "+34" && numero.length === 9) {
+    return `${prefijo} ${numero.slice(0, 3)} ${numero.slice(3, 5)} ${numero.slice(5, 7)} ${numero.slice(7, 9)}`;
+  }
+
+  return `${prefijo} ${numero.match(/.{1,2}/g)?.join(" ") ?? numero}`;
+}
+
 function ActividadPublica() {
   const isMobile = useMobile();
 
@@ -85,8 +102,8 @@ function ActividadPublica() {
         <Link to="/" style={{ textDecoration: "none", color: "var(--foreground)", fontWeight: 600 }}>
           [LOGO] Mallorca Holística
         </Link>
-        <Link to="/agenda" style={{ fontSize: 11, color: "var(--muted-foreground)" }}>
-          ← Agenda de Actividades
+        <Link to="/agenda" style={enlaceVolver}>
+          ← Volver a la Agenda de Actividades
         </Link>
       </header>
 
@@ -173,7 +190,7 @@ function ActividadPublica() {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  {actividad.etiquetaReserva || "Reservar"}
+                  Reservar
                 </a>
               )}
               <a
@@ -196,14 +213,9 @@ function ActividadPublica() {
               {actividad.contacto?.telefono && actividad.contacto.telefonoPublico && (
                 <a
                   href={`tel:${actividad.contacto.telefono.replace(/[^\d+]/g, "")}`}
-                  style={{
-                    color: "var(--foreground)",
-                    textDecoration: "none",
-                    fontSize: 14,
-                    whiteSpace: "nowrap",
-                  }}
+                  style={enlaceTelefono}
                 >
-                  {actividad.contacto.telefono}
+                  <span aria-hidden="true">☎</span> {formatearTelefono(actividad.contacto.telefono)}
                 </a>
               )}
             </div>
@@ -333,8 +345,8 @@ function ActividadPublica() {
             <Bloque titulo="Contacto">
               <div style={{ display: "grid", gap: 8, fontSize: 13 }}>
                 {actividad.contacto.telefono && actividad.contacto.telefonoPublico && (
-                  <a href={`tel:${actividad.contacto.telefono.replace(/[^\d+]/g, "")}`} style={enlaceContacto}>
-                    {actividad.contacto.telefono}
+                  <a href={`tel:${actividad.contacto.telefono.replace(/[^\d+]/g, "")}`} style={enlaceTelefono}>
+                    <span aria-hidden="true">☎</span> {formatearTelefono(actividad.contacto.telefono)}
                   </a>
                 )}
                 {actividad.contacto.email && (
@@ -358,6 +370,12 @@ function ActividadPublica() {
           )}
         </aside>
       </main>
+
+      <div style={{ maxWidth: 1080, margin: "0 auto", padding: "0 24px 32px" }}>
+        <Link to="/agenda" style={enlaceVolver}>
+          ← Volver a la Agenda de Actividades
+        </Link>
+      </div>
 
       <footer
         style={{
@@ -398,6 +416,21 @@ const enlaceContacto: React.CSSProperties = {
   color: "var(--foreground)",
   textDecoration: "none",
   display: "block",
+};
+
+const enlaceTelefono: React.CSSProperties = {
+  ...enlaceContacto,
+  display: "inline-flex",
+  alignItems: "center",
+  gap: 6,
+  fontSize: 13,
+  whiteSpace: "nowrap",
+};
+
+const enlaceVolver: React.CSSProperties = {
+  color: "var(--muted-foreground)",
+  fontSize: 11,
+  textDecoration: "none",
 };
 
 const enlaceRedSocial: React.CSSProperties = {
