@@ -1294,7 +1294,7 @@ const V_IDIOMAS = ["Español", "Inglés", "Francés", "Alemán", "Catalán", "Ot
 // Introducciones de cada paso (recorrido Profesional Verificado).
 const V_STEP_INTROS: Record<number, string> = {
   1: "Empezamos con la información principal de tu perfil. Estos datos ayudarán a las personas a conocerte, ponerse en contacto contigo y generar confianza desde el primer momento.",
-  2: "Cuéntanos un poco más sobre tu actividad para que las personas puedan encontrarte con facilidad y comprendan mejor cómo puedes acompañarlas.",
+  2: "Cuéntanos un poco más sobre tu actividad para que las personas puedan encontrarte con facilidad y comprendan mejor cómo puedes acompañarles.",
   3: "Indícanos cómo realizas tus consultas y dónde atiendes habitualmente. Puedes añadir una o varias ubicaciones según tu actividad profesional.",
   4: "Este es tu espacio para presentarte. Comparte quién eres, cómo acompañas a las personas y aquello que hace única tu forma de trabajar. También podrás mostrar parte de tu formación e indicar los idiomas en los que ofreces atención.",
   5: "Añade los enlaces y canales de contacto que quieras compartir para que las personas puedan conocerte, reservar una sesión o ponerse en contacto contigo. Todos los campos son opcionales.",
@@ -2141,13 +2141,34 @@ function VerificadoFormulario() {
     ? "Dashboard › Completar perfil de la organización"
     : "Dashboard › Completar perfil verificado";
 
+  const esEstandarVerificado = track === "verificado";
+
   return (
     <WireframeShell
-      screen={`6 · ${screenLabel} · PASO ${step}/${total}`}
+      screen={esEstandarVerificado ? undefined : `6 · ${screenLabel} · PASO ${step}/${total}`}
       title={`Paso ${step} de ${total} · ${stepTitle}`}
       breadcrumb={breadcrumb}
     >
-      <TrackBadge track={track} />
+      {esEstandarVerificado ? (
+        <div
+          className="wireframe-track-badge"
+          style={{
+            display: "inline-block",
+            padding: "6px 14px",
+            border: "1px solid var(--border)",
+            borderRadius: 999,
+            background: "var(--secondary)",
+            color: "var(--secondary-foreground)",
+            fontSize: 11.5,
+            marginBottom: 16,
+          }}
+        >
+          Plan seleccionado: <strong>Profesional Verificado</strong>
+        </div>
+      ) : (
+        <TrackBadge track={track} />
+      )}
+
 
       <Box title={`Progreso · Paso ${step} de ${total}`}>
         <div style={{ display: "flex", gap: 4 }}>
@@ -2321,7 +2342,6 @@ function VerificadoFormulario() {
           {!isOrg && (
             <Box title="Datos de contacto">
               <>
-                <DireccionAutocomplete ayuda="Si atiendes en un centro o consulta, indica esa dirección. Si trabajas exclusivamente online o a domicilio, puedes indicar la ubicación de tu municipio o ciudad." />
                 <FakeField label="Correo electrónico" type="email" />
                 <Ayuda>Será el correo de contacto que aparecerá en tu perfil profesional.</Ayuda>
                 <TelefonoField label="Teléfono" />
@@ -2330,9 +2350,9 @@ function VerificadoFormulario() {
                 <Ayuda>Si dispones de un logotipo o imagen de marca puedes añadirlo aquí.</Ayuda>
                 <FakeField label="Foto principal" type="file" />
                 <Ayuda>Será la imagen principal de tu perfil profesional.</Ayuda>
-                <FakeField label="Galería de imágenes (opcional)" type="file" />
+                <FakeField label="Galería de imágenes (opcional, hasta 5)" type="file" />
                 <Ayuda>
-                  Puedes añadir hasta 3 imágenes para mostrar tu espacio, tu trabajo o aquello que
+                  Puedes añadir hasta 5 imágenes para mostrar tu espacio, tu trabajo o aquello que
                   mejor represente tu actividad.
                 </Ayuda>
               </>
@@ -2644,22 +2664,15 @@ function VerificadoFormulario() {
 
               <div style={{ marginBottom: 16 }}>
                 <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
-                  Formación acreditativa
+                  Documentación profesional
                 </div>
                 <Ayuda>
-                  Añade al menos un diploma o certificado que acredite tu formación principal.
+                  Adjunta entre 1 y 3 diplomas, certificados o titulaciones que acrediten tu
+                  formación profesional.
                 </Ayuda>
-                <FakeField label="Subir diploma o certificado" type="file" />
-              </div>
-
-              <div style={{ marginBottom: 16 }}>
-                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
-                  Certificados adicionales
-                </div>
-                <Ayuda>
-                  Puedes añadir hasta 5 documentos adicionales si lo consideras necesario.
-                </Ayuda>
-                <FakeField label="Subir certificados adicionales (opcional)" type="file" />
+                <FakeField label="Documento 1 (obligatorio)" type="file" />
+                <FakeField label="Documento 2 (opcional)" type="file" />
+                <FakeField label="Documento 3 (opcional)" type="file" />
               </div>
             </>
           )}
@@ -2788,8 +2801,20 @@ function VerificadoFormulario() {
             Siguiente →
           </button>
         ) : (
-          <button onClick={finish} style={btn("primary")}>
-            {isOrg ? "👉 Enviar para revisión" : "👉 Enviar mi solicitud"}
+          <button
+            onClick={finish}
+            disabled={esEstandarVerificado && !autorizaPago}
+            style={{
+              ...btn("primary"),
+              opacity: esEstandarVerificado && !autorizaPago ? 0.5 : 1,
+              cursor: esEstandarVerificado && !autorizaPago ? "not-allowed" : "pointer",
+            }}
+          >
+            {isOrg
+              ? "👉 Enviar para revisión"
+              : esEstandarVerificado
+                ? "👉 Enviar mi solicitud de verificación"
+                : "👉 Enviar mi solicitud"}
           </button>
         )}
       </Box>
@@ -2807,16 +2832,30 @@ type Paso7Props = { autoriza: boolean; onToggle: () => void };
 function StripeBlock({ note, extraNote }: { note?: string; extraNote?: string } = {}) {
   return (
     <div style={{ marginBottom: 16 }}>
-      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>💳 Datos de pago</div>
-      <Note>{note ?? "Bloque reservado para la futura integración con Stripe."}</Note>
-      <FakeField label="Número de tarjeta" />
-      <FakeField label="Fecha de caducidad" />
-      <FakeField label="CVC" />
-      <FakeField label="Titular de la tarjeta" />
+      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>💳 Método de pago</div>
+      <Note>
+        {note ??
+          "Para enviar tu solicitud, registra de forma segura tu método de pago mediante Stripe. Registrar tu método de pago no supone ningún cargo en este momento."}
+      </Note>
+      <div
+        style={{
+          border: "1px solid var(--border)",
+          borderRadius: 12,
+          padding: "14px 16px",
+          background: "var(--card)",
+          fontSize: 12.5,
+          color: "var(--muted-foreground)",
+          lineHeight: 1.7,
+        }}
+      >
+        Formulario seguro de Stripe. Tus datos de tarjeta se introducen y se guardan directamente en
+        Stripe; Mallorca Holística no almacena números de tarjeta ni códigos de seguridad.
+      </div>
       {extraNote && <Note>{extraNote}</Note>}
     </div>
   );
 }
+
 
 function Paso7ProfesionalEstandar({ autoriza, onToggle }: Paso7Props) {
   return (
@@ -2824,29 +2863,62 @@ function Paso7ProfesionalEstandar({ autoriza, onToggle }: Paso7Props) {
       <Box title="¡Enhorabuena! Ya has completado tu solicitud">
         <div style={{ marginBottom: 16 }}>
           <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-            Para completar tu solicitud solo necesitamos registrar un método de pago de forma
-            segura.
+            Plan Profesional Verificado: 25 €/mes (IVA incluido).
           </p>
           <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-            No realizaremos ningún cargo mientras tu solicitud esté en revisión. Si es aprobada, tu
-            suscripción se activará automáticamente al finalizar el período gratuito
-            correspondiente.
+            Para completar tu solicitud solo necesitamos registrar un método de pago de forma
+            segura. No realizaremos ningún cargo mientras tu solicitud esté pendiente de aprobación.
           </p>
         </div>
       </Box>
 
       <Box title="Oferta de lanzamiento">
-        <ul style={{ fontSize: 13, paddingLeft: 20, marginBottom: 8, lineHeight: 1.8 }}>
-          <li>2 meses gratuitos si te inscribes durante el primer mes tras el lanzamiento.</li>
-          <li>Después, 25 €/mes (IVA incluido).</li>
-          <li>Sin permanencia.</li>
-        </ul>
+        <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
+          2 meses gratuitos desde el lanzamiento oficial de Mallorca Holística.
+        </p>
+        <p style={{ fontSize: 13, marginBottom: 0, lineHeight: 1.7 }}>
+          Los 2 meses gratuitos comenzarán en la fecha oficial de lanzamiento de Mallorca Holística.
+          La fecha se comunicará antes de la activación de las suscripciones.
+        </p>
+      </Box>
+
+      <Box title="¿Cuándo empezarás a pagar?">
+        <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
+          Tu primer cobro se realizará cuando se cumplan estas dos condiciones:
+        </p>
+        <ol style={{ fontSize: 13, paddingLeft: 20, marginBottom: 10, lineHeight: 1.8 }}>
+          <li>Tu perfil haya sido aprobado como Profesional Verificado.</li>
+          <li>
+            Haya finalizado el periodo gratuito de 2 meses desde el lanzamiento oficial de Mallorca
+            Holística.
+          </li>
+        </ol>
+        <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
+          Si tu perfil es aprobado durante el periodo gratuito, no pagarás nada hasta que este
+          finalice.
+        </p>
+        <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
+          Si tu perfil es aprobado después de que haya finalizado el periodo gratuito, tu
+          suscripción comenzará en el momento de la aprobación.
+        </p>
+        <p style={{ fontSize: 13, marginBottom: 0, lineHeight: 1.7 }}>
+          Si tu solicitud no es aprobada, la suscripción no se activará y no se realizará ningún
+          cobro.
+        </p>
+      </Box>
+
+      <Box title="Aviso antes del primer cobro">
+        <p style={{ fontSize: 13, marginBottom: 0, lineHeight: 1.7 }}>
+          Mallorca Holística te informará por email antes del primer cobro de la suscripción,
+          indicándote la fecha y el importe, para que puedas decidir con tiempo si deseas continuar
+          o cancelar tu suscripción.
+        </p>
       </Box>
 
       <VConsentItem
         icon="🔒"
         title="Autorización"
-        label="Autorizo a Mallorca Holística a registrar mi método de pago de forma segura y activar automáticamente mi suscripción únicamente si mi solicitud es aprobada, una vez finalizado el período gratuito correspondiente."
+        label="Autorizo a Mallorca Holística a registrar mi método de pago mediante Stripe y, una vez aprobado mi perfil y finalizado el periodo gratuito de lanzamiento que me corresponda, activar mi suscripción de 25 €/mes (IVA incluido), salvo cancelación previa."
         checked={autoriza}
         onToggle={onToggle}
       />
