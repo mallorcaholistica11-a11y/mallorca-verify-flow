@@ -2801,7 +2801,15 @@ function VerificadoFormulario() {
             Siguiente →
           </button>
         ) : (
-          <button onClick={finish} style={btn("primary")}>
+          <button
+            onClick={finish}
+            disabled={esEstandarVerificado && !autorizaPago}
+            style={{
+              ...btn("primary"),
+              opacity: esEstandarVerificado && !autorizaPago ? 0.5 : 1,
+              cursor: esEstandarVerificado && !autorizaPago ? "not-allowed" : "pointer",
+            }}
+          >
             {isOrg
               ? "👉 Enviar para revisión"
               : esEstandarVerificado
