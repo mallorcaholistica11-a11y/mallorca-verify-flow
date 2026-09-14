@@ -17,3 +17,4 @@
 - [x] Verificar la ficha de Entidad Verificada en escritorio y móvil.
 - [x] Compactar la búsqueda y trasladar los filtros avanzados de la Agenda a un modal.
 - [x] Verificar búsqueda, filtros, catálogos y navegación temporal en escritorio y móvil.
+- [x] Mostrar hasta 9 actividades por página y sustituir “Cargar más” por paginación local en la Agenda.
