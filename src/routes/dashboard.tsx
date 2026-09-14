@@ -2,7 +2,13 @@ import { createFileRoute, Outlet, useRouterState } from "@tanstack/react-router"
 import { WireframeShell, Box, NavButton, parseTrack, type Track } from "@/components/Wireframe";
 
 export const Route = createFileRoute("/dashboard")({
-  validateSearch: (s: Record<string, unknown>): { track: Track } => ({ track: parseTrack(s) }),
+  validateSearch: (s: Record<string, unknown>): { track: Track; estado?: ProfileState } => ({
+    track: parseTrack(s),
+    estado:
+      s.estado === "revision" || s.estado === "publicado" || s.estado === "pendiente"
+        ? (s.estado as ProfileState)
+        : undefined,
+  }),
   component: DashboardWrapper,
 });
 
