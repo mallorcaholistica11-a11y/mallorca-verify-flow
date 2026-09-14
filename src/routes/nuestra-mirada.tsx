@@ -141,7 +141,7 @@ function NuestraMirada() {
             </div>
           </section>
 
-          <section className="mirada-integrativa mx-auto max-w-[900px] bg-secondary px-6 py-12 sm:px-10 md:px-16 md:py-16">
+          <section className="mirada-integrativa mx-auto max-w-[900px] bg-secondary px-6 py-8 sm:px-10 md:px-16 md:py-10">
             <div className="max-w-[720px]">
               <h2>¿Qué entendemos por salud integrativa?</h2>
               <div className="mirada-copy">
