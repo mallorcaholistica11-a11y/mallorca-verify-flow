@@ -89,7 +89,7 @@ function NuestraMirada() {
             </div>
           </section>
 
-          <aside className="mirada-pausa mx-auto max-w-[760px] py-24 text-center md:py-36">
+          <aside className="mirada-pausa mx-auto max-w-[760px] py-14 text-center md:py-20">
             <p>Cada persona es única. Cada camino también.</p>
           </aside>
 
