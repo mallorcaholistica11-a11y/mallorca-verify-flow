@@ -193,30 +193,31 @@ function NuestraMirada() {
 
       <style>{`
         .mirada-page { background: var(--background); }
-        .mirada-bloque { padding-top: 0.7rem; }
+        .mirada-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 0.9rem 3rem;
+          align-items: start;
+        }
+        .mirada-grid-tight { gap: 0 2.5rem; }
+        @media (min-width: 768px) {
+          .mirada-grid { grid-template-columns: 1fr 1fr; }
+        }
+        .mirada-bloque { padding-top: 0.5rem; }
         .mirada-bloque h2,
         .mirada-integrativa h2,
         .mirada-encuentro h2 {
-          margin: 0 0 0.18rem;
+          margin: 0 0 0.25rem;
           font-family: var(--font-display);
-          font-size: clamp(0.85rem, 1.15vw, 0.95rem);
+          font-size: clamp(0.9rem, 1.15vw, 1rem);
           font-weight: 500;
           line-height: 1.25;
           color: var(--charcoal);
         }
-        .mirada-copy { color: var(--foreground); font-size: 0.8rem; line-height: 1.42; }
-        .mirada-copy p { margin: 0 0 0.2rem; }
+        .mirada-copy { color: var(--foreground); font-size: 0.8rem; line-height: 1.5; }
+        .mirada-copy p { margin: 0 0 0.4rem; }
         .mirada-copy p:last-child { margin-bottom: 0; }
-        .mirada-separador { position: relative; margin-top: 0.3rem; }
-        .mirada-separador::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 4.5rem;
-          height: 1px;
-          background: var(--champagne);
-        }
+
         .mirada-pausa p {
           margin: 0;
           font-family: var(--font-display);
