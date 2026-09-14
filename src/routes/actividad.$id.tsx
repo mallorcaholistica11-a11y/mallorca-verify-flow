@@ -303,6 +303,34 @@ function ActividadPublica() {
               La dirección exacta se facilitará tras la reserva cuando sea necesario.
             </p>
           </Bloque>
+
+          {(actividad.contacto?.telefono || actividad.contacto?.email || actividad.contacto?.web || actividad.contacto?.redes?.length) && (
+            <Bloque titulo="Contacto">
+              <div style={{ display: "grid", gap: 8, fontSize: 13 }}>
+                {actividad.contacto.telefono && actividad.contacto.telefonoPublico && (
+                  <a href={`tel:${actividad.contacto.telefono.replace(/[^\d+]/g, "")}`} style={enlaceContacto}>
+                    {actividad.contacto.telefono}
+                  </a>
+                )}
+                {actividad.contacto.email && (
+                  <a href={`mailto:${actividad.contacto.email}`} style={enlaceContacto}>
+                    {actividad.contacto.email}
+                  </a>
+                )}
+                {actividad.contacto.web && (
+                  <a href={actividad.contacto.web} target="_blank" rel="noreferrer" style={enlaceContacto}>
+                    {actividad.contacto.web.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+                  </a>
+                )}
+                {actividad.contacto.redes?.map((r) => (
+                  <a key={r.red} href={r.url} target="_blank" rel="noreferrer" style={enlaceRedSocial}>
+                    <IconoRed red={r.red} />
+                    <span>{r.red}</span>
+                  </a>
+                ))}
+              </div>
+            </Bloque>
+          )}
         </aside>
       </main>
 
