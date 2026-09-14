@@ -2802,7 +2802,11 @@ function VerificadoFormulario() {
           </button>
         ) : (
           <button onClick={finish} style={btn("primary")}>
-            {isOrg ? "👉 Enviar para revisión" : "👉 Enviar mi solicitud"}
+            {isOrg
+              ? "👉 Enviar para revisión"
+              : esEstandarVerificado
+                ? "👉 Enviar mi solicitud de verificación"
+                : "👉 Enviar mi solicitud"}
           </button>
         )}
       </Box>
