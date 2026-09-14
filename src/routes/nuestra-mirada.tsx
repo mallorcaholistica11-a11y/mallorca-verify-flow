@@ -31,14 +31,14 @@ function NuestraMirada() {
       <NavPublica isMobile={isMobile} activo="Nuestra Mirada" />
 
       <main className="mirada-page overflow-hidden">
-        <header className="mirada-hero relative mx-auto grid max-w-[1120px] grid-cols-1 px-5 pb-12 pt-14 sm:px-8 md:min-h-[420px] md:grid-cols-12 md:items-center md:px-10 md:pb-16 md:pt-16">
+        <header className="mirada-hero relative mx-auto grid max-w-[1120px] grid-cols-1 px-5 pb-8 pt-10 sm:px-8 md:grid-cols-12 md:items-center md:px-10 md:pb-10 md:pt-12">
           <div className="relative z-10 md:col-span-8 md:col-start-2 lg:col-span-7">
-            <h1 className="font-display text-[clamp(3rem,7vw,5.5rem)] font-medium leading-[0.9] text-charcoal">
+            <h1 className="font-display text-[clamp(2.25rem,4.5vw,3.5rem)] font-medium leading-[0.95] text-charcoal">
               Nuestra
               <br />
               <span className="font-normal italic">Mirada</span>
             </h1>
-            <div className="my-5 h-px w-16 bg-champagne md:my-6" />
+            <div className="my-3 h-px w-16 bg-champagne md:my-4" />
             <p className="max-w-[580px] text-[11px] font-semibold uppercase leading-[1.8] tracking-[0.2em] text-earth sm:text-xs">
               UNA FORMA DE ENTENDER EL CUIDADO, LA SALUD Y EL BIENESTAR
             </p>
@@ -57,8 +57,8 @@ function NuestraMirada() {
           </div>
         </header>
 
-        <article className="mx-auto max-w-[1120px] px-5 pb-16 sm:px-8 md:px-10 md:pb-24">
-          <section className="mirada-bloque max-w-[610px] md:ml-[8%]">
+        <article className="mx-auto max-w-[1120px] px-5 pb-10 sm:px-8 md:px-10 md:pb-14">
+          <section className="mirada-bloque max-w-[650px] md:ml-[8%]">
             <h2>Todos somos personas.</h2>
             <div className="mirada-copy">
               <p>Toda persona merece sentirse escuchada, comprendida y acompañada.</p>
@@ -75,7 +75,7 @@ function NuestraMirada() {
             </div>
           </section>
 
-          <section className="mirada-bloque mirada-separador max-w-[650px] md:ml-auto md:mr-[4%]">
+          <section className="mirada-bloque mirada-separador max-w-[680px] md:ml-auto md:mr-[4%]">
             <h2>La salud forma parte de toda nuestra vida.</h2>
             <div className="mirada-copy">
               <p>La salud no pertenece únicamente al cuerpo.</p>
@@ -89,11 +89,11 @@ function NuestraMirada() {
             </div>
           </section>
 
-          <aside className="mirada-pausa mx-auto max-w-[760px] py-14 text-center md:py-20">
+          <aside className="mirada-pausa mx-auto max-w-[760px] py-10 text-center md:py-12">
             <p>Cada persona es única. Cada camino también.</p>
           </aside>
 
-          <section className="mirada-bloque max-w-[680px] md:ml-[3%]">
+          <section className="mirada-bloque max-w-[720px] md:ml-[3%]">
             <h2>Uno de los grandes tesoros de Mallorca.</h2>
             <div className="mirada-copy">
               <p>
@@ -111,7 +111,7 @@ function NuestraMirada() {
             </div>
           </section>
 
-          <section className="mirada-bloque mirada-separador max-w-[610px] md:ml-auto md:mr-[9%]">
+          <section className="mirada-bloque mirada-separador max-w-[650px] md:ml-auto md:mr-[9%]">
             <h2>Un lugar donde encontrarse.</h2>
             <div className="mirada-copy">
               <p>Mallorca Holística nace para dar visibilidad a ese tesoro.</p>
@@ -125,7 +125,7 @@ function NuestraMirada() {
             </div>
           </section>
 
-          <section className="mirada-encuentro mx-auto my-16 max-w-[840px] border-y border-champagne py-10 text-center md:my-24 md:py-14">
+          <section className="mirada-encuentro mx-auto my-10 max-w-[880px] border-y border-champagne py-6 text-center md:my-14 md:py-8">
             <h2>Mallorca Holística es un lugar de encuentro.</h2>
             <div className="mirada-copy mx-auto max-w-[650px] text-left sm:text-center">
               <p>No creemos que exista un único camino para cuidar de nuestra salud.</p>
@@ -141,8 +141,8 @@ function NuestraMirada() {
             </div>
           </section>
 
-          <section className="mirada-integrativa mx-auto max-w-[900px] bg-secondary px-6 py-8 sm:px-10 md:px-16 md:py-10">
-            <div className="max-w-[720px]">
+          <section className="mirada-integrativa mx-auto max-w-[920px] bg-secondary px-6 py-5 sm:px-10 md:px-16 md:py-6">
+            <div className="max-w-[760px]">
               <h2>¿Qué entendemos por salud integrativa?</h2>
               <div className="mirada-copy">
                 <p>
@@ -165,7 +165,7 @@ function NuestraMirada() {
             </div>
           </section>
 
-          <section className="mirada-intencion mirada-bloque max-w-[720px] md:ml-auto md:mr-[5%]">
+          <section className="mirada-intencion mirada-bloque max-w-[760px] md:ml-auto md:mr-[5%]">
             <h2>Nuestra intención</h2>
             <div className="mirada-copy mirada-ideas">
               <p>Mallorca Holística no pretende decirle a nadie cuál es el camino correcto.</p>
@@ -178,7 +178,7 @@ function NuestraMirada() {
             </div>
           </section>
 
-          <footer className="mirada-cierre mx-auto max-w-[860px] pb-6 pt-14 text-center md:pt-20">
+          <footer className="mirada-cierre mx-auto max-w-[780px] pb-6 pt-10 text-center md:pt-12">
             <p>Porque creemos que cuidar también es acompañar.</p>
             <p>Y que acompañar empieza, muchas veces, por hacer posible un encuentro.</p>
           </footer>
@@ -187,21 +187,21 @@ function NuestraMirada() {
 
       <style>{`
         .mirada-page { background: var(--background); }
-        .mirada-bloque { padding-top: 3.25rem; }
+        .mirada-bloque { padding-top: 2rem; }
         .mirada-bloque h2,
         .mirada-integrativa h2,
         .mirada-encuentro h2 {
-          margin: 0 0 1rem;
+          margin: 0 0 0.6rem;
           font-family: var(--font-display);
-          font-size: clamp(1.35rem, 2.2vw, 1.65rem);
+          font-size: clamp(1.1rem, 1.9vw, 1.35rem);
           font-weight: 500;
           line-height: 1.25;
           color: var(--charcoal);
         }
-        .mirada-copy { color: var(--foreground); font-size: 1rem; line-height: 1.72; }
-        .mirada-copy p { margin: 0 0 0.85rem; }
+        .mirada-copy { color: var(--foreground); font-size: 1rem; line-height: 1.65; }
+        .mirada-copy p { margin: 0 0 0.65rem; }
         .mirada-copy p:last-child { margin-bottom: 0; }
-        .mirada-separador { position: relative; margin-top: 2rem; }
+        .mirada-separador { position: relative; margin-top: 1rem; }
         .mirada-separador::before {
           content: "";
           position: absolute;
@@ -214,39 +214,39 @@ function NuestraMirada() {
         .mirada-pausa p {
           margin: 0;
           font-family: var(--font-display);
-          font-size: clamp(1.55rem, 3vw, 2rem);
+          font-size: clamp(1.3rem, 2.4vw, 1.65rem);
           font-weight: 400;
-          line-height: 1.3;
+          line-height: 1.25;
           color: var(--sage-dark);
         }
         .mirada-enfasis { font-weight: 700; color: var(--charcoal); }
-        .mirada-encuentro h2 { font-size: clamp(1.55rem, 2.8vw, 2rem); }
+        .mirada-encuentro h2 { font-size: clamp(1.3rem, 2.4vw, 1.65rem); }
         .mirada-integrativa {
           border: 1px solid color-mix(in oklab, var(--champagne) 58%, transparent);
           border-radius: 0.5rem;
         }
-        .mirada-intencion { margin-top: 3rem; }
-        .mirada-ideas p { margin-bottom: 1rem; }
+        .mirada-intencion { margin-top: 2rem; }
+        .mirada-ideas p { margin-bottom: 0.65rem; }
         .mirada-ideas .mirada-enfasis {
-          margin: 1.25rem 0;
+          margin: 0.8rem 0;
           font-family: var(--font-display);
-          font-size: clamp(1.2rem, 2vw, 1.55rem);
+          font-size: clamp(1.05rem, 1.8vw, 1.3rem);
           font-weight: 500;
           color: var(--sage-dark);
         }
         .mirada-cierre { border-top: 1px solid var(--champagne); }
         .mirada-cierre p:first-child {
-          margin: 0 0 0.75rem;
+          margin: 0 0 0.5rem;
           font-family: var(--font-display);
-          font-size: clamp(1.45rem, 2.8vw, 2rem);
-          line-height: 1.3;
+          font-size: clamp(1.3rem, 2.4vw, 1.65rem);
+          line-height: 1.25;
           color: var(--charcoal);
         }
         .mirada-cierre p:last-child {
           margin: 0;
           color: var(--muted-foreground);
           font-size: 1rem;
-          line-height: 1.7;
+          line-height: 1.65;
         }
         .mirada-botanica { opacity: 0.1; filter: blur(11px); }
         .mirada-rama,
@@ -263,11 +263,11 @@ function NuestraMirada() {
         .mirada-hoja-6 { right: 0; top: 72%; transform: rotate(42deg) scale(.85); }
         .mirada-hoja-7 { right: 22%; top: 80%; transform: rotate(-35deg) scale(.68); }
         @media (max-width: 767px) {
-          .mirada-bloque { padding-top: 2.75rem; }
-          .mirada-separador { margin-top: 1.5rem; }
-          .mirada-copy { font-size: 0.96rem; line-height: 1.7; }
+          .mirada-bloque { padding-top: 1.75rem; }
+          .mirada-separador { margin-top: 0.75rem; }
+          .mirada-copy { font-size: 0.96rem; line-height: 1.62; }
           .mirada-integrativa { border-radius: 0.375rem; }
-          .mirada-intencion { margin-top: 2rem; }
+          .mirada-intencion { margin-top: 1.5rem; }
         }
       `}</style>
     </div>
