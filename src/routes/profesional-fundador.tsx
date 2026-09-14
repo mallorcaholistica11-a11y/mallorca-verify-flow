@@ -60,7 +60,7 @@ const FEATURES = [
     items: [
       "Hasta 10 prácticas.",
       "Hasta 15 Áreas de Acompañamiento.",
-      "Una ubicación principal.",
+      "Múltiples ubicaciones de atención.",
       "Modalidades de atención.",
       "Idiomas.",
     ],
