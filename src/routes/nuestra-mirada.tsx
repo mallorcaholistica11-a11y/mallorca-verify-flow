@@ -178,7 +178,7 @@ function NuestraMirada() {
             </div>
           </section>
 
-          <footer className="mirada-cierre mx-auto max-w-[860px] pb-6 pt-24 text-center md:pt-36">
+          <footer className="mirada-cierre mx-auto max-w-[860px] pb-6 pt-14 text-center md:pt-20">
             <p>Porque creemos que cuidar también es acompañar.</p>
             <p>Y que acompañar empieza, muchas veces, por hacer posible un encuentro.</p>
           </footer>
