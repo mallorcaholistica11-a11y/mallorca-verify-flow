@@ -20,3 +20,5 @@
 - [x] Mostrar hasta 9 actividades por página y sustituir “Cargar más” por paginación local en la Agenda.
 - [x] Compactar la imagen y composición de la cabecera común de las fichas de actividad.
 - [x] Unificar las acciones y el formato telefónico de las fichas de actividad, y añadir el regreso inferior a la Agenda.
+- [x] Recomponer exclusivamente la Home con una dirección editorial compacta basada en la referencia aprobada.
+- [x] Verificar la nueva Home completa en escritorio y móvil sin afectar otras páginas.
