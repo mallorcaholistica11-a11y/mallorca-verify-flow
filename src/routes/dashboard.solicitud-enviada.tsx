@@ -17,21 +17,34 @@ const MENSAJE = [
   "Porque lo que se siembra con alma... siempre florece. 🌿",
 ];
 
+// Recorrido estándar del Plan Profesional Verificado: confirmación de envío
+// sin rótulos técnicos ni track, con acceso directo a Mi Espacio.
+const MENSAJE_VERIFICADO = [
+  "Nos hace mucha ilusión que quieras formar parte de Mallorca Holística.",
+  "Hemos recibido correctamente tu solicitud.",
+  "Nuestro equipo revisará la información y la documentación que nos has enviado y te avisaremos por correo electrónico cuando el proceso de verificación haya finalizado.",
+  "Gracias por confiar en este proyecto y por contribuir a construir una comunidad más visible, conectada y accesible.",
+  "Porque lo que se siembra con alma... siempre florece. 🌿",
+];
+
 function SolicitudEnviada() {
   const { track } = Route.useSearch() as { track: Track };
-  const mensaje = MENSAJE;
+  const esVerificadoEstandar = track === "verificado";
+  const mensaje = esVerificadoEstandar ? MENSAJE_VERIFICADO : MENSAJE;
 
   return (
     <WireframeShell
-      screen="8 · SOLICITUD ENVIADA"
+      screen={esVerificadoEstandar ? undefined : "8 · SOLICITUD ENVIADA"}
       title="🌿 ¡Gracias por unirte a Mallorca Holística!"
       breadcrumb="Dashboard › Solicitud enviada"
     >
-      <TrackBadge track={track} />
-      <Box title="Mensaje">
-        <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "0 0 8px 0" }}>
-          {PLAN_NOMBRE[track]}
-        </p>
+      {!esVerificadoEstandar && <TrackBadge track={track} />}
+      <Box title={esVerificadoEstandar ? "Solicitud de Profesional Verificado" : "Mensaje"}>
+        {!esVerificadoEstandar && (
+          <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "0 0 8px 0" }}>
+            {PLAN_NOMBRE[track]}
+          </p>
+        )}
         {mensaje.map((text, i) => (
           <p
             key={i}
@@ -45,11 +58,17 @@ function SolicitudEnviada() {
         ))}
       </Box>
       <Box title="Acciones">
-        <NavButton to="/dashboard" search={{ track, estado: "revision" }}>
-          👉 Ver el estado de mi solicitud
-        </NavButton>
-        <NavButton to="/mi-espacio" search={{ track }} variant="secondary">
-          Acceder a Mi Espacio
+        {!esVerificadoEstandar && (
+          <NavButton to="/dashboard" search={{ track, estado: "revision" }}>
+            👉 Ver el estado de mi solicitud
+          </NavButton>
+        )}
+        <NavButton
+          to="/mi-espacio"
+          search={{ track }}
+          variant={esVerificadoEstandar ? undefined : "secondary"}
+        >
+          👉 Acceder a Mi Espacio
         </NavButton>
       </Box>
     </WireframeShell>
