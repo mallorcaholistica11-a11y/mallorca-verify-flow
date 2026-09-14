@@ -31,14 +31,14 @@ function NuestraMirada() {
       <NavPublica isMobile={isMobile} activo="Nuestra Mirada" />
 
       <main className="mirada-page overflow-hidden">
-        <header className="mirada-hero relative mx-auto grid max-w-[1120px] grid-cols-1 px-5 pb-20 pt-16 sm:px-8 md:min-h-[560px] md:grid-cols-12 md:items-center md:px-10 md:pb-24 md:pt-20">
+        <header className="mirada-hero relative mx-auto grid max-w-[1120px] grid-cols-1 px-5 pb-12 pt-14 sm:px-8 md:min-h-[420px] md:grid-cols-12 md:items-center md:px-10 md:pb-16 md:pt-16">
           <div className="relative z-10 md:col-span-8 md:col-start-2 lg:col-span-7">
-            <h1 className="font-display text-[clamp(3.75rem,9vw,7.5rem)] font-medium leading-[0.88] text-charcoal">
+            <h1 className="font-display text-[clamp(3rem,7vw,5.5rem)] font-medium leading-[0.9] text-charcoal">
               Nuestra
               <br />
               <span className="font-normal italic">Mirada</span>
             </h1>
-            <div className="my-8 h-px w-16 bg-champagne md:my-10" />
+            <div className="my-5 h-px w-16 bg-champagne md:my-6" />
             <p className="max-w-[580px] text-[11px] font-semibold uppercase leading-[1.8] tracking-[0.2em] text-earth sm:text-xs">
               UNA FORMA DE ENTENDER EL CUIDADO, LA SALUD Y EL BIENESTAR
             </p>
