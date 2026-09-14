@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { WireframeShell, NavButton } from "@/components/Wireframe";
+import { NavPublica } from "@/components/NavPublica";
+import { useMobile } from "@/components/ficha/useMobile";
 
 export const Route = createFileRoute("/soy-profesional")({
   head: () => ({
@@ -41,7 +42,7 @@ const PLANES: Plan[] = [
     price: "Gratis",
     info: ["Acceso libre"],
     description:
-      "Para profesionales que desean dar visibilidad a su actividad y formar parte de Mallorca Holística.",
+      "Para profesionales, centros, espacios, escuelas y organizadores que desean tener presencia en Mallorca Holística y dar visibilidad a su actividad.",
     to: "/plan-presencia",
     cta: "Conocer el plan",
     variant: "free",
@@ -53,19 +54,19 @@ const PLANES: Plan[] = [
     priceNote: "IVA incluido",
     info: ["2 meses gratuitos por lanzamiento", "Acceso mediante verificación profesional"],
     description:
-      "Para profesionales que desean transmitir mayor confianza, aumentar su visibilidad y diferenciar su perfil mediante la verificación profesional.",
+      "Para profesionales que ofrecen atención individual y desean reforzar la confianza, ampliar su visibilidad y contar con un perfil verificado.",
     to: "/profesional-fundador",
     cta: "Conocer el plan",
     variant: "paid",
   },
   {
     key: "organizacion",
-    title: "Centros & Organizadores",
+    title: "Centros, Espacios & Actividades",
     price: "50 €/mes",
     priceNote: "IVA incluido",
     info: ["2 meses gratuitos por lanzamiento", "Acceso mediante identificación de la entidad"],
     description:
-      "Para centros, escuelas, asociaciones y organizaciones que desean dar visibilidad to su proyecto y publicar las actividades que organizan.",
+      "Para centros, espacios, escuelas, proyectos y profesionales que desarrollan actividades grupales y desean dar visibilidad a su actividad y publicarla en la Agenda.",
     to: "/comunidad-fundadora-organizaciones",
     cta: "Conocer el plan",
     variant: "paid",
@@ -82,7 +83,7 @@ function PlanButton({
   variant?: "free" | "paid";
 }) {
   const base =
-    "inline-flex items-center justify-center px-8 py-3 rounded-full text-sm font-medium transition-colors min-w-[180px]";
+    "inline-flex min-w-[154px] items-center justify-center rounded-full px-5 py-2 text-[0.76rem] font-medium transition-colors";
   const color =
     variant === "free"
       ? "bg-sand text-warm-brown hover:bg-warm-brown hover:text-ivory"
@@ -95,72 +96,92 @@ function PlanButton({
 }
 
 function SoyProfesional() {
+  const isMobile = useMobile(900);
+
   return (
-    <WireframeShell
-      screen="1 · FORMA PARTE DE MALLORCA HOLÍSTICA"
-      title="🌿 Forma parte de Mallorca Holística"
-      breadcrumb="Inicio › Soy profesional"
-    >
-      <p className="text-center text-sm text-muted-foreground max-w-xl mx-auto leading-relaxed mb-6">
-        Elige cómo quieres participar.
-      </p>
+    <div className="min-h-screen bg-background font-body text-foreground">
+      <NavPublica isMobile={isMobile} />
 
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
-        {PLANES.map((plan) => (
-          <article
-            key={plan.key}
-            className="flex flex-col border border-border rounded-[14px] bg-card p-6"
-            style={{ boxShadow: "var(--shadow-soft)" }}
-          >
-            <h2 className="font-display text-[1.15rem] font-medium text-charcoal mb-3 leading-tight">
-              {plan.title}
-            </h2>
-
-            <div className="flex-1">
-              <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-                {plan.description}
-              </p>
-              <div className="space-y-1">
-                {plan.info.map((line, i) => (
-                  <p key={i} className="text-xs text-muted-foreground">
-                    {line}
-                  </p>
-                ))}
-              </div>
-            </div>
-
-            <div className="pt-5 mt-auto text-center">
-              <div className="font-display text-[1.65rem] font-medium text-charcoal leading-none mb-1">
-                {plan.price}
-              </div>
-              {plan.priceNote && (
-                <div className="text-xs text-muted-foreground mb-5">
-                  {plan.priceNote}
-                </div>
-              )}
-              {!plan.priceNote && <div className="mb-5" />}
-              <PlanButton to={plan.to} variant={plan.variant}>
-                {plan.cta}
-              </PlanButton>
-            </div>
-          </article>
-        ))}
-      </section>
-
-      <div
-        className="border border-border rounded-[14px] bg-muted p-5 text-center"
-        style={{ boxShadow: "var(--shadow-soft)" }}
-      >
-        <h3 className="font-display text-base font-medium text-charcoal mb-2">
-          Comunidad Fundadora
-        </h3>
-        <p className="text-xs text-muted-foreground max-w-md mx-auto leading-relaxed mb-3">
-          ¿Has recibido una invitación personal? Si es así, accede desde aquí para completar tu incorporación a Mallorca Holística.
-        </p>
-        <NavButton to="/comunidad-fundadora-acceso" variant="secondary">
-          Acceder con mi invitación
-        </NavButton>
+      <div className="border-b border-border bg-cream/55">
+        <nav
+          aria-label="breadcrumb"
+          className="mx-auto flex max-w-[1080px] items-center gap-1.5 px-4 py-2.5 text-xs text-muted-foreground md:px-6"
+        >
+          <Link to="/" className="transition-colors hover:text-foreground">
+            Inicio
+          </Link>
+          <span aria-hidden="true">›</span>
+          <span className="text-foreground">Soy profesional</span>
+        </nav>
       </div>
-    </WireframeShell>
+
+      <main className="mx-auto max-w-[820px] px-4 pb-10 pt-6 md:px-6 md:pt-7">
+        <header className="mb-5 text-center">
+          <h1 className="mb-1.5 font-display text-[1.75rem] font-medium leading-tight text-charcoal md:text-[1.95rem]">
+            Forma parte de Mallorca Holística
+          </h1>
+          <p className="text-[0.78rem] leading-relaxed text-muted-foreground">
+            Elige cómo quieres participar.
+          </p>
+        </header>
+
+        <section className="mb-4 grid grid-cols-1 gap-3 md:grid-cols-3">
+          {PLANES.map((plan) => (
+            <article
+              key={plan.key}
+              className="grid min-h-0 grid-rows-[auto_1fr_auto] rounded-[12px] border border-border bg-card px-4 py-4 shadow-[var(--shadow-soft)]"
+            >
+              <h2 className="mb-2 min-h-[2.4rem] font-display text-[1rem] font-medium leading-tight text-charcoal">
+                {plan.title}
+              </h2>
+
+              <div className="flex flex-col">
+                <p className="mb-2.5 text-[0.72rem] leading-[1.55] text-muted-foreground">
+                  {plan.description}
+                </p>
+                <div className="mt-auto space-y-0.5 border-t border-border/70 pt-2.5">
+                  {plan.info.map((line) => (
+                    <p key={line} className="text-[0.64rem] leading-relaxed text-muted-foreground">
+                      {line}
+                    </p>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-4 text-center">
+                <div className="mb-0.5 font-display text-[1.4rem] font-medium leading-none text-charcoal">
+                  {plan.price}
+                </div>
+                <div className="mb-3 h-4 text-[0.62rem] text-muted-foreground">
+                  {plan.priceNote ?? ""}
+                </div>
+                <PlanButton to={plan.to} variant={plan.variant}>
+                  {plan.cta}
+                </PlanButton>
+              </div>
+            </article>
+          ))}
+        </section>
+
+        <aside className="mx-auto max-w-[560px] rounded-[10px] border border-border bg-pastel-sage/25 px-4 py-3.5 text-center">
+          <h2 className="mb-1 font-display text-[0.9rem] font-medium text-charcoal">
+            Comunidad Fundadora
+          </h2>
+          <p className="mx-auto max-w-[440px] text-[0.66rem] leading-relaxed text-muted-foreground">
+            ¿Has recibido una invitación personal? Si es así, accede desde aquí para completar tu incorporación a Mallorca Holística.
+          </p>
+          <Link
+            to="/comunidad-fundadora-acceso"
+            className="mt-2.5 inline-flex items-center justify-center rounded-full border border-border bg-card px-4 py-1.5 text-[0.7rem] font-medium text-foreground transition-colors hover:bg-secondary"
+          >
+            Acceder con mi invitación
+          </Link>
+        </aside>
+      </main>
+
+      <footer className="border-t border-border/70 px-6 py-5 text-center text-xs text-muted-foreground">
+        Mallorca Holística · Soy profesional
+      </footer>
+    </div>
   );
 }

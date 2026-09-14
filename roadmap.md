@@ -22,3 +22,5 @@
 - [x] Unificar las acciones y el formato telefónico de las fichas de actividad, y añadir el regreso inferior a la Agenda.
 - [x] Recomponer exclusivamente la Home con una dirección editorial compacta basada en la referencia aprobada.
 - [x] Verificar la nueva Home completa en escritorio y móvil sin afectar otras páginas.
+- [ ] Compactar y armonizar exclusivamente la página Soy profesional con Plan Presencia.
+- [ ] Verificar tarjetas, enlaces y adaptación de Soy profesional en escritorio y móvil.
