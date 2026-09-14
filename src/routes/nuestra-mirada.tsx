@@ -111,7 +111,7 @@ function NuestraMirada() {
             </div>
           </section>
 
-          <section className="mirada-bloque mirada-separador max-w-[610px] md:ml-auto md:mr-[9%]">
+          <section className="mirada-bloque mirada-separador max-w-[650px] md:ml-auto md:mr-[9%]">
             <h2>Un lugar donde encontrarse.</h2>
             <div className="mirada-copy">
               <p>Mallorca Holística nace para dar visibilidad a ese tesoro.</p>
@@ -125,7 +125,7 @@ function NuestraMirada() {
             </div>
           </section>
 
-          <section className="mirada-encuentro mx-auto my-16 max-w-[840px] border-y border-champagne py-10 text-center md:my-24 md:py-14">
+          <section className="mirada-encuentro mx-auto my-10 max-w-[880px] border-y border-champagne py-6 text-center md:my-14 md:py-8">
             <h2>Mallorca Holística es un lugar de encuentro.</h2>
             <div className="mirada-copy mx-auto max-w-[650px] text-left sm:text-center">
               <p>No creemos que exista un único camino para cuidar de nuestra salud.</p>
