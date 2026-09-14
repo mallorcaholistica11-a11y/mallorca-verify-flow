@@ -141,8 +141,8 @@ function NuestraMirada() {
             </div>
           </section>
 
-          <section className="mirada-integrativa mx-auto max-w-[900px] bg-secondary px-6 py-8 sm:px-10 md:px-16 md:py-10">
-            <div className="max-w-[720px]">
+          <section className="mirada-integrativa mx-auto max-w-[920px] bg-secondary px-6 py-5 sm:px-10 md:px-16 md:py-6">
+            <div className="max-w-[760px]">
               <h2>¿Qué entendemos por salud integrativa?</h2>
               <div className="mirada-copy">
                 <p>
@@ -165,7 +165,7 @@ function NuestraMirada() {
             </div>
           </section>
 
-          <section className="mirada-intencion mirada-bloque max-w-[720px] md:ml-auto md:mr-[5%]">
+          <section className="mirada-intencion mirada-bloque max-w-[760px] md:ml-auto md:mr-[5%]">
             <h2>Nuestra intención</h2>
             <div className="mirada-copy mirada-ideas">
               <p>Mallorca Holística no pretende decirle a nadie cuál es el camino correcto.</p>
@@ -178,7 +178,7 @@ function NuestraMirada() {
             </div>
           </section>
 
-          <footer className="mirada-cierre mx-auto max-w-[860px] pb-6 pt-14 text-center md:pt-20">
+          <footer className="mirada-cierre mx-auto max-w-[780px] pb-6 pt-10 text-center md:pt-12">
             <p>Porque creemos que cuidar también es acompañar.</p>
             <p>Y que acompañar empieza, muchas veces, por hacer posible un encuentro.</p>
           </footer>
