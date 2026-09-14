@@ -2824,16 +2824,30 @@ type Paso7Props = { autoriza: boolean; onToggle: () => void };
 function StripeBlock({ note, extraNote }: { note?: string; extraNote?: string } = {}) {
   return (
     <div style={{ marginBottom: 16 }}>
-      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>💳 Datos de pago</div>
-      <Note>{note ?? "Bloque reservado para la futura integración con Stripe."}</Note>
-      <FakeField label="Número de tarjeta" />
-      <FakeField label="Fecha de caducidad" />
-      <FakeField label="CVC" />
-      <FakeField label="Titular de la tarjeta" />
+      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>💳 Método de pago</div>
+      <Note>
+        {note ??
+          "Para enviar tu solicitud, registra de forma segura tu método de pago mediante Stripe. Registrar tu método de pago no supone ningún cargo en este momento."}
+      </Note>
+      <div
+        style={{
+          border: "1px solid var(--border)",
+          borderRadius: 12,
+          padding: "14px 16px",
+          background: "var(--card)",
+          fontSize: 12.5,
+          color: "var(--muted-foreground)",
+          lineHeight: 1.7,
+        }}
+      >
+        Formulario seguro de Stripe. Tus datos de tarjeta se introducen y se guardan directamente en
+        Stripe; Mallorca Holística no almacena números de tarjeta ni códigos de seguridad.
+      </div>
       {extraNote && <Note>{extraNote}</Note>}
     </div>
   );
 }
+
 
 function Paso7ProfesionalEstandar({ autoriza, onToggle }: Paso7Props) {
   return (
