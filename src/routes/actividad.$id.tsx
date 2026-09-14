@@ -39,6 +39,16 @@ const actividad = {
     { label: "Nivel", value: "Abierto a todos los niveles" },
   ],
   organizador: { nombre: "Nombre del profesional", profesion: "Terapeuta holística" },
+  contacto: {
+    telefono: "+34600000000",
+    telefonoPublico: true,
+    email: "hola@ejemplo.com",
+    web: "https://www.ejemplo.com",
+    redes: [
+      { red: "Instagram", url: "https://instagram.com/" },
+      { red: "Facebook", url: "https://facebook.com/" },
+    ] as RedSocial[],
+  },
 };
 
 // Áreas seleccionadas al crear la actividad. Provienen únicamente del
