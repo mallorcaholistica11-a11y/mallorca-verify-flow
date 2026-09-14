@@ -75,7 +75,7 @@ function NuestraMirada() {
             </div>
           </section>
 
-          <section className="mirada-bloque mirada-separador max-w-[650px] md:ml-auto md:mr-[4%]">
+          <section className="mirada-bloque mirada-separador max-w-[680px] md:ml-auto md:mr-[4%]">
             <h2>La salud forma parte de toda nuestra vida.</h2>
             <div className="mirada-copy">
               <p>La salud no pertenece únicamente al cuerpo.</p>
