@@ -34,9 +34,9 @@ const OPCIONES: {
   },
   {
     value: "organization",
-    title: "🏡 Centro, espacio u organizador",
+    title: "🏡 Centro, espacio o proyecto",
     description:
-      "Represento un centro, un espacio de bienestar o una organización que ofrece servicios, actividades o eventos relacionados con el bienestar, la salud integrativa y el desarrollo personal.",
+      "Represento un centro, espacio, escuela o proyecto, o desarrollo principalmente actividades grupales.",
     examples:
       "Centro de terapias · Centro de yoga · Escuela de formación · Espacio de bienestar · Organizador de retiros · Organizador de eventos",
   },
