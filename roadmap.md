@@ -24,3 +24,5 @@
 - [x] Verificar la nueva Home completa en escritorio y móvil sin afectar otras páginas.
 - [x] Compactar y armonizar exclusivamente la página Soy profesional con Plan Presencia.
 - [x] Verificar tarjetas, enlaces y adaptación de Soy profesional en escritorio y móvil.
+- [x] Compactar visualmente los seis pasos de Profesional · Plan Presencia sin alterar su contenido ni funcionamiento.
+- [x] Verificar los seis pasos en escritorio y móvil y confirmar que otros formularios no cambian.

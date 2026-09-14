@@ -16,14 +16,16 @@ export function WireframeShell({
   title,
   breadcrumb,
   children,
+  compact = false,
 }: {
   screen: string;
   title: string;
   breadcrumb?: string;
   children: ReactNode;
+  compact?: boolean;
 }) {
   return (
-    <div style={{ fontFamily: "var(--font-body)", minHeight: "100vh", background: "var(--background)", color: "var(--foreground)" }}>
+    <div className={compact ? "wireframe-shell-compact" : undefined} style={{ fontFamily: "var(--font-body)", minHeight: "100vh", background: "var(--background)", color: "var(--foreground)" }}>
       <header style={{ borderBottom: "1px solid var(--border)", padding: "16px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 20, flexWrap: "wrap", background: "var(--ivory)", position: "sticky", top: 0, zIndex: 20, backdropFilter: "blur(6px)" }}>
         <Link to="/" style={{ textDecoration: "none", color: "var(--charcoal)", fontFamily: "var(--font-display)", fontSize: 17, letterSpacing: "-0.01em" }}>
           [LOGO] Mallorca Holística — wireframe
@@ -44,15 +46,15 @@ export function WireframeShell({
         {breadcrumb ?? "—"}
       </div>
 
-      <main style={{ maxWidth: 880, margin: "0 auto", padding: "48px 24px 0" }}>
+      <main style={{ maxWidth: compact ? 820 : 880, margin: "0 auto", padding: compact ? "30px 24px 0" : "48px 24px 0" }}>
         <div style={{ fontSize: 10.5, color: "var(--sage-dark)", letterSpacing: 1.6, textTransform: "uppercase", marginBottom: 10 }}>
           PANTALLA · {screen}
         </div>
-        <h1 style={{ fontFamily: "var(--font-display)", fontSize: 30, lineHeight: 1.22, fontWeight: 500, margin: "0 0 28px 0", whiteSpace: "pre-wrap", color: "var(--charcoal)" }}>{title.replace("Reserva tu plaza", "Activa tu suscripción")}</h1>
+        <h1 style={{ fontFamily: "var(--font-display)", fontSize: compact ? 25 : 30, lineHeight: 1.22, fontWeight: 500, margin: compact ? "0 0 18px 0" : "0 0 28px 0", whiteSpace: "pre-wrap", color: "var(--charcoal)" }}>{title.replace("Reserva tu plaza", "Activa tu suscripción")}</h1>
         {children}
       </main>
 
-      <footer style={{ marginTop: 80, padding: "28px 24px", borderTop: "1px solid var(--border)", fontSize: 11.5, color: "var(--muted-foreground)", textAlign: "center", background: "var(--cream)" }}>
+      <footer style={{ marginTop: compact ? 48 : 80, padding: compact ? "20px 24px" : "28px 24px", borderTop: "1px solid var(--border)", fontSize: 11.5, color: "var(--muted-foreground)", textAlign: "center", background: "var(--cream)" }}>
         Wireframe funcional · sin diseño visual · validación de navegación
       </footer>
     </div>
