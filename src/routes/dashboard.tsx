@@ -28,7 +28,7 @@ function DashboardWrapper() {
 }
 
 function DashboardHome() {
-  const { track } = Route.useSearch();
+  const { track, estado: estadoSearch } = Route.useSearch();
   const isOrg = track === "organizacion" || track === "organizacionFundadora";
   const isVerificado = track === "verificado" || track === "verificadoFundador";
   const isPresencia = track === "presencia";
@@ -47,12 +47,15 @@ function DashboardHome() {
       ? "⭐ Plan Profesional Verificado"
       : "🌿 Plan Presencia · Gratuito";
 
-  // Estado actual del perfil. Preparado para reutilizarse con:
-  // "pendiente" | "revision" | "publicado" — solo cambian textos y acción.
-  const estado: ProfileState = "pendiente";
+  // Estado actual del perfil. Se reutiliza la misma pantalla para
+  // "pendiente" | "revision" | "publicado": solo cambian textos y acción.
+  // NOTA INTERNA (no visible): la estructura visual se mantiene igual en los
+  // tres estados; en el futuro el estado llegará del panel de administración.
+  const estado: ProfileState = estadoSearch ?? "pendiente";
   const estadoContent = PROFILE_STATES[estado];
   const ctaTo =
     estado === "pendiente" && !isPresencia ? "/dashboard/formulario" : estadoContent.ctaTo;
+  const enProceso = estado === "pendiente";
 
   const tercerPaso = isPresencia
     ? {
