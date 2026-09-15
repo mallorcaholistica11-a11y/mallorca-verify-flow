@@ -181,11 +181,11 @@ function NuevaActividadPagina() {
 
   return (
     <WireframeShell
-      screen="9c · NUEVA ACTIVIDAD"
+      screen={esEstandarVerificado ? undefined : "9c · NUEVA ACTIVIDAD"}
       title="Crear una actividad"
       breadcrumb="Mi Espacio › Mis Actividades › Nueva actividad"
     >
-      <TrackBadge track={track} />
+      {!esEstandarVerificado && <TrackBadge track={track} />}
 
       <Box title="Solo eventos grupales">
         <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)", margin: "0 0 8px 0" }}>
