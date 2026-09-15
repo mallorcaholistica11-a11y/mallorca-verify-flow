@@ -46,11 +46,18 @@ export const Route = createFileRoute("/mi-espacio/perfil")({
       { name: "twitter:card", content: "summary" },
     ],
   }),
-  validateSearch: (s: Record<string, unknown>) => ({
-    track: parseTrack(s),
-    estado: parseEstado(s.estado),
-    preview: s.preview === true || s.preview === "true" ? true : undefined,
-  }),
+  validateSearch: (
+    s: Record<string, unknown>,
+  ): { track: Track; estado?: PerfilEstado; preview?: true } => {
+    const estado = parseEstado(s.estado);
+    const preview = s.preview === true || s.preview === "true";
+
+    return {
+      track: parseTrack(s),
+      ...(estado ? { estado } : {}),
+      ...(preview ? { preview: true } : {}),
+    };
+  },
   component: MiPerfil,
 });
 
