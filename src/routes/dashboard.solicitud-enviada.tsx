@@ -27,20 +27,44 @@ const MENSAJE_VERIFICADO = [
   "Porque lo que se siembra con alma... siempre florece. 🌿",
 ];
 
+// Recorrido estándar del Plan Centros, Espacios & Organizadores: confirmación
+// de envío hermana de la de Profesional Verificado, sin rótulos técnicos.
+const MENSAJE_ORGANIZACION = [
+  "Nos hace mucha ilusión que quieras formar parte de Mallorca Holística.",
+  "Hemos recibido correctamente tu solicitud.",
+  "Nuestro equipo revisará la información que nos has enviado y te avisaremos por correo electrónico cuando el proceso de verificación haya finalizado.",
+  "Gracias por confiar en este proyecto y por contribuir a construir una comunidad más visible, conectada y accesible.",
+  "Porque lo que se siembra con alma... siempre florece. 🌿",
+];
+
 function SolicitudEnviada() {
   const { track } = Route.useSearch() as { track: Track };
   const esVerificadoEstandar = track === "verificado";
-  const mensaje = esVerificadoEstandar ? MENSAJE_VERIFICADO : MENSAJE;
+  const esOrganizacionEstandar = track === "organizacion";
+  const esEstandar = esVerificadoEstandar || esOrganizacionEstandar;
+  const mensaje = esVerificadoEstandar
+    ? MENSAJE_VERIFICADO
+    : esOrganizacionEstandar
+      ? MENSAJE_ORGANIZACION
+      : MENSAJE;
 
   return (
     <WireframeShell
-      screen={esVerificadoEstandar ? undefined : "8 · SOLICITUD ENVIADA"}
+      screen={esEstandar ? undefined : "8 · SOLICITUD ENVIADA"}
       title="🌿 ¡Gracias por unirte a Mallorca Holística!"
       breadcrumb="Dashboard › Solicitud enviada"
     >
-      {!esVerificadoEstandar && <TrackBadge track={track} />}
-      <Box title={esVerificadoEstandar ? "Solicitud de Profesional Verificado" : "Mensaje"}>
-        {!esVerificadoEstandar && (
+      {!esEstandar && <TrackBadge track={track} />}
+      <Box
+        title={
+          esVerificadoEstandar
+            ? "Solicitud de Profesional Verificado"
+            : esOrganizacionEstandar
+              ? "Solicitud de verificación"
+              : "Mensaje"
+        }
+      >
+        {!esEstandar && (
           <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "0 0 8px 0" }}>
             {PLAN_NOMBRE[track]}
           </p>
@@ -58,15 +82,15 @@ function SolicitudEnviada() {
         ))}
       </Box>
       <Box title="Acciones">
-        {!esVerificadoEstandar && (
+        {!esEstandar && (
           <NavButton to="/dashboard" search={{ track, estado: "revision" }}>
             👉 Ver el estado de mi solicitud
           </NavButton>
         )}
         <NavButton
           to="/mi-espacio"
-          search={esVerificadoEstandar ? { track, estado: "revision" } : { track }}
-          variant={esVerificadoEstandar ? undefined : "secondary"}
+          search={esEstandar ? { track, estado: "revision" } : { track }}
+          variant={esEstandar ? undefined : "secondary"}
         >
           👉 Acceder a Mi Espacio
         </NavButton>
