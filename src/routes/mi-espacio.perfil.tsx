@@ -392,7 +392,7 @@ function MiPerfilCentro({ estadoSearch }: { estadoSearch?: PerfilEstado }) {
     { label: "Correo electrónico", value: ficha.contacto?.email },
     { label: "WhatsApp / teléfono", value: ficha.contacto?.whatsapp ?? ficha.contacto?.telefono },
     { label: "Página web", value: ficha.contacto?.web },
-  ].filter((campo): campo is { label: string; value: string } => Boolean(campo.value));
+  ].flatMap((campo) => (campo.value ? [{ label: campo.label, value: campo.value }] : []));
 
   const mitad = Math.ceil(campos.length / 2);
   const galeria = (ficha.galeria ?? []).slice(0, 10);
