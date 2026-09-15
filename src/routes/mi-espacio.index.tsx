@@ -26,9 +26,9 @@ const cardLinkStyle = { textDecoration: "none", color: "inherit", flex: 1, minWi
 
 function MiEspacio() {
   const { track, estado: estadoSearch } = Route.useSearch();
-  const esEstandarVerificado = track === "verificado";
 
-  if (esEstandarVerificado) {
+  // Recorridos estándar (no Fundadores): Mi Espacio es la única pantalla.
+  if (track === "verificado" || track === "organizacion") {
     return <MiEspacioVerificado track={track} estado={estadoSearch ?? "pendiente"} />;
   }
 
