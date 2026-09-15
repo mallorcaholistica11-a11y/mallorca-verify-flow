@@ -9,9 +9,9 @@ export const Route = createFileRoute("/auth/crear-cuenta")({
 function CrearCuenta() {
   const { track } = Route.useSearch();
   const breadcrumb =
-    track === "presencia" || track === "verificado" || track === "organizacion"
+    track === "presencia" || track === "verificado"
       ? "Soy profesional › Crear cuenta"
-      : track === "organizacionFundadora"
+      : track === "organizacion" || track === "organizacionFundadora"
       ? "Invitación (Organización) › Crear cuenta"
       : "Invitación (Profesional) › Crear cuenta";
   const planInfo =
