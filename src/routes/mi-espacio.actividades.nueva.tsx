@@ -666,7 +666,6 @@ function NuevaActividadPagina() {
 
           <Note>Los campos opcionales que dejes vacíos no aparecerán en la ficha pública.</Note>
         </Box>
-      )}
 
       
         <Box title="Precio y reservas">
