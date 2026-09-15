@@ -125,7 +125,7 @@ const ESTADOS: Record<EspacioEstado, EstadoConfig> = {
     actividadesTexto:
       "Podrás publicar actividades en la Agenda cuando tu perfil profesional haya sido aprobado.",
     suscripcionTexto:
-      "Tu suscripción todavía no está activa. Registrarás tu método de pago al finalizar el formulario.",
+      "Tu suscripción todavía no está activa. Completa tu perfil para continuar con el proceso de verificación.",
   },
   preparacion: {
     indicador: "🟠",
@@ -137,13 +137,13 @@ const ESTADOS: Record<EspacioEstado, EstadoConfig> = {
     actividadesTexto:
       "Podrás publicar actividades en la Agenda cuando tu perfil profesional haya sido aprobado.",
     suscripcionTexto:
-      "Tu suscripción todavía no está activa. Registrarás tu método de pago al finalizar el formulario.",
+      "Tu suscripción todavía no está activa. Completa tu perfil para continuar con el proceso de verificación.",
   },
   revision: {
     indicador: "🟡",
     titulo: "Solicitud en revisión",
     texto:
-      "Estamos revisando la información y documentación que nos has enviado. Te avisaremos por correo electrónico cuando el proceso de verificación haya finalizado.",
+      "Hemos recibido tu solicitud. Nuestro equipo está revisando la información y documentación enviada y te avisaremos por correo electrónico cuando el proceso haya finalizado.",
     perfilTexto:
       "Consulta la información que has enviado. Podrás modificarla cuando finalice la revisión.",
     actividadesTexto:
@@ -168,21 +168,10 @@ const ESTADOS: Record<EspacioEstado, EstadoConfig> = {
 
 function MiEspacioVerificado({ track, estado }: { track: Track; estado: EspacioEstado }) {
   const config = ESTADOS[estado];
-  const esInicio = estado === "pendiente" || estado === "preparacion";
 
   return (
     <WireframeShell title="Mi Espacio" breadcrumb="Mi Espacio">
       <div style={{ maxWidth: 620, margin: "0 auto 24px", textAlign: "center" }}>
-        {esInicio && (
-          <>
-            <p style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.6, margin: "0 0 4px 0" }}>
-              🌿 Bienvenido a Mallorca Holística
-            </p>
-            <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)", margin: "0 0 8px 0" }}>
-              Tu cuenta ya está creada.
-            </p>
-          </>
-        )}
         <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--muted-foreground)", margin: 0 }}>
           Gestiona tu perfil, tus actividades y tu suscripción desde aquí.
         </p>
@@ -210,7 +199,7 @@ function MiEspacioVerificado({ track, estado }: { track: Track; estado: EspacioE
       </Box>
 
       <Row>
-        <Link to="/mi-espacio/perfil" search={{ track }} style={cardLinkStyle}>
+        <Link to="/mi-espacio/perfil" search={{ track, estado }} style={cardLinkStyle}>
           <Card title="👤 Mi Perfil">{config.perfilTexto}</Card>
         </Link>
         <Link to="/mi-espacio/actividades" search={{ track, estado }} style={cardLinkStyle}>
@@ -218,7 +207,7 @@ function MiEspacioVerificado({ track, estado }: { track: Track; estado: EspacioE
         </Link>
       </Row>
       <Row>
-        <Link to="/mi-espacio/suscripcion" search={{ track }} style={cardLinkStyle}>
+        <Link to="/mi-espacio/suscripcion" search={{ track, estado }} style={cardLinkStyle}>
           <Card title="💳 Mi Suscripción">{config.suscripcionTexto}</Card>
         </Link>
         <Link to="/mi-espacio/ayuda" search={{ track }} style={cardLinkStyle}>
