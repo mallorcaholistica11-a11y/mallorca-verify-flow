@@ -138,6 +138,7 @@ function Accordion({ id, question, children }: { id: string; question: string; c
 
 function Ayuda() {
   const { track } = Route.useSearch();
+  const [hoveredResource, setHoveredResource] = useState<number | null>(null);
 
   return (
     <WireframeShell
