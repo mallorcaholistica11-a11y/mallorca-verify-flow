@@ -3306,7 +3306,7 @@ function PresenciaOrganizacionFormulario() {
           </Box>
 
           <Box title="Datos del espacio o proyecto">
-            <SelectField label="Tipo de espacio o proyecto" options={O_TIPOS_ORGANIZACION} />
+            <SelectField label="Tipo de espacio o proyecto" options={O_TIPOS_PERFIL} />
             <MunicipioPicker label="Municipio principal" hint={null} />
             <FakeField label="Correo electrónico" type="email" />
             <Ayuda>Será el correo de contacto que aparecerá en vuestro perfil público.</Ayuda>
