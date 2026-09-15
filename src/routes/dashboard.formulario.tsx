@@ -2650,22 +2650,21 @@ function VerificadoFormulario() {
 
       {step === 6 && (
         <Box
-          title={
-            isOrg ? "🛡️ Verificación de la Organización" : "🛡️ Verificación Mallorca Holística"
-          }
+          title={isOrg ? "🛡️ Verificación y Compromisos" : "🛡️ Verificación Mallorca Holística"}
         >
           {isOrg ? (
             <>
               <div style={{ marginBottom: 16 }}>
                 <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
-                  🏢 Identificación de la entidad
+                  Datos de identificación
                 </div>
                 <Ayuda>
-                  Estos datos se utilizarán únicamente para verificar la identidad de vuestra
-                  organización y no serán visibles públicamente.
+                  Estos datos se utilizarán únicamente para verificar vuestra identidad y no serán
+                  visibles públicamente.
                 </Ayuda>
-                <FakeField label="Nombre legal" />
+                <FakeField label="Nombre legal o nombre fiscal" />
                 <FakeField label="CIF / NIF" />
+                <FakeField label="Persona responsable del perfil" />
               </div>
             </>
           ) : (
