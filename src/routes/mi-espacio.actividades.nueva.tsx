@@ -766,10 +766,7 @@ function NuevaActividadPagina() {
             )}
           </div>
         </Box>
-      )}
 
-      {paso === 7 && (
-        <>
           <Box title="Resumen de la actividad">
             <Resumen
               form={form}
