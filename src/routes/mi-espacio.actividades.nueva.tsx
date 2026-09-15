@@ -560,9 +560,21 @@ function NuevaActividadPagina() {
 
       <Box title="Navegación">
         <button type="button" style={secondaryBtn}>Guardar como borrador</button>
-        <button type="button" onClick={() => setEnviado(true)} style={primaryBtn}>
+        <button
+          type="button"
+          onClick={() => setEnviado(true)}
+          disabled={sinDisponibilidad}
+          style={{ ...primaryBtn, opacity: sinDisponibilidad ? 0.5 : 1, cursor: sinDisponibilidad ? "not-allowed" : "pointer" }}
+        >
           Enviar para revisión
         </button>
+        {sinDisponibilidad && (
+          <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0", lineHeight: 1.6 }}>
+            Has utilizado las {LIMITE_ACTIVIDADES_MES} actividades incluidas este mes en tu plan.
+            Puedes guardar esta actividad como borrador y enviarla cuando vuelvas a tener
+            disponibilidad.
+          </p>
+        )}
         <p style={{ fontSize: 12, color: "var(--muted-foreground)", fontStyle: "italic", margin: "12px 0 0 0", lineHeight: 1.6 }}>
           Una vez enviada, la actividad será revisada por el equipo de Mallorca Holística antes de ser publicada en la Agenda.
         </p>
@@ -571,7 +583,7 @@ function NuevaActividadPagina() {
       <div style={{ marginTop: 12 }}>
         <Link
           to="/mi-espacio/actividades"
-          search={{ track }}
+          search={{ track, estado }}
           style={{ ...secondaryBtn, textDecoration: "none" }}
         >
           ← Cancelar y volver a Mis Actividades
