@@ -85,6 +85,81 @@ const FAQ: FaqGroup[] = [
   },
 ];
 
+const FAQ_CENTROS: FaqGroup[] = [
+  {
+    titulo: "Perfil",
+    items: [
+      {
+        q: "¿Cómo puedo completar o actualizar mi perfil?",
+        a: "Desde Mi Espacio puedes acceder a Mi Perfil. Si todavía estás completando tu solicitud, podrás continuar el formulario desde el punto en el que lo dejaste. Una vez publicado tu perfil, podrás actualizar la información correspondiente desde este mismo espacio.",
+      },
+      {
+        q: "¿Por qué mi perfil está en revisión?",
+        a: "Los perfiles que solicitan la verificación de Mallorca Holística pasan por un proceso de revisión antes de ser publicados como Entidad Verificada. Revisaremos la información correspondiente y te avisaremos por correo electrónico cuando el proceso haya finalizado.",
+      },
+      {
+        q: "¿Qué significa \"Entidad Verificada\"?",
+        a: "Significa que Mallorca Holística ha revisado la información correspondiente al perfil dentro del proceso de verificación. Una vez completada la revisión, el perfil podrá mostrar el sello Entidad Verificada.",
+      },
+    ],
+  },
+  {
+    titulo: "Actividades",
+    items: [
+      {
+        q: "¿Por qué no puedo publicar actividades?",
+        a: "Puedes crear, guardar y preparar actividades desde Mi Espacio. Para enviarlas para revisión y que posteriormente puedan publicarse en la Agenda, tu perfil deberá haber sido aprobado. Todas las actividades pasan por un proceso de revisión antes de su publicación.",
+      },
+      {
+        q: "¿Qué tipo de actividades puedo publicar?",
+        a: "La Agenda está destinada a actividades grupales como talleres, cursos, formaciones, retiros, conferencias, clases, encuentros y otras propuestas dirigidas a varias personas. Las sesiones individuales o consultas se muestran desde el perfil y no se publican como actividades en la Agenda.",
+      },
+      {
+        q: "¿Cuántas actividades puedo publicar?",
+        a: "El plan Centros, Espacios & Organizadores permite publicar actividades grupales sin límite en la Agenda de Mallorca Holística.",
+      },
+      {
+        q: "¿Puedo modificar una actividad publicada?",
+        a: "Puedes gestionar tus actividades desde Mi Espacio > Mis Actividades. Determinados cambios realizados sobre una actividad ya publicada podrán requerir una nueva revisión antes de volver a mostrarse en la Agenda.",
+      },
+    ],
+  },
+  {
+    titulo: "Suscripción",
+    items: [
+      {
+        q: "¿Cuándo se activa mi suscripción?",
+        a: "Tu suscripción al plan Centros, Espacios & Organizadores (50 €/mes IVA incluido) no se activa al crear tu cuenta. Para enviar tu solicitud de verificación es necesario registrar un método de pago seguro mediante Stripe al finalizar el formulario. Registrar el método de pago no supone ningún cargo en ese momento.",
+      },
+      {
+        q: "¿Cuándo comienza el periodo gratuito?",
+        a: "Los 2 meses gratuitos comenzarán en la fecha oficial de lanzamiento de Mallorca Holística. La fecha se comunicará antes de la activación de las suscripciones.",
+      },
+      {
+        q: "¿Cuándo se realizará el primer cobro?",
+        a: "El primer cobro se realizará únicamente cuando tu perfil haya sido aprobado como Entidad Verificada y haya finalizado el periodo gratuito de lanzamiento. Si tu perfil se aprueba durante el periodo gratuito, no se realizará ningún cobro hasta que este finalice. Si se aprueba después de finalizar ese periodo, la suscripción comenzará a partir de su aprobación.\n\nMallorca Holística te informará por email antes del primer cobro de la suscripción, indicándote la fecha y el importe, para que puedas decidir con tiempo si deseas continuar o cancelar tu suscripción.",
+      },
+      {
+        q: "¿Qué ocurre si mi solicitud no es aprobada?",
+        a: "Si tu solicitud de verificación no es aprobada, la suscripción no se activará y no se realizará ningún cargo.",
+      },
+    ],
+  },
+  {
+    titulo: "General",
+    items: [
+      {
+        q: "¿Cómo puedo contactar con Mallorca Holística?",
+        a: "Puedes ponerte en contacto con nosotros desde la sección 'Contactar con nosotros' de esta misma página.",
+      },
+      {
+        q: "¿Cuánto tarda la revisión de un perfil o una actividad?",
+        a: "Cada solicitud se revisa antes de su publicación. Cuando el proceso haya finalizado, te avisaremos por correo electrónico.",
+      },
+    ],
+  },
+];
+
 const RECURSOS = [
   { label: "Código Deontológico", href: "#" },
   { label: "Política de Privacidad", href: "#" },
@@ -140,6 +215,7 @@ function Ayuda() {
   const { track } = Route.useSearch();
   const [hoveredResource, setHoveredResource] = useState<number | null>(null);
 
+  const faqActiva = track === "organizacion" ? FAQ_CENTROS : FAQ;
   return (
     <WireframeShell
       title="Ayuda"
@@ -155,7 +231,7 @@ function Ayuda() {
         <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginBottom: 12, fontStyle: "italic" }}>
           Preguntas cargadas dinámicamente y agrupadas por temática.
         </div>
-        {FAQ.map((group, gi) => (
+        {faqActiva.map((group, gi) => (
           <div key={gi} style={{ marginBottom: 20 }}>
             <div
               style={{
