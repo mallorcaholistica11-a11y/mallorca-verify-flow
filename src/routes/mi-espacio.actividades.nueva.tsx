@@ -668,7 +668,7 @@ function NuevaActividadPagina() {
         </Box>
       )}
 
-      {paso === 6 && (
+      
         <Box title="Precio y reservas">
           <FieldLabel>Precio</FieldLabel>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
