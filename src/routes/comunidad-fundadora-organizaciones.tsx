@@ -115,7 +115,7 @@ const VERIFICATION_ITEMS = [
   "Aceptación del Código Deontológico de Mallorca Holística.",
   "Identificación del centro, espacio, proyecto o actividad profesional.",
   "Identificación de la persona responsable de la cuenta.",
-  "Seguro de Responsabilidad Civil vigente correspondiente a la actividad.",
+  
   "Declaración de veracidad de la información aportada.",
   "Aceptación de la Política de Privacidad.",
   "Aceptación de las Condiciones de Uso.",
