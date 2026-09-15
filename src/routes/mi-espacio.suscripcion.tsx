@@ -216,6 +216,7 @@ function MiSuscripcionVerificado({
   const estaRechazado = estado === "rechazado";
   const estaAprobado = estado === "aprobado";
   const estaActiva = estaAprobado && suscripcion === "activa";
+  const estadoMiEspacio = estaRechazado ? "revision" : estado;
   const estadoVisible = estaPendiente
     ? "Pendiente de completar"
     : estaEnRevision
@@ -230,7 +231,7 @@ function MiSuscripcionVerificado({
     <WireframeShell title="Mi Suscripción" breadcrumb="Mi Espacio › Mi Suscripción">
       <Link
         to="/mi-espacio"
-        search={{ track: "verificado", estado }}
+        search={{ track: "verificado", estado: estadoMiEspacio }}
         style={backLinkStyle}
       >
         ← Volver a Mi Espacio
@@ -362,7 +363,7 @@ function MiSuscripcionVerificado({
       <Box title="Volver">
         <NavButton
           to="/mi-espacio"
-          search={{ track: "verificado", estado }}
+          search={{ track: "verificado", estado: estadoMiEspacio }}
           variant="secondary"
         >
           ← Volver a Mi Espacio
