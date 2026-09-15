@@ -366,7 +366,7 @@ function MiPerfilCentro({ estadoSearch }: { estadoSearch?: PerfilEstado }) {
   const lista = (valores?: string[]) =>
     valores && valores.length > 0 ? valores.join(", ") : undefined;
 
-  const campos: Array<{ label: string; value?: string }> = [
+  const campos = [
     { label: "Nombre del centro, espacio o proyecto", value: ficha.nombre },
     {
       label: "Nombre comercial",
