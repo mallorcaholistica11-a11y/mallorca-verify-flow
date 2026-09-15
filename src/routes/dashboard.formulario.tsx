@@ -2519,8 +2519,8 @@ function VerificadoFormulario() {
             {isOrg ? (
               <>
                 <Ayuda>
-                  Compartid vuestra historia, filosofía y aquello que hace especial vuestra
-                  organización.
+                  Compartid vuestra historia, filosofía y aquello que hace especial vuestro centro,
+                  espacio o proyecto.
                 </Ayuda>
                 <Note>
                   No os preocupéis si ahora no tenéis el texto perfecto. Podréis modificarlo siempre
