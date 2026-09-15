@@ -22,7 +22,7 @@ export const FICHA_CENTRO_ACTUAL: FichaCentroData & {
   fraseDestacada: "Un espacio para cuidarte con calma, en el centro de Palma.",
   enlaceAgenda: "/actividades",
   verificado: true,
-  hayActividades: true,
+  hayActividades: false,
   sobreNosotros:
     "Somos un centro dedicado al bienestar integral. Reunimos a un equipo de terapeutas y formadores que acompañan procesos de salud, calma y desarrollo personal en un espacio luminoso y sereno.",
   idiomas: ["Català", "Español", "English"],
