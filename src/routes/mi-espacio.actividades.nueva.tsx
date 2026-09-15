@@ -115,23 +115,50 @@ const initial: FormState = {
 };
 
 function NuevaActividadPagina() {
-  const { track } = Route.useSearch();
+  const { track, estado: estadoSearch } = Route.useSearch();
   const [enviado, setEnviado] = useState(false);
   const [form, setForm] = useState<FormState>(initial);
   const update = <K extends keyof FormState>(k: K, v: FormState[K]) =>
     setForm((f) => ({ ...f, [k]: v }));
 
+  const esEstandarVerificado = track === "verificado";
+  const estado = estadoSearch ?? "pendiente";
+  // El estado real del perfil decide si se puede crear/enviar actividades.
+  const perfilAprobado = !esEstandarVerificado || estado === "aprobado";
+  const sinDisponibilidad = esEstandarVerificado && limiteAlcanzado();
+
   const esPresencial = form.modalidad === "Presencial" || form.modalidad === "Híbrida";
   const esOnline = form.modalidad === "Online" || form.modalidad === "Híbrida";
+
+  if (!perfilAprobado) {
+    return (
+      <WireframeShell
+        title="Crear una actividad"
+        breadcrumb="Mi Espacio › Mis Actividades › Nueva actividad"
+      >
+        <Box title="Todavía no disponible">
+          <p style={{ fontSize: 13, lineHeight: 1.7, margin: 0 }}>
+            Podrás crear y publicar actividades en la Agenda cuando tu perfil profesional haya sido
+            aprobado.
+          </p>
+        </Box>
+        <Box title="Volver">
+          <NavButton to="/mi-espacio/actividades" search={{ track, estado }} variant="secondary">
+            ← Volver a Mis Actividades
+          </NavButton>
+        </Box>
+      </WireframeShell>
+    );
+  }
 
   if (enviado) {
     return (
       <WireframeShell
-        screen="9c · ACTIVIDAD ENVIADA"
+        screen={esEstandarVerificado ? undefined : "9c · ACTIVIDAD ENVIADA"}
         title="🌿 Tu actividad ha sido enviada"
         breadcrumb="Mi Espacio › Mis Actividades › Nueva actividad"
       >
-        <TrackBadge track={track} />
+        {!esEstandarVerificado && <TrackBadge track={track} />
         <Box title="En revisión">
           <p style={{ fontSize: 14, lineHeight: 1.7, color: "var(--foreground)", margin: "0 0 12px 0" }}>
             Gracias por compartir tu propuesta con la comunidad de Mallorca Holística.
