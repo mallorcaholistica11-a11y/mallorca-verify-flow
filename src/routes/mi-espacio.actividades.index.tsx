@@ -248,3 +248,83 @@ function MisActividadesOtrosRecorridos({ track }: { track: Track }) {
     </WireframeShell>
   );
 }
+
+// Plan Centros, Espacios & Organizadores: hermana de Mis Actividades de Profesional Verificado.
+function MisActividadesCentro({
+  track,
+  estadoSearch,
+}: {
+  track: Track;
+  estadoSearch?: PerfilEstado;
+}) {
+  const estado = estadoSearch ?? "pendiente";
+  const aprobado = estado === "aprobado";
+
+  return (
+    <WireframeShell title="🗓️ Mis Actividades" breadcrumb="Mi Espacio › Mis Actividades">
+      <div style={{ maxWidth: 640, margin: "0 auto 32px" }}>
+        <p style={{ fontSize: 14, lineHeight: 1.7, color: "var(--foreground)", margin: "0 0 12px 0" }}>
+          Desde aquí podrás crear y gestionar las actividades grupales que compartas en Mallorca Holística.
+        </p>
+        <p style={{ fontSize: 14, lineHeight: 1.7, color: "var(--foreground)", margin: 0 }}>
+          Talleres, cursos, retiros, conferencias, clases, encuentros y otras propuestas grupales podrán gestionarse desde este espacio.
+        </p>
+      </div>
+
+      <Box title="Acción principal">
+        {aprobado ? (
+          <>
+            <NavButton to="/mi-espacio/actividades/nueva" search={{ track, estado }}>
+              + Crear una actividad
+            </NavButton>
+            <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0" }}>
+              Este plan permite publicar actividades grupales sin límite mensual.
+            </p>
+            <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0", fontStyle: "italic" }}>
+              Todas las actividades deberán pasar primero por un proceso de revisión antes de ser publicadas.
+            </p>
+          </>
+        ) : (
+          <p style={{ fontSize: 13, lineHeight: 1.7, margin: 0 }}>
+            Podrás crear y publicar actividades en la Agenda cuando tu perfil haya sido aprobado.
+          </p>
+        )}
+      </Box>
+
+      <div style={{ fontSize: 11, color: "var(--muted-foreground)", letterSpacing: 1, margin: "32px 0 12px 0" }}>
+        ESTADOS DE LAS ACTIVIDADES
+      </div>
+
+      <ListaEstado
+        titulo="📝 Borradores"
+        estado="borrador"
+        descripcion="Aquí encontrarás las actividades que hayas comenzado pero todavía no hayas enviado."
+        vacio="Actualmente no tienes ningún borrador."
+      />
+      <ListaEstado
+        titulo="🟡 Pendientes de revisión"
+        estado="pendiente"
+        descripcion="Las actividades que envíes aparecerán aquí mientras nuestro equipo las revisa antes de su publicación."
+        vacio="Actualmente no tienes actividades pendientes de revisión."
+      />
+      <ListaEstado
+        titulo="🟢 Publicadas"
+        estado="publicada"
+        descripcion="Aquí aparecerán todas las actividades que ya han sido aprobadas y publicadas en Mallorca Holística."
+        vacio="Actualmente no has publicado ninguna actividad."
+      />
+      <ListaEstado
+        titulo="📁 Archivadas"
+        estado="archivada"
+        descripcion="Cuando una actividad finalice podrás consultarla aquí para conservar su histórico."
+        vacio="Actualmente no tienes actividades archivadas."
+      />
+
+      <Box title="Volver">
+        <NavButton to="/mi-espacio" search={{ track, estado }} variant="secondary">
+          ← Volver a Mi Espacio
+        </NavButton>
+      </Box>
+    </WireframeShell>
+  );
+}
