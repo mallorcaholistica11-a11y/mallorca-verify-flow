@@ -275,17 +275,24 @@ function PlanProfesionalVerificado() {
               partir del lanzamiento oficial de Mallorca Holística.
             </p>
             <p>
-              La fecha oficial de lanzamiento se comunicará antes de la activación de la
-              suscripción.
+              La fecha oficial de lanzamiento se comunicará antes de la activación de las
+              suscripciones.
             </p>
             <p>
               Para activar el Plan Profesional Verificado será necesario registrar un método de
               pago de forma segura mediante Stripe.
             </p>
             <p>
-              No se realizará ningún cargo durante el periodo gratuito. Al finalizar los 2 meses
-              gratuitos, la suscripción continuará automáticamente a 25 €/mes (IVA incluido), salvo
-              cancelación previa.
+              No se realizará ningún cargo durante el periodo gratuito.
+            </p>
+            <p>
+              El primer cobro se realizará únicamente cuando tu perfil haya sido aprobado como Profesional Verificado y haya finalizado el periodo gratuito de lanzamiento.
+            </p>
+            <p>
+              Si tu perfil se aprueba durante el periodo gratuito, la suscripción comenzará al finalizar dicho periodo. Si tu perfil se aprueba después de que el periodo gratuito haya finalizado, la suscripción comenzará a partir de su aprobación.
+            </p>
+            <p>
+              Mallorca Holística te informará por email antes del primer cobro de la suscripción, indicándote la fecha y el importe, para que puedas decidir con tiempo si deseas continuar o cancelar tu suscripción.
             </p>
           </div>
         </section>
