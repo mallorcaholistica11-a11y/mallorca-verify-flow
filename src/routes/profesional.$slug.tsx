@@ -15,7 +15,8 @@ export const Route = createFileRoute("/profesional/$slug")({
       { property: "og:title", content: "Ficha del profesional · Mallorca Holística" },
       {
         property: "og:description",
-        content: "Conoce a este profesional verificado: cómo trabaja, dónde atiende y cómo contactar.",
+        content:
+          "Conoce a este profesional verificado: cómo trabaja, dónde atiende y cómo contactar.",
       },
       { name: "twitter:card", content: "summary_large_image" },
     ],

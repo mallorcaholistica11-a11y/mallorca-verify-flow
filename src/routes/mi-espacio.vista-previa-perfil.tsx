@@ -60,7 +60,9 @@ function VistaPreviaPerfil() {
             flexWrap: "wrap",
           }}
         >
-          <span style={{ fontSize: 12.5 }}>Vista previa · Este perfil todavía no está publicado</span>
+          <span style={{ fontSize: 12.5 }}>
+            Vista previa · Este perfil todavía no está publicado
+          </span>
           <Link
             to="/mi-espacio/perfil"
             search={{ track, estado }}

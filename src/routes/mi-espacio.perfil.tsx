@@ -46,9 +46,7 @@ export const Route = createFileRoute("/mi-espacio/perfil")({
       { name: "twitter:card", content: "summary" },
     ],
   }),
-  validateSearch: (
-    s: Record<string, unknown>,
-  ): { track: Track; estado?: PerfilEstado } => {
+  validateSearch: (s: Record<string, unknown>): { track: Track; estado?: PerfilEstado } => {
     const estado = parseEstado(s.estado);
 
     return {
