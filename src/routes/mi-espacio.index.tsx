@@ -183,8 +183,10 @@ const ESTADOS_ORGANIZACION: Partial<Record<EspacioEstado, Partial<EstadoConfig>>
       "Podrás publicar actividades en la Agenda cuando tu perfil haya sido aprobado.",
   },
   revision: {
+    texto:
+      "Hemos recibido tu solicitud. Nuestro equipo está revisando la información enviada y te avisaremos por correo electrónico cuando el proceso haya finalizado.",
     actividadesTexto:
-      "Podrás publicar actividades en la Agenda cuando tu perfil haya sido aprobado.",
+      "Cuando tu perfil haya sido aprobado, podrás publicar actividades grupales sin límite en la Agenda de Mallorca Holística.",
   },
   aprobado: {
     titulo: "Entidad Verificada",
