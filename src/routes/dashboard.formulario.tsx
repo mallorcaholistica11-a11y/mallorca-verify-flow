@@ -2662,9 +2662,7 @@ function VerificadoFormulario() {
                   Estos datos se utilizarán únicamente para verificar vuestra identidad y no serán
                   visibles públicamente.
                 </Ayuda>
-                <FakeField label="Nombre legal o nombre fiscal" />
-                <FakeField label="CIF / NIF" />
-                <FakeField label="Persona responsable del perfil" />
+                <FakeField label="Nombre y apellidos de la persona responsable" />
               </div>
             </>
           ) : (
