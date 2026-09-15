@@ -1,7 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { FichaPublica } from "@/components/ficha/FichaPublica";
+import { FichaCentro } from "@/components/ficha/FichaCentro";
 import { parseTrack, type Track } from "@/components/Wireframe";
 import { FICHA_PROFESIONAL_ACTUAL } from "@/data/ficha-profesional";
+import { FICHA_CENTRO_ACTUAL } from "@/data/ficha-centro";
+
 
 type PerfilEstado = "pendiente" | "preparacion" | "revision";
 
@@ -72,7 +75,12 @@ function VistaPreviaPerfil() {
           </Link>
         </div>
       </div>
-      <FichaPublica data={{ ...FICHA_PROFESIONAL_ACTUAL, verificado: false }} />
+      {track === "organizacion" ? (
+        <FichaCentro data={{ ...FICHA_CENTRO_ACTUAL, verificado: false }} />
+      ) : (
+        <FichaPublica data={{ ...FICHA_PROFESIONAL_ACTUAL, verificado: false }} />
+      )}
     </div>
   );
 }
+
