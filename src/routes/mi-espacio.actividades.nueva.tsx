@@ -7,7 +7,15 @@ import { SelectorAreas } from "@/components/SelectorAreas";
 import { MAX_AREAS_ACTIVIDAD } from "@/data/areas";
 import { MAX_PRACTICAS_ACTIVIDAD } from "@/data/practicas";
 import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
-import { LIMITE_ACTIVIDADES_MES, limiteAlcanzado } from "@/data/actividades-espacio";
+import {
+  LIMITE_ACTIVIDADES_MES,
+  guardarActividad,
+  leerActividadesGuardadas,
+  limiteAlcanzado,
+  mesActual,
+  registroCompleto,
+} from "@/data/actividades-espacio";
+import { FichaActividad, type FichaActividadData } from "@/components/actividad/FichaActividad";
 import { FICHA_CENTRO_ACTUAL } from "@/data/ficha-centro";
 import { FICHA_PROFESIONAL_ACTUAL } from "@/data/ficha-profesional";
 import type { Ubicacion } from "@/components/ficha/types";
@@ -163,21 +171,142 @@ function NuevaActividadPagina() {
 
   // El límite mensual solo afecta a la PUBLICACIÓN y solo al Plan Profesional
   // Verificado. El Plan Centros, Espacios & Organizadores no tiene límite.
-  const sinDisponibilidad = esVerificado && limiteAlcanzado();
-  const puedeEnviar = perfilAprobado && !sinDisponibilidad;
+  const sinDisponibilidad = esVerificado && limiteAlcanzado(mesActual(), registroCompleto());
 
   const perfil = esCentro ? FICHA_CENTRO_ACTUAL : FICHA_PROFESIONAL_ACTUAL;
   const ubicacionesPerfil = perfil.ubicaciones ?? [];
   const contactoPerfil = perfil.contacto ?? {};
 
+  // Campos obligatorios para poder enviar la actividad a revisión.
+  const faltan: string[] = [];
+  if (!form.titulo.trim()) faltan.push("Título de la actividad");
+  if (!form.tipo || (form.tipo === "Otro" && !form.tipoOtro.trim())) faltan.push("Tipo de actividad");
+  if (!form.descripcion.trim()) faltan.push("Descripción de la actividad");
+  if (!form.fecha) faltan.push("Fecha");
+  if (!form.horaInicio) faltan.push("Hora de inicio");
+  if (!form.modalidad) faltan.push("Modalidad");
+  if (!form.precioTipo) faltan.push("Precio");
+
   const esPresencial = form.modalidad === "Presencial" || form.modalidad === "Híbrida";
   const esOnline = form.modalidad === "Online" || form.modalidad === "Híbrida";
   const usaUbicacionPerfil = form.origenUbicacion === "perfil" && ubicacionesPerfil.length > 0;
 
+  if (esPresencial) {
+    if (usaUbicacionPerfil ? !form.ubicacionPerfil : !form.municipio) faltan.push("Ubicación de la actividad");
+  }
+
+  const completa = faltan.length === 0;
+  const puedeEnviar = completa && !sinDisponibilidad;
+
+  const tipoActividad = form.tipo === "Otro" ? form.tipoOtro : form.tipo;
+  const nivelActividad = form.nivel === "Otro" ? form.nivelOtro : form.nivel;
+  const precioActividad =
+    form.precioTipo === "pago"
+      ? form.precio
+        ? `${form.precio} €`
+        : "De pago"
+      : form.precioTipo === "gratuito"
+        ? "Gratuito"
+        : form.precioTipo === "aportacion"
+          ? "Aportación voluntaria"
+          : form.precioTipo === "consultar"
+            ? "Consultar"
+            : "";
+  const telefonoActividad = form.contactoPropio
+    ? form.telefono.numero
+      ? `${form.telefono.prefijo} ${form.telefono.numero}`
+      : undefined
+    : (contactoPerfil.whatsapp ?? contactoPerfil.telefono);
+  const emailActividad = form.contactoPropio ? form.email || undefined : contactoPerfil.email;
+  const ubicacionSeleccionada = usaUbicacionPerfil
+    ? ubicacionesPerfil.find((u) => etiquetaUbicacion(u) === form.ubicacionPerfil)
+    : undefined;
+
+  const fichaPrevia: FichaActividadData = {
+    tipo: tipoActividad || undefined,
+    titulo: form.titulo || "Título de la actividad",
+    fecha: form.fecha || undefined,
+    hora: [form.horaInicio, form.horaFin].filter(Boolean).join(" – ") || undefined,
+    recurrencia:
+      form.repite === "si"
+        ? [form.frecuencia, form.repiteDetalle].filter(Boolean).join(" · ") || undefined
+        : undefined,
+    modalidad: form.modalidad || undefined,
+    municipio: usaUbicacionPerfil ? ubicacionSeleccionada?.municipio : form.municipio || undefined,
+    direccion: usaUbicacionPerfil
+      ? [ubicacionSeleccionada?.nombre, ubicacionSeleccionada?.direccion].filter(Boolean).join(" · ") || undefined
+      : [form.nombreEspacio, form.direccion].filter(Boolean).join(" · ") || undefined,
+    precio: precioActividad || undefined,
+    whatsapp: telefonoActividad,
+    ...(form.enlaceReserva ? { enlaceReserva: form.enlaceReserva } : {}),
+    descripcion: form.descripcion || undefined,
+    practicas: form.practicas,
+    areas: form.areas,
+    imagenUrl: form.imagenPreview,
+    practica: [
+      { label: "Idioma", value: form.idiomas.join(" · ") },
+      { label: "Plazas", value: form.plazas },
+      { label: "Nivel", value: nivelActividad },
+      { label: "Qué traer", value: form.queTraer },
+    ].filter((f) => f.value),
+    organizador: {
+      nombre: perfil.nombre,
+      ...(perfil.identidadProfesional ? { profesion: perfil.identidadProfesional } : {}),
+      ...(perfil.fotoUrl ? { fotoUrl: perfil.fotoUrl } : {}),
+    },
+    contacto: {
+      ...(telefonoActividad ? { telefono: telefonoActividad, telefonoPublico: true } : {}),
+      ...(emailActividad ? { email: emailActividad } : {}),
+      ...(contactoPerfil.web ? { web: contactoPerfil.web } : {}),
+      ...(contactoPerfil.redes ? { redes: contactoPerfil.redes } : {}),
+    },
+  };
+
+  const registrar = (destino: Resultado) => {
+    guardarActividad({
+      id: `act-${Date.now()}`,
+      titulo: form.titulo.trim() || "Actividad sin título",
+      estado: destino === "enviada" ? "pendiente" : "preparacion",
+      mes: mesActual(),
+    });
+    setResultado(destino);
+  };
+
+  if (vistaPrevia) {
+    return (
+      <FichaActividad
+        actividad={fichaPrevia}
+        vistaPrevia
+        accionVolver={
+          <button
+            type="button"
+            onClick={() => setVistaPrevia(false)}
+            style={{
+              background: "none",
+              border: "none",
+              padding: 0,
+              fontFamily: "inherit",
+              fontSize: 12,
+              color: "var(--muted-foreground)",
+              textDecoration: "underline",
+              cursor: "pointer",
+            }}
+          >
+            ← Volver a editar la actividad
+          </button>
+        }
+      />
+    );
+  }
+
   if (resultado) {
     return (
       <WireframeShell
-        title={resultado === "preparacion" ? "🌿 Tu actividad se ha guardado" : "🌿 Tu actividad ha sido enviada"}
+        title={
+          resultado === "preparacion"
+            ? "🌿 Tu actividad se ha guardado"
+            : "🌿 Tu actividad ha sido enviada para revisión"
+        }
         breadcrumb="Mi Espacio › Mis Actividades › Nueva actividad"
       >
         <Box title={resultado === "preparacion" ? "En preparación" : "Pendiente de revisión"}>
@@ -189,19 +318,20 @@ function NuevaActividadPagina() {
           ) : (
             <>
               <p style={{ fontSize: 14, lineHeight: 1.7, margin: "0 0 12px 0" }}>
-                Gracias por compartir tu propuesta con la comunidad de Mallorca Holística.
+                Hemos recibido correctamente tu actividad.
+              </p>
+              <p style={{ fontSize: 14, lineHeight: 1.7, margin: "0 0 12px 0" }}>
+                Nuestro equipo la revisará antes de publicarla en la Agenda de Mallorca Holística.
               </p>
               <p style={{ fontSize: 14, lineHeight: 1.7, margin: 0 }}>
-                La encontrarás en Mis Actividades › Pendientes de revisión. La revisaremos antes de
-                publicarla para garantizar la calidad y coherencia de la Agenda. Recibirás una
-                notificación en cuanto haya sido aprobada.
+                Puedes consultar su estado desde Mis Actividades.
               </p>
             </>
           )}
         </Box>
         <Box title="Continuar">
           <NavButton to="/mi-espacio/actividades" search={{ track, estado }}>
-            ← Volver a Mis Actividades
+            Volver a Mis Actividades
           </NavButton>
         </Box>
       </WireframeShell>
@@ -783,33 +913,16 @@ function NuevaActividadPagina() {
             </p>
           </Box>
 
-          {vistaPrevia && (
-            <Box title="Vista previa">
-              <p style={{ fontSize: 12, color: "var(--muted-foreground)", fontStyle: "italic", margin: "0 0 10px 0" }}>
-                Vista previa · Esta actividad todavía no está publicada
-              </p>
-              <Resumen
-                form={form}
-                usaUbicacionPerfil={usaUbicacionPerfil}
-                contactoPerfil={{
-                  telefono: contactoPerfil.whatsapp ?? contactoPerfil.telefono,
-                  email: contactoPerfil.email,
-                }}
-                publica
-              />
-            </Box>
-          )}
-
           <Box title="Enviar">
-            <button type="button" style={secondaryBtn} onClick={() => setVistaPrevia((v) => !v)}>
-              {vistaPrevia ? "Ocultar vista previa" : "Vista previa"}
+            <button type="button" style={secondaryBtn} onClick={() => setVistaPrevia(true)}>
+              Vista previa
             </button>
-            <button type="button" style={secondaryBtn} onClick={() => setResultado("preparacion")}>
+            <button type="button" style={secondaryBtn} onClick={() => registrar("preparacion")}>
               Guardar y continuar más tarde
             </button>
             <button
               type="button"
-              onClick={() => setResultado("enviada")}
+              onClick={() => registrar("enviada")}
               disabled={!puedeEnviar}
               style={{
                 ...primaryBtn,
@@ -820,13 +933,18 @@ function NuevaActividadPagina() {
               Enviar para revisión
             </button>
 
+            {!completa && (
+              <div style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0", lineHeight: 1.6 }}>
+                Para enviar la actividad a revisión, completa: {faltan.join(", ")}.
+              </div>
+            )}
             {!perfilAprobado && (
               <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0", lineHeight: 1.6 }}>
-                Puedes guardar esta actividad y continuar más tarde. Podrás enviarla para revisión
-                cuando tu perfil haya sido aprobado.
+                Podrás enviarla para revisión desde ahora. Se publicará en la Agenda cuando tu
+                perfil haya sido aprobado.
               </p>
             )}
-            {perfilAprobado && sinDisponibilidad && (
+            {sinDisponibilidad && (
               <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0", lineHeight: 1.6 }}>
                 Has utilizado las {LIMITE_ACTIVIDADES_MES} actividades incluidas este mes en tu plan.
                 Puedes guardar esta actividad y continuar más tarde, y enviarla cuando vuelvas a
