@@ -10,7 +10,6 @@ import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
 import {
   LIMITE_ACTIVIDADES_MES,
   guardarActividad,
-  leerActividadesGuardadas,
   limiteAlcanzado,
   mesActual,
   registroCompleto,
