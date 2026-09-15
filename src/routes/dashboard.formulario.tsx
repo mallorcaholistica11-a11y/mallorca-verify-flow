@@ -1594,9 +1594,9 @@ const V_STEP_TITLES = [
 
 const O_STEP_TITLES = [
   "Información General",
-  "Actividad de la organización",
+  "Actividad",
   "Ubicaciones",
-  "Perfil de la Organización",
+  "Perfil",
   "Contacto y presencia online",
   "Verificación y Compromisos",
   "Activa tu suscripción",
