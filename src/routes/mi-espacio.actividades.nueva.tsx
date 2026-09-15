@@ -360,7 +360,6 @@ function NuevaActividadPagina() {
             />
           </div>
         </Box>
-      )}
 
       
         <Box title="Descripción">
