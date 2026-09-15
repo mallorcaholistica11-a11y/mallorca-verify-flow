@@ -1,13 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { WireframeShell, Box, NavButton, TrackBadge, parseTrack, type Track } from "@/components/Wireframe";
 import {
   LIMITE_ACTIVIDADES_MES,
-  MIS_ACTIVIDADES,
   actividadesConsumidas,
   actividadesPorEstado,
   limiteAlcanzado,
+  registroCompleto,
   type ActividadEstado,
+  type ActividadRegistro,
 } from "@/data/actividades-espacio";
+
+/** Registro de actividades del usuario (persistencia local provisional). */
+function useRegistroActividades(): ActividadRegistro[] {
+  const [registro, setRegistro] = useState<ActividadRegistro[]>([]);
+  useEffect(() => {
+    setRegistro(registroCompleto());
+  }, []);
+  return registro;
+}
 
 // Estado real del perfil profesional (mismo vocabulario que Mi Espacio).
 type PerfilEstado = "pendiente" | "preparacion" | "revision" | "aprobado";
@@ -55,8 +66,9 @@ function MisActividadesVerificado({
 }) {
   const estado = estadoSearch ?? "pendiente";
   const aprobado = estado === "aprobado";
-  const usadas = actividadesConsumidas();
-  const alcanzado = limiteAlcanzado();
+  const registro = useRegistroActividades();
+  const usadas = actividadesConsumidas(undefined, registro);
+  const alcanzado = limiteAlcanzado(undefined, registro);
 
   return (
     <WireframeShell title="Mis Actividades" breadcrumb="Mi Espacio › Mis Actividades">
@@ -108,24 +120,28 @@ function MisActividadesVerificado({
         estado="preparacion"
         descripcion="Aquí encontrarás las actividades que has empezado y todavía no has enviado para revisión."
         vacio="Actualmente no tienes actividades en preparación."
+        registro={registro}
       />
       <ListaEstado
         titulo="🟡 Pendientes de revisión"
         estado="pendiente"
         descripcion="Las actividades que envíes aparecerán aquí mientras nuestro equipo las revisa antes de su publicación."
         vacio="Actualmente no tienes actividades pendientes de revisión."
+        registro={registro}
       />
       <ListaEstado
         titulo="🟢 Publicadas"
         estado="publicada"
         descripcion="Aquí aparecerán todas las actividades que ya han sido aprobadas y publicadas en Mallorca Holística."
         vacio="Actualmente no has publicado ninguna actividad."
+        registro={registro}
       />
       <ListaEstado
         titulo="📁 Archivadas"
         estado="archivada"
         descripcion="Cuando una actividad finalice podrás consultarla aquí para conservar su histórico."
         vacio="Actualmente no tienes actividades archivadas."
+        registro={registro}
       />
 
       <Box title="Volver">
@@ -142,13 +158,15 @@ function ListaEstado({
   estado,
   descripcion,
   vacio,
+  registro,
 }: {
   titulo: string;
   estado: ActividadEstado;
   descripcion: string;
   vacio: string;
+  registro: ActividadRegistro[];
 }) {
-  const actividades = actividadesPorEstado(estado, MIS_ACTIVIDADES);
+  const actividades = actividadesPorEstado(estado, registro);
   return (
     <Box title={titulo}>
       <p style={{ fontSize: 13, lineHeight: 1.6, color: "var(--foreground)", margin: 0 }}>
@@ -256,6 +274,7 @@ function MisActividadesCentro({
 }) {
   const estado = estadoSearch ?? "pendiente";
   const aprobado = estado === "aprobado";
+  const registro = useRegistroActividades();
 
   return (
     <WireframeShell title="🗓️ Mis Actividades" breadcrumb="Mi Espacio › Mis Actividades">
@@ -295,24 +314,28 @@ function MisActividadesCentro({
         estado="preparacion"
         descripcion="Aquí encontrarás las actividades que has empezado y todavía no has enviado para revisión."
         vacio="Actualmente no tienes actividades en preparación."
+        registro={registro}
       />
       <ListaEstado
         titulo="🟡 Pendientes de revisión"
         estado="pendiente"
         descripcion="Las actividades que envíes aparecerán aquí mientras nuestro equipo las revisa antes de su publicación."
         vacio="Actualmente no tienes actividades pendientes de revisión."
+        registro={registro}
       />
       <ListaEstado
         titulo="🟢 Publicadas"
         estado="publicada"
         descripcion="Aquí aparecerán todas las actividades que ya han sido aprobadas y publicadas en Mallorca Holística."
         vacio="Actualmente no has publicado ninguna actividad."
+        registro={registro}
       />
       <ListaEstado
         titulo="📁 Archivadas"
         estado="archivada"
         descripcion="Cuando una actividad finalice podrás consultarla aquí para conservar su histórico."
         vacio="Actualmente no tienes actividades archivadas."
+        registro={registro}
       />
 
       <Box title="Volver">
