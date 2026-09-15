@@ -11,7 +11,9 @@ import {
   type Track,
 } from "@/components/Wireframe";
 import { PERFILES, type ResultadoProfesional } from "@/data/perfiles";
-import { retratoDe } from "@/data/imagenes";
+import { FICHA_CENTRO_ACTUAL } from "@/data/ficha-centro";
+import { ambienteDe, retratoDe } from "@/data/imagenes";
+
 
 type PerfilEstado = "pendiente" | "preparacion" | "revision" | "aprobado";
 
