@@ -212,7 +212,7 @@ function MiEspacioVerificado({ track, estado }: { track: Track; estado: EspacioE
 
       <Box title="Estado de tu perfil">
         <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "0 0 8px 0" }}>
-          Plan Profesional Verificado
+          {planLabel}
         </p>
         <p style={{ fontSize: 14, fontWeight: 600, margin: "0 0 8px 0" }}>
           {config.indicador} {config.titulo}
