@@ -188,6 +188,8 @@ const ESTADOS_ORGANIZACION: Partial<Record<EspacioEstado, Partial<EstadoConfig>>
   },
   aprobado: {
     titulo: "Entidad Verificada",
+    ctaTo: "/centro/$slug",
+    ctaParams: { slug: "espai-sa-font" },
     actividadesTexto:
       "Crea y gestiona las actividades grupales que aparecerán en la Agenda, sin límite de publicaciones.",
   },
