@@ -65,3 +65,36 @@ export function limiteAlcanzado(
 ): boolean {
   return actividadesConsumidas(mes, registro) >= LIMITE_ACTIVIDADES_MES;
 }
+
+/**
+ * Persistencia local provisional mientras no exista backend: conserva las
+ * actividades creadas desde el formulario universal para que aparezcan en
+ * Mis Actividades con su estado (en preparación / pendiente de revisión).
+ */
+const CLAVE_REGISTRO = "mh-actividades";
+
+export function leerActividadesGuardadas(): ActividadRegistro[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const bruto = window.localStorage.getItem(CLAVE_REGISTRO);
+    if (!bruto) return [];
+    const datos = JSON.parse(bruto);
+    return Array.isArray(datos) ? (datos as ActividadRegistro[]) : [];
+  } catch {
+    return [];
+  }
+}
+
+export function guardarActividad(actividad: ActividadRegistro): void {
+  if (typeof window === "undefined") return;
+  const actuales = leerActividadesGuardadas().filter((a) => a.id !== actividad.id);
+  try {
+    window.localStorage.setItem(CLAVE_REGISTRO, JSON.stringify([...actuales, actividad]));
+  } catch {
+    // Sin almacenamiento disponible: la actividad no se conserva.
+  }
+}
+
+export function registroCompleto(): ActividadRegistro[] {
+  return [...MIS_ACTIVIDADES, ...leerActividadesGuardadas()];
+}
