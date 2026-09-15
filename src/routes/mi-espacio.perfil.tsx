@@ -46,16 +46,12 @@ export const Route = createFileRoute("/mi-espacio/perfil")({
       { name: "twitter:card", content: "summary" },
     ],
   }),
-  validateSearch: (
-    s: Record<string, unknown>,
-  ): { track: Track; estado?: PerfilEstado; preview?: true } => {
+  validateSearch: (s: Record<string, unknown>): { track: Track; estado?: PerfilEstado } => {
     const estado = parseEstado(s.estado);
-    const preview = s.preview === true || s.preview === "true";
 
     return {
       track: parseTrack(s),
       ...(estado ? { estado } : {}),
-      ...(preview ? { preview: true } : {}),
     };
   },
   component: MiPerfil,
@@ -88,7 +84,7 @@ const ESTADO_PERFIL: Record<PerfilEstado, { estado: string; verificacion: string
 const valorNoDisponible = "No indicado";
 
 function MiPerfil() {
-  const { track, estado: estadoSearch, preview = false } = Route.useSearch();
+  const { track, estado: estadoSearch } = Route.useSearch();
 
   if (track !== "verificado") return <MiPerfilOtrosRecorridos track={track} />;
 
@@ -160,53 +156,74 @@ function MiPerfil() {
       </Box>
 
       <Box title="Fotografías">
-        <div style={{ fontSize: 12, marginBottom: 8 }}>Fotografía principal</div>
         <div
           style={{
-            border: "1px solid var(--border)",
-            borderRadius: 12,
-            background: "var(--muted)",
-            height: 160,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            overflow: "hidden",
-            marginBottom: 16,
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: 20,
+            alignItems: "start",
           }}
         >
-          {perfilProfesional ? (
-            <img
-              src={retratoDe(perfilProfesional.nombre)}
-              alt={`Fotografía principal de ${perfilProfesional.nombre}`}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
-          ) : (
-            <span style={{ color: "var(--muted-foreground)", fontSize: 12 }}>
-              Sin fotografía principal
-            </span>
-          )}
-        </div>
-        <div style={{ fontSize: 12, marginBottom: 8 }}>Galería de hasta 5 imágenes adicionales</div>
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-          {[1, 2, 3, 4, 5].map((i) => (
+          <div>
+            <div style={{ fontSize: 12, marginBottom: 8 }}>Fotografía principal</div>
             <div
-              key={i}
               style={{
-                border: "1px dashed var(--border)",
+                border: "1px solid var(--border)",
                 borderRadius: 12,
                 background: "var(--muted)",
-                width: 100,
-                height: 100,
+                width: "min(100%, 220px)",
+                aspectRatio: "4 / 5",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                color: "var(--muted-foreground)",
-                fontSize: 11,
+                overflow: "hidden",
               }}
             >
-              Sin imagen
+              {perfilProfesional ? (
+                <img
+                  src={retratoDe(perfilProfesional.nombre)}
+                  alt={`Fotografía principal de ${perfilProfesional.nombre}`}
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+              ) : (
+                <span style={{ color: "var(--muted-foreground)", fontSize: 12 }}>
+                  Sin fotografía principal
+                </span>
+              )}
             </div>
-          ))}
+          </div>
+          <div>
+            <div style={{ fontSize: 12, marginBottom: 8 }}>
+              Galería de hasta 5 imágenes adicionales
+            </div>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(72px, 1fr))",
+                gap: 8,
+              }}
+            >
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div
+                  key={i}
+                  style={{
+                    border: "1px dashed var(--border)",
+                    borderRadius: 12,
+                    background: "var(--muted)",
+                    aspectRatio: "1 / 1",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "var(--muted-foreground)",
+                    fontSize: 11,
+                    textAlign: "center",
+                  }}
+                >
+                  Sin imagen
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </Box>
 
@@ -218,33 +235,14 @@ function MiPerfil() {
             ? "Así aparece actualmente tu perfil en Mallorca Holística."
             : "Así se mostrará tu perfil una vez aprobado y publicado en Mallorca Holística."}
         </p>
-        {preview && !estaAprobado && (
-          <div
-            id="vista-previa"
-            style={{
-              border: "1px solid var(--border)",
-              borderRadius: 12,
-              padding: 16,
-              background: "var(--card)",
-              maxWidth: 360,
-              marginBottom: 12,
-            }}
-          >
-            <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>{nombre}</div>
-            <div style={{ fontSize: 12, color: "var(--muted-foreground)", marginBottom: 6 }}>
-              {practicas}
-            </div>
-            <div style={{ fontSize: 12, color: "var(--foreground)" }}>{ubicaciones}</div>
-          </div>
-        )}
         {estaAprobado && slug ? (
           <NavButton to="/profesional/$slug" params={{ slug }}>
             Ver mi perfil público
           </NavButton>
         ) : (
           <NavButton
-            to="/mi-espacio/perfil"
-            search={{ track, estado, preview: preview ? "false" : "true" }}
+            to="/mi-espacio/vista-previa-perfil"
+            search={{ track, estado }}
             variant="secondary"
           >
             Vista previa de mi perfil
