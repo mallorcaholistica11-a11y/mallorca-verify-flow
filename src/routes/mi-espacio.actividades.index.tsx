@@ -269,23 +269,21 @@ function MisActividadesCentro({
       </div>
 
       <Box title="Acción principal">
+        <NavButton to="/mi-espacio/actividades/nueva" search={{ track, estado }}>
+          + Crear una actividad
+        </NavButton>
         {aprobado ? (
-          <>
-            <NavButton to="/mi-espacio/actividades/nueva" search={{ track, estado }}>
-              + Crear una actividad
-            </NavButton>
-            <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0" }}>
-              Este plan permite publicar actividades grupales sin límite mensual.
-            </p>
-            <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0", fontStyle: "italic" }}>
-              Todas las actividades deberán pasar primero por un proceso de revisión antes de ser publicadas.
-            </p>
-          </>
+          <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0" }}>
+            Este plan permite publicar actividades grupales sin límite mensual.
+          </p>
         ) : (
-          <p style={{ fontSize: 13, lineHeight: 1.7, margin: 0 }}>
-            Podrás crear y publicar actividades en la Agenda cuando tu perfil haya sido aprobado.
+          <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0", lineHeight: 1.6 }}>
+            {MENSAJE_NO_DISPONIBLE}
           </p>
         )}
+        <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0", fontStyle: "italic" }}>
+          Todas las actividades deberán pasar primero por un proceso de revisión antes de ser publicadas.
+        </p>
       </Box>
 
       <div style={{ fontSize: 11, color: "var(--muted-foreground)", letterSpacing: 1, margin: "32px 0 12px 0" }}>
