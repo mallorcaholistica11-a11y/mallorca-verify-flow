@@ -166,8 +166,41 @@ const ESTADOS: Record<EspacioEstado, EstadoConfig> = {
   },
 };
 
+// Ajustes propios del Plan Centros, Espacios & Organizadores. Se conserva la
+// misma arquitectura y sólo cambian los textos correspondientes al plan.
+const ESTADOS_ORGANIZACION: Partial<Record<EspacioEstado, Partial<EstadoConfig>>> = {
+  pendiente: {
+    titulo: "Perfil pendiente de completar",
+    texto:
+      "Completa tu perfil para solicitar tu verificación. Puedes guardar tu progreso y continuar en otro momento.",
+    perfilTexto: "Completa la información de tu perfil para solicitar tu verificación.",
+    actividadesTexto:
+      "Podrás publicar actividades en la Agenda cuando tu perfil haya sido aprobado.",
+  },
+  preparacion: {
+    perfilTexto: "Continúa completando tu perfil desde donde lo dejaste. Tu progreso se conserva.",
+    actividadesTexto:
+      "Podrás publicar actividades en la Agenda cuando tu perfil haya sido aprobado.",
+  },
+  revision: {
+    actividadesTexto:
+      "Podrás publicar actividades en la Agenda cuando tu perfil haya sido aprobado.",
+  },
+  aprobado: {
+    titulo: "Entidad Verificada",
+    actividadesTexto:
+      "Crea y gestiona las actividades grupales que aparecerán en la Agenda, sin límite de publicaciones.",
+  },
+};
+
 function MiEspacioVerificado({ track, estado }: { track: Track; estado: EspacioEstado }) {
-  const config = ESTADOS[estado];
+  const esOrganizacion = track === "organizacion";
+  const config: EstadoConfig = esOrganizacion
+    ? { ...ESTADOS[estado], ...ESTADOS_ORGANIZACION[estado] }
+    : ESTADOS[estado];
+  const planLabel = esOrganizacion
+    ? "Plan Centros, Espacios & Organizadores"
+    : "Plan Profesional Verificado";
 
   return (
     <WireframeShell title="Mi Espacio" breadcrumb="Mi Espacio">
