@@ -168,7 +168,7 @@ function NuevaActividadPagina() {
           </p>
         </Box>
         <Box title="Continuar">
-          <NavButton to="/mi-espacio/actividades" search={{ track }}>
+          <NavButton to="/mi-espacio/actividades" search={{ track, estado }}>
             ← Volver a Mis Actividades
             <span style={{ display: 'block', fontSize: 12, marginTop: 4, opacity: 0.8, fontWeight: 400 }}>
               Desde Mis Actividades podrás consultar el estado de revisión de tu propuesta.
