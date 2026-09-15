@@ -468,7 +468,7 @@ function NuevaActividadPagina() {
         </Box>
       )}
 
-      {paso === 4 && (
+      
         <Box title="Modalidad y ubicación">
           <FieldLabel>Modalidad</FieldLabel>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
