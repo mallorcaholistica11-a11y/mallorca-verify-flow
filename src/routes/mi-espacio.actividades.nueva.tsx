@@ -466,7 +466,6 @@ function NuevaActividadPagina() {
             )}
           </div>
         </Box>
-      )}
 
       
         <Box title="Modalidad y ubicación">
