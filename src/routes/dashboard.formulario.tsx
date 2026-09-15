@@ -3061,39 +3061,68 @@ function Paso7OrganizacionEstandar({ autoriza, onToggle }: Paso7Props) {
       <Box title="¡Enhorabuena! Ya habéis completado vuestra solicitud">
         <div style={{ marginBottom: 16 }}>
           <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-            ¡Enhorabuena! Ya habéis completado vuestra solicitud.
+            Plan Centros, Espacios & Organizadores: 50 €/mes (IVA incluido).
           </p>
           <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-            Para activar vuestra suscripción solo necesitamos registrar un método de pago seguro.
-          </p>
-          <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-            No se realizará ningún cargo mientras vuestra solicitud esté en revisión.
+            Para completar vuestra solicitud solo necesitamos registrar un método de pago de forma
+            segura. No realizaremos ningún cargo mientras vuestra solicitud esté pendiente de
+            aprobación.
           </p>
         </div>
       </Box>
 
       <Box title="Oferta de lanzamiento">
-        <ul style={{ fontSize: 13, paddingLeft: 20, marginBottom: 8, lineHeight: 1.8 }}>
+        <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
+          2 meses gratuitos desde el lanzamiento oficial de Mallorca Holística.
+        </p>
+        <p style={{ fontSize: 13, marginBottom: 0, lineHeight: 1.7 }}>
+          Los 2 meses gratuitos comenzarán en la fecha oficial de lanzamiento de Mallorca Holística.
+          La fecha se comunicará antes de la activación de las suscripciones.
+        </p>
+      </Box>
+
+      <Box title="¿Cuándo empezaréis a pagar?">
+        <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
+          El primer cobro se realizará cuando se cumplan estas dos condiciones:
+        </p>
+        <ol style={{ fontSize: 13, paddingLeft: 20, marginBottom: 10, lineHeight: 1.8 }}>
+          <li>Vuestro perfil haya sido aprobado como Entidad Verificada.</li>
           <li>
-            2 meses gratuitos para todas las organizaciones que se inscriban durante el primer mes
-            tras el lanzamiento de Mallorca Holística.
+            Haya finalizado el periodo gratuito de 2 meses desde el lanzamiento oficial de Mallorca
+            Holística.
           </li>
-          <li>Después: 50 €/mes (IVA incluido).</li>
-          <li>Sin permanencia.</li>
-        </ul>
+        </ol>
+        <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
+          Si vuestro perfil es aprobado durante el periodo gratuito, no pagaréis nada hasta que este
+          finalice.
+        </p>
+        <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
+          Si vuestro perfil es aprobado después de que haya finalizado el periodo gratuito, la
+          suscripción comenzará en el momento de la aprobación.
+        </p>
+        <p style={{ fontSize: 13, marginBottom: 0, lineHeight: 1.7 }}>
+          Si vuestra solicitud no es aprobada, la suscripción no se activará y no se realizará
+          ningún cobro.
+        </p>
+      </Box>
+
+      <Box title="Aviso antes del primer cobro">
+        <p style={{ fontSize: 13, marginBottom: 0, lineHeight: 1.7 }}>
+          Mallorca Holística te informará por email antes del primer cobro de la suscripción,
+          indicándote la fecha y el importe, para que puedas decidir con tiempo si deseas continuar
+          o cancelar tu suscripción.
+        </p>
       </Box>
 
       <VConsentItem
         icon="🔒"
         title="Autorización"
-        label="Autorizo a Mallorca Holística a registrar de forma segura nuestro método de pago y activar automáticamente la suscripción únicamente si nuestra solicitud resulta aprobada, una vez finalizado el período gratuito correspondiente."
+        label="Autorizo a Mallorca Holística a registrar mi método de pago mediante Stripe y, una vez aprobado mi perfil y finalizado el periodo gratuito de lanzamiento que me corresponda, activar mi suscripción de 50 €/mes (IVA incluido), salvo cancelación previa."
         checked={autoriza}
         onToggle={onToggle}
       />
 
-      <StripeBlock
-        note="El registro del método de pago se realizará de forma segura mediante Stripe. No realizaremos ningún cargo hasta que vuestra organización haya sido aprobada y, si corresponde, haya finalizado el periodo gratuito de lanzamiento."
-      />
+      <StripeBlock />
     </>
   );
 }
