@@ -534,6 +534,9 @@ function MiSuscripcionOtrosRecorridos({ track }: { track: Track }) {
           <Card title="Próximo cobro">{proximaRenovacion}</Card>
         </Row>
         <NavButton to="/mi-espacio/suscripcion" search={{ track }} variant="secondary">Actualizar método de pago</NavButton>
+        <p style={{ fontSize: 11, color: "var(--muted-foreground)", fontStyle: "italic", margin: "12px 0 0 0" }}>
+          Este bloque quedará preparado para integrarse con Stripe.
+        </p>
       </Box>
       <Box title="Bloque 4 · Actividad de la cuenta">
         <Row>
@@ -544,13 +547,63 @@ function MiSuscripcionOtrosRecorridos({ track }: { track: Track }) {
           <Card title="Pendientes de revisión">1</Card>
           <Card title="Archivadas">7</Card>
         </Row>
+        <p style={{ fontSize: 11, color: "var(--muted-foreground)", fontStyle: "italic", margin: "12px 0 0 0" }}>
+          Estos valores se obtendrán posteriormente desde la base de datos.
+        </p>
       </Box>
       <Box title="Bloque 5 · Historial de facturación">
-        <p style={{ ...paragraphStyle, margin: 0 }}>La información de facturación se mostrará aquí.</p>
+        <div style={{ overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
+            <thead>
+              <tr>
+                {["Fecha", "Concepto", "Importe", "Estado", "Acción"].map((encabezado) => (
+                  <th key={encabezado} style={tableHeaderStyle}>{encabezado}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style={cellStyle}>17/07/2026</td>
+                <td style={cellStyle}>{plan.nombre}</td>
+                <td style={cellStyle}>{plan.precio === "Gratuito" ? "—" : plan.precio.split("/")[0]}</td>
+                <td style={cellStyle}>Pagado</td>
+                <td style={cellStyle}>
+                  <a href="#" style={{ color: "var(--foreground)", textDecoration: "underline", fontSize: 12 }}>
+                    Descargar factura
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p style={{ fontSize: 11, color: "var(--muted-foreground)", fontStyle: "italic", margin: "12px 0 0 0" }}>
+          Esta tabla se conectará posteriormente con Stripe.
+        </p>
       </Box>
       <Box title="Bloque 6 · Acciones">
         <NavButton to="/mi-espacio/suscripcion" search={{ track }}>Cambiar de plan</NavButton>
         <NavButton to="/mi-espacio/suscripcion" search={{ track }} variant="secondary">Cancelar suscripción</NavButton>
+        <p style={{ fontSize: 12, lineHeight: 1.6, color: "var(--foreground)", margin: "16px 0 0 0" }}>
+          Si decides cancelar tu suscripción, seguirás disfrutando de todas las funcionalidades hasta el final del período ya abonado.
+        </p>
+        <p style={{ fontSize: 12, lineHeight: 1.6, color: "var(--foreground)", margin: "8px 0 0 0" }}>
+          Recuerda que siempre puedes seguir formando parte de Mallorca Holística con el Plan Presencia gratuito. Estaremos felices de seguir caminando contigo, sea cual sea el plan que elijas. Gracias por formar parte de esta comunidad.
+        </p>
+      </Box>
+      <Box title="Bloque 7 · Próximamente en Mallorca Holística">
+        <p style={{ fontSize: 13, lineHeight: 1.6, color: "var(--foreground)", margin: "0 0 12px 0" }}>
+          Estamos desarrollando nuevas funcionalidades que estarán disponibles en futuras actualizaciones de la plataforma.
+        </p>
+        <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+          {[
+            "Estadísticas de visualización del perfil.",
+            "Estadísticas de las actividades publicadas.",
+            "Gestión de reservas desde Mallorca Holística.",
+            "Valoraciones y opiniones de asistentes.",
+            "Promoción destacada de actividades.",
+            "Nuevas herramientas para centros y organizadores.",
+          ].map((item) => <li key={item} style={listItemStyle}>• {item}</li>)}
+        </ul>
       </Box>
       <Box title="Volver">
         <NavButton to="/mi-espacio" search={{ track }} variant="secondary">← Volver a Mi Espacio</NavButton>
