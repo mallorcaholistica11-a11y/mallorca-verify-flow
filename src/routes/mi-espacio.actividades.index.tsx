@@ -33,7 +33,7 @@ export const Route = createFileRoute("/mi-espacio/actividades/")({
 });
 
 const MENSAJE_NO_DISPONIBLE =
-  "Podrás crear y publicar actividades en la Agenda cuando tu perfil profesional haya sido aprobado.";
+  "Puedes crear y guardar tus actividades desde ahora. Para que puedan publicarse en la Agenda, tu perfil deberá estar aprobado.";
 
 function MisActividades() {
   const { track, estado: estadoSearch } = Route.useSearch();
