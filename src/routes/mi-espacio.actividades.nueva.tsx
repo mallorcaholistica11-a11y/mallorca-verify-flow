@@ -849,23 +849,6 @@ function NuevaActividadPagina() {
         </>
       )}
 
-      <Box title="Navegación">
-        {paso > 1 && (
-          <button type="button" style={secondaryBtn} onClick={() => setPaso((p) => p - 1)}>
-            ← Anterior
-          </button>
-        )}
-        {paso < 7 && (
-          <button type="button" style={primaryBtn} onClick={() => setPaso((p) => p + 1)}>
-            Siguiente →
-          </button>
-        )}
-        {paso < 7 && (
-          <button type="button" style={secondaryBtn} onClick={() => setResultado("borrador")}>
-            Guardar borrador
-          </button>
-        )}
-      </Box>
 
       <div style={{ marginTop: 12 }}>
         <Link
