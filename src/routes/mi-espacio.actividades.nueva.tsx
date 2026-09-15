@@ -213,9 +213,9 @@ function NuevaActividadPagina() {
       title="Crear una actividad"
       breadcrumb="Mi Espacio › Mis Actividades › Nueva actividad"
     >
-      <div style={{ fontSize: 11, color: "var(--muted-foreground)", letterSpacing: 1, textTransform: "uppercase", margin: "0 0 12px 0" }}>
-        Paso {paso} de 7 · {PASOS[paso - 1]}
-      </div>
+      <p style={{ fontSize: 14, lineHeight: 1.7, color: "var(--foreground)", margin: "0 0 20px 0", maxWidth: 640 }}>
+        Añade la información de tu actividad para publicarla en la Agenda de Mallorca Holística.
+      </p>
 
       {!perfilAprobado && (
         <Box title="Publicación en la Agenda">
