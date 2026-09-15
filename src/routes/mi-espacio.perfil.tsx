@@ -367,7 +367,7 @@ function MiPerfilCentro({ estadoSearch }: { estadoSearch?: PerfilEstado }) {
     valores && valores.length > 0 ? valores.join(", ") : undefined;
 
   const campos = [
-    { label: "Nombre del centro, espacio o proyecto", value: ficha.nombre },
+    { label: "Nombre del perfil", value: ficha.nombre },
     {
       label: "Nombre comercial",
       value:
@@ -568,19 +568,19 @@ function MiPerfilCentro({ estadoSearch }: { estadoSearch?: PerfilEstado }) {
               </>
             )}
           </div>
-          <div>
-            <div style={{ fontSize: 12, marginBottom: 8 }}>
-              Galería de hasta 10 fotografías ({galeria.length}/10)
-            </div>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(72px, 1fr))",
-                gap: 8,
-              }}
-            >
-              {galeria.length > 0 ? (
-                galeria.map((titulo) => (
+          {galeria.length > 0 && (
+            <div>
+              <div style={{ fontSize: 12, marginBottom: 8 }}>
+                Galería de hasta 10 fotografías ({galeria.length}/10)
+              </div>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(72px, 1fr))",
+                  gap: 8,
+                }}
+              >
+                {galeria.map((titulo) => (
                   <div
                     key={titulo}
                     style={{
@@ -597,14 +597,10 @@ function MiPerfilCentro({ estadoSearch }: { estadoSearch?: PerfilEstado }) {
                       style={{ width: "100%", height: "100%", objectFit: "cover" }}
                     />
                   </div>
-                ))
-              ) : (
-                <span style={{ color: "var(--muted-foreground)", fontSize: 12 }}>
-                  Todavía no has añadido fotografías.
-                </span>
-              )}
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </Box>
 
