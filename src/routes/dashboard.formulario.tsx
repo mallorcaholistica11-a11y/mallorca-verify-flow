@@ -2188,7 +2188,10 @@ function VerificadoFormulario() {
             marginBottom: 16,
           }}
         >
-          Plan seleccionado: <strong>Profesional Verificado</strong>
+          Plan seleccionado:{" "}
+          <strong>
+            {esEstandarOrganizacion ? "Centros, Espacios & Organizadores" : "Profesional Verificado"}
+          </strong>
         </div>
       ) : (
         <TrackBadge track={track} />
