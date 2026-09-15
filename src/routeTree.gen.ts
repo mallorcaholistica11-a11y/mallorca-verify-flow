@@ -31,6 +31,7 @@ import { Route as MiEspacioIndexRouteImport } from './routes/mi-espacio.index'
 import { Route as GuiaIndexRouteImport } from './routes/guia.index'
 import { Route as ProfesionalSlugRouteImport } from './routes/profesional.$slug'
 import { Route as ProfesionalFreeSlugRouteImport } from './routes/profesional-free.$slug'
+import { Route as MiEspacioVistaPreviaPerfilRouteImport } from './routes/mi-espacio.vista-previa-perfil'
 import { Route as MiEspacioSuscripcionRouteImport } from './routes/mi-espacio.suscripcion'
 import { Route as MiEspacioPerfilRouteImport } from './routes/mi-espacio.perfil'
 import { Route as MiEspacioAyudaRouteImport } from './routes/mi-espacio.ayuda'
@@ -166,6 +167,12 @@ const ProfesionalFreeSlugRoute = ProfesionalFreeSlugRouteImport.update({
   path: '/profesional-free/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MiEspacioVistaPreviaPerfilRoute =
+  MiEspacioVistaPreviaPerfilRouteImport.update({
+    id: '/vista-previa-perfil',
+    path: '/vista-previa-perfil',
+    getParentRoute: () => MiEspacioRoute,
+  } as any)
 const MiEspacioSuscripcionRoute = MiEspacioSuscripcionRouteImport.update({
   id: '/suscripcion',
   path: '/suscripcion',
@@ -310,6 +317,7 @@ export interface FileRoutesByFullPath {
   '/mi-espacio/ayuda': typeof MiEspacioAyudaRoute
   '/mi-espacio/perfil': typeof MiEspacioPerfilRoute
   '/mi-espacio/suscripcion': typeof MiEspacioSuscripcionRoute
+  '/mi-espacio/vista-previa-perfil': typeof MiEspacioVistaPreviaPerfilRoute
   '/profesional-free/$slug': typeof ProfesionalFreeSlugRoute
   '/profesional/$slug': typeof ProfesionalSlugRoute
   '/guia/': typeof GuiaIndexRoute
@@ -352,6 +360,7 @@ export interface FileRoutesByTo {
   '/mi-espacio/ayuda': typeof MiEspacioAyudaRoute
   '/mi-espacio/perfil': typeof MiEspacioPerfilRoute
   '/mi-espacio/suscripcion': typeof MiEspacioSuscripcionRoute
+  '/mi-espacio/vista-previa-perfil': typeof MiEspacioVistaPreviaPerfilRoute
   '/profesional-free/$slug': typeof ProfesionalFreeSlugRoute
   '/profesional/$slug': typeof ProfesionalSlugRoute
   '/guia': typeof GuiaIndexRoute
@@ -397,6 +406,7 @@ export interface FileRoutesById {
   '/mi-espacio/ayuda': typeof MiEspacioAyudaRoute
   '/mi-espacio/perfil': typeof MiEspacioPerfilRoute
   '/mi-espacio/suscripcion': typeof MiEspacioSuscripcionRoute
+  '/mi-espacio/vista-previa-perfil': typeof MiEspacioVistaPreviaPerfilRoute
   '/profesional-free/$slug': typeof ProfesionalFreeSlugRoute
   '/profesional/$slug': typeof ProfesionalSlugRoute
   '/guia/': typeof GuiaIndexRoute
@@ -443,6 +453,7 @@ export interface FileRouteTypes {
     | '/mi-espacio/ayuda'
     | '/mi-espacio/perfil'
     | '/mi-espacio/suscripcion'
+    | '/mi-espacio/vista-previa-perfil'
     | '/profesional-free/$slug'
     | '/profesional/$slug'
     | '/guia/'
@@ -485,6 +496,7 @@ export interface FileRouteTypes {
     | '/mi-espacio/ayuda'
     | '/mi-espacio/perfil'
     | '/mi-espacio/suscripcion'
+    | '/mi-espacio/vista-previa-perfil'
     | '/profesional-free/$slug'
     | '/profesional/$slug'
     | '/guia'
@@ -529,6 +541,7 @@ export interface FileRouteTypes {
     | '/mi-espacio/ayuda'
     | '/mi-espacio/perfil'
     | '/mi-espacio/suscripcion'
+    | '/mi-espacio/vista-previa-perfil'
     | '/profesional-free/$slug'
     | '/profesional/$slug'
     | '/guia/'
@@ -726,6 +739,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfesionalFreeSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mi-espacio/vista-previa-perfil': {
+      id: '/mi-espacio/vista-previa-perfil'
+      path: '/vista-previa-perfil'
+      fullPath: '/mi-espacio/vista-previa-perfil'
+      preLoaderRoute: typeof MiEspacioVistaPreviaPerfilRouteImport
+      parentRoute: typeof MiEspacioRoute
+    }
     '/mi-espacio/suscripcion': {
       id: '/mi-espacio/suscripcion'
       path: '/suscripcion'
@@ -907,6 +927,7 @@ interface MiEspacioRouteChildren {
   MiEspacioAyudaRoute: typeof MiEspacioAyudaRoute
   MiEspacioPerfilRoute: typeof MiEspacioPerfilRoute
   MiEspacioSuscripcionRoute: typeof MiEspacioSuscripcionRoute
+  MiEspacioVistaPreviaPerfilRoute: typeof MiEspacioVistaPreviaPerfilRoute
   MiEspacioIndexRoute: typeof MiEspacioIndexRoute
 }
 
@@ -915,6 +936,7 @@ const MiEspacioRouteChildren: MiEspacioRouteChildren = {
   MiEspacioAyudaRoute: MiEspacioAyudaRoute,
   MiEspacioPerfilRoute: MiEspacioPerfilRoute,
   MiEspacioSuscripcionRoute: MiEspacioSuscripcionRoute,
+  MiEspacioVistaPreviaPerfilRoute: MiEspacioVistaPreviaPerfilRoute,
   MiEspacioIndexRoute: MiEspacioIndexRoute,
 }
 
