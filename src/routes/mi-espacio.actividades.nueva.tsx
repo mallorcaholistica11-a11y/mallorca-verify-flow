@@ -178,14 +178,14 @@ function NuevaActividadPagina() {
   if (resultado) {
     return (
       <WireframeShell
-        title={resultado === "borrador" ? "🌿 Tu actividad se ha guardado" : "🌿 Tu actividad ha sido enviada"}
+        title={resultado === "preparacion" ? "🌿 Tu actividad se ha guardado" : "🌿 Tu actividad ha sido enviada"}
         breadcrumb="Mi Espacio › Mis Actividades › Nueva actividad"
       >
-        <Box title={resultado === "borrador" ? "Borrador guardado" : "En revisión"}>
-          {resultado === "borrador" ? (
+        <Box title={resultado === "preparacion" ? "En preparación" : "Pendiente de revisión"}>
+          {resultado === "preparacion" ? (
             <p style={{ fontSize: 14, lineHeight: 1.7, margin: 0 }}>
-              La encontrarás en Mis Actividades › Borradores. Podrás seguir editándola y enviarla
-              para revisión cuando quieras.
+              La encontrarás en Mis Actividades › En preparación. Podrás abrirla de nuevo para
+              seguir editándola y enviarla para revisión cuando quieras.
             </p>
           ) : (
             <>
@@ -193,8 +193,9 @@ function NuevaActividadPagina() {
                 Gracias por compartir tu propuesta con la comunidad de Mallorca Holística.
               </p>
               <p style={{ fontSize: 14, lineHeight: 1.7, margin: 0 }}>
-                La revisaremos antes de publicarla para garantizar la calidad y coherencia de la
-                Agenda. Recibirás una notificación en cuanto haya sido aprobada.
+                La encontrarás en Mis Actividades › Pendientes de revisión. La revisaremos antes de
+                publicarla para garantizar la calidad y coherencia de la Agenda. Recibirás una
+                notificación en cuanto haya sido aprobada.
               </p>
             </>
           )}
