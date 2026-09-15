@@ -38,8 +38,21 @@ const MENSAJE_NO_DISPONIBLE =
 function MisActividades() {
   const { track, estado: estadoSearch } = Route.useSearch();
 
+  if (track === "organizacion") {
+    return <MisActividadesCentro track={track} estadoSearch={estadoSearch} />;
+  }
   if (track !== "verificado") return <MisActividadesOtrosRecorridos track={track} />;
 
+  return <MisActividadesVerificado track={track} estadoSearch={estadoSearch} />;
+}
+
+function MisActividadesVerificado({
+  track,
+  estadoSearch,
+}: {
+  track: Track;
+  estadoSearch?: PerfilEstado;
+}) {
   const estado = estadoSearch ?? "pendiente";
   const aprobado = estado === "aprobado";
   const usadas = actividadesConsumidas();
