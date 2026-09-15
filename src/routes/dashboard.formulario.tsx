@@ -2759,7 +2759,7 @@ function VerificadoFormulario() {
             linkText={isOrg ? "Leer autorización" : "Leer documento"}
             label={
               isOrg
-                ? "Autorizo a Mallorca Holística a publicar el perfil de la organización en la plataforma."
+                ? "Autorizo a Mallorca Holística a publicar este perfil en la plataforma."
                 : "Autorizo a Mallorca Holística a publicar mi perfil profesional en la plataforma."
             }
             checked={consents.publicacion}
@@ -2771,9 +2771,17 @@ function VerificadoFormulario() {
               <VConsentItem
                 icon="📝"
                 title="Declaración responsable"
-                label="Declaro representar legalmente o contar con autorización para actuar en nombre de esta organización."
+                label="Declaro que dispongo de los requisitos, autorizaciones y documentación necesarios para desarrollar legalmente mi actividad."
                 checked={consents.seguroRC}
                 onToggle={() => toggleConsent("seguroRC")}
+              />
+
+              <VConsentItem
+                icon="🤝"
+                title="Responsabilidad del perfil"
+                label="Declaro ser responsable de este perfil o contar con autorización para actuar en nombre del centro, espacio o proyecto que representa."
+                checked={representacion}
+                onToggle={() => setRepresentacion((v) => !v)}
               />
 
               <div style={{ marginBottom: 16 }}>
@@ -2781,8 +2789,8 @@ function VerificadoFormulario() {
                   ✍️ Confirmación final
                 </div>
                 <Ayuda>
-                  Al introducir tu nombre completo confirmas que actúas en representación de esta
-                  organización y que aceptas las declaraciones anteriores.
+                  Al introducir tu nombre completo confirmas que aceptas las declaraciones
+                  anteriores.
                 </Ayuda>
                 <FakeField label="Nombre completo" />
                 <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginTop: 4, fontStyle: "italic" }}>
