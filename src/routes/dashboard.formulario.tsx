@@ -2574,8 +2574,8 @@ function VerificadoFormulario() {
           {isOrg && (
             <Box title="Nuestro equipo (opcional)">
               <Ayuda>
-                Añade las personas que forman parte de vuestra organización y que quieras mostrar en
-                el perfil público.
+                Añade las personas que forman parte de vuestro centro, espacio o proyecto y que
+                quieras mostrar en el perfil público.
               </Ayuda>
               <EquipoList />
               <Note>
