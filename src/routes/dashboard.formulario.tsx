@@ -2605,6 +2605,11 @@ function VerificadoFormulario() {
               <Note>
                 Ejemplos: Calendly, Fresha, Google Calendar, SimplyBook, Booksy u otra plataforma.
               </Note>
+              <Note>
+                Si añadís un enlace, vuestro perfil público mostrará la opción de reserva. Si no lo
+                añadís, no aparecerá ningún botón de reserva. Mallorca Holística no gestiona la
+                reserva ni cobra comisión por ella.
+              </Note>
             </Box>
             <Box title="💬 WhatsApp Business">
               <OWhatsAppBusiness />
