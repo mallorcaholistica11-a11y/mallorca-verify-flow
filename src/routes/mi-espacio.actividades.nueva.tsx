@@ -812,8 +812,8 @@ function NuevaActividadPagina() {
             <button type="button" style={secondaryBtn} onClick={() => setVistaPrevia((v) => !v)}>
               {vistaPrevia ? "Ocultar vista previa" : "Vista previa"}
             </button>
-            <button type="button" style={secondaryBtn} onClick={() => setResultado("borrador")}>
-              Guardar borrador
+            <button type="button" style={secondaryBtn} onClick={() => setResultado("preparacion")}>
+              Guardar y continuar más tarde
             </button>
             <button
               type="button"
@@ -830,15 +830,15 @@ function NuevaActividadPagina() {
 
             {!perfilAprobado && (
               <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0", lineHeight: 1.6 }}>
-                Puedes guardar esta actividad como borrador. Podrás enviarla para revisión cuando tu
-                perfil haya sido aprobado.
+                Puedes guardar esta actividad y continuar más tarde. Podrás enviarla para revisión
+                cuando tu perfil haya sido aprobado.
               </p>
             )}
             {perfilAprobado && sinDisponibilidad && (
               <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0", lineHeight: 1.6 }}>
                 Has utilizado las {LIMITE_ACTIVIDADES_MES} actividades incluidas este mes en tu plan.
-                Puedes guardar esta actividad como borrador y enviarla cuando vuelvas a tener
-                disponibilidad.
+                Puedes guardar esta actividad y continuar más tarde, y enviarla cuando vuelvas a
+                tener disponibilidad.
               </p>
             )}
             <p style={{ fontSize: 12, color: "var(--muted-foreground)", fontStyle: "italic", margin: "12px 0 0 0", lineHeight: 1.6 }}>
