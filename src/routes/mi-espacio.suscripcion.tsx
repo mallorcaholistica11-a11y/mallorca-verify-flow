@@ -144,6 +144,7 @@ const INCLUYE_VERIFICADO = [
       "Múltiples ubicaciones de atención.",
       "Modalidades de atención.",
       "Idiomas.",
+      "Publicación de hasta 3 actividades grupales al mes en la Agenda de Mallorca Holística.",
     ],
   },
   {
@@ -154,12 +155,6 @@ const INCLUYE_VERIFICADO = [
       "Teléfono y WhatsApp.",
       "Página web y redes sociales.",
       "Enlace externo de reserva cuando el profesional disponga de él.",
-    ],
-  },
-  {
-    titulo: "Agenda",
-    items: [
-      "Publicación de hasta 3 actividades grupales al mes en la Agenda de Mallorca Holística.",
     ],
   },
 ] as const;
