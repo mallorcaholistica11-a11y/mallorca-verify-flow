@@ -341,3 +341,344 @@ function MiPerfilOtrosRecorridos({ track }: { track: Track }) {
     </WireframeShell>
   );
 }
+
+// ---------------------------------------------------------------------------
+// Plan Centros, Espacios & Organizadores · hermana funcional de Mi Perfil
+// ---------------------------------------------------------------------------
+
+const ESTADO_PERFIL_CENTRO: Record<PerfilEstado, { estado: string; verificacion: string }> = {
+  pendiente: { estado: "Pendiente de completar", verificacion: "Pendiente de verificar" },
+  preparacion: { estado: "Pendiente de completar", verificacion: "Pendiente de verificar" },
+  revision: { estado: "En revisión", verificacion: "Verificación en proceso" },
+  aprobado: { estado: "Publicado", verificacion: "Entidad Verificada" },
+};
+
+function MiPerfilCentro({ estadoSearch }: { estadoSearch?: PerfilEstado }) {
+  const track: Track = "organizacion";
+  const estado = estadoSearch ?? "pendiente";
+  const estadoPerfil = ESTADO_PERFIL_CENTRO[estado];
+  const estaAprobado = estado === "aprobado";
+  const estaEnRevision = estado === "revision";
+  const ficha = FICHA_CENTRO_ACTUAL;
+
+  const lista = (valores?: string[]) =>
+    valores && valores.length > 0 ? valores.join(", ") : undefined;
+
+  const campos: Array<{ label: string; value?: string }> = [
+    { label: "Nombre del centro, espacio o proyecto", value: ficha.nombre },
+    {
+      label: "Nombre comercial",
+      value:
+        ficha.nombreComercial && ficha.nombreComercial !== ficha.nombre
+          ? ficha.nombreComercial
+          : undefined,
+    },
+    { label: "Tipo de perfil", value: ficha.tipoOrganizacion },
+    { label: "Prácticas", value: lista(ficha.especialidades) },
+    { label: "Áreas de Acompañamiento", value: lista(ficha.areas) },
+    { label: "¿A quién acompañáis?", value: lista(ficha.publicos) },
+    { label: "Modalidades de actividad", value: lista(ficha.modalidades) },
+    {
+      label: "Ubicaciones",
+      value: lista(
+        ficha.ubicaciones?.map((u) =>
+          [u.nombre, u.direccion, u.municipio].filter(Boolean).join(", "),
+        ),
+      ),
+    },
+    { label: "Idiomas", value: lista(ficha.idiomas) },
+    { label: "Correo electrónico", value: ficha.contacto?.email },
+    { label: "WhatsApp / teléfono", value: ficha.contacto?.whatsapp ?? ficha.contacto?.telefono },
+    { label: "Página web", value: ficha.contacto?.web },
+  ].filter((campo): campo is { label: string; value: string } => Boolean(campo.value));
+
+  const mitad = Math.ceil(campos.length / 2);
+  const galeria = (ficha.galeria ?? []).slice(0, 10);
+  const tarifas = ficha.mostrarTarifas ? (ficha.tarifas ?? []) : [];
+
+  return (
+    <WireframeShell title="Mi Perfil" breadcrumb="Mi Espacio › Mi Perfil">
+      <div style={{ maxWidth: 620, margin: "0 auto 24px", textAlign: "center" }}>
+        <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)" }}>
+          Consulta y gestiona la información de tu perfil en Mallorca Holística.
+        </p>
+      </div>
+
+      <Box title="Estado del perfil">
+        <Row>
+          <Card title="Estado">{estadoPerfil.estado}</Card>
+          <Card title="Última actualización">{valorNoDisponible}</Card>
+          <Card title="Verificación">{estadoPerfil.verificacion}</Card>
+        </Row>
+      </Box>
+
+      <Box title="Información del perfil">
+        <Row>
+          <div style={{ flex: 1, minWidth: 260 }}>
+            {campos.slice(0, mitad).map((campo) => (
+              <ReadOnlyField key={campo.label} label={campo.label} value={campo.value} />
+            ))}
+          </div>
+          <div style={{ flex: 1, minWidth: 260 }}>
+            {campos.slice(mitad).map((campo) => (
+              <ReadOnlyField key={campo.label} label={campo.label} value={campo.value} />
+            ))}
+          </div>
+        </Row>
+      </Box>
+
+      {(ficha.fraseDestacada || ficha.sobreNosotros) && (
+        <Box title="Presentación">
+          {ficha.fraseDestacada && (
+            <ReadOnlyField label="Frase destacada" value={ficha.fraseDestacada} />
+          )}
+          {ficha.sobreNosotros && (
+            <>
+              <div style={{ fontSize: 12.5, marginBottom: 6, color: "var(--foreground)" }}>
+                Sobre nosotros
+              </div>
+              <div
+                style={{
+                  border: "1px solid var(--border)",
+                  borderRadius: 12,
+                  padding: 12,
+                  background: "var(--muted)",
+                  fontSize: 13,
+                  color: "var(--foreground)",
+                  whiteSpace: "pre-wrap",
+                }}
+              >
+                {ficha.sobreNosotros}
+              </div>
+            </>
+          )}
+        </Box>
+      )}
+
+      {ficha.equipo && ficha.equipo.length > 0 && (
+        <Box title="Nuestro equipo">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+              gap: 12,
+            }}
+          >
+            {ficha.equipo.map((miembro) => (
+              <div
+                key={miembro.nombre}
+                style={{
+                  border: "1px solid var(--border)",
+                  borderRadius: 12,
+                  padding: "10px 12px",
+                  background: "var(--muted)",
+                }}
+              >
+                <div style={{ fontSize: 13, color: "var(--foreground)" }}>{miembro.nombre}</div>
+                {miembro.rol && (
+                  <div style={{ fontSize: 12, color: "var(--muted-foreground)", marginTop: 2 }}>
+                    {miembro.rol}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </Box>
+      )}
+
+      {ficha.instalaciones && ficha.instalaciones.length > 0 && (
+        <Box title="Instalaciones">
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            {ficha.instalaciones.map((instalacion) => (
+              <span
+                key={instalacion}
+                style={{
+                  border: "1px solid var(--border)",
+                  borderRadius: 999,
+                  padding: "5px 12px",
+                  fontSize: 12,
+                  background: "var(--muted)",
+                  color: "var(--foreground)",
+                }}
+              >
+                {instalacion}
+              </span>
+            ))}
+          </div>
+        </Box>
+      )}
+
+      <Box title="Fotografías">
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: 20,
+            alignItems: "start",
+          }}
+        >
+          <div>
+            <div style={{ fontSize: 12, marginBottom: 8 }}>Imagen principal</div>
+            <div
+              style={{
+                border: "1px solid var(--border)",
+                borderRadius: 12,
+                background: "var(--muted)",
+                width: "100%",
+                aspectRatio: "16 / 10",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "hidden",
+              }}
+            >
+              {ficha.imagenPrincipal ? (
+                <img
+                  src={ficha.imagenPrincipal}
+                  alt={`Imagen principal de ${ficha.nombre}`}
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+              ) : (
+                <span style={{ color: "var(--muted-foreground)", fontSize: 12 }}>
+                  Sin imagen principal
+                </span>
+              )}
+            </div>
+            {ficha.logoUrl && (
+              <>
+                <div style={{ fontSize: 12, margin: "16px 0 8px" }}>Logotipo</div>
+                <div
+                  style={{
+                    border: "1px solid var(--border)",
+                    borderRadius: 12,
+                    background: "var(--muted)",
+                    width: 96,
+                    height: 96,
+                    overflow: "hidden",
+                  }}
+                >
+                  <img
+                    src={ficha.logoUrl}
+                    alt={`Logotipo de ${ficha.nombre}`}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  />
+                </div>
+              </>
+            )}
+          </div>
+          <div>
+            <div style={{ fontSize: 12, marginBottom: 8 }}>
+              Galería de hasta 10 fotografías ({galeria.length}/10)
+            </div>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(72px, 1fr))",
+                gap: 8,
+              }}
+            >
+              {galeria.length > 0 ? (
+                galeria.map((titulo) => (
+                  <div
+                    key={titulo}
+                    style={{
+                      border: "1px solid var(--border)",
+                      borderRadius: 12,
+                      background: "var(--muted)",
+                      aspectRatio: "1 / 1",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <img
+                      src={ambienteDe(titulo)}
+                      alt={titulo}
+                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    />
+                  </div>
+                ))
+              ) : (
+                <span style={{ color: "var(--muted-foreground)", fontSize: 12 }}>
+                  Todavía no has añadido fotografías.
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+      </Box>
+
+      {tarifas.length > 0 && (
+        <Box title="Tarifas">
+          <div style={{ display: "grid", gap: 8 }}>
+            {tarifas.map((tarifa) => (
+              <div
+                key={`${tarifa.servicio}-${tarifa.duracion}`}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  gap: 12,
+                  fontSize: 13,
+                  borderBottom: "1px solid var(--border)",
+                  paddingBottom: 6,
+                  color: "var(--foreground)",
+                }}
+              >
+                <span>
+                  {tarifa.servicio}
+                  {tarifa.duracion ? ` · ${tarifa.duracion}` : ""}
+                </span>
+                <span>{tarifa.precio}</span>
+              </div>
+            ))}
+          </div>
+          {ficha.notaTarifas && (
+            <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "10px 0 0" }}>
+              {ficha.notaTarifas}
+            </p>
+          )}
+        </Box>
+      )}
+
+      <Box title={estaAprobado ? "Perfil público" : "Vista previa de tu perfil"}>
+        <p
+          style={{ fontSize: 12, color: "var(--foreground)", margin: "0 0 12px", lineHeight: 1.7 }}
+        >
+          {estaAprobado
+            ? "Así aparece actualmente tu perfil en Mallorca Holística."
+            : "Así se mostrará tu perfil una vez aprobado y publicado en Mallorca Holística."}
+        </p>
+        {estaAprobado ? (
+          <NavButton to="/centro/$slug" params={{ slug: "espai-sa-font" }}>
+            Vista previa de mi perfil
+          </NavButton>
+        ) : (
+          <NavButton
+            to="/mi-espacio/vista-previa-perfil"
+            search={{ track, estado }}
+            variant="secondary"
+          >
+            Vista previa de mi perfil
+          </NavButton>
+        )}
+      </Box>
+
+      <Box title="Acciones">
+        {estaEnRevision ? (
+          <p style={{ fontSize: 13, lineHeight: 1.7, margin: 0 }}>
+            Tu solicitud está siendo revisada. Podrás actualizar la información de tu perfil cuando
+            el proceso haya finalizado.
+          </p>
+        ) : (
+          <NavButton to="/dashboard/formulario" search={{ track }}>
+            {estaAprobado ? "Actualizar mi perfil" : "Continuar mi perfil"}
+          </NavButton>
+        )}
+      </Box>
+
+      <Box title="Volver">
+        <NavButton to="/mi-espacio" search={{ track, estado }} variant="secondary">
+          ← Volver a Mi Espacio
+        </NavButton>
+      </Box>
+    </WireframeShell>
+  );
+}
