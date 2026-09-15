@@ -64,11 +64,15 @@ function CrearCuenta() {
           to={
             track === "presencia"
               ? "/dashboard/tipo-perfil"
-              : track === "verificado"
+              : track === "verificado" || track === "organizacion"
                 ? "/mi-espacio"
                 : "/dashboard"
           }
-          search={track === "verificado" ? { track, estado: "pendiente" } : { track }}
+          search={
+            track === "verificado" || track === "organizacion"
+              ? { track, estado: "pendiente" }
+              : { track }
+          }
         >
           Crear mi cuenta
         </NavButton>
