@@ -146,14 +146,10 @@ function PlanProfesionalVerificado() {
             </p>
             <div className="max-w-[640px] space-y-3 text-[0.8rem] leading-relaxed text-muted-foreground md:text-[0.84rem]">
               <p>
-                El Plan Profesional Verificado está pensado para profesionales de la salud
-                complementaria e integrativa que desean reforzar la confianza que transmiten,
-                aumentar su visibilidad y ofrecer una información más completa sobre su actividad.
+                El Plan Profesional Verificado está pensado para profesionales cuya actividad se centra principalmente en la atención individual y que desean reforzar la confianza, ampliar su visibilidad y contar con un perfil profesional verificado.
               </p>
               <p>
-                Además de ampliar la información visible de tu perfil, incorpora herramientas
-                pensadas para mejorar tu presencia dentro de Mallorca Holística y facilitar el
-                contacto con las personas interesadas en tu actividad.
+                Además de ampliar la información visible de tu perfil, incorpora herramientas para facilitar el contacto directo con las personas interesadas en tu actividad y permite publicar hasta 3 actividades grupales al mes en la Agenda de Mallorca Holística.
               </p>
             </div>
           </div>
@@ -279,17 +275,24 @@ function PlanProfesionalVerificado() {
               partir del lanzamiento oficial de Mallorca Holística.
             </p>
             <p>
-              La fecha oficial de lanzamiento se comunicará antes de la activación de la
-              suscripción.
+              La fecha oficial de lanzamiento se comunicará antes de la activación de las
+              suscripciones.
             </p>
             <p>
               Para activar el Plan Profesional Verificado será necesario registrar un método de
               pago de forma segura mediante Stripe.
             </p>
             <p>
-              No se realizará ningún cargo durante el periodo gratuito. Al finalizar los 2 meses
-              gratuitos, la suscripción continuará automáticamente a 25 €/mes (IVA incluido), salvo
-              cancelación previa.
+              No se realizará ningún cargo durante el periodo gratuito.
+            </p>
+            <p>
+              El primer cobro se realizará únicamente cuando tu perfil haya sido aprobado como Profesional Verificado y haya finalizado el periodo gratuito de lanzamiento.
+            </p>
+            <p>
+              Si tu perfil se aprueba durante el periodo gratuito, la suscripción comenzará al finalizar dicho periodo. Si tu perfil se aprueba después de que el periodo gratuito haya finalizado, la suscripción comenzará a partir de su aprobación.
+            </p>
+            <p>
+              Mallorca Holística te informará por email antes del primer cobro de la suscripción, indicándote la fecha y el importe, para que puedas decidir con tiempo si deseas continuar o cancelar tu suscripción.
             </p>
           </div>
         </section>
