@@ -65,7 +65,7 @@ function SolicitudEnviada() {
         )}
         <NavButton
           to="/mi-espacio"
-          search={{ track }}
+          search={esVerificadoEstandar ? { track, estado: "revision" } : { track }}
           variant={esVerificadoEstandar ? undefined : "secondary"}
         >
           👉 Acceder a Mi Espacio
