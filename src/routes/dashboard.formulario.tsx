@@ -2834,7 +2834,7 @@ function VerificadoFormulario() {
         ))}
 
       <Box title="Navegación">
-        {esEstandarVerificado && step === 1 ? (
+        {esEstandar && step === 1 ? (
           <Link to="/mi-espacio" search={{ track, estado: "preparacion" }}>
             <button type="button" style={btn("secondary")}>
               ← Volver a Mi Espacio
