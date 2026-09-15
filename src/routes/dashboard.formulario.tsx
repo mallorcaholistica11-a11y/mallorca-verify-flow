@@ -2122,6 +2122,9 @@ function VerificadoFormulario() {
     publicacion: false,
   });
   const [autorizaPago, setAutorizaPago] = useState(false);
+  // Declaración de responsabilidad/autorización del recorrido estándar de
+  // Centros, Espacios & Organizadores (no afecta a Profesional Verificado).
+  const [representacion, setRepresentacion] = useState(false);
 
   const [contacto, setContacto] = useState({
     nombre: "",
