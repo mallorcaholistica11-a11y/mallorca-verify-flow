@@ -226,7 +226,7 @@ function NuevaActividadPagina() {
         </Box>
       )}
 
-      {paso === 1 && (
+      
         <Box title="Información básica">
           <FieldLabel>Imagen de la actividad</FieldLabel>
           <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 12px 0" }}>
