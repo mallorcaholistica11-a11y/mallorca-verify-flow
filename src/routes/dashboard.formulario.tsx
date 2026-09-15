@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import {
   WireframeShell,
@@ -2089,6 +2089,23 @@ type VConsents = {
   publicacion: boolean;
 };
 
+// Enlace discreto de salida a Mi Espacio (solo recorrido estándar Profesional
+// Verificado). El progreso se conserva: al volver, Mi Espacio muestra
+// "Perfil en preparación" con el CTA "Continuar mi perfil".
+function VolverMiEspacioLink({ track }: { track: Track }) {
+  return (
+    <div style={{ marginBottom: 12 }}>
+      <Link
+        to="/mi-espacio"
+        search={{ track, estado: "preparacion" }}
+        style={{ fontSize: 12, color: "var(--muted-foreground)", textDecoration: "none" }}
+      >
+        ← Volver a Mi Espacio
+      </Link>
+    </div>
+  );
+}
+
 function VerificadoFormulario() {
   const { track } = Route.useSearch();
   const navigate = useNavigate();
@@ -2149,6 +2166,7 @@ function VerificadoFormulario() {
       title={`Paso ${step} de ${total} · ${stepTitle}`}
       breadcrumb={breadcrumb}
     >
+      {esEstandarVerificado && <VolverMiEspacioLink track={track} />}
       {esEstandarVerificado ? (
         <div
           className="wireframe-track-badge"
@@ -2781,13 +2799,21 @@ function VerificadoFormulario() {
         ))}
 
       <Box title="Navegación">
-        <button
-          onClick={() => setStep((s) => Math.max(1, s - 1))}
-          disabled={step === 1}
-          style={btn("secondary")}
-        >
-          ← Anterior
-        </button>
+        {esEstandarVerificado && step === 1 ? (
+          <Link to="/mi-espacio" search={{ track, estado: "preparacion" }}>
+            <button type="button" style={btn("secondary")}>
+              ← Volver a Mi Espacio
+            </button>
+          </Link>
+        ) : (
+          <button
+            onClick={() => setStep((s) => Math.max(1, s - 1))}
+            disabled={step === 1}
+            style={btn("secondary")}
+          >
+            ← Anterior
+          </button>
+        )}
         {!isLast ? (
           <button
             onClick={() => setStep((s) => s + 1)}
@@ -2818,6 +2844,17 @@ function VerificadoFormulario() {
           </button>
         )}
       </Box>
+      {esEstandarVerificado && step > 1 && (
+        <div style={{ marginTop: 10, textAlign: "center" }}>
+          <Link
+            to="/mi-espacio"
+            search={{ track, estado: "preparacion" }}
+            style={{ fontSize: 12, color: "var(--muted-foreground)", textDecoration: "none" }}
+          >
+            ← Volver a Mi Espacio
+          </Link>
+        </div>
+      )}
     </WireframeShell>
   );
 }
