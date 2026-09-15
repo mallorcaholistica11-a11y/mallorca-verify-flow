@@ -27,9 +27,89 @@ function DashboardWrapper() {
   return <Outlet />;
 }
 
+function BienvenidaOrganizacion() {
+  const { track } = Route.useSearch();
+  const pasos = [
+    {
+      title: "1. Completa tu perfil",
+      lines: [
+        "Cuéntanos sobre tu actividad, tu espacio o proyecto y toda la información que quieras mostrar públicamente.",
+      ],
+    },
+    {
+      title: "2. Revisa y acepta las condiciones",
+      lines: [
+        "Acepta el Código Deontológico, la Política de Privacidad, las Condiciones de Uso y completa la documentación necesaria para la verificación.",
+      ],
+    },
+    {
+      title: "3. Registra tu método de pago y envía tu solicitud",
+      lines: [
+        "Registra de forma segura tu método de pago mediante Stripe. No se realizará ningún cargo en este momento.",
+        "La suscripción solo podrá activarse una vez aprobado el perfil y de acuerdo con las condiciones del periodo gratuito de lanzamiento.",
+      ],
+    },
+  ];
+
+  return (
+    <WireframeShell title="🌿 Bienvenido a Mallorca Holística" breadcrumb="Dashboard">
+      <div
+        style={{
+          display: "inline-block",
+          padding: "4px 8px",
+          border: "1px solid var(--border)",
+          borderRadius: 12,
+          fontSize: 11,
+          marginBottom: 12,
+        }}
+      >
+        Plan seleccionado:{" "}
+        <strong>Centros, Espacios & Organizadores</strong>
+      </div>
+
+      <div style={subtitleStyle}>
+        <p style={{ fontWeight: 600, margin: "0 0 6px 0" }}>¡Tu cuenta ya está creada!</p>
+        <p style={{ margin: 0 }}>
+          Ahora solo queda completar tu perfil para que podamos revisarlo y publicarlo en Mallorca Holística.
+        </p>
+      </div>
+
+      <Box title="Próximos pasos">
+        <ol style={{ listStyle: "none", padding: 0, margin: 0 }}>
+          {pasos.map((p) => (
+            <li key={p.title} style={{ padding: "10px 0", borderBottom: "1px dotted var(--border)" }}>
+              <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 4 }}>{p.title}</div>
+              {p.lines.map((l) => (
+                <p
+                  key={l}
+                  style={{
+                    fontSize: 12,
+                    color: "var(--foreground)",
+                    margin: "0 0 4px 0",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {l}
+                </p>
+              ))}
+            </li>
+          ))}
+        </ol>
+      </Box>
+
+      <Box title="Siguiente paso">
+        <NavButton to="/dashboard/formulario" search={{ track }}>
+          Continuar mi perfil
+        </NavButton>
+      </Box>
+    </WireframeShell>
+  );
+}
+
 function DashboardHome() {
   const { track, estado: estadoSearch } = Route.useSearch();
-  const isOrg = track === "organizacion" || track === "organizacionFundadora";
+  if (track === "organizacion") return <BienvenidaOrganizacion />;
+  const isOrg = track === "organizacionFundadora";
   const isVerificado = track === "verificado" || track === "verificadoFundador";
   const esEstandarVerificado = track === "verificado";
   const isPresencia = track === "presencia";
