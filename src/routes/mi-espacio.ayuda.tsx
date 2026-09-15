@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
-import { WireframeShell, Box, NavButton, TrackBadge, parseTrack, type Track } from "@/components/Wireframe";
+import { WireframeShell, Box, NavButton, parseTrack, type Track } from "@/components/Wireframe";
 
 export const Route = createFileRoute("/mi-espacio/ayuda")({
   validateSearch: (s: Record<string, unknown>): { track: Track } => ({ track: parseTrack(s) }),
@@ -15,16 +15,16 @@ const FAQ: FaqGroup[] = [
     titulo: "Perfil",
     items: [
       {
-        q: "¿Cómo puedo actualizar mi perfil?",
-        a: "Pulsa Actualizar mi perfil desde la sección Mi Perfil. Se abrirá el formulario con toda tu información actual para que puedas modificar únicamente aquello que necesites.",
+        q: "¿Cómo puedo completar o actualizar mi perfil?",
+        a: "Desde Mi Espacio puedes acceder a Mi Perfil. Si todavía estás completando tu solicitud, podrás continuar el formulario desde el punto en el que lo dejaste. Una vez publicado tu perfil, podrás actualizar la información correspondiente desde este mismo espacio.",
       },
       {
         q: "¿Por qué mi perfil está en revisión?",
-        a: "Cada actualización del perfil es revisada por el equipo de Mallorca Holística antes de hacerse pública. Este proceso ayuda a mantener la calidad, la confianza y la coherencia de la plataforma.",
+        a: "Todos los perfiles que solicitan la verificación de Mallorca Holística pasan por un proceso de revisión antes de ser publicados como Perfil Profesional Verificado. Revisaremos la información y documentación enviada y te avisaremos por correo electrónico cuando el proceso haya finalizado.",
       },
       {
-        q: "¿Qué significa \"Perfil verificado\"?",
-        a: "Indica que tu perfil ha sido revisado y cumple los criterios de calidad y transparencia establecidos por Mallorca Holística.",
+        q: "¿Qué significa \"Profesional Verificado\"?",
+        a: "Significa que Mallorca Holística ha revisado la información y documentación requerida para este plan, incluyendo la documentación profesional presentada y el seguro de Responsabilidad Civil correspondiente. Una vez completada la revisión, el perfil podrá mostrar el sello Profesional Verificado.",
       },
     ],
   },
@@ -33,15 +33,19 @@ const FAQ: FaqGroup[] = [
     items: [
       {
         q: "¿Por qué no puedo publicar actividades?",
-        a: "Solo los perfiles aprobados pueden publicar actividades. Mientras tu perfil esté en revisión, esta sección permanecerá disponible únicamente como consulta.",
+        a: "La publicación de actividades estará disponible cuando tu perfil Profesional Verificado haya sido aprobado. A partir de ese momento podrás crear y enviar actividades para su revisión desde Mi Espacio > Mis Actividades.",
       },
       {
         q: "¿Qué tipo de actividades puedo publicar?",
-        a: "Únicamente actividades grupales como talleres, cursos, conferencias, retiros, encuentros, festivales, clases abiertas y otros eventos colectivos relacionados con el bienestar integral.",
+        a: "La Agenda está destinada a actividades grupales como talleres, cursos, retiros, conferencias, clases, encuentros, festivales y otras propuestas abiertas a varias personas. Las sesiones individuales o consultas privadas se muestran desde el perfil profesional y no se publican como actividades en la Agenda.",
+      },
+      {
+        q: "¿Cuántas actividades puedo publicar?",
+        a: "El Plan Profesional Verificado incluye la publicación de hasta 3 actividades grupales al mes en la Agenda de Mallorca Holística.",
       },
       {
         q: "¿Puedo modificar una actividad publicada?",
-        a: "Sí. Puedes actualizar cualquier actividad desde tu panel. Las modificaciones podrán requerir una nueva revisión antes de volver a publicarse.",
+        a: "Podrás gestionar tus actividades desde Mi Espacio > Mis Actividades. Determinados cambios realizados sobre una actividad ya publicada podrán requerir una nueva revisión antes de volver a mostrarse en la Agenda.",
       },
     ],
   },
@@ -49,16 +53,20 @@ const FAQ: FaqGroup[] = [
     titulo: "Suscripción",
     items: [
       {
-        q: "¿Cómo cambio de plan?",
-        a: "Desde la sección Mi Suscripción puedes cambiar tu plan en cualquier momento.",
+        q: "¿Cuándo se activa mi suscripción?",
+        a: "Tu suscripción no se activa al crear tu cuenta. Para enviar tu solicitud de verificación es necesario registrar un método de pago seguro mediante Stripe al finalizar el formulario. Registrar el método de pago no supone ningún cargo en ese momento.",
       },
       {
-        q: "¿Cómo actualizo mi método de pago?",
-        a: "Pulsa el botón Actualizar método de pago dentro de la sección Mi Suscripción.",
+        q: "¿Cuándo comienza el periodo gratuito?",
+        a: "Los 2 meses gratuitos comenzarán en la fecha oficial de lanzamiento de Mallorca Holística. La fecha se comunicará antes de la activación de las suscripciones.",
       },
       {
-        q: "¿Qué ocurre si cancelo mi suscripción?",
-        a: "Seguirás disfrutando de todas las funcionalidades hasta finalizar el periodo ya abonado. Después podrás continuar formando parte de Mallorca Holística mediante el Plan Presencia gratuito.",
+        q: "¿Cuándo se realizará el primer cobro?",
+        a: "El primer cobro se realizará únicamente cuando tu perfil haya sido aprobado como Profesional Verificado y haya finalizado el periodo gratuito de lanzamiento. Si tu perfil se aprueba después de finalizar ese periodo, la suscripción comenzará a partir de su aprobación.\n\nMallorca Holística te informará por email antes del primer cobro de la suscripción, indicándote la fecha y el importe, para que puedas decidir con tiempo si deseas continuar o cancelar tu suscripción.",
+      },
+      {
+        q: "¿Qué ocurre si mi solicitud no es aprobada?",
+        a: "Si tu solicitud de verificación no es aprobada, la suscripción no se activará y no se realizará ningún cargo.",
       },
     ],
   },
@@ -67,11 +75,11 @@ const FAQ: FaqGroup[] = [
     items: [
       {
         q: "¿Cómo puedo contactar con Mallorca Holística?",
-        a: "Puedes escribirnos utilizando el formulario de contacto o enviándonos un correo electrónico. Estaremos encantados de ayudarte.",
+        a: "Puedes ponerte en contacto con nosotros desde la sección 'Contactar con nosotros' de esta misma página.",
       },
       {
         q: "¿Cuánto tarda la revisión de un perfil o una actividad?",
-        a: "Habitualmente entre uno y tres días laborables, aunque el tiempo puede variar en función del volumen de solicitudes.",
+        a: "Cada solicitud se revisa antes de su publicación. Cuando el proceso haya finalizado, te avisaremos por correo electrónico.",
       },
     ],
   },
@@ -133,12 +141,9 @@ function Ayuda() {
 
   return (
     <WireframeShell
-      screen="13 · AYUDA"
-      title="❓ Ayuda"
+      title="Ayuda"
       breadcrumb="Mi Espacio › Ayuda"
     >
-      <TrackBadge track={track} />
-
       <div style={{ maxWidth: 620, margin: "0 auto 24px", textAlign: "center" }}>
         <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)" }}>
           Resuelve tus dudas, consulta las preguntas más frecuentes o ponte en contacto con nosotros si necesitas ayuda.
