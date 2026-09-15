@@ -33,7 +33,7 @@ export const Route = createFileRoute("/mi-espacio/actividades/")({
 });
 
 const MENSAJE_NO_DISPONIBLE =
-  "Podrás crear y publicar actividades en la Agenda cuando tu perfil profesional haya sido aprobado.";
+  "Puedes crear y guardar tus actividades desde ahora. Para que puedan publicarse en la Agenda, tu perfil deberá estar aprobado.";
 
 function MisActividades() {
   const { track, estado: estadoSearch } = Route.useSearch();
@@ -70,17 +70,11 @@ function MisActividadesVerificado({
       </div>
 
       <Box title="Acción principal">
+        <NavButton to="/mi-espacio/actividades/nueva" search={{ track, estado }}>
+          ➕ Crear una actividad
+        </NavButton>
         {aprobado ? (
           <>
-            {alcanzado ? (
-              <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 12px 0" }}>
-                Has utilizado las {LIMITE_ACTIVIDADES_MES} actividades incluidas este mes en tu plan.
-              </p>
-            ) : (
-              <NavButton to="/mi-espacio/actividades/nueva" search={{ track, estado }}>
-                ➕ Crear una actividad
-              </NavButton>
-            )}
             <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0" }}>
               Tu plan incluye hasta {LIMITE_ACTIVIDADES_MES} actividades al mes en la Agenda.
             </p>
@@ -89,17 +83,20 @@ function MisActividadesVerificado({
             </p>
             {alcanzado && (
               <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "8px 0 0 0", lineHeight: 1.6 }}>
-                Puedes seguir consultando y gestionando tus actividades. Podrás enviar una nueva
-                actividad para revisión cuando vuelvas a tener disponibilidad.
+                Has utilizado las {LIMITE_ACTIVIDADES_MES} actividades incluidas este mes en tu plan.
+                Puedes seguir creando y guardando borradores, y enviar una nueva actividad para
+                revisión cuando vuelvas a tener disponibilidad.
               </p>
             )}
-            <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0", fontStyle: "italic" }}>
-              Todas las actividades deberán pasar primero por un proceso de revisión antes de ser publicadas.
-            </p>
           </>
         ) : (
-          <p style={{ fontSize: 13, lineHeight: 1.7, margin: 0 }}>{MENSAJE_NO_DISPONIBLE}</p>
+          <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0", lineHeight: 1.6 }}>
+            {MENSAJE_NO_DISPONIBLE}
+          </p>
         )}
+        <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0", fontStyle: "italic" }}>
+          Todas las actividades deberán pasar primero por un proceso de revisión antes de ser publicadas.
+        </p>
       </Box>
 
       <div style={{ fontSize: 11, color: "var(--muted-foreground)", letterSpacing: 1, margin: "32px 0 12px 0" }}>
@@ -272,23 +269,21 @@ function MisActividadesCentro({
       </div>
 
       <Box title="Acción principal">
+        <NavButton to="/mi-espacio/actividades/nueva" search={{ track, estado }}>
+          + Crear una actividad
+        </NavButton>
         {aprobado ? (
-          <>
-            <NavButton to="/mi-espacio/actividades/nueva" search={{ track, estado }}>
-              + Crear una actividad
-            </NavButton>
-            <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0" }}>
-              Este plan permite publicar actividades grupales sin límite mensual.
-            </p>
-            <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0", fontStyle: "italic" }}>
-              Todas las actividades deberán pasar primero por un proceso de revisión antes de ser publicadas.
-            </p>
-          </>
+          <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0" }}>
+            Este plan permite publicar actividades grupales sin límite mensual.
+          </p>
         ) : (
-          <p style={{ fontSize: 13, lineHeight: 1.7, margin: 0 }}>
-            Podrás crear y publicar actividades en la Agenda cuando tu perfil haya sido aprobado.
+          <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0", lineHeight: 1.6 }}>
+            {MENSAJE_NO_DISPONIBLE}
           </p>
         )}
+        <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0", fontStyle: "italic" }}>
+          Todas las actividades deberán pasar primero por un proceso de revisión antes de ser publicadas.
+        </p>
       </Box>
 
       <div style={{ fontSize: 11, color: "var(--muted-foreground)", letterSpacing: 1, margin: "32px 0 12px 0" }}>
