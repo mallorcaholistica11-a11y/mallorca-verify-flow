@@ -2245,19 +2245,21 @@ function VerificadoFormulario() {
           {isOrg ? (
             <>
               <Box title="Información General">
-                <FakeField label="Nombre de la organización" />
+                <FakeField label="Nombre del centro, espacio o proyecto" />
                 <Ayuda>
                   Es el nombre con el que las personas os encontrarán dentro de Mallorca Holística.
                 </Ayuda>
               </Box>
 
-              <Box title="Datos de la organización">
-                <FakeField label="Nombre comercial (opcional)" />
+              <Box title="Datos principales">
+                <FakeField label="Nombre comercial (si es diferente)" />
                 <Ayuda>
-                  Si vuestra organización es conocida por un nombre diferente al nombre legal,
-                  podéis indicarlo aquí.
+                  Si sois conocidos por un nombre diferente al nombre legal, podéis indicarlo aquí.
                 </Ayuda>
-                <SelectField label="Tipo de organización" options={O_TIPOS_ORGANIZACION} />
+                <SelectField label="Tipo de perfil" options={O_TIPOS_PERFIL} />
+                <Ayuda>
+                  Esta indicación es únicamente descriptiva y no cambia el proceso ni el formulario.
+                </Ayuda>
                 <MunicipioPicker label="Municipio principal" hint={null} />
                 <FakeField label="Correo electrónico" type="email" />
                 <Ayuda>Será el correo de contacto que aparecerá en vuestro perfil público.</Ayuda>
@@ -2267,8 +2269,7 @@ function VerificadoFormulario() {
                 <Ayuda>Si disponéis de un logotipo o imagen de marca podéis añadirlo aquí.</Ayuda>
                 <FakeField label="Imagen principal" type="file" />
                 <Ayuda>
-                  Será la imagen principal que representará vuestra organización en Mallorca
-                  Holística.
+                  Será la imagen principal que os representará en Mallorca Holística.
                 </Ayuda>
               </Box>
 
