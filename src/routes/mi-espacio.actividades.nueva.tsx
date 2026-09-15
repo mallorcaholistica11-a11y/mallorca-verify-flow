@@ -376,7 +376,6 @@ function NuevaActividadPagina() {
             participen.
           </Note>
         </Box>
-      )}
 
       
         <Box title="Fecha y horario">
