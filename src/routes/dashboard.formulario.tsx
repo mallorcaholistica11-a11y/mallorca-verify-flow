@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import {
   WireframeShell,
@@ -2149,6 +2149,7 @@ function VerificadoFormulario() {
       title={`Paso ${step} de ${total} · ${stepTitle}`}
       breadcrumb={breadcrumb}
     >
+      {esEstandarVerificado && <VolverMiEspacioLink track={track} />}
       {esEstandarVerificado ? (
         <div
           className="wireframe-track-badge"
