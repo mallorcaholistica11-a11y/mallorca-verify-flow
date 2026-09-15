@@ -7,9 +7,27 @@ import { SelectorAreas } from "@/components/SelectorAreas";
 import { MAX_AREAS_ACTIVIDAD } from "@/data/areas";
 import { MAX_PRACTICAS_ACTIVIDAD } from "@/data/practicas";
 import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
+import { LIMITE_ACTIVIDADES_MES, limiteAlcanzado } from "@/data/actividades-espacio";
+
+type PerfilEstado = "pendiente" | "preparacion" | "revision" | "aprobado";
+
+function parsePerfilEstado(value: unknown): PerfilEstado | undefined {
+  if (
+    value === "pendiente" ||
+    value === "preparacion" ||
+    value === "revision" ||
+    value === "aprobado"
+  ) {
+    return value;
+  }
+  return undefined;
+}
 
 export const Route = createFileRoute("/mi-espacio/actividades/nueva")({
-  validateSearch: (s: Record<string, unknown>): { track: Track } => ({ track: parseTrack(s) }),
+  validateSearch: (s: Record<string, unknown>): { track: Track; estado?: PerfilEstado } => {
+    const estado = parsePerfilEstado(s.estado);
+    return { track: parseTrack(s), ...(estado ? { estado } : {}) };
+  },
   component: NuevaActividadPagina,
 });
 
@@ -98,23 +116,50 @@ const initial: FormState = {
 };
 
 function NuevaActividadPagina() {
-  const { track } = Route.useSearch();
+  const { track, estado: estadoSearch } = Route.useSearch();
   const [enviado, setEnviado] = useState(false);
   const [form, setForm] = useState<FormState>(initial);
   const update = <K extends keyof FormState>(k: K, v: FormState[K]) =>
     setForm((f) => ({ ...f, [k]: v }));
 
+  const esEstandarVerificado = track === "verificado";
+  const estado = estadoSearch ?? "pendiente";
+  // El estado real del perfil decide si se puede crear/enviar actividades.
+  const perfilAprobado = !esEstandarVerificado || estado === "aprobado";
+  const sinDisponibilidad = esEstandarVerificado && limiteAlcanzado();
+
   const esPresencial = form.modalidad === "Presencial" || form.modalidad === "Híbrida";
   const esOnline = form.modalidad === "Online" || form.modalidad === "Híbrida";
+
+  if (!perfilAprobado) {
+    return (
+      <WireframeShell
+        title="Crear una actividad"
+        breadcrumb="Mi Espacio › Mis Actividades › Nueva actividad"
+      >
+        <Box title="Todavía no disponible">
+          <p style={{ fontSize: 13, lineHeight: 1.7, margin: 0 }}>
+            Podrás crear y publicar actividades en la Agenda cuando tu perfil profesional haya sido
+            aprobado.
+          </p>
+        </Box>
+        <Box title="Volver">
+          <NavButton to="/mi-espacio/actividades" search={{ track, estado }} variant="secondary">
+            ← Volver a Mis Actividades
+          </NavButton>
+        </Box>
+      </WireframeShell>
+    );
+  }
 
   if (enviado) {
     return (
       <WireframeShell
-        screen="9c · ACTIVIDAD ENVIADA"
+        screen={esEstandarVerificado ? undefined : "9c · ACTIVIDAD ENVIADA"}
         title="🌿 Tu actividad ha sido enviada"
         breadcrumb="Mi Espacio › Mis Actividades › Nueva actividad"
       >
-        <TrackBadge track={track} />
+        {!esEstandarVerificado && <TrackBadge track={track} />}
         <Box title="En revisión">
           <p style={{ fontSize: 14, lineHeight: 1.7, color: "var(--foreground)", margin: "0 0 12px 0" }}>
             Gracias por compartir tu propuesta con la comunidad de Mallorca Holística.
@@ -124,7 +169,7 @@ function NuevaActividadPagina() {
           </p>
         </Box>
         <Box title="Continuar">
-          <NavButton to="/mi-espacio/actividades" search={{ track }}>
+          <NavButton to="/mi-espacio/actividades" search={{ track, estado }}>
             ← Volver a Mis Actividades
             <span style={{ display: 'block', fontSize: 12, marginTop: 4, opacity: 0.8, fontWeight: 400 }}>
               Desde Mis Actividades podrás consultar el estado de revisión de tu propuesta.
@@ -137,11 +182,11 @@ function NuevaActividadPagina() {
 
   return (
     <WireframeShell
-      screen="9c · NUEVA ACTIVIDAD"
+      screen={esEstandarVerificado ? undefined : "9c · NUEVA ACTIVIDAD"}
       title="Crear una actividad"
       breadcrumb="Mi Espacio › Mis Actividades › Nueva actividad"
     >
-      <TrackBadge track={track} />
+      {!esEstandarVerificado && <TrackBadge track={track} />}
 
       <Box title="Solo eventos grupales">
         <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)", margin: "0 0 8px 0" }}>
@@ -516,9 +561,21 @@ function NuevaActividadPagina() {
 
       <Box title="Navegación">
         <button type="button" style={secondaryBtn}>Guardar como borrador</button>
-        <button type="button" onClick={() => setEnviado(true)} style={primaryBtn}>
+        <button
+          type="button"
+          onClick={() => setEnviado(true)}
+          disabled={sinDisponibilidad}
+          style={{ ...primaryBtn, opacity: sinDisponibilidad ? 0.5 : 1, cursor: sinDisponibilidad ? "not-allowed" : "pointer" }}
+        >
           Enviar para revisión
         </button>
+        {sinDisponibilidad && (
+          <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0", lineHeight: 1.6 }}>
+            Has utilizado las {LIMITE_ACTIVIDADES_MES} actividades incluidas este mes en tu plan.
+            Puedes guardar esta actividad como borrador y enviarla cuando vuelvas a tener
+            disponibilidad.
+          </p>
+        )}
         <p style={{ fontSize: 12, color: "var(--muted-foreground)", fontStyle: "italic", margin: "12px 0 0 0", lineHeight: 1.6 }}>
           Una vez enviada, la actividad será revisada por el equipo de Mallorca Holística antes de ser publicada en la Agenda.
         </p>
@@ -527,7 +584,7 @@ function NuevaActividadPagina() {
       <div style={{ marginTop: 12 }}>
         <Link
           to="/mi-espacio/actividades"
-          search={{ track }}
+          search={{ track, estado }}
           style={{ ...secondaryBtn, textDecoration: "none" }}
         >
           ← Cancelar y volver a Mis Actividades

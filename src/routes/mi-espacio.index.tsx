@@ -213,7 +213,7 @@ function MiEspacioVerificado({ track, estado }: { track: Track; estado: EspacioE
         <Link to="/mi-espacio/perfil" search={{ track }} style={cardLinkStyle}>
           <Card title="👤 Mi Perfil">{config.perfilTexto}</Card>
         </Link>
-        <Link to="/mi-espacio/actividades" search={{ track }} style={cardLinkStyle}>
+        <Link to="/mi-espacio/actividades" search={{ track, estado }} style={cardLinkStyle}>
           <Card title="🗓️ Mis Actividades">{config.actividadesTexto}</Card>
         </Link>
       </Row>
