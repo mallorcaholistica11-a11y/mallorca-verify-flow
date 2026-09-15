@@ -2157,20 +2157,24 @@ function VerificadoFormulario() {
   );
   const stepTitle = titles[step - 1];
   const screenLabel = isOrg ? "FORMULARIO ORGANIZACIÓN" : "FORMULARIO VERIFICADO";
-  const breadcrumb = isOrg
-    ? "Dashboard › Completar perfil de la organización"
-    : "Dashboard › Completar perfil verificado";
+  const esEstandarOrganizacion = track === "organizacion";
+  const breadcrumb = esEstandarOrganizacion
+    ? "Mi Espacio › Completar mi perfil"
+    : isOrg
+      ? "Dashboard › Completar perfil de la organización"
+      : "Dashboard › Completar perfil verificado";
 
   const esEstandarVerificado = track === "verificado";
+  const esEstandar = esEstandarVerificado || esEstandarOrganizacion;
 
   return (
     <WireframeShell
-      screen={esEstandarVerificado ? undefined : `6 · ${screenLabel} · PASO ${step}/${total}`}
+      screen={esEstandar ? undefined : `6 · ${screenLabel} · PASO ${step}/${total}`}
       title={`Paso ${step} de ${total} · ${stepTitle}`}
       breadcrumb={breadcrumb}
     >
-      {esEstandarVerificado && <VolverMiEspacioLink track={track} />}
-      {esEstandarVerificado ? (
+      {esEstandar && <VolverMiEspacioLink track={track} />}
+      {esEstandar ? (
         <div
           className="wireframe-track-badge"
           style={{
