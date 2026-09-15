@@ -58,20 +58,10 @@ const FRECUENCIAS = ["Cada semana", "Cada 15 días", "Cada mes", "Personalizado"
 
 const NIVELES = ["Abierto a todos los niveles", "Iniciación", "Intermedio", "Avanzado", "Otro"];
 
-const PASOS = [
-  "Información básica",
-  "Descripción",
-  "Fecha y horario",
-  "Modalidad y ubicación",
-  "Información práctica",
-  "Precio y reservas",
-  "Revisar y enviar",
-];
-
 type PrecioTipo = "gratuito" | "pago" | "aportacion" | "consultar";
 type Repite = "no" | "si";
 type OrigenUbicacion = "perfil" | "otra";
-type Resultado = "borrador" | "enviada";
+type Resultado = "preparacion" | "enviada";
 
 type FormState = {
   titulo: string;
