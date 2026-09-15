@@ -195,7 +195,18 @@ function NuevaActividadPagina() {
   }
 
   const completa = faltan.length === 0;
-  const puedeEnviar = completa && !sinDisponibilidad;
+  /**
+   * REGLA DE NEGOCIO DEL PRODUCTO FINAL (no eliminar):
+   * una actividad solo podrá enviarse para revisión cuando el perfil del
+   * profesional, centro, espacio u organizador esté aprobado/verificado, con
+   * todos los campos obligatorios completos y disponibilidad en el plan.
+   *   const puedeEnviar = completa && !sinDisponibilidad && perfilAprobado;
+   * En este prototipo el envío queda siempre disponible para poder revisar y
+   * documentar el recorrido completo (envío → confirmación → Mis Actividades).
+   */
+  const puedeEnviarProducto = completa && !sinDisponibilidad && perfilAprobado;
+  const puedeEnviar = true;
+  void puedeEnviarProducto;
 
   const tipoActividad = form.tipo === "Otro" ? form.tipoOtro : form.tipo;
   const nivelActividad = form.nivel === "Otro" ? form.nivelOtro : form.nivel;
