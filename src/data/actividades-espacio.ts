@@ -4,7 +4,7 @@
 // Todavía no existe backend: el registro llega vacío y no se inventan datos.
 
 export type ActividadEstado =
-  | "borrador"
+  | "preparacion"
   | "pendiente"
   | "publicada"
   | "rechazada"
