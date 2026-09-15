@@ -2850,36 +2850,44 @@ function VerificadoFormulario() {
           </button>
         )}
         {!isLast ? (
-          <button
-            onClick={() => setStep((s) => s + 1)}
-            disabled={step === 6 && !allConsents}
-            style={{
-              ...btn("primary"),
-              opacity: step === 6 && !allConsents ? 0.5 : 1,
-              cursor: step === 6 && !allConsents ? "not-allowed" : "pointer",
-            }}
-          >
-            Siguiente →
-          </button>
+          (() => {
+            const bloqueado =
+              step === 6 && (!allConsents || (esEstandarOrganizacion && !representacion));
+            return (
+              <button
+                onClick={() => setStep((s) => s + 1)}
+                disabled={bloqueado}
+                style={{
+                  ...btn("primary"),
+                  opacity: bloqueado ? 0.5 : 1,
+                  cursor: bloqueado ? "not-allowed" : "pointer",
+                }}
+              >
+                Siguiente →
+              </button>
+            );
+          })()
         ) : (
           <button
             onClick={finish}
-            disabled={esEstandarVerificado && !autorizaPago}
+            disabled={esEstandar && !autorizaPago}
             style={{
               ...btn("primary"),
-              opacity: esEstandarVerificado && !autorizaPago ? 0.5 : 1,
-              cursor: esEstandarVerificado && !autorizaPago ? "not-allowed" : "pointer",
+              opacity: esEstandar && !autorizaPago ? 0.5 : 1,
+              cursor: esEstandar && !autorizaPago ? "not-allowed" : "pointer",
             }}
           >
-            {isOrg
-              ? "👉 Enviar para revisión"
-              : esEstandarVerificado
-                ? "👉 Enviar mi solicitud de verificación"
-                : "👉 Enviar mi solicitud"}
+            {esEstandarOrganizacion
+              ? "👉 Enviar mi solicitud de verificación"
+              : isOrg
+                ? "👉 Enviar para revisión"
+                : esEstandarVerificado
+                  ? "👉 Enviar mi solicitud de verificación"
+                  : "👉 Enviar mi solicitud"}
           </button>
         )}
       </Box>
-      {esEstandarVerificado && step > 1 && (
+      {esEstandar && step > 1 && (
         <div style={{ marginTop: 10, textAlign: "center" }}>
           <Link
             to="/mi-espacio"
