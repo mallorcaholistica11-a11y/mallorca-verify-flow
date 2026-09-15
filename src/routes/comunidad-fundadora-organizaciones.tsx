@@ -45,7 +45,7 @@ const FEATURES = [
     title: "Tu perfil",
     icon: Building2,
     items: [
-      "Perfil Entidad Verificada.",
+      "Perfil de Entidad Verificada.",
       "Sello Entidad Verificada.",
       "Perfil público en el Directorio.",
       "Logotipo o imagen principal.",
@@ -157,7 +157,7 @@ function PlanCentrosEspaciosOrganizadores() {
               Plan Centros, Espacios & Organizadores
             </h1>
             <p className="mb-4 font-display text-[0.98rem] font-normal leading-snug text-sage-dark md:text-[1.05rem]">
-              Más capacidad para proyectos con una dimensión grupal o profesional más amplia.
+              Más capacidad para actividades con una dimensión grupal o profesional más amplia.
             </p>
             <div className="max-w-[640px] space-y-3 text-[0.8rem] leading-relaxed text-muted-foreground md:text-[0.84rem]">
               <p>
