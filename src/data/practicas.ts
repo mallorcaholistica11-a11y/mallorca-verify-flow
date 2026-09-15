@@ -219,5 +219,5 @@ export function expansionDescendente(nombre: string): string[] {
 /** Límites por plan del MVP. */
 export const MAX_PRACTICAS_PRESENCIA = 5;
 export const MAX_PRACTICAS_VERIFICADO = 10;
-export const MAX_PRACTICAS_CENTRO = 10;
+export const MAX_PRACTICAS_CENTRO = 25;
 export const MAX_PRACTICAS_ACTIVIDAD = 3;
