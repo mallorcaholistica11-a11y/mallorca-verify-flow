@@ -84,8 +84,8 @@ function MisActividadesVerificado({
             {alcanzado && (
               <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "8px 0 0 0", lineHeight: 1.6 }}>
                 Has utilizado las {LIMITE_ACTIVIDADES_MES} actividades incluidas este mes en tu plan.
-                Puedes seguir creando y guardando borradores, y enviar una nueva actividad para
-                revisión cuando vuelvas a tener disponibilidad.
+                Puedes seguir creando actividades y guardarlas para continuar más tarde, y enviar
+                una nueva actividad para revisión cuando vuelvas a tener disponibilidad.
               </p>
             )}
           </>
