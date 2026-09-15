@@ -1,14 +1,281 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { WireframeShell, Box, Row, Card, NavButton, TrackBadge, ReadOnlyField, parseTrack, type Track } from "@/components/Wireframe";
+import {
+  WireframeShell,
+  Box,
+  Row,
+  Card,
+  NavButton,
+  TrackBadge,
+  ReadOnlyField,
+  parseTrack,
+  type Track,
+} from "@/components/Wireframe";
+import { PERFILES, type ResultadoProfesional } from "@/data/perfiles";
+import { retratoDe } from "@/data/imagenes";
+
+type PerfilEstado = "pendiente" | "preparacion" | "revision" | "aprobado";
+
+function parseEstado(value: unknown): PerfilEstado | undefined {
+  if (
+    value === "pendiente" ||
+    value === "preparacion" ||
+    value === "revision" ||
+    value === "aprobado"
+  ) {
+    return value;
+  }
+  return undefined;
+}
 
 export const Route = createFileRoute("/mi-espacio/perfil")({
-  validateSearch: (s: Record<string, unknown>): { track: Track } => ({ track: parseTrack(s) }),
+  head: () => ({
+    meta: [
+      { title: "Mi Perfil · Mallorca Holística" },
+      {
+        name: "description",
+        content:
+          "Consulta y gestiona la información de tu perfil profesional en Mallorca Holística.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:title", content: "Mi Perfil · Mallorca Holística" },
+      {
+        property: "og:description",
+        content:
+          "Consulta y gestiona la información de tu perfil profesional en Mallorca Holística.",
+      },
+      { name: "twitter:card", content: "summary" },
+    ],
+  }),
+  validateSearch: (
+    s: Record<string, unknown>,
+  ): { track: Track; estado?: PerfilEstado; preview?: true } => {
+    const estado = parseEstado(s.estado);
+    const preview = s.preview === true || s.preview === "true";
+
+    return {
+      track: parseTrack(s),
+      ...(estado ? { estado } : {}),
+      ...(preview ? { preview: true } : {}),
+    };
+  },
   component: MiPerfil,
 });
 
-function MiPerfil() {
-  const { track } = Route.useSearch();
+const perfilProfesional = PERFILES.find(
+  (perfil): perfil is ResultadoProfesional =>
+    perfil.tipo === "profesional" && perfil.slug === "lucia-gelabert",
+);
 
+const ESTADO_PERFIL: Record<PerfilEstado, { estado: string; verificacion: string }> = {
+  pendiente: {
+    estado: "Pendiente de completar",
+    verificacion: "Pendiente de verificar",
+  },
+  preparacion: {
+    estado: "Pendiente de completar",
+    verificacion: "Pendiente de verificar",
+  },
+  revision: {
+    estado: "En revisión",
+    verificacion: "Verificación en proceso",
+  },
+  aprobado: {
+    estado: "Publicado",
+    verificacion: "Profesional Verificado",
+  },
+};
+
+const valorNoDisponible = "No indicado";
+
+function MiPerfil() {
+  const { track, estado: estadoSearch, preview = false } = Route.useSearch();
+
+  if (track !== "verificado") return <MiPerfilOtrosRecorridos track={track} />;
+
+  const estado = estadoSearch ?? "pendiente";
+  const estadoPerfil = ESTADO_PERFIL[estado];
+  const estaAprobado = estado === "aprobado";
+  const estaEnRevision = estado === "revision";
+  const nombre = perfilProfesional?.nombre ?? valorNoDisponible;
+  const practicas = perfilProfesional?.especialidades.join(", ") ?? valorNoDisponible;
+  const areas = perfilProfesional?.areas.join(", ") ?? valorNoDisponible;
+  const ubicaciones = perfilProfesional?.ubicacion ?? valorNoDisponible;
+  const slug = perfilProfesional?.slug;
+  const ultimaActualizacion = valorNoDisponible;
+
+  return (
+    <WireframeShell title="Mi Perfil" breadcrumb="Mi Espacio › Mi Perfil">
+      <div style={{ maxWidth: 620, margin: "0 auto 24px", textAlign: "center" }}>
+        <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)" }}>
+          Consulta la información de tu perfil profesional y mantén tus datos actualizados.
+        </p>
+      </div>
+
+      <Box title="Estado del perfil">
+        <Row>
+          <Card title="Estado">{estadoPerfil.estado}</Card>
+          <Card title="Última actualización">{ultimaActualizacion}</Card>
+          <Card title="Verificación">{estadoPerfil.verificacion}</Card>
+        </Row>
+      </Box>
+
+      <Box title="Información del perfil">
+        <Row>
+          <div style={{ flex: 1, minWidth: 260 }}>
+            <ReadOnlyField label="Nombre profesional" value={nombre} />
+            <ReadOnlyField label="Prácticas" value={practicas} />
+            <ReadOnlyField label="Áreas de Acompañamiento" value={areas} />
+            <ReadOnlyField label="¿A quién acompañas?" value={valorNoDisponible} />
+            <ReadOnlyField label="¿Cómo trabajas?" value={valorNoDisponible} />
+          </div>
+          <div style={{ flex: 1, minWidth: 260 }}>
+            <ReadOnlyField label="Ubicaciones de atención" value={ubicaciones} />
+            <ReadOnlyField label="Idiomas" value={valorNoDisponible} />
+            <ReadOnlyField label="Correo electrónico" value={valorNoDisponible} />
+            <ReadOnlyField label="WhatsApp / teléfono" value={valorNoDisponible} />
+            <ReadOnlyField label="Página web" value={valorNoDisponible} />
+          </div>
+        </Row>
+      </Box>
+
+      <Box title="Sobre mí">
+        <ReadOnlyField label="Frase destacada" value={valorNoDisponible} />
+        <div style={{ fontSize: 12.5, marginBottom: 6, color: "var(--foreground)" }}>
+          Sobre mí / presentación profesional
+        </div>
+        <div
+          style={{
+            border: "1px solid var(--border)",
+            borderRadius: 12,
+            padding: 12,
+            background: "var(--muted)",
+            fontSize: 13,
+            color: "var(--foreground)",
+            minHeight: 100,
+            whiteSpace: "pre-wrap",
+          }}
+        >
+          {valorNoDisponible}
+        </div>
+      </Box>
+
+      <Box title="Fotografías">
+        <div style={{ fontSize: 12, marginBottom: 8 }}>Fotografía principal</div>
+        <div
+          style={{
+            border: "1px solid var(--border)",
+            borderRadius: 12,
+            background: "var(--muted)",
+            height: 160,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            overflow: "hidden",
+            marginBottom: 16,
+          }}
+        >
+          {perfilProfesional ? (
+            <img
+              src={retratoDe(perfilProfesional.nombre)}
+              alt={`Fotografía principal de ${perfilProfesional.nombre}`}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+          ) : (
+            <span style={{ color: "var(--muted-foreground)", fontSize: 12 }}>
+              Sin fotografía principal
+            </span>
+          )}
+        </div>
+        <div style={{ fontSize: 12, marginBottom: 8 }}>Galería de hasta 5 imágenes adicionales</div>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          {[1, 2, 3, 4, 5].map((i) => (
+            <div
+              key={i}
+              style={{
+                border: "1px dashed var(--border)",
+                borderRadius: 12,
+                background: "var(--muted)",
+                width: 100,
+                height: 100,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "var(--muted-foreground)",
+                fontSize: 11,
+              }}
+            >
+              Sin imagen
+            </div>
+          ))}
+        </div>
+      </Box>
+
+      <Box title={estaAprobado ? "Perfil público" : "Vista previa de tu perfil"}>
+        <p
+          style={{ fontSize: 12, color: "var(--foreground)", margin: "0 0 12px", lineHeight: 1.7 }}
+        >
+          {estaAprobado
+            ? "Así aparece actualmente tu perfil en Mallorca Holística."
+            : "Así se mostrará tu perfil una vez aprobado y publicado en Mallorca Holística."}
+        </p>
+        {preview && !estaAprobado && (
+          <div
+            id="vista-previa"
+            style={{
+              border: "1px solid var(--border)",
+              borderRadius: 12,
+              padding: 16,
+              background: "var(--card)",
+              maxWidth: 360,
+              marginBottom: 12,
+            }}
+          >
+            <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>{nombre}</div>
+            <div style={{ fontSize: 12, color: "var(--muted-foreground)", marginBottom: 6 }}>
+              {practicas}
+            </div>
+            <div style={{ fontSize: 12, color: "var(--foreground)" }}>{ubicaciones}</div>
+          </div>
+        )}
+        {estaAprobado && slug ? (
+          <NavButton to="/profesional/$slug" params={{ slug }}>
+            Ver mi perfil público
+          </NavButton>
+        ) : (
+          <NavButton
+            to="/mi-espacio/perfil"
+            search={{ track, estado, preview: preview ? "false" : "true" }}
+            variant="secondary"
+          >
+            Vista previa de mi perfil
+          </NavButton>
+        )}
+      </Box>
+
+      <Box title="Acciones">
+        {estaEnRevision ? (
+          <p style={{ fontSize: 13, lineHeight: 1.7, margin: 0 }}>
+            Tu solicitud está siendo revisada. Podrás actualizar nuevamente tu perfil cuando
+            finalice el proceso de verificación.
+          </p>
+        ) : (
+          <NavButton to="/dashboard/formulario" search={{ track }}>
+            {estaAprobado ? "Actualizar mi perfil" : "Continuar mi perfil"}
+          </NavButton>
+        )}
+      </Box>
+
+      <Box title="Volver">
+        <NavButton to="/mi-espacio" search={{ track, estado }} variant="secondary">
+          ← Volver a Mi Espacio
+        </NavButton>
+      </Box>
+    </WireframeShell>
+  );
+}
+
+// Los recorridos Fundadores y el resto de planes conservan la página anterior.
+function MiPerfilOtrosRecorridos({ track }: { track: Track }) {
   return (
     <WireframeShell
       screen="10 · MI PERFIL"
@@ -16,40 +283,19 @@ function MiPerfil() {
       breadcrumb="Mi Espacio › Mi Perfil"
     >
       <TrackBadge track={track} />
-
       <div style={{ maxWidth: 620, margin: "0 auto 24px", textAlign: "center" }}>
         <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)" }}>
           Consulta la información de tu perfil profesional y mantén tus datos siempre actualizados.
         </p>
       </div>
-
       <Box title="Bloque 1 · Estado del perfil">
         <Row>
-          <Card title="Estado">
-            <div style={{ fontSize: 13, marginBottom: 6 }}>🟡 [estado dinámico]</div>
-            <div style={{ fontSize: 11, color: "var(--muted-foreground)" }}>
-              Valores posibles: Publicado · En revisión · Pendiente de completar
-            </div>
-          </Card>
-          <Card title="Última actualización">
-            <div style={{ fontSize: 13, marginBottom: 6 }}>[fecha dinámica]</div>
-            <div style={{ fontSize: 11, color: "var(--muted-foreground)" }}>
-              Se actualiza con cada modificación del perfil.
-            </div>
-          </Card>
-          <Card title="Verificación">
-            <div style={{ fontSize: 13, marginBottom: 6 }}>🔖 [insignia dinámica]</div>
-            <div style={{ fontSize: 11, color: "var(--muted-foreground)" }}>
-              Perfil verificado · Verificación en proceso · Pendiente de verificar
-            </div>
-          </Card>
+          <Card title="Estado">🟡 [estado dinámico]</Card>
+          <Card title="Última actualización">[fecha dinámica]</Card>
+          <Card title="Verificación">🔖 [insignia dinámica]</Card>
         </Row>
       </Box>
-
       <Box title="Bloque 2 · Información del perfil">
-        <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginBottom: 12, fontStyle: "italic" }}>
-          Datos cargados dinámicamente desde la base de datos.
-        </div>
         <Row>
           <div style={{ flex: 1, minWidth: 260 }}>
             <ReadOnlyField label="Nombre profesional" value="[dinámico]" />
@@ -66,136 +312,27 @@ function MiPerfil() {
           </div>
         </Row>
       </Box>
-
       <Box title="Bloque 3 · Sobre mí">
-        <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginBottom: 8, fontStyle: "italic" }}>
-          Texto descriptivo tal como aparecerá publicado.
-        </div>
-        <div
-          style={{
-            border: "1px solid var(--border)", borderRadius: 12,
-            padding: 12,
-            background: "var(--muted)",
-            fontSize: 13,
-            color: "var(--foreground)",
-            minHeight: 100,
-            whiteSpace: "pre-wrap",
-          }}
-        >
-          [Descripción dinámica del profesional]
-        </div>
+        <div style={{ fontSize: 13, minHeight: 100 }}>[Descripción dinámica del profesional]</div>
       </Box>
-
       <Box title="Bloque 4 · Fotografías">
-        <div style={{ fontSize: 12, marginBottom: 8 }}>Fotografía principal</div>
-        <div
-          style={{
-            border: "1px solid var(--border)", borderRadius: 12,
-            background: "var(--muted)",
-            height: 160,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "var(--muted-foreground)",
-            fontSize: 12,
-            marginBottom: 16,
-          }}
-        >
-          [imagen principal dinámica]
-        </div>
-        <div style={{ fontSize: 12, marginBottom: 8 }}>Fotografías adicionales</div>
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-          {[1, 2, 3, 4].map((i) => (
-            <div
-              key={i}
-              style={{
-                border: "1px solid var(--border)", borderRadius: 12,
-                background: "var(--muted)",
-                width: 100,
-                height: 100,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "var(--muted-foreground)",
-                fontSize: 11,
-              }}
-            >
-              [foto {i}]
-            </div>
-          ))}
-        </div>
+        <div style={{ fontSize: 12 }}>[fotografías dinámicas]</div>
       </Box>
-
       <Box title="Bloque 5 · Servicios">
-        <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginBottom: 8, fontStyle: "italic" }}>
+        <div style={{ fontSize: 12 }}>
           Terapias, disciplinas o servicios cargados dinámicamente desde la base de datos.
         </div>
-        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-          {["[servicio]", "[servicio]", "[servicio]", "[servicio]"].map((s, i) => (
-            <span
-              key={i}
-              style={{
-                border: "1px solid var(--border)",
-                padding: "4px 10px",
-                fontSize: 12,
-                background: "var(--card)",
-                borderRadius: 12,
-              }}
-            >
-              {s}
-            </span>
-          ))}
-        </div>
       </Box>
-
       <Box title="Bloque 6 · Vista previa pública">
-        <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginBottom: 8, fontStyle: "italic" }}>
-          Así aparece actualmente tu perfil publicado en Mallorca Holística.
-        </div>
-        <div
-          style={{
-            border: "1px solid var(--border)", borderRadius: 12,
-            padding: 16,
-            background: "var(--card)",
-            maxWidth: 360,
-          }}
-        >
-          <div
-            style={{
-              border: "1px solid var(--border)", borderRadius: 12,
-              background: "var(--muted)",
-              height: 120,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "var(--muted-foreground)",
-              fontSize: 11,
-              marginBottom: 10,
-            }}
-          >
-            [foto principal]
-          </div>
-          <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>[Nombre profesional]</div>
-          <div style={{ fontSize: 12, color: "var(--muted-foreground)", marginBottom: 6 }}>[Profesión principal]</div>
-          <div style={{ fontSize: 12, color: "var(--foreground)", marginBottom: 4 }}>📍 [Municipio]</div>
-          <div style={{ fontSize: 12, color: "var(--foreground)" }}>🌐 [Modalidad]</div>
-        </div>
-        <div style={{ marginTop: 12 }}>
-          <NavButton to="/mi-espacio/perfil" search={{ track }} variant="secondary">
-            Ver mi perfil público
-          </NavButton>
-        </div>
+        <NavButton to="/mi-espacio/perfil" search={{ track }} variant="secondary">
+          Ver mi perfil público
+        </NavButton>
       </Box>
-
       <Box title="Bloque 7 · Acciones">
-        <div style={{ fontSize: 12, color: "var(--foreground)", marginBottom: 12 }}>
-          Al pulsar "Actualizar mi perfil" se abrirá el formulario de inscripción con todos tus datos actuales precargados. Solo tendrás que modificar aquello que desees actualizar.
-        </div>
         <NavButton to="/dashboard/formulario" search={{ track }}>
           Actualizar mi perfil
         </NavButton>
       </Box>
-
       <Box title="Volver">
         <NavButton to="/mi-espacio" search={{ track }} variant="secondary">
           ← Volver a Mi Espacio
