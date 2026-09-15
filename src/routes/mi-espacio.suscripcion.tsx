@@ -159,6 +159,31 @@ const INCLUYE_VERIFICADO = [
   },
 ] as const;
 
+const INCLUYE_ORGANIZACION = [
+  {
+    titulo: "Tu perfil",
+    items: [
+      "Perfil de Entidad Verificada.",
+      "Sello Entidad Verificada.",
+      "Perfil público en el Directorio.",
+      "Información ampliada del centro, espacio o proyecto.",
+      "Múltiples ubicaciones.",
+      "Equipo e instalaciones.",
+      "Galería de hasta 10 imágenes.",
+    ],
+  },
+  {
+    titulo: "Visibilidad y actividad",
+    items: [
+      "Mayor visibilidad en el Directorio y búsquedas.",
+      "Publicación ilimitada de actividades grupales en la Agenda.",
+      "Contacto directo mediante teléfono, WhatsApp, web y redes sociales.",
+      "Enlace externo de reserva cuando exista.",
+      "Acceso a Mi Espacio para gestionar perfil y actividades.",
+    ],
+  },
+] as const;
+
 type Factura = {
   id: string;
   fecha: string;
@@ -187,9 +212,10 @@ function trackToPlan(track: Track): PlanKey {
 function MiSuscripcion() {
   const { track, estado, suscripcion } = Route.useSearch();
 
-  if (track === "verificado") {
+  if (track === "verificado" || track === "organizacion") {
     return (
       <MiSuscripcionVerificado
+        track={track}
         estado={estado ?? "pendiente"}
         suscripcion={suscripcion ?? "periodo-gratuito"}
       />
@@ -200,19 +226,24 @@ function MiSuscripcion() {
 }
 
 function MiSuscripcionVerificado({
+  track,
   estado,
   suscripcion,
 }: {
+  track: "verificado" | "organizacion";
   estado: PerfilEstado;
   suscripcion: SuscripcionEstado;
 }) {
+  const esOrganizacion = track === "organizacion";
   const estaPendiente = estado === "pendiente" || estado === "preparacion";
   const estaEnRevision = estado === "revision";
   const estaRechazado = estado === "rechazado";
   const estaAprobado = estado === "aprobado";
   const estaActiva = estaAprobado && suscripcion === "activa";
   const estadoMiEspacio = estaRechazado ? "revision" : estado;
-  const estadoVisible = estaPendiente
+  const estadoVisible = esOrganizacion && !estaActiva
+    ? "Pendiente"
+    : estaPendiente
     ? "Pendiente de completar"
     : estaEnRevision
       ? "Solicitud en revisión"
@@ -226,7 +257,7 @@ function MiSuscripcionVerificado({
     <WireframeShell title="Mi Suscripción" breadcrumb="Mi Espacio › Mi Suscripción">
       <Link
         to="/mi-espacio"
-        search={{ track: "verificado", estado: estadoMiEspacio }}
+        search={{ track, estado: estadoMiEspacio }}
         style={backLinkStyle}
       >
         ← Volver a Mi Espacio
@@ -240,16 +271,32 @@ function MiSuscripcionVerificado({
 
       <Box title="Plan y estado actual">
         <Row>
-          <Card title="Plan">Profesional Verificado</Card>
+          <Card title="Plan">
+            {esOrganizacion ? "Centros, Espacios & Organizadores" : "Profesional Verificado"}
+          </Card>
           <Card title="Precio">
-            25 €/mes
-            <br />
-            IVA incluido
+            {esOrganizacion ? "50 €/mes · IVA incluido" : (
+              <>
+                25 €/mes
+                <br />
+                IVA incluido
+              </>
+            )}
           </Card>
           <Card title="Estado">{estadoVisible}</Card>
         </Row>
 
-        {estaPendiente && (
+        {esOrganizacion && !estaActiva && (
+          <>
+            <p style={paragraphStyle}>
+              Tu suscripción todavía no está activa. Estamos revisando tu solicitud de
+              verificación.
+            </p>
+            <CondicionesOrganizacion />
+          </>
+        )}
+
+        {!esOrganizacion && estaPendiente && (
           <>
             <p style={paragraphStyle}>
               Tu suscripción todavía no está activa. Para enviar tu solicitud de verificación, es
@@ -265,7 +312,7 @@ function MiSuscripcionVerificado({
           </>
         )}
 
-        {estaEnRevision && (
+        {!esOrganizacion && estaEnRevision && (
           <>
             <p style={paragraphStyle}>
               Tu método de pago ha quedado registrado de forma segura mediante Stripe. No se
@@ -278,7 +325,7 @@ function MiSuscripcionVerificado({
           </>
         )}
 
-        {estaAprobado && !estaActiva && (
+        {!esOrganizacion && estaAprobado && !estaActiva && (
           <>
             <p style={paragraphStyle}>
               Tu perfil está aprobado. Los 2 meses gratuitos comienzan en la fecha oficial de
@@ -289,9 +336,9 @@ function MiSuscripcionVerificado({
           </>
         )}
 
-        {estaActiva && <AvisoPrimerCobro />}
+        {estaActiva && (esOrganizacion ? <CondicionesOrganizacion /> : <AvisoPrimerCobro />)}
 
-        {estaRechazado && (
+        {!esOrganizacion && estaRechazado && (
           <p style={paragraphStyle}>
             Tu suscripción no se ha activado y no se realizará ningún cargo.
           </p>
@@ -306,7 +353,7 @@ function MiSuscripcionVerificado({
             gap: "18px 24px",
           }}
         >
-          {INCLUYE_VERIFICADO.map((grupo) => (
+          {(esOrganizacion ? INCLUYE_ORGANIZACION : INCLUYE_VERIFICADO).map((grupo) => (
             <section key={grupo.titulo}>
               <h2 style={groupTitleStyle}>{grupo.titulo}</h2>
               <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
@@ -321,7 +368,7 @@ function MiSuscripcionVerificado({
         </div>
       </Box>
 
-      {DATOS_STRIPE.metodoPago && (estaEnRevision || estaAprobado) && (
+      {DATOS_STRIPE.metodoPago && (esOrganizacion ? estaActiva : estaEnRevision || estaAprobado) && (
         <Box title="Método de pago">
           <Card title="Método registrado">{DATOS_STRIPE.metodoPago}</Card>
           {estaActiva && (
@@ -358,13 +405,40 @@ function MiSuscripcionVerificado({
       <Box title="Volver">
         <NavButton
           to="/mi-espacio"
-          search={{ track: "verificado", estado: estadoMiEspacio }}
+          search={{ track, estado: estadoMiEspacio }}
           variant="secondary"
         >
           ← Volver a Mi Espacio
         </NavButton>
       </Box>
     </WireframeShell>
+  );
+}
+
+function CondicionesOrganizacion() {
+  return (
+    <div style={{ display: "grid", gap: 10, marginTop: 12 }}>
+      <p style={{ ...paragraphStyle, margin: 0 }}>
+        Los 2 meses gratuitos comenzarán en la fecha oficial de lanzamiento de Mallorca
+        Holística. La fecha se comunicará antes de la activación de las suscripciones.
+      </p>
+      <p style={{ ...paragraphStyle, margin: 0 }}>
+        El primer cobro se realizará únicamente cuando el perfil haya sido aprobado como Entidad
+        Verificada y haya finalizado el periodo gratuito de lanzamiento.
+      </p>
+      <p style={{ ...paragraphStyle, margin: 0 }}>
+        Si el perfil se aprueba durante el periodo gratuito, no se realizará ningún cobro hasta que
+        dicho periodo haya terminado. Si se aprueba después de finalizar el periodo gratuito, la
+        suscripción comenzará a partir de su aprobación.
+      </p>
+      <p style={{ ...paragraphStyle, margin: 0 }}>
+        Si el perfil no es aprobado, la suscripción no se activa y no se realiza ningún cobro.
+      </p>
+      <p style={{ ...paragraphStyle, margin: 0 }}>
+        Mallorca Holística te informará por email antes del primer cobro, indicando la fecha y el
+        importe.
+      </p>
+    </div>
   );
 }
 
