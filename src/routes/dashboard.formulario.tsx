@@ -2453,7 +2453,7 @@ function VerificadoFormulario() {
               </Box>
               <Box title="Instalaciones">
                 <Ayuda>
-                  Seleccionad las instalaciones y espacios que forman parte de vuestra organización.
+                  Seleccionad las instalaciones y espacios que forman parte de vuestra actividad.
                 </Ayuda>
                 <VCheckboxes options={O_INSTALACIONES} columns={3} />
               </Box>
@@ -2461,8 +2461,8 @@ function VerificadoFormulario() {
                 <Ayuda>
                   Compartid hasta 10 fotografías de vuestro espacio, preferiblemente en formato
                   horizontal y con buena calidad. Mostrad las instalaciones, las salas y el ambiente
-                  de vuestra organización para que las personas puedan conocer mejor vuestro
-                  espacio. Evitad imágenes con texto, logotipos o carteles promocionales.
+                  para que las personas puedan conocer mejor vuestro espacio. Evitad imágenes con
+                  texto, logotipos o carteles promocionales.
                 </Ayuda>
                 <FakeField label="Imágenes del espacio (opcional, hasta 10)" type="file" />
               </Box>
