@@ -208,7 +208,14 @@ function Ayuda() {
               <a
                 href={r.href}
                 onClick={(e) => e.preventDefault()}
-                style={{ color: "var(--foreground)", textDecoration: "underline dashed" }}
+                onMouseEnter={() => setHoveredResource(i)}
+                onMouseLeave={() => setHoveredResource(null)}
+                style={{
+                  color: hoveredResource === i ? "var(--primary)" : "var(--foreground)",
+                  textDecoration: hoveredResource === i ? "underline" : "none",
+                  textUnderlineOffset: hoveredResource === i ? "3px" : undefined,
+                  cursor: "pointer",
+                }}
               >
                 {r.label}
               </a>
