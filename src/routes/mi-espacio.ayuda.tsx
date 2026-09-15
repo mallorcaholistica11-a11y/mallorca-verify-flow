@@ -138,6 +138,7 @@ function Accordion({ id, question, children }: { id: string; question: string; c
 
 function Ayuda() {
   const { track } = Route.useSearch();
+  const [hoveredResource, setHoveredResource] = useState<number | null>(null);
 
   return (
     <WireframeShell
@@ -207,7 +208,14 @@ function Ayuda() {
               <a
                 href={r.href}
                 onClick={(e) => e.preventDefault()}
-                style={{ color: "var(--foreground)", textDecoration: "underline dashed" }}
+                onMouseEnter={() => setHoveredResource(i)}
+                onMouseLeave={() => setHoveredResource(null)}
+                style={{
+                  color: hoveredResource === i ? "var(--primary)" : "var(--foreground)",
+                  textDecoration: hoveredResource === i ? "underline" : "none",
+                  textUnderlineOffset: hoveredResource === i ? "3px" : undefined,
+                  cursor: "pointer",
+                }}
               >
                 {r.label}
               </a>
