@@ -7,6 +7,7 @@ import { SelectorAreas } from "@/components/SelectorAreas";
 import { MAX_AREAS_ACTIVIDAD } from "@/data/areas";
 import { MAX_PRACTICAS_ACTIVIDAD } from "@/data/practicas";
 import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
+import { LIMITE_ACTIVIDADES_MES, limiteAlcanzado } from "@/data/actividades-espacio";
 
 type PerfilEstado = "pendiente" | "preparacion" | "revision" | "aprobado";
 
