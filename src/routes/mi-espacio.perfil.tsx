@@ -15,9 +15,16 @@ import { retratoDe } from "@/data/imagenes";
 
 type PerfilEstado = "pendiente" | "preparacion" | "revision" | "aprobado";
 
-function parseEstado(value: unknown): PerfilEstado {
-  if (value === "preparacion" || value === "revision" || value === "aprobado") return value;
-  return "pendiente";
+function parseEstado(value: unknown): PerfilEstado | undefined {
+  if (
+    value === "pendiente" ||
+    value === "preparacion" ||
+    value === "revision" ||
+    value === "aprobado"
+  ) {
+    return value;
+  }
+  return undefined;
 }
 
 export const Route = createFileRoute("/mi-espacio/perfil")({
@@ -42,7 +49,7 @@ export const Route = createFileRoute("/mi-espacio/perfil")({
   validateSearch: (s: Record<string, unknown>) => ({
     track: parseTrack(s),
     estado: parseEstado(s.estado),
-    preview: s.preview === true || s.preview === "true",
+    preview: s.preview === true || s.preview === "true" ? true : undefined,
   }),
   component: MiPerfil,
 });
@@ -74,10 +81,11 @@ const ESTADO_PERFIL: Record<PerfilEstado, { estado: string; verificacion: string
 const valorNoDisponible = "No indicado";
 
 function MiPerfil() {
-  const { track, estado, preview } = Route.useSearch();
+  const { track, estado: estadoSearch, preview = false } = Route.useSearch();
 
   if (track !== "verificado") return <MiPerfilOtrosRecorridos track={track} />;
 
+  const estado = estadoSearch ?? "pendiente";
   const estadoPerfil = ESTADO_PERFIL[estado];
   const estaAprobado = estado === "aprobado";
   const estaEnRevision = estado === "revision";
