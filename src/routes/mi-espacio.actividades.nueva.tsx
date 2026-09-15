@@ -593,7 +593,7 @@ function NuevaActividadPagina() {
         </Box>
       )}
 
-      {paso === 5 && (
+      
         <Box title="Información práctica">
           <FieldLabel>Idiomas</FieldLabel>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "8px 18px" }}>
