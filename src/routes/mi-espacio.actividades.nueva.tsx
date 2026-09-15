@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, type CSSProperties, type ReactNode } from "react";
+import { useState, useRef, type CSSProperties, type ReactNode } from "react";
 import { WireframeShell, Box, NavButton, parseTrack, type Track, Note } from "@/components/Wireframe";
 import { TelefonoField, type TelefonoValue } from "@/components/TelefonoField";
 import { SelectorPracticas } from "@/components/SelectorPracticas";
@@ -165,6 +165,7 @@ function NuevaActividadPagina() {
   const [form, setForm] = useState<FormState>(initial);
   const update = <K extends keyof FormState>(k: K, v: FormState[K]) =>
     setForm((f) => ({ ...f, [k]: v }));
+  const inputImagenRef = useRef<HTMLInputElement>(null);
 
   const esCentro = track === "organizacion" || track === "organizacionFundadora";
   const esVerificado = track === "verificado";
@@ -237,13 +238,92 @@ function NuevaActividadPagina() {
 
       {paso === 1 && (
         <Box title="Información básica">
-          <FieldLabel>Título de la actividad</FieldLabel>
+          <FieldLabel>Imagen de la actividad</FieldLabel>
+          <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 12px 0" }}>
+            Añade una imagen, fotografía, flyer o cartel que represente tu actividad.
+          </p>
           <input
-            type="text"
-            value={form.titulo}
-            onChange={(e) => update("titulo", e.target.value)}
-            style={inputStyle}
+            ref={inputImagenRef}
+            type="file"
+            accept="image/jpeg,image/jpg,image/png,image/webp"
+            style={{ display: "none" }}
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              e.target.value = "";
+              if (!file) return;
+              update("imagenNombre", file.name);
+              const reader = new FileReader();
+              reader.onload = () => update("imagenPreview", String(reader.result));
+              reader.readAsDataURL(file);
+            }}
           />
+          <div
+            style={{
+              width: "100%",
+              maxWidth: 280,
+              aspectRatio: "280 / 340",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 16,
+              border: "1px solid var(--border)",
+              background: "var(--muted)",
+              boxShadow: "var(--shadow-soft)",
+              overflow: "hidden",
+              boxSizing: "border-box",
+            }}
+          >
+            {form.imagenPreview ? (
+              <img
+                src={form.imagenPreview}
+                alt="Vista previa de la imagen de la actividad"
+                style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
+              />
+            ) : (
+              <button
+                type="button"
+                onClick={() => inputImagenRef.current?.click()}
+                style={{ ...secondaryBtn, marginTop: 0 }}
+              >
+                + Subir imagen
+              </button>
+            )}
+          </div>
+          {form.imagenPreview && (
+            <div>
+              <button
+                type="button"
+                onClick={() => inputImagenRef.current?.click()}
+                style={{ ...secondaryBtn, marginTop: 12 }}
+              >
+                Cambiar imagen
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  update("imagenPreview", null);
+                  update("imagenNombre", null);
+                }}
+                style={{ ...secondaryBtn, marginTop: 12 }}
+              >
+                Eliminar
+              </button>
+            </div>
+          )}
+          <Note>
+            Puedes subir una fotografía, flyer o cartel. La imagen se mostrará completa siempre que
+            sea posible.
+          </Note>
+
+          <div style={{ marginTop: 16 }}>
+            <FieldLabel>Título de la actividad</FieldLabel>
+            <input
+              type="text"
+              value={form.titulo}
+              onChange={(e) => update("titulo", e.target.value)}
+              style={inputStyle}
+            />
+          </div>
 
           <div style={{ marginTop: 16 }}>
             <FieldLabel>Tipo de actividad</FieldLabel>
@@ -288,33 +368,6 @@ function NuevaActividadPagina() {
               onChange={(v) => update("areas", v)}
               max={MAX_AREAS_ACTIVIDAD}
             />
-          </div>
-
-          <div style={{ marginTop: 16 }}>
-            <FieldLabel>Imagen principal</FieldLabel>
-            <input
-              type="file"
-              accept="image/jpeg,image/jpg,image/png,image/webp"
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (!file) return;
-                update("imagenNombre", file.name);
-                const reader = new FileReader();
-                reader.onload = () => update("imagenPreview", String(reader.result));
-                reader.readAsDataURL(file);
-              }}
-              style={{ fontSize: 12, fontFamily: "inherit" }}
-            />
-            {form.imagenPreview && (
-              <div style={{ marginTop: 10 }}>
-                <img
-                  src={form.imagenPreview}
-                  alt="Vista previa de la imagen de la actividad"
-                  style={{ maxWidth: "100%", maxHeight: 220, border: "1px solid var(--border)" }}
-                />
-              </div>
-            )}
-            <Note>Sube una imagen representativa de la actividad.</Note>
           </div>
         </Box>
       )}
