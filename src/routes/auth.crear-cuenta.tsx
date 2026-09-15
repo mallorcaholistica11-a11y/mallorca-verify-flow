@@ -9,24 +9,26 @@ export const Route = createFileRoute("/auth/crear-cuenta")({
 function CrearCuenta() {
   const { track } = Route.useSearch();
   const breadcrumb =
-    track === "presencia" || track === "verificado"
+    track === "presencia" || track === "verificado" || track === "organizacion"
       ? "Soy profesional › Crear cuenta"
-      : track === "organizacion"
+      : track === "organizacionFundadora"
       ? "Invitación (Organización) › Crear cuenta"
       : "Invitación (Profesional) › Crear cuenta";
   const planInfo =
     track === "presencia"
       ? "Has elegido el Plan Presencia.\n\nDespués de crear tu cuenta podrás completar tu perfil."
-      : track === "organizacion" || track === "organizacionFundadora"
+      : track === "organizacion"
+      ? "Has elegido el Plan Centros, Espacios & Organizadores.\n\nDespués de crear tu cuenta podrás completar la información de tu perfil y tu actividad."
+      : track === "organizacionFundadora"
       ? "Has elegido el Plan Centros & Organizadores.\n\nDespués de crear tu cuenta podrás completar la información de tu organización."
       : "Has elegido el Plan Profesional Verificado.\n\nDespués de crear tu cuenta comenzarás el proceso para completar tu perfil y solicitar tu verificación.";
   return (
     <WireframeShell
-      screen={track === "verificado" ? undefined : "4 · CREAR CUENTA"}
+      screen={track === "verificado" || track === "organizacion" ? undefined : "4 · CREAR CUENTA"}
       title="Crear tu cuenta"
       breadcrumb={breadcrumb}
     >
-      {track === "verificado" ? (
+      {track === "verificado" || track === "organizacion" ? (
         <div
           className="wireframe-track-badge"
           style={{
@@ -40,7 +42,10 @@ function CrearCuenta() {
             marginBottom: 16,
           }}
         >
-          Plan seleccionado: <strong>Profesional Verificado</strong>
+          Plan seleccionado:{" "}
+          <strong>
+            {track === "verificado" ? "Profesional Verificado" : "Centros, Espacios & Organizadores"}
+          </strong>
         </div>
       ) : (
         <TrackBadge track={track} />
