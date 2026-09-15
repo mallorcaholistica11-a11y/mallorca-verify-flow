@@ -146,14 +146,10 @@ function PlanProfesionalVerificado() {
             </p>
             <div className="max-w-[640px] space-y-3 text-[0.8rem] leading-relaxed text-muted-foreground md:text-[0.84rem]">
               <p>
-                El Plan Profesional Verificado está pensado para profesionales de la salud
-                complementaria e integrativa que desean reforzar la confianza que transmiten,
-                aumentar su visibilidad y ofrecer una información más completa sobre su actividad.
+                El Plan Profesional Verificado está pensado para profesionales cuya actividad se centra principalmente en la atención individual y que desean reforzar la confianza, ampliar su visibilidad y contar con un perfil profesional verificado.
               </p>
               <p>
-                Además de ampliar la información visible de tu perfil, incorpora herramientas
-                pensadas para mejorar tu presencia dentro de Mallorca Holística y facilitar el
-                contacto con las personas interesadas en tu actividad.
+                Además de ampliar la información visible de tu perfil, incorpora herramientas para facilitar el contacto directo con las personas interesadas en tu actividad y permite publicar hasta 3 actividades grupales al mes en la Agenda de Mallorca Holística.
               </p>
             </div>
           </div>
