@@ -8,8 +8,25 @@ import { MAX_AREAS_ACTIVIDAD } from "@/data/areas";
 import { MAX_PRACTICAS_ACTIVIDAD } from "@/data/practicas";
 import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
 
+type PerfilEstado = "pendiente" | "preparacion" | "revision" | "aprobado";
+
+function parsePerfilEstado(value: unknown): PerfilEstado | undefined {
+  if (
+    value === "pendiente" ||
+    value === "preparacion" ||
+    value === "revision" ||
+    value === "aprobado"
+  ) {
+    return value;
+  }
+  return undefined;
+}
+
 export const Route = createFileRoute("/mi-espacio/actividades/nueva")({
-  validateSearch: (s: Record<string, unknown>): { track: Track } => ({ track: parseTrack(s) }),
+  validateSearch: (s: Record<string, unknown>): { track: Track; estado?: PerfilEstado } => {
+    const estado = parsePerfilEstado(s.estado);
+    return { track: parseTrack(s), ...(estado ? { estado } : {}) };
+  },
   component: NuevaActividadPagina,
 });
 
