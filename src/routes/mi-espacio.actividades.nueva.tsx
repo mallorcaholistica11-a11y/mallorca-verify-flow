@@ -140,7 +140,7 @@ function etiquetaUbicacion(u: Ubicacion) {
 }
 
 /**
- * Formulario UNIVERSAL de actividades (7 pasos).
+ * Formulario UNIVERSAL de actividades: una única página, sin pasos.
  * Se utiliza desde Mis Actividades en el Plan Profesional Verificado y en el
  * Plan Centros, Espacios & Organizadores. No existe un segundo formulario:
  * las diferencias entre planes se aplican como reglas (límite de publicación).
@@ -149,7 +149,6 @@ function etiquetaUbicacion(u: Ubicacion) {
  */
 function NuevaActividadPagina() {
   const { track, estado: estadoSearch } = Route.useSearch();
-  const [paso, setPaso] = useState(1);
   const [resultado, setResultado] = useState<Resultado | null>(null);
   const [vistaPrevia, setVistaPrevia] = useState(false);
   const [form, setForm] = useState<FormState>(initial);
