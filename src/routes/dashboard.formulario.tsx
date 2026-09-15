@@ -2393,14 +2393,26 @@ function VerificadoFormulario() {
       {step === 2 && (
         <div style={{ display: "flex", flexDirection: "column", gap: isOrg ? 0 : 12 }}>
           <Box title="Prácticas">
-            <SelectorPracticas max={isOrg ? MAX_PRACTICAS_CENTRO : MAX_PRACTICAS_VERIFICADO} />
+            <SelectorPracticas
+              max={isOrg ? MAX_PRACTICAS_CENTRO : MAX_PRACTICAS_VERIFICADO}
+              label={isOrg ? "¿Qué se practica en vuestro centro, espacio o proyecto?" : undefined}
+              ayuda={
+                isOrg
+                  ? `Seleccionad las terapias, prácticas o actividades que ofrecéis. Podéis seleccionar hasta ${MAX_PRACTICAS_CENTRO} prácticas.`
+                  : undefined
+              }
+            />
           </Box>
           <Box title="Áreas de Acompañamiento">
             <SelectorAreas
-                  label="¿En qué puedes acompañar?"
-                  ayuda="Selecciona las áreas en las que puedes acompañar a las personas."
-                  max={15}
-                />
+              label={isOrg ? "¿En qué podéis acompañar?" : "¿En qué puedes acompañar?"}
+              ayuda={
+                isOrg
+                  ? `Seleccionad las áreas en las que podéis acompañar a las personas. Podéis seleccionar hasta ${MAX_AREAS_CENTRO} áreas.`
+                  : "Selecciona las áreas en las que puedes acompañar a las personas."
+              }
+              max={isOrg ? MAX_AREAS_CENTRO : MAX_AREAS_VERIFICADO}
+            />
           </Box>
           <Box title={isOrg ? "¿A quién acompañáis?" : "¿A quién acompañas?"}>
             <Note>Selecciona todas las opciones que correspondan.</Note>
