@@ -215,6 +215,7 @@ function Ayuda() {
   const { track } = Route.useSearch();
   const [hoveredResource, setHoveredResource] = useState<number | null>(null);
 
+  const faqActiva = track === "organizacion" ? FAQ_CENTROS : FAQ;
   return (
     <WireframeShell
       title="Ayuda"
