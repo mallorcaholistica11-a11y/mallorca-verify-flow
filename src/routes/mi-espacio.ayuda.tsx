@@ -231,7 +231,7 @@ function Ayuda() {
         <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginBottom: 12, fontStyle: "italic" }}>
           Preguntas cargadas dinámicamente y agrupadas por temática.
         </div>
-        {FAQ.map((group, gi) => (
+        {faqActiva.map((group, gi) => (
           <div key={gi} style={{ marginBottom: 20 }}>
             <div
               style={{
