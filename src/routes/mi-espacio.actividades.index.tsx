@@ -104,10 +104,10 @@ function MisActividadesVerificado({
       </div>
 
       <ListaEstado
-        titulo="📝 Borradores"
-        estado="borrador"
-        descripcion="Aquí encontrarás las actividades que hayas comenzado pero todavía no hayas enviado."
-        vacio="Actualmente no tienes ningún borrador."
+        titulo="📝 En preparación"
+        estado="preparacion"
+        descripcion="Aquí encontrarás las actividades que has empezado y todavía no has enviado para revisión."
+        vacio="Actualmente no tienes actividades en preparación."
       />
       <ListaEstado
         titulo="🟡 Pendientes de revisión"
