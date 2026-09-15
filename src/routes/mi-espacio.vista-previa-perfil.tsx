@@ -72,7 +72,12 @@ function VistaPreviaPerfil() {
           </Link>
         </div>
       </div>
-      <FichaPublica data={{ ...FICHA_PROFESIONAL_ACTUAL, verificado: false }} />
+      {track === "organizacion" ? (
+        <FichaCentro data={{ ...FICHA_CENTRO_ACTUAL, verificado: false }} />
+      ) : (
+        <FichaPublica data={{ ...FICHA_PROFESIONAL_ACTUAL, verificado: false }} />
+      )}
     </div>
   );
 }
+
