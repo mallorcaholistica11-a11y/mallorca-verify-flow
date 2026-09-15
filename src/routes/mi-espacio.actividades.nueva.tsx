@@ -362,7 +362,7 @@ function NuevaActividadPagina() {
         </Box>
       )}
 
-      {paso === 2 && (
+      
         <Box title="Descripción">
           <FieldLabel>Descripción de la actividad</FieldLabel>
           <textarea
