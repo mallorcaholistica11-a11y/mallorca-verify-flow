@@ -158,7 +158,7 @@ function NuevaActividadPagina() {
         title="🌿 Tu actividad ha sido enviada"
         breadcrumb="Mi Espacio › Mis Actividades › Nueva actividad"
       >
-        {!esEstandarVerificado && <TrackBadge track={track} />
+        {!esEstandarVerificado && <TrackBadge track={track} />}
         <Box title="En revisión">
           <p style={{ fontSize: 14, lineHeight: 1.7, color: "var(--foreground)", margin: "0 0 12px 0" }}>
             Gracias por compartir tu propuesta con la comunidad de Mallorca Holística.
