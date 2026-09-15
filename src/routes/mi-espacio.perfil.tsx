@@ -26,13 +26,15 @@ export const Route = createFileRoute("/mi-espacio/perfil")({
       { title: "Mi Perfil · Mallorca Holística" },
       {
         name: "description",
-        content: "Consulta y gestiona la información de tu perfil profesional en Mallorca Holística.",
+        content:
+          "Consulta y gestiona la información de tu perfil profesional en Mallorca Holística.",
       },
       { property: "og:type", content: "website" },
       { property: "og:title", content: "Mi Perfil · Mallorca Holística" },
       {
         property: "og:description",
-        content: "Consulta y gestiona la información de tu perfil profesional en Mallorca Holística.",
+        content:
+          "Consulta y gestiona la información de tu perfil profesional en Mallorca Holística.",
       },
       { name: "twitter:card", content: "summary" },
     ],
@@ -164,7 +166,9 @@ function MiPerfil() {
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
           ) : (
-            <span style={{ color: "var(--muted-foreground)", fontSize: 12 }}>Sin fotografía principal</span>
+            <span style={{ color: "var(--muted-foreground)", fontSize: 12 }}>
+              Sin fotografía principal
+            </span>
           )}
         </div>
         <div style={{ fontSize: 12, marginBottom: 8 }}>Galería de hasta 5 imágenes adicionales</div>
@@ -192,7 +196,9 @@ function MiPerfil() {
       </Box>
 
       <Box title={estaAprobado ? "Perfil público" : "Vista previa de tu perfil"}>
-        <p style={{ fontSize: 12, color: "var(--foreground)", margin: "0 0 12px", lineHeight: 1.7 }}>
+        <p
+          style={{ fontSize: 12, color: "var(--foreground)", margin: "0 0 12px", lineHeight: 1.7 }}
+        >
           {estaAprobado
             ? "Así aparece actualmente tu perfil en Mallorca Holística."
             : "Así se mostrará tu perfil una vez aprobado y publicado en Mallorca Holística."}
@@ -234,7 +240,8 @@ function MiPerfil() {
       <Box title="Acciones">
         {estaEnRevision ? (
           <p style={{ fontSize: 13, lineHeight: 1.7, margin: 0 }}>
-            Tu solicitud está siendo revisada. Podrás actualizar nuevamente tu perfil cuando finalice el proceso de verificación.
+            Tu solicitud está siendo revisada. Podrás actualizar nuevamente tu perfil cuando
+            finalice el proceso de verificación.
           </p>
         ) : (
           <NavButton to="/dashboard/formulario" search={{ track }}>
@@ -255,7 +262,11 @@ function MiPerfil() {
 // Los recorridos Fundadores y el resto de planes conservan la página anterior.
 function MiPerfilOtrosRecorridos({ track }: { track: Track }) {
   return (
-    <WireframeShell screen="10 · MI PERFIL" title="👤 Mi Perfil" breadcrumb="Mi Espacio › Mi Perfil">
+    <WireframeShell
+      screen="10 · MI PERFIL"
+      title="👤 Mi Perfil"
+      breadcrumb="Mi Espacio › Mi Perfil"
+    >
       <TrackBadge track={track} />
       <div style={{ maxWidth: 620, margin: "0 auto 24px", textAlign: "center" }}>
         <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)" }}>
@@ -293,7 +304,9 @@ function MiPerfilOtrosRecorridos({ track }: { track: Track }) {
         <div style={{ fontSize: 12 }}>[fotografías dinámicas]</div>
       </Box>
       <Box title="Bloque 5 · Servicios">
-        <div style={{ fontSize: 12 }}>Terapias, disciplinas o servicios cargados dinámicamente desde la base de datos.</div>
+        <div style={{ fontSize: 12 }}>
+          Terapias, disciplinas o servicios cargados dinámicamente desde la base de datos.
+        </div>
       </Box>
       <Box title="Bloque 6 · Vista previa pública">
         <NavButton to="/mi-espacio/perfil" search={{ track }} variant="secondary">
@@ -301,10 +314,14 @@ function MiPerfilOtrosRecorridos({ track }: { track: Track }) {
         </NavButton>
       </Box>
       <Box title="Bloque 7 · Acciones">
-        <NavButton to="/dashboard/formulario" search={{ track }}>Actualizar mi perfil</NavButton>
+        <NavButton to="/dashboard/formulario" search={{ track }}>
+          Actualizar mi perfil
+        </NavButton>
       </Box>
       <Box title="Volver">
-        <NavButton to="/mi-espacio" search={{ track }} variant="secondary">← Volver a Mi Espacio</NavButton>
+        <NavButton to="/mi-espacio" search={{ track }} variant="secondary">
+          ← Volver a Mi Espacio
+        </NavButton>
       </Box>
     </WireframeShell>
   );
