@@ -84,8 +84,8 @@ function MisActividadesVerificado({
             {alcanzado && (
               <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "8px 0 0 0", lineHeight: 1.6 }}>
                 Has utilizado las {LIMITE_ACTIVIDADES_MES} actividades incluidas este mes en tu plan.
-                Puedes seguir creando y guardando borradores, y enviar una nueva actividad para
-                revisión cuando vuelvas a tener disponibilidad.
+                Puedes seguir creando actividades y guardarlas para continuar más tarde, y enviar
+                una nueva actividad para revisión cuando vuelvas a tener disponibilidad.
               </p>
             )}
           </>
@@ -104,10 +104,10 @@ function MisActividadesVerificado({
       </div>
 
       <ListaEstado
-        titulo="📝 Borradores"
-        estado="borrador"
-        descripcion="Aquí encontrarás las actividades que hayas comenzado pero todavía no hayas enviado."
-        vacio="Actualmente no tienes ningún borrador."
+        titulo="📝 En preparación"
+        estado="preparacion"
+        descripcion="Aquí encontrarás las actividades que has empezado y todavía no has enviado para revisión."
+        vacio="Actualmente no tienes actividades en preparación."
       />
       <ListaEstado
         titulo="🟡 Pendientes de revisión"
@@ -291,10 +291,10 @@ function MisActividadesCentro({
       </div>
 
       <ListaEstado
-        titulo="📝 Borradores"
-        estado="borrador"
-        descripcion="Aquí encontrarás las actividades que hayas comenzado pero todavía no hayas enviado."
-        vacio="Actualmente no tienes ningún borrador."
+        titulo="📝 En preparación"
+        estado="preparacion"
+        descripcion="Aquí encontrarás las actividades que has empezado y todavía no has enviado para revisión."
+        vacio="Actualmente no tienes actividades en preparación."
       />
       <ListaEstado
         titulo="🟡 Pendientes de revisión"

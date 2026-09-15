@@ -4,7 +4,7 @@
 // Todavía no existe backend: el registro llega vacío y no se inventan datos.
 
 export type ActividadEstado =
-  | "borrador"
+  | "preparacion"
   | "pendiente"
   | "publicada"
   | "rechazada"
@@ -30,9 +30,9 @@ export function mesActual(fecha: Date = new Date()): string {
 }
 
 /**
- * Estados que consumen el límite mensual. Los borradores no consumen; una
- * actividad rechazada libera su uso; una actividad archivada ya fue
- * contabilizada en su momento y no vuelve a sumar.
+ * Estados que consumen el límite mensual. Las actividades en preparación no
+ * consumen; una actividad rechazada libera su uso; una actividad archivada ya
+ * fue contabilizada en su momento y no vuelve a sumar.
  */
 const ESTADOS_QUE_CONSUMEN: ActividadEstado[] = ["pendiente", "publicada"];
 

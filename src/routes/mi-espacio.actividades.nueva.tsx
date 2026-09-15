@@ -58,20 +58,10 @@ const FRECUENCIAS = ["Cada semana", "Cada 15 días", "Cada mes", "Personalizado"
 
 const NIVELES = ["Abierto a todos los niveles", "Iniciación", "Intermedio", "Avanzado", "Otro"];
 
-const PASOS = [
-  "Información básica",
-  "Descripción",
-  "Fecha y horario",
-  "Modalidad y ubicación",
-  "Información práctica",
-  "Precio y reservas",
-  "Revisar y enviar",
-];
-
 type PrecioTipo = "gratuito" | "pago" | "aportacion" | "consultar";
 type Repite = "no" | "si";
 type OrigenUbicacion = "perfil" | "otra";
-type Resultado = "borrador" | "enviada";
+type Resultado = "preparacion" | "enviada";
 
 type FormState = {
   titulo: string;
@@ -150,7 +140,7 @@ function etiquetaUbicacion(u: Ubicacion) {
 }
 
 /**
- * Formulario UNIVERSAL de actividades (7 pasos).
+ * Formulario UNIVERSAL de actividades: una única página, sin pasos.
  * Se utiliza desde Mis Actividades en el Plan Profesional Verificado y en el
  * Plan Centros, Espacios & Organizadores. No existe un segundo formulario:
  * las diferencias entre planes se aplican como reglas (límite de publicación).
@@ -159,7 +149,6 @@ function etiquetaUbicacion(u: Ubicacion) {
  */
 function NuevaActividadPagina() {
   const { track, estado: estadoSearch } = Route.useSearch();
-  const [paso, setPaso] = useState(1);
   const [resultado, setResultado] = useState<Resultado | null>(null);
   const [vistaPrevia, setVistaPrevia] = useState(false);
   const [form, setForm] = useState<FormState>(initial);
@@ -188,14 +177,14 @@ function NuevaActividadPagina() {
   if (resultado) {
     return (
       <WireframeShell
-        title={resultado === "borrador" ? "🌿 Tu actividad se ha guardado" : "🌿 Tu actividad ha sido enviada"}
+        title={resultado === "preparacion" ? "🌿 Tu actividad se ha guardado" : "🌿 Tu actividad ha sido enviada"}
         breadcrumb="Mi Espacio › Mis Actividades › Nueva actividad"
       >
-        <Box title={resultado === "borrador" ? "Borrador guardado" : "En revisión"}>
-          {resultado === "borrador" ? (
+        <Box title={resultado === "preparacion" ? "En preparación" : "Pendiente de revisión"}>
+          {resultado === "preparacion" ? (
             <p style={{ fontSize: 14, lineHeight: 1.7, margin: 0 }}>
-              La encontrarás en Mis Actividades › Borradores. Podrás seguir editándola y enviarla
-              para revisión cuando quieras.
+              La encontrarás en Mis Actividades › En preparación. Podrás abrirla de nuevo para
+              seguir editándola y enviarla para revisión cuando quieras.
             </p>
           ) : (
             <>
@@ -203,8 +192,9 @@ function NuevaActividadPagina() {
                 Gracias por compartir tu propuesta con la comunidad de Mallorca Holística.
               </p>
               <p style={{ fontSize: 14, lineHeight: 1.7, margin: 0 }}>
-                La revisaremos antes de publicarla para garantizar la calidad y coherencia de la
-                Agenda. Recibirás una notificación en cuanto haya sido aprobada.
+                La encontrarás en Mis Actividades › Pendientes de revisión. La revisaremos antes de
+                publicarla para garantizar la calidad y coherencia de la Agenda. Recibirás una
+                notificación en cuanto haya sido aprobada.
               </p>
             </>
           )}
@@ -223,9 +213,9 @@ function NuevaActividadPagina() {
       title="Crear una actividad"
       breadcrumb="Mi Espacio › Mis Actividades › Nueva actividad"
     >
-      <div style={{ fontSize: 11, color: "var(--muted-foreground)", letterSpacing: 1, textTransform: "uppercase", margin: "0 0 12px 0" }}>
-        Paso {paso} de 7 · {PASOS[paso - 1]}
-      </div>
+      <p style={{ fontSize: 14, lineHeight: 1.7, color: "var(--foreground)", margin: "0 0 20px 0", maxWidth: 640 }}>
+        Añade la información de tu actividad para publicarla en la Agenda de Mallorca Holística.
+      </p>
 
       {!perfilAprobado && (
         <Box title="Publicación en la Agenda">
@@ -236,7 +226,7 @@ function NuevaActividadPagina() {
         </Box>
       )}
 
-      {paso === 1 && (
+      
         <Box title="Información básica">
           <FieldLabel>Imagen de la actividad</FieldLabel>
           <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 12px 0" }}>
@@ -370,9 +360,8 @@ function NuevaActividadPagina() {
             />
           </div>
         </Box>
-      )}
 
-      {paso === 2 && (
+      
         <Box title="Descripción">
           <FieldLabel>Descripción de la actividad</FieldLabel>
           <textarea
@@ -386,9 +375,8 @@ function NuevaActividadPagina() {
             participen.
           </Note>
         </Box>
-      )}
 
-      {paso === 3 && (
+      
         <Box title="Fecha y horario">
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
             <div>
@@ -476,9 +464,8 @@ function NuevaActividadPagina() {
             )}
           </div>
         </Box>
-      )}
 
-      {paso === 4 && (
+      
         <Box title="Modalidad y ubicación">
           <FieldLabel>Modalidad</FieldLabel>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -601,9 +588,8 @@ function NuevaActividadPagina() {
             </div>
           )}
         </Box>
-      )}
 
-      {paso === 5 && (
+      
         <Box title="Información práctica">
           <FieldLabel>Idiomas</FieldLabel>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "8px 18px" }}>
@@ -676,9 +662,8 @@ function NuevaActividadPagina() {
 
           <Note>Los campos opcionales que dejes vacíos no aparecerán en la ficha pública.</Note>
         </Box>
-      )}
 
-      {paso === 6 && (
+      
         <Box title="Precio y reservas">
           <FieldLabel>Precio</FieldLabel>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -776,10 +761,7 @@ function NuevaActividadPagina() {
             )}
           </div>
         </Box>
-      )}
 
-      {paso === 7 && (
-        <>
           <Box title="Resumen de la actividad">
             <Resumen
               form={form}
@@ -822,8 +804,8 @@ function NuevaActividadPagina() {
             <button type="button" style={secondaryBtn} onClick={() => setVistaPrevia((v) => !v)}>
               {vistaPrevia ? "Ocultar vista previa" : "Vista previa"}
             </button>
-            <button type="button" style={secondaryBtn} onClick={() => setResultado("borrador")}>
-              Guardar borrador
+            <button type="button" style={secondaryBtn} onClick={() => setResultado("preparacion")}>
+              Guardar y continuar más tarde
             </button>
             <button
               type="button"
@@ -840,15 +822,15 @@ function NuevaActividadPagina() {
 
             {!perfilAprobado && (
               <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0", lineHeight: 1.6 }}>
-                Puedes guardar esta actividad como borrador. Podrás enviarla para revisión cuando tu
-                perfil haya sido aprobado.
+                Puedes guardar esta actividad y continuar más tarde. Podrás enviarla para revisión
+                cuando tu perfil haya sido aprobado.
               </p>
             )}
             {perfilAprobado && sinDisponibilidad && (
               <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0", lineHeight: 1.6 }}>
                 Has utilizado las {LIMITE_ACTIVIDADES_MES} actividades incluidas este mes en tu plan.
-                Puedes guardar esta actividad como borrador y enviarla cuando vuelvas a tener
-                disponibilidad.
+                Puedes guardar esta actividad y continuar más tarde, y enviarla cuando vuelvas a
+                tener disponibilidad.
               </p>
             )}
             <p style={{ fontSize: 12, color: "var(--muted-foreground)", fontStyle: "italic", margin: "12px 0 0 0", lineHeight: 1.6 }}>
@@ -856,26 +838,7 @@ function NuevaActividadPagina() {
               de ser publicada en la Agenda.
             </p>
           </Box>
-        </>
-      )}
 
-      <Box title="Navegación">
-        {paso > 1 && (
-          <button type="button" style={secondaryBtn} onClick={() => setPaso((p) => p - 1)}>
-            ← Anterior
-          </button>
-        )}
-        {paso < 7 && (
-          <button type="button" style={primaryBtn} onClick={() => setPaso((p) => p + 1)}>
-            Siguiente →
-          </button>
-        )}
-        {paso < 7 && (
-          <button type="button" style={secondaryBtn} onClick={() => setResultado("borrador")}>
-            Guardar borrador
-          </button>
-        )}
-      </Box>
 
       <div style={{ marginTop: 12 }}>
         <Link
