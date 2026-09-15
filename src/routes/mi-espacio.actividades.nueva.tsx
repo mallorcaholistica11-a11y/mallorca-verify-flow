@@ -846,8 +846,6 @@ function NuevaActividadPagina() {
               de ser publicada en la Agenda.
             </p>
           </Box>
-        </>
-      )}
 
 
       <div style={{ marginTop: 12 }}>
