@@ -2149,23 +2149,19 @@ function VerificadoFormulario() {
 
   const finish = () => navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
 
-  const isOrg = track === "organizacion" || track === "organizacionFundadora";
-  const isFundador = track === "verificadoFundador" || track === "organizacionFundadora";
+  // El plan determina el formulario; la condición Fundadora solo cambia el
+  // contenido comercial del paso de suscripción.
+  const isOrg = esPlanOrganizacion(track);
+  const isFundador = esFundador(track);
   const baseTitles = isOrg ? O_STEP_TITLES : V_STEP_TITLES;
-  const titles = baseTitles.map((t, i) =>
-    i === 6 ? (isFundador ? "Reserva tu plaza" : "Activa tu suscripción") : t,
-  );
+  const titles = baseTitles.map((t, i) => (i === 6 ? "Activa tu suscripción" : t));
   const stepTitle = titles[step - 1];
   const screenLabel = isOrg ? "FORMULARIO ORGANIZACIÓN" : "FORMULARIO VERIFICADO";
-  const esEstandarOrganizacion = track === "organizacion";
-  const breadcrumb = esEstandarOrganizacion
-    ? "Mi Espacio › Completar mi perfil"
-    : isOrg
-      ? "Dashboard › Completar perfil de la organización"
-      : "Dashboard › Completar perfil verificado";
+  const esEstandarOrganizacion = isOrg;
+  const breadcrumb = "Mi Espacio › Completar mi perfil";
 
-  const esEstandarVerificado = track === "verificado";
-  const esEstandar = esEstandarVerificado || esEstandarOrganizacion;
+  const esEstandarVerificado = !isOrg;
+  const esEstandar = true;
 
   return (
     <WireframeShell
