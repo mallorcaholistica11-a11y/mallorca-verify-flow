@@ -6,7 +6,7 @@ import {
   Row,
   Card,
   NavButton,
-  TrackBadge,
+  
   parseTrack,
   esFundador,
   esPlanOrganizacion,
@@ -173,7 +173,7 @@ function MiSuscripcion() {
     );
   }
 
-  return <MiSuscripcionOtrosRecorridos track={track} />;
+  return <MiSuscripcionPresencia track={track} />;
 }
 
 function MiSuscripcionVerificado({
