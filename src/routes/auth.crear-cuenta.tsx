@@ -1,5 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { WireframeShell, Box, FakeField, NavButton, TrackBadge, Note, parseTrack, type Track } from "@/components/Wireframe";
+import {
+  WireframeShell,
+  Box,
+  FakeField,
+  NavButton,
+  TrackBadge,
+  Note,
+  parseTrack,
+  esFundador,
+  esPlanOrganizacion,
+  usaRecorridoActual,
+  type Track,
+} from "@/components/Wireframe";
 
 export const Route = createFileRoute("/auth/crear-cuenta")({
   validateSearch: (s: Record<string, unknown>): { track: Track } => ({ track: parseTrack(s) }),
@@ -8,27 +20,31 @@ export const Route = createFileRoute("/auth/crear-cuenta")({
 
 function CrearCuenta() {
   const { track } = Route.useSearch();
-  const breadcrumb =
-    track === "presencia" || track === "verificado"
+  const fundador = esFundador(track);
+  const esOrganizacion = esPlanOrganizacion(track);
+  const recorridoActual = usaRecorridoActual(track);
+  const breadcrumb = fundador
+    ? "Comunidad Fundadora › Crear cuenta"
+    : track === "presencia"
       ? "Soy profesional › Crear cuenta"
-      : track === "organizacion" || track === "organizacionFundadora"
-      ? "Invitación (Organización) › Crear cuenta"
-      : "Invitación (Profesional) › Crear cuenta";
+      : esOrganizacion
+        ? "Soy profesional › Crear cuenta"
+        : "Soy profesional › Crear cuenta";
   const planInfo =
     track === "presencia"
       ? "Has elegido el Plan Presencia.\n\nDespués de crear tu cuenta podrás completar tu perfil."
-      : track === "organizacion"
-      ? "Has elegido el Plan Centros, Espacios & Organizadores.\n\nDespués de crear tu cuenta podrás completar la información de tu perfil y tu actividad."
-      : track === "organizacionFundadora"
-      ? "Has elegido el Plan Centros & Organizadores.\n\nDespués de crear tu cuenta podrás completar la información de tu organización."
-      : "Has elegido el Plan Profesional Verificado.\n\nDespués de crear tu cuenta comenzarás el proceso para completar tu perfil y solicitar tu verificación.";
+      : esOrganizacion
+        ? "Has elegido el Plan Centros, Espacios & Organizadores.\n\nDespués de crear tu cuenta podrás completar la información de tu perfil y tu actividad."
+        : "Has elegido el Plan Profesional Verificado.\n\nDespués de crear tu cuenta comenzarás el proceso para completar tu perfil y solicitar tu verificación.";
+  const nombrePlan = esOrganizacion ? "Centros, Espacios & Organizadores" : "Profesional Verificado";
+
   return (
     <WireframeShell
-      screen={track === "verificado" || track === "organizacion" ? undefined : "4 · CREAR CUENTA"}
+      screen={recorridoActual ? undefined : "4 · CREAR CUENTA"}
       title="Crear tu cuenta"
       breadcrumb={breadcrumb}
     >
-      {track === "verificado" || track === "organizacion" ? (
+      {recorridoActual ? (
         <div
           className="wireframe-track-badge"
           style={{
@@ -42,10 +58,8 @@ function CrearCuenta() {
             marginBottom: 16,
           }}
         >
-          Plan seleccionado:{" "}
-          <strong>
-            {track === "verificado" ? "Profesional Verificado" : "Centros, Espacios & Organizadores"}
-          </strong>
+          Plan seleccionado: <strong>{nombrePlan}</strong>
+          {fundador && <> · Comunidad Fundadora</>}
         </div>
       ) : (
         <TrackBadge track={track} />
@@ -56,6 +70,14 @@ function CrearCuenta() {
       <Box>
         <div style={{ fontSize: 13, lineHeight: 1.6, whiteSpace: "pre-wrap" }}>{planInfo}</div>
       </Box>
+      {fundador && (
+        <Note>
+          Tu cuenta conservará tus condiciones como miembro de la Comunidad Fundadora: 6 meses
+          gratuitos desde el lanzamiento oficial y{" "}
+          {esOrganizacion ? "35 €/mes" : "15 €/mes"} (IVA incluido) después, mantenidos durante 24
+          meses mientras la suscripción permanezca activa.
+        </Note>
+      )}
       <Box title="Formulario">
         <FakeField label="Nombre" />
         <FakeField label="Correo electrónico" type="email" />
@@ -64,15 +86,11 @@ function CrearCuenta() {
           to={
             track === "presencia"
               ? "/dashboard/tipo-perfil"
-              : track === "verificado" || track === "organizacion"
+              : recorridoActual
                 ? "/mi-espacio"
                 : "/dashboard"
           }
-          search={
-            track === "verificado" || track === "organizacion"
-              ? { track, estado: "pendiente" }
-              : { track }
-          }
+          search={recorridoActual ? { track, estado: "pendiente" } : { track }}
         >
           Crear mi cuenta
         </NavButton>
