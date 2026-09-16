@@ -12,7 +12,14 @@ import {
 
 // Preguntas de suscripción para los miembros de la Comunidad Fundadora.
 // El resto de las FAQs son las del plan correspondiente.
-function conSuscripcionFundadora(grupos: FaqGroup[], precio: string): FaqGroup[] {
+function conSuscripcionFundadora(
+  grupos: FaqGroup[],
+  precio: string,
+  entidad = false,
+): FaqGroup[] {
+  const aprobado = entidad
+    ? "tu perfil haya sido aprobado como Entidad Verificada"
+    : "tu perfil haya sido aprobado";
   return grupos.map((grupo) =>
     grupo.titulo !== "Suscripción"
       ? grupo

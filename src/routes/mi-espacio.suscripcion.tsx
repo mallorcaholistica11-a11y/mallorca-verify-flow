@@ -306,7 +306,9 @@ function MiSuscripcionVerificado({
           </Row>
         )}
 
-        {fundador && <CondicionesFundadoras precio={precioFundador} />}
+        {fundador && (
+          <CondicionesFundadoras precio={precioFundador} entidad={esOrganizacion} />
+        )}
 
         {!fundador && esOrganizacion && !estaActiva && (
           <>
@@ -440,7 +442,14 @@ function MiSuscripcionVerificado({
 }
 
 // Condiciones comerciales de la Comunidad Fundadora, comunes a los dos planes.
-function CondicionesFundadoras({ precio }: { precio: string }) {
+// Solo cambia el precio fundador y, en el plan Centros, el sello de verificación.
+function CondicionesFundadoras({
+  precio,
+  entidad = false,
+}: {
+  precio: string;
+  entidad?: boolean;
+}) {
   return (
     <div style={{ display: "grid", gap: 10, marginTop: 12 }}>
       <p style={{ ...paragraphStyle, margin: 0 }}>
@@ -456,7 +465,8 @@ function CondicionesFundadoras({ precio }: { precio: string }) {
         cargo mientras tu solicitud esté en revisión.
       </p>
       <p style={{ ...paragraphStyle, margin: 0 }}>
-        El primer cobro se realizará únicamente cuando tu perfil haya sido aprobado y haya
+        El primer cobro se realizará únicamente cuando tu perfil haya sido aprobado
+        {entidad ? " como Entidad Verificada" : ""} y haya
         finalizado tu periodo gratuito. Si tu perfil no es aprobado, la suscripción no se activa y
         no se realiza ningún cobro.
       </p>
