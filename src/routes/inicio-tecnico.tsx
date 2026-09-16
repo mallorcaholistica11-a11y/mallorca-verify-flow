@@ -22,6 +22,7 @@ function Inicio() {
         <NavButton to="/futuro/profesional-verificado" variant="secondary">Profesional Verificado</NavButton>
         <NavButton to="/futuro/centros-organizadores" variant="secondary">Centros &amp; Organizadores</NavButton>
         <NavButton to="/comunidad-fundadora-acceso" variant="secondary">Comunidad Fundadora (acceso)</NavButton>
+        <NavButton to="/comunidad-fundadora-centros" variant="secondary">Founder · Centros, Espacios &amp; Organizadores</NavButton>
         <NavButton to="/dashboard" variant="secondary">Dashboard</NavButton>
         <NavButton to="/mi-espacio" variant="secondary">Mi Espacio</NavButton>
         <NavButton to="/profesional/$slug" params={{ slug: "lucia-gelabert" }} variant="secondary">Ficha Profesional Verificado</NavButton>
