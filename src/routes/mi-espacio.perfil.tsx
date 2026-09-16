@@ -282,7 +282,7 @@ function MiPerfil() {
 function MiPerfilOtrosRecorridos({ track }: { track: Track }) {
   return (
     <WireframeShell
-      screen="10 · MI PERFIL"
+
       title="👤 Mi Perfil"
       breadcrumb="Mi Espacio › Mi Perfil"
     >

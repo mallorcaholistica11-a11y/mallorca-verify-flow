@@ -36,7 +36,7 @@ function MiEspacio() {
   // Otros planes: se conserva la pantalla actual intacta.
   return (
     <WireframeShell
-      screen="9 · MI ESPACIO"
+
       title="🌿 Bienvenido a Mallorca Holística"
       breadcrumb="Mi Espacio"
     >

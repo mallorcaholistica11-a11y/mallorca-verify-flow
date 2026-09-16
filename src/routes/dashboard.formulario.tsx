@@ -169,7 +169,7 @@ function FormularioBase() {
   const isPresencia = track === "presencia";
 
   const finish = () => {
-    if (needsStripe) navigate({ to: "/dashboard/stripe", search: { track } });
+    if (needsStripe) navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
     else navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
   };
 
@@ -3200,7 +3200,7 @@ function PresenciaOrganizacionFormulario() {
 
   return (
     <WireframeShell
-      screen={`6 · FORMULARIO ESPACIO O PROYECTO · PASO ${step}/${total}`}
+
       title={`Paso ${step} de ${total} · ${stepTitle}`}
       breadcrumb="Dashboard › Completar perfil del espacio o proyecto"
     >
@@ -3564,7 +3564,7 @@ function PresenciaProfesionalFormulario() {
 
   return (
     <WireframeShell
-      screen={`6 · FORMULARIO PRESENCIA · PASO ${step}/${total}`}
+
       title={`Paso ${step} de ${total} · ${stepTitle}`}
       breadcrumb="Dashboard › Completar perfil"
       compact

@@ -40,7 +40,7 @@ function CrearCuenta() {
 
   return (
     <WireframeShell
-      screen={recorridoActual ? undefined : "4 · CREAR CUENTA"}
+
       title="Crear tu cuenta"
       breadcrumb={breadcrumb}
     >
