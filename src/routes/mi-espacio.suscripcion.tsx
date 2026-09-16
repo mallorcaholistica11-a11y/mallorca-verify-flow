@@ -212,7 +212,7 @@ function trackToPlan(track: Track): PlanKey {
 function MiSuscripcion() {
   const { track, estado, suscripcion } = Route.useSearch();
 
-  if (track === "verificado" || track === "organizacion") {
+  if (usaRecorridoActual(track)) {
     return (
       <MiSuscripcionVerificado
         track={track}
@@ -230,11 +230,17 @@ function MiSuscripcionVerificado({
   estado,
   suscripcion,
 }: {
-  track: "verificado" | "organizacion";
+  track: Track;
   estado: PerfilEstado;
   suscripcion: SuscripcionEstado;
 }) {
-  const esOrganizacion = track === "organizacion";
+  const esOrganizacion = esPlanOrganizacion(track);
+  // La condición Fundadora no cambia el plan ni sus funcionalidades: solo el
+  // precio y las condiciones comerciales de la suscripción.
+  const fundador = esFundador(track);
+  const precioFundador = esOrganizacion
+    ? PRECIO_FUNDADOR.organizacion
+    : PRECIO_FUNDADOR.verificado;
   const estaPendiente = estado === "pendiente" || estado === "preparacion";
   const estaEnRevision = estado === "revision";
   const estaRechazado = estado === "rechazado";
@@ -274,8 +280,8 @@ function MiSuscripcionVerificado({
           <Card title="Plan">
             {esOrganizacion ? "Centros, Espacios & Organizadores" : "Profesional Verificado"}
           </Card>
-          <Card title="Precio">
-            {esOrganizacion ? "50 €/mes · IVA incluido" : (
+          <Card title={fundador ? "Precio fundador" : "Precio"}>
+            {fundador ? precioFundador : esOrganizacion ? "50 €/mes · IVA incluido" : (
               <>
                 25 €/mes
                 <br />
@@ -286,7 +292,19 @@ function MiSuscripcionVerificado({
           <Card title="Estado">{estadoVisible}</Card>
         </Row>
 
-        {esOrganizacion && !estaActiva && (
+        {fundador && (
+          <Row>
+            <Card title="Condición">Comunidad Fundadora</Card>
+            <Card title="Periodo gratuito">6 meses desde el lanzamiento oficial</Card>
+            <Card title="Condición del precio">
+              Precio fundador mantenido durante 24 meses mientras la suscripción permanezca activa
+            </Card>
+          </Row>
+        )}
+
+        {fundador && <CondicionesFundadoras precio={precioFundador} />}
+
+        {!fundador && esOrganizacion && !estaActiva && (
           <>
             <p style={paragraphStyle}>
               Tu suscripción todavía no está activa. Estamos revisando tu solicitud de
@@ -296,7 +314,7 @@ function MiSuscripcionVerificado({
           </>
         )}
 
-        {!esOrganizacion && estaPendiente && (
+        {!fundador && !esOrganizacion && estaPendiente && (
           <>
             <p style={paragraphStyle}>
               Tu suscripción todavía no está activa. Para enviar tu solicitud de verificación, es
@@ -312,7 +330,7 @@ function MiSuscripcionVerificado({
           </>
         )}
 
-        {!esOrganizacion && estaEnRevision && (
+        {!fundador && !esOrganizacion && estaEnRevision && (
           <>
             <p style={paragraphStyle}>
               Tu método de pago ha quedado registrado de forma segura mediante Stripe. No se
@@ -325,7 +343,7 @@ function MiSuscripcionVerificado({
           </>
         )}
 
-        {!esOrganizacion && estaAprobado && !estaActiva && (
+        {!fundador && !esOrganizacion && estaAprobado && !estaActiva && (
           <>
             <p style={paragraphStyle}>
               Tu perfil está aprobado. Los 2 meses gratuitos comienzan en la fecha oficial de
@@ -336,9 +354,11 @@ function MiSuscripcionVerificado({
           </>
         )}
 
-        {estaActiva && (esOrganizacion ? <CondicionesOrganizacion /> : <AvisoPrimerCobro />)}
+        {!fundador &&
+          estaActiva &&
+          (esOrganizacion ? <CondicionesOrganizacion /> : <AvisoPrimerCobro />)}
 
-        {!esOrganizacion && estaRechazado && (
+        {!fundador && !esOrganizacion && estaRechazado && (
           <p style={paragraphStyle}>
             Tu suscripción no se ha activado y no se realizará ningún cargo.
           </p>
