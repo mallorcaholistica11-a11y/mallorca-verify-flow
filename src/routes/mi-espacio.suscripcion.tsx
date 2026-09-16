@@ -78,54 +78,6 @@ export const Route = createFileRoute("/mi-espacio/suscripcion")({
   component: MiSuscripcion,
 });
 
-type PlanKey = "presencia" | "verificado" | "organizacion";
-
-type PlanInfo = {
-  nombre: string;
-  precio: string;
-  incluye: string[];
-};
-
-const PLANES: Record<PlanKey, PlanInfo> = {
-  presencia: {
-    nombre: "Plan Presencia",
-    precio: "Gratuito",
-    incluye: [
-      "Perfil profesional básico",
-      "Aparición en el Directorio",
-      "Contacto directo con las personas interesadas",
-      "Gestión de tu perfil profesional",
-      "Soporte por correo electrónico",
-    ],
-  },
-  verificado: {
-    nombre: "Profesional Verificado",
-    precio: "15 €/mes + IVA",
-    incluye: [
-      "Perfil profesional verificado",
-      "Aparición en el Directorio",
-      "Publicación de actividades grupales",
-      "Aparición en la Agenda",
-      "Contacto directo con las personas interesadas",
-      "Gestión de tu perfil profesional",
-      "Soporte por correo electrónico",
-    ],
-  },
-  organizacion: {
-    nombre: "Centros & Organizadores",
-    precio: "35 €/mes + IVA",
-    incluye: [
-      "Perfil de centro u organización verificado",
-      "Aparición en el Directorio de Centros",
-      "Publicación de actividades grupales",
-      "Aparición en la Agenda",
-      "Gestión de múltiples actividades",
-      "Contacto directo con las personas interesadas",
-      "Gestión del perfil institucional",
-      "Soporte por correo electrónico",
-    ],
-  },
-};
 
 const INCLUYE_VERIFICADO = [
   {
