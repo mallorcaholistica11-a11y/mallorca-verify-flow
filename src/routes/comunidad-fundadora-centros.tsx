@@ -40,7 +40,7 @@ function InvitacionFundadoraCentros() {
         <ul style={{ paddingLeft: 18, fontSize: 13 }}>
           <li>✨ Hasta 10 Centros & Organizadores Fundadores.</li>
           <li>✨ 6 meses gratuitos desde el lanzamiento oficial.</li>
-          <li>✨ Tarifa Fundadora protegida de 35 €/mes (IVA incluido) para siempre, mientras la suscripción permanezca activa.</li>
+          <li>✨ Tarifa Fundadora de 35 €/mes (IVA incluido), mantenida durante 24 meses mientras la suscripción permanezca activa.</li>
           <li>✨ Acceso prioritario a nuevas funcionalidades y futuras oportunidades dentro del ecosistema.</li>
         </ul>
       </Box>
