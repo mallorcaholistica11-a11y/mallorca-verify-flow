@@ -10,6 +10,8 @@ import {
   TrackBadge,
   parseTrack,
   parsePerfil,
+  esFundador,
+  esPlanOrganizacion,
   type Track,
   type PerfilTipo,
 } from "@/components/Wireframe";
