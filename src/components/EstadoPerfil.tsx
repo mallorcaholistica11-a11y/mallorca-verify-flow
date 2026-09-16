@@ -13,8 +13,8 @@ export const PLAN_NOMBRE: Record<Track, string> = {
   presencia: "Plan Presencia",
   verificado: "Profesional Verificado",
   verificadoFundador: "Profesional Verificado",
-  organizacion: "Centros & Organizadores",
-  organizacionFundadora: "Centros & Organizadores",
+  organizacion: "Centros, Espacios & Organizadores",
+  organizacionFundadora: "Centros, Espacios & Organizadores",
 };
 
 type EstadoConfig = {
