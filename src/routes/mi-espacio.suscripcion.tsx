@@ -207,11 +207,6 @@ type DatosStripe = {
 // Estos valores se completarán exclusivamente con datos seguros recibidos de Stripe.
 const DATOS_STRIPE: DatosStripe = { facturas: [] };
 
-function trackToPlan(track: Track): PlanKey {
-  if (track === "organizacion" || track === "organizacionFundadora") return "organizacion";
-  if (track === "verificado" || track === "verificadoFundador") return "verificado";
-  return "presencia";
-}
 
 function MiSuscripcion() {
   const { track, estado, suscripcion } = Route.useSearch();
