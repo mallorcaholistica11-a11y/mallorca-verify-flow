@@ -243,18 +243,22 @@ export function Note({ children }: { children: ReactNode }) {
   );
 }
 
+// Nombre del plan asociado a cada recorrido. La condición de Comunidad
+// Fundadora no cambia el plan, solo sus condiciones comerciales.
 const TRACK_LABEL: Record<Track, string> = {
-  presencia: "Perfil Presencia (gratuito)",
-  verificado: "Profesional Verificado (No Fundador)",
-  verificadoFundador: "Profesional Fundador",
-  organizacion: "Centros & Organizadores (No Fundador)",
-  organizacionFundadora: "Organización Fundadora",
+  presencia: "Plan Presencia",
+  verificado: "Profesional Verificado",
+  verificadoFundador: "Profesional Verificado",
+  organizacion: "Centros, Espacios & Organizadores",
+  organizacionFundadora: "Centros, Espacios & Organizadores",
 };
 
+// Indicador del plan activo. Ya no muestra rótulos técnicos de desarrollo.
 export function TrackBadge({ track }: { track: Track }) {
   return (
     <div className="wireframe-track-badge" style={{ display: "inline-block", padding: "6px 14px", border: "1px solid var(--border)", borderRadius: 999, background: "var(--secondary)", color: "var(--secondary-foreground)", fontSize: 11.5, marginBottom: 16 }}>
-      Track activo: <strong>{TRACK_LABEL[track]}</strong>
+      Plan: <strong>{TRACK_LABEL[track]}</strong>
+      {esFundador(track) && <> · Comunidad Fundadora</>}
     </div>
   );
 }

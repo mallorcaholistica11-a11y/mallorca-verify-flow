@@ -17,10 +17,9 @@ function Inicio() {
         <NavButton to="/soy-profesional">Soy profesional</NavButton>
       </Box>
       <Box title="Páginas internas (acceso técnico)">
-        <NavButton to="/home-mvp" variant="secondary">Home MVP</NavButton>
         <NavButton to="/plan-presencia" variant="secondary">Plan Presencia</NavButton>
-        <NavButton to="/futuro/profesional-verificado" variant="secondary">Profesional Verificado</NavButton>
-        <NavButton to="/futuro/centros-organizadores" variant="secondary">Centros &amp; Organizadores</NavButton>
+        <NavButton to="/profesional-fundador" variant="secondary">Profesional Verificado</NavButton>
+        <NavButton to="/comunidad-fundadora-organizaciones" variant="secondary">Centros, Espacios &amp; Organizadores</NavButton>
         <NavButton to="/comunidad-fundadora-acceso" variant="secondary">Comunidad Fundadora (acceso)</NavButton>
         <NavButton to="/comunidad-fundadora-centros" variant="secondary">Founder · Centros, Espacios &amp; Organizadores</NavButton>
         <NavButton to="/dashboard" variant="secondary">Dashboard</NavButton>
