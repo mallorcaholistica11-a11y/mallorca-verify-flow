@@ -8,6 +8,8 @@ import {
   TrackBadge,
   ReadOnlyField,
   parseTrack,
+  esPlanOrganizacion,
+  esPlanVerificado,
   type Track,
 } from "@/components/Wireframe";
 import { PERFILES, type ResultadoProfesional } from "@/data/perfiles";
