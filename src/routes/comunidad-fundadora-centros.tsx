@@ -47,7 +47,7 @@ function InvitacionFundadoraCentros() {
 
       <Box title="Ventaja Fundadora">
         <p style={{ fontSize: 13 }}>
-          <strong>35 €/mes (IVA incluido)</strong> para siempre mientras la suscripción permanezca activa.
+          <strong>35 €/mes (IVA incluido), mantenidos durante 24 meses mientras la suscripción permanezca activa.</strong>
         </p>
         <p style={{ fontSize: 13 }}>+ 6 meses gratuitos desde el lanzamiento oficial.</p>
         <p style={{ fontSize: 13, color: "var(--muted-foreground)" }}>(Precio futuro del plan: 50 €/mes IVA incluido.)</p>
