@@ -29,7 +29,7 @@ function Invitacion() {
       <Box title="Beneficios fundadores activos">
         <ul style={{ fontSize: 13, paddingLeft: 18 }}>
           <li>6 meses gratuitos desde el lanzamiento oficial</li>
-          <li>{isOrg ? "35 €/mes" : "15 €/mes"} para siempre mientras mantengan activa su suscripción</li>
+          <li>{isOrg ? "35 €/mes (IVA incluido), mantenidos durante 24 meses mientras la suscripción permanezca activa" : "15 €/mes para siempre mientras mantengan activa su suscripción"}</li>
         </ul>
       </Box>
       <NavButton
