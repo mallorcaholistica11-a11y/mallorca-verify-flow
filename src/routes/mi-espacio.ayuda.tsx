@@ -12,7 +12,14 @@ import {
 
 // Preguntas de suscripción para los miembros de la Comunidad Fundadora.
 // El resto de las FAQs son las del plan correspondiente.
-function conSuscripcionFundadora(grupos: FaqGroup[], precio: string): FaqGroup[] {
+function conSuscripcionFundadora(
+  grupos: FaqGroup[],
+  precio: string,
+  entidad = false,
+): FaqGroup[] {
+  const aprobado = entidad
+    ? "tu perfil haya sido aprobado como Entidad Verificada"
+    : "tu perfil haya sido aprobado";
   return grupos.map((grupo) =>
     grupo.titulo !== "Suscripción"
       ? grupo
@@ -29,7 +36,7 @@ function conSuscripcionFundadora(grupos: FaqGroup[], precio: string): FaqGroup[]
             },
             {
               q: "¿Cuándo se realizará el primer cobro?",
-              a: `El primer cobro se realizará únicamente cuando tu perfil haya sido aprobado y hayan finalizado tus 6 meses gratuitos. El precio fundador es de ${precio} (IVA incluido) y se mantendrá durante 24 meses mientras tu suscripción permanezca activa, sin permanencia.\n\nMallorca Holística te informará por email antes del primer cobro, indicándote la fecha y el importe.`,
+              a: `El primer cobro se realizará únicamente cuando ${aprobado} y hayan finalizado tus 6 meses gratuitos. El precio fundador es de ${precio} (IVA incluido) y se mantendrá durante 24 meses mientras tu suscripción permanezca activa, sin permanencia.\n\nMallorca Holística te informará por email antes del primer cobro, indicándote la fecha y el importe.`,
             },
             {
               q: "¿Qué ocurre si mi solicitud no es aprobada?",
@@ -257,7 +264,11 @@ function Ayuda() {
   const faqPlan = esOrganizacion ? FAQ_CENTROS : FAQ;
   // La condición Fundadora solo adapta las preguntas de suscripción.
   const faqActiva = esFundador(track)
-    ? conSuscripcionFundadora(faqPlan, esOrganizacion ? "35 €/mes" : "15 €/mes")
+    ? conSuscripcionFundadora(
+        faqPlan,
+        esOrganizacion ? "35 €/mes" : "15 €/mes",
+        esOrganizacion,
+      )
     : faqPlan;
   return (
     <WireframeShell

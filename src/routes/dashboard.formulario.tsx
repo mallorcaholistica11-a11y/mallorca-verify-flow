@@ -2986,9 +2986,17 @@ function Paso7Fundador({
   onToggle,
   precio,
 }: Paso7Props & { precio: "15 €/mes" | "35 €/mes" }) {
+  // El precio fundador identifica el plan asociado a la invitación.
+  const esEntidad = precio === "35 €/mes";
+  const planNombre = esEntidad
+    ? "Centros, Espacios & Organizadores"
+    : "Profesional Verificado";
   return (
     <>
       <Box title="Comunidad Fundadora">
+        <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
+          Plan {planNombre}.
+        </p>
         <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
           Tus condiciones como miembro fundador:
         </p>
@@ -3017,7 +3025,9 @@ function Paso7Fundador({
           La suscripción solo podrá activarse cuando:
         </p>
         <ol style={{ fontSize: 13, paddingLeft: 20, marginBottom: 10, lineHeight: 1.8 }}>
-          <li>el perfil haya sido aprobado;</li>
+          <li>
+            el perfil haya sido aprobado{esEntidad ? " como Entidad Verificada" : ""};
+          </li>
           <li>haya finalizado el periodo gratuito Founder correspondiente.</li>
         </ol>
         <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
