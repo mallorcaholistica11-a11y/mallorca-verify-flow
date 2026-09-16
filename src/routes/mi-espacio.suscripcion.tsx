@@ -8,6 +8,10 @@ import {
   NavButton,
   TrackBadge,
   parseTrack,
+  esFundador,
+  esPlanOrganizacion,
+  usaRecorridoActual,
+  PRECIO_FUNDADOR,
   type Track,
 } from "@/components/Wireframe";
 import { Button } from "@/components/ui/button";
@@ -432,6 +436,35 @@ function MiSuscripcionVerificado({
         </NavButton>
       </Box>
     </WireframeShell>
+  );
+}
+
+// Condiciones comerciales de la Comunidad Fundadora, comunes a los dos planes.
+function CondicionesFundadoras({ precio }: { precio: string }) {
+  return (
+    <div style={{ display: "grid", gap: 10, marginTop: 12 }}>
+      <p style={{ ...paragraphStyle, margin: 0 }}>
+        Los 6 meses gratuitos comenzarán en la fecha oficial de lanzamiento de Mallorca Holística.
+        La fecha se comunicará antes de la activación de las suscripciones.
+      </p>
+      <p style={{ ...paragraphStyle, margin: 0 }}>
+        Después del periodo gratuito, tu suscripción será de {precio}, sin permanencia. El precio
+        fundador se mantendrá durante 24 meses mientras la suscripción permanezca activa.
+      </p>
+      <p style={{ ...paragraphStyle, margin: 0 }}>
+        Tu método de pago queda registrado de forma segura mediante Stripe y no se realiza ningún
+        cargo mientras tu solicitud esté en revisión.
+      </p>
+      <p style={{ ...paragraphStyle, margin: 0 }}>
+        El primer cobro se realizará únicamente cuando tu perfil haya sido aprobado y haya
+        finalizado tu periodo gratuito. Si tu perfil no es aprobado, la suscripción no se activa y
+        no se realiza ningún cobro.
+      </p>
+      <p style={{ ...paragraphStyle, margin: 0 }}>
+        Mallorca Holística te informará por email antes del primer cobro, indicando la fecha y el
+        importe.
+      </p>
+    </div>
   );
 }
 
