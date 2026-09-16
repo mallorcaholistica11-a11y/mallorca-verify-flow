@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { WireframeShell, Box, Row, Card, NavButton, TrackBadge, parseTrack, type Track } from "@/components/Wireframe";
+import { WireframeShell, Box, Row, Card, NavButton, TrackBadge, parseTrack, usaRecorridoActual, esPlanOrganizacion, type Track } from "@/components/Wireframe";
 import { EstadoPerfilBox } from "@/components/EstadoPerfil";
 
 // Estados de Mi Espacio para el recorrido estándar del Plan Profesional Verificado.
@@ -27,12 +27,13 @@ const cardLinkStyle = { textDecoration: "none", color: "inherit", flex: 1, minWi
 function MiEspacio() {
   const { track, estado: estadoSearch } = Route.useSearch();
 
-  // Recorridos estándar (no Fundadores): Mi Espacio es la única pantalla.
-  if (track === "verificado" || track === "organizacion") {
+  // Recorridos actuales de los dos planes de pago, incluidos los miembros
+  // fundadores: Mi Espacio es la única pantalla y no se duplica.
+  if (usaRecorridoActual(track)) {
     return <MiEspacioVerificado track={track} estado={estadoSearch ?? "pendiente"} />;
   }
 
-  // Recorridos Fundadores y otros planes: se conserva la pantalla actual intacta.
+  // Otros planes: se conserva la pantalla actual intacta.
   return (
     <WireframeShell
       screen="9 · MI ESPACIO"
@@ -198,7 +199,7 @@ const ESTADOS_ORGANIZACION: Partial<Record<EspacioEstado, Partial<EstadoConfig>>
 };
 
 function MiEspacioVerificado({ track, estado }: { track: Track; estado: EspacioEstado }) {
-  const esOrganizacion = track === "organizacion";
+  const esOrganizacion = esPlanOrganizacion(track);
   const config: EstadoConfig = esOrganizacion
     ? { ...ESTADOS[estado], ...ESTADOS_ORGANIZACION[estado] }
     : ESTADOS[estado];

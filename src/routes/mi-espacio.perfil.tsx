@@ -88,8 +88,8 @@ const valorNoDisponible = "No indicado";
 function MiPerfil() {
   const { track, estado: estadoSearch } = Route.useSearch();
 
-  if (track === "organizacion") return <MiPerfilCentro estadoSearch={estadoSearch} />;
-  if (track !== "verificado") return <MiPerfilOtrosRecorridos track={track} />;
+  if (esPlanOrganizacion(track)) return <MiPerfilCentro track={track} estadoSearch={estadoSearch} />;
+  if (!esPlanVerificado(track)) return <MiPerfilOtrosRecorridos track={track} />;
 
 
   const estado = estadoSearch ?? "pendiente";

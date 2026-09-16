@@ -164,7 +164,7 @@ function NuevaActividadPagina() {
   const inputImagenRef = useRef<HTMLInputElement>(null);
 
   const esCentro = track === "organizacion" || track === "organizacionFundadora";
-  const esVerificado = track === "verificado";
+  const esVerificado = track === "verificado" || track === "verificadoFundador";
   const estado = estadoSearch ?? "pendiente";
   const perfilAprobado = estado === "aprobado";
 
