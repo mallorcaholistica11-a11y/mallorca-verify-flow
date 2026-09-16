@@ -57,7 +57,7 @@ function TipoPerfil() {
 
   return (
     <WireframeShell
-      screen="5B · TIPO DE PERFIL"
+
       title="¿Qué tipo de perfil quieres crear?"
       breadcrumb="Dashboard › Tipo de perfil"
     >

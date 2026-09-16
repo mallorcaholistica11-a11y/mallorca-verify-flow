@@ -127,7 +127,7 @@ function DashboardHome() {
   const planLabel = esEstandarVerificado
     ? "Profesional Verificado"
     : isOrg
-      ? "🌞 Plan Centros & Organizadores"
+      ? "🌞 Plan Centros, Espacios & Organizadores"
       : isVerificado
         ? "⭐ Plan Profesional Verificado"
         : "🌿 Plan Presencia · Gratuito";
@@ -198,7 +198,7 @@ function DashboardHome() {
       ];
 
   return (
-    <WireframeShell screen={screen} title="🌿 Bienvenido a Mallorca Holística" breadcrumb="Dashboard">
+    <WireframeShell title="🌿 Bienvenido a Mallorca Holística" breadcrumb="Dashboard">
       <div style={{ display: "inline-block", padding: "4px 8px", border: "1px solid var(--border)", borderRadius: 12, fontSize: 11, marginBottom: 12 }}>
         Plan seleccionado: <strong>{planLabel}</strong>
       </div>

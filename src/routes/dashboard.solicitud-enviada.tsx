@@ -51,7 +51,7 @@ function SolicitudEnviada() {
 
   return (
     <WireframeShell
-      screen={esEstandar ? undefined : "8 · SOLICITUD ENVIADA"}
+
       title="🌿 ¡Gracias por unirte a Mallorca Holística!"
       breadcrumb="Dashboard › Solicitud enviada"
     >

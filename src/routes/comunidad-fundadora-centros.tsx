@@ -8,9 +8,9 @@ export const Route = createFileRoute("/comunidad-fundadora-centros")({
 function InvitacionFundadoraCentros() {
   return (
     <WireframeShell
-      screen="PRIVADO · INVITACIÓN COMUNIDAD FUNDADORA · CENTROS & ORGANIZADORES"
+
       title="🌿 Bienvenidos a la Comunidad Fundadora"
-      breadcrumb="Invitación personal › Comunidad Fundadora · Centros & Organizadores"
+      breadcrumb="Invitación personal › Comunidad Fundadora · Centros, Espacios & Organizadores"
     >
       <Box title="Una invitación personal">
         <p style={{ fontSize: 13 }}>
@@ -38,7 +38,7 @@ function InvitacionFundadoraCentros() {
 
       <Box title="🌿 Ventajas para los Miembros Fundadores">
         <ul style={{ paddingLeft: 18, fontSize: 13 }}>
-          <li>✨ Hasta 10 Centros & Organizadores Fundadores.</li>
+          <li>✨ Hasta 10 Centros, Espacios & Organizadores Fundadores.</li>
           <li>✨ 6 meses gratuitos desde el lanzamiento oficial.</li>
           <li>✨ Tarifa Fundadora de 35 €/mes (IVA incluido), mantenida durante 24 meses mientras la suscripción permanezca activa.</li>
           <li>✨ Acceso prioritario a nuevas funcionalidades y futuras oportunidades dentro del ecosistema.</li>
@@ -55,10 +55,10 @@ function InvitacionFundadoraCentros() {
 
       <Box title="¿Quieres conocer el plan?">
         <p style={{ fontSize: 13 }}>
-          Puedes revisar todas las funcionalidades del Plan Centros & Organizadores antes de aceptar la invitación.
+          Puedes revisar todas las funcionalidades del Plan Centros, Espacios & Organizadores antes de aceptar la invitación.
         </p>
         <NavButton to="/comunidad-fundadora-organizaciones" variant="secondary">
-          Ver el Plan Centros & Organizadores
+          Ver el Plan Centros, Espacios & Organizadores
         </NavButton>
       </Box>
 

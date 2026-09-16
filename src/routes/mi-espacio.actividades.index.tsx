@@ -191,7 +191,7 @@ function ListaEstado({
 function MisActividadesOtrosRecorridos({ track }: { track: Track }) {
   return (
     <WireframeShell
-      screen="9b · MIS ACTIVIDADES"
+
       title="📅 Mis Actividades"
       breadcrumb="Mi Espacio › Mis Actividades"
     >

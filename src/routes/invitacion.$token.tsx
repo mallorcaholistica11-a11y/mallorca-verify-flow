@@ -17,7 +17,7 @@ function Invitacion() {
   const isOrg = track === "organizacionFundadora";
   return (
     <WireframeShell
-      screen="3 · INVITACIÓN VALIDADA"
+
       title="Tu invitación ha sido validada"
       breadcrumb={(isOrg ? "Comunidad Fundadora · Organizaciones" : "Comunidad Fundadora · Profesionales") + " › Invitación"}
     >
@@ -29,7 +29,7 @@ function Invitacion() {
       <Box title="Beneficios fundadores activos">
         <ul style={{ fontSize: 13, paddingLeft: 18 }}>
           <li>6 meses gratuitos desde el lanzamiento oficial</li>
-          <li>{isOrg ? "35 €/mes (IVA incluido), mantenidos durante 24 meses mientras la suscripción permanezca activa" : "15 €/mes para siempre mientras mantengan activa su suscripción"}</li>
+          <li>{isOrg ? "35 €/mes (IVA incluido), mantenidos durante 24 meses mientras la suscripción permanezca activa" : "15 €/mes (IVA incluido), mantenidos durante 24 meses mientras la suscripción permanezca activa"}</li>
         </ul>
       </Box>
       <NavButton
