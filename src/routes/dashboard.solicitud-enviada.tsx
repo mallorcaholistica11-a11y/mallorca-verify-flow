@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { WireframeShell, Box, NavButton, TrackBadge } from "@/components/Wireframe";
-import { parseTrack, type Track } from "@/components/Wireframe";
+import { parseTrack, esPlanOrganizacion, esPlanVerificado, type Track } from "@/components/Wireframe";
 import { PLAN_NOMBRE } from "@/components/EstadoPerfil";
 
 export const Route = createFileRoute("/dashboard/solicitud-enviada")({
@@ -39,8 +39,9 @@ const MENSAJE_ORGANIZACION = [
 
 function SolicitudEnviada() {
   const { track } = Route.useSearch() as { track: Track };
-  const esVerificadoEstandar = track === "verificado";
-  const esOrganizacionEstandar = track === "organizacion";
+  // Los miembros fundadores usan la confirmación actual de su plan.
+  const esVerificadoEstandar = esPlanVerificado(track);
+  const esOrganizacionEstandar = esPlanOrganizacion(track);
   const esEstandar = esVerificadoEstandar || esOrganizacionEstandar;
   const mensaje = esVerificadoEstandar
     ? MENSAJE_VERIFICADO

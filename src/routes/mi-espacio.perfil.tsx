@@ -8,6 +8,8 @@ import {
   TrackBadge,
   ReadOnlyField,
   parseTrack,
+  esPlanOrganizacion,
+  esPlanVerificado,
   type Track,
 } from "@/components/Wireframe";
 import { PERFILES, type ResultadoProfesional } from "@/data/perfiles";
@@ -88,8 +90,8 @@ const valorNoDisponible = "No indicado";
 function MiPerfil() {
   const { track, estado: estadoSearch } = Route.useSearch();
 
-  if (track === "organizacion") return <MiPerfilCentro estadoSearch={estadoSearch} />;
-  if (track !== "verificado") return <MiPerfilOtrosRecorridos track={track} />;
+  if (esPlanOrganizacion(track)) return <MiPerfilCentro track={track} estadoSearch={estadoSearch} />;
+  if (!esPlanVerificado(track)) return <MiPerfilOtrosRecorridos track={track} />;
 
 
   const estado = estadoSearch ?? "pendiente";
@@ -355,8 +357,13 @@ const ESTADO_PERFIL_CENTRO: Record<PerfilEstado, { estado: string; verificacion:
   aprobado: { estado: "Publicado", verificacion: "Entidad Verificada" },
 };
 
-function MiPerfilCentro({ estadoSearch }: { estadoSearch?: PerfilEstado }) {
-  const track: Track = "organizacion";
+function MiPerfilCentro({
+  track = "organizacion",
+  estadoSearch,
+}: {
+  track?: Track;
+  estadoSearch?: PerfilEstado;
+}) {
   const estado = estadoSearch ?? "pendiente";
   const estadoPerfil = ESTADO_PERFIL_CENTRO[estado];
   const estaAprobado = estado === "aprobado";

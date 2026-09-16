@@ -1,6 +1,44 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
-import { WireframeShell, Box, NavButton, parseTrack, type Track } from "@/components/Wireframe";
+import {
+  WireframeShell,
+  Box,
+  NavButton,
+  parseTrack,
+  esFundador,
+  esPlanOrganizacion,
+  type Track,
+} from "@/components/Wireframe";
+
+// Preguntas de suscripción para los miembros de la Comunidad Fundadora.
+// El resto de las FAQs son las del plan correspondiente.
+function conSuscripcionFundadora(grupos: FaqGroup[], precio: string): FaqGroup[] {
+  return grupos.map((grupo) =>
+    grupo.titulo !== "Suscripción"
+      ? grupo
+      : {
+          titulo: grupo.titulo,
+          items: [
+            {
+              q: "¿Cuándo se activa mi suscripción?",
+              a: "Tu suscripción no se activa al crear tu cuenta. Para enviar tu solicitud de verificación es necesario registrar un método de pago seguro mediante Stripe al finalizar el formulario. Registrar el método de pago no supone ningún cargo en ese momento, y no se realizará ningún cobro mientras tu solicitud esté en revisión.",
+            },
+            {
+              q: "¿Cuándo comienza el periodo gratuito?",
+              a: "Como miembro de la Comunidad Fundadora dispones de 6 meses gratuitos, que comenzarán en la fecha oficial de lanzamiento de Mallorca Holística. La fecha se comunicará antes de la activación de las suscripciones.",
+            },
+            {
+              q: "¿Cuándo se realizará el primer cobro?",
+              a: `El primer cobro se realizará únicamente cuando tu perfil haya sido aprobado y hayan finalizado tus 6 meses gratuitos. El precio fundador es de ${precio} (IVA incluido) y se mantendrá durante 24 meses mientras tu suscripción permanezca activa, sin permanencia.\n\nMallorca Holística te informará por email antes del primer cobro, indicándote la fecha y el importe.`,
+            },
+            {
+              q: "¿Qué ocurre si mi solicitud no es aprobada?",
+              a: "Si tu solicitud de verificación no es aprobada, la suscripción no se activará y no se realizará ningún cargo.",
+            },
+          ],
+        },
+  );
+}
 
 export const Route = createFileRoute("/mi-espacio/ayuda")({
   validateSearch: (s: Record<string, unknown>): { track: Track } => ({ track: parseTrack(s) }),
@@ -215,7 +253,12 @@ function Ayuda() {
   const { track } = Route.useSearch();
   const [hoveredResource, setHoveredResource] = useState<number | null>(null);
 
-  const faqActiva = track === "organizacion" ? FAQ_CENTROS : FAQ;
+  const esOrganizacion = esPlanOrganizacion(track);
+  const faqPlan = esOrganizacion ? FAQ_CENTROS : FAQ;
+  // La condición Fundadora solo adapta las preguntas de suscripción.
+  const faqActiva = esFundador(track)
+    ? conSuscripcionFundadora(faqPlan, esOrganizacion ? "35 €/mes" : "15 €/mes")
+    : faqPlan;
   return (
     <WireframeShell
       title="Ayuda"

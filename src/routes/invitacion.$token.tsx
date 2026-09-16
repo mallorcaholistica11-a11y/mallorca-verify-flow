@@ -32,8 +32,11 @@ function Invitacion() {
           <li>{isOrg ? "35 €/mes" : "15 €/mes"} para siempre mientras mantengan activa su suscripción</li>
         </ul>
       </Box>
-      <NavButton to="/auth/crear-cuenta" search={{ track }}>
-        Crear mi cuenta y continuar
+      <NavButton
+        to="/comunidad-fundadora-bienvenida"
+        search={{ tipo: isOrg ? "centro" : "profesional" }}
+      >
+        Continuar
       </NavButton>
     </WireframeShell>
   );

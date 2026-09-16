@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { WireframeShell, Box, NavButton, TrackBadge, parseTrack, type Track } from "@/components/Wireframe";
+import { WireframeShell, Box, NavButton, TrackBadge, parseTrack, esPlanOrganizacion, esPlanVerificado, type Track } from "@/components/Wireframe";
 import {
   LIMITE_ACTIVIDADES_MES,
   actividadesConsumidas,
@@ -49,10 +49,10 @@ const MENSAJE_NO_DISPONIBLE =
 function MisActividades() {
   const { track, estado: estadoSearch } = Route.useSearch();
 
-  if (track === "organizacion") {
+  if (esPlanOrganizacion(track)) {
     return <MisActividadesCentro track={track} estadoSearch={estadoSearch} />;
   }
-  if (track !== "verificado") return <MisActividadesOtrosRecorridos track={track} />;
+  if (!esPlanVerificado(track)) return <MisActividadesOtrosRecorridos track={track} />;
 
   return <MisActividadesVerificado track={track} estadoSearch={estadoSearch} />;
 }
