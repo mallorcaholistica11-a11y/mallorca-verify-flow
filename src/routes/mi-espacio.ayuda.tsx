@@ -62,7 +62,7 @@ const FAQ: FaqGroup[] = [
       },
       {
         q: "¿Qué significa \"Profesional Verificado\"?",
-        a: "Significa que Mallorca Holística ha revisado la información y documentación requerida para este plan, incluyendo la documentación profesional presentada y el seguro de Responsabilidad Civil correspondiente. Una vez completada la revisión, el perfil podrá mostrar el sello Profesional Verificado.",
+        a: "Significa que Mallorca Holística ha revisado la información y documentación requerida para este plan, incluyendo la documentación profesional presentada y la declaración responsable de disponer de los requisitos, autorizaciones y documentación necesarios para desarrollar legalmente la actividad. Una vez completada la revisión, el perfil podrá mostrar el sello Profesional Verificado.",
       },
     ],
   },
