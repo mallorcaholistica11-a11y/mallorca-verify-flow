@@ -276,3 +276,29 @@ export function parsePerfil(s: Record<string, unknown>): PerfilTipo | undefined 
   if (s.perfil === "organization") return "organization";
   return undefined;
 }
+
+// ── Condición Comunidad Fundadora ────────────────────────────────
+// "Miembro Fundador" no es un tipo de perfil: es una condición comercial
+// asociada a la cuenta. El plan sigue siendo Profesional Verificado o
+// Centros, Espacios & Organizadores.
+export function esFundador(track: Track): boolean {
+  return track === "verificadoFundador" || track === "organizacionFundadora";
+}
+
+export function esPlanOrganizacion(track: Track): boolean {
+  return track === "organizacion" || track === "organizacionFundadora";
+}
+
+export function esPlanVerificado(track: Track): boolean {
+  return track === "verificado" || track === "verificadoFundador";
+}
+
+// Recorridos actuales compartidos (estándar y Fundadores del mismo plan).
+export function usaRecorridoActual(track: Track): boolean {
+  return esPlanVerificado(track) || esPlanOrganizacion(track);
+}
+
+export const PRECIO_FUNDADOR: Record<"verificado" | "organizacion", string> = {
+  verificado: "15 €/mes · IVA incluido",
+  organizacion: "35 €/mes · IVA incluido",
+};
