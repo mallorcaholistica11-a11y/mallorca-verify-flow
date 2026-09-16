@@ -100,7 +100,7 @@ const FEATURES = [
 const VERIFICATION_ITEMS = [
   "Aceptación del Código Deontológico de Mallorca Holística.",
   "Verificación profesional mediante la aportación de hasta 3 titulaciones o certificaciones.",
-  "Seguro de Responsabilidad Civil vigente.",
+  "Declaración responsable de disponer de los requisitos, autorizaciones y documentación necesarios para desarrollar legalmente la actividad.",
   "Declaración de veracidad de la información aportada.",
   "Aceptación de la Política de Privacidad.",
   "Aceptación de las Condiciones de Uso.",

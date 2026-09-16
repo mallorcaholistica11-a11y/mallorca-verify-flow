@@ -93,7 +93,7 @@ const VERIFICADO_STEPS: Step[] = [
   ...BASE_STEPS,
   {
     title: "Documentación",
-    fields: ["Diplomas (subir)", "Seguro RC (subir)"],
+    fields: ["Diplomas (subir)", "Declaración responsable"],
     checkboxes: ["Aceptar código deontológico"],
   },
 ];
@@ -2665,43 +2665,14 @@ function VerificadoFormulario() {
             </>
           ) : (
             <>
-              <div style={{ marginBottom: 16 }}>
-                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
-                  Seguro de Responsabilidad Civil
-                </div>
-                <div
-                  onClick={() => toggleConsent("seguroRC")}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 8,
-                    padding: "8px 10px",
-                    border: "1px solid var(--border)", borderRadius: 12,
-                    background: consents.seguroRC ? "var(--muted)" : "var(--card)",
-                    cursor: "pointer",
-                    fontSize: 13,
-                  }}
-                >
-                  <span
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      width: 14,
-                      height: 14,
-                      border: "1px solid var(--border)", borderRadius: 12,
-                      background: "var(--card)",
-                      fontSize: 10,
-                    }}
-                  >
-                    {consents.seguroRC ? "☑" : ""}
-                  </span>
-                  <span>
-                    Declaro bajo mi responsabilidad que dispongo de un Seguro de Responsabilidad
-                    Civil vigente para el ejercicio de mi actividad profesional.
-                  </span>
-                </div>
-              </div>
+              <VConsentItem
+                icon="📝"
+                title="Declaración responsable"
+                label="Declaro que dispongo de los requisitos, autorizaciones y documentación necesarios para desarrollar legalmente mi actividad."
+                checked={consents.seguroRC}
+                onToggle={() => toggleConsent("seguroRC")}
+              />
+
 
               <div style={{ marginBottom: 16 }}>
                 <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
