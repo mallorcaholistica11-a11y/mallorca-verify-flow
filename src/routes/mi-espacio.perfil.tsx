@@ -355,8 +355,13 @@ const ESTADO_PERFIL_CENTRO: Record<PerfilEstado, { estado: string; verificacion:
   aprobado: { estado: "Publicado", verificacion: "Entidad Verificada" },
 };
 
-function MiPerfilCentro({ estadoSearch }: { estadoSearch?: PerfilEstado }) {
-  const track: Track = "organizacion";
+function MiPerfilCentro({
+  track = "organizacion",
+  estadoSearch,
+}: {
+  track?: Track;
+  estadoSearch?: PerfilEstado;
+}) {
   const estado = estadoSearch ?? "pendiente";
   const estadoPerfil = ESTADO_PERFIL_CENTRO[estado];
   const estaAprobado = estado === "aprobado";

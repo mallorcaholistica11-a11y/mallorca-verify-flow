@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { WireframeShell, Box, NavButton, TrackBadge, parseTrack, type Track } from "@/components/Wireframe";
+import { WireframeShell, Box, NavButton, TrackBadge, parseTrack, esPlanOrganizacion, esPlanVerificado, type Track } from "@/components/Wireframe";
 import {
   LIMITE_ACTIVIDADES_MES,
   actividadesConsumidas,
