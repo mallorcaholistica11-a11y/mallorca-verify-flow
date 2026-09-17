@@ -178,30 +178,75 @@ export function BuscadorSimple({
         {unificado && panelActivo === "practicas" && q.trim().length === 0 && (
           <div style={panelPracticasResponsiveStyle}>
             <div style={tituloPanelStyle}>Prácticas</div>
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", columnGap: 22, rowGap: 0 }}>
-              {[PRACTICAS_INICIALES.slice(0, 10), PRACTICAS_INICIALES.slice(10, 20)].map((columna, index) => (
-                <div key={index} style={{ minWidth: 0 }}>
-                  {columna.map((practica) => (
-                    <button
-                      key={practica}
-                      type="button"
-                      onMouseDown={(e) => e.preventDefault()}
-                      onClick={() => seleccionarPracticaInicial(practica)}
-                      style={opcionIndiceStyle}
-                    >
-                      {practica}
-                    </button>
+            {catalogoCompleto ? (
+              <>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))",
+                    columnGap: 22,
+                    rowGap: 0,
+                    maxHeight: 300,
+                    overflowY: "auto",
+                  }}
+                >
+                  {[
+                    PRACTICAS_NOMBRES.slice(0, Math.ceil(PRACTICAS_NOMBRES.length / 2)),
+                    PRACTICAS_NOMBRES.slice(Math.ceil(PRACTICAS_NOMBRES.length / 2)),
+                  ].map((columna, index) => (
+                    <div key={index} style={{ minWidth: 0 }}>
+                      {columna.map((practica) => (
+                        <button
+                          key={practica}
+                          type="button"
+                          onMouseDown={(e) => e.preventDefault()}
+                          onClick={() => seleccionarPracticaInicial(practica)}
+                          style={opcionIndiceStyle}
+                        >
+                          {practica}
+                        </button>
+                      ))}
+                    </div>
                   ))}
                 </div>
-              ))}
-            </div>
-            <Link
-              to="/guia"
-              onClick={() => setPanelActivo(null)}
-              style={verTodasStyle}
-            >
-              Ver todas las prácticas →
-            </Link>
+                <button
+                  type="button"
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => setCatalogoCompleto(false)}
+                  style={verTodasStyle}
+                >
+                  ← Ver selección
+                </button>
+              </>
+            ) : (
+              <>
+                <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", columnGap: 22, rowGap: 0 }}>
+                  {[PRACTICAS_INICIALES.slice(0, 10), PRACTICAS_INICIALES.slice(10, 20)].map((columna, index) => (
+                    <div key={index} style={{ minWidth: 0 }}>
+                      {columna.map((practica) => (
+                        <button
+                          key={practica}
+                          type="button"
+                          onMouseDown={(e) => e.preventDefault()}
+                          onClick={() => seleccionarPracticaInicial(practica)}
+                          style={opcionIndiceStyle}
+                        >
+                          {practica}
+                        </button>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => setCatalogoCompleto(true)}
+                  style={verTodasStyle}
+                >
+                  Ver todas las prácticas →
+                </button>
+              </>
+            )}
           </div>
         )}
         {panelActivo === "sugerencias" && grupos.length > 0 && (
