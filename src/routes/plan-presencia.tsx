@@ -115,11 +115,12 @@ function PlanPresencia() {
             <div className="max-w-[640px] space-y-3 text-[0.8rem] leading-relaxed text-muted-foreground md:text-[0.84rem]">
               <p>
                 El Plan Presencia está pensado para profesionales, centros, espacios, escuelas y
-                organizadores que desean dar visibilidad a su actividad y formar parte de esta red.
+                organizadores que desean dar visibilidad a su actividad y formar parte de Mallorca
+                Holística.
               </p>
               <p>
-                Crea tu perfil público para presentar quién eres, qué haces y cómo pueden ponerse en
-                contacto contigo.
+                Desde aquí podrás crear tu perfil público para mostrar quién eres, qué haces y cómo
+                pueden ponerse en contacto contigo.
               </p>
             </div>
           </div>
@@ -190,8 +191,9 @@ function PlanPresencia() {
               El Plan Presencia te permite formar parte de Mallorca Holística de manera gratuita.
             </p>
             <p>
-              Si buscas nuevas funcionalidades, mayor visibilidad o reforzar la confianza que
-              transmites, podrás elegir el plan que mejor se adapte a tus necesidades.
+              Si quieres acceder a nuevas funcionalidades, reforzar la confianza que transmite tu
+              perfil o ampliar la visibilidad de tu actividad, podrás elegir el plan que mejor se
+              adapte a ti.
             </p>
           </div>
         </section>
@@ -199,7 +201,8 @@ function PlanPresencia() {
         {/* Cierre */}
         <section className="text-center">
           <p className="mx-auto mb-6 max-w-[620px] font-display text-[1.1rem] font-normal leading-snug text-charcoal md:text-[1.25rem]">
-            Juntos tejemos una red de personas que cuidan y acompañan.
+            Cada profesional, cada espacio, cada proyecto suma. Juntos damos forma a Mallorca
+            Holística.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-3">

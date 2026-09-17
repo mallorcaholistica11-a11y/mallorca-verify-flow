@@ -80,7 +80,31 @@ function VistaPreviaPerfil() {
       ) : (
         <FichaPublica data={{ ...FICHA_PROFESIONAL_ACTUAL, verificado: false }} />
       )}
+      <div style={bottomBackContainerStyle}>
+        <Link
+          to="/mi-espacio/perfil"
+          search={{ track, estado }}
+          style={bottomBackLinkStyle}
+        >
+          ← Volver a Mi Perfil
+        </Link>
+      </div>
     </div>
   );
 }
+
+const bottomBackContainerStyle = {
+  padding: "0 24px 32px",
+  background: "var(--muted)",
+};
+
+const bottomBackLinkStyle = {
+  display: "block",
+  maxWidth: 1080,
+  margin: "0 auto",
+  color: "var(--foreground)",
+  fontFamily: "var(--font-body)",
+  fontSize: 12,
+  textDecoration: "underline",
+};
 
