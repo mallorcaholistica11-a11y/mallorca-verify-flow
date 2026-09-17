@@ -364,13 +364,14 @@ function BarraLateral({ data }: { data: FichaPublicaData }) {
         vacio={!contacto?.telefono && !contacto?.email && !contacto?.whatsapp}
       >
         <div style={{ display: "grid", gap: 6, fontSize: 13 }}>
-          {contacto?.telefono && <a href={`tel:${contacto.telefono.replace(/\s/g, "")}`} style={enlace}>{contacto.telefono}</a>}
+          {contacto?.telefono && <a href={telHref(contacto)} style={enlace}>{telefonoVisible(contacto)}</a>}
           {contacto?.email && <a href={`mailto:${contacto.email}`} style={enlace}>{contacto.email}</a>}
           {contacto?.whatsapp && (
-            <a href={`https://wa.me/${contacto.whatsapp.replace(/[^0-9]/g, "")}`} style={enlace}>
+            <a href={whatsappHref(contacto.whatsapp, contacto.prefijoTelefono)} style={enlace}>
               WhatsApp
             </a>
           )}
+
         </div>
       </Seccion>
 
