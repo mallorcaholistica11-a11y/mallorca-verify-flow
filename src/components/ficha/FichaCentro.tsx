@@ -200,7 +200,7 @@ function HeroCentro({
               )}
               {data.contacto?.whatsapp && (
                 <Boton
-                  href={`https://wa.me/${data.contacto.whatsapp.replace(/[^0-9]/g, "")}`}
+                  href={whatsappHref(data.contacto.whatsapp, data.contacto.prefijoTelefono)}
                   variante="principal"
                 >
                   Hablar por WhatsApp
@@ -208,7 +208,7 @@ function HeroCentro({
               )}
               {mostrarTelefono && data.contacto?.telefono && (
                 <a
-                  href={`tel:${data.contacto.telefono.replace(/[^+0-9]/g, "")}`}
+                  href={telHref(data.contacto)}
                   style={{
                     ...enlace,
                     display: "inline-flex",
@@ -217,9 +217,10 @@ function HeroCentro({
                     fontSize: 13,
                   }}
                 >
-                  <span aria-hidden="true">☎</span> {data.contacto.telefono}
+                  <span aria-hidden="true">☎</span> {telefonoVisible(data.contacto)}
                 </a>
               )}
+
             </div>
           )}
         </div>
