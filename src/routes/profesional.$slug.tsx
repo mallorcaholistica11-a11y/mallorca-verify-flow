@@ -42,6 +42,25 @@ function FichaProfesionalVerificado() {
         </Link>
       </div>
       <FichaPublica data={FICHA_PROFESIONAL_ACTUAL} />
+      <div style={bottomBackContainerStyle}>
+        <Link to="/" style={bottomBackLinkStyle}>
+          ← Volver a resultados
+        </Link>
+      </div>
     </div>
   );
 }
+
+const bottomBackContainerStyle = {
+  padding: "0 24px 32px",
+  background: "var(--muted)",
+};
+
+const bottomBackLinkStyle = {
+  display: "block",
+  maxWidth: 1080,
+  margin: "0 auto",
+  color: "var(--foreground)",
+  fontFamily: "var(--font-body)",
+  fontSize: 11,
+};

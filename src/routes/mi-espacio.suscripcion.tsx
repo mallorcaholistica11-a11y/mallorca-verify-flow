@@ -284,38 +284,19 @@ function MiSuscripcionVerificado({
         )}
 
         {!fundador && !esOrganizacion && estaEnRevision && (
-          <>
-            <p style={paragraphStyle}>
-              Tu método de pago ha quedado registrado de forma segura mediante Stripe. No se
-              realizará ningún cargo mientras tu solicitud esté en revisión.
-            </p>
-            <p style={paragraphStyle}>
-              Los 2 meses gratuitos comenzarán en la fecha oficial de lanzamiento de Mallorca
-              Holística. La fecha se comunicará antes de la activación de las suscripciones.
-            </p>
-          </>
+          <p style={paragraphStyle}>
+            Tu método de pago ha quedado registrado de forma segura mediante Stripe. No se
+            realizará ningún cargo mientras tu solicitud esté en revisión.
+          </p>
         )}
 
         {!fundador && !esOrganizacion && estaAprobado && !estaActiva && (
-          <>
-            <p style={paragraphStyle}>
-              Tu perfil está aprobado. Los 2 meses gratuitos comienzan en la fecha oficial de
-              lanzamiento de Mallorca Holística, no en la fecha de registro. No se realizará ningún
-              cobro hasta que finalice ese periodo gratuito común.
-            </p>
-            <AvisoPrimerCobro />
-          </>
+          <p style={paragraphStyle}>Tu perfil está aprobado.</p>
         )}
 
-        {!fundador &&
-          estaActiva &&
-          (esOrganizacion ? <CondicionesOrganizacion /> : <AvisoPrimerCobro />)}
+        {!fundador && estaActiva && esOrganizacion && <CondicionesOrganizacion />}
 
-        {!fundador && !esOrganizacion && estaRechazado && (
-          <p style={paragraphStyle}>
-            Tu suscripción no se ha activado y no se realizará ningún cargo.
-          </p>
-        )}
+        {!fundador && !esOrganizacion && <CondicionesProfesional />}
       </Box>
 
       <Box title="Qué incluye tu suscripción">
@@ -452,13 +433,30 @@ function CondicionesOrganizacion() {
   );
 }
 
-function AvisoPrimerCobro() {
+function CondicionesProfesional() {
   return (
-    <p style={paragraphStyle}>
-      Mallorca Holística te informará por email antes del primer cobro de la suscripción,
-      indicándote la fecha y el importe, para que puedas decidir con tiempo si deseas continuar o
-      cancelar tu suscripción.
-    </p>
+    <div style={{ display: "grid", gap: 10, marginTop: 12 }}>
+      <p style={{ ...paragraphStyle, margin: 0 }}>
+        Los 2 meses gratuitos comenzarán en la fecha oficial de lanzamiento de Mallorca
+        Holística. La fecha se comunicará antes de la activación de las suscripciones.
+      </p>
+      <p style={{ ...paragraphStyle, margin: 0 }}>
+        El primer cobro se realizará únicamente cuando tu perfil haya sido aprobado como
+        Profesional Verificado y haya finalizado el periodo gratuito de lanzamiento.
+      </p>
+      <p style={{ ...paragraphStyle, margin: 0 }}>
+        Si tu perfil se aprueba durante el periodo gratuito, no se realizará ningún cobro hasta que
+        dicho periodo haya terminado. Si se aprueba después de finalizar el periodo gratuito, la
+        suscripción comenzará a partir de su aprobación.
+      </p>
+      <p style={{ ...paragraphStyle, margin: 0 }}>
+        Si tu perfil no es aprobado, la suscripción no se activa y no se realiza ningún cargo.
+      </p>
+      <p style={{ ...paragraphStyle, margin: 0 }}>
+        Mallorca Holística te informará por email antes del primer cobro, indicando la fecha y el
+        importe.
+      </p>
+    </div>
   );
 }
 
