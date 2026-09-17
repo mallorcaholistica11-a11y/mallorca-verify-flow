@@ -223,6 +223,10 @@ export function BuscadorSimple({
                     onMouseDown={(e) => e.preventDefault()}
                     onClick={() => {
                       setQ(item);
+                      if (unificado) {
+                        setPanelActivo(null);
+                        return;
+                      }
                       lanzar(item);
                     }}
                     style={itemStyle}
