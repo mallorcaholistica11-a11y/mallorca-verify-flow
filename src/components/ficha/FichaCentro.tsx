@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { useMobile } from "@/components/ficha/useMobile";
+import { EnlaceWebPublica } from "@/components/ficha/EnlaceWebPublica";
 import { Boton, Chips, ChipsPracticas, LineaTexto, Seccion } from "@/components/ficha/primitives";
 import { GALERIA_DEMO, ambienteDe, retratoDe } from "@/data/imagenes";
 import {
@@ -181,6 +182,8 @@ function HeroCentro({
               {data.modalidades.join(" · ")}
             </div>
           )}
+
+          <EnlaceWebPublica web={data.contacto?.web} />
 
           {(mostrarReserva || data.contacto?.whatsapp || mostrarTelefono) && (
             <div

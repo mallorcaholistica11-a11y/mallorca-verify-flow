@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { useMobile } from "@/components/ficha/useMobile";
+import { EnlaceWebPublica } from "@/components/ficha/EnlaceWebPublica";
 import {
   Boton,
   Chips,
@@ -167,6 +168,8 @@ function Hero({
               {data.modalidades.join(" · ")}
             </div>
           )}
+
+          <EnlaceWebPublica web={data.contacto?.web} />
 
           {(mostrarReserva || data.contacto?.whatsapp || mostrarTelefono) && (
             <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "10px 14px", marginTop: 16 }}>
