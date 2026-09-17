@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 import { useMobile } from "@/components/ficha/useMobile";
 import { EnlaceWebPublica } from "@/components/ficha/EnlaceWebPublica";
+import { telHref, telefonoVisible, whatsappHref } from "@/lib/telefono";
+
 import { Boton, Chips, ChipsPracticas, LineaTexto, Seccion } from "@/components/ficha/primitives";
 import { GALERIA_DEMO, ambienteDe, retratoDe } from "@/data/imagenes";
 import {
