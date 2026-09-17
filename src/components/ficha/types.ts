@@ -49,7 +49,10 @@ export type Opinion = {
 
 export type Contacto = {
   telefono?: string;
+  /** Prefijo internacional guardado en el formulario (p. ej. "+34", "+33"). */
+  prefijoTelefono?: string;
   telefonoPublico?: boolean;
+
   email?: string;
   whatsapp?: string;
   web?: string;
