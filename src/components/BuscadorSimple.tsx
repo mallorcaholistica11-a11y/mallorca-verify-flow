@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
-import { Link } from "@tanstack/react-router";
 import { Leaf, MapPin } from "lucide-react";
-import { buscarPracticas } from "@/data/practicas";
+import { buscarPracticas, PRACTICAS_NOMBRES } from "@/data/practicas";
 import { buscarAreas } from "@/data/areas";
 import { buscarPerfiles, type Resultado } from "@/data/perfiles";
 import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
@@ -59,6 +58,8 @@ export function BuscadorSimple({
   const [q, setQ] = useState(valorInicial);
   const [lugar, setLugar] = useState(lugarInicial);
   const [panelActivo, setPanelActivo] = useState<PanelActivo>(null);
+  /** Amplía el mismo desplegable con el catálogo completo (misma fuente que la Guía). */
+  const [catalogoCompleto, setCatalogoCompleto] = useState(false);
 
   useEffect(() => {
     const cerrarSiFuera = (event: PointerEvent) => {
@@ -112,6 +113,7 @@ export function BuscadorSimple({
   const seleccionarPracticaInicial = (practica: string) => {
     setQ(practica);
     setPanelActivo(null);
+    setCatalogoCompleto(false);
   };
 
   const seleccionarMunicipio = (municipio: string) => {
@@ -178,30 +180,75 @@ export function BuscadorSimple({
         {unificado && panelActivo === "practicas" && q.trim().length === 0 && (
           <div style={panelPracticasResponsiveStyle}>
             <div style={tituloPanelStyle}>Prácticas</div>
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", columnGap: 22, rowGap: 0 }}>
-              {[PRACTICAS_INICIALES.slice(0, 10), PRACTICAS_INICIALES.slice(10, 20)].map((columna, index) => (
-                <div key={index} style={{ minWidth: 0 }}>
-                  {columna.map((practica) => (
-                    <button
-                      key={practica}
-                      type="button"
-                      onMouseDown={(e) => e.preventDefault()}
-                      onClick={() => seleccionarPracticaInicial(practica)}
-                      style={opcionIndiceStyle}
-                    >
-                      {practica}
-                    </button>
+            {catalogoCompleto ? (
+              <>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))",
+                    columnGap: 22,
+                    rowGap: 0,
+                    maxHeight: 300,
+                    overflowY: "auto",
+                  }}
+                >
+                  {[
+                    PRACTICAS_NOMBRES.slice(0, Math.ceil(PRACTICAS_NOMBRES.length / 2)),
+                    PRACTICAS_NOMBRES.slice(Math.ceil(PRACTICAS_NOMBRES.length / 2)),
+                  ].map((columna, index) => (
+                    <div key={index} style={{ minWidth: 0 }}>
+                      {columna.map((practica) => (
+                        <button
+                          key={practica}
+                          type="button"
+                          onMouseDown={(e) => e.preventDefault()}
+                          onClick={() => seleccionarPracticaInicial(practica)}
+                          style={opcionIndiceStyle}
+                        >
+                          {practica}
+                        </button>
+                      ))}
+                    </div>
                   ))}
                 </div>
-              ))}
-            </div>
-            <Link
-              to="/guia"
-              onClick={() => setPanelActivo(null)}
-              style={verTodasStyle}
-            >
-              Ver todas las prácticas →
-            </Link>
+                <button
+                  type="button"
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => setCatalogoCompleto(false)}
+                  style={verTodasStyle}
+                >
+                  ← Ver selección
+                </button>
+              </>
+            ) : (
+              <>
+                <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", columnGap: 22, rowGap: 0 }}>
+                  {[PRACTICAS_INICIALES.slice(0, 10), PRACTICAS_INICIALES.slice(10, 20)].map((columna, index) => (
+                    <div key={index} style={{ minWidth: 0 }}>
+                      {columna.map((practica) => (
+                        <button
+                          key={practica}
+                          type="button"
+                          onMouseDown={(e) => e.preventDefault()}
+                          onClick={() => seleccionarPracticaInicial(practica)}
+                          style={opcionIndiceStyle}
+                        >
+                          {practica}
+                        </button>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => setCatalogoCompleto(true)}
+                  style={verTodasStyle}
+                >
+                  Ver todas las prácticas →
+                </button>
+              </>
+            )}
           </div>
         )}
         {panelActivo === "sugerencias" && grupos.length > 0 && (
@@ -408,6 +455,11 @@ const verTodasStyle: CSSProperties = {
   fontSize: 12,
   color: "var(--primary)",
   textDecoration: "none",
+  border: "none",
+  background: "transparent",
+  padding: 0,
+  fontFamily: "inherit",
+  cursor: "pointer",
 };
 
 const panelMunicipiosStyle: CSSProperties = {
