@@ -179,18 +179,19 @@ function Hero({
                 </Boton>
               )}
               {data.contacto?.whatsapp && (
-                <Boton href={`https://wa.me/${data.contacto.whatsapp.replace(/[^0-9]/g, "")}`} variante="principal">
+                <Boton href={whatsappHref(data.contacto.whatsapp, data.contacto.prefijoTelefono)} variante="principal">
                   Hablar por WhatsApp
                 </Boton>
               )}
               {mostrarTelefono && data.contacto?.telefono && (
                 <a
-                  href={`tel:${data.contacto.telefono.replace(/[^+0-9]/g, "")}`}
+                  href={telHref(data.contacto)}
                   style={{ ...enlace, display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13 }}
                 >
-                  <span aria-hidden="true">☎</span> {data.contacto.telefono}
+                  <span aria-hidden="true">☎</span> {telefonoVisible(data.contacto)}
                 </a>
               )}
+
             </div>
           )}
         </div>
