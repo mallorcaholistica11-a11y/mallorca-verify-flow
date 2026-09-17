@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { CSSProperties, ReactNode } from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SlidersHorizontal, X } from "lucide-react";
 import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
@@ -325,26 +325,105 @@ function Hero({ isMobile }: { isMobile: boolean }) {
 
 /* ---------- Buscador y filtros ---------- */
 
+const TIPOS_BUSQUEDA = TIPOS_ACTIVIDAD.filter((tipo) => tipo !== "Todas las actividades");
+
+function normalizarTexto(texto: string) {
+  return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("es");
+}
+
 function Busqueda({ isMobile, onBuscar }: { isMobile: boolean; onBuscar: (valor: string) => void }) {
   const [valor, setValor] = useState("");
+  const [sugerenciasAbiertas, setSugerenciasAbiertas] = useState(false);
+  const contenedorRef = useRef<HTMLDivElement>(null);
+
+  const termino = normalizarTexto(valor.trim());
+  const sugerencias =
+    termino === ""
+      ? []
+      : TIPOS_BUSQUEDA.filter((tipo) => normalizarTexto(tipo).includes(termino));
+
+  useEffect(() => {
+    if (!sugerenciasAbiertas) return;
+    const onClickFuera = (event: MouseEvent) => {
+      if (!contenedorRef.current?.contains(event.target as Node)) setSugerenciasAbiertas(false);
+    };
+    document.addEventListener("mousedown", onClickFuera);
+    return () => document.removeEventListener("mousedown", onClickFuera);
+  }, [sugerenciasAbiertas]);
 
   return (
     <section style={{ padding: "12px 0 0" }}>
       <form
         onSubmit={(event) => {
           event.preventDefault();
+          setSugerenciasAbiertas(false);
           onBuscar(valor);
         }}
         style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) auto", gap: 10 }}
       >
-        <input
-          type="search"
-          value={valor}
-          onChange={(event) => setValor(event.target.value)}
-          placeholder="Buscar una actividad..."
-          aria-label="Buscar una actividad"
-          style={inputStyle}
-        />
+        <div ref={contenedorRef} style={{ position: "relative" }}>
+          <input
+            type="search"
+            value={valor}
+            onChange={(event) => {
+              setValor(event.target.value);
+              setSugerenciasAbiertas(true);
+            }}
+            onFocus={() => setSugerenciasAbiertas(true)}
+            placeholder="Buscar una actividad..."
+            aria-label="Buscar una actividad"
+            autoComplete="off"
+            style={inputStyle}
+          />
+          {sugerenciasAbiertas && sugerencias.length > 0 && (
+            <div
+              role="listbox"
+              aria-label="Sugerencias de tipo de actividad"
+              style={{
+                position: "absolute",
+                top: "calc(100% + 6px)",
+                left: 0,
+                right: 0,
+                zIndex: 40,
+                background: "var(--card)",
+                border: "1px solid var(--border)",
+                borderRadius: 12,
+                boxShadow: "0 12px 30px color-mix(in srgb, var(--foreground) 10%, transparent)",
+                maxHeight: 240,
+                overflowY: "auto",
+                padding: 6,
+              }}
+            >
+              {sugerencias.map((tipo) => (
+                <button
+                  key={tipo}
+                  type="button"
+                  onClick={() => {
+                    setValor(tipo);
+                    setSugerenciasAbiertas(false);
+                  }}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    textAlign: "left",
+                    padding: "8px 10px",
+                    fontSize: 13,
+                    fontFamily: "inherit",
+                    color: "var(--foreground)",
+                    background: "transparent",
+                    border: "none",
+                    borderRadius: 8,
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={(event) => { event.currentTarget.style.background = "var(--muted)"; }}
+                  onMouseLeave={(event) => { event.currentTarget.style.background = "transparent"; }}
+                >
+                  {tipo}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
         <button type="submit" style={botonBuscar}>Buscar</button>
       </form>
     </section>
