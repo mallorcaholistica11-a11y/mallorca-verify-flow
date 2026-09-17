@@ -113,6 +113,7 @@ export function BuscadorSimple({
   const seleccionarPracticaInicial = (practica: string) => {
     setQ(practica);
     setPanelActivo(null);
+    setCatalogoCompleto(false);
   };
 
   const seleccionarMunicipio = (municipio: string) => {
