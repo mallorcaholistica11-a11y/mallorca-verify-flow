@@ -49,8 +49,8 @@ const PROFESIONALES = [
   { nombre: "Andrés López", especialidad: "Osteopatía", lugar: "Palma" },
   { nombre: "Marta Ferrer", especialidad: "Masaje Terapéutico", lugar: "Sóller" },
   { nombre: "Jordi Ramis", especialidad: "Terapia Energética", lugar: "Manacor" },
-  { nombre: "Núria Camps", especialidad: "Sanación Energética", lugar: "Inca" },
-  { nombre: "Elena Vidal", especialidad: "Nutrición Integrativa", lugar: "Alcúdia" },
+  { nombre: "Núria Camps", especialidad: "Terapia Energética", lugar: "Inca" },
+  { nombre: "Elena Vidal", especialidad: "Nutrición / Nutrición Integrativa", lugar: "Alcúdia" },
 ];
 
 const DESCUBRE = [

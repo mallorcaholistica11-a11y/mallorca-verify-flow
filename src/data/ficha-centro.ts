@@ -32,7 +32,7 @@ export const FICHA_CENTRO_ACTUAL: FichaCentroData & {
     "Meditación",
     "Reiki",
     "Acupuntura",
-    "Nutrición Integrativa",
+    "Nutrición / Nutrición Integrativa",
   ],
   areas: ["Estrés", "Ansiedad", "Dolor crónico", "Desarrollo personal", "Gestión emocional"],
   publicos: ["Familias", "Empresas", "Profesionales"],

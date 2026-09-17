@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { Leaf, MapPin } from "lucide-react";
-import { buscarPracticas, PRACTICAS_NOMBRES } from "@/data/practicas";
+import { buscarPracticas, practicasOficiales, PRACTICAS_NOMBRES } from "@/data/practicas";
 import { buscarAreas } from "@/data/areas";
 import { buscarPerfiles, type Resultado } from "@/data/perfiles";
 import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
@@ -14,28 +14,32 @@ import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
 
 const MAX_POR_GRUPO = 5;
 
-const PRACTICAS_INICIALES = [
+/**
+ * Selección inicial de 20 prácticas. Siempre es un subconjunto del catálogo
+ * maestro (src/data/practicas.ts): los nombres que no existan se descartan.
+ */
+const PRACTICAS_INICIALES = practicasOficiales([
   "Acupuntura",
   "Aromaterapia",
   "Biorresonancia",
   "Constelaciones Familiares",
-  "EFT (Técnicas de Liberación Emocional)",
+  "EFT / Tapping",
   "Fitoterapia",
   "Hipnosis",
-  "Masajes",
-  "Odontología Integrativa",
+  "Masaje",
+  "Dentista / Salud Bucodental Integrativa",
   "Terapia Craneosacral",
   "Medicina Tradicional China",
   "Meditación",
   "Naturopatía",
   "Osteopatía",
   "PNI (Psiconeuroinmunología)",
-  "Psicología Integrativa",
+  "Psicología / Psicología Integrativa",
   "Reflexología",
   "Reiki",
   "Shiatsu",
   "Sofrología",
-] as const;
+]);
 
 type Grupo = { titulo: string; items: string[] };
 type PanelActivo = "practicas" | "sugerencias" | "municipios" | null;
