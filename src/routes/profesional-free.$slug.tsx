@@ -40,6 +40,7 @@ const demo: FichaPublicaData = {
   ],
   contacto: {
     telefono: "971 654 321",
+    prefijoTelefono: "+34",
     telefonoPublico: true,
     email: "hola@martaferrer.com",
     whatsapp: "+34600111222",

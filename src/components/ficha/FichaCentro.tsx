@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 import { useMobile } from "@/components/ficha/useMobile";
 import { EnlaceWebPublica } from "@/components/ficha/EnlaceWebPublica";
+import { telHref, telefonoVisible, whatsappHref } from "@/lib/telefono";
+
 import { Boton, Chips, ChipsPracticas, LineaTexto, Seccion } from "@/components/ficha/primitives";
 import { GALERIA_DEMO, ambienteDe, retratoDe } from "@/data/imagenes";
 import {
@@ -200,7 +202,7 @@ function HeroCentro({
               )}
               {data.contacto?.whatsapp && (
                 <Boton
-                  href={`https://wa.me/${data.contacto.whatsapp.replace(/[^0-9]/g, "")}`}
+                  href={whatsappHref(data.contacto.whatsapp, data.contacto.prefijoTelefono)}
                   variante="principal"
                 >
                   Hablar por WhatsApp
@@ -208,7 +210,7 @@ function HeroCentro({
               )}
               {mostrarTelefono && data.contacto?.telefono && (
                 <a
-                  href={`tel:${data.contacto.telefono.replace(/[^+0-9]/g, "")}`}
+                  href={telHref(data.contacto)}
                   style={{
                     ...enlace,
                     display: "inline-flex",
@@ -217,9 +219,10 @@ function HeroCentro({
                     fontSize: 13,
                   }}
                 >
-                  <span aria-hidden="true">☎</span> {data.contacto.telefono}
+                  <span aria-hidden="true">☎</span> {telefonoVisible(data.contacto)}
                 </a>
               )}
+
             </div>
           )}
         </div>
@@ -631,15 +634,16 @@ function BarraLateral({ data, esPresencia }: { data: FichaCentroData; esPresenci
       >
         <div style={{ display: "grid", gap: 6, fontSize: 13 }}>
           {contacto?.whatsapp && (
-            <a href={`https://wa.me/${contacto.whatsapp.replace(/[^0-9]/g, "")}`} style={enlace}>
+            <a href={whatsappHref(contacto.whatsapp, contacto.prefijoTelefono)} style={enlace}>
               WhatsApp
             </a>
           )}
           {contacto?.telefono && (
-            <a href={`tel:${contacto.telefono.replace(/\s/g, "")}`} style={enlace}>
-              {contacto.telefono}
+            <a href={telHref(contacto)} style={enlace}>
+              {telefonoVisible(contacto)}
             </a>
           )}
+
           {contacto?.email && (
             <a href={`mailto:${contacto.email}`} style={enlace}>
               {contacto.email}
