@@ -120,6 +120,9 @@ export function BuscadorSimple({
   };
 
   const estiloInput = unificado ? inputUnificadoStyle : inputStyle;
+  const panelPracticasResponsiveStyle = isMobile ? panelMovilStyle(panelPracticasStyle, 104) : panelPracticasStyle;
+  const sugerenciasResponsiveStyle = unificado && isMobile ? panelMovilStyle(sugerenciasStyle, 104) : sugerenciasStyle;
+  const panelMunicipiosResponsiveStyle = isMobile ? panelMovilStyle(panelMunicipiosStyle, 52) : panelMunicipiosStyle;
 
   return (
     <div
@@ -173,7 +176,7 @@ export function BuscadorSimple({
           style={estiloInput}
         />
         {unificado && panelActivo === "practicas" && q.trim().length === 0 && (
-          <div style={panelPracticasStyle}>
+          <div style={panelPracticasResponsiveStyle}>
             <div style={tituloPanelStyle}>Prácticas</div>
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", columnGap: 22, rowGap: 0 }}>
               {[PRACTICAS_INICIALES.slice(0, 10), PRACTICAS_INICIALES.slice(10, 20)].map((columna, index) => (
@@ -202,7 +205,7 @@ export function BuscadorSimple({
           </div>
         )}
         {panelActivo === "sugerencias" && grupos.length > 0 && (
-          <div style={sugerenciasStyle}>
+          <div style={sugerenciasResponsiveStyle}>
             {grupos.map((g) => (
               <div key={g.titulo} style={{ padding: "8px 0" }}>
                 <div
@@ -276,7 +279,7 @@ export function BuscadorSimple({
           style={estiloInput}
         />
         {unificado && panelActivo === "municipios" && municipios.length > 0 && (
-          <div style={panelMunicipiosStyle}>
+          <div style={panelMunicipiosResponsiveStyle}>
             {municipios.map((municipio) => (
               <button
                 key={municipio}
@@ -439,6 +442,13 @@ const opcionMunicipioStyle: CSSProperties = {
   ...itemStyle,
   padding: "7px 12px",
 };
+
+function panelMovilStyle(base: CSSProperties, separacion: number): CSSProperties {
+  return {
+    ...base,
+    top: `calc(100% + ${separacion}px)`,
+  };
+}
 
 function normalizarBusqueda(valor: string) {
   return valor
