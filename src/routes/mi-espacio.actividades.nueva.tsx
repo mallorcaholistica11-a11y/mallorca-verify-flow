@@ -334,7 +334,7 @@ function NuevaActividadPagina() {
           )}
         </Box>
         <Box title="Continuar">
-          <NavButton to="/mi-espacio/actividades" search={{ track, estado }}>
+          <NavButton to="/mi-espacio/actividades" search={{ estado, track }}>
             Volver a Mis Actividades
           </NavButton>
         </Box>
@@ -963,7 +963,7 @@ function NuevaActividadPagina() {
       <div style={{ marginTop: 12 }}>
         <Link
           to="/mi-espacio/actividades"
-          search={{ track, estado }}
+          search={{ estado, track }}
           style={{ ...secondaryBtn, textDecoration: "none" }}
         >
           ← Volver a Mis Actividades
