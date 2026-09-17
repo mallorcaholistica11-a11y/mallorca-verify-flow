@@ -183,7 +183,9 @@ function Buscador({
           valorInicial={q}
           lugarInicial={lugar}
           onBuscar={onBuscar}
+          unificado
         />
+
       </Seccion>
     </section>
   );
