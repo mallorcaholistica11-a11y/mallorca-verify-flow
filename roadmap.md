@@ -30,4 +30,4 @@
 - [x] Verificar la coherencia de los seis pasos en escritorio y móvil sin afectar otros recorridos.
 - [x] Ajustar el formulario de 7 pasos del Plan Profesional Verificado (textos, galería 5 imágenes, documentación 1–3, paso 7 con Stripe y oferta de lanzamiento).
 - [ ] Pendiente de configuración: envío automático del email informativo antes del primer cobro (fecha e importe, continuar o cancelar).
-- [ ] Auditoría final de coherencia y UX: actividades, FAQs, invitaciones Founder, Plan Presencia, Mi Suscripción, terminología, navegación, autoguardado y comprobaciones finales.
+- [x] Auditoría final de coherencia y UX: actividades, FAQs, invitaciones Founder, Plan Presencia, Mi Suscripción, terminología, navegación, autoguardado y comprobaciones finales.

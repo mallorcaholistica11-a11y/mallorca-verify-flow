@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { WireframeShell, Box, NavButton } from "@/components/Wireframe";
 
 export const Route = createFileRoute("/comunidad-fundadora-centros")({
@@ -6,6 +7,29 @@ export const Route = createFileRoute("/comunidad-fundadora-centros")({
 });
 
 function InvitacionFundadoraCentros() {
+  const [plazaLiberada, setPlazaLiberada] = useState(false);
+
+  if (plazaLiberada) {
+    return (
+      <WireframeShell
+        title="Plaza liberada"
+        breadcrumb="Invitación personal › Comunidad Fundadora · Centros, Espacios & Organizadores"
+      >
+        <Box title="Gracias por avisarnos">
+          <p style={{ fontSize: 13, lineHeight: 1.7, margin: 0 }}>
+            Hemos marcado esta invitación como disponible para otro centro, espacio u organizador.
+            No se ha creado ninguna cuenta ni se ha activado ninguna suscripción.
+          </p>
+        </Box>
+        <Box title="Volver">
+          <NavButton to="/soy-profesional" variant="secondary">
+            ← Volver a Soy profesional
+          </NavButton>
+        </Box>
+      </WireframeShell>
+    );
+  }
+
   return (
     <WireframeShell
 
@@ -14,10 +38,10 @@ function InvitacionFundadoraCentros() {
     >
       <Box title="Una invitación personal">
         <p style={{ fontSize: 13 }}>
-          Vuestro centro u organización ha sido invitado/a personalmente a formar parte de la Comunidad Fundadora de Mallorca Holística.
+          Vuestro centro, espacio o proyecto ha sido invitado personalmente a formar parte de la Comunidad Fundadora de Mallorca Holística.
         </p>
         <p style={{ fontSize: 13 }}>
-          Esta es una invitación reservada a un grupo reducido de centros y organizaciones seleccionados para acompañarnos desde el principio en el lanzamiento del proyecto.
+          Esta es una invitación reservada a un grupo reducido de centros, espacios y organizadores seleccionados para acompañarnos desde el principio en el lanzamiento del proyecto.
         </p>
       </Box>
 
@@ -26,7 +50,7 @@ function InvitacionFundadoraCentros() {
           Mallorca Holística está dando sus primeros pasos.
         </p>
         <p style={{ fontSize: 13 }}>
-          Durante esta primera etapa, un grupo reducido de profesionales, centros y organizaciones participa en el lanzamiento de Mallorca Holística desde sus comienzos.
+          Durante esta primera etapa, un grupo reducido de profesionales, centros, espacios y organizadores participa en el lanzamiento de Mallorca Holística desde sus comienzos.
         </p>
         <p style={{ fontSize: 13 }}>
           Su confianza nos permite validar la plataforma en un entorno real y seguir mejorando la experiencia antes de abrirla a toda la comunidad.
@@ -41,7 +65,6 @@ function InvitacionFundadoraCentros() {
           <li>✨ Hasta 10 Centros, Espacios & Organizadores Fundadores.</li>
           <li>✨ 6 meses gratuitos desde el lanzamiento oficial.</li>
           <li>✨ Tarifa Fundadora de 35 €/mes (IVA incluido), mantenida durante 24 meses mientras la suscripción permanezca activa.</li>
-          <li>✨ Acceso prioritario a nuevas funcionalidades y futuras oportunidades dentro del ecosistema.</li>
         </ul>
       </Box>
 
@@ -50,7 +73,7 @@ function InvitacionFundadoraCentros() {
           <strong>35 €/mes (IVA incluido), mantenidos durante 24 meses mientras la suscripción permanezca activa.</strong>
         </p>
         <p style={{ fontSize: 13 }}>+ 6 meses gratuitos desde el lanzamiento oficial.</p>
-        <p style={{ fontSize: 13, color: "var(--muted-foreground)" }}>(Precio futuro del plan: 50 €/mes IVA incluido.)</p>
+        <p style={{ fontSize: 13, color: "var(--muted-foreground)" }}>(Precio estándar del plan: 50 €/mes IVA incluido.)</p>
       </Box>
 
       <Box title="¿Quieres conocer el plan?">
@@ -63,9 +86,38 @@ function InvitacionFundadoraCentros() {
       </Box>
 
       <Box title="Acciones">
+        <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 8px 0" }}>
+          Tu plaza queda reservada durante 10 días. Para confirmarla, solo necesitas aceptar la
+          invitación y crear tu cuenta. Después podrás completar tu perfil con tranquilidad.
+        </p>
+        <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 8px 0" }}>
+          Si sientes que ahora no es el momento para ti, te agradeceremos que nos lo comuniques durante
+          este plazo, para que podamos ofrecer esta plaza a otra persona que quiera formar parte de la
+          Comunidad Fundadora.
+        </p>
         <NavButton to="/invitacion/$token" params={{ token: "demo-token" }} search={{ track: "organizacion" }}>
           👉 Aceptar la invitación
         </NavButton>
+        <button
+          type="button"
+          onClick={() => setPlazaLiberada(true)}
+          style={{
+            display: "inline-block",
+            padding: "11px 22px",
+            borderRadius: 999,
+            border: "1px solid var(--border)",
+            background: "var(--card)",
+            color: "var(--foreground)",
+            fontSize: 13.5,
+            letterSpacing: "0.01em",
+            marginRight: 10,
+            marginTop: 10,
+            cursor: "pointer",
+            fontFamily: "inherit",
+          }}
+        >
+          Prefiero dejar mi plaza disponible
+        </button>
       </Box>
 
       <Box title="🌿">

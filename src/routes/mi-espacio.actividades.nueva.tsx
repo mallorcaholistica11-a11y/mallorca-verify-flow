@@ -196,17 +196,11 @@ function NuevaActividadPagina() {
 
   const completa = faltan.length === 0;
   /**
-   * REGLA DE NEGOCIO DEL PRODUCTO FINAL (no eliminar):
-   * una actividad solo podrá enviarse para revisión cuando el perfil del
-   * profesional, centro, espacio u organizador esté aprobado/verificado, con
+   * Una actividad solo puede enviarse para revisión cuando el perfil del
+   * profesional, centro, espacio u organizador está aprobado/verificado, con
    * todos los campos obligatorios completos y disponibilidad en el plan.
-   *   const puedeEnviar = completa && !sinDisponibilidad && perfilAprobado;
-   * En este prototipo el envío queda siempre disponible para poder revisar y
-   * documentar el recorrido completo (envío → confirmación → Mis Actividades).
    */
-  const puedeEnviarProducto = completa && !sinDisponibilidad && perfilAprobado;
-  const puedeEnviar = true;
-  void puedeEnviarProducto;
+  const puedeEnviar = completa && !sinDisponibilidad && perfilAprobado;
 
   const tipoActividad = form.tipo === "Otro" ? form.tipoOtro : form.tipo;
   const nivelActividad = form.nivel === "Otro" ? form.nivelOtro : form.nivel;
@@ -360,8 +354,7 @@ function NuevaActividadPagina() {
       {!perfilAprobado && (
         <Box title="Publicación en la Agenda">
           <p style={{ fontSize: 13, lineHeight: 1.7, margin: 0 }}>
-            Puedes crear y guardar tus actividades desde ahora. Para que puedan publicarse en la
-            Agenda, tu perfil deberá estar aprobado.
+            Puedes crear, guardar, editar y previsualizar esta actividad mientras tu perfil está pendiente. Podrás enviarla para revisión cuando tu perfil haya sido aprobado.
           </p>
         </Box>
       )}
@@ -950,8 +943,7 @@ function NuevaActividadPagina() {
             )}
             {!perfilAprobado && (
               <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0", lineHeight: 1.6 }}>
-                Podrás enviarla para revisión desde ahora. Se publicará en la Agenda cuando tu
-                perfil haya sido aprobado.
+                Puedes crear, guardar, editar y previsualizar esta actividad mientras tu perfil está pendiente. Podrás enviarla para revisión cuando tu perfil haya sido aprobado.
               </p>
             )}
             {sinDisponibilidad && (

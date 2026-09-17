@@ -100,7 +100,7 @@ function NuestraMirada() {
               <h2>Uno de los grandes tesoros de Mallorca.</h2>
               <div className="mirada-copy">
                 <p>
-                  En Mallorca existe una extraordinaria comunidad de profesionales que dedica su vida a comprender, acompañar y cuidar a las personas desde la salud integrativa, las terapias complementarias, la medicina natural y el desarrollo personal.
+                  En Mallorca existe una extraordinaria comunidad de profesionales que dedica su vida a comprender, acompañar y cuidar a las personas desde la salud integrativa, las terapias complementarias, la medicina tradicional y el desarrollo personal.
                 </p>
                 <p>
                   Personas que han dedicado años a aprender, formarse, investigar, crecer y poner sus conocimientos al servicio de los demás.
