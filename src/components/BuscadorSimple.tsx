@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { Leaf, MapPin } from "lucide-react";
-import { buscarPracticas, PRACTICAS_NOMBRES } from "@/data/practicas";
+import { buscarPracticas, practicasOficiales, PRACTICAS_NOMBRES } from "@/data/practicas";
 import { buscarAreas } from "@/data/areas";
 import { buscarPerfiles, type Resultado } from "@/data/perfiles";
 import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
