@@ -358,6 +358,66 @@ const sugerenciasStyle: CSSProperties = {
   overflowY: "auto",
 };
 
+const panelPracticasStyle: CSSProperties = {
+  borderRadius: 12,
+  boxShadow: "var(--shadow-lift)",
+  position: "absolute",
+  top: "calc(100% + 8px)",
+  left: 0,
+  right: 0,
+  zIndex: 30,
+  background: "var(--card)",
+  border: "1px solid var(--border)",
+  padding: "14px 16px 12px",
+};
+
+const tituloPanelStyle: CSSProperties = {
+  fontSize: 10,
+  letterSpacing: 1,
+  textTransform: "uppercase",
+  color: "var(--muted-foreground)",
+  marginBottom: 8,
+};
+
+const opcionIndiceStyle: CSSProperties = {
+  display: "block",
+  width: "100%",
+  textAlign: "left",
+  border: "none",
+  background: "transparent",
+  padding: "3px 0",
+  fontSize: 12,
+  lineHeight: 1.35,
+  fontFamily: "inherit",
+  color: "var(--foreground)",
+  cursor: "pointer",
+};
+
+const verTodasStyle: CSSProperties = {
+  display: "block",
+  width: "fit-content",
+  marginTop: 10,
+  marginLeft: "auto",
+  fontSize: 12,
+  color: "var(--primary)",
+  textDecoration: "none",
+};
+
+const panelMunicipiosStyle: CSSProperties = {
+  borderRadius: 12,
+  boxShadow: "var(--shadow-lift)",
+  position: "absolute",
+  top: "calc(100% + 8px)",
+  left: 0,
+  right: 0,
+  zIndex: 30,
+  background: "var(--card)",
+  border: "1px solid var(--border)",
+  maxHeight: 260,
+  overflowY: "auto",
+  padding: "6px 0",
+};
+
 const itemStyle: CSSProperties = {
   display: "block",
   width: "100%",
@@ -370,3 +430,15 @@ const itemStyle: CSSProperties = {
   color: "var(--foreground)",
   cursor: "pointer",
 };
+
+const opcionMunicipioStyle: CSSProperties = {
+  ...itemStyle,
+  padding: "7px 12px",
+};
+
+function normalizarBusqueda(valor: string) {
+  return valor
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+}
