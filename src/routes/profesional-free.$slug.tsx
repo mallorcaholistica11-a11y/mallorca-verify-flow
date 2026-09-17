@@ -32,7 +32,7 @@ const demo: FichaPublicaData = {
   modalidades: ["Sesiones individuales", "Talleres", "Cursos"],
   sobreMi:
     "Acompaño procesos de cambio con terapia floral y meditación. Trabajo desde la escucha, el respeto por el ritmo de cada persona y la búsqueda de un equilibrio sostenible en el día a día.",
-  especialidades: ["Terapia Floral", "Meditación", "Respiración Consciente"],
+  especialidades: ["Terapia Floral", "Meditación", "Respiración"],
   areas: ["Estrés", "Ansiedad", "Insomnio", "Autoestima", "Duelo"],
   publicos: ["Todas las personas"],
   ubicaciones: [
