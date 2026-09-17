@@ -455,6 +455,11 @@ const verTodasStyle: CSSProperties = {
   fontSize: 12,
   color: "var(--primary)",
   textDecoration: "none",
+  border: "none",
+  background: "transparent",
+  padding: 0,
+  fontFamily: "inherit",
+  cursor: "pointer",
 };
 
 const panelMunicipiosStyle: CSSProperties = {
