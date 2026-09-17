@@ -84,6 +84,7 @@ const demo: FichaCentroData = {
   ],
   contacto: {
     telefono: "971 987 654",
+    prefijoTelefono: "+34",
     telefonoPublico: true,
     email: "hola@espaisafont.com",
     whatsapp: "+34600333444",

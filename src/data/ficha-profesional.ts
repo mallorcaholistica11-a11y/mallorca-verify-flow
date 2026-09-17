@@ -91,6 +91,7 @@ export const FICHA_PROFESIONAL_ACTUAL: FichaPublicaData = {
   ],
   contacto: {
     telefono: "971 123 456",
+    prefijoTelefono: "+34",
     telefonoPublico: true,
     email: "hola@luciagelabert.com",
     whatsapp: "+34600000000",
