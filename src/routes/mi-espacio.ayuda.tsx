@@ -78,7 +78,7 @@ const FAQ: FaqGroup[] = [
     items: [
       {
         q: "¿Por qué no puedo publicar actividades?",
-        a: "La publicación de actividades estará disponible cuando tu perfil Profesional Verificado haya sido aprobado. A partir de ese momento podrás crear y enviar actividades para su revisión desde Mi Espacio > Mis Actividades.",
+        a: "Puedes crear, guardar y preparar actividades desde Mi Espacio. Para enviarlas para revisión y que posteriormente puedan publicarse en la Agenda, tu perfil deberá haber sido aprobado como Profesional Verificado. Todas las actividades pasan por un proceso de revisión antes de su publicación.",
       },
       {
         q: "¿Qué tipo de actividades puedo publicar?",
@@ -140,11 +140,11 @@ const FAQ_CENTROS: FaqGroup[] = [
       },
       {
         q: "¿Por qué mi perfil está en revisión?",
-        a: "Los perfiles que solicitan la verificación de Mallorca Holística pasan por un proceso de revisión antes de ser publicados como Entidad Verificada. Revisaremos la información correspondiente y te avisaremos por correo electrónico cuando el proceso haya finalizado.",
+        a: "Los perfiles que solicitan la verificación de Mallorca Holística pasan por un proceso de revisión antes de ser publicados como Entidad Verificada. Revisaremos la información y documentación presentada y te avisaremos por correo electrónico cuando el proceso haya finalizado.",
       },
       {
         q: "¿Qué significa \"Entidad Verificada\"?",
-        a: "Significa que Mallorca Holística ha revisado la información correspondiente al perfil dentro del proceso de verificación. Una vez completada la revisión, el perfil podrá mostrar el sello Entidad Verificada.",
+        a: "Significa que Mallorca Holística ha revisado la información y la documentación presentada dentro de su proceso de verificación. Una vez completada la revisión, el perfil podrá mostrar el sello Entidad Verificada.",
       },
     ],
   },

@@ -45,7 +45,7 @@ function ComunidadFundadoraAcceso() {
       <Note>
         Tu invitación ya indica el plan que te corresponde, así que no tendrás que elegirlo de
         nuevo. Para revisar el recorrido de{" "}
-        {tipoInvitacion === "centro" ? "Profesional Fundador" : "Centro Fundador"}, continúa{" "}
+        {tipoInvitacion === "centro" ? "Profesional Verificado · Comunidad Fundadora" : "Centros, Espacios & Organizadores · Comunidad Fundadora"}, continúa{" "}
         <a
           href={`/comunidad-fundadora-acceso?tipo=${tipoInvitacion === "centro" ? "profesional" : "centro"}`}
           style={{ color: "var(--sage-dark)" }}

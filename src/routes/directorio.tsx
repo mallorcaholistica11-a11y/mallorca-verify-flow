@@ -155,7 +155,7 @@ function Hero({ isMobile }: { isMobile: boolean }) {
         </h1>
         <p style={{ fontSize: 12.5, lineHeight: 1.55, color: "var(--foreground)", margin: 0 }}>
           Explora profesionales, centros y espacios dedicados a la salud integrativa, las terapias
-          complementarias, la medicina natural, el bienestar y el desarrollo personal en Mallorca.
+          complementarias, la medicina tradicional, el bienestar y el desarrollo personal en Mallorca.
         </p>
       </div>
     </section>
