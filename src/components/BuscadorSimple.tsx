@@ -58,6 +58,8 @@ export function BuscadorSimple({
   const [q, setQ] = useState(valorInicial);
   const [lugar, setLugar] = useState(lugarInicial);
   const [panelActivo, setPanelActivo] = useState<PanelActivo>(null);
+  /** Amplía el mismo desplegable con el catálogo completo (misma fuente que la Guía). */
+  const [catalogoCompleto, setCatalogoCompleto] = useState(false);
 
   useEffect(() => {
     const cerrarSiFuera = (event: PointerEvent) => {
