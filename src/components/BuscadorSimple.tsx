@@ -1,8 +1,10 @@
-import { useMemo, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { Link } from "@tanstack/react-router";
 import { Leaf, MapPin } from "lucide-react";
 import { buscarPracticas } from "@/data/practicas";
 import { buscarAreas } from "@/data/areas";
 import { buscarPerfiles, type Resultado } from "@/data/perfiles";
+import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
 
 /**
  * Buscador simple compartido por Home ("¿Ya sabes lo que buscas?") y Directorio.
@@ -13,7 +15,31 @@ import { buscarPerfiles, type Resultado } from "@/data/perfiles";
 
 const MAX_POR_GRUPO = 5;
 
+const PRACTICAS_INICIALES = [
+  "Acupuntura",
+  "Aromaterapia",
+  "Biorresonancia",
+  "Constelaciones Familiares",
+  "EFT (Técnicas de Liberación Emocional)",
+  "Fitoterapia",
+  "Hipnosis",
+  "Masajes",
+  "Odontología Integrativa",
+  "Terapia Craneosacral",
+  "Medicina Tradicional China",
+  "Meditación",
+  "Naturopatía",
+  "Osteopatía",
+  "PNI (Psiconeuroinmunología)",
+  "Psicología Integrativa",
+  "Reflexología",
+  "Reiki",
+  "Shiatsu",
+  "Sofrología",
+] as const;
+
 type Grupo = { titulo: string; items: string[] };
+type PanelActivo = "practicas" | "sugerencias" | "municipios" | null;
 
 export function BuscadorSimple({
   isMobile,
@@ -29,9 +55,22 @@ export function BuscadorSimple({
   /** Barra única horizontal con iconos (Home). Por defecto, campos independientes (Directorio). */
   unificado?: boolean;
 }) {
+  const contenedorRef = useRef<HTMLDivElement>(null);
   const [q, setQ] = useState(valorInicial);
   const [lugar, setLugar] = useState(lugarInicial);
-  const [abierto, setAbierto] = useState(false);
+  const [panelActivo, setPanelActivo] = useState<PanelActivo>(null);
+
+  useEffect(() => {
+    const cerrarSiFuera = (event: PointerEvent) => {
+      const objetivo = event.target;
+      if (objetivo instanceof Node && !contenedorRef.current?.contains(objetivo)) {
+        setPanelActivo(null);
+      }
+    };
+
+    document.addEventListener("pointerdown", cerrarSiFuera);
+    return () => document.removeEventListener("pointerdown", cerrarSiFuera);
+  }, []);
 
   const grupos = useMemo<Grupo[]>(() => {
     const texto = q.trim();
@@ -58,15 +97,36 @@ export function BuscadorSimple({
     return g.filter((x) => x.items.length > 0);
   }, [q]);
 
+  const municipios = useMemo(() => {
+    if (!unificado) return [];
+    const texto = normalizarBusqueda(lugar.trim());
+    if (!texto) return [...MUNICIPIOS_MALLORCA];
+    return MUNICIPIOS_MALLORCA.filter((municipio) => normalizarBusqueda(municipio).includes(texto));
+  }, [lugar, unificado]);
+
   const lanzar = (texto: string) => {
-    setAbierto(false);
+    setPanelActivo(null);
     onBuscar(texto.trim(), lugar.trim());
   };
 
+  const seleccionarPracticaInicial = (practica: string) => {
+    setQ(practica);
+    setPanelActivo(null);
+  };
+
+  const seleccionarMunicipio = (municipio: string) => {
+    setLugar(municipio);
+    setPanelActivo(null);
+  };
+
   const estiloInput = unificado ? inputUnificadoStyle : inputStyle;
+  const panelPracticasResponsiveStyle = isMobile ? panelMovilStyle(panelPracticasStyle, 104) : panelPracticasStyle;
+  const sugerenciasResponsiveStyle = unificado && isMobile ? panelMovilStyle(sugerenciasStyle, 104) : sugerenciasStyle;
+  const panelMunicipiosResponsiveStyle = isMobile ? panelMovilStyle(panelMunicipiosStyle, 52) : panelMunicipiosStyle;
 
   return (
     <div
+      ref={contenedorRef}
       style={
         unificado
           ? {
@@ -105,18 +165,47 @@ export function BuscadorSimple({
           value={q}
           placeholder="Práctica, profesional o necesidad..."
           onChange={(e) => {
-            setQ(e.target.value);
-            setAbierto(true);
+            const valor = e.target.value;
+            setQ(valor);
+            setPanelActivo(unificado && valor.trim().length === 0 ? "practicas" : "sugerencias");
           }}
-          onFocus={() => setAbierto(true)}
-          onBlur={() => window.setTimeout(() => setAbierto(false), 120)}
+          onFocus={() => setPanelActivo(unificado && q.trim().length === 0 ? "practicas" : "sugerencias")}
           onKeyDown={(e) => {
             if (e.key === "Enter") lanzar(q);
           }}
           style={estiloInput}
         />
-        {abierto && grupos.length > 0 && (
-          <div style={sugerenciasStyle}>
+        {unificado && panelActivo === "practicas" && q.trim().length === 0 && (
+          <div style={panelPracticasResponsiveStyle}>
+            <div style={tituloPanelStyle}>Prácticas</div>
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", columnGap: 22, rowGap: 0 }}>
+              {[PRACTICAS_INICIALES.slice(0, 10), PRACTICAS_INICIALES.slice(10, 20)].map((columna, index) => (
+                <div key={index} style={{ minWidth: 0 }}>
+                  {columna.map((practica) => (
+                    <button
+                      key={practica}
+                      type="button"
+                      onMouseDown={(e) => e.preventDefault()}
+                      onClick={() => seleccionarPracticaInicial(practica)}
+                      style={opcionIndiceStyle}
+                    >
+                      {practica}
+                    </button>
+                  ))}
+                </div>
+              ))}
+            </div>
+            <Link
+              to="/guia"
+              onClick={() => setPanelActivo(null)}
+              style={verTodasStyle}
+            >
+              Ver todas las prácticas →
+            </Link>
+          </div>
+        )}
+        {panelActivo === "sugerencias" && grupos.length > 0 && (
+          <div style={sugerenciasResponsiveStyle}>
             {grupos.map((g) => (
               <div key={g.titulo} style={{ padding: "8px 0" }}>
                 <div
@@ -137,6 +226,10 @@ export function BuscadorSimple({
                     onMouseDown={(e) => e.preventDefault()}
                     onClick={() => {
                       setQ(item);
+                      if (unificado) {
+                        setPanelActivo(null);
+                        return;
+                      }
                       lanzar(item);
                     }}
                     style={itemStyle}
@@ -154,6 +247,7 @@ export function BuscadorSimple({
         style={
           unificado
             ? {
+                position: "relative",
                 display: "flex",
                 alignItems: "center",
                 gap: 8,
@@ -171,13 +265,34 @@ export function BuscadorSimple({
         <input
           type="text"
           value={lugar}
-          placeholder={unificado ? "Cerca de mí, municipio o código postal..." : "Localidad o código postal..."}
-          onChange={(e) => setLugar(e.target.value)}
+          placeholder={unificado ? "¿Dónde buscas?" : "Localidad o código postal..."}
+          onChange={(e) => {
+            setLugar(e.target.value);
+            if (unificado) setPanelActivo("municipios");
+          }}
+          onFocus={() => {
+            if (unificado) setPanelActivo("municipios");
+          }}
           onKeyDown={(e) => {
             if (e.key === "Enter") lanzar(q);
           }}
           style={estiloInput}
         />
+        {unificado && panelActivo === "municipios" && municipios.length > 0 && (
+          <div style={panelMunicipiosResponsiveStyle}>
+            {municipios.map((municipio) => (
+              <button
+                key={municipio}
+                type="button"
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={() => seleccionarMunicipio(municipio)}
+                style={opcionMunicipioStyle}
+              >
+                {municipio}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
       <button type="button" onClick={() => lanzar(q)} style={unificado ? botonUnificadoStyle : botonStyle}>
         Buscar
@@ -250,6 +365,66 @@ const sugerenciasStyle: CSSProperties = {
   overflowY: "auto",
 };
 
+const panelPracticasStyle: CSSProperties = {
+  borderRadius: 12,
+  boxShadow: "var(--shadow-lift)",
+  position: "absolute",
+  top: "calc(100% + 8px)",
+  left: 0,
+  right: 0,
+  zIndex: 30,
+  background: "var(--card)",
+  border: "1px solid var(--border)",
+  padding: "14px 16px 12px",
+};
+
+const tituloPanelStyle: CSSProperties = {
+  fontSize: 10,
+  letterSpacing: 1,
+  textTransform: "uppercase",
+  color: "var(--muted-foreground)",
+  marginBottom: 8,
+};
+
+const opcionIndiceStyle: CSSProperties = {
+  display: "block",
+  width: "100%",
+  textAlign: "left",
+  border: "none",
+  background: "transparent",
+  padding: "3px 0",
+  fontSize: 12,
+  lineHeight: 1.35,
+  fontFamily: "inherit",
+  color: "var(--foreground)",
+  cursor: "pointer",
+};
+
+const verTodasStyle: CSSProperties = {
+  display: "block",
+  width: "fit-content",
+  marginTop: 10,
+  marginLeft: "auto",
+  fontSize: 12,
+  color: "var(--primary)",
+  textDecoration: "none",
+};
+
+const panelMunicipiosStyle: CSSProperties = {
+  borderRadius: 12,
+  boxShadow: "var(--shadow-lift)",
+  position: "absolute",
+  top: "calc(100% + 8px)",
+  left: 0,
+  right: 0,
+  zIndex: 30,
+  background: "var(--card)",
+  border: "1px solid var(--border)",
+  maxHeight: 260,
+  overflowY: "auto",
+  padding: "6px 0",
+};
+
 const itemStyle: CSSProperties = {
   display: "block",
   width: "100%",
@@ -262,3 +437,22 @@ const itemStyle: CSSProperties = {
   color: "var(--foreground)",
   cursor: "pointer",
 };
+
+const opcionMunicipioStyle: CSSProperties = {
+  ...itemStyle,
+  padding: "7px 12px",
+};
+
+function panelMovilStyle(base: CSSProperties, separacion: number): CSSProperties {
+  return {
+    ...base,
+    top: `calc(100% + ${separacion}px)`,
+  };
+}
+
+function normalizarBusqueda(valor: string) {
+  return valor
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+}
