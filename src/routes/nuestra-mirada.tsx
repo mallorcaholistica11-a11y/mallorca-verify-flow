@@ -273,7 +273,7 @@ function NuestraMirada() {
         .mirada-cierre p:first-child { margin: 0 0 4px; color: var(--sage-dark); font-family: var(--font-display); font-size: clamp(1rem, 1.55vw, 1.18rem); font-weight: 500; line-height: 1.3; }
         .mirada-cierre p:last-child { margin: 0; color: var(--muted-foreground); font-size: 0.75rem; line-height: 1.45; }
         @media (max-width: 767px) {
-          .mirada-hero { min-height: 285px; }
+          .mirada-hero { min-height: 242px; }
           .mirada-hero-photo { background-position: 63% center; }
           .mirada-hero-photo::after { background: linear-gradient(90deg, var(--background) 0%, var(--background) 34%, color-mix(in oklab, var(--background) 86%, transparent) 57%, color-mix(in oklab, var(--background) 38%, transparent) 100%), linear-gradient(0deg, var(--background) 0%, color-mix(in oklab, var(--background) 42%, transparent) 25%, transparent 52%); }
           .mirada-hero-content { width: calc(100% - 40px); padding: 36px 0 34px; }
