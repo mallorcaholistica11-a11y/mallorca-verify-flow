@@ -154,7 +154,7 @@ export function BuscadorSimple({
               border: presenciaInicio
                 ? "1px solid color-mix(in oklab, var(--sage) 72%, var(--border))"
                 : "1px solid color-mix(in oklab, var(--sage) 55%, var(--border))",
-              borderRadius: presenciaInicio ? 12 : isMobile ? 24 : 999,
+              borderRadius: presenciaInicio ? 18 : isMobile ? 24 : 999,
               boxShadow: presenciaInicio
                 ? "inset 0 1px 0 color-mix(in oklab, var(--ivory) 94%, transparent), 4px 8px 16px -8px color-mix(in oklab, var(--sage-dark) 30%, transparent), 9px 18px 30px -14px color-mix(in oklab, var(--earth) 32%, transparent)"
                 : "var(--shadow-soft), 0 1px 5px color-mix(in oklab, var(--sage) 8%, transparent)",
@@ -185,7 +185,7 @@ export function BuscadorSimple({
           paddingLeft: unificado ? (presenciaInicio ? 14 : 10) : 0,
           paddingRight: presenciaInicio ? 10 : 0,
           background: presenciaInicio ? "color-mix(in oklab, var(--card) 95%, var(--ivory) 5%)" : "transparent",
-          borderRadius: presenciaInicio ? 8 : 0,
+          borderRadius: presenciaInicio ? 12 : 0,
           boxShadow: presenciaInicio
             ? "inset 0 1px 0 color-mix(in oklab, var(--ivory) 96%, transparent), 0 3px 10px -7px color-mix(in oklab, var(--sage-dark) 24%, transparent)"
             : "none",
@@ -336,7 +336,7 @@ export function BuscadorSimple({
                 paddingTop: presenciaInicio ? 0 : isMobile ? 4 : 0,
                 marginLeft: presenciaInicio ? 0 : isMobile ? 0 : 12,
                 background: presenciaInicio ? "color-mix(in oklab, var(--card) 95%, var(--ivory) 5%)" : "transparent",
-                borderRadius: presenciaInicio ? 8 : 0,
+                borderRadius: presenciaInicio ? 12 : 0,
                 boxShadow: presenciaInicio
                   ? "inset 0 1px 0 color-mix(in oklab, var(--ivory) 96%, transparent), 0 3px 10px -7px color-mix(in oklab, var(--sage-dark) 24%, transparent)"
                   : "none",
