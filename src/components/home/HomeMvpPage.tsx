@@ -99,9 +99,9 @@ export function HomeMvpPage() {
             className="pointer-events-none absolute inset-x-0 top-0 h-[520px] sm:h-[550px] md:h-[580px]"
             style={{
               WebkitMaskImage:
-                "linear-gradient(90deg, transparent 0%, transparent 34%, black 52%, black 100%)",
+                "linear-gradient(90deg, transparent 0%, transparent 47%, black 64%, black 100%)",
               maskImage:
-                "linear-gradient(90deg, transparent 0%, transparent 34%, black 52%, black 100%)",
+                "linear-gradient(90deg, transparent 0%, transparent 47%, black 64%, black 100%)",
             }}
           >
             <div
@@ -110,9 +110,9 @@ export function HomeMvpPage() {
               style={{
                 backgroundImage: `url(${heroAlmendro.url})`,
                 WebkitMaskImage:
-                  "linear-gradient(180deg, transparent 0%, black 12%, black 64%, transparent 75%)",
+                  "linear-gradient(180deg, transparent 0%, black 10%, black 60%, transparent 76%)",
                 maskImage:
-                  "linear-gradient(180deg, transparent 0%, black 12%, black 64%, transparent 75%)",
+                  "linear-gradient(180deg, transparent 0%, black 10%, black 60%, transparent 76%)",
               }}
             />
           </div>
