@@ -96,11 +96,10 @@ export function HomeMvpPage() {
         <div className="relative -mx-4 overflow-hidden sm:-mx-6 lg:-mx-8">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-0 h-[520px] sm:h-[550px] md:h-[580px]"
+            className="pointer-events-none absolute inset-x-0 top-0 h-[520px] bg-cover bg-[position:72%_center] sm:h-[550px] sm:bg-[position:78%_center] md:h-[580px] md:bg-right"
             style={{
               backgroundImage: `url(${heroBlossoms.url})`,
             }}
-            className="pointer-events-none absolute inset-x-0 top-0 h-[520px] bg-cover bg-[position:72%_center] sm:h-[550px] sm:bg-[position:78%_center] md:h-[580px] md:bg-right"
           />
           <div
             aria-hidden
