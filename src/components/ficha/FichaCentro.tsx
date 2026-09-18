@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { useMobile } from "@/components/ficha/useMobile";
 import { EnlaceWebPublica } from "@/components/ficha/EnlaceWebPublica";
 import {
-  BloquePerfilInformativo,
+  NotaPerfilInformativo,
   PlaceholderInformativo,
 } from "@/components/ficha/PerfilInformativo";
 import { telHref, telefonoVisible, whatsappHref } from "@/lib/telefono";
@@ -62,8 +62,6 @@ export function FichaCentro({
         esPresencia={esPresencia}
         perfilInformativo={perfilInformativo}
       />
-
-      {perfilInformativo && <BloquePerfilInformativo tipo="centro" />}
 
       <div
         style={{
@@ -244,6 +242,8 @@ function HeroCentro({
 
             </div>
           )}
+
+          {perfilInformativo && <NotaPerfilInformativo tipo="centro" />}
         </div>
       </div>
     </header>
