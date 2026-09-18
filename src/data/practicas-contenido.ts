@@ -41,7 +41,7 @@ export const CONTENIDO_PRACTICAS: Record<string, PracticaContenido> = {
       "Dolor de espalda",
       "Cefaleas y migrañas",
       "Insomnio",
-      "Fatiga",
+      "Fatiga y cansancio persistente",
     ],
     comoEsUnaSesion:
       "Una sesión suele comenzar con una breve conversación para conocer cómo te encuentras y qué te gustaría trabajar. Después te acomodas, normalmente tumbada o tumbado y siempre vestida o vestido con ropa cómoda. La persona profesional aplica presión con las manos sobre distintos puntos del cuerpo, alternando momentos de presión sostenida con pausas. En la acupresión se trabaja de forma manual, sin agujas y sin aparatos. Puedes notar sensaciones de calor, ligereza o una relajación profunda. La sesión suele durar entre 45 y 60 minutos y termina con unos minutos de reposo. Cada sesión se adapta al momento y a las necesidades de cada persona.",

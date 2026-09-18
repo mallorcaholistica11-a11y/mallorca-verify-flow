@@ -34,7 +34,7 @@ export const FICHA_CENTRO_ACTUAL: FichaCentroData & {
     "Acupuntura",
     "Nutrición / Nutrición Integrativa",
   ],
-  areas: ["Estrés", "Ansiedad", "Dolor crónico", "Desarrollo personal", "Gestión emocional"],
+  areas: ["Estrés", "Ansiedad", "Dolor crónico / persistente", "Desarrollo personal", "Gestión emocional"],
   publicos: ["Familias", "Empresas", "Profesionales"],
   instalaciones: ["Salas de terapia", "Salas de formación", "Jardín", "Espacios para eventos"],
   equipo: [

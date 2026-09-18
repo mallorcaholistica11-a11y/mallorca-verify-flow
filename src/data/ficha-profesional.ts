@@ -22,7 +22,7 @@ export const FICHA_PROFESIONAL_ACTUAL: FichaPublicaData = {
     "Meditación",
     "Respiración",
   ],
-  areas: ["Estrés", "Ansiedad", "Insomnio", "Duelo", "Menopausia", "Dolor crónico", "Autoestima"],
+  areas: ["Estrés", "Ansiedad", "Insomnio", "Duelo y pérdidas", "Menopausia", "Dolor crónico / persistente", "Autoestima"],
   publicos: ["Adultos", "Parejas", "Empresas y organizaciones"],
   trayectoria: {
     formaciones: [
