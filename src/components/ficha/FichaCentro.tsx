@@ -1,6 +1,10 @@
 import { useRef, useState } from "react";
 import { useMobile } from "@/components/ficha/useMobile";
 import { EnlaceWebPublica } from "@/components/ficha/EnlaceWebPublica";
+import {
+  BloquePerfilInformativo,
+  PlaceholderInformativo,
+} from "@/components/ficha/PerfilInformativo";
 import { telHref, telefonoVisible, whatsappHref } from "@/lib/telefono";
 
 import { Boton, Chips, ChipsPracticas, LineaTexto, Seccion } from "@/components/ficha/primitives";
@@ -34,9 +38,11 @@ export type PlanCentro = "verificado" | "presencia";
 export function FichaCentro({
   data,
   plan = "verificado",
+  perfilInformativo = false,
 }: {
   data: FichaCentroData;
   plan?: PlanCentro;
+  perfilInformativo?: boolean;
 }) {
   const isMobile = useMobile();
   const esPresencia = plan === "presencia";
@@ -50,7 +56,14 @@ export function FichaCentro({
         minHeight: "100vh",
       }}
     >
-      <HeroCentro data={data} isMobile={isMobile} esPresencia={esPresencia} />
+      <HeroCentro
+        data={data}
+        isMobile={isMobile}
+        esPresencia={esPresencia}
+        perfilInformativo={perfilInformativo}
+      />
+
+      {perfilInformativo && <BloquePerfilInformativo tipo="centro" />}
 
       <div
         style={{
@@ -78,10 +91,12 @@ function HeroCentro({
   data,
   isMobile,
   esPresencia,
+  perfilInformativo,
 }: {
   data: FichaCentroData;
   isMobile: boolean;
   esPresencia: boolean;
+  perfilInformativo: boolean;
 }) {
   const mostrarReserva = !esPresencia && esEnlaceReservaValido(data.enlaceReserva);
   const mostrarTelefono = !!data.contacto?.telefono && data.contacto.telefonoPublico === true;
@@ -121,11 +136,15 @@ function HeroCentro({
               overflow: "hidden",
             }}
           >
-            <img
-              src={data.imagenPrincipal ?? ambienteDe(data.nombre)}
-              alt={`Imagen principal de ${data.nombre}`}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
+            {perfilInformativo && !data.imagenPrincipal ? (
+              <PlaceholderInformativo nombre={data.nombre} formato="rectangular" />
+            ) : (
+              <img
+                src={data.imagenPrincipal ?? ambienteDe(data.nombre)}
+                alt={`Imagen principal de ${data.nombre}`}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+            )}
           </div>
         </div>
 
