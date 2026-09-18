@@ -2,8 +2,8 @@ import { useRef, useState } from "react";
 import { useMobile } from "@/components/ficha/useMobile";
 import { EnlaceWebPublica } from "@/components/ficha/EnlaceWebPublica";
 import {
-  NotaPerfilInformativo,
   PlaceholderInformativo,
+  SeccionPerfilInformativo,
 } from "@/components/ficha/PerfilInformativo";
 import { telHref, telefonoVisible, whatsappHref } from "@/lib/telefono";
 
@@ -78,7 +78,7 @@ export function FichaCentro({
           <ColumnaPrincipal data={data} esPresencia={esPresencia} />
         </div>
         <aside>
-          <BarraLateral data={data} esPresencia={esPresencia} />
+          <BarraLateral data={data} esPresencia={esPresencia} perfilInformativo={perfilInformativo} />
         </aside>
       </div>
     </div>
@@ -243,7 +243,6 @@ function HeroCentro({
             </div>
           )}
 
-          {perfilInformativo && <NotaPerfilInformativo tipo="centro" />}
         </div>
       </div>
     </header>
@@ -577,7 +576,15 @@ function CarruselGaleria({ imagenes, nombre }: { imagenes: string[]; nombre: str
   );
 }
 
-function BarraLateral({ data, esPresencia }: { data: FichaCentroData; esPresencia: boolean }) {
+function BarraLateral({
+  data,
+  esPresencia,
+  perfilInformativo,
+}: {
+  data: FichaCentroData;
+  esPresencia: boolean;
+  perfilInformativo?: boolean;
+}) {
   const ubicaciones = data.ubicaciones ?? [];
   const principal = ubicaciones.find((u) => u.principal) ?? ubicaciones[0];
   const contacto = data.contacto;
@@ -685,6 +692,8 @@ function BarraLateral({ data, esPresencia }: { data: FichaCentroData; esPresenci
           ))}
         </div>
       </Seccion>
+
+      {perfilInformativo && <SeccionPerfilInformativo tipo="centro" />}
     </>
   );
 }
