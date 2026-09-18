@@ -377,14 +377,19 @@ export function BuscadorSimple({
           </div>
         )}
       </div>
-      <Button
-        type="button"
-        onClick={() => lanzar(q)}
-        className={unificado && presenciaInicio ? "justify-self-end px-6" : undefined}
-        style={unificado && presenciaInicio ? undefined : unificado ? botonUnificadoStyle : botonStyle}
-      >
-        Buscar
-      </Button>
+      {unificado && presenciaInicio ? (
+        <Button type="button" onClick={() => lanzar(q)} className="justify-self-end px-6">
+          Buscar
+        </Button>
+      ) : (
+        <button
+          type="button"
+          onClick={() => lanzar(q)}
+          style={unificado ? botonUnificadoStyle : botonStyle}
+        >
+          Buscar
+        </button>
+      )}
     </div>
   );
 }
