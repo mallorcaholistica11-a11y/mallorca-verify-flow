@@ -230,8 +230,9 @@
     0 0 0 1px color-mix(in oklab, var(--champagne-frame) 90%, transparent),
     0 0 0 1px color-mix(in oklab, var(--champagne-frame-light) 58%, transparent),
     inset 0 1px 0 color-mix(in oklab, var(--ivory) 92%, transparent),
-    7px 12px 24px -10px color-mix(in oklab, var(--sand) 48%, transparent),
-    14px 28px 48px -18px color-mix(in oklab, var(--earth) 34%, transparent);
+    -9px 2px 24px -10px color-mix(in oklab, var(--sand) 58%, transparent),
+    -7px 19px 38px -13px color-mix(in oklab, var(--earth) 38%, transparent),
+    0 28px 52px -24px color-mix(in oklab, var(--sand) 52%, transparent);
   overflow: hidden;
 }
 

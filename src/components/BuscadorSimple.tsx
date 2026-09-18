@@ -4,6 +4,7 @@ import { buscarPracticas, practicasOficiales, PRACTICAS_NOMBRES } from "@/data/p
 import { buscarAreas } from "@/data/areas";
 import { buscarPerfiles, type Resultado } from "@/data/perfiles";
 import { MUNICIPIOS_MALLORCA } from "@/data/taxonomia";
+import { Button } from "@/components/ui/button";
 
 /**
  * Buscador simple compartido por Home ("¿Ya sabes lo que buscas?") y Directorio.
@@ -130,7 +131,7 @@ export function BuscadorSimple({
 
   const estiloInput = unificado
     ? presenciaInicio
-      ? { ...inputUnificadoStyle, padding: isMobile ? "7px 6px" : "6px 8px" }
+      ? { ...inputUnificadoStyle, padding: isMobile ? "6px 6px" : "5px 8px" }
       : inputUnificadoStyle
     : inputStyle;
   const panelPracticasResponsiveStyle = isMobile ? panelMovilStyle(panelPracticasStyle, 104) : panelPracticasStyle;
@@ -153,16 +154,16 @@ export function BuscadorSimple({
               border: presenciaInicio
                 ? "1px solid color-mix(in oklab, var(--sage) 72%, var(--border))"
                 : "1px solid color-mix(in oklab, var(--sage) 55%, var(--border))",
-              borderRadius: isMobile ? (presenciaInicio ? 28 : 24) : 999,
+              borderRadius: presenciaInicio ? 12 : isMobile ? 24 : 999,
               boxShadow: presenciaInicio
                 ? "inset 0 1px 0 color-mix(in oklab, var(--ivory) 94%, transparent), 4px 8px 16px -8px color-mix(in oklab, var(--sage-dark) 30%, transparent), 9px 18px 30px -14px color-mix(in oklab, var(--earth) 32%, transparent)"
                 : "var(--shadow-soft), 0 1px 5px color-mix(in oklab, var(--sage) 8%, transparent)",
               padding: isMobile
                 ? presenciaInicio
-                  ? "5px 9px"
+                  ? "4px 9px"
                   : "10px 12px"
                 : presenciaInicio
-                  ? "4px 4px 4px 8px"
+                  ? "3px 4px 3px 8px"
                   : "6px 6px 6px 8px",
               gap: presenciaInicio ? (isMobile ? 8 : 7) : isMobile ? 4 : 0,
             }
@@ -184,7 +185,7 @@ export function BuscadorSimple({
           paddingLeft: unificado ? (presenciaInicio ? 14 : 10) : 0,
           paddingRight: presenciaInicio ? 10 : 0,
           background: presenciaInicio ? "color-mix(in oklab, var(--card) 95%, var(--ivory) 5%)" : "transparent",
-          borderRadius: presenciaInicio ? (isMobile ? 18 : 999) : 0,
+          borderRadius: presenciaInicio ? 8 : 0,
           boxShadow: presenciaInicio
             ? "inset 0 1px 0 color-mix(in oklab, var(--ivory) 96%, transparent), 0 3px 10px -7px color-mix(in oklab, var(--sage-dark) 24%, transparent)"
             : "none",
@@ -335,7 +336,7 @@ export function BuscadorSimple({
                 paddingTop: presenciaInicio ? 0 : isMobile ? 4 : 0,
                 marginLeft: presenciaInicio ? 0 : isMobile ? 0 : 12,
                 background: presenciaInicio ? "color-mix(in oklab, var(--card) 95%, var(--ivory) 5%)" : "transparent",
-                borderRadius: presenciaInicio ? (isMobile ? 18 : 999) : 0,
+                borderRadius: presenciaInicio ? 8 : 0,
                 boxShadow: presenciaInicio
                   ? "inset 0 1px 0 color-mix(in oklab, var(--ivory) 96%, transparent), 0 3px 10px -7px color-mix(in oklab, var(--sage-dark) 24%, transparent)"
                   : "none",
@@ -376,24 +377,14 @@ export function BuscadorSimple({
           </div>
         )}
       </div>
-      <button
+      <Button
         type="button"
         onClick={() => lanzar(q)}
-        style={
-          unificado
-            ? presenciaInicio
-              ? {
-                  ...botonUnificadoStyle,
-                    padding: isMobile ? "8px 22px" : "8px 22px",
-                    minHeight: isMobile ? 36 : 36,
-                   boxShadow: "inset 0 1px 0 color-mix(in oklab, var(--primary-foreground) 22%, transparent), 0 5px 12px -8px color-mix(in oklab, var(--sage-dark) 55%, transparent)",
-                }
-              : botonUnificadoStyle
-            : botonStyle
-        }
+        className={unificado && presenciaInicio ? "justify-self-end px-6" : undefined}
+        style={unificado && presenciaInicio ? undefined : unificado ? botonUnificadoStyle : botonStyle}
       >
         Buscar
-      </button>
+      </Button>
     </div>
   );
 }

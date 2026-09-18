@@ -195,7 +195,7 @@ function BuscadorIA({ isMobile }: { isMobile: boolean }) {
               </div>
             </div>
 
-            <div className="mt-4 flex justify-center">
+            <div className="mt-7 flex justify-center">
               <Chips items={CHIPS} clicable gap={7} center />
             </div>
           </div>
