@@ -23,17 +23,6 @@ export const Route = createFileRoute("/nuestra-mirada")({
   component: NuestraMirada,
 });
 
-function BotanicalSprig({ className = "" }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 60 42" fill="none" aria-hidden="true">
-      <path d="M7 36C19 28 31 18 51 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-      <path d="M18 28C11 27 8 22 9 17C15 18 19 22 18 28Z" fill="currentColor" fillOpacity=".22" />
-      <path d="M27 21C23 15 25 10 30 7C33 13 31 18 27 21Z" fill="currentColor" fillOpacity=".22" />
-      <path d="M34 17C38 11 44 10 49 13C45 18 40 20 34 17Z" fill="currentColor" fillOpacity=".22" />
-    </svg>
-  );
-}
-
 function LeafMark() {
   return (
     <svg className="mirada-leaf-mark" viewBox="0 0 34 28" fill="none" aria-hidden="true">
@@ -98,8 +87,6 @@ function NuestraMirada() {
           </aside>
 
           <div className="mirada-pair-wrap">
-            <BotanicalSprig className="mirada-sprig mirada-sprig-left" />
-            <BotanicalSprig className="mirada-sprig mirada-sprig-right" />
             <div className="mirada-grid mirada-grid-divided">
               <section className="mirada-section">
                 <h2>Uno de los grandes tesoros de Mallorca.</h2>
@@ -155,7 +142,6 @@ function NuestraMirada() {
           </section>
 
           <section className="mirada-intencion">
-            <BotanicalSprig className="mirada-closing-sprig" />
             <h2>Nuestra intención</h2>
             <div className="mirada-small-rule" />
             <div className="mirada-copy mirada-ideas">
@@ -268,7 +254,6 @@ function NuestraMirada() {
         .mirada-intencion .mirada-small-rule { margin: 8px auto 10px; }
         .mirada-ideas { max-width: 680px; margin: 0 auto; }
         .mirada-ideas p { margin-bottom: 4px; }
-        .mirada-closing-sprig { position: absolute; left: -88px; bottom: -8px; width: 110px; color: var(--sage); opacity: 0.36; transform: rotate(-8deg); pointer-events: none; }
         .mirada-cierre { margin-top: 12px; }
         .mirada-cierre p:first-child { margin: 0 0 4px; color: var(--sage-dark); font-family: var(--font-display); font-size: clamp(1rem, 1.55vw, 1.18rem); font-weight: 500; line-height: 1.3; }
         .mirada-cierre p:last-child { margin: 0; color: var(--muted-foreground); font-size: 0.75rem; line-height: 1.45; }
@@ -284,12 +269,10 @@ function NuestraMirada() {
           .mirada-grid-divided > :nth-child(2), .mirada-grid-tight > :nth-child(2) { border-left: 0; border-top: 1px solid var(--border); padding: 18px 0 0; }
           .mirada-copy { font-size: 0.78rem; line-height: 1.52; }
           .mirada-pausa { margin: 18px -8px; padding: 17px 16px 16px; }
-          .mirada-sprig { display: none; }
           .mirada-encuentro { margin-top: 20px; margin-bottom: 20px; padding-top: 18px; padding-bottom: 18px; }
           .mirada-manifesto { text-align: left; }
           .mirada-integrativa { padding: 17px 18px; }
           .mirada-integrativa-heading { align-items: flex-start; }
-          .mirada-closing-sprig { left: -42px; width: 78px; opacity: 0.22; }
         }
       `}</style>
     </div>
