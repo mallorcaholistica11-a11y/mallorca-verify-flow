@@ -93,8 +93,8 @@ export function SelectorAreas({
           ) : (
             <div className="areas-cols">
               {grupos.map((g) => (
-                <div key={g.letra} style={{ breakInside: "avoid", marginBottom: 12 }}>
-                  <div style={letraTitulo}>{g.letra}</div>
+                <div key={g.letra} style={{ marginBottom: 12 }}>
+                  <div style={{ ...letraTitulo, breakAfter: "avoid" }}>{g.letra}</div>
                   {g.areas.map((a) => {
                     const checked = selected.includes(a);
                     return (
