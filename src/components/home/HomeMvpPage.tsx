@@ -96,7 +96,7 @@ export function HomeMvpPage() {
         <div className="relative -mx-4 overflow-hidden sm:-mx-6 lg:-mx-8">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-0 h-[470px] bg-[size:auto_125%] bg-[position:78%_100%] bg-no-repeat sm:h-[500px] sm:bg-[size:130%_auto] sm:bg-[position:88%_100%] md:h-[520px] md:bg-[size:125%_auto] md:bg-[position:100%_100%] lg:bg-[size:138%_auto]"
+            className="pointer-events-none absolute inset-x-0 top-0 h-[520px] bg-[size:auto_105%] bg-[position:100%_520%] bg-no-repeat sm:h-[550px] md:h-[580px] lg:bg-[position:100%_540%]"
             style={{ backgroundImage: `url(${heroAlmendro.url})` }}
           />
           <div
@@ -104,7 +104,7 @@ export function HomeMvpPage() {
             className="pointer-events-none absolute inset-x-0 top-0 h-[520px] sm:h-[550px] md:h-[580px]"
             style={{
               background:
-                "linear-gradient(90deg, var(--background) 0%, color-mix(in oklab, var(--background) 98%, transparent) 20%, color-mix(in oklab, var(--background) 88%, transparent) 39%, color-mix(in oklab, var(--background) 45%, transparent) 62%, color-mix(in oklab, var(--background) 8%, transparent) 84%), linear-gradient(180deg, color-mix(in oklab, var(--background) 3%, transparent) 0%, color-mix(in oklab, var(--background) 10%, transparent) 48%, color-mix(in oklab, var(--cream) 72%, transparent) 70%, var(--cream) 91%, var(--background) 100%)",
+                "linear-gradient(90deg, var(--background) 0%, var(--background) 26%, color-mix(in oklab, var(--background) 86%, transparent) 42%, color-mix(in oklab, var(--background) 45%, transparent) 62%, color-mix(in oklab, var(--background) 8%, transparent) 84%), linear-gradient(180deg, color-mix(in oklab, var(--background) 3%, transparent) 0%, color-mix(in oklab, var(--background) 10%, transparent) 45%, color-mix(in oklab, var(--cream) 80%, transparent) 62%, var(--cream) 78%, var(--background) 100%)",
             }}
           />
           <div className="relative">
