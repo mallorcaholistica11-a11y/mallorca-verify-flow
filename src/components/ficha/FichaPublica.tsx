@@ -270,7 +270,7 @@ function ColumnaPrincipal({ data, plan }: { data: FichaPublicaData; plan: PlanFi
         <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 10px 0", color: "var(--foreground)" }}>
           Consulta los talleres, cursos, retiros y actividades organizadas por este profesional.
         </p>
-        <Boton href={data.enlaceAgenda ?? "/actividades"}>Ver agenda de actividades →</Boton>
+        <Boton href={data.enlaceAgenda ?? "/agenda"}>Ver agenda de actividades →</Boton>
       </Seccion>
 
       <Seccion titulo="Opiniones" vacio={!completa || !data.opiniones?.length} separador>

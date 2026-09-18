@@ -33,7 +33,7 @@ const demo: FichaCentroData = {
   modalidades: ["Sesiones individuales", "Talleres", "Cursos y formaciones", "Charlas", "Retiros", "Eventos"],
   fraseDestacada: "Un espacio para cuidarte con calma, en el centro de Palma.",
   enlaceReserva: "https://example.com/reservas",
-  enlaceAgenda: "/actividades",
+  enlaceAgenda: "/agenda",
   verificado: true,
   hayActividades: true,
   sobreNosotros:

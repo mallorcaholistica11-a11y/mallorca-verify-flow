@@ -322,7 +322,7 @@ function ColumnaPrincipal({ data, esPresencia }: { data: FichaCentroData; esPres
         vacio={esPresencia || !data.hayActividades}
         separador
       >
-        <a href={data.enlaceAgenda ?? "/actividades"} style={{ ...enlace, fontSize: 13 }}>
+        <a href={data.enlaceAgenda ?? "/agenda"} style={{ ...enlace, fontSize: 13 }}>
           Descubre nuestras actividades →
         </a>
       </Seccion>
