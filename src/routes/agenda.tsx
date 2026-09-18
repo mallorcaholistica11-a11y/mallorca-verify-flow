@@ -764,12 +764,6 @@ function Resultados({
           </button>
         </nav>
       )}
-
-      <div style={{ marginTop: 40, fontSize: 11, color: "var(--muted-foreground)" }}>
-        <Link to="/" style={{ color: "var(--muted-foreground)" }}>
-          ← Volver al índice del wireframe
-        </Link>
-      </div>
     </Bloque>
   );
 }
