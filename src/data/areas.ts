@@ -1,216 +1,167 @@
-// Catálogo Oficial de Áreas de Acompañamiento · BASE MVP v1.0 · VERIFICADO (115 áreas)
+// Catálogo Maestro de Áreas de Acompañamiento · MVP · 154 áreas
 // FUENTE ÚNICA del proyecto. Toda pantalla (formularios, directorio, agenda,
 // guía, fichas públicas, IA) debe leer de aquí. No crear listas paralelas.
 //
-// Arquitectura: Categoría → Área de Acompañamiento
-//  - Categorías: orden editorial oficial (el del catálogo).
-//  - Áreas: orden alfabético dentro de cada categoría.
+// Catálogo único y plano, en orden alfabético. Sin categorías ni familias
+// visibles: las familias usadas al elaborar la taxonomía no forman parte
+// del producto.
 
-export type CategoriaAreas = {
-  categoria: string;
-  areas: string[];
-};
-
-export const CATEGORIAS_AREAS: CategoriaAreas[] = [
-  {
-    categoria: "Bienestar Emocional y Desarrollo Personal",
-    areas: [
-      "Adicciones",
-      "Ansiedad",
-      "Ansiedad social",
-      "Ataques de pánico",
-      "Autoaceptación",
-      "Autoestima",
-      "Bloqueos emocionales",
-      "Burnout",
-      "Depresión",
-      "Desarrollo personal",
-      "Duelo",
-      "Estrés",
-      "Gestión emocional",
-      "Miedos",
-      "Regulación emocional",
-      "Soledad",
-      "Trauma",
-    ],
-  },
-  {
-    categoria: "Relaciones y Sexualidad",
-    areas: [
-      "Comunicación",
-      "Dependencia emocional",
-      "Límites personales",
-      "Relaciones de pareja",
-      "Relaciones familiares",
-      "Separación",
-      "Sexualidad",
-    ],
-  },
-  {
-    categoria: "Salud Femenina y Hormonal",
-    areas: [
-      "Duelo gestacional",
-      "Embarazo",
-      "Endometriosis",
-      "Fertilidad",
-      "Lactancia",
-      "Menopausia",
-      "Menstruación",
-      "Postparto",
-      "Salud hormonal",
-      "Síndrome de ovario poliquístico (SOP)",
-    ],
-  },
-  {
-    categoria: "Sueño y Energía",
-    areas: [
-      "Baja energía",
-      "Cansancio crónico",
-      "Fatiga",
-      "Insomnio",
-      "Relajación",
-      "Sueño no reparador",
-    ],
-  },
-  {
-    categoria: "Alimentación y Digestión",
-    areas: [
-      "Alimentación saludable",
-      "Estreñimiento",
-      "Hinchazón abdominal",
-      "Intolerancias alimentarias",
-      "Nutrición",
-      "Salud digestiva",
-      "Salud intestinal",
-    ],
-  },
-  {
-    categoria: "Dolor y Sistema Musculoesquelético",
-    areas: [
-      "Bruxismo",
-      "Dolor articular",
-      "Dolor cervical",
-      "Dolor de espalda",
-      "Dolor lumbar",
-      "Fibromialgia",
-      "Movilidad",
-      "Postura corporal",
-      "Recuperación deportiva",
-      "Recuperación física",
-      "Tensión muscular",
-    ],
-  },
-  {
-    categoria: "Salud Física",
-    areas: [
-      "Alergias",
-      "Dolor crónico",
-      "Enfermedades autoinmunes",
-      "Inflamación",
-      "Prevención y autocuidado",
-      "Salud bucodental",
-      "Salud cardiovascular",
-      "Salud de la piel",
-      "Salud respiratoria",
-      "Salud visual",
-      "Sistema inmunitario",
-    ],
-  },
-  {
-    categoria: "Neurodiversidad",
-    areas: [
-      "Alta sensibilidad (PAS)",
-      "Altas capacidades",
-      "Autismo (TEA)",
-      "Comunicación y habilidades sociales",
-      "Dificultades de aprendizaje",
-      "Dislexia",
-      "Dispraxia / Trastorno del Desarrollo de la Coordinación (TDC)",
-      "Funciones ejecutivas",
-      "Hipersensibilidad sensorial",
-      "Procesamiento sensorial",
-      "Regulación sensorial",
-      "TDAH",
-    ],
-  },
-  {
-    categoria: "Infancia y Adolescencia",
-    areas: [
-      "Adolescencia",
-      "Crianza",
-      "Desarrollo infantil",
-      "Gestión emocional infantil",
-      "Vínculo familiar",
-    ],
-  },
-  {
-    categoria: "Salud Cognitiva y Neurológica",
-    areas: [
-      "Cefaleas y migrañas",
-      "Concentración",
-      "Memoria",
-      "Rehabilitación neurológica",
-      "Salud neurológica",
-    ],
-  },
-  {
-    categoria: "Procesos de Salud Complejos",
-    areas: [
-      "Cáncer (acompañamiento)",
-      "Dolor persistente",
-      "Enfermedades crónicas",
-      "Recuperación tras enfermedad",
-    ],
-  },
-  {
-    categoria: "Rendimiento y Hábitos",
-    areas: [
-      "Cambio profesional",
-      "Creatividad",
-      "Gestión del cambio",
-      "Hábitos saludables",
-      "Liderazgo",
-      "Rendimiento deportivo",
-      "Rendimiento profesional",
-      "Vocación",
-    ],
-  },
-  {
-    categoria: "Espiritualidad y Conciencia",
-    areas: [
-      "Autoconocimiento",
-      "Conexión interior",
-      "Desarrollo espiritual",
-      "Meditación",
-      "Mindfulness",
-      "Propósito de vida",
-    ],
-  },
-  {
-    categoria: "Espacios y Entorno",
-    areas: [
-      "Armonización de espacios",
-      "Feng Shui",
-      "Geobiología",
-    ],
-  },
-  {
-    categoria: "Bienestar Integral",
-    areas: [
-      "Bienestar integral",
-      "Calidad de vida",
-      "Equilibrio cuerpo-mente",
-    ],
-  },
+export const AREAS_OFICIALES: string[] = [
+  "Adicciones",
+  "Adolescencia",
+  "Alergias",
+  "Alimentación saludable",
+  "Alta sensibilidad (PAS)",
+  "Altas capacidades",
+  "Ansiedad",
+  "Ansiedad social",
+  "Armonización de espacios",
+  "Ataques de pánico",
+  "Autismo (TEA)",
+  "Autoaceptación",
+  "Autoconocimiento",
+  "Autoestima",
+  "Baja energía",
+  "Bienestar emocional",
+  "Bienestar integral",
+  "Bloqueos emocionales",
+  "Bruxismo",
+  "Burnout",
+  "Calidad de vida",
+  "Cambio profesional",
+  "Cefaleas y migrañas",
+  "Ciclo menstrual",
+  "Comunicación",
+  "Concentración",
+  "Conciencia y presencia",
+  "Conexión interior",
+  "Conflictos de pareja",
+  "Conflictos familiares",
+  "Coordinación y equilibrio",
+  "Creatividad",
+  "Crianza",
+  "Crisis de identidad",
+  "Crisis vitales",
+  "Cuidado de personas mayores",
+  "Cáncer (acompañamiento)",
+  "Dependencia emocional",
+  "Depresión",
+  "Desarrollo espiritual",
+  "Desarrollo infantil",
+  "Desarrollo motor",
+  "Desarrollo personal",
+  "Desarrollo profesional",
+  "Desequilibrios hormonales",
+  "Diabetes",
+  "Dificultades de aprendizaje",
+  "Dificultades de conducta",
+  "Dificultades de lectoescritura",
+  "Dificultades del habla y del lenguaje",
+  "Dificultades del sueño",
+  "Dificultades digestivas",
+  "Dificultades emocionales",
+  "Dificultades escolares",
+  "Dificultades sexuales",
+  "Dislexia",
+  "Dispraxia / Trastorno del Desarrollo de la Coordinación (TDC)",
+  "Dolor articular",
+  "Dolor cervical",
+  "Dolor crónico / persistente",
+  "Dolor de espalda",
+  "Dolor lumbar",
+  "Dolor menstrual",
+  "Dolor muscular",
+  "Duelo gestacional",
+  "Duelo y pérdidas",
+  "Embarazo",
+  "Endometriosis",
+  "Enfermedades autoinmunes",
+  "Enfermedades crónicas",
+  "Envejecimiento saludable",
+  "Equilibrio cuerpo-mente",
+  "Estreñimiento",
+  "Estrés",
+  "Estrés laboral",
+  "Fatiga y cansancio persistente",
+  "Fertilidad",
+  "Fibromialgia",
+  "Funciones ejecutivas",
+  "Gestión del cambio",
+  "Gestión del peso",
+  "Gestión emocional",
+  "Gestión emocional infantil",
+  "Habilidades sociales",
+  "Hinchazón abdominal",
+  "Hipersensibilidad sensorial",
+  "Hábitos saludables",
+  "Inflamación",
+  "Insomnio",
+  "Intolerancias alimentarias",
+  "Lactancia",
+  "Lesiones",
+  "Liderazgo",
+  "Límites personales",
+  "Maternidad",
+  "Memoria",
+  "Menopausia",
+  "Miedos",
+  "Motivación",
+  "Movilidad",
+  "Neurodivergencia",
+  "Objetivos personales",
+  "Organización y gestión del tiempo",
+  "Paternidad",
+  "Postparto",
+  "Postura corporal",
+  "Preparación al parto",
+  "Preparación física",
+  "Prevención de lesiones",
+  "Prevención y autocuidado",
+  "Problemas de mandíbula / ATM",
+  "Procesamiento sensorial",
+  "Propósito de vida",
+  "Recuperación deportiva",
+  "Recuperación física",
+  "Recuperación tras enfermedad",
+  "Regulación del sistema nervioso",
+  "Regulación emocional",
+  "Regulación sensorial",
+  "Rehabilitación neurológica",
+  "Relaciones de pareja",
+  "Relaciones familiares",
+  "Relación con la alimentación",
+  "Relajación",
+  "Rendimiento deportivo",
+  "Rendimiento profesional",
+  "Salud auditiva",
+  "Salud bucodental",
+  "Salud cardiovascular",
+  "Salud de la mujer",
+  "Salud de la piel",
+  "Salud digestiva",
+  "Salud hormonal",
+  "Salud inmunitaria",
+  "Salud intestinal",
+  "Salud mental",
+  "Salud metabólica",
+  "Salud neurológica",
+  "Salud respiratoria",
+  "Salud sexual",
+  "Salud visual",
+  "Separación de pareja",
+  "Sexualidad",
+  "Sobrecarga del cuidador",
+  "Soledad",
+  "Suelo pélvico",
+  "Síndrome de ovario poliquístico (SOP)",
+  "TDAH",
+  "Tensión muscular",
+  "Toma de decisiones",
+  "Trastornos de la conducta alimentaria (TCA)",
+  "Trauma",
+  "Vocación",
+  "Vínculo familiar",
 ];
-
-/** Nombres de todas las categorías, en orden editorial oficial. */
-export const CATEGORIAS_AREAS_NOMBRES: string[] = CATEGORIAS_AREAS.map((c) => c.categoria);
-
-/** Todas las áreas oficiales, en orden alfabético global. */
-export const AREAS_OFICIALES: string[] = CATEGORIAS_AREAS.flatMap((c) => c.areas).sort((a, b) =>
-  a.localeCompare(b, "es"),
-);
 
 const SET_AREAS = new Set(AREAS_OFICIALES);
 
@@ -220,18 +171,22 @@ const SET_AREAS = new Set(AREAS_OFICIALES);
  */
 export const SINONIMOS_AREAS: Record<string, string> = {
   "crecimiento personal": "Desarrollo personal",
-  "equilibrio energetico": "Equilibrio cuerpo-mente",
-  "equilibrio energético": "Equilibrio cuerpo-mente",
+  duelo: "Duelo y pérdidas",
+  menstruacion: "Ciclo menstrual",
+  "menstruación": "Ciclo menstrual",
+  "separacion": "Separación de pareja",
+  "separación": "Separación de pareja",
+  "sueño no reparador": "Dificultades del sueño",
+  "sistema inmunitario": "Salud inmunitaria",
+  "problemas de conducta": "Dificultades de conducta",
+  "dolor persistente": "Dolor crónico / persistente",
+  fatiga: "Fatiga y cansancio persistente",
+  "cansancio cronico": "Fatiga y cansancio persistente",
+  "cansancio crónico": "Fatiga y cansancio persistente",
+  "comunicación y habilidades sociales": "Habilidades sociales",
+  nutricion: "Alimentación saludable",
+  "nutrición": "Alimentación saludable",
 };
-
-const MAPA_CATEGORIA = new Map<string, string>(
-  CATEGORIAS_AREAS.flatMap((c) => c.areas.map((a) => [a, c.categoria] as const)),
-);
-
-/** Categoría oficial a la que pertenece un área. */
-export function categoriaDeArea(area: string): string | undefined {
-  return MAPA_CATEGORIA.get(area);
-}
 
 /** ¿Es un valor del catálogo oficial? */
 export function esAreaOficial(area: string): boolean {
@@ -276,15 +231,6 @@ export function buscarAreas(query: string): string[] {
   return resultados.sort((a, b) => a.localeCompare(b, "es"));
 }
 
-/** Igual que buscarAreas, pero agrupado por categoría en orden editorial. */
-export function buscarAreasPorCategoria(query: string): CategoriaAreas[] {
-  const encontradas = new Set(buscarAreas(query));
-  return CATEGORIAS_AREAS.map((c) => ({
-    categoria: c.categoria,
-    areas: c.areas.filter((a) => encontradas.has(a)),
-  })).filter((c) => c.areas.length > 0);
-}
-
 /** Límites por plan del MVP. */
 export const MAX_AREAS_PRESENCIA = 5;
 export const MAX_AREAS_VERIFICADO = 15;
@@ -293,7 +239,6 @@ export const MAX_AREAS_ACTIVIDAD = 5;
 
 /**
  * Agrupa áreas por letra inicial (A–Z) para el patrón UX de catálogo abierto.
- * Las categorías internas se conservan en los datos pero no se exponen aquí.
  */
 export function areasPorLetra(areas: string[] = AREAS_OFICIALES) {
   const mapa = new Map<string, string[]>();

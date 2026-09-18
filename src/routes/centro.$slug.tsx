@@ -40,7 +40,7 @@ const demo: FichaCentroData = {
     "Somos un centro dedicado al bienestar integral desde 2014. Reunimos a un equipo de terapeutas y formadores que acompañan procesos de salud, calma y desarrollo personal en un espacio luminoso y sereno.",
   idiomas: ["Català", "Español", "English", "Deutsch"],
   especialidades: ["Yoga", "Masaje Terapéutico", "Meditación", "Reiki", "Acupuntura", "Nutrición / Nutrición Integrativa"],
-  areas: ["Estrés", "Ansiedad", "Dolor crónico", "Fertilidad", "Desarrollo personal", "Gestión emocional"],
+  areas: ["Estrés", "Ansiedad", "Dolor crónico / persistente", "Fertilidad", "Desarrollo personal", "Gestión emocional"],
   publicos: ["Niños", "Familias", "Empresas", "Profesionales"],
   instalaciones: ["Salas de terapia", "Salas de formación", "Jardín", "Cafetería", "Espacios para eventos"],
   equipo: [
