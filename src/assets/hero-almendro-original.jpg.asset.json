@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "8653aec2-46ce-4d97-8c15-188384d64605",
-  "project_id": "7c4db97c-c2e9-4354-9587-ed4a3510b5e3",
-  "url": "/__l5e/assets-v1/8653aec2-46ce-4d97-8c15-188384d64605/hero-almendro-original.jpg",
-  "r2_key": "a/v1/7c4db97c-c2e9-4354-9587-ed4a3510b5e3/8653aec2-46ce-4d97-8c15-188384d64605/hero-almendro-original.jpg",
-  "original_filename": "hero-almendro-original.jpg",
-  "size": 1073011,
   "content_type": "image/jpeg",
-  "created_at": "2026-09-13T14:34:45Z"
+  "created_at": "2026-09-13T14:34:45Z",
+  "original_filename": "hero-almendro-original.jpg",
+  "project_id": "d9c3acb3-f303-42ac-a862-80a9d5592bc3",
+  "r2_key": "a/v1/d9c3acb3-f303-42ac-a862-80a9d5592bc3/8653aec2-46ce-4d97-8c15-188384d64605/hero-almendro-original.jpg",
+  "size": 1073011,
+  "url": "/__l5e/assets-v1/8653aec2-46ce-4d97-8c15-188384d64605/hero-almendro-original.jpg",
+  "version": 1
 }

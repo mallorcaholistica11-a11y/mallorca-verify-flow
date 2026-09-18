@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "b8fb83db-18a3-41b5-8b81-f89a13a97946",
-  "project_id": "7c4db97c-c2e9-4354-9587-ed4a3510b5e3",
-  "url": "/__l5e/assets-v1/b8fb83db-18a3-41b5-8b81-f89a13a97946/actividad-2.jpg",
-  "r2_key": "a/v1/7c4db97c-c2e9-4354-9587-ed4a3510b5e3/b8fb83db-18a3-41b5-8b81-f89a13a97946/actividad-2.jpg",
-  "original_filename": "actividad-2.jpg",
-  "size": 106283,
   "content_type": "image/jpeg",
-  "created_at": "2026-08-18T11:43:01Z"
+  "created_at": "2026-08-18T11:43:01Z",
+  "original_filename": "actividad-2.jpg",
+  "project_id": "d9c3acb3-f303-42ac-a862-80a9d5592bc3",
+  "r2_key": "a/v1/d9c3acb3-f303-42ac-a862-80a9d5592bc3/b8fb83db-18a3-41b5-8b81-f89a13a97946/actividad-2.jpg",
+  "size": 106283,
+  "url": "/__l5e/assets-v1/b8fb83db-18a3-41b5-8b81-f89a13a97946/actividad-2.jpg",
+  "version": 1
 }

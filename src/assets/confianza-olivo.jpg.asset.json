@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "66a3f6c4-f294-495b-85da-556d5dfd3d77",
-  "project_id": "7c4db97c-c2e9-4354-9587-ed4a3510b5e3",
-  "url": "/__l5e/assets-v1/66a3f6c4-f294-495b-85da-556d5dfd3d77/confianza-olivo.jpg",
-  "r2_key": "a/v1/7c4db97c-c2e9-4354-9587-ed4a3510b5e3/66a3f6c4-f294-495b-85da-556d5dfd3d77/confianza-olivo.jpg",
-  "original_filename": "confianza-olivo.jpg",
-  "size": 238349,
   "content_type": "image/jpeg",
-  "created_at": "2026-09-18T08:24:38Z"
+  "created_at": "2026-09-18T08:24:38Z",
+  "original_filename": "confianza-olivo.jpg",
+  "project_id": "d9c3acb3-f303-42ac-a862-80a9d5592bc3",
+  "r2_key": "a/v1/d9c3acb3-f303-42ac-a862-80a9d5592bc3/66a3f6c4-f294-495b-85da-556d5dfd3d77/confianza-olivo.jpg",
+  "size": 238349,
+  "url": "/__l5e/assets-v1/66a3f6c4-f294-495b-85da-556d5dfd3d77/confianza-olivo.jpg",
+  "version": 1
 }
