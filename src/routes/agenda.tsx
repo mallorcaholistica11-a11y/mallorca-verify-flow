@@ -285,19 +285,6 @@ function Agenda() {
         <NavegacionTemporal isMobile={isMobile} onCambiar={() => setPagina(1)} />
         <Resultados actividades={resultados} isMobile={isMobile} pagina={pagina} onPagina={setPagina} />
       </main>
-
-      <footer
-        style={{
-          marginTop: 80,
-          padding: 24,
-          borderTop: "1px solid var(--border)",
-          fontSize: 11,
-          color: "var(--muted-foreground)",
-          textAlign: "center",
-        }}
-      >
-        Wireframe funcional · Agenda de Actividades · sin diseño visual definitivo
-      </footer>
     </div>
   );
 }

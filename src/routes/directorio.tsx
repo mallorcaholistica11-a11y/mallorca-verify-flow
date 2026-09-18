@@ -19,7 +19,7 @@ export const Route = createFileRoute("/directorio")({
   }),
   head: () => ({
     meta: [
-      { title: "Directorio de Profesionales — Mallorca Holística (wireframe)" },
+      { title: "Directorio de Profesionales — Mallorca Holística" },
       {
         name: "description",
         content:
@@ -124,19 +124,6 @@ function Directorio() {
         />
         <Resultados isMobile={isMobile} resultados={resultados} />
       </main>
-
-      <footer
-        style={{
-          marginTop: 24,
-          padding: 24,
-          borderTop: "1px solid var(--border)",
-          fontSize: 11,
-          color: "var(--muted-foreground)",
-          textAlign: "center",
-        }}
-      >
-        Wireframe funcional · Directorio de Profesionales · sin diseño visual definitivo
-      </footer>
     </div>
   );
 }

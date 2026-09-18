@@ -218,19 +218,6 @@ function GuiaPracticas() {
           </div>
         </section>
       </main>
-
-      <footer
-        style={{
-          marginTop: 60,
-          padding: 24,
-          borderTop: "1px solid var(--border)",
-          fontSize: 11,
-          color: "var(--muted-foreground)",
-          textAlign: "center",
-        }}
-      >
-        Wireframe funcional · Guía de Prácticas · sin diseño visual definitivo
-      </footer>
     </div>
   );
 }
