@@ -130,7 +130,7 @@ export function BuscadorSimple({
 
   const estiloInput = unificado
     ? presenciaInicio
-      ? { ...inputUnificadoStyle, padding: isMobile ? "14px 6px" : "16px 8px" }
+      ? { ...inputUnificadoStyle, padding: isMobile ? "12px 6px" : "12px 8px" }
       : inputUnificadoStyle
     : inputStyle;
   const panelPracticasResponsiveStyle = isMobile ? panelMovilStyle(panelPracticasStyle, 104) : panelPracticasStyle;
@@ -155,14 +155,14 @@ export function BuscadorSimple({
                 : "1px solid color-mix(in oklab, var(--sage) 55%, var(--border))",
               borderRadius: isMobile ? (presenciaInicio ? 28 : 24) : 999,
               boxShadow: presenciaInicio
-                ? "inset 0 1px 0 color-mix(in oklab, var(--ivory) 88%, transparent), 0 2px 5px color-mix(in oklab, var(--sage-dark) 7%, transparent), 0 18px 38px -24px color-mix(in oklab, var(--sage-dark) 30%, transparent)"
+                ? "inset 0 1px 0 color-mix(in oklab, var(--ivory) 92%, transparent), 0 3px 7px -5px color-mix(in oklab, var(--sage-dark) 18%, transparent), 0 20px 38px -22px color-mix(in oklab, var(--sage-dark) 38%, transparent)"
                 : "var(--shadow-soft), 0 1px 5px color-mix(in oklab, var(--sage) 8%, transparent)",
               padding: isMobile
                 ? presenciaInicio
-                  ? "12px 14px"
+                  ? "10px 12px"
                   : "10px 12px"
                 : presenciaInicio
-                  ? "9px 9px 9px 14px"
+                  ? "7px 7px 7px 11px"
                   : "6px 6px 6px 8px",
               gap: presenciaInicio ? (isMobile ? 8 : 7) : isMobile ? 4 : 0,
             }
@@ -384,8 +384,8 @@ export function BuscadorSimple({
             ? presenciaInicio
               ? {
                   ...botonUnificadoStyle,
-                  padding: isMobile ? "14px 28px" : "16px 30px",
-                  minHeight: isMobile ? 48 : 52,
+                   padding: isMobile ? "12px 25px" : "12px 24px",
+                   minHeight: isMobile ? 44 : 44,
                    boxShadow: "inset 0 1px 0 color-mix(in oklab, var(--primary-foreground) 22%, transparent), 0 5px 12px -8px color-mix(in oklab, var(--sage-dark) 55%, transparent)",
                 }
               : botonUnificadoStyle
