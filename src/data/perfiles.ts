@@ -74,11 +74,7 @@ export const PERFILES: Resultado[] = [
     especialidades: ["Osteopatía", "Fasciaterapia", "Quiromasaje"],
     areas: ["Dolor cervical", "Dolor lumbar", "Postura corporal"],
     verificado: true,
-    slug: "lucia-gelabert",
-  },
-  {
-    tipo: "profesional",
-    nombre: "Núria Camps",
+    slug: "andres-lopez",
     identidad: "Terapeuta energética",
     ubicacion: "Inca",
     especialidades: ["Reiki", "Terapia Energética"],
