@@ -28,6 +28,8 @@ import { Route as MiEspacioIndexRouteImport } from './routes/mi-espacio.index'
 import { Route as GuiaIndexRouteImport } from './routes/guia.index'
 import { Route as ProfesionalSlugRouteImport } from './routes/profesional.$slug'
 import { Route as ProfesionalFreeSlugRouteImport } from './routes/profesional-free.$slug'
+import { Route as PerfilInformativoProfesionalSlugRouteImport } from './routes/perfil-informativo-profesional.$slug'
+import { Route as PerfilInformativoCentroSlugRouteImport } from './routes/perfil-informativo-centro.$slug'
 import { Route as MiEspacioVistaPreviaPerfilRouteImport } from './routes/mi-espacio.vista-previa-perfil'
 import { Route as MiEspacioSuscripcionRouteImport } from './routes/mi-espacio.suscripcion'
 import { Route as MiEspacioPerfilRouteImport } from './routes/mi-espacio.perfil'
@@ -144,6 +146,18 @@ const ProfesionalFreeSlugRoute = ProfesionalFreeSlugRouteImport.update({
   path: '/profesional-free/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PerfilInformativoProfesionalSlugRoute =
+  PerfilInformativoProfesionalSlugRouteImport.update({
+    id: '/perfil-informativo-profesional/$slug',
+    path: '/perfil-informativo-profesional/$slug',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const PerfilInformativoCentroSlugRoute =
+  PerfilInformativoCentroSlugRouteImport.update({
+    id: '/perfil-informativo-centro/$slug',
+    path: '/perfil-informativo-centro/$slug',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const MiEspacioVistaPreviaPerfilRoute =
   MiEspacioVistaPreviaPerfilRouteImport.update({
     id: '/vista-previa-perfil',
@@ -259,6 +273,8 @@ export interface FileRoutesByFullPath {
   '/mi-espacio/perfil': typeof MiEspacioPerfilRoute
   '/mi-espacio/suscripcion': typeof MiEspacioSuscripcionRoute
   '/mi-espacio/vista-previa-perfil': typeof MiEspacioVistaPreviaPerfilRoute
+  '/perfil-informativo-centro/$slug': typeof PerfilInformativoCentroSlugRoute
+  '/perfil-informativo-profesional/$slug': typeof PerfilInformativoProfesionalSlugRoute
   '/profesional-free/$slug': typeof ProfesionalFreeSlugRoute
   '/profesional/$slug': typeof ProfesionalSlugRoute
   '/guia/': typeof GuiaIndexRoute
@@ -294,6 +310,8 @@ export interface FileRoutesByTo {
   '/mi-espacio/perfil': typeof MiEspacioPerfilRoute
   '/mi-espacio/suscripcion': typeof MiEspacioSuscripcionRoute
   '/mi-espacio/vista-previa-perfil': typeof MiEspacioVistaPreviaPerfilRoute
+  '/perfil-informativo-centro/$slug': typeof PerfilInformativoCentroSlugRoute
+  '/perfil-informativo-profesional/$slug': typeof PerfilInformativoProfesionalSlugRoute
   '/profesional-free/$slug': typeof ProfesionalFreeSlugRoute
   '/profesional/$slug': typeof ProfesionalSlugRoute
   '/guia': typeof GuiaIndexRoute
@@ -332,6 +350,8 @@ export interface FileRoutesById {
   '/mi-espacio/perfil': typeof MiEspacioPerfilRoute
   '/mi-espacio/suscripcion': typeof MiEspacioSuscripcionRoute
   '/mi-espacio/vista-previa-perfil': typeof MiEspacioVistaPreviaPerfilRoute
+  '/perfil-informativo-centro/$slug': typeof PerfilInformativoCentroSlugRoute
+  '/perfil-informativo-profesional/$slug': typeof PerfilInformativoProfesionalSlugRoute
   '/profesional-free/$slug': typeof ProfesionalFreeSlugRoute
   '/profesional/$slug': typeof ProfesionalSlugRoute
   '/guia/': typeof GuiaIndexRoute
@@ -371,6 +391,8 @@ export interface FileRouteTypes {
     | '/mi-espacio/perfil'
     | '/mi-espacio/suscripcion'
     | '/mi-espacio/vista-previa-perfil'
+    | '/perfil-informativo-centro/$slug'
+    | '/perfil-informativo-profesional/$slug'
     | '/profesional-free/$slug'
     | '/profesional/$slug'
     | '/guia/'
@@ -406,6 +428,8 @@ export interface FileRouteTypes {
     | '/mi-espacio/perfil'
     | '/mi-espacio/suscripcion'
     | '/mi-espacio/vista-previa-perfil'
+    | '/perfil-informativo-centro/$slug'
+    | '/perfil-informativo-profesional/$slug'
     | '/profesional-free/$slug'
     | '/profesional/$slug'
     | '/guia'
@@ -443,6 +467,8 @@ export interface FileRouteTypes {
     | '/mi-espacio/perfil'
     | '/mi-espacio/suscripcion'
     | '/mi-espacio/vista-previa-perfil'
+    | '/perfil-informativo-centro/$slug'
+    | '/perfil-informativo-profesional/$slug'
     | '/profesional-free/$slug'
     | '/profesional/$slug'
     | '/guia/'
@@ -473,6 +499,8 @@ export interface RootRouteChildren {
   CentroSlugRoute: typeof CentroSlugRoute
   GuiaSlugRoute: typeof GuiaSlugRoute
   InvitacionTokenRoute: typeof InvitacionTokenRoute
+  PerfilInformativoCentroSlugRoute: typeof PerfilInformativoCentroSlugRoute
+  PerfilInformativoProfesionalSlugRoute: typeof PerfilInformativoProfesionalSlugRoute
   ProfesionalFreeSlugRoute: typeof ProfesionalFreeSlugRoute
   ProfesionalSlugRoute: typeof ProfesionalSlugRoute
   GuiaIndexRoute: typeof GuiaIndexRoute
@@ -611,6 +639,20 @@ declare module '@tanstack/react-router' {
       path: '/profesional-free/$slug'
       fullPath: '/profesional-free/$slug'
       preLoaderRoute: typeof ProfesionalFreeSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/perfil-informativo-profesional/$slug': {
+      id: '/perfil-informativo-profesional/$slug'
+      path: '/perfil-informativo-profesional/$slug'
+      fullPath: '/perfil-informativo-profesional/$slug'
+      preLoaderRoute: typeof PerfilInformativoProfesionalSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/perfil-informativo-centro/$slug': {
+      id: '/perfil-informativo-centro/$slug'
+      path: '/perfil-informativo-centro/$slug'
+      fullPath: '/perfil-informativo-centro/$slug'
+      preLoaderRoute: typeof PerfilInformativoCentroSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mi-espacio/vista-previa-perfil': {
@@ -801,6 +843,8 @@ const rootRouteChildren: RootRouteChildren = {
   CentroSlugRoute: CentroSlugRoute,
   GuiaSlugRoute: GuiaSlugRoute,
   InvitacionTokenRoute: InvitacionTokenRoute,
+  PerfilInformativoCentroSlugRoute: PerfilInformativoCentroSlugRoute,
+  PerfilInformativoProfesionalSlugRoute: PerfilInformativoProfesionalSlugRoute,
   ProfesionalFreeSlugRoute: ProfesionalFreeSlugRoute,
   ProfesionalSlugRoute: ProfesionalSlugRoute,
   GuiaIndexRoute: GuiaIndexRoute,
