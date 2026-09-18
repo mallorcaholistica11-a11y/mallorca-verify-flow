@@ -1,6 +1,10 @@
 import { useMemo, useState } from "react";
 import { useMobile } from "@/components/ficha/useMobile";
 import { EnlaceWebPublica } from "@/components/ficha/EnlaceWebPublica";
+import {
+  BloquePerfilInformativo,
+  PlaceholderInformativo,
+} from "@/components/ficha/PerfilInformativo";
 import { telHref, telefonoVisible, whatsappHref } from "@/lib/telefono";
 
 import {
@@ -29,9 +33,11 @@ export type PlanFicha = "verificado" | "presencia";
 export function FichaPublica({
   data,
   plan = "verificado",
+  perfilInformativo = false,
 }: {
   data: FichaPublicaData;
   plan?: PlanFicha;
+  perfilInformativo?: boolean;
 }) {
   const isMobile = useMobile();
   const anios = useMemo(() => aniosAcompanando(data.anioInicioActividad), [data.anioInicioActividad]);
@@ -48,7 +54,15 @@ export function FichaPublica({
         minHeight: "100vh",
       }}
     >
-      <Hero data={data} anios={plan === "presencia" ? null : anios} isMobile={isMobile} plan={plan} />
+      <Hero
+        data={data}
+        anios={plan === "presencia" ? null : anios}
+        isMobile={isMobile}
+        plan={plan}
+        perfilInformativo={perfilInformativo}
+      />
+
+      {perfilInformativo && <BloquePerfilInformativo tipo="profesional" />}
 
       <div
         style={{
@@ -73,11 +87,13 @@ function Hero({
   anios,
   isMobile,
   plan,
+  perfilInformativo,
 }: {
   data: FichaPublicaData;
   anios: number | null;
   isMobile: boolean;
   plan: PlanFicha;
+  perfilInformativo: boolean;
 }) {
   const mostrarReserva = plan !== "presencia" && !!data.enlaceReserva;
   const mostrarTelefono = !!data.contacto?.telefono && data.contacto.telefonoPublico === true;
@@ -111,11 +127,15 @@ function Hero({
               overflow: "hidden",
             }}
           >
-            <img
-              src={data.fotoUrl ?? retratoDe(data.nombre)}
-              alt={`Fotografía de ${data.nombre}`}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
+            {perfilInformativo && !data.fotoUrl ? (
+              <PlaceholderInformativo nombre={data.nombre} formato="circular" />
+            ) : (
+              <img
+                src={data.fotoUrl ?? retratoDe(data.nombre)}
+                alt={`Fotografía de ${data.nombre}`}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+            )}
 
           </div>
         </div>
