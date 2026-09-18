@@ -214,12 +214,14 @@ function BusquedaClasica({ isMobile }: { isMobile: boolean }) {
         <p className="mb-3 text-[0.8rem] text-muted-foreground">
           Encuentra directamente una práctica, un profesional o una ubicación.
         </p>
-        <BuscadorSimple
-          isMobile={isMobile}
-          unificado
-          presenciaInicio
-          onBuscar={(q, lugar) => navigate({ to: "/directorio", search: { q, lugar } })}
-        />
+        <div className="mx-auto max-w-[590px]">
+          <BuscadorSimple
+            isMobile={isMobile}
+            unificado
+            presenciaInicio
+            onBuscar={(q, lugar) => navigate({ to: "/directorio", search: { q, lugar } })}
+          />
+        </div>
       </Seccion>
     </section>
   );
