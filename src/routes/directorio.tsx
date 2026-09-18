@@ -486,11 +486,6 @@ function Resultados({ isMobile, resultados }: { isMobile: boolean; resultados: R
         </div>
       </div>
 
-      <div style={{ marginTop: 24, fontSize: 11, color: "var(--muted-foreground)" }}>
-        <Link to="/inicio-tecnico" style={{ color: "var(--muted-foreground)" }}>
-          ← Volver al índice del wireframe
-        </Link>
-      </div>
     </Bloque>
   );
 }

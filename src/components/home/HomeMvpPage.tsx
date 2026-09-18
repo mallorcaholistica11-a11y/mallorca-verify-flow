@@ -373,12 +373,6 @@ function Descubre({ isMobile }: { isMobile: boolean }) {
           );
         })}
       </div>
-
-       <div className="mt-6 text-xs text-muted-foreground">
-        <Link to="/inicio-tecnico" className="text-muted-foreground no-underline hover:text-primary">
-          ← Volver al índice del wireframe
-        </Link>
-      </div>
     </section>
   );
 }
