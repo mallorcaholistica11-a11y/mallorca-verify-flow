@@ -129,7 +129,7 @@ export function HomeMvpPage() {
       </main>
 
       <footer className="mt-6 border-t border-border/70 px-6 py-6 text-center text-xs text-muted-foreground md:mt-8">
-        Mallorca Holística · Wireframe funcional · Home MVP
+        Mallorca Holística
       </footer>
     </div>
   );
