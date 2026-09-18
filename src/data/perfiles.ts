@@ -74,7 +74,7 @@ export const PERFILES: Resultado[] = [
     especialidades: ["Osteopatía", "Fasciaterapia", "Quiromasaje"],
     areas: ["Dolor cervical", "Dolor lumbar", "Postura corporal"],
     verificado: true,
-    slug: "lucia-gelabert",
+    slug: "andres-lopez",
   },
   {
     tipo: "profesional",
@@ -84,7 +84,7 @@ export const PERFILES: Resultado[] = [
     especialidades: ["Reiki", "Terapia Energética"],
     areas: ["Fatiga y cansancio persistente", "Estrés", "Equilibrio cuerpo-mente"],
     verificado: false,
-    slug: "marta-ferrer",
+    slug: "nuria-camps",
   },
 ];
 
