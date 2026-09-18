@@ -96,7 +96,7 @@ export function HomeMvpPage() {
         <div className="relative -mx-4 overflow-hidden sm:-mx-6 lg:-mx-8">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-0 h-[520px] bg-[size:auto_105%] bg-[position:100%_520%] bg-no-repeat sm:h-[550px] md:h-[580px] lg:bg-[position:100%_540%]"
+            className="pointer-events-none absolute inset-x-0 top-0 h-[520px] bg-[size:auto_70%] bg-[position:100%_12%] bg-no-repeat sm:h-[550px] md:h-[580px] lg:bg-[position:100%_10%]"
             style={{ backgroundImage: `url(${heroAlmendro.url})` }}
           />
           <div
