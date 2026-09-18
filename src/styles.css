@@ -107,7 +107,7 @@
   --sage-dark: oklch(0.42 0.06 152);
   --sand: oklch(0.88 0.035 85);
   --terracotta: oklch(0.60 0.10 45);
-  --terracotta-accent: oklch(0.62 0.11 55);
+  --terracotta-accent: oklch(0.685 0.105 57);
   --earth: oklch(0.46 0.05 60);
   --warm-brown: oklch(0.44 0.04 65);
   --charcoal: oklch(0.26 0.015 95);
@@ -154,7 +154,7 @@
   --ivory: oklch(0.28 0.02 100);
   --sand: oklch(0.45 0.03 85);
   --terracotta: oklch(0.65 0.09 45);
-  --terracotta-accent: oklch(0.66 0.10 55);
+  --terracotta-accent: oklch(0.71 0.10 57);
   --earth: oklch(0.72 0.04 60);
   --sage: oklch(0.75 0.06 140);
   --sage-light: oklch(0.55 0.05 140);
@@ -222,9 +222,13 @@
 }
 
 .guided-search-frame {
-  border-color: color-mix(in oklab, var(--champagne) 92%, transparent);
-  box-shadow: var(--shadow-soft), 0 0 0 1px color-mix(in oklab, var(--champagne) 88%, transparent),
-    0 0 0 1px color-mix(in oklab, var(--champagne-light) 52%, transparent);
+  /* Champagne luminoso propio de la Home: más claro, cálido y con variación tonal fina */
+  --champagne-frame: color-mix(in oklab, var(--champagne) 76%, oklch(0.96 0.075 78) 24%);
+  --champagne-frame-light: color-mix(in oklab, var(--champagne-light) 72%, white 28%);
+  border-color: color-mix(in oklab, var(--champagne-frame) 94%, transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--champagne-frame) 90%, transparent),
+    0 0 0 1px color-mix(in oklab, var(--champagne-frame-light) 58%, transparent);
   overflow: hidden;
 }
 
@@ -236,15 +240,15 @@
   width: 4.5rem;
   height: 1px;
   pointer-events: none;
-  background: linear-gradient(90deg, transparent, var(--ivory), transparent);
+  background: linear-gradient(90deg, transparent, var(--champagne-frame-light), var(--ivory), transparent);
   opacity: 0;
   animation: guided-search-glint 14s ease-in-out infinite;
 }
 
 @keyframes guided-search-glint {
   0%, 72%, 100% { opacity: 0; transform: translateX(-5rem); }
-  76% { opacity: 0.18; }
-  83% { opacity: 0.62; }
+  76% { opacity: 0.2; }
+  83% { opacity: 0.66; }
   90% { opacity: 0; transform: translateX(calc(760px - 1rem)); }
 }
 
