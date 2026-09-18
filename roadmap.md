@@ -38,3 +38,4 @@
 - [x] Alinear y estilizar la búsqueda directa, y dirigir el relieve visible de ambos buscadores hacia abajo y a la derecha.
 - [x] Unificar formas y botones de ambos buscadores, afinar la barra directa y redistribuir el relieve de la búsqueda guiada.
 - [x] Unificar el H1 principal de Directorio, Guía, Agenda, Blog y Nuestra Mirada sin modificar la Home.
+- [x] Rediseñar exclusivamente Nuestra Mirada según la referencia editorial, con la fotografía mediterránea proporcionada.
