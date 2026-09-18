@@ -36,3 +36,4 @@
 - [x] Reequilibrar la jerarquía: búsqueda directa más estrecha y compacta, con elevación diferenciada en ambos buscadores.
 - [x] Afinar el punto intermedio de la búsqueda directa y hacer perceptible la elevación CSS de ambos buscadores.
 - [x] Alinear y estilizar la búsqueda directa, y dirigir el relieve visible de ambos buscadores hacia abajo y a la derecha.
+- [x] Unificar formas y botones de ambos buscadores, afinar la barra directa y redistribuir el relieve de la búsqueda guiada.
