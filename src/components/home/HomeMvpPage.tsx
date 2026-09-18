@@ -150,7 +150,7 @@ function Hero() {
               Medicina tradicional · Bienestar · Desarrollo personal
             </span>
           </h1>
-          <p className="mb-2.5 max-w-md font-display text-[0.8rem] italic leading-relaxed text-muted-foreground md:text-[0.86rem]">
+          <p className="mb-2.5 max-w-md font-display text-[0.8rem] italic leading-relaxed text-clay md:text-[0.86rem]">
             Toda persona merece sentirse escuchada, comprendida y acompañada.
           </p>
           <p className="mb-1.5 max-w-md text-[0.75rem] leading-relaxed text-muted-foreground md:text-[0.8rem]">
@@ -172,7 +172,7 @@ function BuscadorIA({ isMobile }: { isMobile: boolean }) {
       <div className="relative px-4 pb-7 pt-5 sm:px-6 md:px-10 md:pb-8 md:pt-6">
         <div className="relative">
           <div className="mx-auto mb-4 max-w-[720px] text-center">
-            <h2 className="mb-2 font-display text-xl font-medium md:text-[1.45rem]">
+            <h2 className="mb-2 font-display text-xl font-medium text-clay md:text-[1.45rem]">
               ¿Cómo te sientes hoy?
             </h2>
             <p className="text-[0.78rem] leading-relaxed text-muted-foreground md:text-sm">
@@ -183,10 +183,10 @@ function BuscadorIA({ isMobile }: { isMobile: boolean }) {
           </div>
 
           <div className="mx-auto max-w-[760px]">
-            <div className="guided-search-frame relative rounded-xl border bg-card/95 p-4 shadow-[var(--shadow-soft)] md:px-5 md:py-4">
+            <div className="guided-search-frame relative rounded-xl border bg-card/95 p-4 shadow-[var(--shadow-soft)] md:px-5 md:py-5">
               <textarea
                 placeholder="Escribe cómo te sientes, qué necesitas o qué te gustaría mejorar..."
-                className="h-auto min-h-[62px] w-full resize-none bg-transparent text-sm leading-relaxed text-foreground placeholder:text-muted-foreground focus:outline-none md:min-h-[66px]"
+                className="h-auto min-h-[73px] w-full resize-none bg-transparent text-sm leading-relaxed text-foreground placeholder:text-muted-foreground focus:outline-none md:min-h-[79px]"
               />
               <div className="mt-1 flex justify-end md:mt-2">
                 <Button type="button" className="px-6">
