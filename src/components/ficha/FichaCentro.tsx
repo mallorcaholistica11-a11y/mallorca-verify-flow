@@ -240,6 +240,9 @@ function HeroCentro({
                 </a>
               )}
 
+            </div>
+          )}
+
           {perfilInformativo && <NotaPerfilInformativo tipo="centro" />}
         </div>
       </div>
