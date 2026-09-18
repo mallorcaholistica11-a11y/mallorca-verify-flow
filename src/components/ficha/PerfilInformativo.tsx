@@ -1,5 +1,3 @@
-import { Button } from "@/components/ui/button";
-
 export type TipoPerfilInformativo = "profesional" | "centro";
 
 export function inicialesDe(nombre: string) {
@@ -39,58 +37,54 @@ export function PlaceholderInformativo({
   );
 }
 
-export function BloquePerfilInformativo({ tipo }: { tipo: TipoPerfilInformativo }) {
+// Nota editorial discreta integrada dentro de la zona blanca del hero,
+// debajo de la información principal del profesional o centro.
+export function NotaPerfilInformativo({ tipo }: { tipo: TipoPerfilInformativo }) {
   const esProfesional = tipo === "profesional";
 
   return (
-    <section
-      aria-labelledby={`perfil-informativo-${tipo}`}
-      style={{
-        background: "var(--cream)",
-        borderBottom: "1px solid var(--border)",
-      }}
-    >
+    <div style={{ marginTop: 22 }}>
       <div
         style={{
-          maxWidth: 1080,
-          margin: "0 auto",
-          padding: "22px 24px",
-          display: "flex",
-          flexWrap: "wrap",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: "16px 28px",
+          fontFamily: "var(--font-heading)",
+          fontSize: 12.5,
+          fontWeight: 500,
+          color: "var(--sage-dark)",
         }}
       >
-        <div style={{ flex: "1 1 600px", maxWidth: 760 }}>
-          <h2
-            id={`perfil-informativo-${tipo}`}
-            style={{
-              margin: "0 0 6px",
-              color: "var(--sage-dark)",
-              fontFamily: "var(--font-heading)",
-              fontSize: 18,
-              fontWeight: 500,
-              lineHeight: 1.25,
-            }}
-          >
-            Perfil informativo
-          </h2>
-          <p style={{ margin: 0, fontSize: 13, lineHeight: 1.6, color: "var(--foreground)" }}>
-            {esProfesional
-              ? "Esta información profesional ha sido recopilada por Mallorca Holística a partir de fuentes públicamente disponibles."
-              : "Esta información ha sido recopilada por Mallorca Holística a partir de fuentes públicamente disponibles."}
-          </p>
-          <p style={{ margin: "4px 0 0", fontSize: 13, lineHeight: 1.6, color: "var(--foreground)" }}>
-            {esProfesional
-              ? "¿Eres tú? Reclama este perfil para revisarlo, actualizarlo y empezar a gestionarlo."
-              : "¿Representas este espacio? Reclama este perfil para revisarlo, actualizarlo y empezar a gestionarlo."}
-          </p>
-        </div>
-        <Button type="button" variant="outline" className="shrink-0 border-primary bg-card text-foreground shadow-none">
-          {esProfesional ? "Reclamar mi perfil" : "Reclamar este perfil"}
-        </Button>
+        Perfil informativo
       </div>
-    </section>
+      <p
+        style={{
+          margin: "3px 0 0",
+          fontSize: 12,
+          lineHeight: 1.55,
+          color: "var(--muted-foreground)",
+        }}
+      >
+        Esta información procede de fuentes públicamente disponibles.
+      </p>
+      <button
+        type="button"
+        style={{
+          display: "block",
+          background: "none",
+          border: "none",
+          padding: 0,
+          marginTop: 3,
+          fontFamily: "inherit",
+          fontSize: 12,
+          lineHeight: 1.55,
+          color: "var(--sage-dark)",
+          cursor: "pointer",
+          textDecoration: "underline",
+          textUnderlineOffset: 2,
+        }}
+      >
+        {esProfesional
+          ? "¿Eres tú? Reclama tu perfil →"
+          : "¿Representas este espacio? Reclama este perfil →"}
+      </button>
+    </div>
   );
 }
