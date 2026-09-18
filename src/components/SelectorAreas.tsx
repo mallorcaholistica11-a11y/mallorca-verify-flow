@@ -4,7 +4,7 @@ import { MAX_AREAS_ACTIVIDAD, areasPorLetra, buscarAreas } from "@/data/areas";
 
 /**
  * Selector compartido de Áreas de Acompañamiento.
- * Fuente única: src/data/areas.ts (Catálogo Oficial · 115 áreas).
+ * Fuente única: src/data/areas.ts (Catálogo Maestro · 154 áreas).
  * Patrón UX común: buscador + catálogo A–Z plegable (cerrado por defecto),
  * en varias columnas con lectura vertical. Las categorías internas del
  * catálogo se conservan en los datos pero NO se exponen al usuario.
