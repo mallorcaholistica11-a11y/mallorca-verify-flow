@@ -75,6 +75,10 @@ export const PERFILES: Resultado[] = [
     areas: ["Dolor cervical", "Dolor lumbar", "Postura corporal"],
     verificado: true,
     slug: "andres-lopez",
+  },
+  {
+    tipo: "profesional",
+    nombre: "Núria Camps",
     identidad: "Terapeuta energética",
     ubicacion: "Inca",
     especialidades: ["Reiki", "Terapia Energética"],
