@@ -104,7 +104,7 @@ export function HomeMvpPage() {
             className="pointer-events-none absolute inset-x-0 top-0 h-[520px] sm:h-[550px] md:h-[580px]"
             style={{
               background:
-                "linear-gradient(90deg, var(--background) 0%, color-mix(in oklab, var(--background) 98%, transparent) 20%, color-mix(in oklab, var(--background) 88%, transparent) 39%, color-mix(in oklab, var(--background) 45%, transparent) 62%, color-mix(in oklab, var(--background) 8%, transparent) 84%), linear-gradient(180deg, color-mix(in oklab, var(--background) 3%, transparent) 0%, color-mix(in oklab, var(--background) 10%, transparent) 48%, color-mix(in oklab, var(--cream) 72%, transparent) 70%, var(--cream) 91%, var(--background) 100%)",
+                "linear-gradient(90deg, var(--background) 0%, var(--background) 26%, color-mix(in oklab, var(--background) 86%, transparent) 42%, color-mix(in oklab, var(--background) 45%, transparent) 62%, color-mix(in oklab, var(--background) 8%, transparent) 84%), linear-gradient(180deg, color-mix(in oklab, var(--background) 3%, transparent) 0%, color-mix(in oklab, var(--background) 10%, transparent) 45%, color-mix(in oklab, var(--cream) 80%, transparent) 62%, var(--cream) 78%, var(--background) 100%)",
             }}
           />
           <div className="relative">
