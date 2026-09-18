@@ -144,13 +144,13 @@ function Hero() {
             <span className="h-px w-8 bg-sage-light" />
             Mallorca Holística
           </div>
-          <h1 className="mb-4 max-w-[550px] font-display text-[1.55rem] font-normal leading-[1.13] text-charcoal sm:text-[1.75rem] md:max-w-[660px] md:text-[1.55rem] md:leading-[1.12] lg:text-[1.62rem]">
+          <h1 className="mb-4 max-w-[550px] font-display text-[1.55rem] font-normal leading-[1.13] text-sage-dark sm:text-[1.75rem] md:max-w-[660px] md:text-[1.55rem] md:leading-[1.12] lg:text-[1.62rem]">
             <span className="block md:whitespace-nowrap">Salud integrativa · Terapias complementarias ·</span>
             <span className="mt-1.5 block text-sage-dark md:whitespace-nowrap">
               Medicina tradicional · Bienestar · Desarrollo personal
             </span>
           </h1>
-          <p className="mb-2.5 max-w-md font-display text-[0.8rem] italic leading-relaxed text-clay md:text-[0.86rem]">
+          <p className="mb-2.5 max-w-md font-display text-[0.8rem] italic leading-relaxed text-terracotta-accent md:text-[0.86rem]">
             Toda persona merece sentirse escuchada, comprendida y acompañada.
           </p>
           <p className="mb-1.5 max-w-md text-[0.75rem] leading-relaxed text-muted-foreground md:text-[0.8rem]">
@@ -172,7 +172,7 @@ function BuscadorIA({ isMobile }: { isMobile: boolean }) {
       <div className="relative px-4 pb-7 pt-5 sm:px-6 md:px-10 md:pb-8 md:pt-6">
         <div className="relative">
           <div className="mx-auto mb-4 max-w-[720px] text-center">
-            <h2 className="mb-2 font-display text-xl font-medium text-clay md:text-[1.45rem]">
+            <h2 className="mb-2 font-display text-xl font-medium text-terracotta-accent md:text-[1.45rem]">
               ¿Cómo te sientes hoy?
             </h2>
             <p className="text-[0.78rem] leading-relaxed text-muted-foreground md:text-sm">
@@ -183,10 +183,10 @@ function BuscadorIA({ isMobile }: { isMobile: boolean }) {
           </div>
 
           <div className="mx-auto max-w-[760px]">
-            <div className="guided-search-frame relative rounded-xl border bg-card/95 p-4 shadow-[var(--shadow-soft)] md:px-5 md:py-5">
+            <div className="guided-search-frame relative rounded-xl border bg-card/95 p-5 shadow-[var(--shadow-soft)] md:px-5 md:py-7">
               <textarea
                 placeholder="Escribe cómo te sientes, qué necesitas o qué te gustaría mejorar..."
-                className="h-auto min-h-[73px] w-full resize-none bg-transparent text-sm leading-relaxed text-foreground placeholder:text-muted-foreground focus:outline-none md:min-h-[79px]"
+                className="h-auto min-h-[92px] w-full resize-none bg-transparent text-sm leading-relaxed text-foreground placeholder:text-muted-foreground focus:outline-none md:min-h-[104px]"
               />
               <div className="mt-1 flex justify-end md:mt-2">
                 <Button type="button" className="px-6">
@@ -210,7 +210,7 @@ function BusquedaClasica({ isMobile }: { isMobile: boolean }) {
   return (
     <section className="mx-auto max-w-[980px] pb-8 pt-5 md:pb-9 md:pt-6">
       <Seccion>
-        <h2 className="mb-1 font-display text-lg font-medium">¿Ya sabes lo que buscas?</h2>
+        <h2 className="mb-1 font-display text-lg font-medium text-sage-dark">¿Ya sabes lo que buscas?</h2>
         <p className="mb-3 text-[0.8rem] text-muted-foreground">
           Encuentra directamente una práctica, un profesional o una ubicación.
         </p>
@@ -253,7 +253,7 @@ function Confianza() {
 
       <div className="relative z-20 md:ml-[26%] lg:ml-[30%]">
         <div className="mb-5 max-w-2xl">
-          <h2 className="mb-2 font-display text-xl font-normal leading-snug md:text-[1.45rem]">
+          <h2 className="mb-2 font-display text-xl font-normal leading-snug text-sage-dark md:text-[1.45rem]">
             La confianza también forma parte del cuidado.
           </h2>
           <p className="text-[0.8rem] leading-relaxed text-muted-foreground md:text-[0.84rem]">
@@ -299,7 +299,7 @@ function Profesionales({ isMobile, isTablet }: { isMobile: boolean; isTablet: bo
     <section className="pb-8 pt-9 md:pb-9 md:pt-10">
       <div className="mb-5 grid grid-cols-[minmax(0,1fr)_auto] items-end gap-4">
         <div className="min-w-0">
-          <h2 className="mb-1 font-display text-xl font-normal md:text-[1.45rem]">
+          <h2 className="mb-1 font-display text-xl font-normal text-sage-dark md:text-[1.45rem]">
             Personas que acompañan a personas.
           </h2>
           <p className="text-[0.8rem] text-muted-foreground">
@@ -338,7 +338,7 @@ function Profesionales({ isMobile, isTablet }: { isMobile: boolean; isTablet: bo
 function Descubre({ isMobile }: { isMobile: boolean }) {
   return (
     <section className="pb-7 pt-8 md:pb-8 md:pt-9">
-      <h2 className="mb-5 text-center font-display text-xl font-normal md:text-[1.45rem]">
+      <h2 className="mb-5 text-center font-display text-xl font-normal text-sage-dark md:text-[1.45rem]">
         Descubre también
       </h2>
       <div className={`grid gap-3.5 ${isMobile ? "grid-cols-1" : "grid-cols-3"}`}>
