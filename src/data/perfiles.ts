@@ -10,6 +10,9 @@ export type ResultadoProfesional = {
   areas: string[];
   verificado: boolean;
   slug: string;
+  /** Prueba de integración: perfil informativo con placeholder de iniciales. */
+  perfilInformativo?: boolean;
+  iniciales?: string;
 };
 
 export type ResultadoOrganizacion = {
@@ -21,6 +24,9 @@ export type ResultadoOrganizacion = {
   areas: string[];
   verificado: boolean;
   slug: string;
+  /** Prueba de integración: perfil informativo con placeholder de iniciales. */
+  perfilInformativo?: boolean;
+  iniciales?: string;
 };
 
 export type Resultado = ResultadoProfesional | ResultadoOrganizacion;
@@ -85,6 +91,32 @@ export const PERFILES: Resultado[] = [
     areas: ["Fatiga y cansancio persistente", "Estrés", "Equilibrio cuerpo-mente"],
     verificado: false,
     slug: "nuria-camps",
+  },
+  // Prueba de integración: perfiles informativos (sin sello de verificado,
+  // con placeholder de iniciales y ficha propia de prueba).
+  {
+    tipo: "profesional",
+    nombre: "Elena Rossell",
+    identidad: "Naturópata",
+    ubicacion: "Inca",
+    especialidades: ["Naturopatía", "Nutrición / Nutrición Integrativa", "Fitoterapia"],
+    areas: ["Bienestar integral", "Fatiga y cansancio persistente", "Estrés"],
+    verificado: false,
+    slug: "elena-rossell",
+    perfilInformativo: true,
+    iniciales: "ER",
+  },
+  {
+    tipo: "organizacion",
+    nombre: "Espai Bellver",
+    identidad: "Espacio de bienestar y actividades",
+    ubicacion: "Palma",
+    especialidades: ["Yoga", "Meditación", "Respiración"],
+    areas: ["Relajación", "Estrés", "Bienestar integral"],
+    verificado: false,
+    slug: "espai-bellver",
+    perfilInformativo: true,
+    iniciales: "EB",
   },
 ];
 
