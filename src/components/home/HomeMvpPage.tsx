@@ -183,12 +183,12 @@ function BuscadorIA({ isMobile }: { isMobile: boolean }) {
           </div>
 
           <div className="mx-auto max-w-[760px]">
-            <div className="guided-search-frame relative rounded-xl border bg-card/95 p-5 shadow-[var(--shadow-soft)] md:px-5 md:py-7">
+            <div className="guided-search-frame relative rounded-xl border bg-card/95 p-5 md:px-5 md:pt-7 md:pb-8">
               <textarea
                 placeholder="Escribe cómo te sientes, qué necesitas o qué te gustaría mejorar..."
-                className="h-auto min-h-[92px] w-full resize-none bg-transparent text-sm leading-relaxed text-foreground placeholder:text-muted-foreground focus:outline-none md:min-h-[104px]"
+                className="h-auto min-h-[104px] w-full resize-none bg-transparent text-sm leading-relaxed text-foreground placeholder:text-muted-foreground focus:outline-none md:min-h-[118px]"
               />
-              <div className="mt-1 flex justify-end md:mt-2">
+              <div className="mt-2 flex justify-end md:mt-3">
                 <Button type="button" className="px-6">
                   Buscar
                 </Button>
