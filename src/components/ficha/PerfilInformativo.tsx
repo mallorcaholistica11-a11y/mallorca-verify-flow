@@ -1,3 +1,5 @@
+import { Seccion } from "@/components/ficha/primitives";
+
 export type TipoPerfilInformativo = "profesional" | "centro";
 
 export function inicialesDe(nombre: string) {
@@ -37,54 +39,34 @@ export function PlaceholderInformativo({
   );
 }
 
-// Nota editorial discreta integrada dentro de la zona blanca del hero,
-// debajo de la información principal del profesional o centro.
-export function NotaPerfilInformativo({ tipo }: { tipo: TipoPerfilInformativo }) {
+// Sección discreta al final de la columna lateral de las fichas de prueba con
+// estado «Perfil informativo». Usa el mismo lenguaje visual que las demás
+// secciones de esa columna (Contacto, Web y redes sociales), sin tarjeta,
+// fondo ni botón: el CTA es un enlace textual como los existentes.
+export function SeccionPerfilInformativo({ tipo }: { tipo: TipoPerfilInformativo }) {
   const esProfesional = tipo === "profesional";
 
   return (
-    <div style={{ marginTop: 22 }}>
-      <div
-        style={{
-          fontFamily: "var(--font-heading)",
-          fontSize: 12.5,
-          fontWeight: 500,
-          color: "var(--sage-dark)",
-        }}
-      >
-        Perfil informativo
+    <Seccion titulo="Perfil informativo">
+      <div style={{ fontSize: 13, lineHeight: 1.6, color: "var(--muted-foreground)" }}>
+        Hemos reunido esta información a partir de fuentes públicamente disponibles.
       </div>
-      <p
+      <div style={{ fontSize: 13, lineHeight: 1.6, marginTop: 10 }}>
+        {esProfesional ? "¿Eres tú?" : "¿Representas este espacio?"}
+      </div>
+      <a
+        href="#"
         style={{
-          margin: "3px 0 0",
-          fontSize: 12,
-          lineHeight: 1.55,
-          color: "var(--muted-foreground)",
-        }}
-      >
-        Esta información procede de fuentes públicamente disponibles.
-      </p>
-      <button
-        type="button"
-        style={{
-          display: "block",
-          background: "none",
-          border: "none",
-          padding: 0,
-          marginTop: 3,
-          fontFamily: "inherit",
-          fontSize: 12,
-          lineHeight: 1.55,
-          color: "var(--sage-dark)",
-          cursor: "pointer",
+          display: "inline-block",
+          marginTop: 4,
+          fontSize: 13,
+          color: "var(--foreground)",
           textDecoration: "underline",
           textUnderlineOffset: 2,
         }}
       >
-        {esProfesional
-          ? "¿Eres tú? Reclama tu perfil →"
-          : "¿Representas este espacio? Reclama este perfil →"}
-      </button>
-    </div>
+        {esProfesional ? "Reclama tu perfil →" : "Reclama este perfil →"}
+      </a>
+    </Seccion>
   );
 }
