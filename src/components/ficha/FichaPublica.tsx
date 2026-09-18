@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { useMobile } from "@/components/ficha/useMobile";
 import { EnlaceWebPublica } from "@/components/ficha/EnlaceWebPublica";
 import {
-  BloquePerfilInformativo,
+  NotaPerfilInformativo,
   PlaceholderInformativo,
 } from "@/components/ficha/PerfilInformativo";
 import { telHref, telefonoVisible, whatsappHref } from "@/lib/telefono";
@@ -61,8 +61,6 @@ export function FichaPublica({
         plan={plan}
         perfilInformativo={perfilInformativo}
       />
-
-      {perfilInformativo && <BloquePerfilInformativo tipo="profesional" />}
 
       <div
         style={{
@@ -213,9 +211,9 @@ function Hero({
                   <span aria-hidden="true">☎</span> {telefonoVisible(data.contacto)}
                 </a>
               )}
-
-            </div>
           )}
+
+          {perfilInformativo && <NotaPerfilInformativo tipo="profesional" />}
         </div>
       </div>
     </header>
