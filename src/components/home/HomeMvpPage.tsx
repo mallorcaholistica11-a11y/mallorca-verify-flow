@@ -7,7 +7,7 @@ import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
 import { BuscadorSimple } from "@/components/BuscadorSimple";
 import { Button } from "@/components/ui/button";
-import { IMG, retratoDe } from "@/data/imagenes";
+import { retratoDe } from "@/data/imagenes";
 
 
 const CHIPS = [
