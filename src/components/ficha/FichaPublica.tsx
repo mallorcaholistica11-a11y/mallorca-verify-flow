@@ -2,8 +2,8 @@ import { useMemo, useState } from "react";
 import { useMobile } from "@/components/ficha/useMobile";
 import { EnlaceWebPublica } from "@/components/ficha/EnlaceWebPublica";
 import {
-  NotaPerfilInformativo,
   PlaceholderInformativo,
+  SeccionPerfilInformativo,
 } from "@/components/ficha/PerfilInformativo";
 import { telHref, telefonoVisible, whatsappHref } from "@/lib/telefono";
 
@@ -43,7 +43,7 @@ export function FichaPublica({
   const anios = useMemo(() => aniosAcompanando(data.anioInicioActividad), [data.anioInicioActividad]);
 
   const principal = <ColumnaPrincipal data={data} plan={plan} />;
-  const lateral = <BarraLateral data={data} />;
+  const lateral = <BarraLateral data={data} perfilInformativo={perfilInformativo} />;
 
   return (
     <div
@@ -215,7 +215,6 @@ function Hero({
             </div>
           )}
 
-          {perfilInformativo && <NotaPerfilInformativo tipo="profesional" />}
         </div>
       </div>
     </header>
@@ -312,7 +311,13 @@ function ColumnaPrincipal({ data, plan }: { data: FichaPublicaData; plan: PlanFi
   );
 }
 
-function BarraLateral({ data }: { data: FichaPublicaData }) {
+function BarraLateral({
+  data,
+  perfilInformativo,
+}: {
+  data: FichaPublicaData;
+  perfilInformativo?: boolean;
+}) {
   const ubicaciones = data.ubicaciones ?? [];
   const contacto = data.contacto;
   const redes = contacto?.redes ?? [];
@@ -411,6 +416,8 @@ function BarraLateral({ data }: { data: FichaPublicaData }) {
           ))}
         </div>
       </Seccion>
+
+      {perfilInformativo && <SeccionPerfilInformativo tipo="profesional" />}
     </>
   );
 }
