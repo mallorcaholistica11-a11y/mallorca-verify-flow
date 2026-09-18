@@ -215,6 +215,38 @@
   display: none;
 }
 
+.guided-search-frame {
+  border-color: var(--champagne);
+  box-shadow: var(--shadow-soft), 0 0 0 1px color-mix(in oklab, var(--champagne-light) 34%, transparent);
+  overflow: hidden;
+}
+
+.guided-search-frame::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 4.5rem;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--ivory), transparent);
+  opacity: 0;
+  animation: guided-search-glint 14s ease-in-out infinite;
+}
+
+@keyframes guided-search-glint {
+  0%, 72%, 100% { opacity: 0; transform: translateX(-5rem); }
+  76% { opacity: 0.18; }
+  83% { opacity: 0.62; }
+  90% { opacity: 0; transform: translateX(calc(760px - 1rem)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .guided-search-frame::after {
+    animation: none;
+  }
+}
+
 /* Normalización local: Profesional · Plan Presencia. */
 .presencia-profesional-compact {
   max-width: 780px;
