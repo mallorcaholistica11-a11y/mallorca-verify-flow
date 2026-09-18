@@ -140,7 +140,7 @@ function Hero() {
     <section className="relative min-h-[350px] px-6 py-7 sm:min-h-[360px] sm:px-10 sm:py-8 lg:min-h-[370px] lg:px-14 lg:py-9">
       <div className="relative flex min-h-[296px] items-center sm:min-h-[296px] lg:min-h-[298px]">
         <div className="max-w-[560px] min-w-0 md:max-w-[680px]">
-          <div className="mb-3 flex items-center gap-3 text-[0.6rem] font-medium uppercase tracking-[0.18em] text-sage-dark">
+          <div className="mb-6 flex items-center gap-3 text-[0.6rem] font-medium uppercase tracking-[0.18em] text-sage-dark">
             <span className="h-px w-8 bg-sage-light" />
             Mallorca Holística
           </div>

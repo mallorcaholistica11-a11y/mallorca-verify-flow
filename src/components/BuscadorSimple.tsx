@@ -141,9 +141,10 @@ export function BuscadorSimple({
               alignItems: "center",
               position: "relative",
               background: "var(--card)",
-              border: "1px solid var(--border)",
+              border: "1px solid color-mix(in oklab, var(--sage) 55%, var(--border))",
               borderRadius: isMobile ? 24 : 999,
-              boxShadow: "var(--shadow-soft)",
+              boxShadow:
+                "var(--shadow-soft), 0 1px 5px color-mix(in oklab, var(--sage) 8%, transparent)",
               padding: isMobile ? "10px 12px" : "6px 6px 6px 8px",
               gap: isMobile ? 4 : 0,
             }
