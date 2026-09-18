@@ -63,7 +63,7 @@ function GuiaPracticas() {
         {/* Hero */}
         <section style={{ padding: isMobile ? "16px 0 12px" : "20px 0 14px" }}>
           <div style={{ maxWidth: 720 }}>
-            <h1 style={{ fontSize: isMobile ? 22 : 26, margin: "0 0 8px 0", lineHeight: 1.25 }}>
+            <h1 className="internal-page-title" style={{ margin: "0 0 8px 0" }}>
               Guía de Prácticas
             </h1>
             <p style={{ fontSize: 14, lineHeight: 1.65, margin: 0 }}>

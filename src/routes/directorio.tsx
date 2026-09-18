@@ -150,7 +150,7 @@ function Hero({ isMobile }: { isMobile: boolean }) {
     <section style={{ padding: isMobile ? "18px 0 8px" : "20px 0 10px" }}>
       <div style={{ maxWidth: 860 }}>
         <div style={{ fontSize: 10, letterSpacing: 2, color: "var(--muted-foreground)", marginBottom: 5 }}>DIRECTORIO</div>
-        <h1 style={{ fontSize: isMobile ? 21 : 24, lineHeight: 1.2, margin: "0 0 6px 0", fontWeight: 600 }}>
+        <h1 className="internal-page-title" style={{ margin: "0 0 6px 0" }}>
           Encuentra el acompañamiento que necesitas.
         </h1>
         <p style={{ fontSize: 12.5, lineHeight: 1.55, color: "var(--foreground)", margin: 0 }}>

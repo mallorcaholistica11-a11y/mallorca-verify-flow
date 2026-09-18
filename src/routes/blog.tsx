@@ -28,15 +28,7 @@ function Blog() {
           <div style={{ fontSize: 11, letterSpacing: 2, color: "var(--muted-foreground)", marginBottom: 10 }}>
             BLOG
           </div>
-          <h1
-            style={{
-              fontSize: isMobile ? 22 : 26,
-              lineHeight: 1.35,
-              margin: "0 0 14px 0",
-              fontWeight: 600,
-              fontFamily: "var(--font-display)",
-            }}
-          >
+          <h1 className="internal-page-title" style={{ margin: "0 0 14px 0" }}>
             Un espacio para compartir conocimiento y nuevas miradas
           </h1>
           <p style={{ fontSize: 13, lineHeight: 1.8, color: "var(--foreground)", margin: 0 }}>
