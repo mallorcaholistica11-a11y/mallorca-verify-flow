@@ -214,7 +214,7 @@ function BusquedaClasica({ isMobile }: { isMobile: boolean }) {
         <p className="mb-3 text-[0.8rem] text-muted-foreground">
           Encuentra directamente una práctica, un profesional o una ubicación.
         </p>
-        <div className="mx-auto max-w-[650px]">
+        <div className="max-w-[850px]">
           <BuscadorSimple
             isMobile={isMobile}
             unificado
