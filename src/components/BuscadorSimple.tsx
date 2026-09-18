@@ -148,14 +148,14 @@ export function BuscadorSimple({
               alignItems: "center",
               position: "relative",
               background: presenciaInicio
-                ? "color-mix(in oklab, var(--card) 88%, var(--cream) 12%)"
+                ? "color-mix(in oklab, var(--cream) 72%, var(--card) 28%)"
                 : "var(--card)",
               border: presenciaInicio
                 ? "1px solid color-mix(in oklab, var(--sage) 72%, var(--border))"
                 : "1px solid color-mix(in oklab, var(--sage) 55%, var(--border))",
               borderRadius: isMobile ? (presenciaInicio ? 28 : 24) : 999,
               boxShadow: presenciaInicio
-                ? "0 10px 30px -22px color-mix(in oklab, var(--sage-dark) 24%, transparent)"
+                ? "inset 0 1px 0 color-mix(in oklab, var(--ivory) 88%, transparent), 0 2px 5px color-mix(in oklab, var(--sage-dark) 7%, transparent), 0 18px 38px -24px color-mix(in oklab, var(--sage-dark) 30%, transparent)"
                 : "var(--shadow-soft), 0 1px 5px color-mix(in oklab, var(--sage) 8%, transparent)",
               padding: isMobile
                 ? presenciaInicio
@@ -164,7 +164,7 @@ export function BuscadorSimple({
                 : presenciaInicio
                   ? "9px 9px 9px 14px"
                   : "6px 6px 6px 8px",
-              gap: isMobile ? 4 : 0,
+              gap: presenciaInicio ? (isMobile ? 8 : 7) : isMobile ? 4 : 0,
             }
           : {
               display: "grid",
@@ -181,7 +181,13 @@ export function BuscadorSimple({
           display: "flex",
           alignItems: "center",
           gap: 8,
-          paddingLeft: unificado ? 10 : 0,
+          paddingLeft: unificado ? (presenciaInicio ? 14 : 10) : 0,
+          paddingRight: presenciaInicio ? 10 : 0,
+          background: presenciaInicio ? "color-mix(in oklab, var(--card) 95%, var(--ivory) 5%)" : "transparent",
+          borderRadius: presenciaInicio ? (isMobile ? 18 : 999) : 0,
+          boxShadow: presenciaInicio
+            ? "inset 0 1px 0 color-mix(in oklab, var(--ivory) 96%, transparent), 0 3px 10px -7px color-mix(in oklab, var(--sage-dark) 24%, transparent)"
+            : "none",
         }}
       >
         {unificado && <Leaf size={16} strokeWidth={1.75} style={{ color: "var(--primary)", flexShrink: 0 }} aria-hidden />}
@@ -322,11 +328,17 @@ export function BuscadorSimple({
                 alignItems: "center",
                 gap: 8,
                 minWidth: 0,
-                paddingLeft: isMobile ? 10 : 16,
-                borderLeft: isMobile ? "none" : "1px solid var(--border)",
-                borderTop: isMobile ? "1px solid var(--border)" : "none",
-                paddingTop: isMobile ? 4 : 0,
-                marginLeft: isMobile ? 0 : 12,
+                paddingLeft: presenciaInicio ? 14 : isMobile ? 10 : 16,
+                paddingRight: presenciaInicio ? 10 : 0,
+                borderLeft: presenciaInicio || isMobile ? "none" : "1px solid var(--border)",
+                borderTop: presenciaInicio || !isMobile ? "none" : "1px solid var(--border)",
+                paddingTop: presenciaInicio ? 0 : isMobile ? 4 : 0,
+                marginLeft: presenciaInicio ? 0 : isMobile ? 0 : 12,
+                background: presenciaInicio ? "color-mix(in oklab, var(--card) 95%, var(--ivory) 5%)" : "transparent",
+                borderRadius: presenciaInicio ? (isMobile ? 18 : 999) : 0,
+                boxShadow: presenciaInicio
+                  ? "inset 0 1px 0 color-mix(in oklab, var(--ivory) 96%, transparent), 0 3px 10px -7px color-mix(in oklab, var(--sage-dark) 24%, transparent)"
+                  : "none",
               }
             : { minWidth: 0 }
         }
@@ -374,6 +386,7 @@ export function BuscadorSimple({
                   ...botonUnificadoStyle,
                   padding: isMobile ? "14px 28px" : "16px 30px",
                   minHeight: isMobile ? 48 : 52,
+                   boxShadow: "inset 0 1px 0 color-mix(in oklab, var(--primary-foreground) 22%, transparent), 0 5px 12px -8px color-mix(in oklab, var(--sage-dark) 55%, transparent)",
                 }
               : botonUnificadoStyle
             : botonStyle

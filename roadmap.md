@@ -32,3 +32,4 @@
 - [ ] Pendiente de configuración: envío automático del email informativo antes del primer cobro (fecha e importe, continuar o cancelar).
 - [x] Auditoría final de coherencia y UX: actividades, FAQs, invitaciones Founder, Plan Presencia, Mi Suscripción, terminología, navegación, autoguardado y comprobaciones finales.
 - [x] Trasladar a Inicio únicamente el almendro atmosférico y el perfil champán de la búsqueda guiada desde la referencia visual.
+- [x] Añadir relieve estratificado al buscador directo y elevación delicada a la búsqueda guiada de Inicio.
