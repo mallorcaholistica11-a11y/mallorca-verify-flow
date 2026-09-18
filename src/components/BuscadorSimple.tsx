@@ -50,6 +50,7 @@ export function BuscadorSimple({
   lugarInicial = "",
   onBuscar,
   unificado = false,
+  presenciaInicio = false,
 }: {
   isMobile: boolean;
   valorInicial?: string;
@@ -57,6 +58,8 @@ export function BuscadorSimple({
   onBuscar: (q: string, lugar: string) => void;
   /** Barra única horizontal con iconos (Home). Por defecto, campos independientes (Directorio). */
   unificado?: boolean;
+  /** Tratamiento visual más envolvente, exclusivo de la búsqueda directa de Inicio. */
+  presenciaInicio?: boolean;
 }) {
   const contenedorRef = useRef<HTMLDivElement>(null);
   const [q, setQ] = useState(valorInicial);
@@ -125,7 +128,11 @@ export function BuscadorSimple({
     setPanelActivo(null);
   };
 
-  const estiloInput = unificado ? inputUnificadoStyle : inputStyle;
+  const estiloInput = unificado
+    ? presenciaInicio
+      ? { ...inputUnificadoStyle, padding: isMobile ? "14px 6px" : "16px 8px" }
+      : inputUnificadoStyle
+    : inputStyle;
   const panelPracticasResponsiveStyle = isMobile ? panelMovilStyle(panelPracticasStyle, 104) : panelPracticasStyle;
   const sugerenciasResponsiveStyle = unificado && isMobile ? panelMovilStyle(sugerenciasStyle, 104) : sugerenciasStyle;
   const panelMunicipiosResponsiveStyle = isMobile ? panelMovilStyle(panelMunicipiosStyle, 52) : panelMunicipiosStyle;
@@ -140,12 +147,23 @@ export function BuscadorSimple({
               gridTemplateColumns: isMobile ? "1fr" : "minmax(0,1.4fr) minmax(0,1fr) auto",
               alignItems: "center",
               position: "relative",
-              background: "var(--card)",
-              border: "1px solid color-mix(in oklab, var(--sage) 55%, var(--border))",
-              borderRadius: isMobile ? 24 : 999,
-              boxShadow:
-                "var(--shadow-soft), 0 1px 5px color-mix(in oklab, var(--sage) 8%, transparent)",
-              padding: isMobile ? "10px 12px" : "6px 6px 6px 8px",
+              background: presenciaInicio
+                ? "color-mix(in oklab, var(--card) 88%, var(--cream) 12%)"
+                : "var(--card)",
+              border: presenciaInicio
+                ? "1px solid color-mix(in oklab, var(--sage) 72%, var(--border))"
+                : "1px solid color-mix(in oklab, var(--sage) 55%, var(--border))",
+              borderRadius: isMobile ? (presenciaInicio ? 28 : 24) : 999,
+              boxShadow: presenciaInicio
+                ? "0 10px 30px -22px color-mix(in oklab, var(--sage-dark) 24%, transparent)"
+                : "var(--shadow-soft), 0 1px 5px color-mix(in oklab, var(--sage) 8%, transparent)",
+              padding: isMobile
+                ? presenciaInicio
+                  ? "12px 14px"
+                  : "10px 12px"
+                : presenciaInicio
+                  ? "9px 9px 9px 14px"
+                  : "6px 6px 6px 8px",
               gap: isMobile ? 4 : 0,
             }
           : {
@@ -346,7 +364,21 @@ export function BuscadorSimple({
           </div>
         )}
       </div>
-      <button type="button" onClick={() => lanzar(q)} style={unificado ? botonUnificadoStyle : botonStyle}>
+      <button
+        type="button"
+        onClick={() => lanzar(q)}
+        style={
+          unificado
+            ? presenciaInicio
+              ? {
+                  ...botonUnificadoStyle,
+                  padding: isMobile ? "14px 28px" : "16px 30px",
+                  minHeight: isMobile ? 48 : 52,
+                }
+              : botonUnificadoStyle
+            : botonStyle
+        }
+      >
         Buscar
       </button>
     </div>
