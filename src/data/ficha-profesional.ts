@@ -11,7 +11,7 @@ export const FICHA_PROFESIONAL_ACTUAL: FichaPublicaData = {
   municipio: "Marratxí, Mallorca",
   modalidades: ["Presencial", "Online", "A domicilio"],
   enlaceReserva: "https://example.com/reservas",
-  enlaceAgenda: "/actividades",
+  enlaceAgenda: "/agenda",
   verificado: true,
   sobreMi:
     "Soy terapeuta especializada en Reiki y sanación energética. Acompaño procesos emocionales ayudando a recuperar la calma, el equilibrio y la conexión interior. Cada sesión es un espacio para escucharte y sostenerte en tu proceso.",
