@@ -217,6 +217,7 @@ function BusquedaClasica({ isMobile }: { isMobile: boolean }) {
         <BuscadorSimple
           isMobile={isMobile}
           unificado
+          presenciaInicio
           onBuscar={(q, lugar) => navigate({ to: "/directorio", search: { q, lugar } })}
         />
       </Seccion>
