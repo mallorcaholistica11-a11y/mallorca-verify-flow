@@ -311,7 +311,7 @@ function Hero({ isMobile }: { isMobile: boolean }) {
     <Bloque top={44} bottom={28}>
       <div style={{ maxWidth: 680 }}>
         <div style={{ fontSize: 11, letterSpacing: 2, color: "var(--muted-foreground)", marginBottom: 10 }}>AGENDA</div>
-        <h1 style={{ fontSize: isMobile ? 22 : 26, lineHeight: 1.35, margin: "0 0 14px 0", fontWeight: 600 }}>
+        <h1 className="internal-page-title" style={{ margin: "0 0 14px 0" }}>
           Agenda de Actividades
         </h1>
         <p style={{ fontSize: 13, lineHeight: 1.8, color: "var(--foreground)", margin: 0 }}>
