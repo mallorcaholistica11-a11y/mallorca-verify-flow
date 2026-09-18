@@ -478,6 +478,11 @@ function Resultados({ isMobile, resultados }: { isMobile: boolean; resultados: R
 }
 
 function rutaFicha(r: Resultado) {
+  if (r.perfilInformativo) {
+    return r.tipo === "profesional"
+      ? ({ to: "/perfil-informativo-profesional/$slug", params: { slug: r.slug } } as const)
+      : ({ to: "/perfil-informativo-centro/$slug", params: { slug: r.slug } } as const);
+  }
   if (r.tipo === "profesional") {
     return r.verificado
       ? ({ to: "/profesional/$slug", params: { slug: r.slug } } as const)
@@ -512,7 +517,13 @@ function TarjetaResultado({ r, isMobile }: { r: Resultado; isMobile: boolean }) 
       }}
     >
       {esProfesional ? (
-        <Retrato src={retratoDe(r.nombre)} alt={`Retrato de ${r.nombre}`} tamano={72} />
+        r.iniciales ? (
+          <InicialesCirculo iniciales={r.iniciales} nombre={r.nombre} />
+        ) : (
+          <Retrato src={retratoDe(r.nombre)} alt={`Retrato de ${r.nombre}`} tamano={72} />
+        )
+      ) : r.iniciales ? (
+        <InicialesRectangulo iniciales={r.iniciales} nombre={r.nombre} isMobile={isMobile} />
       ) : (
         <Foto
           src={ambienteDe(r.nombre)}
@@ -565,6 +576,68 @@ function TarjetaResultado({ r, isMobile }: { r: Resultado; isMobile: boolean }) 
         Ver perfil →
       </div>
     </Link>
+  );
+}
+
+/** Placeholder circular con iniciales (perfiles informativos de profesional). */
+function InicialesCirculo({ iniciales, nombre }: { iniciales: string; nombre: string }) {
+  return (
+    <div
+      role="img"
+      aria-label={`Retrato de ${nombre}`}
+      style={{
+        width: 72,
+        height: 72,
+        borderRadius: "50%",
+        background: "var(--cream)",
+        border: "1px solid var(--border)",
+        boxShadow: "var(--shadow-soft)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: 20,
+        fontWeight: 600,
+        letterSpacing: "0.04em",
+        color: "var(--muted-foreground)",
+      }}
+    >
+      {iniciales}
+    </div>
+  );
+}
+
+/** Placeholder rectangular con iniciales (perfiles informativos de centro). */
+function InicialesRectangulo({
+  iniciales,
+  nombre,
+  isMobile,
+}: {
+  iniciales: string;
+  nombre: string;
+  isMobile: boolean;
+}) {
+  return (
+    <div
+      role="img"
+      aria-label={`Espacio de ${nombre}`}
+      style={{
+        width: isMobile ? "100%" : 120,
+        height: 84,
+        borderRadius: 12,
+        background: "var(--cream)",
+        border: "1px solid var(--border)",
+        boxShadow: "var(--shadow-soft)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: 20,
+        fontWeight: 600,
+        letterSpacing: "0.04em",
+        color: "var(--muted-foreground)",
+      }}
+    >
+      {iniciales}
+    </div>
   );
 }
 
