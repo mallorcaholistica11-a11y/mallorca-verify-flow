@@ -84,7 +84,7 @@ export const PERFILES: Resultado[] = [
     especialidades: ["Reiki", "Terapia Energética"],
     areas: ["Fatiga y cansancio persistente", "Estrés", "Equilibrio cuerpo-mente"],
     verificado: false,
-    slug: "marta-ferrer",
+    slug: "nuria-camps",
   },
 ];
 
