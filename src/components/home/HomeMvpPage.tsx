@@ -96,9 +96,26 @@ export function HomeMvpPage() {
         <div className="relative -mx-4 overflow-hidden sm:-mx-6 lg:-mx-8">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-0 h-[520px] bg-[size:auto_70%] bg-[position:100%_12%] bg-no-repeat sm:h-[550px] md:h-[580px] lg:bg-[position:100%_10%]"
-            style={{ backgroundImage: `url(${heroAlmendro.url})` }}
-          />
+            className="pointer-events-none absolute inset-x-0 top-0 h-[520px] sm:h-[550px] md:h-[580px]"
+            style={{
+              WebkitMaskImage:
+                "linear-gradient(90deg, transparent 0%, transparent 34%, black 52%, black 100%)",
+              maskImage:
+                "linear-gradient(90deg, transparent 0%, transparent 34%, black 52%, black 100%)",
+            }}
+          >
+            <div
+              aria-hidden
+              className="h-full w-full bg-[size:auto_70%] bg-[position:100%_12%] bg-no-repeat lg:bg-[position:100%_10%]"
+              style={{
+                backgroundImage: `url(${heroAlmendro.url})`,
+                WebkitMaskImage:
+                  "linear-gradient(180deg, transparent 0%, black 12%, black 64%, transparent 75%)",
+                maskImage:
+                  "linear-gradient(180deg, transparent 0%, black 12%, black 64%, transparent 75%)",
+              }}
+            />
+          </div>
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-0 top-0 h-[520px] sm:h-[550px] md:h-[580px]"
