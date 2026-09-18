@@ -211,6 +211,8 @@ function Hero({
                   <span aria-hidden="true">☎</span> {telefonoVisible(data.contacto)}
                 </a>
               )}
+
+            </div>
           )}
 
           {perfilInformativo && <NotaPerfilInformativo tipo="profesional" />}
