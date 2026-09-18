@@ -34,3 +34,4 @@
 - [x] Trasladar a Inicio únicamente el almendro atmosférico y el perfil champán de la búsqueda guiada desde la referencia visual.
 - [x] Añadir relieve estratificado al buscador directo y elevación delicada a la búsqueda guiada de Inicio.
 - [x] Reequilibrar la jerarquía: búsqueda directa más estrecha y compacta, con elevación diferenciada en ambos buscadores.
+- [x] Afinar el punto intermedio de la búsqueda directa y hacer perceptible la elevación CSS de ambos buscadores.
