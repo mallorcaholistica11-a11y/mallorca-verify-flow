@@ -478,6 +478,11 @@ function Resultados({ isMobile, resultados }: { isMobile: boolean; resultados: R
 }
 
 function rutaFicha(r: Resultado) {
+  if (r.perfilInformativo) {
+    return r.tipo === "profesional"
+      ? ({ to: "/perfil-informativo-profesional/$slug", params: { slug: r.slug } } as const)
+      : ({ to: "/perfil-informativo-centro/$slug", params: { slug: r.slug } } as const);
+  }
   if (r.tipo === "profesional") {
     return r.verificado
       ? ({ to: "/profesional/$slug", params: { slug: r.slug } } as const)
@@ -512,7 +517,13 @@ function TarjetaResultado({ r, isMobile }: { r: Resultado; isMobile: boolean }) 
       }}
     >
       {esProfesional ? (
-        <Retrato src={retratoDe(r.nombre)} alt={`Retrato de ${r.nombre}`} tamano={72} />
+        r.iniciales ? (
+          <InicialesCirculo iniciales={r.iniciales} nombre={r.nombre} />
+        ) : (
+          <Retrato src={retratoDe(r.nombre)} alt={`Retrato de ${r.nombre}`} tamano={72} />
+        )
+      ) : r.iniciales ? (
+        <InicialesRectangulo iniciales={r.iniciales} nombre={r.nombre} isMobile={isMobile} />
       ) : (
         <Foto
           src={ambienteDe(r.nombre)}
