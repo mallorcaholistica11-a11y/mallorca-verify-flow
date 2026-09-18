@@ -20,7 +20,7 @@ export const FICHA_CENTRO_ACTUAL: FichaCentroData & {
   municipio: "Palma, Mallorca",
   modalidades: ["Sesiones individuales", "Talleres", "Cursos y formaciones", "Retiros"],
   fraseDestacada: "Un espacio para cuidarte con calma, en el centro de Palma.",
-  enlaceAgenda: "/actividades",
+  enlaceAgenda: "/agenda",
   verificado: true,
   hayActividades: false,
   sobreNosotros:
