@@ -579,6 +579,68 @@ function TarjetaResultado({ r, isMobile }: { r: Resultado; isMobile: boolean }) 
   );
 }
 
+/** Placeholder circular con iniciales (perfiles informativos de profesional). */
+function InicialesCirculo({ iniciales, nombre }: { iniciales: string; nombre: string }) {
+  return (
+    <div
+      role="img"
+      aria-label={`Retrato de ${nombre}`}
+      style={{
+        width: 72,
+        height: 72,
+        borderRadius: "50%",
+        background: "var(--cream)",
+        border: "1px solid var(--border)",
+        boxShadow: "var(--shadow-soft)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: 20,
+        fontWeight: 600,
+        letterSpacing: "0.04em",
+        color: "var(--muted-foreground)",
+      }}
+    >
+      {iniciales}
+    </div>
+  );
+}
+
+/** Placeholder rectangular con iniciales (perfiles informativos de centro). */
+function InicialesRectangulo({
+  iniciales,
+  nombre,
+  isMobile,
+}: {
+  iniciales: string;
+  nombre: string;
+  isMobile: boolean;
+}) {
+  return (
+    <div
+      role="img"
+      aria-label={`Espacio de ${nombre}`}
+      style={{
+        width: isMobile ? "100%" : 120,
+        height: 84,
+        borderRadius: 12,
+        background: "var(--cream)",
+        border: "1px solid var(--border)",
+        boxShadow: "var(--shadow-soft)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: 20,
+        fontWeight: 600,
+        letterSpacing: "0.04em",
+        color: "var(--muted-foreground)",
+      }}
+    >
+      {iniciales}
+    </div>
+  );
+}
+
 function Paginacion() {
   return (
     <nav
