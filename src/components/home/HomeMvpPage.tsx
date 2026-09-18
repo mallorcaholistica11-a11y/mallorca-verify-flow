@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Award, BookOpen, CalendarDays, Leaf, Scale, ShieldCheck, UserRoundCheck } from "lucide-react";
-import heroAlmendro from "@/assets/hero-almendro-retouched.jpg.asset.json";
+import heroBlossoms from "@/assets/hero-blossoms.jpg.asset.json";
 import confianzaOlivo from "@/assets/confianza-olivo.jpg.asset.json";
 import { Chips, Retrato, Seccion } from "@/components/ficha/primitives";
 import { useMobile } from "@/components/ficha/useMobile";
@@ -96,32 +96,17 @@ export function HomeMvpPage() {
         <div className="relative -mx-4 overflow-hidden sm:-mx-6 lg:-mx-8">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-0 h-[520px] sm:h-[550px] md:h-[580px]"
+            className="pointer-events-none absolute inset-x-0 top-0 h-[520px] bg-cover bg-[position:72%_center] sm:h-[550px] sm:bg-[position:78%_center] md:h-[580px] md:bg-right"
             style={{
-              WebkitMaskImage:
-                "linear-gradient(90deg, transparent 0%, transparent 29%, color-mix(in oklab, black 12%, transparent) 40%, color-mix(in oklab, black 42%, transparent) 56%, color-mix(in oklab, black 78%, transparent) 72%, black 88%, black 100%)",
-              maskImage:
-                "linear-gradient(90deg, transparent 0%, transparent 29%, color-mix(in oklab, black 12%, transparent) 40%, color-mix(in oklab, black 42%, transparent) 56%, color-mix(in oklab, black 78%, transparent) 72%, black 88%, black 100%)",
+              backgroundImage: `url(${heroBlossoms.url})`,
             }}
-          >
-            <div
-              aria-hidden
-              className="h-full w-full -scale-x-100 bg-[size:auto_70%] bg-[position:0%_12%] bg-no-repeat lg:bg-[position:0%_10%]"
-              style={{
-                backgroundImage: `url(${heroAlmendro.url})`,
-                WebkitMaskImage:
-                  "linear-gradient(180deg, transparent 0%, color-mix(in oklab, black 72%, transparent) 7%, black 14%, black 48%, color-mix(in oklab, black 76%, transparent) 58%, color-mix(in oklab, black 34%, transparent) 72%, transparent 90%)",
-                maskImage:
-                  "linear-gradient(180deg, transparent 0%, color-mix(in oklab, black 72%, transparent) 7%, black 14%, black 48%, color-mix(in oklab, black 76%, transparent) 58%, color-mix(in oklab, black 34%, transparent) 72%, transparent 90%)",
-              }}
-            />
-          </div>
+          />
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-0 top-0 h-[520px] sm:h-[550px] md:h-[580px]"
             style={{
               background:
-                "linear-gradient(90deg, var(--background) 0%, var(--background) 25%, color-mix(in oklab, var(--background) 96%, transparent) 34%, color-mix(in oklab, var(--background) 82%, transparent) 48%, color-mix(in oklab, var(--background) 57%, transparent) 63%, color-mix(in oklab, var(--background) 28%, transparent) 78%, color-mix(in oklab, var(--background) 7%, transparent) 94%), linear-gradient(180deg, color-mix(in oklab, var(--background) 54%, transparent) 0%, color-mix(in oklab, var(--background) 22%, transparent) 12%, color-mix(in oklab, var(--background) 5%, transparent) 26%, color-mix(in oklab, var(--background) 8%, transparent) 42%, color-mix(in oklab, var(--cream) 30%, transparent) 56%, color-mix(in oklab, var(--cream) 68%, transparent) 70%, color-mix(in oklab, var(--background) 92%, transparent) 88%, var(--background) 100%)",
+                "linear-gradient(90deg, var(--background) 0%, var(--background) 27%, color-mix(in oklab, var(--background) 96%, transparent) 36%, color-mix(in oklab, var(--background) 82%, transparent) 49%, color-mix(in oklab, var(--background) 54%, transparent) 64%, color-mix(in oklab, var(--background) 22%, transparent) 80%, transparent 100%), linear-gradient(180deg, color-mix(in oklab, var(--background) 8%, transparent) 0%, transparent 32%, color-mix(in oklab, var(--cream) 12%, transparent) 47%, color-mix(in oklab, var(--cream) 48%, transparent) 61%, color-mix(in oklab, var(--background) 86%, transparent) 80%, var(--background) 100%)",
             }}
           />
           <div
@@ -198,7 +183,7 @@ function BuscadorIA({ isMobile }: { isMobile: boolean }) {
           </div>
 
           <div className="mx-auto max-w-[760px]">
-            <div className="relative rounded-xl border border-border/70 bg-card/95 p-4 shadow-[var(--shadow-soft)] md:px-5 md:py-4">
+            <div className="guided-search-frame relative rounded-xl border bg-card/95 p-4 shadow-[var(--shadow-soft)] md:px-5 md:py-4">
               <textarea
                 placeholder="Escribe cómo te sientes, qué necesitas o qué te gustaría mejorar..."
                 className="h-auto min-h-[62px] w-full resize-none bg-transparent text-sm leading-relaxed text-foreground placeholder:text-muted-foreground focus:outline-none md:min-h-[66px]"
