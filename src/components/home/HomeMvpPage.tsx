@@ -121,7 +121,15 @@ export function HomeMvpPage() {
             className="pointer-events-none absolute inset-x-0 top-0 h-[520px] sm:h-[550px] md:h-[580px]"
             style={{
               background:
-                "linear-gradient(90deg, var(--background) 0%, var(--background) 25%, color-mix(in oklab, var(--background) 96%, transparent) 34%, color-mix(in oklab, var(--background) 82%, transparent) 48%, color-mix(in oklab, var(--background) 57%, transparent) 63%, color-mix(in oklab, var(--background) 28%, transparent) 78%, color-mix(in oklab, var(--background) 7%, transparent) 94%), linear-gradient(180deg, color-mix(in oklab, var(--background) 4%, transparent) 0%, color-mix(in oklab, var(--background) 8%, transparent) 42%, color-mix(in oklab, var(--cream) 30%, transparent) 56%, color-mix(in oklab, var(--cream) 68%, transparent) 70%, color-mix(in oklab, var(--background) 92%, transparent) 88%, var(--background) 100%)",
+                "linear-gradient(90deg, var(--background) 0%, var(--background) 25%, color-mix(in oklab, var(--background) 96%, transparent) 34%, color-mix(in oklab, var(--background) 82%, transparent) 48%, color-mix(in oklab, var(--background) 57%, transparent) 63%, color-mix(in oklab, var(--background) 28%, transparent) 78%, color-mix(in oklab, var(--background) 7%, transparent) 94%), linear-gradient(180deg, color-mix(in oklab, var(--background) 54%, transparent) 0%, color-mix(in oklab, var(--background) 22%, transparent) 12%, color-mix(in oklab, var(--background) 5%, transparent) 26%, color-mix(in oklab, var(--background) 8%, transparent) 42%, color-mix(in oklab, var(--cream) 30%, transparent) 56%, color-mix(in oklab, var(--cream) 68%, transparent) 70%, color-mix(in oklab, var(--background) 92%, transparent) 88%, var(--background) 100%)",
+            }}
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-0 h-[520px] sm:h-[550px] md:hidden"
+            style={{
+              background:
+                "linear-gradient(90deg, var(--background) 0%, var(--background) 54%, color-mix(in oklab, var(--background) 97%, transparent) 66%, color-mix(in oklab, var(--background) 82%, transparent) 77%, color-mix(in oklab, var(--background) 50%, transparent) 88%, color-mix(in oklab, var(--background) 14%, transparent) 100%)",
             }}
           />
           <div className="relative">
