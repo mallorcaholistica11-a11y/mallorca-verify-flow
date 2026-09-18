@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Award, BookOpen, CalendarDays, Leaf, Scale, ShieldCheck, UserRoundCheck } from "lucide-react";
-import heroAlmendro from "@/assets/hero-almendro-original.jpg.asset.json";
+import heroAlmendro from "@/assets/hero-almendro-retouched.jpg.asset.json";
 import confianzaOlivo from "@/assets/confianza-olivo.jpg.asset.json";
 import { Chips, Retrato, Seccion } from "@/components/ficha/primitives";
 import { useMobile } from "@/components/ficha/useMobile";
@@ -93,8 +93,25 @@ export function HomeMvpPage() {
       <NavPublica isMobile={isMobile} activo="Inicio" />
 
       <main className="mx-auto max-w-[1180px] px-4 sm:px-6 lg:px-8">
-        <Hero />
-        <BuscadorIA isMobile={isMobile} />
+        <div className="relative -mx-4 overflow-hidden sm:-mx-6 lg:-mx-8">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-0 h-[470px] bg-cover bg-[position:66%_58%] sm:h-[500px] sm:bg-[position:64%_57%] md:h-[520px] md:bg-[position:61%_56%] lg:bg-[position:59%_55%]"
+            style={{ backgroundImage: `url(${heroAlmendro.url})` }}
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-0 h-[520px] sm:h-[550px] md:h-[580px]"
+            style={{
+              background:
+                "linear-gradient(90deg, var(--background) 0%, color-mix(in oklab, var(--background) 98%, transparent) 20%, color-mix(in oklab, var(--background) 88%, transparent) 39%, color-mix(in oklab, var(--background) 45%, transparent) 62%, color-mix(in oklab, var(--background) 8%, transparent) 84%), linear-gradient(180deg, color-mix(in oklab, var(--background) 3%, transparent) 0%, color-mix(in oklab, var(--background) 10%, transparent) 48%, color-mix(in oklab, var(--cream) 72%, transparent) 70%, var(--cream) 91%, var(--background) 100%)",
+            }}
+          />
+          <div className="relative">
+            <Hero />
+            <BuscadorIA isMobile={isMobile} />
+          </div>
+        </div>
         <BusquedaClasica isMobile={isMobile} />
         <Confianza />
         <Profesionales isMobile={isMobile} isTablet={isTablet} />
@@ -110,23 +127,8 @@ export function HomeMvpPage() {
 
 function Hero() {
   return (
-    <section className="relative -mx-4 min-h-[350px] overflow-hidden px-6 py-7 sm:-mx-6 sm:min-h-[360px] sm:px-10 sm:py-8 lg:-mx-8 lg:min-h-[370px] lg:px-14 lg:py-9">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 z-0 bg-cover bg-[position:67%_center] sm:bg-[position:62%_center] md:bg-[position:58%_center] lg:bg-[position:55%_center]"
-        style={{
-          backgroundImage: `url(${heroAlmendro.url})`,
-        }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 z-10"
-        style={{
-          background:
-            "linear-gradient(90deg, var(--background) 0%, color-mix(in oklab, var(--background) 96%, transparent) 24%, color-mix(in oklab, var(--background) 72%, transparent) 43%, color-mix(in oklab, var(--background) 18%, transparent) 67%, transparent 84%), linear-gradient(180deg, color-mix(in oklab, var(--background) 8%, transparent) 0%, transparent 68%, color-mix(in oklab, var(--background) 28%, transparent) 86%, var(--background) 100%)",
-        }}
-      />
-      <div className="relative z-20 flex min-h-[296px] items-center sm:min-h-[296px] lg:min-h-[298px]">
+    <section className="relative min-h-[350px] px-6 py-7 sm:min-h-[360px] sm:px-10 sm:py-8 lg:min-h-[370px] lg:px-14 lg:py-9">
+      <div className="relative flex min-h-[296px] items-center sm:min-h-[296px] lg:min-h-[298px]">
         <div className="max-w-[560px] min-w-0 md:max-w-[680px]">
           <div className="mb-3 flex items-center gap-3 text-[0.6rem] font-medium uppercase tracking-[0.18em] text-sage-dark">
             <span className="h-px w-8 bg-sage-light" />
@@ -156,17 +158,8 @@ function Hero() {
 
 function BuscadorIA({ isMobile }: { isMobile: boolean }) {
   return (
-    <section className="pb-6 pt-3 md:pb-7 md:pt-4">
-      <div className="relative overflow-hidden border-y border-champagne/55 bg-cream/55 px-4 py-7 sm:px-6 md:px-10 md:py-8">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-[0.025]"
-          style={{
-            backgroundImage: `url(${IMG.detalle1})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
+    <section className="pb-6 pt-0 md:pb-7">
+      <div className="relative px-4 pb-7 pt-5 sm:px-6 md:px-10 md:pb-8 md:pt-6">
         <div className="relative">
           <div className="mx-auto mb-4 max-w-[720px] text-center">
             <h2 className="mb-2 font-display text-xl font-medium md:text-[1.45rem]">
