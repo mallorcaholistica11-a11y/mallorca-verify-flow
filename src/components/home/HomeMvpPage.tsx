@@ -99,20 +99,20 @@ export function HomeMvpPage() {
             className="pointer-events-none absolute inset-x-0 top-0 h-[520px] sm:h-[550px] md:h-[580px]"
             style={{
               WebkitMaskImage:
-                "linear-gradient(90deg, transparent 0%, transparent 47%, black 64%, black 100%)",
+                "linear-gradient(90deg, transparent 0%, transparent 29%, color-mix(in oklab, black 12%, transparent) 40%, color-mix(in oklab, black 42%, transparent) 56%, color-mix(in oklab, black 78%, transparent) 72%, black 88%, black 100%)",
               maskImage:
-                "linear-gradient(90deg, transparent 0%, transparent 47%, black 64%, black 100%)",
+                "linear-gradient(90deg, transparent 0%, transparent 29%, color-mix(in oklab, black 12%, transparent) 40%, color-mix(in oklab, black 42%, transparent) 56%, color-mix(in oklab, black 78%, transparent) 72%, black 88%, black 100%)",
             }}
           >
             <div
               aria-hidden
-              className="h-full w-full bg-[size:auto_70%] bg-[position:100%_12%] bg-no-repeat lg:bg-[position:100%_10%]"
+              className="h-full w-full -scale-x-100 bg-[size:auto_70%] bg-[position:0%_12%] bg-no-repeat lg:bg-[position:0%_10%]"
               style={{
                 backgroundImage: `url(${heroAlmendro.url})`,
                 WebkitMaskImage:
-                  "linear-gradient(180deg, transparent 0%, black 10%, black 60%, transparent 76%)",
+                  "linear-gradient(180deg, transparent 0%, color-mix(in oklab, black 72%, transparent) 7%, black 14%, black 48%, color-mix(in oklab, black 76%, transparent) 58%, color-mix(in oklab, black 34%, transparent) 72%, transparent 90%)",
                 maskImage:
-                  "linear-gradient(180deg, transparent 0%, black 10%, black 60%, transparent 76%)",
+                  "linear-gradient(180deg, transparent 0%, color-mix(in oklab, black 72%, transparent) 7%, black 14%, black 48%, color-mix(in oklab, black 76%, transparent) 58%, color-mix(in oklab, black 34%, transparent) 72%, transparent 90%)",
               }}
             />
           </div>
@@ -121,7 +121,7 @@ export function HomeMvpPage() {
             className="pointer-events-none absolute inset-x-0 top-0 h-[520px] sm:h-[550px] md:h-[580px]"
             style={{
               background:
-                "linear-gradient(90deg, var(--background) 0%, var(--background) 26%, color-mix(in oklab, var(--background) 86%, transparent) 42%, color-mix(in oklab, var(--background) 45%, transparent) 62%, color-mix(in oklab, var(--background) 8%, transparent) 84%), linear-gradient(180deg, color-mix(in oklab, var(--background) 3%, transparent) 0%, color-mix(in oklab, var(--background) 10%, transparent) 45%, color-mix(in oklab, var(--cream) 80%, transparent) 62%, var(--cream) 78%, var(--background) 100%)",
+                "linear-gradient(90deg, var(--background) 0%, var(--background) 25%, color-mix(in oklab, var(--background) 96%, transparent) 34%, color-mix(in oklab, var(--background) 82%, transparent) 48%, color-mix(in oklab, var(--background) 57%, transparent) 63%, color-mix(in oklab, var(--background) 28%, transparent) 78%, color-mix(in oklab, var(--background) 7%, transparent) 94%), linear-gradient(180deg, color-mix(in oklab, var(--background) 4%, transparent) 0%, color-mix(in oklab, var(--background) 8%, transparent) 42%, color-mix(in oklab, var(--cream) 30%, transparent) 56%, color-mix(in oklab, var(--cream) 68%, transparent) 70%, color-mix(in oklab, var(--background) 92%, transparent) 88%, var(--background) 100%)",
             }}
           />
           <div className="relative">
