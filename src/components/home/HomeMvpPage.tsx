@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Award, BookOpen, CalendarDays, Leaf, Scale, ShieldCheck, UserRoundCheck } from "lucide-react";
 import heroAlmendro from "@/assets/hero-almendro-original.jpg.asset.json";
-import olivoHojas from "@/assets/olivo-hojas.jpg.asset.json";
+import confianzaOlivo from "@/assets/confianza-olivo.jpg.asset.json";
 import { Chips, Retrato, Seccion } from "@/components/ficha/primitives";
 import { useMobile } from "@/components/ficha/useMobile";
 import { NavPublica } from "@/components/NavPublica";
@@ -224,11 +224,11 @@ function BusquedaClasica({ isMobile }: { isMobile: boolean }) {
 function Confianza() {
   return (
     <section className="relative -mx-4 overflow-hidden bg-cream/55 px-5 py-8 sm:-mx-6 sm:px-8 md:px-10 md:py-8 lg:-mx-8 lg:px-12">
-      {/* Fotografía de fondo: cubre toda la sección para que el degradado la funda con el fondo */}
+      {/* Fotografía de fondo fundida progresivamente con el crema de la sección */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-0 bg-cover bg-[position:24%_center] md:bg-[length:auto_100%] md:bg-left md:bg-no-repeat"
-        style={{ backgroundImage: `url(${olivoHojas.url})` }}
+        className="pointer-events-none absolute inset-0 z-0 bg-cover bg-[position:28%_center] md:right-auto md:w-[62%] md:bg-cover md:bg-center md:bg-no-repeat"
+        style={{ backgroundImage: `url(${confianzaOlivo.url})` }}
       />
       {/* Degradado horizontal progresivo: imagen visible a la izquierda → crema integrado a la derecha */}
       <div
@@ -236,7 +236,7 @@ function Confianza() {
         className="pointer-events-none absolute inset-0 z-10 md:hidden"
         style={{
           background:
-            "linear-gradient(90deg, color-mix(in oklab, var(--cream) 52%, transparent) 0%, color-mix(in oklab, var(--cream) 70%, transparent) 42%, color-mix(in oklab, var(--cream) 92%, transparent) 74%, var(--cream) 100%), linear-gradient(180deg, color-mix(in oklab, var(--cream) 34%, transparent) 0%, color-mix(in oklab, var(--cream) 68%, transparent) 100%)",
+            "linear-gradient(90deg, color-mix(in oklab, var(--cream) 50%, transparent) 0%, color-mix(in oklab, var(--cream) 66%, transparent) 40%, color-mix(in oklab, var(--cream) 90%, transparent) 76%, var(--cream) 100%), linear-gradient(180deg, color-mix(in oklab, var(--cream) 38%, transparent) 0%, transparent 24%, transparent 70%, color-mix(in oklab, var(--cream) 55%, transparent) 100%)",
         }}
       />
       <div
@@ -244,7 +244,7 @@ function Confianza() {
         className="pointer-events-none absolute inset-0 z-10 hidden md:block"
         style={{
           background:
-            "linear-gradient(90deg, transparent 0%, color-mix(in oklab, var(--cream) 8%, transparent) 10%, color-mix(in oklab, var(--cream) 28%, transparent) 22%, color-mix(in oklab, var(--cream) 58%, transparent) 34%, color-mix(in oklab, var(--cream) 86%, transparent) 45%, var(--cream) 55%, var(--cream) 100%)",
+            "linear-gradient(90deg, transparent 0%, color-mix(in oklab, var(--cream) 5%, transparent) 12%, color-mix(in oklab, var(--cream) 22%, transparent) 26%, color-mix(in oklab, var(--cream) 52%, transparent) 39%, color-mix(in oklab, var(--cream) 82%, transparent) 51%, var(--cream) 63%, var(--cream) 100%), linear-gradient(180deg, color-mix(in oklab, var(--cream) 34%, transparent) 0%, transparent 18%, transparent 78%, color-mix(in oklab, var(--cream) 46%, transparent) 100%)",
         }}
       />
 
