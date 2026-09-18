@@ -236,9 +236,6 @@ function NuestraMirada() {
         .mirada-pausa p { margin: 1px 0 0; color: var(--sage-dark); font-family: var(--font-display); font-size: clamp(1.08rem, 1.8vw, 1.35rem); font-weight: 500; line-height: 1.25; }
         .mirada-leaf-mark { width: 27px; height: 22px; margin: 0 auto; color: var(--terracotta-accent); }
         .mirada-pair-wrap { position: relative; }
-        .mirada-sprig { position: absolute; z-index: 0; width: 108px; color: var(--sage); opacity: 0.42; pointer-events: none; }
-        .mirada-sprig-left { left: -112px; top: -5px; transform: rotate(5deg); }
-        .mirada-sprig-right { right: -112px; bottom: -8px; transform: scaleX(-1) rotate(4deg); }
         .mirada-pair-wrap .mirada-grid { position: relative; z-index: 1; }
         .mirada-encuentro { margin: 20px calc(50% - 50vw); padding: 18px max(20px, calc((100vw - 760px) / 2)); background: color-mix(in oklab, var(--cream) 57%, var(--background)); text-align: center; }
         .mirada-encuentro h2 { font-size: clamp(1.08rem, 1.8vw, 1.28rem); }
