@@ -161,7 +161,11 @@ function GestionarPerfil() {
               </p>
             </div>
             <Button asChild size="lg" className="mt-8 rounded-full">
-              <Link to="/dashboard/formulario" search={{ track: "presencia", perfil: "professional" }}>
+              <Link
+                to="/dashboard/formulario"
+                search={{ track: "presencia", perfil: "professional" }}
+                reloadDocument
+              >
                 Revisar y completar mi perfil →
               </Link>
             </Button>
