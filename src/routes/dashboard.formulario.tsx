@@ -3545,8 +3545,10 @@ type PPConsents = {
 };
 
 function PresenciaProfesionalFormulario() {
-  const { track } = Route.useSearch();
+  const { track, origen, slug } = Route.useSearch();
   const navigate = useNavigate();
+  // Flujo de gestión de un perfil informativo existente (prototipo, Elena Rossell).
+  const desdeInformativo = origen === "informativo" && typeof slug === "string" && slug.length > 0;
   const [step, setStep] = useState(1);
   const total = 6;
   const isLast = step === total;
@@ -3623,14 +3625,14 @@ function PresenciaProfesionalFormulario() {
       {step === 1 && (
         <>
           <Box title="Información General">
-            <FakeField label="Nombre" />
-            <FakeField label="Apellidos" />
+            <FakeField label="Nombre" value={desdeInformativo ? "Elena" : undefined} />
+            <FakeField label="Apellidos" value={desdeInformativo ? "Rossell" : undefined} />
             <FakeField label="Nombre profesional (opcional)" />
             <Ayuda>Si utilizas un nombre artístico o una marca personal, puedes indicarlo aquí.</Ayuda>
           </Box>
 
           <Box title="Datos de contacto">
-            <DireccionAutocomplete ayuda="Si atiendes en un centro o consulta, indica esa dirección. Si trabajas exclusivamente online o a domicilio, puedes indicar la ubicación de tu municipio o ciudad." />
+            <DireccionAutocomplete initial={desdeInformativo ? "Inca" : undefined} ayuda="Si atiendes en un centro o consulta, indica esa dirección. Si trabajas exclusivamente online o a domicilio, puedes indicar la ubicación de tu municipio o ciudad." />
             <FakeField label="Correo electrónico" type="email" />
             <Ayuda>Será el correo de contacto que aparecerá en tu perfil profesional.</Ayuda>
             <TelefonoField label="Teléfono" />
