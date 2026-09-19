@@ -11,6 +11,7 @@ import {
   Boton,
   Chips,
   ChipsPracticas,
+  type OrigenFichaPractica,
   LineaTexto,
   Seccion,
 } from "@/components/ficha/primitives";
@@ -36,17 +37,19 @@ export function FichaPublica({
   perfilInformativo = false,
   perfilGestionado = false,
   enlaceGestionPerfil,
+  origenPracticas,
 }: {
   data: FichaPublicaData;
   plan?: PlanFicha;
   perfilInformativo?: boolean;
   perfilGestionado?: boolean;
   enlaceGestionPerfil?: "/gestionar-perfil/$slug";
+  origenPracticas?: OrigenFichaPractica;
 }) {
   const isMobile = useMobile();
   const anios = useMemo(() => aniosAcompanando(data.anioInicioActividad), [data.anioInicioActividad]);
 
-  const principal = <ColumnaPrincipal data={data} plan={plan} />;
+  const principal = <ColumnaPrincipal data={data} plan={plan} origenPracticas={origenPracticas} />;
   const lateral = (
     <BarraLateral
       data={data}
@@ -232,7 +235,15 @@ function Hero({
   );
 }
 
-function ColumnaPrincipal({ data, plan }: { data: FichaPublicaData; plan: PlanFicha }) {
+function ColumnaPrincipal({
+  data,
+  plan,
+  origenPracticas,
+}: {
+  data: FichaPublicaData;
+  plan: PlanFicha;
+  origenPracticas?: OrigenFichaPractica;
+}) {
   const trayectoria = data.trayectoria;
   const completa = plan !== "presencia";
   const hayFormacion = completa && !!trayectoria?.formaciones?.length;
@@ -244,7 +255,10 @@ function ColumnaPrincipal({ data, plan }: { data: FichaPublicaData; plan: PlanFi
       </Seccion>
 
       <Seccion titulo="Prácticas" vacio={!data.especialidades?.length} separador>
-        <ChipsPracticas items={(data.especialidades ?? []).slice(0, MAX_ESPECIALIDADES_FICHA)} />
+        <ChipsPracticas
+          items={(data.especialidades ?? []).slice(0, MAX_ESPECIALIDADES_FICHA)}
+          origen={origenPracticas}
+        />
       </Seccion>
 
       <Seccion titulo="¿En qué puedo ayudarte?" vacio={!data.areas?.length} separador>

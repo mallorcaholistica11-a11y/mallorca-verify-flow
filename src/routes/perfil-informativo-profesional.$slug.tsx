@@ -49,6 +49,7 @@ const demo: FichaPublicaData = {
 };
 
 function PerfilInformativoProfesional() {
+  const { slug } = Route.useParams();
   const { gestionado } = Route.useSearch();
 
   return (
@@ -64,6 +65,12 @@ function PerfilInformativoProfesional() {
         perfilInformativo
         perfilGestionado={gestionado}
         enlaceGestionPerfil={gestionado ? undefined : "/gestionar-perfil/$slug"}
+        origenPracticas={{
+          tipo: "perfil-informativo-profesional",
+          slug,
+          nombre: demo.nombre,
+          gestionado,
+        }}
       />
       <div style={bottomBackContainerStyle}>
         <Link to="/" style={bottomBackLinkStyle}>

@@ -25,6 +25,8 @@ export const Route = createFileRoute("/profesional/$slug")({
 });
 
 function FichaProfesionalVerificado() {
+  const { slug } = Route.useParams();
+
   return (
     <div>
       <div
@@ -41,7 +43,10 @@ function FichaProfesionalVerificado() {
           ← Volver a resultados
         </Link>
       </div>
-      <FichaPublica data={FICHA_PROFESIONAL_ACTUAL} />
+      <FichaPublica
+        data={FICHA_PROFESIONAL_ACTUAL}
+        origenPracticas={{ tipo: "profesional", slug, nombre: FICHA_PROFESIONAL_ACTUAL.nombre }}
+      />
       <div style={bottomBackContainerStyle}>
         <Link to="/" style={bottomBackLinkStyle}>
           ← Volver a resultados

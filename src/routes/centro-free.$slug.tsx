@@ -60,6 +60,8 @@ const demo: FichaCentroData = {
 };
 
 function FichaCentroPresencia() {
+  const { slug } = Route.useParams();
+
   return (
     <div>
       <div
@@ -76,7 +78,11 @@ function FichaCentroPresencia() {
           ← Volver a resultados
         </Link>
       </div>
-      <FichaCentro data={demo} plan="presencia" />
+      <FichaCentro
+        data={demo}
+        plan="presencia"
+        origenPracticas={{ tipo: "centro-free", slug, nombre: demo.nombre }}
+      />
       <div style={bottomBackContainerStyle}>
         <Link to="/" style={bottomBackLinkStyle}>
           ← Volver a resultados

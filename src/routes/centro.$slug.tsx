@@ -97,6 +97,8 @@ const demo: FichaCentroData = {
 };
 
 function FichaCentroVerificado() {
+  const { slug } = Route.useParams();
+
   return (
     <div>
       <div
@@ -113,7 +115,10 @@ function FichaCentroVerificado() {
           ← Volver a resultados
         </Link>
       </div>
-      <FichaCentro data={demo} />
+      <FichaCentro
+        data={demo}
+        origenPracticas={{ tipo: "centro", slug, nombre: demo.nombre }}
+      />
       <div style={bottomBackContainerStyle}>
         <Link to="/" style={bottomBackLinkStyle}>
           ← Volver a resultados
