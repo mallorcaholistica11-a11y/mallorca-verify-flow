@@ -113,12 +113,12 @@ export function ReadOnlyField({ label, value }: { label: string; value: string }
   );
 }
 
-export function FakeField({ label, type = "text" }: { label: string; type?: string }) {
+export function FakeField({ label, type = "text", value }: { label: string; type?: string; value?: string }) {
   return (
     <div className="wireframe-field" style={{ marginBottom: 12 }}>
       <div className="wireframe-field-label" style={{ fontSize: 12.5, marginBottom: 6, color: "var(--foreground)" }}>{label}</div>
-      <div className="wireframe-field-control" style={{ border: "1px solid var(--border)", borderRadius: 12, padding: "10px 14px", background: "var(--card)", color: "var(--muted-foreground)", fontSize: 12 }}>
-        [{type}]
+      <div className="wireframe-field-control" style={{ border: "1px solid var(--border)", borderRadius: 12, padding: "10px 14px", background: "var(--card)", color: value ? "var(--foreground)" : "var(--muted-foreground)", fontSize: 12 }}>
+        {value ?? `[${type}]`}
       </div>
     </div>
   );

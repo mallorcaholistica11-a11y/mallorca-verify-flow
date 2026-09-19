@@ -27,9 +27,12 @@ import {
 import { HorarioSemanal } from "@/components/HorarioSemanal";
 
 export const Route = createFileRoute("/dashboard/formulario")({
-  validateSearch: (s: Record<string, unknown>): { track: Track; perfil?: PerfilTipo } => ({
+  validateSearch: (s: Record<string, unknown>): { track: Track; perfil?: PerfilTipo; origen?: string; slug?: string } => ({
     track: parseTrack(s),
     perfil: parsePerfil(s),
+    // Flujo de gestión de un perfil informativo existente (prototipo).
+    origen: typeof s.origen === "string" ? s.origen : undefined,
+    slug: typeof s.slug === "string" ? s.slug : undefined,
   }),
   component: Formulario,
 });
@@ -1618,9 +1621,9 @@ function UbicacionesList() {
   return <UbicacionesListInner />;
 }
 
-function DireccionAutocomplete({ ayuda }: { ayuda?: string }) {
+function DireccionAutocomplete({ ayuda, initial = "" }: { ayuda?: string; initial?: string }) {
   const [manual, setManual] = useState(false);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(initial);
   const inputStyle: React.CSSProperties = {
     width: "100%",
     padding: "8px 10px",
