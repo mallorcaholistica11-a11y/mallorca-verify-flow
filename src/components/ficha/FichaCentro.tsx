@@ -46,11 +46,15 @@ export function FichaCentro({
   data,
   plan = "verificado",
   perfilInformativo = false,
+  enlaceGestionPerfil,
+  slugPerfil,
   origenPracticas,
 }: {
   data: FichaCentroData;
   plan?: PlanCentro;
   perfilInformativo?: boolean;
+  enlaceGestionPerfil?: "/gestionar-perfil/$slug";
+  slugPerfil?: string;
   origenPracticas?: OrigenFichaPractica;
 }) {
   const isMobile = useMobile();
@@ -87,7 +91,13 @@ export function FichaCentro({
           <ColumnaPrincipal data={data} esPresencia={esPresencia} origenPracticas={origenPracticas} />
         </div>
         <aside>
-          <BarraLateral data={data} esPresencia={esPresencia} perfilInformativo={perfilInformativo} />
+          <BarraLateral
+            data={data}
+            esPresencia={esPresencia}
+            perfilInformativo={perfilInformativo}
+            enlaceGestionPerfil={enlaceGestionPerfil}
+            slugPerfil={slugPerfil}
+          />
         </aside>
       </div>
     </div>
@@ -600,10 +610,14 @@ function BarraLateral({
   data,
   esPresencia,
   perfilInformativo,
+  enlaceGestionPerfil,
+  slugPerfil,
 }: {
   data: FichaCentroData;
   esPresencia: boolean;
   perfilInformativo?: boolean;
+  enlaceGestionPerfil?: "/gestionar-perfil/$slug";
+  slugPerfil?: string;
 }) {
   const ubicaciones = data.ubicaciones ?? [];
   const principal = ubicaciones.find((u) => u.principal) ?? ubicaciones[0];
@@ -713,7 +727,9 @@ function BarraLateral({
         </div>
       </Seccion>
 
-      {perfilInformativo && <SeccionPerfilInformativo tipo="centro" />}
+      {perfilInformativo && (
+        <SeccionPerfilInformativo tipo="centro" enlaceGestion={enlaceGestionPerfil} slug={slugPerfil} />
+      )}
     </>
   );
 }

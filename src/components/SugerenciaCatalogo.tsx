@@ -10,10 +10,12 @@ export function SugerenciaCatalogo({
   tipo,
   pregunta,
   placeholder,
+  ayuda = "Escríbela aquí. Si falta más de una, puedes añadirlas también. Tu aportación nos ayuda a mejorar nuestro catálogo. Gracias.",
 }: {
   tipo: TipoSugerencia;
   pregunta: string;
   placeholder: string;
+  ayuda?: string;
 }) {
   const id = useId();
   const [texto, setTexto] = useState("");
@@ -22,11 +24,12 @@ export function SugerenciaCatalogo({
     <div style={{ marginTop: 10, borderTop: "1px solid var(--border)", paddingTop: 10 }}>
       <div style={{ fontSize: 12, color: "var(--muted-foreground)", lineHeight: 1.6 }}>
         {pregunta}{" "}
-        <span style={{ fontSize: 11, color: "var(--muted-foreground)" }}>(opcional)</span>
+        {!pregunta.toLocaleLowerCase("es").includes("opcional") && (
+          <span style={{ fontSize: 11, color: "var(--muted-foreground)" }}>(opcional)</span>
+        )}
       </div>
       <div style={{ fontSize: 11, color: "var(--muted-foreground)", lineHeight: 1.6, margin: "2px 0 6px 0" }}>
-        Escríbela aquí. Si falta más de una, puedes añadirlas también. Tu aportación nos ayuda a
-        mejorar nuestro catálogo. Gracias.
+        {ayuda}
       </div>
       <textarea
         rows={3}

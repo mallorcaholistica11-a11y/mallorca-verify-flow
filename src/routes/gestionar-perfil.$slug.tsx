@@ -44,6 +44,20 @@ function GestionarPerfil() {
   const [canal, setCanal] = useState<Canal>("email");
   const [codigo, setCodigo] = useState("");
   const [solicitudEnviada, setSolicitudEnviada] = useState(false);
+  const esCentro = slug === "espai-bellver";
+  const perfil = esCentro
+    ? {
+        nombre: "Espai Bellver",
+        iniciales: "EB",
+        identidad: "Espacio de bienestar y actividades · Palma",
+        sujeto: "este espacio",
+      }
+    : {
+        nombre: "Elena Rossell",
+        iniciales: "ER",
+        identidad: "Naturópata · Inca",
+        sujeto: "este perfil",
+      };
 
   const irACodigo = (nuevoCanal: Canal) => {
     setCanal(nuevoCanal);
@@ -60,13 +74,14 @@ function GestionarPerfil() {
 
         {paso === "bienvenida" && (
           <Pantalla titulo="Gestiona tu perfil en Mallorca Holística">
-            <Identidad mostrarPlan={false} />
+            <Identidad mostrarPlan={false} perfil={perfil} esCentro={esCentro} />
             <div className="max-w-[660px] space-y-4 text-[15px] leading-7 text-foreground">
-              <p>Hemos creado este perfil informativo a partir de información profesional públicamente disponible.</p>
+                <p>Hemos creado {perfil.sujeto} informativo a partir de información profesional públicamente disponible.</p>
               <p>Nos encantará tenerte en Mallorca Holística.</p>
               <p>
-                Si eres Elena, puedes gestionar tu perfil gratuitamente, actualizar tus datos y completarlo
-                para que muestre mejor quién eres y cómo trabajas.
+                {esCentro
+                  ? "Si representas Espai Bellver, puedes gestionar el perfil gratuitamente, actualizar sus datos y completarlo para que muestre mejor quiénes sois y qué ofrecéis."
+                  : "Si eres Elena, puedes gestionar tu perfil gratuitamente, actualizar tus datos y completarlo para que muestre mejor quién eres y cómo trabajas."}
               </p>
               <p>Antes de darte acceso, solo necesitamos confirmar uno de tus datos de contacto.</p>
             </div>
@@ -141,7 +156,7 @@ function GestionarPerfil() {
 
         {paso === "cuenta" && (
           <Pantalla titulo="Crea tu cuenta" volver={() => setPaso("codigo")}>
-            <Identidad mostrarPlan />
+             <Identidad mostrarPlan perfil={perfil} esCentro={esCentro} />
             <p className="max-w-[620px] text-[15px] leading-7">
               Ya casi está. Crea tu cuenta para empezar a gestionar tu perfil en Mallorca Holística.
             </p>
@@ -171,7 +186,7 @@ function GestionarPerfil() {
             <Button asChild size="lg" className="mt-8 rounded-full">
               <Link
                 to="/dashboard/formulario"
-                search={{ track: "presencia", perfil: "professional", origen: "informativo", slug }}
+                search={{ track: "presencia", perfil: esCentro ? "organization" : "professional", origen: "informativo", slug }}
                 reloadDocument
               >
                 Revisar y completar mi perfil →
@@ -186,19 +201,21 @@ function GestionarPerfil() {
               <Check aria-hidden="true" />
             </div>
             <div className="max-w-[620px] space-y-4 text-[15px] leading-7">
-              <p className="font-semibold">Gracias, Elena.</p>
+              <p className="font-semibold">Gracias{esCentro ? "." : ", Elena."}</p>
               <p>Tu perfil ya está gestionado por ti y forma parte de Mallorca Holística.</p>
               <p>A partir de ahora podrás actualizar tu información siempre que lo necesites desde tu espacio.</p>
             </div>
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
               <Button asChild size="lg" className="rounded-full">
-                <Link
-                  to="/perfil-informativo-profesional/$slug"
-                  params={{ slug }}
-                  search={{ gestionado: true }}
-                >
-                  Ver mi perfil →
-                </Link>
+                {esCentro ? (
+                  <Link to="/perfil-informativo-centro/$slug" params={{ slug }} search={{ gestionado: true }}>
+                    Ver mi perfil →
+                  </Link>
+                ) : (
+                  <Link to="/perfil-informativo-profesional/$slug" params={{ slug }} search={{ gestionado: true }}>
+                    Ver mi perfil →
+                  </Link>
+                )}
               </Button>
               <Link
                 to="/mi-espacio"
@@ -233,13 +250,21 @@ function Pantalla({ titulo, volver, children }: { titulo: string; volver?: () =>
 }
 
 
-function Identidad({ mostrarPlan }: { mostrarPlan: boolean }) {
+function Identidad({
+  mostrarPlan,
+  perfil,
+  esCentro,
+}: {
+  mostrarPlan: boolean;
+  perfil: { nombre: string; iniciales: string; identidad: string };
+  esCentro: boolean;
+}) {
   return (
     <div className="mb-7 flex items-center gap-4 border-y border-border py-5">
-      <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-border bg-secondary font-display text-xl text-sage-dark">ER</div>
+       <div className={`flex h-16 w-16 shrink-0 items-center justify-center border border-border bg-secondary font-display text-xl text-sage-dark ${esCentro ? "rounded-md" : "rounded-full"}`}>{perfil.iniciales}</div>
       <div>
-        <div className="font-display text-lg font-semibold text-foreground">Elena Rossell</div>
-        <div className="mt-1 text-sm text-muted-foreground">{mostrarPlan ? "Plan Presencia · Gratis" : "Naturópata · Inca"}</div>
+         <div className="font-display text-lg font-semibold text-foreground">{perfil.nombre}</div>
+         <div className="mt-1 text-sm text-muted-foreground">{mostrarPlan ? "Plan Presencia · Gratis" : perfil.identidad}</div>
       </div>
     </div>
   );
