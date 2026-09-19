@@ -8,9 +8,11 @@ import {
   TrackBadge,
   ReadOnlyField,
   parseTrack,
+  parsePerfil,
   esPlanOrganizacion,
   esPlanVerificado,
   type Track,
+  type PerfilTipo,
 } from "@/components/Wireframe";
 import { PERFILES, type ResultadoProfesional } from "@/data/perfiles";
 import { FICHA_CENTRO_ACTUAL } from "@/data/ficha-centro";
@@ -50,12 +52,16 @@ export const Route = createFileRoute("/mi-espacio/perfil")({
       { name: "twitter:card", content: "summary" },
     ],
   }),
-  validateSearch: (s: Record<string, unknown>): { track: Track; estado?: PerfilEstado } => {
+  validateSearch: (
+    s: Record<string, unknown>,
+  ): { track: Track; estado?: PerfilEstado; perfil?: PerfilTipo } => {
     const estado = parseEstado(s.estado);
+    const perfil = parsePerfil(s);
 
     return {
       track: parseTrack(s),
       ...(estado ? { estado } : {}),
+      ...(perfil ? { perfil } : {}),
     };
   },
   component: MiPerfil,
@@ -85,13 +91,23 @@ const ESTADO_PERFIL: Record<PerfilEstado, { estado: string; verificacion: string
   },
 };
 
+// Mi Perfil reutiliza el mismo formulario Plan Presencia del tipo de perfil
+// correspondiente; no existe un formulario de edición paralelo.
+function busquedaFormulario(track: Track, perfil?: PerfilTipo) {
+  return {
+    track,
+    perfil: perfil ?? (esPlanOrganizacion(track) ? "organization" : "professional"),
+    origen: "mi-espacio",
+  } as const;
+}
+
 const valorNoDisponible = "No indicado";
 
 function MiPerfil() {
-  const { track, estado: estadoSearch } = Route.useSearch();
+  const { track, estado: estadoSearch, perfil } = Route.useSearch();
 
   if (esPlanOrganizacion(track)) return <MiPerfilCentro track={track} estadoSearch={estadoSearch} />;
-  if (!esPlanVerificado(track)) return <MiPerfilOtrosRecorridos track={track} />;
+  if (!esPlanVerificado(track)) return <MiPerfilOtrosRecorridos track={track} perfil={perfil} />;
 
 
   const estado = estadoSearch ?? "pendiente";
@@ -263,7 +279,7 @@ function MiPerfil() {
             finalice el proceso de verificación.
           </p>
         ) : (
-          <NavButton to="/dashboard/formulario" search={{ track }}>
+          <NavButton to="/dashboard/formulario" search={busquedaFormulario(track, perfil)}>
             {estaAprobado ? "Actualizar mi perfil" : "Continuar mi perfil"}
           </NavButton>
         )}
@@ -279,7 +295,7 @@ function MiPerfil() {
 }
 
 // Los recorridos Fundadores y el resto de planes conservan la página anterior.
-function MiPerfilOtrosRecorridos({ track }: { track: Track }) {
+function MiPerfilOtrosRecorridos({ track, perfil }: { track: Track; perfil?: PerfilTipo }) {
   return (
     <WireframeShell
 
@@ -333,7 +349,7 @@ function MiPerfilOtrosRecorridos({ track }: { track: Track }) {
         </NavButton>
       </Box>
       <Box title="Bloque 7 · Acciones">
-        <NavButton to="/dashboard/formulario" search={{ track }}>
+        <NavButton to="/dashboard/formulario" search={busquedaFormulario(track, perfil)}>
           Actualizar mi perfil
         </NavButton>
       </Box>
@@ -673,7 +689,7 @@ function MiPerfilCentro({
             el proceso haya finalizado.
           </p>
         ) : (
-          <NavButton to="/dashboard/formulario" search={{ track }}>
+          <NavButton to="/dashboard/formulario" search={busquedaFormulario(track, perfil)}>
             {estaAprobado ? "Actualizar mi perfil" : "Continuar mi perfil"}
           </NavButton>
         )}
