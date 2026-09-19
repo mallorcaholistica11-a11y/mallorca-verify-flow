@@ -40,3 +40,5 @@
 - [x] Unificar el H1 principal de Directorio, Guía, Agenda, Blog y Nuestra Mirada sin modificar la Home.
 - [x] Rediseñar exclusivamente Nuestra Mirada según la referencia editorial, con la fotografía mediterránea proporcionada.
 - [x] Crear dos fichas de prueba aisladas con estado «Perfil informativo», iniciales y CTA sin flujo real.
+- [x] Prototipar el recorrido visual para gestionar el perfil informativo profesional de Elena Rossell.
+- [x] Verificar el recorrido completo en escritorio y móvil sin alterar el alta existente ni el Directorio.

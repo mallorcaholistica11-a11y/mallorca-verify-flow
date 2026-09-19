@@ -53,7 +53,12 @@ function PerfilInformativoProfesional() {
           ← Volver a resultados
         </Link>
       </div>
-      <FichaPublica data={demo} plan="presencia" perfilInformativo />
+      <FichaPublica
+        data={demo}
+        plan="presencia"
+        perfilInformativo
+        enlaceGestionPerfil="/gestionar-perfil/$slug"
+      />
       <div style={bottomBackContainerStyle}>
         <Link to="/" style={bottomBackLinkStyle}>
           ← Volver a resultados

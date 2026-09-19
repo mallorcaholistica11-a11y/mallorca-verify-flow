@@ -34,16 +34,24 @@ export function FichaPublica({
   data,
   plan = "verificado",
   perfilInformativo = false,
+  enlaceGestionPerfil,
 }: {
   data: FichaPublicaData;
   plan?: PlanFicha;
   perfilInformativo?: boolean;
+  enlaceGestionPerfil?: "/gestionar-perfil/$slug";
 }) {
   const isMobile = useMobile();
   const anios = useMemo(() => aniosAcompanando(data.anioInicioActividad), [data.anioInicioActividad]);
 
   const principal = <ColumnaPrincipal data={data} plan={plan} />;
-  const lateral = <BarraLateral data={data} perfilInformativo={perfilInformativo} />;
+  const lateral = (
+    <BarraLateral
+      data={data}
+      perfilInformativo={perfilInformativo}
+      enlaceGestionPerfil={enlaceGestionPerfil}
+    />
+  );
 
   return (
     <div
@@ -314,9 +322,11 @@ function ColumnaPrincipal({ data, plan }: { data: FichaPublicaData; plan: PlanFi
 function BarraLateral({
   data,
   perfilInformativo,
+  enlaceGestionPerfil,
 }: {
   data: FichaPublicaData;
   perfilInformativo?: boolean;
+  enlaceGestionPerfil?: "/gestionar-perfil/$slug";
 }) {
   const ubicaciones = data.ubicaciones ?? [];
   const contacto = data.contacto;
@@ -417,7 +427,9 @@ function BarraLateral({
         </div>
       </Seccion>
 
-      {perfilInformativo && <SeccionPerfilInformativo tipo="profesional" />}
+      {perfilInformativo && (
+        <SeccionPerfilInformativo tipo="profesional" enlaceGestion={enlaceGestionPerfil} />
+      )}
     </>
   );
 }
