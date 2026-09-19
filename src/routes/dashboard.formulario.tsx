@@ -2482,16 +2482,22 @@ function VerificadoFormulario() {
             <Box title="Datos de contacto">
               <>
                 <FakeField label="Correo electrónico" type="email" />
-                <Ayuda>Será el correo de contacto que aparecerá en tu perfil profesional.</Ayuda>
+                <Ayuda>
+                  Lo utilizaremos para tu cuenta y para nuestras comunicaciones contigo. No se
+                  mostrará públicamente salvo que más adelante decidas mostrarlo en tu perfil.
+                </Ayuda>
                 <TelefonoField label="Teléfono" />
                 <VWhatsAppMismo />
                 <FakeField label="Logo o marca (opcional)" type="file" />
                 <Ayuda>Si dispones de un logotipo o imagen de marca puedes añadirlo aquí.</Ayuda>
                 <FakeField label="Foto principal" type="file" />
-                <Ayuda>Será la imagen principal de tu perfil profesional.</Ayuda>
-                <FakeField label="Galería de imágenes (opcional, hasta 5)" type="file" />
                 <Ayuda>
-                  Puedes añadir hasta 5 imágenes para mostrar tu espacio, tu trabajo o aquello que
+                  Será la imagen principal de tu perfil profesional. Es necesaria para el perfil
+                  Profesional Verificado.
+                </Ayuda>
+                <FakeField label="Galería de imágenes (opcional, hasta 6)" type="file" />
+                <Ayuda>
+                  Puedes añadir hasta 6 imágenes para mostrar tu espacio, tu trabajo o aquello que
                   mejor represente tu actividad.
                 </Ayuda>
               </>
