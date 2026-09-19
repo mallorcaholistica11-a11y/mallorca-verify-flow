@@ -5,7 +5,13 @@ import { Button } from "@/components/ui/button";
 import { NavPublica } from "@/components/NavPublica";
 import { useMobile } from "@/components/ficha/useMobile";
 
+const PASOS = ["bienvenida", "contacto", "excepcion", "codigo", "cuenta", "introduccion"] as const;
+type Paso = (typeof PASOS)[number];
+
 export const Route = createFileRoute("/gestionar-perfil/$slug")({
+  validateSearch: (s: Record<string, unknown>): { paso?: Paso } => ({
+    paso: typeof s.paso === "string" && (PASOS as readonly string[]).includes(s.paso) ? (s.paso as Paso) : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Gestiona tu perfil · Mallorca Holística" },

@@ -3795,8 +3795,20 @@ function PresenciaProfesionalFormulario() {
       <div className="pp-navigation">
       <Box title="Navegación">
         <button
-          onClick={() => setStep((s) => Math.max(1, s - 1))}
-          disabled={step === 1}
+          onClick={() => {
+            // En el paso 1 del recorrido de perfil informativo, "Anterior" vuelve
+            // a la pantalla "Tu perfil ya está preparado".
+            if (step === 1 && desdeInformativo) {
+              navigate({
+                to: "/gestionar-perfil/$slug",
+                params: { slug: slug as string },
+                search: { paso: "introduccion" },
+              });
+              return;
+            }
+            setStep((s) => Math.max(1, s - 1));
+          }}
+          disabled={step === 1 && !desdeInformativo}
           style={btn("secondary")}
         >
           ← Anterior
