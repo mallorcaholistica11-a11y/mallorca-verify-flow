@@ -391,13 +391,7 @@ function PresenciaWhatsApp() {
           </button>
         ))}
       </div>
-      {mismo ? (
-        <div style={{ fontSize: 12, color: "var(--primary)", marginTop: 8, lineHeight: 1.6 }}>
-          ✅ Perfecto.
-        </div>
-      ) : (
-        <TelefonoField label="WhatsApp" />
-      )}
+      {!mismo && <TelefonoField label="Número de WhatsApp" />}
     </div>
   );
 }
@@ -1692,7 +1686,7 @@ function DireccionAutocomplete({ ayuda, initial = "" }: { ayuda?: string; initia
   );
 }
 
-function RedesSocialesList() {
+function RedesSocialesList({ enlacePlaceholder = "URL" }: { enlacePlaceholder?: string }) {
   const [redes, setRedes] = useState<{ plataforma: string; url: string }[]>([
     { plataforma: "Instagram", url: "" },
   ]);
@@ -1722,7 +1716,7 @@ function RedesSocialesList() {
           </select>
           <input
             type="url"
-            placeholder="URL"
+            placeholder={enlacePlaceholder}
             value={r.url}
             onChange={(e) => update(i, { url: e.target.value })}
             style={{
@@ -1975,7 +1969,15 @@ function TarifasList({ variant = "profesional" }: { variant?: "profesional" | "o
   );
 }
 
-function ConsultasList({ single = false }: { single?: boolean }) {
+function ConsultasList({
+  single = false,
+  initialLocation = "",
+  locationHelp,
+}: {
+  single?: boolean;
+  initialLocation?: string;
+  locationHelp?: string;
+}) {
   const [items, setItems] = useState([{ id: 1 }]);
   return (
     <div>
@@ -1991,7 +1993,13 @@ function ConsultasList({ single = false }: { single?: boolean }) {
             Si atiendes habitualmente en un centro o espacio con un nombre propio puedes indicarlo
             aquí.
           </Ayuda>
-          <DireccionAutocomplete ayuda="Si atiendes en un centro o consulta, indica esa dirección. Si trabajas exclusivamente online o a domicilio, puedes indicar la ubicación de tu municipio o ciudad." />
+          <DireccionAutocomplete
+            initial={initialLocation}
+            ayuda={
+              locationHelp ??
+              "Si atiendes en un centro o consulta, indica esa dirección. Si trabajas exclusivamente online o a domicilio, puedes indicar la ubicación de tu municipio o ciudad."
+            }
+          />
           {items.length > 1 && (
             <button
               type="button"
@@ -3522,7 +3530,7 @@ const PP_STEP_TITLES = [
   "Información General",
   "Actividad Profesional",
   "Consultas y Modalidades",
-  "Experiencia y Perfil",
+  "Tu Perfil",
   "Contacto y presencia online",
   "Compromisos",
 ];
@@ -3531,7 +3539,7 @@ const PP_STEP_INTROS: Record<number, string> = {
   1: "Empezamos con la información principal de tu perfil. Estos datos ayudarán a las personas a conocerte, ponerse en contacto contigo y generar confianza desde el primer momento.",
   2: "Cuéntanos un poco más sobre tu actividad para que las personas puedan encontrarte con facilidad y comprendan mejor cómo puedes acompañarlas.",
   3: "Indícanos cómo realizas tus consultas y dónde atiendes habitualmente.",
-  4: "Este es tu espacio para presentarte. Comparte quién eres, cómo acompañas a las personas y aquello que hace única tu forma de trabajar. También podrás mostrar parte de tu formación e indicar los idiomas en los que ofreces atención.",
+  4: "Este es tu espacio para presentarte. Comparte quién eres, cómo acompañas a las personas y aquello que hace única tu forma de trabajar.",
   5: "Añade los enlaces y canales de contacto que quieras compartir para que las personas puedan conocerte o ponerse en contacto contigo. Todos los campos son opcionales.",
   6: "Ya casi has terminado. Antes de enviar tu solicitud, necesitamos que aceptes los siguientes documentos y declaraciones para poder revisar tu perfil y publicarlo en Mallorca Holística.",
 };
@@ -3543,6 +3551,80 @@ type PPConsents = {
   condiciones: boolean;
   publicacion: boolean;
 };
+
+const PP_MODALIDADES_TRABAJO = [
+  "Sesiones individuales",
+  "Sesiones de pareja",
+  "Sesiones familiares",
+  "Sesiones grupales",
+];
+
+const PP_CONSULTA_OPTIONS = ["Presencial", "Online", "A domicilio", "A distancia"];
+
+const PP_CONSULTA_HELP: Record<string, string> = {
+  "A distancia":
+    "Para prácticas como acompañamientos energéticos o sanación a distancia, que no requieren presencia física ni conexión online.",
+};
+
+function PPConsultas({ initialLocation = "" }: { initialLocation?: string }) {
+  const [modalidades, setModalidades] = useState<string[]>([]);
+  const toggleModalidad = (modalidad: string) => {
+    setModalidades((prev) =>
+      prev.includes(modalidad) ? prev.filter((item) => item !== modalidad) : [...prev, modalidad],
+    );
+  };
+
+  return (
+    <>
+      <Box title="¿Cómo ofreces tus sesiones?">
+        <Note>Selecciona todas las modalidades que ofreces.</Note>
+        <CheckboxGroup
+          options={PP_CONSULTA_OPTIONS}
+          columns={2}
+          selected={modalidades}
+          onToggle={toggleModalidad}
+          descriptions={PP_CONSULTA_HELP}
+        />
+      </Box>
+      {modalidades.includes("Presencial") && (
+        <Box title="Tu ubicación">
+          <ConsultasList
+            single
+            initialLocation={initialLocation}
+            locationHelp="Esta ubicación nos ayudará a mostrar tu perfil a las personas que buscan profesionales en tu zona."
+          />
+        </Box>
+      )}
+    </>
+  );
+}
+
+function PPInformacionPublica() {
+  const [telefono, setTelefono] = useState(false);
+  const [whatsapp, setWhatsapp] = useState(false);
+  const [correo, setCorreo] = useState(false);
+
+  return (
+    <div>
+      <Ayuda>Selecciona todas las opciones que quieras mostrar públicamente en tu perfil.</Ayuda>
+      <PresenciaToggleCheckbox
+        label="Mostrar mi teléfono"
+        checked={telefono}
+        onToggle={() => setTelefono((value) => !value)}
+      />
+      <PresenciaToggleCheckbox
+        label="Mostrar mi WhatsApp"
+        checked={whatsapp}
+        onToggle={() => setWhatsapp((value) => !value)}
+      />
+      <PresenciaToggleCheckbox
+        label="Mostrar mi correo electrónico"
+        checked={correo}
+        onToggle={() => setCorreo((value) => !value)}
+      />
+    </div>
+  );
+}
 
 function PresenciaProfesionalFormulario() {
   const { track, origen, slug } = Route.useSearch();
@@ -3630,21 +3712,24 @@ function PresenciaProfesionalFormulario() {
 
       {step === 1 && (
         <>
-          <Box title="Información General">
+          <Box title="Información profesional">
             <FakeField label="Nombre" value={desdeInformativo ? "Elena" : undefined} />
             <FakeField label="Apellidos" value={desdeInformativo ? "Rossell" : undefined} />
             <FakeField label="Nombre profesional (opcional)" />
             <Ayuda>Si utilizas un nombre artístico o una marca personal, puedes indicarlo aquí.</Ayuda>
+            <FakeField label="Foto principal (opcional)" type="file" />
+            <Ayuda>
+              Te recomendamos añadir una foto tuya, luminosa y cercana. Ayudará a que las personas te
+              conozcan y conecten contigo desde el primer momento. Si no añades una foto, utilizaremos
+              tus iniciales.
+            </Ayuda>
           </Box>
 
           <Box title="Datos de contacto">
-            <DireccionAutocomplete initial={desdeInformativo ? "Inca" : undefined} ayuda="Si atiendes en un centro o consulta, indica esa dirección. Si trabajas exclusivamente online o a domicilio, puedes indicar la ubicación de tu municipio o ciudad." />
             <FakeField label="Correo electrónico" type="email" />
-            <Ayuda>Será el correo de contacto que aparecerá en tu perfil profesional.</Ayuda>
+            <Ayuda>Lo utilizaremos para comunicarnos contigo y gestionar tu cuenta.</Ayuda>
             <TelefonoField label="Teléfono" />
-            <VWhatsAppMismo />
-            <FakeField label="Foto principal" type="file" />
-            <Ayuda>Será la imagen principal de tu perfil profesional.</Ayuda>
+            <PresenciaWhatsApp />
           </Box>
         </>
       )}
@@ -3652,13 +3737,16 @@ function PresenciaProfesionalFormulario() {
       {step === 2 && (
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           <Box title="Prácticas">
-            <SelectorPracticas max={MAX_PRACTICAS_PRESENCIA} />
+            <SelectorPracticas
+              max={MAX_PRACTICAS_PRESENCIA}
+              ayuda="Selecciona hasta 3 prácticas que mejor representen tu actividad profesional."
+            />
           </Box>
           <Box title="Áreas de Acompañamiento">
             <SelectorAreas
                   label="¿En qué puedes acompañar?"
-                  ayuda="Selecciona las áreas en las que puedes acompañar a las personas."
-                  max={5}
+                  ayuda="Selecciona hasta 5 áreas en las que puedes acompañar a las personas."
+                  max={MAX_AREAS_PRESENCIA}
                 />
           </Box>
           <Box title="¿A quién acompañas?">
@@ -3667,21 +3755,13 @@ function PresenciaProfesionalFormulario() {
           </Box>
           <Box title="¿Cómo trabajas?">
             <Note>Selecciona todas las modalidades que ofreces.</Note>
-            <VCheckboxes options={V_MODALIDADES_OPTIONS} columns={3} />
+            <VCheckboxes options={PP_MODALIDADES_TRABAJO} columns={3} />
           </Box>
         </div>
       )}
 
       {step === 3 && (
-        <>
-          <Box title="¿Cómo realizas tus consultas?">
-            <Note>Selecciona todas las modalidades de consulta que ofreces.</Note>
-            <VCheckboxes options={V_CONSULTA_OPTIONS} columns={2} descriptions={V_CONSULTA_HELP} />
-          </Box>
-          <Box title="Tu ubicación">
-            <ConsultasList single />
-          </Box>
-        </>
+        <PPConsultas initialLocation={desdeInformativo ? "Inca" : ""} />
       )}
 
       {step === 4 && (
@@ -3700,30 +3780,16 @@ function PresenciaProfesionalFormulario() {
             </div>
           </Box>
           <Box title="Cuéntanos un poco sobre ti">
-            <Note>Máximo 3000 caracteres.</Note>
-            <LimitedTextField label="Cuéntanos un poco sobre ti" max={3000} multiline />
+            <Note>Máximo 1000 caracteres.</Note>
+            <LimitedTextField label="Cuéntanos un poco sobre ti" max={1000} multiline />
             <Ayuda>
-              Comparte tu recorrido, tu experiencia, tu forma de trabajar y aquello que te gustaría
-              que las personas conocieran antes de contactar contigo.
+              Comparte brevemente tu manera de trabajar y aquello que te gustaría que las personas
+              conocieran antes de contactar contigo.
             </Ayuda>
             <Note>
               No te preocupes si ahora no tienes el texto perfecto. Podrás modificarlo siempre que lo
               desees.
             </Note>
-          </Box>
-          <Box title="Formación principal">
-            <FormacionList single />
-            <Ayuda>
-              Añade la formación que consideres más relevante para tu actividad profesional.
-            </Ayuda>
-          </Box>
-          <div style={{ height: 12 }} />
-          <Box title="Experiencia profesional">
-            <Ayuda>
-              Indica desde cuándo ejerces profesionalmente. Esta información ayuda a las personas a
-              conocer mejor tu trayectoria.
-            </Ayuda>
-            <FakeField label="¿Desde qué año ejerces profesionalmente?" type="año · ej. 2014" />
           </Box>
           <Box title="Idiomas">
             <Ayuda>Selecciona los idiomas en los que puedes atender a las personas.</Ayuda>
@@ -3734,17 +3800,14 @@ function PresenciaProfesionalFormulario() {
 
       {step === 5 && (
         <>
-          <Box title="🌐 Página web">
-            <FakeField label="Página web" type="url" />
+          <Box title="🌐 Página web (opcional)">
+            <FakeField label="Escribe la dirección de tu página web" type="www.tunombre.com" />
           </Box>
-          <Box title="📱 Redes sociales">
-            <RedesSocialesList />
+          <Box title="📱 Redes sociales (opcional)">
+            <RedesSocialesList enlacePlaceholder="Enlace a tu perfil" />
           </Box>
-          <Box title="💬 WhatsApp Business">
-            <VWhatsAppBusiness />
-          </Box>
-          <Box title="🔒 Información pública">
-            <VInformacionPublica />
+          <Box title="🔒 ¿Cómo quieres que contacten contigo?">
+            <PPInformacionPublica />
           </Box>
         </>
       )}
@@ -3762,7 +3825,7 @@ function PresenciaProfesionalFormulario() {
           <VConsentItem
             icon="✅"
             title="Declaración de veracidad"
-            label="Declaro que toda la información aportada es veraz, exacta y está actualizada."
+            label="Declaro que la información que he proporcionado es veraz, exacta y está actualizada."
             checked={consents.veracidad}
             onToggle={() => toggleConsent("veracidad")}
           />
@@ -3770,7 +3833,7 @@ function PresenciaProfesionalFormulario() {
             icon="🔒"
             title="Política de Privacidad"
             linkText="Leer documento"
-            label="Confirmo que he leído y acepto la Política de Privacidad."
+            label="Confirmo que he leído la Política de Privacidad de Mallorca Holística."
             checked={consents.privacidad}
             onToggle={() => toggleConsent("privacidad")}
           />
@@ -3791,9 +3854,8 @@ function PresenciaProfesionalFormulario() {
             onToggle={() => toggleConsent("publicacion")}
           />
           <Note>
-            Ya solo queda un último paso. Después podrás enviar tu solicitud. Nuestro equipo revisará
-            la información y te avisaremos por correo electrónico cuando tu perfil esté listo para
-            publicarse.
+            Cuando envíes tu perfil, nuestro equipo realizará una revisión básica de la información.
+            Te avisaremos cuando esté listo.
           </Note>
         </Box>
       )}
