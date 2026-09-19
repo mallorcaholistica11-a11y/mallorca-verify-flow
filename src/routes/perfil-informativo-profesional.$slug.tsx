@@ -3,6 +3,9 @@ import { FichaPublica } from "@/components/ficha/FichaPublica";
 import type { FichaPublicaData } from "@/components/ficha/types";
 
 export const Route = createFileRoute("/perfil-informativo-profesional/$slug")({
+  validateSearch: (search: Record<string, unknown>): { gestionado?: boolean } => ({
+    gestionado: search.gestionado === true || search.gestionado === "true" ? true : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Perfil informativo profesional · Mallorca Holística" },
@@ -46,6 +49,8 @@ const demo: FichaPublicaData = {
 };
 
 function PerfilInformativoProfesional() {
+  const { gestionado } = Route.useSearch();
+
   return (
     <div>
       <div style={topBackContainerStyle}>
@@ -56,8 +61,8 @@ function PerfilInformativoProfesional() {
       <FichaPublica
         data={demo}
         plan="presencia"
-        perfilInformativo
-        enlaceGestionPerfil="/gestionar-perfil/$slug"
+        perfilInformativo={!gestionado}
+        enlaceGestionPerfil={gestionado ? undefined : "/gestionar-perfil/$slug"}
       />
       <div style={bottomBackContainerStyle}>
         <Link to="/" style={bottomBackLinkStyle}>

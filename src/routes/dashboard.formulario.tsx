@@ -2152,7 +2152,17 @@ function VerificadoFormulario() {
     setContacto((prev) => ({ ...prev, telefono: value }));
   };
 
-  const finish = () => navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
+  const finish = () => {
+    if (desdeInformativo && typeof slug === "string") {
+      navigate({
+        to: "/gestionar-perfil/$slug",
+        params: { slug },
+        search: { paso: "completado" },
+      });
+      return;
+    }
+    navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
+  };
 
   // El plan determina el formulario; la condición Fundadora solo cambia el
   // contenido comercial del paso de suscripción.

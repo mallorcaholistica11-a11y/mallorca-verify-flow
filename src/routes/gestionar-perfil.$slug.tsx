@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { NavPublica } from "@/components/NavPublica";
 import { useMobile } from "@/components/ficha/useMobile";
 
-const PASOS = ["bienvenida", "contacto", "excepcion", "codigo", "cuenta", "introduccion"] as const;
+const PASOS = ["bienvenida", "contacto", "excepcion", "codigo", "cuenta", "introduccion", "completado"] as const;
 type Paso = (typeof PASOS)[number];
 
 export const Route = createFileRoute("/gestionar-perfil/$slug")({
@@ -177,6 +177,37 @@ function GestionarPerfil() {
                 Revisar y completar mi perfil →
               </Link>
             </Button>
+          </Pantalla>
+        )}
+
+        {paso === "completado" && (
+          <Pantalla titulo="Tu perfil ya está listo">
+            <div className="mb-8 flex h-12 w-12 items-center justify-center rounded-full bg-secondary text-primary">
+              <Check aria-hidden="true" />
+            </div>
+            <div className="max-w-[620px] space-y-4 text-[15px] leading-7">
+              <p className="font-semibold">Gracias, Elena.</p>
+              <p>Tu perfil ya está gestionado por ti y forma parte de Mallorca Holística.</p>
+              <p>A partir de ahora podrás actualizar tu información siempre que lo necesites desde tu espacio.</p>
+            </div>
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
+              <Button asChild size="lg" className="rounded-full">
+                <Link
+                  to="/perfil-informativo-profesional/$slug"
+                  params={{ slug }}
+                  search={{ gestionado: true }}
+                >
+                  Ver mi perfil →
+                </Link>
+              </Button>
+              <Link
+                to="/mi-espacio"
+                search={{ track: "presencia" }}
+                className="text-sm text-foreground underline underline-offset-4"
+              >
+                Ir a Mi Espacio →
+              </Link>
+            </div>
           </Pantalla>
         )}
       </main>
