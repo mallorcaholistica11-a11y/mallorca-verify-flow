@@ -3565,11 +3565,7 @@ function PresenciaProfesionalFormulario() {
 
   const finish = () => {
     if (desdeInformativo && typeof slug === "string") {
-      navigate({
-        to: "/gestionar-perfil/$slug",
-        params: { slug },
-        search: { paso: "completado" },
-      });
+      window.location.assign(`/gestionar-perfil/${encodeURIComponent(slug)}?paso=completado`);
       return;
     }
     navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
