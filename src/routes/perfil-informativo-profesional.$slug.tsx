@@ -61,7 +61,8 @@ function PerfilInformativoProfesional() {
       <FichaPublica
         data={demo}
         plan="presencia"
-        perfilInformativo={!gestionado}
+        perfilInformativo
+        perfilGestionado={gestionado}
         enlaceGestionPerfil={gestionado ? undefined : "/gestionar-perfil/$slug"}
       />
       <div style={bottomBackContainerStyle}>
