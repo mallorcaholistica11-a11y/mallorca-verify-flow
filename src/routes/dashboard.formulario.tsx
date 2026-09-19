@@ -3274,6 +3274,23 @@ function PresenciaOrganizacionFormulario() {
   const navigate = useNavigate();
   const desdeInformativo =
     origen === "informativo" && slug === "espai-bellver";
+  // Edición del mismo formulario desde Mi Espacio › Mi Perfil (prototipo, sin persistencia).
+  const desdeMiEspacio = origen === "mi-espacio";
+  const precargaNombreEspacio = desdeInformativo
+    ? "Espai Bellver"
+    : desdeMiEspacio
+      ? "Espai Sa Font"
+      : undefined;
+  const precargaEmailEspacio = desdeInformativo
+    ? "hola@espaibellver.example"
+    : desdeMiEspacio
+      ? "hola@espaisafont.com"
+      : undefined;
+  const precargaDireccion = desdeInformativo
+    ? "Carrer de Bellver, 27, Palma"
+    : desdeMiEspacio
+      ? "Carrer de la Font, 8, Palma"
+      : "";
   const [step, setStep] = useState(1);
   const total = 6;
   const isLast = step === total;
@@ -3305,12 +3322,16 @@ function PresenciaOrganizacionFormulario() {
   const [contactoCompartido, setContactoCompartido] = useState(false);
   const [telefonoEspacio, setTelefonoEspacio] = useState({
     prefijo: "+34",
-    numero: desdeInformativo ? "971 000 327" : "",
+    numero: desdeInformativo ? "971 000 327" : desdeMiEspacio ? "971 987 654" : "",
   });
 
   const finish = () => {
     if (desdeInformativo && typeof slug === "string") {
       window.location.assign(`/gestionar-perfil/${encodeURIComponent(slug)}?paso=completado`);
+      return;
+    }
+    if (desdeMiEspacio) {
+      navigate({ to: "/mi-espacio/perfil", search: { track, perfil: "organization" } });
       return;
     }
     navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
@@ -3382,7 +3403,7 @@ function PresenciaOrganizacionFormulario() {
       {step === 1 && (
         <>
           <Box title="Espacio, centro o proyecto">
-            <FakeField label="Nombre del espacio, centro o proyecto *" value={desdeInformativo ? "Espai Bellver" : undefined} />
+            <FakeField label="Nombre del espacio, centro o proyecto *" value={precargaNombreEspacio} />
             <Ayuda>
               Es el nombre con el que las personas os encontrarán dentro de Mallorca Holística.
             </Ayuda>
@@ -3390,7 +3411,7 @@ function PresenciaOrganizacionFormulario() {
             <FakeField
               label="Correo electrónico del espacio/proyecto"
               type="email"
-              value={desdeInformativo ? "hola@espaibellver.example" : undefined}
+              value={precargaEmailEspacio}
             />
             <TelefonoField label="Teléfono del espacio/proyecto" value={telefonoEspacio} onChange={setTelefonoEspacio} />
             <OWhatsAppMismo />
@@ -3485,7 +3506,7 @@ function PresenciaOrganizacionFormulario() {
       )}
 
       {step === 3 && (
-        <OPUbicacion initialAddress={desdeInformativo ? "Carrer de Bellver, 27, Palma" : ""} />
+        <OPUbicacion initialAddress={precargaDireccion} />
       )}
 
       {step === 4 && (
@@ -3582,9 +3603,17 @@ function PresenciaOrganizacionFormulario() {
               navigate({ to: "/gestionar-perfil/$slug", params: { slug }, search: { paso: "introduccion" } });
               return;
             }
+            if (step === 1 && desdeMiEspacio) {
+              navigate({ to: "/mi-espacio/perfil", search: { track, perfil: "organization" } });
+              return;
+            }
+            if (step === 1) {
+              navigate({ to: "/dashboard/tipo-perfil", search: { track } });
+              return;
+            }
             setStep((s) => Math.max(1, s - 1));
           }}
-          disabled={step === 1 && !desdeInformativo}
+          disabled={false}
           style={btn("secondary")}
         >
           ← Anterior
@@ -3732,6 +3761,11 @@ function PresenciaProfesionalFormulario() {
   const navigate = useNavigate();
   // Flujo de gestión de un perfil informativo existente (prototipo, Elena Rossell).
   const desdeInformativo = origen === "informativo" && typeof slug === "string" && slug.length > 0;
+  // Edición del mismo formulario desde Mi Espacio › Mi Perfil (prototipo, sin persistencia).
+  const desdeMiEspacio = origen === "mi-espacio";
+  const precargaNombre = desdeInformativo ? "Elena" : desdeMiEspacio ? "Lucía" : undefined;
+  const precargaApellidos = desdeInformativo ? "Rossell" : desdeMiEspacio ? "Gelabert" : undefined;
+  const precargaUbicacion = desdeInformativo ? "Inca" : desdeMiEspacio ? "Palma" : "";
   const [step, setStep] = useState(1);
   const total = 6;
   const isLast = step === total;
@@ -3760,6 +3794,10 @@ function PresenciaProfesionalFormulario() {
   const finish = () => {
     if (desdeInformativo && typeof slug === "string") {
       window.location.assign(`/gestionar-perfil/${encodeURIComponent(slug)}?paso=completado`);
+      return;
+    }
+    if (desdeMiEspacio) {
+      navigate({ to: "/mi-espacio/perfil", search: { track, perfil: "professional" } });
       return;
     }
     navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
@@ -3825,8 +3863,8 @@ function PresenciaProfesionalFormulario() {
       {step === 1 && (
         <>
           <Box title="Información profesional">
-            <FakeField label="Nombre" value={desdeInformativo ? "Elena" : undefined} />
-            <FakeField label="Apellidos" value={desdeInformativo ? "Rossell" : undefined} />
+            <FakeField label="Nombre" value={precargaNombre} />
+            <FakeField label="Apellidos" value={precargaApellidos} />
             <FakeField label="Nombre profesional (opcional)" />
             <Ayuda>Si utilizas un nombre artístico o una marca personal, puedes indicarlo aquí.</Ayuda>
             <FakeField label="Foto principal (opcional)" type="file" />
@@ -3873,7 +3911,7 @@ function PresenciaProfesionalFormulario() {
       )}
 
       {step === 3 && (
-        <PPConsultas initialLocation={desdeInformativo ? "Inca" : ""} />
+        <PPConsultas initialLocation={precargaUbicacion} />
       )}
 
       {step === 4 && (
@@ -3986,9 +4024,17 @@ function PresenciaProfesionalFormulario() {
               });
               return;
             }
+            if (step === 1 && desdeMiEspacio) {
+              navigate({ to: "/mi-espacio/perfil", search: { track, perfil: "professional" } });
+              return;
+            }
+            if (step === 1) {
+              navigate({ to: "/dashboard/tipo-perfil", search: { track } });
+              return;
+            }
             setStep((s) => Math.max(1, s - 1));
           }}
-          disabled={step === 1 && !desdeInformativo}
+          disabled={false}
           style={btn("secondary")}
         >
           ← Anterior
