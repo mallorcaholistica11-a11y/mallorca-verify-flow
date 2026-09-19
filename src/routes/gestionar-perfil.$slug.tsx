@@ -5,7 +5,13 @@ import { Button } from "@/components/ui/button";
 import { NavPublica } from "@/components/NavPublica";
 import { useMobile } from "@/components/ficha/useMobile";
 
+const PASOS = ["bienvenida", "contacto", "excepcion", "codigo", "cuenta", "introduccion"] as const;
+type Paso = (typeof PASOS)[number];
+
 export const Route = createFileRoute("/gestionar-perfil/$slug")({
+  validateSearch: (s: Record<string, unknown>): { paso?: Paso } => ({
+    paso: typeof s.paso === "string" && (PASOS as readonly string[]).includes(s.paso) ? (s.paso as Paso) : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Gestiona tu perfil · Mallorca Holística" },
@@ -25,7 +31,6 @@ export const Route = createFileRoute("/gestionar-perfil/$slug")({
   component: GestionarPerfil,
 });
 
-type Paso = "bienvenida" | "contacto" | "excepcion" | "codigo" | "cuenta" | "introduccion";
 type Canal = "email" | "telefono";
 
 const EMAIL_OCULTO = "e••••••@gmail.com";
@@ -33,7 +38,9 @@ const TELEFONO_OCULTO = "••• ••• 427";
 
 function GestionarPerfil() {
   const isMobile = useMobile();
-  const [paso, setPaso] = useState<Paso>("bienvenida");
+  const { slug } = Route.useParams();
+  const { paso: pasoInicial } = Route.useSearch();
+  const [paso, setPaso] = useState<Paso>(pasoInicial ?? "bienvenida");
   const [canal, setCanal] = useState<Canal>("email");
   const [codigo, setCodigo] = useState("");
   const [solicitudEnviada, setSolicitudEnviada] = useState(false);
@@ -164,7 +171,7 @@ function GestionarPerfil() {
             <Button asChild size="lg" className="mt-8 rounded-full">
               <Link
                 to="/dashboard/formulario"
-                search={{ track: "presencia", perfil: "professional" }}
+                search={{ track: "presencia", perfil: "professional", origen: "informativo", slug }}
                 reloadDocument
               >
                 Revisar y completar mi perfil →

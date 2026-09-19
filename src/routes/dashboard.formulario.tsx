@@ -27,9 +27,12 @@ import {
 import { HorarioSemanal } from "@/components/HorarioSemanal";
 
 export const Route = createFileRoute("/dashboard/formulario")({
-  validateSearch: (s: Record<string, unknown>): { track: Track; perfil?: PerfilTipo } => ({
+  validateSearch: (s: Record<string, unknown>): { track: Track; perfil?: PerfilTipo; origen?: string; slug?: string } => ({
     track: parseTrack(s),
     perfil: parsePerfil(s),
+    // Flujo de gestión de un perfil informativo existente (prototipo).
+    origen: typeof s.origen === "string" ? s.origen : undefined,
+    slug: typeof s.slug === "string" ? s.slug : undefined,
   }),
   component: Formulario,
 });
@@ -1618,9 +1621,9 @@ function UbicacionesList() {
   return <UbicacionesListInner />;
 }
 
-function DireccionAutocomplete({ ayuda }: { ayuda?: string }) {
+function DireccionAutocomplete({ ayuda, initial = "" }: { ayuda?: string; initial?: string }) {
   const [manual, setManual] = useState(false);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(initial);
   const inputStyle: React.CSSProperties = {
     width: "100%",
     padding: "8px 10px",
@@ -3542,8 +3545,10 @@ type PPConsents = {
 };
 
 function PresenciaProfesionalFormulario() {
-  const { track } = Route.useSearch();
+  const { track, origen, slug } = Route.useSearch();
   const navigate = useNavigate();
+  // Flujo de gestión de un perfil informativo existente (prototipo, Elena Rossell).
+  const desdeInformativo = origen === "informativo" && typeof slug === "string" && slug.length > 0;
   const [step, setStep] = useState(1);
   const total = 6;
   const isLast = step === total;
@@ -3620,14 +3625,14 @@ function PresenciaProfesionalFormulario() {
       {step === 1 && (
         <>
           <Box title="Información General">
-            <FakeField label="Nombre" />
-            <FakeField label="Apellidos" />
+            <FakeField label="Nombre" value={desdeInformativo ? "Elena" : undefined} />
+            <FakeField label="Apellidos" value={desdeInformativo ? "Rossell" : undefined} />
             <FakeField label="Nombre profesional (opcional)" />
             <Ayuda>Si utilizas un nombre artístico o una marca personal, puedes indicarlo aquí.</Ayuda>
           </Box>
 
           <Box title="Datos de contacto">
-            <DireccionAutocomplete ayuda="Si atiendes en un centro o consulta, indica esa dirección. Si trabajas exclusivamente online o a domicilio, puedes indicar la ubicación de tu municipio o ciudad." />
+            <DireccionAutocomplete initial={desdeInformativo ? "Inca" : undefined} ayuda="Si atiendes en un centro o consulta, indica esa dirección. Si trabajas exclusivamente online o a domicilio, puedes indicar la ubicación de tu municipio o ciudad." />
             <FakeField label="Correo electrónico" type="email" />
             <Ayuda>Será el correo de contacto que aparecerá en tu perfil profesional.</Ayuda>
             <TelefonoField label="Teléfono" />
@@ -3790,8 +3795,20 @@ function PresenciaProfesionalFormulario() {
       <div className="pp-navigation">
       <Box title="Navegación">
         <button
-          onClick={() => setStep((s) => Math.max(1, s - 1))}
-          disabled={step === 1}
+          onClick={() => {
+            // En el paso 1 del recorrido de perfil informativo, "Anterior" vuelve
+            // a la pantalla "Tu perfil ya está preparado".
+            if (step === 1 && desdeInformativo) {
+              navigate({
+                to: "/gestionar-perfil/$slug",
+                params: { slug: slug as string },
+                search: { paso: "introduccion" },
+              });
+              return;
+            }
+            setStep((s) => Math.max(1, s - 1));
+          }}
+          disabled={step === 1 && !desdeInformativo}
           style={btn("secondary")}
         >
           ← Anterior
