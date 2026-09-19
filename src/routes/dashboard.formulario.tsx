@@ -1903,6 +1903,84 @@ function FormacionList({ single = false }: { single?: boolean }) {
   );
 }
 
+// Campos de una tarifa del Profesional Verificado: duración en minutos y
+// precio monetario en euros, siempre numéricos (nunca texto libre).
+function TarifaCampos() {
+  const [servicio, setServicio] = useState("");
+  const [duracion, setDuracion] = useState("");
+  const [precio, setPrecio] = useState("");
+  const inputStyle: React.CSSProperties = {
+    width: "100%",
+    border: "1px solid var(--border)",
+    borderRadius: 12,
+    padding: "10px 14px",
+    background: "var(--card)",
+    color: "var(--foreground)",
+    fontSize: 12.5,
+    fontFamily: "inherit",
+    boxSizing: "border-box",
+  };
+  const labelStyle: React.CSSProperties = { fontSize: 12.5, marginBottom: 6, color: "var(--foreground)" };
+  const normalizarPrecio = () => {
+    const limpio = precio.replace(",", ".").replace(/[^\d.]/g, "");
+    if (limpio === "") {
+      setPrecio("");
+      return;
+    }
+    const valor = Number(limpio);
+    if (Number.isNaN(valor)) {
+      setPrecio("");
+      return;
+    }
+    setPrecio(valor.toFixed(2).replace(".", ","));
+  };
+  return (
+    <div>
+      <div style={{ marginBottom: 12 }}>
+        <div style={labelStyle}>Servicio</div>
+        <input
+          type="text"
+          value={servicio}
+          placeholder="Sesión individual"
+          onChange={(e) => setServicio(e.target.value)}
+          style={inputStyle}
+        />
+      </div>
+      <div style={{ marginBottom: 12 }}>
+        <div style={labelStyle}>Duración (opcional)</div>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <input
+            type="number"
+            min={0}
+            step={5}
+            inputMode="numeric"
+            value={duracion}
+            placeholder="60"
+            onChange={(e) => setDuracion(e.target.value.replace(/[^\d]/g, ""))}
+            style={{ ...inputStyle, width: 120 }}
+          />
+          <span style={{ fontSize: 12.5, color: "var(--muted-foreground)" }}>min</span>
+        </div>
+      </div>
+      <div style={{ marginBottom: 12 }}>
+        <div style={labelStyle}>Precio</div>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <input
+            type="text"
+            inputMode="decimal"
+            value={precio}
+            placeholder="80,00"
+            onChange={(e) => setPrecio(e.target.value.replace(/[^\d.,]/g, ""))}
+            onBlur={normalizarPrecio}
+            style={{ ...inputStyle, width: 120 }}
+          />
+          <span style={{ fontSize: 12.5, color: "var(--muted-foreground)" }}>€</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function TarifasList({ variant = "profesional" }: { variant?: "profesional" | "organizacion" }) {
   const isOrg = variant === "organizacion";
   const [mostrar, setMostrar] = useState<boolean | null>(null);
