@@ -194,19 +194,6 @@ function Pantalla({ titulo, volver, children }: { titulo: string; volver?: () =>
   );
 }
 
-function Progress({ paso }: { paso: Paso }) {
-  const numero = paso === "bienvenida" ? 1 : paso === "contacto" || paso === "excepcion" ? 2 : paso === "codigo" ? 3 : paso === "cuenta" ? 4 : 5;
-  return (
-    <div className="mb-8" aria-label={`Paso ${numero} de 5`}>
-      <div className="mb-2 flex justify-between text-xs text-muted-foreground">
-        <span>Gestionar perfil</span><span>Paso {numero} de 5</span>
-      </div>
-      <div className="grid grid-cols-5 gap-1.5">
-        {[1, 2, 3, 4, 5].map((n) => <span key={n} className={`h-1 rounded-full ${n <= numero ? "bg-primary" : "bg-border"}`} />)}
-      </div>
-    </div>
-  );
-}
 
 function Identidad({ mostrarPlan }: { mostrarPlan: boolean }) {
   return (
