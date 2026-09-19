@@ -1615,7 +1615,15 @@ function UbicacionesList() {
   return <UbicacionesListInner />;
 }
 
-function DireccionAutocomplete({ ayuda, initial = "" }: { ayuda?: string; initial?: string }) {
+function DireccionAutocomplete({
+  ayuda,
+  initial = "",
+  label = "Dirección",
+}: {
+  ayuda?: string;
+  initial?: string;
+  label?: string;
+}) {
   const [manual, setManual] = useState(false);
   const [value, setValue] = useState(initial);
   const inputStyle: React.CSSProperties = {
@@ -1638,7 +1646,7 @@ function DireccionAutocomplete({ ayuda, initial = "" }: { ayuda?: string; initia
           marginBottom: 4,
         }}
       >
-        Dirección
+        {label}
       </div>
       <input
         type="text"
@@ -1995,6 +2003,7 @@ function ConsultasList({
           </Ayuda>
           <DireccionAutocomplete
             initial={initialLocation}
+            label="Dirección de la consulta"
             ayuda={
               locationHelp ??
               "Si atiendes en un centro o consulta, indica esa dirección. Si trabajas exclusivamente online o a domicilio, puedes indicar la ubicación de tu municipio o ciudad."
@@ -3544,13 +3553,23 @@ const PP_STEP_INTROS: Record<number, string> = {
   6: "Ya casi has terminado. Antes de enviar tu solicitud, necesitamos que aceptes los siguientes documentos y declaraciones para poder revisar tu perfil y publicarlo en Mallorca Holística.",
 };
 
-type PPConsents = {
-  codigo: boolean;
-  veracidad: boolean;
-  privacidad: boolean;
-  condiciones: boolean;
-  publicacion: boolean;
+type PPConsentKey = "codigo" | "veracidad" | "privacidad" | "condiciones" | "publicacion";
+
+type PPConsentDraft = {
+  document: string;
+  version: string;
+  accepted: boolean;
+  acceptedAt: string | null;
 };
+
+type PPConsents = Record<PPConsentKey, PPConsentDraft>;
+
+const createPPConsent = (document: string): PPConsentDraft => ({
+  document,
+  version: "pendiente-de-publicación",
+  accepted: false,
+  acceptedAt: null,
+});
 
 const PP_MODALIDADES_TRABAJO = [
   "Sesiones individuales",
@@ -3636,14 +3655,25 @@ function PresenciaProfesionalFormulario() {
   const isLast = step === total;
 
   const [consents, setConsents] = useState<PPConsents>({
-    codigo: false,
-    veracidad: false,
-    privacidad: false,
-    condiciones: false,
-    publicacion: false,
+    codigo: createPPConsent("Código Deontológico"),
+    veracidad: createPPConsent("Declaración de Veracidad"),
+    privacidad: createPPConsent("Política de Privacidad"),
+    condiciones: createPPConsent("Condiciones de Uso"),
+    publicacion: createPPConsent("Publicación del Perfil"),
   });
-  const toggleConsent = (k: keyof PPConsents) => setConsents((p) => ({ ...p, [k]: !p[k] }));
-  const allConsents = Object.values(consents).every(Boolean);
+  const toggleConsent = (key: PPConsentKey) =>
+    setConsents((previous) => {
+      const nextAccepted = !previous[key].accepted;
+      return {
+        ...previous,
+        [key]: {
+          ...previous[key],
+          accepted: nextAccepted,
+          acceptedAt: nextAccepted ? new Date().toISOString() : null,
+        },
+      };
+    });
+  const allConsents = Object.values(consents).every((consent) => consent.accepted);
 
   const finish = () => {
     if (desdeInformativo && typeof slug === "string") {
@@ -3819,14 +3849,14 @@ function PresenciaProfesionalFormulario() {
             title="Código Deontológico"
             linkText="Leer documento"
             label="Confirmo que he leído y acepto el Código Deontológico de Mallorca Holística."
-            checked={consents.codigo}
+            checked={consents.codigo.accepted}
             onToggle={() => toggleConsent("codigo")}
           />
           <VConsentItem
             icon="✅"
-            title="Declaración de veracidad"
+            title="Declaración de Veracidad"
             label="Declaro que la información que he proporcionado es veraz, exacta y está actualizada."
-            checked={consents.veracidad}
+            checked={consents.veracidad.accepted}
             onToggle={() => toggleConsent("veracidad")}
           />
           <VConsentItem
@@ -3834,7 +3864,7 @@ function PresenciaProfesionalFormulario() {
             title="Política de Privacidad"
             linkText="Leer documento"
             label="Confirmo que he leído la Política de Privacidad de Mallorca Holística."
-            checked={consents.privacidad}
+            checked={consents.privacidad.accepted}
             onToggle={() => toggleConsent("privacidad")}
           />
           <VConsentItem
@@ -3842,15 +3872,15 @@ function PresenciaProfesionalFormulario() {
             title="Condiciones de Uso"
             linkText="Leer documento"
             label="Confirmo que he leído y acepto las Condiciones de Uso."
-            checked={consents.condiciones}
+            checked={consents.condiciones.accepted}
             onToggle={() => toggleConsent("condiciones")}
           />
           <VConsentItem
             icon="🌐"
-            title="Publicación del Perfil"
+            title="Publicación del perfil"
             linkText="Leer documento"
             label="Autorizo a Mallorca Holística a publicar mi perfil profesional en la plataforma."
-            checked={consents.publicacion}
+            checked={consents.publicacion.accepted}
             onToggle={() => toggleConsent("publicacion")}
           />
           <Note>
