@@ -1953,9 +1953,15 @@ function TarifasList({ variant = "profesional" }: { variant?: "profesional" | "o
           {items.map((it, idx) => (
             <div key={it.id} style={{ border: "1px solid var(--border)", borderRadius: 12, padding: 12, marginBottom: 12 }}>
               <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginBottom: 6 }}>Tarifa #{idx + 1}</div>
-              <FakeField label="Servicio" />
-              <FakeField label="Duración (opcional)" />
-              <FakeField label="Precio" />
+              {isOrg ? (
+                <>
+                  <FakeField label="Servicio" />
+                  <FakeField label="Duración (opcional)" />
+                  <FakeField label="Precio" />
+                </>
+              ) : (
+                <TarifaCampos />
+              )}
               {items.length > 1 && (
                 <button
                   type="button"
