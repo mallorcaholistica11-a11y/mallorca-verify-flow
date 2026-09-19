@@ -171,7 +171,7 @@ function GestionarPerfil() {
             <Button asChild size="lg" className="mt-8 rounded-full">
               <Link
                 to="/dashboard/formulario"
-                search={{ track: "presencia", perfil: "professional" }}
+                search={{ track: "presencia", perfil: "professional", origen: "informativo", slug }}
                 reloadDocument
               >
                 Revisar y completar mi perfil →
