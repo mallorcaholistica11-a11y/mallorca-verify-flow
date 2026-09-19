@@ -43,3 +43,4 @@
 - [x] Prototipar el recorrido visual para gestionar el perfil informativo profesional de Elena Rossell.
 - [x] Verificar el recorrido completo en escritorio y móvil sin alterar el alta existente ni el Directorio.
 - [x] Añadir y verificar la pantalla final del perfil gestionado de Elena Rossell sin alterar el alta normal.
+- [x] Depurar el único formulario Profesional · Plan Presencia y verificar sus dos flujos sin alterar Profesional Verificado ni centros.
