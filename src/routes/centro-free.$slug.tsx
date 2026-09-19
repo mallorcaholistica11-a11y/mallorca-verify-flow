@@ -74,7 +74,7 @@ function FichaCentroPresencia() {
           background: "var(--card)",
         }}
       >
-        <Link to="/" style={{ color: "var(--foreground)" }}>
+        <Link to="/directorio" search={{ q: "", lugar: "" }} style={{ color: "var(--foreground)" }}>
           ← Volver a resultados
         </Link>
       </div>
@@ -84,7 +84,7 @@ function FichaCentroPresencia() {
         origenPracticas={{ tipo: "centro-free", slug, nombre: demo.nombre }}
       />
       <div style={bottomBackContainerStyle}>
-        <Link to="/" style={bottomBackLinkStyle}>
+        <Link to="/directorio" search={{ q: "", lugar: "" }} style={bottomBackLinkStyle}>
           ← Volver a resultados
         </Link>
       </div>

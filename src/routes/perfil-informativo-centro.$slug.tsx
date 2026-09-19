@@ -58,7 +58,7 @@ function PerfilInformativoCentro() {
   return (
     <div>
       <div style={topBackContainerStyle}>
-        <Link to="/" style={{ color: "var(--foreground)" }}>
+        <Link to="/directorio" search={{ q: "", lugar: "" }} style={{ color: "var(--foreground)" }}>
           ← Volver a resultados
         </Link>
       </div>
@@ -69,7 +69,7 @@ function PerfilInformativoCentro() {
         origenPracticas={{ tipo: "perfil-informativo-centro", slug, nombre: demo.nombre }}
       />
       <div style={bottomBackContainerStyle}>
-        <Link to="/" style={bottomBackLinkStyle}>
+        <Link to="/directorio" search={{ q: "", lugar: "" }} style={bottomBackLinkStyle}>
           ← Volver a resultados
         </Link>
       </div>
