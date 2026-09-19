@@ -376,9 +376,11 @@ const ESTADO_PERFIL_CENTRO: Record<PerfilEstado, { estado: string; verificacion:
 function MiPerfilCentro({
   track = "organizacion",
   estadoSearch,
+  perfil = "organization",
 }: {
   track?: Track;
   estadoSearch?: PerfilEstado;
+  perfil?: PerfilTipo;
 }) {
   const estado = estadoSearch ?? "pendiente";
   const estadoPerfil = ESTADO_PERFIL_CENTRO[estado];
