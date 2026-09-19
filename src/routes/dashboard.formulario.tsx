@@ -3563,7 +3563,13 @@ function PresenciaProfesionalFormulario() {
   const toggleConsent = (k: keyof PPConsents) => setConsents((p) => ({ ...p, [k]: !p[k] }));
   const allConsents = Object.values(consents).every(Boolean);
 
-  const finish = () => navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
+  const finish = () => {
+    if (desdeInformativo && typeof slug === "string") {
+      window.location.assign(`/gestionar-perfil/${encodeURIComponent(slug)}?paso=completado`);
+      return;
+    }
+    navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
+  };
 
   const stepTitle = PP_STEP_TITLES[step - 1];
 
