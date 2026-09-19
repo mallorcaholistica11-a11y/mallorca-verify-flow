@@ -42,3 +42,4 @@
 - [x] Crear dos fichas de prueba aisladas con estado «Perfil informativo», iniciales y CTA sin flujo real.
 - [x] Prototipar el recorrido visual para gestionar el perfil informativo profesional de Elena Rossell.
 - [x] Verificar el recorrido completo en escritorio y móvil sin alterar el alta existente ni el Directorio.
+- [x] Añadir y verificar la pantalla final del perfil gestionado de Elena Rossell sin alterar el alta normal.
