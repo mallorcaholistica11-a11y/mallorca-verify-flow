@@ -37,6 +37,7 @@ import { Route as MiEspacioAyudaRouteImport } from './routes/mi-espacio.ayuda'
 import { Route as MiEspacioActividadesRouteImport } from './routes/mi-espacio.actividades'
 import { Route as InvitacionTokenRouteImport } from './routes/invitacion.$token'
 import { Route as GuiaSlugRouteImport } from './routes/guia.$slug'
+import { Route as GestionarPerfilSlugRouteImport } from './routes/gestionar-perfil.$slug'
 import { Route as DashboardTipoPerfilRouteImport } from './routes/dashboard.tipo-perfil'
 import { Route as DashboardSolicitudEnviadaRouteImport } from './routes/dashboard.solicitud-enviada'
 import { Route as DashboardFormularioRouteImport } from './routes/dashboard.formulario'
@@ -194,6 +195,11 @@ const GuiaSlugRoute = GuiaSlugRouteImport.update({
   path: '/guia/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GestionarPerfilSlugRoute = GestionarPerfilSlugRouteImport.update({
+  id: '/gestionar-perfil/$slug',
+  path: '/gestionar-perfil/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardTipoPerfilRoute = DashboardTipoPerfilRouteImport.update({
   id: '/tipo-perfil',
   path: '/tipo-perfil',
@@ -266,6 +272,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/formulario': typeof DashboardFormularioRoute
   '/dashboard/solicitud-enviada': typeof DashboardSolicitudEnviadaRoute
   '/dashboard/tipo-perfil': typeof DashboardTipoPerfilRoute
+  '/gestionar-perfil/$slug': typeof GestionarPerfilSlugRoute
   '/guia/$slug': typeof GuiaSlugRoute
   '/invitacion/$token': typeof InvitacionTokenRoute
   '/mi-espacio/actividades': typeof MiEspacioActividadesRouteWithChildren
@@ -304,6 +311,7 @@ export interface FileRoutesByTo {
   '/dashboard/formulario': typeof DashboardFormularioRoute
   '/dashboard/solicitud-enviada': typeof DashboardSolicitudEnviadaRoute
   '/dashboard/tipo-perfil': typeof DashboardTipoPerfilRoute
+  '/gestionar-perfil/$slug': typeof GestionarPerfilSlugRoute
   '/guia/$slug': typeof GuiaSlugRoute
   '/invitacion/$token': typeof InvitacionTokenRoute
   '/mi-espacio/ayuda': typeof MiEspacioAyudaRoute
@@ -343,6 +351,7 @@ export interface FileRoutesById {
   '/dashboard/formulario': typeof DashboardFormularioRoute
   '/dashboard/solicitud-enviada': typeof DashboardSolicitudEnviadaRoute
   '/dashboard/tipo-perfil': typeof DashboardTipoPerfilRoute
+  '/gestionar-perfil/$slug': typeof GestionarPerfilSlugRoute
   '/guia/$slug': typeof GuiaSlugRoute
   '/invitacion/$token': typeof InvitacionTokenRoute
   '/mi-espacio/actividades': typeof MiEspacioActividadesRouteWithChildren
@@ -384,6 +393,7 @@ export interface FileRouteTypes {
     | '/dashboard/formulario'
     | '/dashboard/solicitud-enviada'
     | '/dashboard/tipo-perfil'
+    | '/gestionar-perfil/$slug'
     | '/guia/$slug'
     | '/invitacion/$token'
     | '/mi-espacio/actividades'
@@ -422,6 +432,7 @@ export interface FileRouteTypes {
     | '/dashboard/formulario'
     | '/dashboard/solicitud-enviada'
     | '/dashboard/tipo-perfil'
+    | '/gestionar-perfil/$slug'
     | '/guia/$slug'
     | '/invitacion/$token'
     | '/mi-espacio/ayuda'
@@ -460,6 +471,7 @@ export interface FileRouteTypes {
     | '/dashboard/formulario'
     | '/dashboard/solicitud-enviada'
     | '/dashboard/tipo-perfil'
+    | '/gestionar-perfil/$slug'
     | '/guia/$slug'
     | '/invitacion/$token'
     | '/mi-espacio/actividades'
@@ -497,6 +509,7 @@ export interface RootRouteChildren {
   AuthCrearCuentaRoute: typeof AuthCrearCuentaRoute
   CentroFreeSlugRoute: typeof CentroFreeSlugRoute
   CentroSlugRoute: typeof CentroSlugRoute
+  GestionarPerfilSlugRoute: typeof GestionarPerfilSlugRoute
   GuiaSlugRoute: typeof GuiaSlugRoute
   InvitacionTokenRoute: typeof InvitacionTokenRoute
   PerfilInformativoCentroSlugRoute: typeof PerfilInformativoCentroSlugRoute
@@ -704,6 +717,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuiaSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/gestionar-perfil/$slug': {
+      id: '/gestionar-perfil/$slug'
+      path: '/gestionar-perfil/$slug'
+      fullPath: '/gestionar-perfil/$slug'
+      preLoaderRoute: typeof GestionarPerfilSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard/tipo-perfil': {
       id: '/dashboard/tipo-perfil'
       path: '/tipo-perfil'
@@ -841,6 +861,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthCrearCuentaRoute: AuthCrearCuentaRoute,
   CentroFreeSlugRoute: CentroFreeSlugRoute,
   CentroSlugRoute: CentroSlugRoute,
+  GestionarPerfilSlugRoute: GestionarPerfilSlugRoute,
   GuiaSlugRoute: GuiaSlugRoute,
   InvitacionTokenRoute: InvitacionTokenRoute,
   PerfilInformativoCentroSlugRoute: PerfilInformativoCentroSlugRoute,
