@@ -1826,14 +1826,26 @@ function VCheckboxes({
   options,
   columns = 3,
   descriptions,
+  value,
+  onToggleValue,
 }: {
   options: string[];
   columns?: number;
   descriptions?: Record<string, string>;
+  // Modo controlado opcional: permite que el formulario reaccione a la
+  // selección (por ejemplo, mostrar las ubicaciones solo si hay presencial).
+  value?: string[];
+  onToggleValue?: (option: string) => void;
 }) {
-  const [selected, setSelected] = useState<string[]>([]);
-  const toggle = (v: string) =>
-    setSelected((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]));
+  const [internal, setInternal] = useState<string[]>([]);
+  const selected = value ?? internal;
+  const toggle = (v: string) => {
+    if (onToggleValue) {
+      onToggleValue(v);
+      return;
+    }
+    setInternal((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]));
+  };
   const showOtro =
     options.includes("Otro (especificar)") && selected.includes("Otro (especificar)");
   return (
@@ -1845,6 +1857,7 @@ function VCheckboxes({
         onToggle={toggle}
         descriptions={descriptions}
       />
+
       {showOtro && (
         <div style={{ marginTop: 12 }}>
           <FakeField label="Especificar" />
@@ -1863,9 +1876,9 @@ function FormacionList({ single = false }: { single?: boolean }) {
           {!single && (
             <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginBottom: 6 }}>Formación #{idx + 1}</div>
           )}
-          <FakeField label="Formación" />
-          <FakeField label="Centro o escuela" />
-          <FakeField label="Año" />
+          <FakeField label="Formación o cualificación" />
+          <FakeField label="Centro o entidad formadora" />
+          <FakeField label="Año (opcional)" type="año · ej. 2014" />
           {items.length > 1 && (
             <button
               type="button"
@@ -2001,7 +2014,7 @@ function ConsultasList({
             label="Dirección de la consulta"
             ayuda={
               locationHelp ??
-              "Si atiendes en un centro o consulta, indica esa dirección. Si trabajas exclusivamente online o a domicilio, puedes indicar la ubicación de tu municipio o ciudad."
+              "Puedes buscar la dirección o escribirla manualmente."
             }
           />
           {items.length > 1 && (
