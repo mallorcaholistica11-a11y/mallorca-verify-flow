@@ -2759,7 +2759,7 @@ function VerificadoFormulario() {
                 Si utilizas una plataforma externa para gestionar tus reservas, puedes añadir aquí
                 el enlace.
               </Ayuda>
-              <FakeField label="Enlace de reserva" type="url" />
+              <FakeField label="Enlace de reserva" type="www.calendly.com/tunombre" />
               <Note>
                 Ejemplos: Calendly, Fresha, Google Calendar, SimplyBook, Booksy u otra plataforma.
               </Note>
