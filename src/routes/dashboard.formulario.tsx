@@ -3032,10 +3032,36 @@ function VerificadoFormulario() {
 
 type Paso7Props = { autoriza: boolean; onToggle: () => void };
 
-function StripeBlock({ note, extraNote }: { note?: string; extraNote?: string } = {}) {
+// Aceptación de las Condiciones de Contratación del plan. El documento está
+// pendiente de redacción/revisión jurídica: aquí solo queda preparado el enlace
+// y la casilla para conectarlos después al documento real.
+function CondicionesContratacionConsent({
+  checked,
+  onToggle,
+}: {
+  checked: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <VConsentItem
+      icon="📄"
+      title="Condiciones de Contratación"
+      linkText="Leer documento"
+      label="Confirmo que he leído y acepto las Condiciones de Contratación del Plan Profesional Verificado."
+      checked={checked}
+      onToggle={onToggle}
+    />
+  );
+}
+
+function StripeBlock({
+  note,
+  extraNote,
+  title = "💳 Método de pago",
+}: { note?: string; extraNote?: string; title?: string } = {}) {
   return (
     <div style={{ marginBottom: 16 }}>
-      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>💳 Método de pago</div>
+      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>{title}</div>
       <Note>
         {note ??
           "Para enviar tu solicitud, registra de forma segura tu método de pago mediante Stripe. Registrar tu método de pago no supone ningún cargo en este momento."}
@@ -3060,79 +3086,76 @@ function StripeBlock({ note, extraNote }: { note?: string; extraNote?: string } 
 }
 
 
-function Paso7ProfesionalEstandar({ autoriza, onToggle }: Paso7Props) {
+function Paso7ProfesionalEstandar({
+  autoriza,
+  onToggle,
+  contratacion = false,
+  onToggleContratacion,
+}: Paso7Props & { contratacion?: boolean; onToggleContratacion?: () => void }) {
   return (
     <>
-      <Box title="¡Enhorabuena! Ya has completado tu solicitud">
-        <div style={{ marginBottom: 16 }}>
-          <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-            Plan Profesional Verificado: 25 €/mes (IVA incluido).
-          </p>
-          <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-            Para completar tu solicitud solo necesitamos registrar un método de pago de forma
-            segura. No realizaremos ningún cargo mientras tu solicitud esté pendiente de aprobación.
-          </p>
-        </div>
-      </Box>
-
-      <Box title="Oferta de lanzamiento">
-        <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-          2 meses gratuitos desde el lanzamiento oficial de Mallorca Holística.
-        </p>
+      <Box title="Profesional Verificado">
+        <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>25 €/mes · IVA incluido.</p>
         <p style={{ fontSize: 13, marginBottom: 0, lineHeight: 1.7 }}>
-          Los 2 meses gratuitos comenzarán en la fecha oficial de lanzamiento de Mallorca Holística.
-          La fecha se comunicará antes de la activación de las suscripciones.
+          2 meses gratis desde el lanzamiento oficial de Mallorca Holística.
         </p>
       </Box>
 
-      <Box title="¿Cuándo empezarás a pagar?">
-        <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-          Tu primer cobro se realizará cuando se cumplan estas dos condiciones:
+      <Box title="Añade tu método de pago">
+        <p style={{ fontSize: 13, marginBottom: 12, lineHeight: 1.7 }}>
+          Registra tu método de pago de forma segura. No realizaremos ningún cargo mientras tu
+          solicitud esté pendiente de revisión.
         </p>
-        <ol style={{ fontSize: 13, paddingLeft: 20, marginBottom: 10, lineHeight: 1.8 }}>
-          <li>Tu perfil haya sido aprobado como Profesional Verificado.</li>
-          <li>
-            Haya finalizado el periodo gratuito de 2 meses desde el lanzamiento oficial de Mallorca
-            Holística.
-          </li>
-        </ol>
+        <StripeBlock title="💳 Registro seguro con Stripe" note="" />
+      </Box>
+
+      <Box title="Tu periodo gratuito de lanzamiento">
         <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-          Si tu perfil es aprobado durante el periodo gratuito, no pagarás nada hasta que este
-          finalice.
+          Los Profesionales Verificados disfrutarán de 2 meses gratuitos desde el lanzamiento
+          oficial de Mallorca Holística. Si tu perfil es aprobado durante este periodo, no pagarás
+          hasta que finalice. Si tu perfil es aprobado después, tu suscripción comenzará en el
+          momento de la aprobación.
         </p>
         <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-          Si tu perfil es aprobado después de que haya finalizado el periodo gratuito, tu
-          suscripción comenzará en el momento de la aprobación.
+          Antes del primer cobro te informaremos por email de la fecha y el importe.
         </p>
         <p style={{ fontSize: 13, marginBottom: 0, lineHeight: 1.7 }}>
           Si tu solicitud no es aprobada, la suscripción no se activará y no se realizará ningún
-          cobro.
-        </p>
-      </Box>
-
-      <Box title="Aviso antes del primer cobro">
-        <p style={{ fontSize: 13, marginBottom: 0, lineHeight: 1.7 }}>
-          Mallorca Holística te informará por email antes del primer cobro de la suscripción,
-          indicándote la fecha y el importe, para que puedas decidir con tiempo si deseas continuar
-          o cancelar tu suscripción.
+          cargo.
         </p>
       </Box>
 
       <VConsentItem
         icon="🔒"
         title="Autorización"
-        label="Autorizo a Mallorca Holística a registrar mi método de pago mediante Stripe y, una vez aprobado mi perfil y finalizado el periodo gratuito de lanzamiento que me corresponda, activar mi suscripción de 25 €/mes (IVA incluido), salvo cancelación previa."
+        label="Autorizo a Mallorca Holística a registrar mi método de pago mediante Stripe y, una vez aprobado mi perfil y finalizado el periodo gratuito que me corresponda, activar mi suscripción de 25 €/mes (IVA incluido), salvo cancelación previa."
         checked={autoriza}
         onToggle={onToggle}
       />
 
-      <StripeBlock />
+      {onToggleContratacion && (
+        <CondicionesContratacionConsent checked={contratacion} onToggle={onToggleContratacion} />
+      )}
     </>
   );
 }
 
-function Paso7ProfesionalFundador({ autoriza, onToggle }: Paso7Props) {
-  return <Paso7Fundador autoriza={autoriza} onToggle={onToggle} precio="15 €/mes" />;
+function Paso7ProfesionalFundador({
+  autoriza,
+  onToggle,
+  contratacion = false,
+  onToggleContratacion,
+}: Paso7Props & { contratacion?: boolean; onToggleContratacion?: () => void }) {
+  return (
+    <Paso7Fundador
+      autoriza={autoriza}
+      onToggle={onToggle}
+      precio="15 €/mes"
+      planLabel="Profesional Verificado · Miembro Fundador"
+      contratacion={contratacion}
+      onToggleContratacion={onToggleContratacion}
+    />
+  );
 }
 
 // Paso de suscripción compartido por los dos planes en su condición Fundadora:
@@ -3141,7 +3164,15 @@ function Paso7Fundador({
   autoriza,
   onToggle,
   precio,
-}: Paso7Props & { precio: "15 €/mes" | "35 €/mes" }) {
+  planLabel,
+  contratacion = false,
+  onToggleContratacion,
+}: Paso7Props & {
+  precio: "15 €/mes" | "35 €/mes";
+  planLabel?: string;
+  contratacion?: boolean;
+  onToggleContratacion?: () => void;
+}) {
   // El precio fundador identifica el plan asociado a la invitación.
   const esEntidad = precio === "35 €/mes";
   const planNombre = esEntidad
@@ -3151,7 +3182,7 @@ function Paso7Fundador({
     <>
       <Box title="Comunidad Fundadora">
         <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-          Plan {planNombre}.
+          {planLabel ?? `Plan ${planNombre}.`}
         </p>
         <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
           Tus condiciones como miembro fundador:
@@ -3197,10 +3228,14 @@ function Paso7Fundador({
       <VConsentItem
         icon="🔒"
         title="Autorización"
-        label={`Autorizo a Mallorca Holística a registrar mi método de pago mediante Stripe y, una vez aprobado mi perfil y finalizado el periodo gratuito de lanzamiento que me corresponda, activar mi suscripción de Miembro Fundador de ${precio} (IVA incluido), salvo cancelación previa.`}
+        label={`Autorizo a Mallorca Holística a registrar mi método de pago mediante Stripe y, una vez aprobado mi perfil y finalizado el periodo gratuito de 6 meses que me corresponde como Miembro Fundador, activar mi suscripción de ${precio} (IVA incluido), precio mantenido durante 24 meses mientras la suscripción permanezca activa, salvo cancelación previa.`}
         checked={autoriza}
         onToggle={onToggle}
       />
+
+      {onToggleContratacion && (
+        <CondicionesContratacionConsent checked={contratacion} onToggle={onToggleContratacion} />
+      )}
 
       <StripeBlock />
     </>
