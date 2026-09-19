@@ -233,7 +233,7 @@ export function buscarAreas(query: string): string[] {
 
 /** Límites por plan del MVP. */
 export const MAX_AREAS_PRESENCIA = 5;
-export const MAX_AREAS_VERIFICADO = 5;
+export const MAX_AREAS_VERIFICADO = 15;
 export const MAX_AREAS_CENTRO = 30;
 export const MAX_AREAS_ACTIVIDAD = 5;
 
