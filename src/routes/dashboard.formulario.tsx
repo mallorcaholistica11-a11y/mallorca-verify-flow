@@ -3106,7 +3106,10 @@ function Paso7ProfesionalEstandar({
           Registra tu método de pago de forma segura. No realizaremos ningún cargo mientras tu
           solicitud esté pendiente de revisión.
         </p>
-        <StripeBlock title="💳 Registro seguro con Stripe" note="" />
+        <StripeBlock
+          title="💳 Registro seguro con Stripe"
+          note="Registrar tu método de pago no supone ningún cargo en este momento."
+        />
       </Box>
 
       <Box title="Tu periodo gratuito de lanzamiento">
@@ -3228,7 +3231,11 @@ function Paso7Fundador({
       <VConsentItem
         icon="🔒"
         title="Autorización"
-        label={`Autorizo a Mallorca Holística a registrar mi método de pago mediante Stripe y, una vez aprobado mi perfil y finalizado el periodo gratuito de 6 meses que me corresponde como Miembro Fundador, activar mi suscripción de ${precio} (IVA incluido), precio mantenido durante 24 meses mientras la suscripción permanezca activa, salvo cancelación previa.`}
+        label={
+          planLabel
+            ? `Autorizo a Mallorca Holística a registrar mi método de pago mediante Stripe y, una vez aprobado mi perfil y finalizado el periodo gratuito de 6 meses que me corresponde como Miembro Fundador, activar mi suscripción de ${precio} (IVA incluido), precio mantenido durante 24 meses mientras la suscripción permanezca activa, salvo cancelación previa.`
+            : `Autorizo a Mallorca Holística a registrar mi método de pago mediante Stripe y, una vez aprobado mi perfil y finalizado el periodo gratuito de lanzamiento que me corresponda, activar mi suscripción de Miembro Fundador de ${precio} (IVA incluido), salvo cancelación previa.`
+        }
         checked={autoriza}
         onToggle={onToggle}
       />
