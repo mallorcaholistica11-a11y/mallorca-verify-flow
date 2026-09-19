@@ -1274,18 +1274,13 @@ const V_PUBLICO = [
   "Animales",
 ];
 
+// Cómo trabaja el profesional: solo tipos de sesión. Las actividades concretas
+// (talleres, cursos, retiros, charlas, eventos) se gestionan desde Agenda.
 const V_MODALIDADES = [
-  "Sesiones Individuales",
-  "Sesiones de Pareja",
-  "Sesiones Familiares",
-  "Sesiones Grupales",
-  "Talleres",
-  "Cursos y Formaciones",
-  "Retiros",
-  "Empresas y Organizaciones",
-  "Charlas y Conferencias",
-  "Eventos y Encuentros",
-  "Otro (especificar)",
+  "Sesiones individuales",
+  "Sesiones de pareja",
+  "Sesiones familiares",
+  "Sesiones grupales",
 ];
 
 const V_IDIOMAS = ["Español", "Inglés", "Francés", "Alemán", "Catalán", "Otro"];
@@ -1294,7 +1289,7 @@ const V_IDIOMAS = ["Español", "Inglés", "Francés", "Alemán", "Catalán", "Ot
 const V_STEP_INTROS: Record<number, string> = {
   1: "Empezamos con la información principal de tu perfil. Estos datos ayudarán a las personas a conocerte, ponerse en contacto contigo y generar confianza desde el primer momento.",
   2: "Cuéntanos un poco más sobre tu actividad para que las personas puedan encontrarte con facilidad y comprendan mejor cómo puedes acompañarles.",
-  3: "Indícanos cómo realizas tus consultas y dónde atiendes habitualmente. Puedes añadir una o varias ubicaciones según tu actividad profesional.",
+  3: "Indícanos cómo realizas tus consultas. Si atiendes presencialmente, podrás añadir una o varias ubicaciones.",
   4: "Este es tu espacio para presentarte. Comparte quién eres, cómo acompañas a las personas y aquello que hace única tu forma de trabajar. También podrás mostrar parte de tu formación e indicar los idiomas en los que ofreces atención.",
   5: "Añade los enlaces y canales de contacto que quieras compartir para que las personas puedan conocerte, reservar una sesión o ponerse en contacto contigo. Todos los campos son opcionales.",
   6: "Ya casi has terminado. Para mantener la calidad y la confianza de Mallorca Holística necesitamos verificar algunos aspectos de tu actividad profesional. Este proceso nos ayuda a ofrecer un espacio más seguro tanto para los profesionales como para las personas que buscan acompañamiento.",
@@ -1304,7 +1299,8 @@ const V_CONSULTA_OPTIONS = ["Presencial en consulta", "Online", "A domicilio", "
 
 const V_CONSULTA_HELP: Record<string, string> = {
   Online: "Videollamada u otros medios digitales.",
-  "A distancia": "Para terapias que no requieren presencia física.",
+  "A distancia":
+    "Para prácticas como acompañamientos energéticos o sanación a distancia, que no requieren presencia física ni conexión online.",
 };
 
 const V_PUBLICO_OPTIONS = ["Todas las personas", ...V_PUBLICO];
@@ -1478,7 +1474,7 @@ function VWhatsAppMismo() {
   return (
     <div style={{ marginBottom: 12 }}>
       <div style={{ fontSize: 12, marginBottom: 6 }}>
-        ¿Utilizarás este mismo número para WhatsApp?
+        ¿Utilizas este mismo número para WhatsApp?
       </div>
       <div style={{ display: "flex", gap: 8 }}>
         {[
@@ -1502,13 +1498,9 @@ function VWhatsAppMismo() {
           </button>
         ))}
       </div>
-      {mismo ? (
-        <div style={{ fontSize: 12, color: "var(--primary)", marginTop: 8, lineHeight: 1.6 }}>
-          ✅ Perfecto.
-        </div>
-      ) : (
+      {!mismo && (
         <div style={{ marginTop: 12 }}>
-          <TelefonoField label="WhatsApp" />
+          <TelefonoField label="Número de WhatsApp" />
         </div>
       )}
     </div>
@@ -1558,10 +1550,17 @@ function VWhatsAppBusiness() {
 
 // Visibilidad de la información de contacto en el perfil público.
 function VInformacionPublica() {
+  const [telefono, setTelefono] = useState(false);
   const [whatsapp, setWhatsapp] = useState(true);
   const [correo, setCorreo] = useState(true);
   return (
     <div>
+      <Ayuda>Selecciona todas las opciones que quieras mostrar públicamente en tu perfil.</Ayuda>
+      <PresenciaToggleCheckbox
+        label="Mostrar mi teléfono"
+        checked={telefono}
+        onToggle={() => setTelefono((v) => !v)}
+      />
       <PresenciaToggleCheckbox
         label="Mostrar mi WhatsApp"
         checked={whatsapp}
@@ -1827,14 +1826,26 @@ function VCheckboxes({
   options,
   columns = 3,
   descriptions,
+  value,
+  onToggleValue,
 }: {
   options: string[];
   columns?: number;
   descriptions?: Record<string, string>;
+  // Modo controlado opcional: permite que el formulario reaccione a la
+  // selección (por ejemplo, mostrar las ubicaciones solo si hay presencial).
+  value?: string[];
+  onToggleValue?: (option: string) => void;
 }) {
-  const [selected, setSelected] = useState<string[]>([]);
-  const toggle = (v: string) =>
-    setSelected((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]));
+  const [internal, setInternal] = useState<string[]>([]);
+  const selected = value ?? internal;
+  const toggle = (v: string) => {
+    if (onToggleValue) {
+      onToggleValue(v);
+      return;
+    }
+    setInternal((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]));
+  };
   const showOtro =
     options.includes("Otro (especificar)") && selected.includes("Otro (especificar)");
   return (
@@ -1846,6 +1857,7 @@ function VCheckboxes({
         onToggle={toggle}
         descriptions={descriptions}
       />
+
       {showOtro && (
         <div style={{ marginTop: 12 }}>
           <FakeField label="Especificar" />
@@ -1864,9 +1876,9 @@ function FormacionList({ single = false }: { single?: boolean }) {
           {!single && (
             <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginBottom: 6 }}>Formación #{idx + 1}</div>
           )}
-          <FakeField label="Formación" />
-          <FakeField label="Centro o escuela" />
-          <FakeField label="Año" />
+          <FakeField label="Formación o cualificación" />
+          <FakeField label="Centro o entidad formadora" />
+          <FakeField label="Año (opcional)" type="año · ej. 2014" />
           {items.length > 1 && (
             <button
               type="button"
@@ -1887,6 +1899,84 @@ function FormacionList({ single = false }: { single?: boolean }) {
           ➕ Añadir otra formación
         </button>
       )}
+    </div>
+  );
+}
+
+// Campos de una tarifa del Profesional Verificado: duración en minutos y
+// precio monetario en euros, siempre numéricos (nunca texto libre).
+function TarifaCampos() {
+  const [servicio, setServicio] = useState("");
+  const [duracion, setDuracion] = useState("");
+  const [precio, setPrecio] = useState("");
+  const inputStyle: React.CSSProperties = {
+    width: "100%",
+    border: "1px solid var(--border)",
+    borderRadius: 12,
+    padding: "10px 14px",
+    background: "var(--card)",
+    color: "var(--foreground)",
+    fontSize: 12.5,
+    fontFamily: "inherit",
+    boxSizing: "border-box",
+  };
+  const labelStyle: React.CSSProperties = { fontSize: 12.5, marginBottom: 6, color: "var(--foreground)" };
+  const normalizarPrecio = () => {
+    const limpio = precio.replace(",", ".").replace(/[^\d.]/g, "");
+    if (limpio === "") {
+      setPrecio("");
+      return;
+    }
+    const valor = Number(limpio);
+    if (Number.isNaN(valor)) {
+      setPrecio("");
+      return;
+    }
+    setPrecio(valor.toFixed(2).replace(".", ","));
+  };
+  return (
+    <div>
+      <div style={{ marginBottom: 12 }}>
+        <div style={labelStyle}>Servicio</div>
+        <input
+          type="text"
+          value={servicio}
+          placeholder="Sesión individual"
+          onChange={(e) => setServicio(e.target.value)}
+          style={inputStyle}
+        />
+      </div>
+      <div style={{ marginBottom: 12 }}>
+        <div style={labelStyle}>Duración (opcional)</div>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <input
+            type="number"
+            min={0}
+            step={5}
+            inputMode="numeric"
+            value={duracion}
+            placeholder="60"
+            onChange={(e) => setDuracion(e.target.value.replace(/[^\d]/g, ""))}
+            style={{ ...inputStyle, width: 120 }}
+          />
+          <span style={{ fontSize: 12.5, color: "var(--muted-foreground)" }}>min</span>
+        </div>
+      </div>
+      <div style={{ marginBottom: 12 }}>
+        <div style={labelStyle}>Precio</div>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <input
+            type="text"
+            inputMode="decimal"
+            value={precio}
+            placeholder="80,00"
+            onChange={(e) => setPrecio(e.target.value.replace(/[^\d.,]/g, ""))}
+            onBlur={normalizarPrecio}
+            style={{ ...inputStyle, width: 120 }}
+          />
+          <span style={{ fontSize: 12.5, color: "var(--muted-foreground)" }}>€</span>
+        </div>
+      </div>
     </div>
   );
 }
@@ -1941,9 +2031,15 @@ function TarifasList({ variant = "profesional" }: { variant?: "profesional" | "o
           {items.map((it, idx) => (
             <div key={it.id} style={{ border: "1px solid var(--border)", borderRadius: 12, padding: 12, marginBottom: 12 }}>
               <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginBottom: 6 }}>Tarifa #{idx + 1}</div>
-              <FakeField label="Servicio" />
-              <FakeField label="Duración (opcional)" />
-              <FakeField label="Precio" />
+              {isOrg ? (
+                <>
+                  <FakeField label="Servicio" />
+                  <FakeField label="Duración (opcional)" />
+                  <FakeField label="Precio" />
+                </>
+              ) : (
+                <TarifaCampos />
+              )}
               {items.length > 1 && (
                 <button
                   type="button"
@@ -2002,7 +2098,7 @@ function ConsultasList({
             label="Dirección de la consulta"
             ayuda={
               locationHelp ??
-              "Si atiendes en un centro o consulta, indica esa dirección. Si trabajas exclusivamente online o a domicilio, puedes indicar la ubicación de tu municipio o ciudad."
+              "Puedes buscar la dirección o escribirla manualmente."
             }
           />
           {items.length > 1 && (
@@ -2140,6 +2236,17 @@ function VerificadoFormulario() {
     publicacion: false,
   });
   const [autorizaPago, setAutorizaPago] = useState(false);
+  // Condiciones de Contratación del plan (documento pendiente de redacción
+  // jurídica: solo se prepara la aceptación y el enlace).
+  const [condicionesContratacion, setCondicionesContratacion] = useState(false);
+  // Modalidades de consulta del Profesional Verificado: las ubicaciones solo se
+  // piden cuando atiende presencialmente en consulta.
+  const [consultaModalidades, setConsultaModalidades] = useState<string[]>([]);
+  const toggleConsultaModalidad = (op: string) =>
+    setConsultaModalidades((prev) =>
+      prev.includes(op) ? prev.filter((x) => x !== op) : [...prev, op],
+    );
+  const atiendePresencial = consultaModalidades.includes("Presencial en consulta");
   // Declaración de responsabilidad/autorización del recorrido estándar de
   // Centros, Espacios & Organizadores (no afecta a Profesional Verificado).
   const [representacion, setRepresentacion] = useState(false);
@@ -2386,16 +2493,22 @@ function VerificadoFormulario() {
             <Box title="Datos de contacto">
               <>
                 <FakeField label="Correo electrónico" type="email" />
-                <Ayuda>Será el correo de contacto que aparecerá en tu perfil profesional.</Ayuda>
+                <Ayuda>
+                  Lo utilizaremos para tu cuenta y para nuestras comunicaciones contigo. No se
+                  mostrará públicamente salvo que más adelante decidas mostrarlo en tu perfil.
+                </Ayuda>
                 <TelefonoField label="Teléfono" />
                 <VWhatsAppMismo />
                 <FakeField label="Logo o marca (opcional)" type="file" />
                 <Ayuda>Si dispones de un logotipo o imagen de marca puedes añadirlo aquí.</Ayuda>
                 <FakeField label="Foto principal" type="file" />
-                <Ayuda>Será la imagen principal de tu perfil profesional.</Ayuda>
-                <FakeField label="Galería de imágenes (opcional, hasta 5)" type="file" />
                 <Ayuda>
-                  Puedes añadir hasta 5 imágenes para mostrar tu espacio, tu trabajo o aquello que
+                  Será la imagen principal de tu perfil profesional. Es necesaria para el perfil
+                  Profesional Verificado.
+                </Ayuda>
+                <FakeField label="Galería de imágenes (opcional, hasta 6)" type="file" />
+                <Ayuda>
+                  Puedes añadir hasta 6 imágenes para mostrar tu espacio, tu trabajo o aquello que
                   mejor represente tu actividad.
                 </Ayuda>
               </>
@@ -2413,7 +2526,7 @@ function VerificadoFormulario() {
               ayuda={
                 isOrg
                   ? `Seleccionad las terapias, prácticas o actividades que ofrecéis. Podéis seleccionar hasta ${MAX_PRACTICAS_CENTRO} prácticas.`
-                  : undefined
+                  : `Selecciona hasta ${MAX_PRACTICAS_VERIFICADO} terapias, prácticas o especialidades que mejor representen tu actividad profesional.`
               }
             />
           </Box>
@@ -2423,7 +2536,7 @@ function VerificadoFormulario() {
               ayuda={
                 isOrg
                   ? `Seleccionad las áreas en las que podéis acompañar a las personas. Podéis seleccionar hasta ${MAX_AREAS_CENTRO} áreas.`
-                  : "Selecciona las áreas en las que puedes acompañar a las personas."
+                  : `Selecciona hasta ${MAX_AREAS_VERIFICADO} áreas en las que puedes acompañar a las personas.`
               }
               max={isOrg ? MAX_AREAS_CENTRO : MAX_AREAS_VERIFICADO}
             />
@@ -2457,6 +2570,8 @@ function VerificadoFormulario() {
                 options={V_CONSULTA_OPTIONS}
                 columns={2}
                 descriptions={V_CONSULTA_HELP}
+                value={consultaModalidades}
+                onToggleValue={toggleConsultaModalidad}
               />
             </Box>
           )}
@@ -2482,9 +2597,11 @@ function VerificadoFormulario() {
               </Box>
             </>
           ) : (
-            <Box title="Tus ubicaciones">
-              <ConsultasList />
-            </Box>
+            atiendePresencial && (
+              <Box title="Tus ubicaciones">
+                <ConsultasList />
+              </Box>
+            )
           )}
         </>
       )}
@@ -2524,10 +2641,10 @@ function VerificadoFormulario() {
             </div>
           </Box>
           <Box title={isOrg ? "Sobre nosotros" : "Cuéntanos un poco sobre ti"}>
-            {!isOrg && <Note>Máximo 3000 caracteres.</Note>}
+            {!isOrg && <Note>Máximo 2000 caracteres.</Note>}
             <LimitedTextField
               label={isOrg ? "Sobre nosotros" : "Cuéntanos un poco sobre ti"}
-              max={3000}
+              max={isOrg ? 3000 : 2000}
               multiline
             />
             {isOrg ? (
@@ -2544,7 +2661,7 @@ function VerificadoFormulario() {
             ) : (
               <>
                 <Ayuda>
-                  Comparte tu recorrido, tu experiencia, tu forma de trabajar y aquello que te
+                  Comparte tu manera de trabajar, tu enfoque, tu trayectoria y aquello que te
                   gustaría que las personas conocieran antes de contactar contigo.
                 </Ayuda>
                 <Note>
@@ -2556,16 +2673,12 @@ function VerificadoFormulario() {
           </Box>
           {!isOrg && (
             <>
-              <Box title="Formación principal">
+              <Box title="Formación y cualificaciones">
                 <Ayuda>
-                  Comparte las formaciones que consideres más relevantes para tu actividad
-                  profesional.
+                  Añade las formaciones o cualificaciones más relevantes para tu actividad
+                  profesional. No es necesario incluir todo tu currículum.
                 </Ayuda>
                 <FormacionList />
-                <Ayuda>
-                  Añade las formaciones que consideres más relevantes para tu actividad profesional.
-                  No es necesario incluirlas todas.
-                </Ayuda>
               </Box>
               <div style={{ height: 12 }} />
               <Box title="Experiencia profesional">
@@ -2634,18 +2747,19 @@ function VerificadoFormulario() {
           </>
         ) : (
           <>
-            <Box title="🌐 Página web">
-              <FakeField label="Página web" type="url" />
+            <Box title="🌐 Página web (opcional)">
+              <Ayuda>Escribe la dirección de tu página web</Ayuda>
+              <FakeField label="Página web (opcional)" type="www.tunombre.com" />
             </Box>
             <Box title="📱 Redes sociales">
-              <RedesSocialesList />
+              <RedesSocialesList enlacePlaceholder="Enlace a tu perfil" />
             </Box>
-            <Box title="📅 Plataforma de reservas (opcional)">
+            <Box title="📅 Reservas online (opcional)">
               <Ayuda>
-                Comparte el enlace de la plataforma que utilizas para que las personas puedan
-                reservar una sesión directamente.
+                Si utilizas una plataforma externa para gestionar tus reservas, puedes añadir aquí
+                el enlace.
               </Ayuda>
-              <FakeField label="URL" type="url" />
+              <FakeField label="Enlace de reserva" type="www.calendly.com/tunombre" />
               <Note>
                 Ejemplos: Calendly, Fresha, Google Calendar, SimplyBook, Booksy u otra plataforma.
               </Note>
@@ -2653,10 +2767,7 @@ function VerificadoFormulario() {
             <Box title="💶 Tarifas (opcional)">
               <TarifasList />
             </Box>
-            <Box title="💬 WhatsApp Business">
-              <VWhatsAppBusiness />
-            </Box>
-            <Box title="🔒 Información pública">
+            <Box title="🔒 ¿Cómo quieres que contacten contigo?">
               <VInformacionPublica />
             </Box>
           </>
@@ -2692,15 +2803,20 @@ function VerificadoFormulario() {
 
               <div style={{ marginBottom: 16 }}>
                 <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
-                  Documentación profesional
+                  Formación y cualificaciones profesionales
                 </div>
                 <Ayuda>
-                  Adjunta entre 1 y 3 diplomas, certificados o titulaciones que acrediten tu
-                  formación profesional.
+                  Para verificar tu perfil, adjunta entre 1 y 3 diplomas, certificados o
+                  titulaciones relevantes para las prácticas que ofreces. El primer documento es
+                  obligatorio.
                 </Ayuda>
                 <FakeField label="Documento 1 (obligatorio)" type="file" />
                 <FakeField label="Documento 2 (opcional)" type="file" />
                 <FakeField label="Documento 3 (opcional)" type="file" />
+                <Ayuda>
+                  Estos documentos serán utilizados únicamente para el proceso de verificación y no
+                  se mostrarán públicamente en tu perfil.
+                </Ayuda>
               </div>
             </>
           )}
@@ -2716,7 +2832,11 @@ function VerificadoFormulario() {
           <VConsentItem
             icon="✅"
             title="Declaración de veracidad"
-            label="Declaro que toda la información aportada es veraz, exacta y está actualizada."
+            label={
+              isOrg
+                ? "Declaro que toda la información aportada es veraz, exacta y está actualizada."
+                : "Declaro que la información que he proporcionado es veraz, exacta y está actualizada."
+            }
             checked={consents.veracidad}
             onToggle={() => toggleConsent("veracidad")}
           />
@@ -2724,7 +2844,11 @@ function VerificadoFormulario() {
             icon="🔒"
             title="Política de Privacidad"
             linkText="Leer documento"
-            label="Confirmo que he leído y acepto la Política de Privacidad."
+            label={
+              isOrg
+                ? "Confirmo que he leído y acepto la Política de Privacidad."
+                : "Confirmo que he leído la Política de Privacidad de Mallorca Holística."
+            }
             checked={consents.privacidad}
             onToggle={() => toggleConsent("privacidad")}
           />
@@ -2732,7 +2856,11 @@ function VerificadoFormulario() {
             icon="📄"
             title="Condiciones de Uso"
             linkText="Leer documento"
-            label="Confirmo que he leído y acepto las Condiciones de Uso."
+            label={
+              isOrg
+                ? "Confirmo que he leído y acepto las Condiciones de Uso."
+                : "Confirmo que he leído y acepto las Condiciones de Uso de Mallorca Holística."
+            }
             checked={consents.condiciones}
             onToggle={() => toggleConsent("condiciones")}
           />
@@ -2802,6 +2930,8 @@ function VerificadoFormulario() {
             <Paso7ProfesionalFundador
               autoriza={autorizaPago}
               onToggle={() => setAutorizaPago((p) => !p)}
+              contratacion={condicionesContratacion}
+              onToggleContratacion={() => setCondicionesContratacion((p) => !p)}
             />
           )
         ) : isOrg ? (
@@ -2813,6 +2943,8 @@ function VerificadoFormulario() {
           <Paso7ProfesionalEstandar
             autoriza={autorizaPago}
             onToggle={() => setAutorizaPago((p) => !p)}
+            contratacion={condicionesContratacion}
+            onToggleContratacion={() => setCondicionesContratacion((p) => !p)}
           />
         ))}
 
@@ -2851,13 +2983,19 @@ function VerificadoFormulario() {
             );
           })()
         ) : (
+          (() => {
+            // Profesional Verificado (alta normal e invitación Fundadora) exige
+            // también la aceptación de las Condiciones de Contratación.
+            const finalBloqueado =
+              (esEstandar && !autorizaPago) || (!isOrg && !condicionesContratacion);
+            return (
           <button
             onClick={finish}
-            disabled={esEstandar && !autorizaPago}
+            disabled={finalBloqueado}
             style={{
               ...btn("primary"),
-              opacity: esEstandar && !autorizaPago ? 0.5 : 1,
-              cursor: esEstandar && !autorizaPago ? "not-allowed" : "pointer",
+              opacity: finalBloqueado ? 0.5 : 1,
+              cursor: finalBloqueado ? "not-allowed" : "pointer",
             }}
           >
             {esEstandarOrganizacion
@@ -2868,6 +3006,8 @@ function VerificadoFormulario() {
                   ? "👉 Enviar mi solicitud de verificación"
                   : "👉 Enviar mi solicitud"}
           </button>
+            );
+          })()
         )}
       </Box>
       {esEstandar && step > 1 && (
@@ -2892,10 +3032,36 @@ function VerificadoFormulario() {
 
 type Paso7Props = { autoriza: boolean; onToggle: () => void };
 
-function StripeBlock({ note, extraNote }: { note?: string; extraNote?: string } = {}) {
+// Aceptación de las Condiciones de Contratación del plan. El documento está
+// pendiente de redacción/revisión jurídica: aquí solo queda preparado el enlace
+// y la casilla para conectarlos después al documento real.
+function CondicionesContratacionConsent({
+  checked,
+  onToggle,
+}: {
+  checked: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <VConsentItem
+      icon="📄"
+      title="Condiciones de Contratación"
+      linkText="Leer documento"
+      label="Confirmo que he leído y acepto las Condiciones de Contratación del Plan Profesional Verificado."
+      checked={checked}
+      onToggle={onToggle}
+    />
+  );
+}
+
+function StripeBlock({
+  note,
+  extraNote,
+  title = "💳 Método de pago",
+}: { note?: string; extraNote?: string; title?: string } = {}) {
   return (
     <div style={{ marginBottom: 16 }}>
-      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>💳 Método de pago</div>
+      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>{title}</div>
       <Note>
         {note ??
           "Para enviar tu solicitud, registra de forma segura tu método de pago mediante Stripe. Registrar tu método de pago no supone ningún cargo en este momento."}
@@ -2920,79 +3086,79 @@ function StripeBlock({ note, extraNote }: { note?: string; extraNote?: string } 
 }
 
 
-function Paso7ProfesionalEstandar({ autoriza, onToggle }: Paso7Props) {
+function Paso7ProfesionalEstandar({
+  autoriza,
+  onToggle,
+  contratacion = false,
+  onToggleContratacion,
+}: Paso7Props & { contratacion?: boolean; onToggleContratacion?: () => void }) {
   return (
     <>
-      <Box title="¡Enhorabuena! Ya has completado tu solicitud">
-        <div style={{ marginBottom: 16 }}>
-          <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-            Plan Profesional Verificado: 25 €/mes (IVA incluido).
-          </p>
-          <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-            Para completar tu solicitud solo necesitamos registrar un método de pago de forma
-            segura. No realizaremos ningún cargo mientras tu solicitud esté pendiente de aprobación.
-          </p>
-        </div>
-      </Box>
-
-      <Box title="Oferta de lanzamiento">
-        <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-          2 meses gratuitos desde el lanzamiento oficial de Mallorca Holística.
-        </p>
+      <Box title="Profesional Verificado">
+        <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>25 €/mes · IVA incluido.</p>
         <p style={{ fontSize: 13, marginBottom: 0, lineHeight: 1.7 }}>
-          Los 2 meses gratuitos comenzarán en la fecha oficial de lanzamiento de Mallorca Holística.
-          La fecha se comunicará antes de la activación de las suscripciones.
+          2 meses gratis desde el lanzamiento oficial de Mallorca Holística.
         </p>
       </Box>
 
-      <Box title="¿Cuándo empezarás a pagar?">
-        <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-          Tu primer cobro se realizará cuando se cumplan estas dos condiciones:
+      <Box title="Añade tu método de pago">
+        <p style={{ fontSize: 13, marginBottom: 12, lineHeight: 1.7 }}>
+          Registra tu método de pago de forma segura. No realizaremos ningún cargo mientras tu
+          solicitud esté pendiente de revisión.
         </p>
-        <ol style={{ fontSize: 13, paddingLeft: 20, marginBottom: 10, lineHeight: 1.8 }}>
-          <li>Tu perfil haya sido aprobado como Profesional Verificado.</li>
-          <li>
-            Haya finalizado el periodo gratuito de 2 meses desde el lanzamiento oficial de Mallorca
-            Holística.
-          </li>
-        </ol>
+        <StripeBlock
+          title="💳 Registro seguro con Stripe"
+          note="Registrar tu método de pago no supone ningún cargo en este momento."
+        />
+      </Box>
+
+      <Box title="Tu periodo gratuito de lanzamiento">
         <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-          Si tu perfil es aprobado durante el periodo gratuito, no pagarás nada hasta que este
-          finalice.
+          Los Profesionales Verificados disfrutarán de 2 meses gratuitos desde el lanzamiento
+          oficial de Mallorca Holística. Si tu perfil es aprobado durante este periodo, no pagarás
+          hasta que finalice. Si tu perfil es aprobado después, tu suscripción comenzará en el
+          momento de la aprobación.
         </p>
         <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-          Si tu perfil es aprobado después de que haya finalizado el periodo gratuito, tu
-          suscripción comenzará en el momento de la aprobación.
+          Antes del primer cobro te informaremos por email de la fecha y el importe.
         </p>
         <p style={{ fontSize: 13, marginBottom: 0, lineHeight: 1.7 }}>
           Si tu solicitud no es aprobada, la suscripción no se activará y no se realizará ningún
-          cobro.
-        </p>
-      </Box>
-
-      <Box title="Aviso antes del primer cobro">
-        <p style={{ fontSize: 13, marginBottom: 0, lineHeight: 1.7 }}>
-          Mallorca Holística te informará por email antes del primer cobro de la suscripción,
-          indicándote la fecha y el importe, para que puedas decidir con tiempo si deseas continuar
-          o cancelar tu suscripción.
+          cargo.
         </p>
       </Box>
 
       <VConsentItem
         icon="🔒"
         title="Autorización"
-        label="Autorizo a Mallorca Holística a registrar mi método de pago mediante Stripe y, una vez aprobado mi perfil y finalizado el periodo gratuito de lanzamiento que me corresponda, activar mi suscripción de 25 €/mes (IVA incluido), salvo cancelación previa."
+        label="Autorizo a Mallorca Holística a registrar mi método de pago mediante Stripe y, una vez aprobado mi perfil y finalizado el periodo gratuito que me corresponda, activar mi suscripción de 25 €/mes (IVA incluido), salvo cancelación previa."
         checked={autoriza}
         onToggle={onToggle}
       />
 
-      <StripeBlock />
+      {onToggleContratacion && (
+        <CondicionesContratacionConsent checked={contratacion} onToggle={onToggleContratacion} />
+      )}
     </>
   );
 }
 
-function Paso7ProfesionalFundador({ autoriza, onToggle }: Paso7Props) {
-  return <Paso7Fundador autoriza={autoriza} onToggle={onToggle} precio="15 €/mes" />;
+function Paso7ProfesionalFundador({
+  autoriza,
+  onToggle,
+  contratacion = false,
+  onToggleContratacion,
+}: Paso7Props & { contratacion?: boolean; onToggleContratacion?: () => void }) {
+  return (
+    <Paso7Fundador
+      autoriza={autoriza}
+      onToggle={onToggle}
+      precio="15 €/mes"
+      planLabel="Profesional Verificado · Miembro Fundador"
+      contratacion={contratacion}
+      onToggleContratacion={onToggleContratacion}
+    />
+  );
 }
 
 // Paso de suscripción compartido por los dos planes en su condición Fundadora:
@@ -3001,7 +3167,15 @@ function Paso7Fundador({
   autoriza,
   onToggle,
   precio,
-}: Paso7Props & { precio: "15 €/mes" | "35 €/mes" }) {
+  planLabel,
+  contratacion = false,
+  onToggleContratacion,
+}: Paso7Props & {
+  precio: "15 €/mes" | "35 €/mes";
+  planLabel?: string;
+  contratacion?: boolean;
+  onToggleContratacion?: () => void;
+}) {
   // El precio fundador identifica el plan asociado a la invitación.
   const esEntidad = precio === "35 €/mes";
   const planNombre = esEntidad
@@ -3011,7 +3185,7 @@ function Paso7Fundador({
     <>
       <Box title="Comunidad Fundadora">
         <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-          Plan {planNombre}.
+          {planLabel ?? `Plan ${planNombre}.`}
         </p>
         <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
           Tus condiciones como miembro fundador:
@@ -3057,10 +3231,18 @@ function Paso7Fundador({
       <VConsentItem
         icon="🔒"
         title="Autorización"
-        label={`Autorizo a Mallorca Holística a registrar mi método de pago mediante Stripe y, una vez aprobado mi perfil y finalizado el periodo gratuito de lanzamiento que me corresponda, activar mi suscripción de Miembro Fundador de ${precio} (IVA incluido), salvo cancelación previa.`}
+        label={
+          planLabel
+            ? `Autorizo a Mallorca Holística a registrar mi método de pago mediante Stripe y, una vez aprobado mi perfil y finalizado el periodo gratuito de 6 meses que me corresponde como Miembro Fundador, activar mi suscripción de ${precio} (IVA incluido), precio mantenido durante 24 meses mientras la suscripción permanezca activa, salvo cancelación previa.`
+            : `Autorizo a Mallorca Holística a registrar mi método de pago mediante Stripe y, una vez aprobado mi perfil y finalizado el periodo gratuito de lanzamiento que me corresponda, activar mi suscripción de Miembro Fundador de ${precio} (IVA incluido), salvo cancelación previa.`
+        }
         checked={autoriza}
         onToggle={onToggle}
       />
+
+      {onToggleContratacion && (
+        <CondicionesContratacionConsent checked={contratacion} onToggle={onToggleContratacion} />
+      )}
 
       <StripeBlock />
     </>
