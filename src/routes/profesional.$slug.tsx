@@ -39,7 +39,7 @@ function FichaProfesionalVerificado() {
           background: "var(--card)",
         }}
       >
-        <Link to="/directorio" style={{ color: "var(--foreground)" }}>
+        <Link to="/directorio" search={{ q: "", lugar: "" }} style={{ color: "var(--foreground)" }}>
           ← Volver a resultados
         </Link>
       </div>
@@ -48,7 +48,7 @@ function FichaProfesionalVerificado() {
         origenPracticas={{ tipo: "profesional", slug, nombre: FICHA_PROFESIONAL_ACTUAL.nombre }}
       />
       <div style={bottomBackContainerStyle}>
-        <Link to="/directorio" style={bottomBackLinkStyle}>
+        <Link to="/directorio" search={{ q: "", lugar: "" }} style={bottomBackLinkStyle}>
           ← Volver a resultados
         </Link>
       </div>

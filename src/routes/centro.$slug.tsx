@@ -111,7 +111,7 @@ function FichaCentroVerificado() {
           background: "var(--card)",
         }}
       >
-        <Link to="/directorio" style={{ color: "var(--foreground)" }}>
+        <Link to="/directorio" search={{ q: "", lugar: "" }} style={{ color: "var(--foreground)" }}>
           ← Volver a resultados
         </Link>
       </div>
@@ -120,7 +120,7 @@ function FichaCentroVerificado() {
         origenPracticas={{ tipo: "centro", slug, nombre: demo.nombre }}
       />
       <div style={bottomBackContainerStyle}>
-        <Link to="/directorio" style={bottomBackLinkStyle}>
+        <Link to="/directorio" search={{ q: "", lugar: "" }} style={bottomBackLinkStyle}>
           ← Volver a resultados
         </Link>
       </div>

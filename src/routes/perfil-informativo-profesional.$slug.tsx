@@ -55,7 +55,7 @@ function PerfilInformativoProfesional() {
   return (
     <div>
       <div style={topBackContainerStyle}>
-        <Link to="/directorio" style={{ color: "var(--foreground)" }}>
+        <Link to="/directorio" search={{ q: "", lugar: "" }} style={{ color: "var(--foreground)" }}>
           ← Volver a resultados
         </Link>
       </div>
@@ -73,7 +73,7 @@ function PerfilInformativoProfesional() {
         }}
       />
       <div style={bottomBackContainerStyle}>
-        <Link to="/directorio" style={bottomBackLinkStyle}>
+        <Link to="/directorio" search={{ q: "", lugar: "" }} style={bottomBackLinkStyle}>
           ← Volver a resultados
         </Link>
       </div>
