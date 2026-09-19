@@ -2515,7 +2515,7 @@ function VerificadoFormulario() {
               ayuda={
                 isOrg
                   ? `Seleccionad las terapias, prácticas o actividades que ofrecéis. Podéis seleccionar hasta ${MAX_PRACTICAS_CENTRO} prácticas.`
-                  : undefined
+                  : `Selecciona hasta ${MAX_PRACTICAS_VERIFICADO} terapias, prácticas o especialidades que mejor representen tu actividad profesional.`
               }
             />
           </Box>
@@ -2525,7 +2525,7 @@ function VerificadoFormulario() {
               ayuda={
                 isOrg
                   ? `Seleccionad las áreas en las que podéis acompañar a las personas. Podéis seleccionar hasta ${MAX_AREAS_CENTRO} áreas.`
-                  : "Selecciona las áreas en las que puedes acompañar a las personas."
+                  : `Selecciona hasta ${MAX_AREAS_VERIFICADO} áreas en las que puedes acompañar a las personas.`
               }
               max={isOrg ? MAX_AREAS_CENTRO : MAX_AREAS_VERIFICADO}
             />
@@ -2559,6 +2559,8 @@ function VerificadoFormulario() {
                 options={V_CONSULTA_OPTIONS}
                 columns={2}
                 descriptions={V_CONSULTA_HELP}
+                value={consultaModalidades}
+                onToggleValue={toggleConsultaModalidad}
               />
             </Box>
           )}
@@ -2584,9 +2586,11 @@ function VerificadoFormulario() {
               </Box>
             </>
           ) : (
-            <Box title="Tus ubicaciones">
-              <ConsultasList />
-            </Box>
+            atiendePresencial && (
+              <Box title="Tus ubicaciones">
+                <ConsultasList />
+              </Box>
+            )
           )}
         </>
       )}
@@ -2626,10 +2630,10 @@ function VerificadoFormulario() {
             </div>
           </Box>
           <Box title={isOrg ? "Sobre nosotros" : "Cuéntanos un poco sobre ti"}>
-            {!isOrg && <Note>Máximo 3000 caracteres.</Note>}
+            {!isOrg && <Note>Máximo 2000 caracteres.</Note>}
             <LimitedTextField
               label={isOrg ? "Sobre nosotros" : "Cuéntanos un poco sobre ti"}
-              max={3000}
+              max={isOrg ? 3000 : 2000}
               multiline
             />
             {isOrg ? (
@@ -2646,7 +2650,7 @@ function VerificadoFormulario() {
             ) : (
               <>
                 <Ayuda>
-                  Comparte tu recorrido, tu experiencia, tu forma de trabajar y aquello que te
+                  Comparte tu manera de trabajar, tu enfoque, tu trayectoria y aquello que te
                   gustaría que las personas conocieran antes de contactar contigo.
                 </Ayuda>
                 <Note>
@@ -2658,16 +2662,12 @@ function VerificadoFormulario() {
           </Box>
           {!isOrg && (
             <>
-              <Box title="Formación principal">
+              <Box title="Formación y cualificaciones">
                 <Ayuda>
-                  Comparte las formaciones que consideres más relevantes para tu actividad
-                  profesional.
+                  Añade las formaciones o cualificaciones más relevantes para tu actividad
+                  profesional. No es necesario incluir todo tu currículum.
                 </Ayuda>
                 <FormacionList />
-                <Ayuda>
-                  Añade las formaciones que consideres más relevantes para tu actividad profesional.
-                  No es necesario incluirlas todas.
-                </Ayuda>
               </Box>
               <div style={{ height: 12 }} />
               <Box title="Experiencia profesional">
@@ -2736,18 +2736,19 @@ function VerificadoFormulario() {
           </>
         ) : (
           <>
-            <Box title="🌐 Página web">
-              <FakeField label="Página web" type="url" />
+            <Box title="🌐 Página web (opcional)">
+              <Ayuda>Escribe la dirección de tu página web</Ayuda>
+              <FakeField label="Página web (opcional)" type="www.tunombre.com" />
             </Box>
             <Box title="📱 Redes sociales">
-              <RedesSocialesList />
+              <RedesSocialesList enlacePlaceholder="Enlace a tu perfil" />
             </Box>
-            <Box title="📅 Plataforma de reservas (opcional)">
+            <Box title="📅 Reservas online (opcional)">
               <Ayuda>
-                Comparte el enlace de la plataforma que utilizas para que las personas puedan
-                reservar una sesión directamente.
+                Si utilizas una plataforma externa para gestionar tus reservas, puedes añadir aquí
+                el enlace.
               </Ayuda>
-              <FakeField label="URL" type="url" />
+              <FakeField label="Enlace de reserva" type="url" />
               <Note>
                 Ejemplos: Calendly, Fresha, Google Calendar, SimplyBook, Booksy u otra plataforma.
               </Note>
@@ -2755,10 +2756,7 @@ function VerificadoFormulario() {
             <Box title="💶 Tarifas (opcional)">
               <TarifasList />
             </Box>
-            <Box title="💬 WhatsApp Business">
-              <VWhatsAppBusiness />
-            </Box>
-            <Box title="🔒 Información pública">
+            <Box title="🔒 ¿Cómo quieres que contacten contigo?">
               <VInformacionPublica />
             </Box>
           </>
@@ -2794,15 +2792,20 @@ function VerificadoFormulario() {
 
               <div style={{ marginBottom: 16 }}>
                 <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
-                  Documentación profesional
+                  Formación y cualificaciones profesionales
                 </div>
                 <Ayuda>
-                  Adjunta entre 1 y 3 diplomas, certificados o titulaciones que acrediten tu
-                  formación profesional.
+                  Para verificar tu perfil, adjunta entre 1 y 3 diplomas, certificados o
+                  titulaciones relevantes para las prácticas que ofreces. El primer documento es
+                  obligatorio.
                 </Ayuda>
                 <FakeField label="Documento 1 (obligatorio)" type="file" />
                 <FakeField label="Documento 2 (opcional)" type="file" />
                 <FakeField label="Documento 3 (opcional)" type="file" />
+                <Ayuda>
+                  Estos documentos serán utilizados únicamente para el proceso de verificación y no
+                  se mostrarán públicamente en tu perfil.
+                </Ayuda>
               </div>
             </>
           )}
@@ -2818,7 +2821,11 @@ function VerificadoFormulario() {
           <VConsentItem
             icon="✅"
             title="Declaración de veracidad"
-            label="Declaro que toda la información aportada es veraz, exacta y está actualizada."
+            label={
+              isOrg
+                ? "Declaro que toda la información aportada es veraz, exacta y está actualizada."
+                : "Declaro que la información que he proporcionado es veraz, exacta y está actualizada."
+            }
             checked={consents.veracidad}
             onToggle={() => toggleConsent("veracidad")}
           />
@@ -2826,7 +2833,11 @@ function VerificadoFormulario() {
             icon="🔒"
             title="Política de Privacidad"
             linkText="Leer documento"
-            label="Confirmo que he leído y acepto la Política de Privacidad."
+            label={
+              isOrg
+                ? "Confirmo que he leído y acepto la Política de Privacidad."
+                : "Confirmo que he leído la Política de Privacidad de Mallorca Holística."
+            }
             checked={consents.privacidad}
             onToggle={() => toggleConsent("privacidad")}
           />
@@ -2834,7 +2845,11 @@ function VerificadoFormulario() {
             icon="📄"
             title="Condiciones de Uso"
             linkText="Leer documento"
-            label="Confirmo que he leído y acepto las Condiciones de Uso."
+            label={
+              isOrg
+                ? "Confirmo que he leído y acepto las Condiciones de Uso."
+                : "Confirmo que he leído y acepto las Condiciones de Uso de Mallorca Holística."
+            }
             checked={consents.condiciones}
             onToggle={() => toggleConsent("condiciones")}
           />
