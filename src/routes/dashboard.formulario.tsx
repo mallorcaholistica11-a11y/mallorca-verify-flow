@@ -2236,6 +2236,17 @@ function VerificadoFormulario() {
     publicacion: false,
   });
   const [autorizaPago, setAutorizaPago] = useState(false);
+  // Condiciones de Contratación del plan (documento pendiente de redacción
+  // jurídica: solo se prepara la aceptación y el enlace).
+  const [condicionesContratacion, setCondicionesContratacion] = useState(false);
+  // Modalidades de consulta del Profesional Verificado: las ubicaciones solo se
+  // piden cuando atiende presencialmente en consulta.
+  const [consultaModalidades, setConsultaModalidades] = useState<string[]>([]);
+  const toggleConsultaModalidad = (op: string) =>
+    setConsultaModalidades((prev) =>
+      prev.includes(op) ? prev.filter((x) => x !== op) : [...prev, op],
+    );
+  const atiendePresencial = consultaModalidades.includes("Presencial en consulta");
   // Declaración de responsabilidad/autorización del recorrido estándar de
   // Centros, Espacios & Organizadores (no afecta a Profesional Verificado).
   const [representacion, setRepresentacion] = useState(false);
@@ -2919,6 +2930,8 @@ function VerificadoFormulario() {
             <Paso7ProfesionalFundador
               autoriza={autorizaPago}
               onToggle={() => setAutorizaPago((p) => !p)}
+              contratacion={condicionesContratacion}
+              onToggleContratacion={() => setCondicionesContratacion((p) => !p)}
             />
           )
         ) : isOrg ? (
@@ -2930,6 +2943,8 @@ function VerificadoFormulario() {
           <Paso7ProfesionalEstandar
             autoriza={autorizaPago}
             onToggle={() => setAutorizaPago((p) => !p)}
+            contratacion={condicionesContratacion}
+            onToggleContratacion={() => setCondicionesContratacion((p) => !p)}
           />
         ))}
 
@@ -2968,13 +2983,19 @@ function VerificadoFormulario() {
             );
           })()
         ) : (
+          (() => {
+            // Profesional Verificado (alta normal e invitación Fundadora) exige
+            // también la aceptación de las Condiciones de Contratación.
+            const finalBloqueado =
+              (esEstandar && !autorizaPago) || (!isOrg && !condicionesContratacion);
+            return (
           <button
             onClick={finish}
-            disabled={esEstandar && !autorizaPago}
+            disabled={finalBloqueado}
             style={{
               ...btn("primary"),
-              opacity: esEstandar && !autorizaPago ? 0.5 : 1,
-              cursor: esEstandar && !autorizaPago ? "not-allowed" : "pointer",
+              opacity: finalBloqueado ? 0.5 : 1,
+              cursor: finalBloqueado ? "not-allowed" : "pointer",
             }}
           >
             {esEstandarOrganizacion
@@ -2985,6 +3006,8 @@ function VerificadoFormulario() {
                   ? "👉 Enviar mi solicitud de verificación"
                   : "👉 Enviar mi solicitud"}
           </button>
+            );
+          })()
         )}
       </Box>
       {esEstandar && step > 1 && (
