@@ -48,7 +48,8 @@ function GestionarPerfil() {
     <div className="min-h-screen bg-background text-foreground">
       <NavPublica isMobile={isMobile} />
       <main className="mx-auto w-full max-w-[760px] px-5 py-10 md:px-8 md:py-16">
-        <Progress paso={paso} />
+        <div className="mb-8 text-xs text-muted-foreground">Gestionar perfil</div>
+
 
         {paso === "bienvenida" && (
           <Pantalla titulo="Gestiona tu perfil en Mallorca Holística">
@@ -60,7 +61,7 @@ function GestionarPerfil() {
                 Si eres Elena, puedes gestionar tu perfil gratuitamente, actualizar tus datos y completarlo
                 para que muestre mejor quién eres y cómo trabajas.
               </p>
-              <p>Antes de darte acceso, solo necesitamos comprobar que eres tú.</p>
+              <p>Antes de darte acceso, solo necesitamos confirmar uno de tus datos de contacto.</p>
             </div>
             <Button size="lg" className="mt-8 rounded-full" onClick={() => setPaso("contacto")}>
               Gestionar mi perfil →
@@ -193,19 +194,6 @@ function Pantalla({ titulo, volver, children }: { titulo: string; volver?: () =>
   );
 }
 
-function Progress({ paso }: { paso: Paso }) {
-  const numero = paso === "bienvenida" ? 1 : paso === "contacto" || paso === "excepcion" ? 2 : paso === "codigo" ? 3 : paso === "cuenta" ? 4 : 5;
-  return (
-    <div className="mb-8" aria-label={`Paso ${numero} de 5`}>
-      <div className="mb-2 flex justify-between text-xs text-muted-foreground">
-        <span>Gestionar perfil</span><span>Paso {numero} de 5</span>
-      </div>
-      <div className="grid grid-cols-5 gap-1.5">
-        {[1, 2, 3, 4, 5].map((n) => <span key={n} className={`h-1 rounded-full ${n <= numero ? "bg-primary" : "bg-border"}`} />)}
-      </div>
-    </div>
-  );
-}
 
 function Identidad({ mostrarPlan }: { mostrarPlan: boolean }) {
   return (
@@ -260,7 +248,8 @@ function FormularioExcepcion({ onSubmit }: { onSubmit: () => void }) {
         <Campo label="Email actual" type="email" autoComplete="email" />
         <Campo label="Teléfono actual" type="tel" autoComplete="tel" />
         <label className="block text-sm font-semibold">
-          Cuéntanos brevemente qué ha cambiado
+          Cuéntanos brevemente qué ocurre
+
           <textarea required rows={5} className="mt-2 w-full resize-y border border-input bg-card px-3 py-3 font-normal text-foreground" />
         </label>
         <Button type="submit" size="lg" className="rounded-full">Enviar solicitud →</Button>
