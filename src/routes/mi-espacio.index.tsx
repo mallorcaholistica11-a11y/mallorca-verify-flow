@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { WireframeShell, Box, Row, Card, NavButton, TrackBadge, parseTrack, usaRecorridoActual, esPlanOrganizacion, type Track } from "@/components/Wireframe";
+import { WireframeShell, Box, Row, Card, NavButton, TrackBadge, parseTrack, parsePerfil, usaRecorridoActual, esPlanOrganizacion, type Track, type PerfilTipo } from "@/components/Wireframe";
 import { EstadoPerfilBox } from "@/components/EstadoPerfil";
 
 // Estados de Mi Espacio para el recorrido estándar del Plan Profesional Verificado.
@@ -15,9 +15,12 @@ function parseEstado(s: Record<string, unknown>): EspacioEstado | undefined {
 }
 
 export const Route = createFileRoute("/mi-espacio/")({
-  validateSearch: (s: Record<string, unknown>): { track: Track; estado?: EspacioEstado } => ({
+  validateSearch: (
+    s: Record<string, unknown>,
+  ): { track: Track; estado?: EspacioEstado; perfil?: PerfilTipo } => ({
     track: parseTrack(s),
     estado: parseEstado(s),
+    perfil: parsePerfil(s),
   }),
   component: MiEspacio,
 });
@@ -25,7 +28,7 @@ export const Route = createFileRoute("/mi-espacio/")({
 const cardLinkStyle = { textDecoration: "none", color: "inherit", flex: 1, minWidth: 220 } as const;
 
 function MiEspacio() {
-  const { track, estado: estadoSearch } = Route.useSearch();
+  const { track, estado: estadoSearch, perfil } = Route.useSearch();
 
   // Recorridos actuales de los dos planes de pago, incluidos los miembros
   // fundadores: Mi Espacio es la única pantalla y no se duplica.
@@ -67,7 +70,7 @@ function MiEspacio() {
       </div>
 
       <Row>
-        <Link to="/mi-espacio/perfil" search={{ track }} style={cardLinkStyle}>
+        <Link to="/mi-espacio/perfil" search={{ track, ...(perfil ? { perfil } : {}) }} style={cardLinkStyle}>
           <Card title="👤 Mi Perfil">
             Consulta la información de tu perfil profesional y mantén tus datos siempre actualizados.
           </Card>
