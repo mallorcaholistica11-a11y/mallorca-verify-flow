@@ -44,3 +44,4 @@
 - [x] Verificar el recorrido completo en escritorio y móvil sin alterar el alta existente ni el Directorio.
 - [x] Añadir y verificar la pantalla final del perfil gestionado de Elena Rossell sin alterar el alta normal.
 - [x] Depurar el único formulario Profesional · Plan Presencia y verificar sus dos flujos sin alterar Profesional Verificado ni centros.
+- [x] Depurar el único formulario de Centros · Plan Presencia, conectar Espai Bellver y verificar ambas vías sin alterar Profesional Verificado.

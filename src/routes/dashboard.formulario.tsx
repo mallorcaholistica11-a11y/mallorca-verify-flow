@@ -1354,8 +1354,8 @@ const O_MODALIDADES = [
 ];
 
 // Selector simple con estilo wireframe.
-function SelectField({ label, options }: { label: string; options: string[] }) {
-  const [value, setValue] = useState("");
+function SelectField({ label, options, initial = "" }: { label: string; options: string[]; initial?: string }) {
+  const [value, setValue] = useState(initial);
   return (
     <div style={{ marginBottom: 12 }}>
       <div
@@ -1399,7 +1399,7 @@ function OWhatsAppMismo() {
   return (
     <div style={{ marginBottom: 12 }}>
       <div style={{ fontSize: 12, marginBottom: 6 }}>
-        ¿Utilizaréis este mismo número para WhatsApp?
+        ¿Utilizáis este mismo número para WhatsApp?
       </div>
       <div style={{ display: "flex", gap: 8 }}>
         {[
@@ -1423,13 +1423,9 @@ function OWhatsAppMismo() {
           </button>
         ))}
       </div>
-      {mismo ? (
-        <div style={{ fontSize: 12, color: "var(--primary)", marginTop: 8, lineHeight: 1.6 }}>
-          ✅ Perfecto.
-        </div>
-      ) : (
+      {!mismo && (
         <div style={{ marginTop: 12 }}>
-          <TelefonoField label="WhatsApp" />
+          <TelefonoField label="Número de WhatsApp" />
         </div>
       )}
     </div>
@@ -3157,7 +3153,7 @@ const OP_STEP_TITLES = [
   "Información General",
   "Actividad del espacio o proyecto",
   "Ubicación",
-  "Perfil del espacio o proyecto",
+  "Presentación",
   "Contacto y presencia online",
   "Compromisos",
 ];
@@ -3171,9 +3167,113 @@ const OP_STEP_INTROS: Record<number, string> = {
   6: "Ya casi habéis terminado. Antes de enviar vuestra solicitud, necesitamos que aceptéis los siguientes documentos y declaraciones para poder revisar vuestro perfil y publicarlo en Mallorca Holística.",
 };
 
+const OP_OFERTA_GRUPOS = [
+  {
+    titulo: "Atención y servicios",
+    opciones: [
+      "Consultas o sesiones individuales",
+      "Sesiones de pareja o familiares",
+      "Sesiones grupales",
+    ],
+  },
+  {
+    titulo: "Actividades y formación",
+    opciones: ["Talleres", "Cursos y formaciones", "Charlas y conferencias", "Retiros", "Eventos y encuentros"],
+  },
+  {
+    titulo: "Espacios",
+    opciones: ["Espacios para actividades", "Alquiler o cesión de salas/espacios"],
+  },
+  { titulo: "Comercio", opciones: ["Venta de productos"] },
+  { titulo: "Otros", opciones: ["Otros servicios o propuestas"] },
+];
+
+const OP_UBICACION_OPTIONS = [
+  "Tenemos un espacio o local al que las personas pueden acudir",
+  "Desarrollamos nuestras actividades en diferentes lugares",
+  "Trabajamos online",
+  "Nos desplazamos a domicilio o a otros espacios",
+];
+
+const OP_INSTALACIONES = [
+  "Consultas o salas de atención individual",
+  "Salas para actividades grupales",
+  "Salas de formación",
+  "Espacios para eventos",
+  "Espacios exteriores / jardín",
+  "Alojamiento",
+  "Restaurante",
+  "Cafetería",
+  "Tienda",
+  "Otros espacios",
+];
+
+function OPOferta() {
+  return (
+    <div style={{ display: "grid", gap: 16 }}>
+      {OP_OFERTA_GRUPOS.map((grupo) => (
+        <div key={grupo.titulo}>
+          <div style={{ fontSize: 11, color: "var(--muted-foreground)", textTransform: "uppercase", marginBottom: 7 }}>
+            {grupo.titulo}
+          </div>
+          <VCheckboxes options={grupo.opciones} columns={3} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function OPUbicacion({ initialAddress }: { initialAddress: string }) {
+  const local = OP_UBICACION_OPTIONS[0];
+  const [seleccion, setSeleccion] = useState<string[]>(initialAddress && local ? [local] : []);
+  const toggle = (value: string) =>
+    setSeleccion((actual) =>
+      actual.includes(value) ? actual.filter((item) => item !== value) : [...actual, value],
+    );
+
+  return (
+    <>
+      <Box title="¿Dónde os pueden encontrar?">
+        <Ayuda>Selecciona todas las opciones que correspondan.</Ayuda>
+        <CheckboxGroup options={OP_UBICACION_OPTIONS} columns={2} selected={seleccion} onToggle={toggle} />
+      </Box>
+      {local && seleccion.includes(local) && (
+        <>
+          <Box title="Dirección">
+            <DireccionAutocomplete
+              initial={initialAddress}
+              ayuda="Esta es la ubicación permanente del perfil. Las ubicaciones concretas de actividades se indicarán al publicarlas en la Agenda."
+            />
+          </Box>
+          <Box title="Instalaciones y espacios disponibles">
+            <Ayuda>Selecciona todas las opciones que correspondan.</Ayuda>
+            <VCheckboxes options={OP_INSTALACIONES} columns={3} />
+          </Box>
+        </>
+      )}
+    </>
+  );
+}
+
+function OPInformacionPublica() {
+  const [telefono, setTelefono] = useState(false);
+  const [whatsapp, setWhatsapp] = useState(false);
+  const [correo, setCorreo] = useState(false);
+  return (
+    <div>
+      <Ayuda>Seleccionad todas las opciones que queráis mostrar públicamente en vuestro perfil.</Ayuda>
+      <PresenciaToggleCheckbox label="Mostrar nuestro teléfono" checked={telefono} onToggle={() => setTelefono((v) => !v)} />
+      <PresenciaToggleCheckbox label="Mostrar nuestro WhatsApp" checked={whatsapp} onToggle={() => setWhatsapp((v) => !v)} />
+      <PresenciaToggleCheckbox label="Mostrar nuestro correo electrónico" checked={correo} onToggle={() => setCorreo((v) => !v)} />
+    </div>
+  );
+}
+
 function PresenciaOrganizacionFormulario() {
-  const { track } = Route.useSearch();
+  const { track, origen, slug } = Route.useSearch();
   const navigate = useNavigate();
+  const desdeInformativo =
+    origen === "informativo" && slug === "espai-bellver";
   const [step, setStep] = useState(1);
   const total = 6;
   const isLast = step === total;
@@ -3202,8 +3302,19 @@ function PresenciaOrganizacionFormulario() {
   ) => setContacto((prev) => ({ ...prev, [field]: value }));
   const handleContactoTelefono = (value: { prefijo: string; numero: string }) =>
     setContacto((prev) => ({ ...prev, telefono: value }));
+  const [contactoCompartido, setContactoCompartido] = useState(false);
+  const [telefonoEspacio, setTelefonoEspacio] = useState({
+    prefijo: "+34",
+    numero: desdeInformativo ? "971 000 327" : "",
+  });
 
-  const finish = () => navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
+  const finish = () => {
+    if (desdeInformativo && typeof slug === "string") {
+      window.location.assign(`/gestionar-perfil/${encodeURIComponent(slug)}?paso=completado`);
+      return;
+    }
+    navigate({ to: "/dashboard/solicitud-enviada", search: { track } });
+  };
 
   const titles = OP_STEP_TITLES.slice(0, 6);
   const stepTitle = titles[step - 1];
@@ -3270,110 +3381,111 @@ function PresenciaOrganizacionFormulario() {
 
       {step === 1 && (
         <>
-          <Box title="Información General">
-            <FakeField label="Nombre del espacio, centro o proyecto" />
+          <Box title="Espacio, centro o proyecto">
+            <FakeField label="Nombre del espacio, centro o proyecto *" value={desdeInformativo ? "Espai Bellver" : undefined} />
             <Ayuda>
               Es el nombre con el que las personas os encontrarán dentro de Mallorca Holística.
             </Ayuda>
-          </Box>
-
-          <Box title="Datos del espacio o proyecto">
-            <SelectField label="Tipo de espacio o proyecto" options={O_TIPOS_PERFIL} />
-            <MunicipioPicker label="Municipio principal" hint={null} />
-            <FakeField label="Correo electrónico" type="email" />
-            <Ayuda>Será el correo de contacto que aparecerá en vuestro perfil público.</Ayuda>
-            <TelefonoField label="Teléfono" />
+            <SelectField label="Tipo *" options={O_TIPOS_PERFIL} initial={desdeInformativo ? "Espacio" : ""} />
+            <FakeField
+              label="Correo electrónico del espacio/proyecto"
+              type="email"
+              value={desdeInformativo ? "hola@espaibellver.example" : undefined}
+            />
+            <TelefonoField label="Teléfono del espacio/proyecto" value={telefonoEspacio} onChange={setTelefonoEspacio} />
             <OWhatsAppMismo />
             <FakeField label="Logo o imagen de marca (opcional)" type="file" />
             <Ayuda>Si disponéis de un logotipo o imagen de marca podéis añadirlo aquí.</Ayuda>
-            <FakeField label="Imagen principal" type="file" />
+            <FakeField label="Imagen principal (opcional)" type="file" />
             <Ayuda>
-              Será la imagen principal que representará vuestro espacio o proyecto en Mallorca
-              Holística.
+              Te recomendamos añadir una imagen que represente vuestro espacio o proyecto. Ayudará a
+              las personas a conoceros y conectar con vuestra propuesta. Si no añadís una imagen,
+              el perfil podrá utilizar un placeholder con iniciales.
             </Ayuda>
           </Box>
 
-          <Box title="👤 Persona de contacto">
-            <Note>
-              Será la persona con la que Mallorca Holística se comunicará durante el proceso de
-              registro y revisión del perfil.
-            </Note>
+          <Box title="👤 Persona responsable del perfil">
+            <Ayuda>
+              Indícanos quién será la persona responsable de gestionar este perfil y mantener el
+              contacto con Mallorca Holística. Estos datos no se mostrarán públicamente.
+            </Ayuda>
             <input
               type="text"
-              placeholder="Nombre"
+              placeholder="Nombre *"
               value={contacto.nombre}
               onChange={(e) => handleContactoChange("nombre", e.target.value)}
               style={inputStyle}
             />
             <input
               type="text"
-              placeholder="Apellidos"
+              placeholder="Apellidos *"
               value={contacto.apellidos}
               onChange={(e) => handleContactoChange("apellidos", e.target.value)}
               style={inputStyle}
             />
             <input
               type="text"
-              placeholder="Cargo (opcional) — Ej.: Director/a, Coordinador/a, Responsable, Fundador/a, Gerente"
+              placeholder="Cargo o función (opcional)"
               value={contacto.cargo}
               onChange={(e) => handleContactoChange("cargo", e.target.value)}
               style={inputStyle}
             />
             <input
               type="email"
-              placeholder="Correo electrónico"
+              placeholder="Correo electrónico *"
               value={contacto.email}
               onChange={(e) => handleContactoChange("email", e.target.value)}
               style={inputStyle}
             />
             <TelefonoField
-              label="Teléfono"
+              label="Teléfono *"
               value={contacto.telefono}
               onChange={handleContactoTelefono}
             />
+            <PresenciaToggleCheckbox
+              label="Utilizar el mismo correo electrónico y teléfono del espacio o proyecto"
+              checked={contactoCompartido}
+              onToggle={() => setContactoCompartido((value) => !value)}
+            />
+            <Ayuda>El nombre y los apellidos de la persona responsable siguen siendo obligatorios.</Ayuda>
           </Box>
         </>
       )}
 
       {step === 2 && (
         <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-          <Box title="Prácticas">
+          <Box title="Prácticas y especialidades (opcional, si corresponde)">
             <SelectorPracticas
               max={5}
-              ayuda="Selecciona las terapias, prácticas o especialidades que mejor representan las actividades de vuestro espacio o proyecto."
+              ayuda="Seleccionad hasta 5 prácticas o especialidades que mejor representen vuestra actividad."
+              sugerenciaPregunta="¿No encuentras alguna de vuestras prácticas o especialidades? (opcional)"
+              sugerenciaAyuda="Puedes escribir aquí todas las que eches en falta. Tus sugerencias nos ayudan a ampliar y mejorar el catálogo de Mallorca Holística."
+              sugerenciaPlaceholder="Escribe aquí las prácticas o especialidades que no encuentres…"
             />
           </Box>
-          <Box title="Áreas de Acompañamiento">
+          <Box title="Áreas de Acompañamiento (opcional, si corresponde)">
             <SelectorAreas
-                  label="¿En qué puedes acompañar?"
-                  ayuda="Selecciona las áreas en las que puedes acompañar a las personas."
-                  max={5}
-                />
+              label="Áreas de Acompañamiento"
+              ayuda="Seleccionad hasta 5 áreas en las que podéis acompañar a las personas."
+              max={5}
+              sugerenciaPregunta="¿No encuentras alguna de las áreas que necesitáis? (opcional)"
+              sugerenciaAyuda="Puedes escribir aquí todas las que echéis en falta. Vuestras sugerencias nos ayudan a ampliar y mejorar el catálogo de Mallorca Holística."
+              sugerenciaPlaceholder="Escribe aquí las áreas que no encontréis…"
+            />
           </Box>
-          <Box title="¿A quién acompañáis?">
+          <Box title="A quién os dirigís">
             <Note>Selecciona todas las opciones que correspondan.</Note>
             <VCheckboxes options={O_PUBLICO} columns={3} />
           </Box>
-          <Box title="Modalidades de actividad">
-            <Note>Seleccionad todas las modalidades que ofrecéis.</Note>
-            <VCheckboxes options={O_MODALIDADES} columns={3} />
+          <Box title="¿Qué ofrece vuestro espacio o proyecto?">
+            <Note>Selecciona todas las opciones que correspondan.</Note>
+            <OPOferta />
           </Box>
         </div>
       )}
 
       {step === 3 && (
-        <>
-          <Box title="Vuestra ubicación">
-            <DireccionAutocomplete />
-          </Box>
-          <Box title="Instalaciones">
-            <Ayuda>
-              Seleccionad las instalaciones y espacios que forman parte de vuestro espacio o
-              proyecto.
-            </Ayuda>
-            <VCheckboxes options={O_INSTALACIONES} columns={3} />
-          </Box>
-        </>
+        <OPUbicacion initialAddress={desdeInformativo ? "Carrer de Bellver, 27, Palma" : ""} />
       )}
 
       {step === 4 && (
@@ -3381,49 +3493,29 @@ function PresenciaOrganizacionFormulario() {
           <Box title="Frase destacada">
             <LimitedTextField label="Frase destacada" max={120} />
             <Ayuda>
-              Una frase breve que resuma vuestra filosofía, vuestra misión o aquello que mejor define
-              vuestro espacio.
+              Una frase breve que resuma la esencia de vuestro espacio, centro o proyecto.
             </Ayuda>
-            <div style={{ fontSize: 12, color: "var(--muted-foreground)", fontStyle: "italic", marginTop: 8 }}>
-              Algunas ideas:
-              <ul style={{ paddingLeft: 18, marginTop: 6, marginBottom: 6 }}>
-                <li>Centro holístico dedicado al bienestar integral en Mallorca.</li>
-                <li>Espacio de formación y retiros en plena naturaleza.</li>
-                <li>Escuela de yoga y meditación con enfoque integrativo.</li>
-              </ul>
-            </div>
           </Box>
-          <Box title="Sobre nosotros">
-            <LimitedTextField label="Sobre nosotros" max={3000} multiline />
+          <Box title="Cuéntanos sobre vuestro espacio o proyecto">
+            <LimitedTextField label="Cuéntanos sobre vuestro espacio o proyecto" max={1000} multiline />
             <Ayuda>
-              Compartid vuestra historia, filosofía y aquello que hace especial vuestro espacio o
-              proyecto.
+              Contadnos brevemente quiénes sois, qué ofrecéis y aquello que os gustaría que las
+              personas conocieran antes de contactar con vosotros.
             </Ayuda>
-            <Note>
-              No os preocupéis si ahora no tenéis el texto perfecto. Podréis modificarlo siempre que
-              queráis.
-            </Note>
-          </Box>
-          <Box title="Idiomas">
-            <Ayuda>Seleccionad los idiomas en los que podéis atender a las personas.</Ayuda>
-            <VCheckboxes options={V_IDIOMAS} columns={3} />
           </Box>
         </>
       )}
 
       {step === 5 && (
         <>
-          <Box title="🌐 Página web">
-            <FakeField label="Página web" type="url" />
+          <Box title="🌐 Página web (opcional)">
+            <FakeField label="Escribe la dirección de vuestra página web" type="www.vuestrocentro.com" />
           </Box>
-          <Box title="📱 Redes sociales">
-            <RedesSocialesList />
+          <Box title="📱 Redes sociales (opcional)">
+            <RedesSocialesList enlacePlaceholder="Enlace a vuestro perfil" />
           </Box>
-          <Box title="💬 WhatsApp Business">
-            <OWhatsAppBusiness />
-          </Box>
-          <Box title="🔒 Datos de contacto visibles">
-            <OInformacionPublica />
+          <Box title="🔒 ¿Cómo queréis que contacten con vosotros?">
+            <OPInformacionPublica />
           </Box>
         </>
       )}
@@ -3441,7 +3533,7 @@ function PresenciaOrganizacionFormulario() {
           <VConsentItem
             icon="✅"
             title="Declaración de veracidad"
-            label="Declaro que toda la información aportada es veraz, exacta y está actualizada."
+            label="Declaro que la información que he proporcionado es veraz, exacta y está actualizada."
             checked={consents.veracidad}
             onToggle={() => toggleConsent("veracidad")}
           />
@@ -3449,7 +3541,7 @@ function PresenciaOrganizacionFormulario() {
             icon="🔒"
             title="Política de Privacidad"
             linkText="Leer documento"
-            label="Confirmo que he leído y acepto la Política de Privacidad."
+            label="Confirmo que he leído la Política de Privacidad de Mallorca Holística."
             checked={consents.privacidad}
             onToggle={() => toggleConsent("privacidad")}
           />
@@ -3457,52 +3549,42 @@ function PresenciaOrganizacionFormulario() {
             icon="📄"
             title="Condiciones de Uso"
             linkText="Leer documento"
-            label="Confirmo que he leído y acepto las Condiciones de Uso."
+            label="Confirmo que he leído y acepto las Condiciones de Uso de Mallorca Holística."
             checked={consents.condiciones}
             onToggle={() => toggleConsent("condiciones")}
           />
           <VConsentItem
             icon="🌐"
             title="Publicación del Perfil"
-            linkText="Leer autorización"
-            label="Autorizo a Mallorca Holística a publicar el perfil del espacio o proyecto en la plataforma."
+            label="Autorizo a Mallorca Holística a publicar este perfil en la plataforma."
             checked={consents.publicacion}
             onToggle={() => toggleConsent("publicacion")}
           />
           <VConsentItem
             icon="📝"
             title="Declaración responsable"
-            label="Declaro contar con autorización para crear y gestionar este perfil en nombre del espacio, centro o proyecto."
+            label="Declaro que estoy autorizado/a para crear y gestionar este perfil en nombre del espacio, centro o proyecto que representa."
             checked={consents.seguroRC}
             onToggle={() => toggleConsent("seguroRC")}
           />
 
-          <div style={{ marginBottom: 16 }}>
-            <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>
-              ✍️ Confirmación final
-            </div>
-            <Ayuda>
-              Al introducir tu nombre completo confirmas que actúas en representación de este
-              espacio o proyecto y que aceptas las declaraciones anteriores.
-            </Ayuda>
-            <FakeField label="Nombre completo" />
-            <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginTop: 4, fontStyle: "italic" }}>
-              La fecha, hora e IP quedarán registradas automáticamente.
-            </div>
-          </div>
-
           <Note>
-            Ya solo queda un último paso. Después podréis enviar vuestra solicitud. Nuestro equipo la
-            revisará y os avisaremos por correo electrónico cuando vuestro perfil esté listo para
-            publicarse.
+            Cuando enviéis vuestro perfil, nuestro equipo realizará una revisión básica de la
+            información. Os avisaremos cuando esté listo.
           </Note>
         </Box>
       )}
 
       <Box title="Navegación">
         <button
-          onClick={() => setStep((s) => Math.max(1, s - 1))}
-          disabled={step === 1}
+          onClick={() => {
+            if (step === 1 && desdeInformativo && typeof slug === "string") {
+              navigate({ to: "/gestionar-perfil/$slug", params: { slug }, search: { paso: "introduccion" } });
+              return;
+            }
+            setStep((s) => Math.max(1, s - 1));
+          }}
+          disabled={step === 1 && !desdeInformativo}
           style={btn("secondary")}
         >
           ← Anterior
@@ -3521,7 +3603,7 @@ function PresenciaOrganizacionFormulario() {
               cursor: allConsents ? "pointer" : "not-allowed",
             }}
           >
-            👉 Enviar para revisión
+            👉 Enviar perfil para revisión
           </button>
         )}
       </Box>

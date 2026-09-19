@@ -3,6 +3,9 @@ import { FichaCentro } from "@/components/ficha/FichaCentro";
 import type { FichaCentroData } from "@/components/ficha/types";
 
 export const Route = createFileRoute("/perfil-informativo-centro/$slug")({
+  validateSearch: (search: Record<string, unknown>): { gestionado?: boolean } => ({
+    gestionado: search.gestionado === true || search.gestionado === "true" ? true : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Perfil informativo de centro · Mallorca Holística" },
@@ -54,6 +57,7 @@ const demo: FichaCentroData = {
 
 function PerfilInformativoCentro() {
   const { slug } = Route.useParams();
+  const { gestionado } = Route.useSearch();
 
   return (
     <div>
@@ -65,7 +69,9 @@ function PerfilInformativoCentro() {
       <FichaCentro
         data={demo}
         plan="presencia"
-        perfilInformativo
+        perfilInformativo={!gestionado}
+        enlaceGestionPerfil={gestionado ? undefined : "/gestionar-perfil/$slug"}
+        slugPerfil={slug}
         origenPracticas={{ tipo: "perfil-informativo-centro", slug, nombre: demo.nombre }}
       />
       <div style={bottomBackContainerStyle}>

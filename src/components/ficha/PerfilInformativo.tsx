@@ -47,9 +47,11 @@ export function PlaceholderInformativo({
 export function SeccionPerfilInformativo({
   tipo,
   enlaceGestion,
+  slug,
 }: {
   tipo: TipoPerfilInformativo;
   enlaceGestion?: "/gestionar-perfil/$slug";
+  slug?: string;
 }) {
   const esProfesional = tipo === "profesional";
   const estiloEnlace = {
@@ -69,9 +71,9 @@ export function SeccionPerfilInformativo({
       <div style={{ fontSize: 13, lineHeight: 1.6, marginTop: 10 }}>
         {esProfesional ? "¿Eres tú?" : "¿Representas este espacio?"}
       </div>
-      {esProfesional && enlaceGestion ? (
-        <Link to={enlaceGestion} params={{ slug: "elena-rossell" }} style={estiloEnlace}>
-          Gestiona tu perfil →
+      {enlaceGestion && slug ? (
+        <Link to={enlaceGestion} params={{ slug }} style={estiloEnlace} reloadDocument>
+          {esProfesional ? "Gestiona tu perfil →" : "Gestiona este perfil →"}
         </Link>
       ) : (
         <a href="#" style={estiloEnlace}>

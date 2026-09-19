@@ -23,6 +23,9 @@ export function SelectorAreas({
   mostrarContador = true,
   compacto = false,
   mostrarSugerencia,
+  sugerenciaPregunta,
+  sugerenciaAyuda,
+  sugerenciaPlaceholder,
 }: {
   selected?: string[];
   onChange?: (v: string[]) => void;
@@ -33,6 +36,9 @@ export function SelectorAreas({
   mostrarContador?: boolean;
   compacto?: boolean;
   mostrarSugerencia?: boolean;
+  sugerenciaPregunta?: string;
+  sugerenciaAyuda?: string;
+  sugerenciaPlaceholder?: string;
 }) {
   const [interno, setInterno] = useState<string[]>([]);
   const selected = selectedProp ?? interno;
@@ -161,8 +167,9 @@ export function SelectorAreas({
       {(mostrarSugerencia ?? mostrarContador) && (
         <SugerenciaCatalogo
           tipo="areas"
-          pregunta="¿No encuentras alguna de tus áreas de acompañamiento?"
-          placeholder="Escribe aquí las áreas que no encuentres…"
+          pregunta={sugerenciaPregunta ?? "¿No encuentras alguna de tus áreas de acompañamiento?"}
+          ayuda={sugerenciaAyuda}
+          placeholder={sugerenciaPlaceholder ?? "Escribe aquí las áreas que no encuentres…"}
         />
       )}
     </div>

@@ -28,6 +28,9 @@ export function SelectorPracticas({
   mostrarContador = true,
   compacto = false,
   mostrarSugerencia,
+  sugerenciaPregunta,
+  sugerenciaAyuda,
+  sugerenciaPlaceholder,
 }: {
   selected?: string[];
   onChange?: (v: string[]) => void;
@@ -38,6 +41,9 @@ export function SelectorPracticas({
   mostrarContador?: boolean;
   compacto?: boolean;
   mostrarSugerencia?: boolean;
+  sugerenciaPregunta?: string;
+  sugerenciaAyuda?: string;
+  sugerenciaPlaceholder?: string;
 }) {
   const [interno, setInterno] = useState<string[]>([]);
   const selected = selectedProp ?? interno;
@@ -222,8 +228,9 @@ export function SelectorPracticas({
       {(mostrarSugerencia ?? mostrarContador) && (
         <SugerenciaCatalogo
           tipo="practicas"
-          pregunta="¿No encuentras alguna de tus prácticas?"
-          placeholder="Escribe aquí las prácticas que no encuentres…"
+          pregunta={sugerenciaPregunta ?? "¿No encuentras alguna de tus prácticas?"}
+          ayuda={sugerenciaAyuda}
+          placeholder={sugerenciaPlaceholder ?? "Escribe aquí las prácticas que no encuentres…"}
         />
       )}
     </div>
