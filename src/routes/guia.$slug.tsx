@@ -1,10 +1,24 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMobile } from "@/components/ficha/useMobile";
-import { PlantillaPractica } from "@/components/practica/PlantillaPractica";
+import {
+  PlantillaPractica,
+  type RegresoPractica,
+} from "@/components/practica/PlantillaPractica";
 import { practicaPorSlug, slugPractica } from "@/data/practicas";
 import { contenidoPractica } from "@/data/practicas-contenido";
 
 export const Route = createFileRoute("/guia/$slug")({
+  validateSearch: (search: Record<string, unknown>): {
+    desdeTipo?: RegresoPractica["tipo"];
+    desdeSlug?: string;
+    desdeNombre?: string;
+    desdeGestionado?: boolean;
+  } => ({
+    desdeTipo: esTipoFicha(search.desdeTipo) ? search.desdeTipo : undefined,
+    desdeSlug: typeof search.desdeSlug === "string" ? search.desdeSlug : undefined,
+    desdeNombre: typeof search.desdeNombre === "string" ? search.desdeNombre : undefined,
+    desdeGestionado: search.desdeGestionado === true || search.desdeGestionado === "true" || undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Ficha de práctica — Guía de Prácticas — Mallorca Holística" },
@@ -35,13 +49,23 @@ const MONO = "var(--font-body)";
  */
 function FichaPractica() {
   const { slug } = Route.useParams();
+  const { desdeTipo, desdeSlug, desdeNombre, desdeGestionado } = Route.useSearch();
   const isMobile = useMobile(900);
+  const regreso = desdeTipo && desdeSlug && desdeNombre
+    ? { tipo: desdeTipo, slug: desdeSlug, nombre: desdeNombre, gestionado: desdeGestionado }
+    : undefined;
 
   const encontrada = practicaPorSlug(slug);
 
   if (encontrada) {
     const contenido = contenidoPractica(slugPractica(encontrada.nombre), encontrada.nombre);
-    return <PlantillaPractica contenido={contenido} relacionadaCon={encontrada.relacionadaCon} />;
+    return (
+      <PlantillaPractica
+        contenido={contenido}
+        relacionadaCon={encontrada.relacionadaCon}
+        regreso={regreso}
+      />
+    );
   }
 
   return (
@@ -58,4 +82,15 @@ function FichaPractica() {
       </main>
     </div>
   );
+}
+
+function esTipoFicha(value: unknown): value is RegresoPractica["tipo"] {
+  return [
+    "profesional",
+    "profesional-free",
+    "centro",
+    "centro-free",
+    "perfil-informativo-profesional",
+    "perfil-informativo-centro",
+  ].includes(typeof value === "string" ? value : "");
 }

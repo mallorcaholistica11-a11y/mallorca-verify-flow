@@ -7,7 +7,14 @@ import {
 } from "@/components/ficha/PerfilInformativo";
 import { telHref, telefonoVisible, whatsappHref } from "@/lib/telefono";
 
-import { Boton, Chips, ChipsPracticas, LineaTexto, Seccion } from "@/components/ficha/primitives";
+import {
+  Boton,
+  Chips,
+  ChipsPracticas,
+  LineaTexto,
+  Seccion,
+  type OrigenFichaPractica,
+} from "@/components/ficha/primitives";
 import { GALERIA_DEMO, ambienteDe, retratoDe } from "@/data/imagenes";
 import {
   MAX_AREAS_FICHA,
@@ -39,10 +46,12 @@ export function FichaCentro({
   data,
   plan = "verificado",
   perfilInformativo = false,
+  origenPracticas,
 }: {
   data: FichaCentroData;
   plan?: PlanCentro;
   perfilInformativo?: boolean;
+  origenPracticas?: OrigenFichaPractica;
 }) {
   const isMobile = useMobile();
   const esPresencia = plan === "presencia";
@@ -75,7 +84,7 @@ export function FichaCentro({
         }}
       >
         <div>
-          <ColumnaPrincipal data={data} esPresencia={esPresencia} />
+          <ColumnaPrincipal data={data} esPresencia={esPresencia} origenPracticas={origenPracticas} />
         </div>
         <aside>
           <BarraLateral data={data} esPresencia={esPresencia} perfilInformativo={perfilInformativo} />
@@ -249,7 +258,15 @@ function HeroCentro({
   );
 }
 
-function ColumnaPrincipal({ data, esPresencia }: { data: FichaCentroData; esPresencia: boolean }) {
+function ColumnaPrincipal({
+  data,
+  esPresencia,
+  origenPracticas,
+}: {
+  data: FichaCentroData;
+  esPresencia: boolean;
+  origenPracticas?: OrigenFichaPractica;
+}) {
   const publicos = data.publicos?.includes("Todas las personas")
     ? ["Todas las personas"]
     : (data.publicos ?? []);
@@ -268,7 +285,10 @@ function ColumnaPrincipal({ data, esPresencia }: { data: FichaCentroData; esPres
       </Seccion>
 
       <Seccion titulo="Prácticas" vacio={!data.especialidades?.length} separador>
-        <ChipsPracticas items={(data.especialidades ?? []).slice(0, MAX_ESPECIALIDADES_FICHA)} />
+        <ChipsPracticas
+          items={(data.especialidades ?? []).slice(0, MAX_ESPECIALIDADES_FICHA)}
+          origen={origenPracticas}
+        />
       </Seccion>
 
       <Seccion titulo="¿En qué podemos ayudarte?" vacio={!data.areas?.length} separador>

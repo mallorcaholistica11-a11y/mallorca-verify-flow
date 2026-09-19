@@ -50,6 +50,8 @@ const demo: FichaPublicaData = {
 };
 
 function FichaProfesionalPresencia() {
+  const { slug } = Route.useParams();
+
   return (
     <div>
       <div
@@ -66,7 +68,11 @@ function FichaProfesionalPresencia() {
           ← Volver a resultados
         </Link>
       </div>
-      <FichaPublica data={demo} plan="presencia" />
+      <FichaPublica
+        data={demo}
+        plan="presencia"
+        origenPracticas={{ tipo: "profesional-free", slug, nombre: demo.nombre }}
+      />
       <div style={bottomBackContainerStyle}>
         <Link to="/" style={bottomBackLinkStyle}>
           ← Volver a resultados

@@ -53,6 +53,8 @@ const demo: FichaCentroData = {
 };
 
 function PerfilInformativoCentro() {
+  const { slug } = Route.useParams();
+
   return (
     <div>
       <div style={topBackContainerStyle}>
@@ -60,7 +62,12 @@ function PerfilInformativoCentro() {
           ← Volver a resultados
         </Link>
       </div>
-      <FichaCentro data={demo} plan="presencia" perfilInformativo />
+      <FichaCentro
+        data={demo}
+        plan="presencia"
+        perfilInformativo
+        origenPracticas={{ tipo: "perfil-informativo-centro", slug, nombre: demo.nombre }}
+      />
       <div style={bottomBackContainerStyle}>
         <Link to="/" style={bottomBackLinkStyle}>
           ← Volver a resultados

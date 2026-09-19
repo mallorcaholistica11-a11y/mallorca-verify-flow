@@ -98,7 +98,26 @@ const chipStyle: CSSProperties = {
  * Guía (/guia/$slug) resolviendo el slug desde el catálogo oficial.
  * Los chips de Áreas de Acompañamiento son informativos (usar <Chips />).
  */
-export function ChipsPracticas({ items }: { items: string[] }) {
+export type OrigenFichaPractica = {
+  tipo:
+    | "profesional"
+    | "profesional-free"
+    | "centro"
+    | "centro-free"
+    | "perfil-informativo-profesional"
+    | "perfil-informativo-centro";
+  slug: string;
+  nombre: string;
+  gestionado?: boolean;
+};
+
+export function ChipsPracticas({
+  items,
+  origen,
+}: {
+  items: string[];
+  origen?: OrigenFichaPractica;
+}) {
   return (
     <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
       {items.map((item) => (
@@ -106,6 +125,14 @@ export function ChipsPracticas({ items }: { items: string[] }) {
           key={item}
           to="/guia/$slug"
           params={{ slug: slugPractica(item) }}
+          search={origen
+            ? {
+                desdeTipo: origen.tipo,
+                desdeSlug: origen.slug,
+                desdeNombre: origen.nombre,
+                desdeGestionado: origen.gestionado,
+              }
+            : {}}
           style={{ ...chipStyle, textDecoration: "none" }}
         >
           {item}

@@ -14,6 +14,19 @@ import {
 
 const MONO = "var(--font-body)";
 
+export type RegresoPractica = {
+  tipo:
+    | "profesional"
+    | "profesional-free"
+    | "centro"
+    | "centro-free"
+    | "perfil-informativo-profesional"
+    | "perfil-informativo-centro";
+  slug: string;
+  nombre: string;
+  gestionado?: boolean;
+};
+
 export function urlDirectorioPractica(nombre: string) {
   return `/directorio?practica=${encodeURIComponent(nombre)}`;
 }
@@ -26,10 +39,12 @@ export function urlDirectorioArea(area: string) {
 export function PlantillaPractica({
   contenido,
   relacionadaCon,
+  regreso,
 }: {
   contenido: PracticaContenido;
   /** Relación interna definida en los datos; se muestra de forma discreta. */
   relacionadaCon?: string | null;
+  regreso?: RegresoPractica;
 }) {
   const isMobile = useMobile(900);
   const areas = areasValidas(contenido.areasRelacionadas);
@@ -44,9 +59,7 @@ export function PlantillaPractica({
           padding: isMobile ? "24px 16px 60px" : "36px 24px 80px",
         }}
       >
-        <Link to="/guia" style={{ fontSize: 12, color: "var(--muted-foreground)" }}>
-          ← Volver a la Guía de Prácticas
-        </Link>
+        <EnlaceRegreso regreso={regreso} />
 
         {/* Hero */}
         <header style={{ margin: "20px 0 16px 0" }}>
@@ -146,6 +159,43 @@ export function PlantillaPractica({
         </section>
       </main>
     </div>
+  );
+}
+
+function EnlaceRegreso({ regreso }: { regreso?: RegresoPractica }) {
+  const style = { fontSize: 12, color: "var(--muted-foreground)" };
+  const texto = regreso ? `← Volver a ${regreso.nombre}` : "← Volver a la Guía de Prácticas";
+
+  if (!regreso) return <Link to="/guia" style={style}>{texto}</Link>;
+
+  if (regreso.tipo === "profesional") {
+    return <Link to="/profesional/$slug" params={{ slug: regreso.slug }} style={style}>{texto}</Link>;
+  }
+  if (regreso.tipo === "profesional-free") {
+    return <Link to="/profesional-free/$slug" params={{ slug: regreso.slug }} style={style}>{texto}</Link>;
+  }
+  if (regreso.tipo === "centro") {
+    return <Link to="/centro/$slug" params={{ slug: regreso.slug }} style={style}>{texto}</Link>;
+  }
+  if (regreso.tipo === "centro-free") {
+    return <Link to="/centro-free/$slug" params={{ slug: regreso.slug }} style={style}>{texto}</Link>;
+  }
+  if (regreso.tipo === "perfil-informativo-profesional") {
+    return (
+      <Link
+        to="/perfil-informativo-profesional/$slug"
+        params={{ slug: regreso.slug }}
+        search={{ gestionado: regreso.gestionado }}
+        style={style}
+      >
+        {texto}
+      </Link>
+    );
+  }
+  return (
+    <Link to="/perfil-informativo-centro/$slug" params={{ slug: regreso.slug }} style={style}>
+      {texto}
+    </Link>
   );
 }
 
