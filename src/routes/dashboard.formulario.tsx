@@ -1274,18 +1274,13 @@ const V_PUBLICO = [
   "Animales",
 ];
 
+// Cómo trabaja el profesional: solo tipos de sesión. Las actividades concretas
+// (talleres, cursos, retiros, charlas, eventos) se gestionan desde Agenda.
 const V_MODALIDADES = [
-  "Sesiones Individuales",
-  "Sesiones de Pareja",
-  "Sesiones Familiares",
-  "Sesiones Grupales",
-  "Talleres",
-  "Cursos y Formaciones",
-  "Retiros",
-  "Empresas y Organizaciones",
-  "Charlas y Conferencias",
-  "Eventos y Encuentros",
-  "Otro (especificar)",
+  "Sesiones individuales",
+  "Sesiones de pareja",
+  "Sesiones familiares",
+  "Sesiones grupales",
 ];
 
 const V_IDIOMAS = ["Español", "Inglés", "Francés", "Alemán", "Catalán", "Otro"];
@@ -1294,7 +1289,7 @@ const V_IDIOMAS = ["Español", "Inglés", "Francés", "Alemán", "Catalán", "Ot
 const V_STEP_INTROS: Record<number, string> = {
   1: "Empezamos con la información principal de tu perfil. Estos datos ayudarán a las personas a conocerte, ponerse en contacto contigo y generar confianza desde el primer momento.",
   2: "Cuéntanos un poco más sobre tu actividad para que las personas puedan encontrarte con facilidad y comprendan mejor cómo puedes acompañarles.",
-  3: "Indícanos cómo realizas tus consultas y dónde atiendes habitualmente. Puedes añadir una o varias ubicaciones según tu actividad profesional.",
+  3: "Indícanos cómo realizas tus consultas. Si atiendes presencialmente, podrás añadir una o varias ubicaciones.",
   4: "Este es tu espacio para presentarte. Comparte quién eres, cómo acompañas a las personas y aquello que hace única tu forma de trabajar. También podrás mostrar parte de tu formación e indicar los idiomas en los que ofreces atención.",
   5: "Añade los enlaces y canales de contacto que quieras compartir para que las personas puedan conocerte, reservar una sesión o ponerse en contacto contigo. Todos los campos son opcionales.",
   6: "Ya casi has terminado. Para mantener la calidad y la confianza de Mallorca Holística necesitamos verificar algunos aspectos de tu actividad profesional. Este proceso nos ayuda a ofrecer un espacio más seguro tanto para los profesionales como para las personas que buscan acompañamiento.",
@@ -1304,7 +1299,8 @@ const V_CONSULTA_OPTIONS = ["Presencial en consulta", "Online", "A domicilio", "
 
 const V_CONSULTA_HELP: Record<string, string> = {
   Online: "Videollamada u otros medios digitales.",
-  "A distancia": "Para terapias que no requieren presencia física.",
+  "A distancia":
+    "Para prácticas como acompañamientos energéticos o sanación a distancia, que no requieren presencia física ni conexión online.",
 };
 
 const V_PUBLICO_OPTIONS = ["Todas las personas", ...V_PUBLICO];
@@ -1478,7 +1474,7 @@ function VWhatsAppMismo() {
   return (
     <div style={{ marginBottom: 12 }}>
       <div style={{ fontSize: 12, marginBottom: 6 }}>
-        ¿Utilizarás este mismo número para WhatsApp?
+        ¿Utilizas este mismo número para WhatsApp?
       </div>
       <div style={{ display: "flex", gap: 8 }}>
         {[
@@ -1502,13 +1498,9 @@ function VWhatsAppMismo() {
           </button>
         ))}
       </div>
-      {mismo ? (
-        <div style={{ fontSize: 12, color: "var(--primary)", marginTop: 8, lineHeight: 1.6 }}>
-          ✅ Perfecto.
-        </div>
-      ) : (
+      {!mismo && (
         <div style={{ marginTop: 12 }}>
-          <TelefonoField label="WhatsApp" />
+          <TelefonoField label="Número de WhatsApp" />
         </div>
       )}
     </div>
@@ -1558,10 +1550,17 @@ function VWhatsAppBusiness() {
 
 // Visibilidad de la información de contacto en el perfil público.
 function VInformacionPublica() {
+  const [telefono, setTelefono] = useState(false);
   const [whatsapp, setWhatsapp] = useState(true);
   const [correo, setCorreo] = useState(true);
   return (
     <div>
+      <Ayuda>Selecciona todas las opciones que quieras mostrar públicamente en tu perfil.</Ayuda>
+      <PresenciaToggleCheckbox
+        label="Mostrar mi teléfono"
+        checked={telefono}
+        onToggle={() => setTelefono((v) => !v)}
+      />
       <PresenciaToggleCheckbox
         label="Mostrar mi WhatsApp"
         checked={whatsapp}
