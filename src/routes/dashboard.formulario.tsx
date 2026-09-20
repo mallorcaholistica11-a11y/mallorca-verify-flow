@@ -3654,8 +3654,8 @@ function PresenciaOrganizacionFormulario() {
         <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
           <Box title="Prácticas y especialidades (opcional, si corresponde)">
             <SelectorPracticas
-              max={5}
-              ayuda="Seleccionad hasta 5 prácticas o especialidades que mejor representen vuestra actividad."
+              max={3}
+              ayuda="Seleccionad hasta 3 prácticas o especialidades que mejor representen vuestra actividad."
               sugerenciaPregunta="¿No encuentras alguna de vuestras prácticas o especialidades? (opcional)"
               sugerenciaAyuda="Puedes escribir aquí todas las que eches en falta. Tus sugerencias nos ayudan a ampliar y mejorar el catálogo de Mallorca Holística."
               sugerenciaPlaceholder="Escribe aquí las prácticas o especialidades que no encuentres…"
