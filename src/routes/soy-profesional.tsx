@@ -53,12 +53,12 @@ const PLANES: Plan[] = [
     price: "25 €/mes",
     priceNote: "IVA incluido",
     info: [
-      "2 meses gratuitos por lanzamiento",
+      "2 meses gratuitos desde el lanzamiento oficial",
       "Acceso mediante verificación profesional",
-      "Hasta 3 actividades grupales al mes en la Agenda.",
+      "1 actividad grupal al mes en la Agenda",
     ],
     description:
-      "Para profesionales cuya actividad se centra principalmente en la atención individual y que desean reforzar la confianza, ampliar su visibilidad y contar con un perfil verificado.",
+      "Para profesionales que acompañan y atienden directamente a las personas mediante sesiones individuales.",
     to: "/profesional-fundador",
     cta: "Conocer el plan",
     variant: "paid",

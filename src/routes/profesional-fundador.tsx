@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   BadgeCheck,
+  CalendarDays,
   Check,
   ClipboardList,
   CreditCard,
@@ -44,13 +45,12 @@ const FEATURES = [
     title: "Tu perfil",
     icon: UserRound,
     items: [
-      "Perfil Profesional Verificado.",
-      "Sello Profesional Verificado.",
-      "Perfil público en el Directorio de Mallorca Holística.",
+      "Perfil profesional completo en el Directorio de Mallorca Holística.",
+      "Sello Profesional Verificado de Mallorca Holística.",
       "Fotografía principal.",
-      "Presentación profesional ampliada.",
-      "Trayectoria profesional visible.",
-      "Galería de hasta 5 imágenes.",
+      "Presentación ampliada de tu actividad profesional.",
+      "Formación y trayectoria profesional.",
+      "Galería de hasta 6 imágenes.",
     ],
   },
   {
@@ -58,53 +58,61 @@ const FEATURES = [
     title: "Tu actividad",
     icon: ClipboardList,
     items: [
-      "Hasta 10 prácticas.",
+      "Hasta 10 prácticas, terapias o disciplinas.",
       "Hasta 15 Áreas de Acompañamiento.",
       "Múltiples ubicaciones de atención.",
       "Modalidades de atención.",
       "Idiomas.",
+      "Tarifas, si deseas mostrarlas.",
     ],
   },
   {
-    key: "visibilidad",
-    title: "Visibilidad",
+    key: "presencia",
+    title: "Presencia",
     icon: Eye,
     items: [
-      "Aparición prioritaria en el Directorio.",
-      "Aparición prioritaria en los resultados de búsqueda.",
-      "Opiniones verificadas.",
+      "Presencia en el Directorio.",
+      "Aparición en los resultados de búsqueda.",
     ],
   },
   {
     key: "contacto",
-    title: "Contacto",
+    title: "Contacto y reservas",
     icon: Mail,
     items: [
-      "Teléfono clicable.",
-      "WhatsApp clicable.",
-      "Página web clicable.",
-      "Redes sociales clicables.",
+      "Teléfono, WhatsApp y correo electrónico.",
+      "Página web y redes sociales.",
+      "Enlace a tu sistema externo de reservas, si dispones de uno.",
     ],
   },
   {
-    key: "espacio",
-    title: "Tu espacio profesional",
+    key: "agenda",
+    title: "Agenda",
+    icon: CalendarDays,
+    items: [
+      "Publicación de 1 actividad grupal al mes en la Agenda de Mallorca Holística.",
+    ],
+  },
+  {
+    key: "miEspacio",
+    title: "Mi Espacio",
     icon: LayoutDashboard,
     items: [
-      "Acceso al panel profesional.",
-      "Publicación de hasta 3 actividades grupales al mes en la Agenda de Actividades.",
+      "Acceso a Mi Espacio.",
+      "Gestión y actualización de tu perfil.",
+      "Gestión de tus actividades.",
     ],
   },
 ];
 
 const VERIFICATION_ITEMS = [
   "Aceptación del Código Deontológico de Mallorca Holística.",
-  "Verificación profesional mediante la aportación de hasta 3 titulaciones o certificaciones.",
-  "Declaración responsable de disponer de los requisitos, autorizaciones y documentación necesarios para desarrollar legalmente la actividad.",
-  "Declaración de veracidad de la información aportada.",
-  "Aceptación de la Política de Privacidad.",
+  "Presentación de entre 1 y 3 documentos de formación, certificaciones o titulaciones, siendo obligatorio aportar al menos uno.",
+  "Declaración responsable sobre el cumplimiento de los requisitos y autorizaciones que correspondan a tu actividad.",
+  "Declaración de veracidad de la información proporcionada.",
+  "Lectura de la Política de Privacidad.",
   "Aceptación de las Condiciones de Uso.",
-  "Autorización para la publicación del perfil.",
+  "Autorización para publicar el perfil.",
 ];
 
 function PlanProfesionalVerificado() {
