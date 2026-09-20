@@ -10,6 +10,7 @@ import {
   LayoutDashboard,
   Mail,
   ShieldCheck,
+  Users,
 } from "lucide-react";
 import { NavPublica } from "@/components/NavPublica";
 import { useMobile } from "@/components/ficha/useMobile";
@@ -21,7 +22,7 @@ export const Route = createFileRoute("/comunidad-fundadora-organizaciones")({
       {
         name: "description",
         content:
-          "Conoce el plan para centros, espacios, proyectos y profesionales con actividad grupal habitual o una estructura más amplia.",
+          "Conoce el plan para centros, espacios, organizadores, organizaciones y proyectos del ecosistema de Mallorca Holística.",
       },
       {
         property: "og:title",
@@ -30,7 +31,7 @@ export const Route = createFileRoute("/comunidad-fundadora-organizaciones")({
       {
         property: "og:description",
         content:
-          "Un perfil verificado con mayor capacidad y actividades grupales ilimitadas en la Agenda de Mallorca Holística.",
+          "Un perfil de entidad verificado con actividades grupales ilimitadas en la Agenda de Mallorca Holística.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -42,51 +43,50 @@ export const Route = createFileRoute("/comunidad-fundadora-organizaciones")({
 const FEATURES = [
   {
     key: "perfil",
-    title: "Tu perfil",
+    title: "Vuestro perfil",
     icon: Building2,
     items: [
-      "Perfil de Entidad Verificada.",
-      "Sello Entidad Verificada.",
-      "Perfil público en el Directorio.",
-      "Logotipo o imagen principal.",
-      "Presentación ampliada.",
-      "Información sobre instalaciones y espacios.",
-      "Equipo profesional.",
+      "Perfil de entidad completo en el Directorio de Mallorca Holística.",
+      "Sello Entidad Verificada de Mallorca Holística.",
+      "Logo, si disponéis de uno.",
+      "Imagen principal.",
+      "Presentación ampliada de vuestra entidad o proyecto.",
+      "Información sobre vuestros espacios e instalaciones.",
+      "Presentación del equipo.",
       "Galería de hasta 10 imágenes.",
     ],
   },
   {
     key: "actividad",
-    title: "Tu actividad",
+    title: "Vuestra actividad",
     icon: ClipboardList,
     items: [
-      "Hasta 25 prácticas.",
+      "Hasta 25 prácticas, terapias o disciplinas.",
       "Hasta 30 Áreas de Acompañamiento.",
-      "Múltiples ubicaciones.",
-      "Modalidades de actividad.",
+      "Múltiples ubicaciones permanentes.",
+      "Modalidades de atención o actividad.",
       "Idiomas.",
-      "Horarios.",
+      "Horarios habituales.",
+      "Tarifas, si deseáis mostrarlas.",
     ],
   },
   {
-    key: "visibilidad",
-    title: "Visibilidad",
+    key: "presencia",
+    title: "Presencia",
     icon: Eye,
     items: [
-      "Mayor visibilidad en el Directorio y las búsquedas.",
-      "Opiniones verificadas.",
+      "Presencia en el Directorio.",
+      "Aparición en los resultados de búsqueda.",
     ],
   },
   {
     key: "contacto",
-    title: "Contacto",
+    title: "Contacto y reservas",
     icon: Mail,
     items: [
-      "Teléfono clicable.",
-      "WhatsApp clicable.",
-      "Página web clicable.",
-      "Redes sociales clicables.",
-      "Enlace externo de reserva cuando se disponga de él.",
+      "Teléfono, WhatsApp y correo electrónico.",
+      "Página web y redes sociales.",
+      "Enlace a vuestro sistema externo de reservas, si disponéis de uno.",
     ],
   },
   {
@@ -94,32 +94,29 @@ const FEATURES = [
     title: "Agenda",
     icon: CalendarDays,
     items: [
-      "Publicación ilimitada de actividades grupales en la Agenda de Mallorca Holística.",
-      "Gestión de actividades desde Mi Espacio.",
+      "Publicación de actividades grupales ilimitadas en la Agenda de Mallorca Holística.",
     ],
   },
   {
-    key: "gestion",
-    title: "Tu espacio de gestión",
+    key: "miEspacio",
+    title: "Mi Espacio",
     icon: LayoutDashboard,
     items: [
       "Acceso a Mi Espacio.",
-      "Gestión del perfil.",
-      "Gestión de las actividades publicadas en la Agenda.",
-      "Información de la suscripción y facturación.",
+      "Gestión y actualización del perfil.",
+      "Gestión de las actividades.",
     ],
   },
 ];
 
 const VERIFICATION_ITEMS = [
   "Aceptación del Código Deontológico de Mallorca Holística.",
-  "Identificación del centro, espacio, proyecto o actividad profesional.",
-  "Identificación de la persona responsable de la cuenta.",
-  
-  "Declaración de veracidad de la información aportada.",
-  "Aceptación de la Política de Privacidad.",
+  "Declaración de veracidad de la información proporcionada.",
+  "Lectura de la Política de Privacidad.",
   "Aceptación de las Condiciones de Uso.",
-  "Autorización para la publicación del perfil.",
+  "Autorización para publicar el perfil.",
+  "Declaración responsable de la persona responsable de la entidad sobre el cumplimiento de los requisitos y autorizaciones que correspondan a su actividad.",
+  "Confirmación de que quien realiza el alta está autorizado para representar y gestionar el perfil de la entidad.",
 ];
 
 function PlanCentrosEspaciosOrganizadores() {
@@ -157,18 +154,25 @@ function PlanCentrosEspaciosOrganizadores() {
               Plan Centros, Espacios & Organizadores
             </h1>
             <p className="mb-4 font-display text-[0.98rem] font-normal leading-snug text-sage-dark md:text-[1.05rem]">
-              Más capacidad para actividades con una dimensión grupal o profesional más amplia.
+              Más visibilidad para vuestra propuesta, más espacio para todo lo que ofrecéis.
             </p>
             <div className="max-w-[640px] space-y-3 text-[0.8rem] leading-relaxed text-muted-foreground md:text-[0.84rem]">
               <p>
                 El Plan Centros, Espacios & Organizadores está pensado para centros, espacios,
-                escuelas, proyectos, comercios y profesionales que desarrollan de forma habitual
-                actividades grupales o cuentan con una estructura profesional más amplia.
+                organizadores de actividades, organizaciones y proyectos que reúnen profesionales,
+                ofrecen actividades para grupos, formación, retiros o eventos, gestionan espacios,
+                ofrecen productos o desarrollan otras propuestas dentro del ecosistema de Mallorca
+                Holística.
               </p>
               <p>
-                Ofrece un perfil verificado con mayor capacidad para presentar la actividad, el
-                equipo y los espacios, además de permitir la publicación ilimitada de actividades
-                grupales en la Agenda de Mallorca Holística.
+                Por ejemplo: centros de terapias, espacios de yoga, escuelas, espacios
+                multidisciplinares, organizadores de retiros o eventos, asociaciones y otros
+                proyectos del ecosistema.
+              </p>
+              <p>
+                Permite presentar de forma completa vuestra entidad, equipo, espacios, servicios y
+                actividades, contar con el sello Entidad Verificada de Mallorca Holística y
+                publicar actividades grupales ilimitadas en la Agenda.
               </p>
             </div>
           </div>
@@ -199,45 +203,91 @@ function PlanCentrosEspaciosOrganizadores() {
               ¿Qué incluye?
             </h2>
             <p className="text-[0.78rem] text-muted-foreground md:text-[0.8rem]">
-              Un perfil verificado con mayor capacidad para presentar y gestionar tu actividad.
+              Un perfil de entidad verificado con mayor capacidad para presentar y gestionar vuestra actividad.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
-            {FEATURES.map((feature) => {
-              const Icon = feature.icon;
-              return (
-                <div key={feature.key}>
-                  <div className="mb-2.5 flex items-center gap-2.5">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-sage-light/60 bg-cream/80">
-                      <Icon
-                        className="size-4 text-sage-dark"
-                        strokeWidth={1.5}
-                        aria-hidden="true"
-                      />
-                    </div>
-                    <h3 className="font-display text-[0.92rem] font-medium text-charcoal">
-                      {feature.title}
-                    </h3>
+          {(() => {
+            const byKey = Object.fromEntries(
+              FEATURES.map((feature) => [feature.key, feature]),
+            );
+            const columns: string[][] = [
+              ["perfil", "contacto"],
+              ["actividad", "agenda"],
+              ["presencia", "miEspacio"],
+            ];
+            return (
+              <div className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+                {columns.map((columnKeys, columnIndex) => (
+                  <div key={columnIndex} className="flex flex-col">
+                    {columnKeys.map((key, keyIndex) => {
+                      const feature = byKey[key];
+                      if (!feature) return null;
+                      const Icon = feature.icon;
+                      return (
+                        <div
+                          key={feature.key}
+                          className={keyIndex > 0 ? "mt-6" : undefined}
+                        >
+                          <div className="mb-2.5 flex items-center gap-2.5">
+                            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-sage-light/60 bg-cream/80">
+                              <Icon
+                                className="size-4 text-sage-dark"
+                                strokeWidth={1.5}
+                                aria-hidden="true"
+                              />
+                            </div>
+                            <h3 className="font-display text-[0.92rem] font-medium text-charcoal">
+                              {feature.title}
+                            </h3>
+                          </div>
+                          <ul className="space-y-2">
+                            {feature.items.map((item) => (
+                              <li
+                                key={item}
+                                className="flex items-start gap-2 text-[0.76rem] leading-relaxed text-muted-foreground md:text-[0.78rem]"
+                              >
+                                <Check
+                                  className="mt-0.5 size-3.5 shrink-0 text-sage-dark"
+                                  strokeWidth={1.8}
+                                  aria-hidden="true"
+                                />
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      );
+                    })}
                   </div>
-                  <ul className="space-y-1.5">
-                    {feature.items.map((item) => (
-                      <li
-                        key={item}
-                        className="flex items-start gap-2 text-[0.76rem] leading-relaxed text-muted-foreground md:text-[0.78rem]"
-                      >
-                        <Check
-                          className="mt-0.5 size-3.5 shrink-0 text-sage-dark"
-                          strokeWidth={1.8}
-                          aria-hidden="true"
-                        />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            })}
+                ))}
+              </div>
+            );
+          })()}
+        </section>
+
+        <section className="mb-8 rounded-[14px] border border-border bg-card p-5 shadow-[var(--shadow-soft)] md:mb-10 md:p-7">
+          <div className="mb-4 flex items-center gap-2.5">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-sage-light/60 bg-cream/80">
+              <Users
+                className="size-4 text-sage-dark"
+                strokeWidth={1.5}
+                aria-hidden="true"
+              />
+            </div>
+            <h2 className="font-display text-[1.05rem] font-medium text-charcoal md:text-[1.1rem]">
+              El equipo
+            </h2>
+          </div>
+          <div className="max-w-[820px] space-y-2.5 text-[0.78rem] leading-relaxed text-muted-foreground md:text-[0.8rem]">
+            <p>
+              El equipo puede presentarse de forma informativa mediante fotografía, nombre,
+              apellidos y práctica o especialidad.
+            </p>
+            <p>
+              La aparición de una persona dentro del equipo no crea automáticamente un perfil
+              profesional individual ni implica su verificación individual.
+            </p>
           </div>
         </section>
 
@@ -251,14 +301,13 @@ function PlanCentrosEspaciosOrganizadores() {
               />
             </div>
             <h2 className="font-display text-[1.05rem] font-medium text-charcoal md:text-[1.1rem]">
-              Proceso de verificación
+              Verificación de la entidad
             </h2>
           </div>
           <p className="mb-4 max-w-[760px] text-[0.78rem] leading-relaxed text-muted-foreground md:text-[0.8rem]">
-            Para obtener el sello Entidad Verificada, revisaremos la información necesaria antes de
-            publicar el perfil.
+            Para obtener el sello Entidad Verificada:
           </p>
-          <ul className="grid grid-cols-1 gap-x-8 gap-y-2 sm:grid-cols-2">
+          <ul className="grid grid-cols-1 gap-y-2 sm:hidden">
             {VERIFICATION_ITEMS.map((item) => (
               <li
                 key={item}
@@ -273,6 +322,42 @@ function PlanCentrosEspaciosOrganizadores() {
               </li>
             ))}
           </ul>
+          <div className="hidden gap-x-8 sm:grid sm:grid-cols-2">
+            <ul className="space-y-2">
+              {VERIFICATION_ITEMS.filter((_, i) => i % 2 === 0).map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-2 text-[0.76rem] leading-relaxed text-muted-foreground md:text-[0.78rem]"
+                >
+                  <Check
+                    className="mt-0.5 size-3.5 shrink-0 text-sage-dark"
+                    strokeWidth={1.8}
+                    aria-hidden="true"
+                  />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <ul className="space-y-2">
+              {VERIFICATION_ITEMS.filter((_, i) => i % 2 === 1).map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-2 text-[0.76rem] leading-relaxed text-muted-foreground md:text-[0.78rem]"
+                >
+                  <Check
+                    className="mt-0.5 size-3.5 shrink-0 text-sage-dark"
+                    strokeWidth={1.8}
+                    aria-hidden="true"
+                  />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <p className="mt-4 max-w-[760px] text-[0.76rem] leading-relaxed text-muted-foreground md:text-[0.78rem]">
+            No se solicitan diplomas, titulaciones ni documentación profesional individual de los
+            miembros del equipo para verificar la entidad.
+          </p>
         </section>
 
         <section className="mb-8 rounded-[14px] border border-border bg-card p-5 shadow-[var(--shadow-soft)] md:mb-10 md:p-7">
@@ -285,49 +370,28 @@ function PlanCentrosEspaciosOrganizadores() {
               />
             </div>
             <h2 className="font-display text-[1.05rem] font-medium text-charcoal md:text-[1.1rem]">
-              Oferta de lanzamiento
+              Los 2 meses gratuitos
             </h2>
           </div>
           <div className="max-w-[820px] space-y-2.5 text-[0.78rem] leading-relaxed text-muted-foreground md:text-[0.8rem]">
             <p>
-              2 meses gratuitos desde el lanzamiento oficial de Mallorca Holística. Después, la
-              suscripción tendrá un precio de 50 €/mes · IVA incluido.
+              Los 2 meses gratuitos comienzan desde el lanzamiento oficial de Mallorca Holística.
             </p>
             <p>
-              La fecha oficial de lanzamiento se comunicará antes de la activación de las
-              suscripciones.
+              Durante el proceso de solicitud podrán solicitarse los datos necesarios para preparar la suscripción, pero no se realizará ningún cobro mientras el perfil esté pendiente de revisión ni durante el período gratuito.
             </p>
             <p>
-              Para enviar la solicitud será necesario registrar de forma segura un método de pago
-              mediante Stripe al finalizar el formulario correspondiente. Registrar el método de
-              pago no supone ningún cargo en ese momento.
-            </p>
-            <p>No se realizará ningún cargo mientras la solicitud esté pendiente de aprobación.</p>
-            <p>
-              El primer cobro se realizará únicamente cuando el perfil haya sido aprobado como
-              Entidad Verificada y haya finalizado el periodo gratuito de lanzamiento.
+              El primer cobro solo podrá realizarse cuando el perfil haya sido aprobado y haya finalizado el período gratuito. La entidad será informada antes de comenzar la suscripción de pago.
             </p>
             <p>
-              Si el perfil se aprueba durante el periodo gratuito, no se realizará ningún cobro
-              hasta que finalice dicho periodo. Si el perfil se aprueba después de que haya
-              finalizado el periodo gratuito, la suscripción podrá comenzar a partir de su
-              aprobación.
-            </p>
-            <p>
-              Si la solicitud no es aprobada, la suscripción no se activa y no se realiza ningún
-              cargo.
-            </p>
-            <p>
-              Mallorca Holística te informará por email antes del primer cobro de la suscripción,
-              indicándote la fecha y el importe, para que puedas decidir con tiempo si deseas
-              continuar o cancelar tu suscripción.
+              Sin permanencia.
             </p>
           </div>
         </section>
 
         <section className="text-center">
           <p className="mx-auto mb-6 max-w-[620px] font-display text-[1.1rem] font-normal leading-snug text-charcoal md:text-[1.25rem]">
-            Cada espacio, proyecto y comunidad aporta una forma única de acompañar y crear encuentro.
+            Cada espacio, cada equipo, cada propuesta contribuye a dar forma al ecosistema de Mallorca Holística.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-3">
@@ -336,7 +400,7 @@ function PlanCentrosEspaciosOrganizadores() {
               search={{ track: "organizacion" }}
               className="inline-flex items-center justify-center rounded-full bg-primary px-7 py-2.5 text-sm font-medium text-primary-foreground no-underline transition-colors hover:bg-sage-dark"
             >
-              Crear mi cuenta y solicitar mi verificación →
+              Crear nuestra cuenta y solicitar la verificación →
             </Link>
             <Link
               to="/soy-profesional"
