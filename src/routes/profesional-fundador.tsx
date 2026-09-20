@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   BadgeCheck,
+  CalendarDays,
   Check,
   ClipboardList,
   CreditCard,
@@ -44,13 +45,12 @@ const FEATURES = [
     title: "Tu perfil",
     icon: UserRound,
     items: [
-      "Perfil Profesional Verificado.",
-      "Sello Profesional Verificado.",
-      "Perfil público en el Directorio de Mallorca Holística.",
+      "Perfil profesional completo en el Directorio de Mallorca Holística.",
+      "Sello Profesional Verificado de Mallorca Holística.",
       "Fotografía principal.",
-      "Presentación profesional ampliada.",
-      "Trayectoria profesional visible.",
-      "Galería de hasta 5 imágenes.",
+      "Presentación ampliada de tu actividad profesional.",
+      "Formación y trayectoria profesional.",
+      "Galería de hasta 6 imágenes.",
     ],
   },
   {
@@ -58,53 +58,61 @@ const FEATURES = [
     title: "Tu actividad",
     icon: ClipboardList,
     items: [
-      "Hasta 10 prácticas.",
+      "Hasta 10 prácticas, terapias o disciplinas.",
       "Hasta 15 Áreas de Acompañamiento.",
       "Múltiples ubicaciones de atención.",
       "Modalidades de atención.",
       "Idiomas.",
+      "Tarifas, si deseas mostrarlas.",
     ],
   },
   {
-    key: "visibilidad",
-    title: "Visibilidad",
+    key: "presencia",
+    title: "Presencia",
     icon: Eye,
     items: [
-      "Aparición prioritaria en el Directorio.",
-      "Aparición prioritaria en los resultados de búsqueda.",
-      "Opiniones verificadas.",
+      "Presencia en el Directorio.",
+      "Aparición en los resultados de búsqueda.",
     ],
   },
   {
     key: "contacto",
-    title: "Contacto",
+    title: "Contacto y reservas",
     icon: Mail,
     items: [
-      "Teléfono clicable.",
-      "WhatsApp clicable.",
-      "Página web clicable.",
-      "Redes sociales clicables.",
+      "Teléfono, WhatsApp y correo electrónico.",
+      "Página web y redes sociales.",
+      "Enlace a tu sistema externo de reservas, si dispones de uno.",
     ],
   },
   {
-    key: "espacio",
-    title: "Tu espacio profesional",
+    key: "agenda",
+    title: "Agenda",
+    icon: CalendarDays,
+    items: [
+      "Publicación de 1 actividad grupal al mes en la Agenda de Mallorca Holística.",
+    ],
+  },
+  {
+    key: "miEspacio",
+    title: "Mi Espacio",
     icon: LayoutDashboard,
     items: [
-      "Acceso al panel profesional.",
-      "Publicación de hasta 3 actividades grupales al mes en la Agenda de Actividades.",
+      "Acceso a Mi Espacio.",
+      "Gestión y actualización de tu perfil.",
+      "Gestión de tus actividades.",
     ],
   },
 ];
 
 const VERIFICATION_ITEMS = [
   "Aceptación del Código Deontológico de Mallorca Holística.",
-  "Verificación profesional mediante la aportación de hasta 3 titulaciones o certificaciones.",
-  "Declaración responsable de disponer de los requisitos, autorizaciones y documentación necesarios para desarrollar legalmente la actividad.",
-  "Declaración de veracidad de la información aportada.",
-  "Aceptación de la Política de Privacidad.",
+  "Presentación de entre 1 y 3 documentos de formación, certificaciones o titulaciones, siendo obligatorio aportar al menos uno.",
+  "Declaración responsable sobre el cumplimiento de los requisitos y autorizaciones que correspondan a tu actividad.",
+  "Declaración de veracidad de la información proporcionada.",
+  "Lectura de la Política de Privacidad.",
   "Aceptación de las Condiciones de Uso.",
-  "Autorización para la publicación del perfil.",
+  "Autorización para publicar el perfil.",
 ];
 
 function PlanProfesionalVerificado() {
@@ -142,14 +150,17 @@ function PlanProfesionalVerificado() {
               Plan Profesional Verificado
             </h1>
             <p className="mb-4 font-display text-[0.98rem] font-normal leading-snug text-sage-dark md:text-[1.05rem]">
-              Más visibilidad, más información y una confianza reforzada.
+              Más visibilidad para tus servicios, más confianza para quienes te buscan.
             </p>
             <div className="max-w-[640px] space-y-3 text-[0.8rem] leading-relaxed text-muted-foreground md:text-[0.84rem]">
               <p>
-                El Plan Profesional Verificado está pensado para profesionales cuya actividad se centra principalmente en la atención individual y que desean reforzar la confianza, ampliar su visibilidad y contar con un perfil profesional verificado.
+                El Plan Profesional Verificado está pensado para profesionales cuya actividad se centra principalmente en la atención individual y que, puntualmente, pueden ofrecer alguna actividad grupal. Está dirigido a quienes desean reforzar la confianza y ampliar la visibilidad de sus servicios.
               </p>
               <p>
-                Además de ampliar la información visible de tu perfil, incorpora herramientas para facilitar el contacto directo con las personas interesadas en tu actividad y permite publicar hasta 3 actividades grupales al mes en la Agenda de Mallorca Holística.
+                Por ejemplo: masajistas, acupuntores, terapeutas y otros profesionales que trabajan principalmente mediante sesiones individuales.
+              </p>
+              <p>
+                Permite presentar de forma más completa tu actividad profesional, facilitar que las personas te encuentren y conozcan tus servicios, contar con el sello Profesional Verificado de Mallorca Holística y publicar 1 actividad grupal al mes en la Agenda.
               </p>
             </div>
           </div>
@@ -232,12 +243,11 @@ function PlanProfesionalVerificado() {
               />
             </div>
             <h2 className="font-display text-[1.05rem] font-medium text-charcoal md:text-[1.1rem]">
-              Proceso de verificación
+              Verificación profesional
             </h2>
           </div>
           <p className="mb-4 max-w-[760px] text-[0.78rem] leading-relaxed text-muted-foreground md:text-[0.8rem]">
-            Para ofrecer un entorno de confianza a las personas que utilizan Mallorca Holística,
-            revisamos la información profesional antes de aprobar el perfil.
+            Para obtener el sello Profesional Verificado:
           </p>
           <ul className="grid grid-cols-1 gap-x-8 gap-y-2 sm:grid-cols-2">
             {VERIFICATION_ITEMS.map((item) => (
@@ -254,6 +264,9 @@ function PlanProfesionalVerificado() {
               </li>
             ))}
           </ul>
+          <p className="mt-4 max-w-[760px] text-[0.76rem] leading-relaxed text-muted-foreground md:text-[0.78rem]">
+            La documentación aportada para la verificación es privada y no se muestra públicamente en el perfil.
+          </p>
         </section>
 
         <section className="mb-8 rounded-[14px] border border-border bg-card p-5 shadow-[var(--shadow-soft)] md:mb-10 md:p-7">
@@ -266,33 +279,21 @@ function PlanProfesionalVerificado() {
               />
             </div>
             <h2 className="font-display text-[1.05rem] font-medium text-charcoal md:text-[1.1rem]">
-              Oferta de lanzamiento
+              Los 2 meses gratuitos
             </h2>
           </div>
           <div className="max-w-[820px] space-y-2.5 text-[0.78rem] leading-relaxed text-muted-foreground md:text-[0.8rem]">
             <p>
-              Las suscripciones al Plan Profesional Verificado disfrutarán de 2 meses gratuitos a
-              partir del lanzamiento oficial de Mallorca Holística.
+              Los 2 meses gratuitos comienzan desde el lanzamiento oficial de Mallorca Holística.
             </p>
             <p>
-              La fecha oficial de lanzamiento se comunicará antes de la activación de las
-              suscripciones.
+              Durante el proceso de solicitud podrán solicitarse los datos necesarios para preparar la suscripción, pero no se realizará ningún cobro mientras el perfil esté pendiente de revisión ni durante el período gratuito.
             </p>
             <p>
-              Para activar el Plan Profesional Verificado será necesario registrar un método de
-              pago de forma segura mediante Stripe.
+              El primer cobro solo podrá realizarse cuando el perfil haya sido aprobado y haya finalizado el período gratuito. La persona será informada antes de comenzar la suscripción de pago.
             </p>
             <p>
-              No se realizará ningún cargo durante el periodo gratuito.
-            </p>
-            <p>
-              El primer cobro se realizará únicamente cuando tu perfil haya sido aprobado como Profesional Verificado y haya finalizado el periodo gratuito de lanzamiento.
-            </p>
-            <p>
-              Si tu perfil se aprueba durante el periodo gratuito, la suscripción comenzará al finalizar dicho periodo. Si tu perfil se aprueba después de que el periodo gratuito haya finalizado, la suscripción comenzará a partir de su aprobación.
-            </p>
-            <p>
-              Mallorca Holística te informará por email antes del primer cobro de la suscripción, indicándote la fecha y el importe, para que puedas decidir con tiempo si deseas continuar o cancelar tu suscripción.
+              Sin permanencia.
             </p>
           </div>
         </section>
