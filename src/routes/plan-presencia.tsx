@@ -31,9 +31,10 @@ const FEATURES = [
     title: "Tu perfil",
     icon: UserRound,
     items: [
-      "Perfil público en el Directorio de Mallorca Holística.",
-      "Fotografía principal.",
+      "Perfil básico en el Directorio de Mallorca Holística.",
+      "Imagen principal.",
       "Presentación de tu proyecto o actividad.",
+      "Aceptación del Código Deontológico de Mallorca Holística.",
     ],
   },
   {
@@ -41,16 +42,16 @@ const FEATURES = [
     title: "Tu actividad",
     icon: ClipboardList,
     items: [
-      "Hasta 5 prácticas.",
-      "Hasta 5 áreas de acompañamiento.",
-      "Una ubicación principal.",
-      "Modalidades de atención.",
+      "Hasta 3 prácticas, terapias o disciplinas.",
+      "Hasta 5 Áreas de Acompañamiento.",
+      "1 ubicación principal.",
+      "Modalidades de atención o actividad.",
       "Idiomas.",
     ],
   },
   {
-    key: "visibilidad",
-    title: "Visibilidad",
+    key: "presencia",
+    title: "Presencia",
     icon: Eye,
     items: [
       "Presencia en el Directorio.",
@@ -61,13 +62,20 @@ const FEATURES = [
     key: "contacto",
     title: "Contacto",
     icon: Mail,
-    items: ["Información básica de contacto visible."],
+    items: [
+      "Teléfono, WhatsApp y correo electrónico.",
+      "Página web y redes sociales.",
+      "Tú decides qué datos de contacto quieres mostrar públicamente.",
+    ],
   },
   {
     key: "espacio",
-    title: "Tu espacio",
+    title: "Mi Espacio",
     icon: LayoutDashboard,
-    items: ["Acceso a tu panel para gestionar la información."],
+    items: [
+      "Acceso a Mi Espacio.",
+      "Gestión y actualización de tu perfil.",
+    ],
   },
 ];
 
@@ -115,11 +123,11 @@ function PlanPresencia() {
             <div className="max-w-[640px] space-y-3 text-[0.8rem] leading-relaxed text-muted-foreground md:text-[0.84rem]">
               <p>
                 El Plan Presencia está pensado para profesionales, centros, espacios, escuelas y
-                organizadores que desean dar visibilidad a su actividad y formar parte de Mallorca
-                Holística.
+                organizadores que desean tener presencia en Mallorca Holística y dar a conocer su
+                actividad.
               </p>
               <p>
-                Desde aquí podrás crear tu perfil público para mostrar quién eres, qué haces y cómo
+                Desde aquí podrás crear tu perfil para mostrar quién eres, qué haces y cómo
                 pueden ponerse en contacto contigo.
               </p>
             </div>
@@ -134,7 +142,7 @@ function PlanPresencia() {
                 GRATIS
               </div>
               <p className="text-[0.78rem] leading-relaxed text-muted-foreground">
-                Una forma sencilla de estar presente y comenzar a formar parte de la comunidad.
+                Una forma sencilla de estar presente y comenzar a formar parte de Mallorca Holística.
               </p>
             </div>
           </div>
@@ -147,7 +155,7 @@ function PlanPresencia() {
               ¿Qué incluye?
             </h2>
             <p className="text-[0.78rem] text-muted-foreground md:text-[0.8rem]">
-              Todo lo esencial para formar parte de la comunidad.
+              Todo lo esencial para formar parte de Mallorca Holística.
             </p>
           </div>
 
@@ -191,9 +199,8 @@ function PlanPresencia() {
               El Plan Presencia te permite formar parte de Mallorca Holística de manera gratuita.
             </p>
             <p>
-              Si quieres acceder a nuevas funcionalidades, reforzar la confianza que transmite tu
-              perfil o ampliar la visibilidad de tu actividad, podrás elegir el plan que mejor se
-              adapte a ti.
+              Si más adelante quieres verificar tu perfil, ampliar la información que compartes o
+              acceder a nuevas funcionalidades, podrás elegir el plan que mejor se adapte a ti.
             </p>
           </div>
         </section>

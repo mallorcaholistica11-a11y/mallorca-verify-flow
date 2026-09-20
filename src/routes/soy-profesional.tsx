@@ -42,7 +42,7 @@ const PLANES: Plan[] = [
     price: "Gratis",
     info: ["Acceso libre"],
     description:
-      "Para profesionales, centros, espacios, escuelas y organizadores que desean tener presencia en Mallorca Holística y dar visibilidad a su actividad.",
+      "Para profesionales, centros, espacios, escuelas y organizadores que desean formar parte de Mallorca Holística y dar a conocer su actividad.",
     to: "/plan-presencia",
     cta: "Conocer el plan",
     variant: "free",
