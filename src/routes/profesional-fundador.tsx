@@ -150,14 +150,17 @@ function PlanProfesionalVerificado() {
               Plan Profesional Verificado
             </h1>
             <p className="mb-4 font-display text-[0.98rem] font-normal leading-snug text-sage-dark md:text-[1.05rem]">
-              Más visibilidad, más información y una confianza reforzada.
+              Más visibilidad para tus servicios, más confianza para quienes te buscan.
             </p>
             <div className="max-w-[640px] space-y-3 text-[0.8rem] leading-relaxed text-muted-foreground md:text-[0.84rem]">
               <p>
-                El Plan Profesional Verificado está pensado para profesionales cuya actividad se centra principalmente en la atención individual y que desean reforzar la confianza, ampliar su visibilidad y contar con un perfil profesional verificado.
+                El Plan Profesional Verificado está pensado para profesionales cuya actividad se centra principalmente en la atención individual y que, puntualmente, pueden ofrecer alguna actividad grupal. Está dirigido a quienes desean reforzar la confianza y ampliar la visibilidad de sus servicios.
               </p>
               <p>
-                Además de ampliar la información visible de tu perfil, incorpora herramientas para facilitar el contacto directo con las personas interesadas en tu actividad y permite publicar hasta 3 actividades grupales al mes en la Agenda de Mallorca Holística.
+                Por ejemplo: masajistas, acupuntores, terapeutas y otros profesionales que trabajan principalmente mediante sesiones individuales.
+              </p>
+              <p>
+                Permite presentar de forma más completa tu actividad profesional, facilitar que las personas te encuentren y conozcan tus servicios, contar con el sello Profesional Verificado de Mallorca Holística y publicar 1 actividad grupal al mes en la Agenda.
               </p>
             </div>
           </div>
@@ -240,12 +243,11 @@ function PlanProfesionalVerificado() {
               />
             </div>
             <h2 className="font-display text-[1.05rem] font-medium text-charcoal md:text-[1.1rem]">
-              Proceso de verificación
+              Verificación profesional
             </h2>
           </div>
           <p className="mb-4 max-w-[760px] text-[0.78rem] leading-relaxed text-muted-foreground md:text-[0.8rem]">
-            Para ofrecer un entorno de confianza a las personas que utilizan Mallorca Holística,
-            revisamos la información profesional antes de aprobar el perfil.
+            Para obtener el sello Profesional Verificado:
           </p>
           <ul className="grid grid-cols-1 gap-x-8 gap-y-2 sm:grid-cols-2">
             {VERIFICATION_ITEMS.map((item) => (
