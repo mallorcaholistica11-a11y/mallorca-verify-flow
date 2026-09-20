@@ -195,42 +195,63 @@ function PlanProfesionalVerificado() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
-            {FEATURES.map((feature) => {
-              const Icon = feature.icon;
-              return (
-                <div key={feature.key}>
-                  <div className="mb-2.5 flex items-center gap-2.5">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-sage-light/60 bg-cream/80">
-                      <Icon
-                        className="size-4 text-sage-dark"
-                        strokeWidth={1.5}
-                        aria-hidden="true"
-                      />
-                    </div>
-                    <h3 className="font-display text-[0.92rem] font-medium text-charcoal">
-                      {feature.title}
-                    </h3>
+          {(() => {
+            const byKey = Object.fromEntries(
+              FEATURES.map((feature) => [feature.key, feature]),
+            );
+            const columns: string[][] = [
+              ["perfil", "contacto"],
+              ["actividad", "agenda"],
+              ["presencia", "miEspacio"],
+            ];
+            return (
+              <div className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+                {columns.map((columnKeys, columnIndex) => (
+                  <div key={columnIndex} className="flex flex-col">
+                    {columnKeys.map((key, keyIndex) => {
+                      const feature = byKey[key];
+                      if (!feature) return null;
+                      const Icon = feature.icon;
+                      return (
+                        <div
+                          key={feature.key}
+                          className={keyIndex > 0 ? "mt-6" : undefined}
+                        >
+                          <div className="mb-2.5 flex items-center gap-2.5">
+                            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-sage-light/60 bg-cream/80">
+                              <Icon
+                                className="size-4 text-sage-dark"
+                                strokeWidth={1.5}
+                                aria-hidden="true"
+                              />
+                            </div>
+                            <h3 className="font-display text-[0.92rem] font-medium text-charcoal">
+                              {feature.title}
+                            </h3>
+                          </div>
+                          <ul className="space-y-2">
+                            {feature.items.map((item) => (
+                              <li
+                                key={item}
+                                className="flex items-start gap-2 text-[0.76rem] leading-relaxed text-muted-foreground md:text-[0.78rem]"
+                              >
+                                <Check
+                                  className="mt-0.5 size-3.5 shrink-0 text-sage-dark"
+                                  strokeWidth={1.8}
+                                  aria-hidden="true"
+                                />
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      );
+                    })}
                   </div>
-                  <ul className="space-y-2">
-                    {feature.items.map((item) => (
-                      <li
-                        key={item}
-                        className="flex items-start gap-2 text-[0.76rem] leading-relaxed text-muted-foreground md:text-[0.78rem]"
-                      >
-                        <Check
-                          className="mt-0.5 size-3.5 shrink-0 text-sage-dark"
-                          strokeWidth={1.8}
-                          aria-hidden="true"
-                        />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            })}
-          </div>
+                ))}
+              </div>
+            );
+          })()}
         </section>
 
         <section className="mb-8 rounded-[14px] bg-pastel-sage/50 px-5 py-6 md:mb-10 md:px-8 md:py-7">
