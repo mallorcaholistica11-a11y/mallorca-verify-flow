@@ -212,7 +212,7 @@ function PlanProfesionalVerificado() {
                       {feature.title}
                     </h3>
                   </div>
-                  <ul className="space-y-1.5">
+                  <ul className="space-y-2">
                     {feature.items.map((item) => (
                       <li
                         key={item}
