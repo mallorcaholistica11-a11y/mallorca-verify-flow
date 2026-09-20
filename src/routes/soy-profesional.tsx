@@ -147,7 +147,7 @@ function SoyProfesional() {
                 <p className="mb-2.5 text-[0.72rem] leading-[1.55] text-muted-foreground">
                   {plan.description}
                 </p>
-                <div className="mt-auto space-y-0.5 border-t border-border/70 pt-2.5">
+                <div className="mt-auto min-h-[4rem] space-y-0.5 border-t border-border/70 pt-2.5">
                   {plan.info.map((line) => (
                     <p key={line} className="text-[0.64rem] leading-relaxed text-muted-foreground">
                       {line}
