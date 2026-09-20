@@ -249,7 +249,7 @@ function PlanProfesionalVerificado() {
           <p className="mb-4 max-w-[760px] text-[0.78rem] leading-relaxed text-muted-foreground md:text-[0.8rem]">
             Para obtener el sello Profesional Verificado:
           </p>
-          <ul className="grid grid-cols-1 gap-x-8 gap-y-2 sm:grid-cols-2">
+          <ul className="grid grid-cols-1 gap-y-2 sm:hidden">
             {VERIFICATION_ITEMS.map((item) => (
               <li
                 key={item}
@@ -264,6 +264,38 @@ function PlanProfesionalVerificado() {
               </li>
             ))}
           </ul>
+          <div className="hidden gap-x-8 sm:grid sm:grid-cols-2">
+            <ul className="space-y-2">
+              {VERIFICATION_ITEMS.filter((_, i) => i % 2 === 0).map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-2 text-[0.76rem] leading-relaxed text-muted-foreground md:text-[0.78rem]"
+                >
+                  <Check
+                    className="mt-0.5 size-3.5 shrink-0 text-sage-dark"
+                    strokeWidth={1.8}
+                    aria-hidden="true"
+                  />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <ul className="space-y-2">
+              {VERIFICATION_ITEMS.filter((_, i) => i % 2 === 1).map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-2 text-[0.76rem] leading-relaxed text-muted-foreground md:text-[0.78rem]"
+                >
+                  <Check
+                    className="mt-0.5 size-3.5 shrink-0 text-sage-dark"
+                    strokeWidth={1.8}
+                    aria-hidden="true"
+                  />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
           <p className="mt-4 max-w-[760px] text-[0.76rem] leading-relaxed text-muted-foreground md:text-[0.78rem]">
             La documentación aportada para la verificación es privada y no se muestra públicamente en el perfil.
           </p>
