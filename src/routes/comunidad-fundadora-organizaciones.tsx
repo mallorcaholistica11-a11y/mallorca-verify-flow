@@ -213,8 +213,8 @@ function PlanCentrosEspaciosOrganizadores() {
             );
             const columns: string[][] = [
               ["perfil", "contacto"],
-              ["actividad", "agenda"],
-              ["presencia", "miEspacio"],
+              ["actividad", "agenda", "presencia"],
+              ["miEspacio"],
             ];
             return (
               <div className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
