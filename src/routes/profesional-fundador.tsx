@@ -264,6 +264,9 @@ function PlanProfesionalVerificado() {
               </li>
             ))}
           </ul>
+          <p className="mt-4 max-w-[760px] text-[0.76rem] leading-relaxed text-muted-foreground md:text-[0.78rem]">
+            La documentación aportada para la verificación es privada y no se muestra públicamente en el perfil.
+          </p>
         </section>
 
         <section className="mb-8 rounded-[14px] border border-border bg-card p-5 shadow-[var(--shadow-soft)] md:mb-10 md:p-7">
@@ -276,33 +279,21 @@ function PlanProfesionalVerificado() {
               />
             </div>
             <h2 className="font-display text-[1.05rem] font-medium text-charcoal md:text-[1.1rem]">
-              Oferta de lanzamiento
+              Los 2 meses gratuitos
             </h2>
           </div>
           <div className="max-w-[820px] space-y-2.5 text-[0.78rem] leading-relaxed text-muted-foreground md:text-[0.8rem]">
             <p>
-              Las suscripciones al Plan Profesional Verificado disfrutarán de 2 meses gratuitos a
-              partir del lanzamiento oficial de Mallorca Holística.
+              Los 2 meses gratuitos comienzan desde el lanzamiento oficial de Mallorca Holística.
             </p>
             <p>
-              La fecha oficial de lanzamiento se comunicará antes de la activación de las
-              suscripciones.
+              Durante el proceso de solicitud podrán solicitarse los datos necesarios para preparar la suscripción, pero no se realizará ningún cobro mientras el perfil esté pendiente de revisión ni durante el período gratuito.
             </p>
             <p>
-              Para activar el Plan Profesional Verificado será necesario registrar un método de
-              pago de forma segura mediante Stripe.
+              El primer cobro solo podrá realizarse cuando el perfil haya sido aprobado y haya finalizado el período gratuito. La persona será informada antes de comenzar la suscripción de pago.
             </p>
             <p>
-              No se realizará ningún cargo durante el periodo gratuito.
-            </p>
-            <p>
-              El primer cobro se realizará únicamente cuando tu perfil haya sido aprobado como Profesional Verificado y haya finalizado el periodo gratuito de lanzamiento.
-            </p>
-            <p>
-              Si tu perfil se aprueba durante el periodo gratuito, la suscripción comenzará al finalizar dicho periodo. Si tu perfil se aprueba después de que el periodo gratuito haya finalizado, la suscripción comenzará a partir de su aprobación.
-            </p>
-            <p>
-              Mallorca Holística te informará por email antes del primer cobro de la suscripción, indicándote la fecha y el importe, para que puedas decidir con tiempo si deseas continuar o cancelar tu suscripción.
+              Sin permanencia.
             </p>
           </div>
         </section>
