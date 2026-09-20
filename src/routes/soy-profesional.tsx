@@ -69,12 +69,12 @@ const PLANES: Plan[] = [
     price: "50 €/mes",
     priceNote: "IVA incluido",
     info: [
-      "2 meses gratuitos por lanzamiento",
+      "2 meses gratuitos desde el lanzamiento oficial",
       "Acceso mediante verificación",
-      "Actividades grupales ilimitadas en la Agenda.",
+      "Actividades grupales ilimitadas en la Agenda",
     ],
     description:
-      "Para centros, espacios, escuelas, proyectos, comercios y profesionales que desarrollan de forma habitual actividades grupales o cuentan con una estructura profesional más amplia.",
+      "Para centros, espacios, organizaciones y proyectos que reúnen profesionales, ofrecen actividades grupales, formación, retiros o eventos, gestionan espacios o desarrollan otras propuestas.",
     to: "/comunidad-fundadora-organizaciones",
     cta: "Conocer el plan",
     variant: "paid",
