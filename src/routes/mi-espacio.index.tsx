@@ -37,6 +37,72 @@ function MiEspacio() {
   }
 
   // Otros planes: se conserva la pantalla actual intacta.
+  // Plan Presencia FREE, cuenta recién creada: todavía no se ha enviado el
+  // formulario. Mi Espacio es el punto de partida y desde aquí se accede al
+  // formulario gratuito correspondiente (profesional u organización).
+  if (estadoSearch === "pendiente") {
+    return (
+      <WireframeShell
+
+        title="🌿 Bienvenido a Mallorca Holística"
+        breadcrumb="Mi Espacio"
+      >
+        <TrackBadge track={track} />
+
+        <div style={{ maxWidth: 620, margin: "0 auto 24px", textAlign: "center" }}>
+          <div style={{ fontSize: 12, color: "var(--muted-foreground)", letterSpacing: 2, marginBottom: 8 }}>
+            MI ESPACIO
+          </div>
+          <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)" }}>
+            Tu cuenta ya está creada. Para aparecer en Mallorca Holística solo te queda completar tu
+            perfil: puedes hacerlo ahora o volver más tarde, tu espacio te estará esperando.
+          </p>
+        </div>
+
+        <Box>
+          <NavButton to="/dashboard/tipo-perfil" search={{ track }}>
+            👉 Completar mi perfil
+          </NavButton>
+        </Box>
+
+        <div style={{ fontSize: 11, color: "var(--muted-foreground)", letterSpacing: 1, margin: "24px 0 8px 0" }}>
+          ACCIONES DISPONIBLES
+        </div>
+
+        <Row>
+          <Link to="/mi-espacio/perfil" search={{ track, ...(perfil ? { perfil } : {}) }} style={cardLinkStyle}>
+            <Card title="👤 Mi Perfil">
+              Consulta la información de tu perfil profesional y mantén tus datos siempre actualizados.
+            </Card>
+          </Link>
+          <Link to="/mi-espacio/actividades" search={{ track }} style={cardLinkStyle}>
+            <Card title="📅 Mis Actividades">
+              Publica y gestiona las actividades que aparecerán en la Agenda de Mallorca Holística.
+            </Card>
+          </Link>
+        </Row>
+        <Row>
+          <Link to="/mi-espacio/suscripcion" search={{ track }} style={cardLinkStyle}>
+            <Card title="💳 Mi Suscripción">
+              Consulta tu plan actual, tu método de pago y la información de tu suscripción.
+            </Card>
+          </Link>
+          <Link to="/mi-espacio/ayuda" search={{ track }} style={cardLinkStyle}>
+            <Card title="❓ Ayuda">
+              Resuelve tus dudas, consulta las preguntas más frecuentes o ponte en contacto con nosotros si necesitas ayuda.
+            </Card>
+          </Link>
+        </Row>
+
+        <Box title="Volver">
+          <NavButton to="/dashboard" search={{ track }} variant="secondary">
+            ← Volver al Dashboard
+          </NavButton>
+        </Box>
+      </WireframeShell>
+    );
+  }
+
   return (
     <WireframeShell
 
