@@ -60,7 +60,10 @@ function MiEspacio() {
         </div>
 
         <Box>
-          <NavButton to="/dashboard/tipo-perfil" search={{ track }}>
+          <NavButton
+            to={perfil ? "/dashboard/formulario" : "/dashboard/tipo-perfil"}
+            search={perfil ? { track, perfil } : { track }}
+          >
             👉 Completar mi perfil
           </NavButton>
         </Box>
