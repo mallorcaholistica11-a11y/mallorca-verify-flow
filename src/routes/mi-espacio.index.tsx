@@ -53,7 +53,7 @@ function MiEspacio() {
           Gracias por completar tu inscripción.
         </p>
         <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)" }}>
-          Hemos recibido correctamente tu solicitud y ya estamos revisando la información y la documentación que nos has enviado.
+          Hemos recibido correctamente tu solicitud y ya estamos revisando la información que nos has enviado.
         </p>
         <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)" }}>
           Te avisaremos por correo electrónico en cuanto el proceso de revisión haya finalizado.
