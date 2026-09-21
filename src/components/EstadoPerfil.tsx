@@ -28,9 +28,7 @@ export const ESTADO_CONFIG: Record<PerfilEstado, EstadoConfig> = {
     indicador: "🟡",
     titulo: "Solicitud en revisión",
     mensajes: [
-      "Estamos revisando la información y la documentación que nos has enviado.",
-      "Si necesitamos algún dato adicional o cuando el proceso haya finalizado, te lo comunicaremos por correo electrónico.",
-      "Mientras tanto, puedes acceder a tu perfil y gestionar tu espacio en Mallorca Holística.",
+      "Estamos revisando la información que nos has enviado. Si necesitamos algún dato adicional o cuando el proceso haya finalizado, te lo comunicaremos por correo electrónico.",
     ],
   },
   aprobado: {

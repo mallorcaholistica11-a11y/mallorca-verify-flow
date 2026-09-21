@@ -12,7 +12,7 @@ export const Route = createFileRoute("/dashboard/solicitud-enviada")({
 const MENSAJE = [
   "Nos hace mucha ilusión que quieras formar parte de Mallorca Holística.",
   "Hemos recibido correctamente tu solicitud.",
-  "Nuestro equipo revisará la información y la documentación que nos has enviado y te avisaremos por correo electrónico en cuanto el proceso haya finalizado.",
+  "Nuestro equipo revisará la información que nos has enviado y te avisaremos por correo electrónico en cuanto el proceso haya finalizado.",
   "Gracias por confiar en este proyecto y por contribuir a construir una comunidad más visible, conectada y accesible para todos.",
   "Porque lo que se siembra con alma... siempre florece. 🌿",
 ];
@@ -83,15 +83,10 @@ function SolicitudEnviada() {
         ))}
       </Box>
       <Box title="Acciones">
-        {!esEstandar && (
-          <NavButton to="/dashboard" search={{ track, estado: "revision" }}>
-            👉 Ver el estado de mi solicitud
-          </NavButton>
-        )}
+        {/* El estado de la solicitud se consulta dentro de Mi Espacio. */}
         <NavButton
           to="/mi-espacio"
           search={esEstandar ? { track, estado: "revision" } : { track }}
-          variant={esEstandar ? undefined : "secondary"}
         >
           👉 Acceder a Mi Espacio
         </NavButton>
