@@ -83,13 +83,7 @@ function CrearCuenta() {
         <FakeField label="Correo electrónico" type="email" />
         <FakeField label="Contraseña" type="password" />
         <NavButton
-          to={
-            track === "presencia"
-              ? "/mi-espacio"
-              : recorridoActual
-                ? "/mi-espacio"
-                : "/dashboard"
-          }
+          to={track === "presencia" || recorridoActual ? "/mi-espacio" : "/dashboard"}
           search={
             track === "presencia" || recorridoActual
               ? { track, estado: "pendiente" }
