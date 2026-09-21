@@ -85,12 +85,16 @@ function CrearCuenta() {
         <NavButton
           to={
             track === "presencia"
-              ? "/dashboard/tipo-perfil"
+              ? "/mi-espacio"
               : recorridoActual
                 ? "/mi-espacio"
                 : "/dashboard"
           }
-          search={recorridoActual ? { track, estado: "pendiente" } : { track }}
+          search={
+            track === "presencia" || recorridoActual
+              ? { track, estado: "pendiente" }
+              : { track }
+          }
         >
           Crear mi cuenta
         </NavButton>
