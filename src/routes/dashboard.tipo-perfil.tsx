@@ -52,7 +52,12 @@ function TipoPerfil() {
 
   const continuar = () => {
     if (!seleccion) return;
-    navigate({ to: "/dashboard/formulario", search: { track, perfil: seleccion } });
+    // Tras elegir el tipo, el usuario llega a Mi Espacio; desde allí, el botón
+    // «Completar mi perfil» abrirá el formulario correspondiente a su elección.
+    navigate({
+      to: "/mi-espacio",
+      search: { track, estado: "pendiente", perfil: seleccion },
+    });
   };
 
   return (
