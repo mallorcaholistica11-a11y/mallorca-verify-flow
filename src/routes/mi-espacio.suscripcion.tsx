@@ -89,7 +89,7 @@ const INCLUYE_VERIFICADO = [
       "Fotografía principal.",
       "Presentación ampliada.",
       "Trayectoria profesional visible.",
-      "Galería de hasta 5 imágenes.",
+      "Galería de hasta 6 imágenes.",
     ],
   },
   {
@@ -100,14 +100,13 @@ const INCLUYE_VERIFICADO = [
       "Múltiples ubicaciones de atención.",
       "Modalidades de atención.",
       "Idiomas.",
-      "Publicación de hasta 3 actividades grupales al mes en la Agenda de Mallorca Holística.",
+      "Publicación de 1 actividad grupal al mes en la Agenda de Mallorca Holística.",
     ],
   },
   {
     titulo: "Visibilidad y contacto",
     items: [
-      "Mayor visibilidad en el Directorio y las búsquedas.",
-      "Opiniones verificadas.",
+      "Presencia en el Directorio y en los resultados de búsqueda.",
       "Teléfono y WhatsApp.",
       "Página web y redes sociales.",
       "Enlace externo de reserva cuando el profesional disponga de él.",
