@@ -205,6 +205,55 @@ const FAQ_CENTROS: FaqGroup[] = [
   },
 ];
 
+// Preguntas frecuentes específicas del Plan Presencia (gratuito).
+// No incluye verificación documental, actividades/Agenda ni suscripción de pago:
+// solo revisión básica del perfil antes de su publicación.
+const FAQ_PRESENCIA: FaqGroup[] = [
+  {
+    titulo: "Perfil",
+    items: [
+      {
+        q: "¿Cómo completo o actualizo mi perfil?",
+        a: "Desde Mi Espacio puedes entrar en “Mi Perfil”. Si todavía no lo has completado, encontrarás el botón “Completar mi perfil”. Si ya has enviado tu información, podrás utilizar “Actualizar mi perfil” para realizar cambios.",
+      },
+      {
+        q: "¿Por qué mi perfil aparece “En revisión”?",
+        a: "Antes de publicar un perfil, Mallorca Holística realiza una revisión básica de la información enviada para comprobar que el perfil está correctamente cumplimentado y encaja en el Directorio. Esta revisión no es una verificación documental ni otorga el sello de Profesional Verificado o Entidad Verificada.",
+      },
+      {
+        q: "¿Cuándo aparecerá publicado mi perfil?",
+        a: "Cuando la revisión básica haya finalizado y el perfil esté listo para publicarse, su estado cambiará a “Publicado” y aparecerá en Mallorca Holística.",
+      },
+      {
+        q: "¿Puedo modificar mi perfil mientras está en revisión?",
+        a: "Sí. Puedes actualizar tu información desde “Mi Perfil”. Si realizas cambios relevantes, estos se incorporarán al proceso de revisión antes de la publicación.",
+      },
+    ],
+  },
+  {
+    titulo: "Código Deontológico",
+    items: [
+      {
+        q: "¿Por qué debo aceptar el Código Deontológico?",
+        a: "Todas las personas y entidades que crean o gestionan voluntariamente un perfil en Mallorca Holística deben leer y aceptar el Código Deontológico. Es el marco común de compromiso y buenas prácticas de la comunidad.",
+      },
+    ],
+  },
+  {
+    titulo: "Cuenta y plan",
+    items: [
+      {
+        q: "¿El Plan Presencia tiene algún coste?",
+        a: "No. El Plan Presencia es gratuito.",
+      },
+      {
+        q: "¿Tengo que introducir un método de pago?",
+        a: "No. El Plan Presencia no requiere ningún método de pago.",
+      },
+    ],
+  },
+];
+
 const RECURSOS = [
   { label: "Código Deontológico", href: "#" },
   { label: "Política de Privacidad", href: "#" },
