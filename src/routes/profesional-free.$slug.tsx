@@ -24,7 +24,7 @@ export const Route = createFileRoute("/profesional-free/$slug")({
 });
 
 // Datos de ejemplo (MVP) para el Plan Presencia.
-const demo: FichaPublicaData = {
+export const demo: FichaPublicaData = {
   nombre: "Marta Ferrer",
   identidadProfesional: "Terapeuta floral",
   especialidadesPrincipales: ["Terapia Floral", "Meditación"],

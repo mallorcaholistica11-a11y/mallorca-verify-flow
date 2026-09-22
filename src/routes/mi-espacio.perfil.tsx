@@ -17,6 +17,10 @@ import {
 import { PERFILES, type ResultadoProfesional } from "@/data/perfiles";
 import { FICHA_CENTRO_ACTUAL } from "@/data/ficha-centro";
 import { ambienteDe, retratoDe } from "@/data/imagenes";
+import { FichaPublica } from "@/components/ficha/FichaPublica";
+import { FichaCentro } from "@/components/ficha/FichaCentro";
+import { demo as fichaProfesionalFree } from "./profesional-free.$slug";
+import { demo as fichaCentroFree } from "./centro-free.$slug";
 
 
 type PerfilEstado = "pendiente" | "preparacion" | "revision" | "aprobado";
@@ -107,7 +111,8 @@ function MiPerfil() {
   const { track, estado: estadoSearch, perfil } = Route.useSearch();
 
   if (esPlanOrganizacion(track)) return <MiPerfilCentro track={track} estadoSearch={estadoSearch} />;
-  if (!esPlanVerificado(track)) return <MiPerfilOtrosRecorridos track={track} perfil={perfil} />;
+  if (!esPlanVerificado(track))
+    return <MiPerfilPresencia track={track} perfil={perfil} estado={estadoSearch ?? "pendiente"} />;
 
 
   const estado = estadoSearch ?? "pendiente";
@@ -294,65 +299,132 @@ function MiPerfil() {
   );
 }
 
-// Los recorridos Fundadores y el resto de planes conservan la página anterior.
-function MiPerfilOtrosRecorridos({ track, perfil }: { track: Track; perfil?: PerfilTipo }) {
-  return (
-    <WireframeShell
+// ---------------------------------------------------------------------------
+// Plan Presencia FREE (profesional y centro/espacio/proyecto)
+// Mi Perfil aquí sirve para consultar el estado, gestionar el perfil y ver cómo
+// aparece públicamente: no repite los campos del formulario ni de la ficha.
+// ---------------------------------------------------------------------------
 
-      title="👤 Mi Perfil"
-      breadcrumb="Mi Espacio › Mi Perfil"
-    >
+const ESTADO_PRESENCIA: Record<PerfilEstado, string> = {
+  pendiente: "Pendiente de completar",
+  preparacion: "Pendiente de completar",
+  revision: "En revisión",
+  aprobado: "Publicado",
+};
+
+function MiPerfilPresencia({
+  track,
+  perfil,
+  estado,
+}: {
+  track: Track;
+  perfil?: PerfilTipo;
+  estado: PerfilEstado;
+}) {
+  const esOrganizacion = perfil === "organization";
+  const estaPublicado = estado === "aprobado";
+  const estaEnRevision = estado === "revision";
+  const ultimaActualizacion = estaPublicado || estaEnRevision ? "12 de marzo de 2026" : "—";
+
+  return (
+    <WireframeShell title="👤 Mi Perfil" breadcrumb="Mi Espacio › Mi Perfil">
       <TrackBadge track={track} />
-      <div style={{ maxWidth: 620, margin: "0 auto 24px", textAlign: "center" }}>
-        <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)" }}>
-          Consulta la información de tu perfil profesional y mantén tus datos siempre actualizados.
-        </p>
-      </div>
-      <Box title="Bloque 1 · Estado del perfil">
+
+      <Box title="Estado del perfil">
         <Row>
-          <Card title="Estado">🟡 [estado dinámico]</Card>
-          <Card title="Última actualización">[fecha dinámica]</Card>
-          <Card title="Verificación">🔖 [insignia dinámica]</Card>
+          <Card title="Plan">Plan Presencia</Card>
+          <Card title="Estado del perfil">{ESTADO_PRESENCIA[estado]}</Card>
+          <Card title="Última actualización">{ultimaActualizacion}</Card>
         </Row>
       </Box>
-      <Box title="Bloque 2 · Información del perfil">
-        <Row>
-          <div style={{ flex: 1, minWidth: 260 }}>
-            <ReadOnlyField label="Nombre profesional" value="[dinámico]" />
-            <ReadOnlyField label="Profesión principal" value="[dinámico]" />
-            <ReadOnlyField label="Especialidades" value="[dinámico]" />
-            <ReadOnlyField label="Idiomas" value="[dinámico]" />
-            <ReadOnlyField label="Municipio" value="[dinámico]" />
-          </div>
-          <div style={{ flex: 1, minWidth: 260 }}>
-            <ReadOnlyField label="Modalidad de atención" value="[dinámico]" />
-            <ReadOnlyField label="Correo electrónico" value="[dinámico]" />
-            <ReadOnlyField label="WhatsApp o teléfono" value="[dinámico]" />
-            <ReadOnlyField label="Página web" value="[dinámico]" />
-          </div>
-        </Row>
-      </Box>
-      <Box title="Bloque 3 · Sobre mí">
-        <div style={{ fontSize: 13, minHeight: 100 }}>[Descripción dinámica del profesional]</div>
-      </Box>
-      <Box title="Bloque 4 · Fotografías">
-        <div style={{ fontSize: 12 }}>[fotografías dinámicas]</div>
-      </Box>
-      <Box title="Bloque 5 · Servicios">
-        <div style={{ fontSize: 12 }}>
-          Terapias, disciplinas o servicios cargados dinámicamente desde la base de datos.
-        </div>
-      </Box>
-      <Box title="Bloque 6 · Vista previa pública">
-        <NavButton to="/mi-espacio/perfil" search={{ track }} variant="secondary">
-          Ver mi perfil público
-        </NavButton>
-      </Box>
-      <Box title="Bloque 7 · Acciones">
-        <NavButton to="/dashboard/formulario" search={busquedaFormulario(track, perfil)}>
-          Actualizar mi perfil
-        </NavButton>
-      </Box>
+
+      {!estaPublicado && !estaEnRevision && (
+        <Box title="Tu perfil todavía está pendiente">
+          <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 12px" }}>
+            Tu perfil todavía está pendiente de completar. Cuando termines el formulario, revisaremos
+            la información antes de publicarlo en Mallorca Holística.
+          </p>
+          <NavButton to="/dashboard/formulario" search={busquedaFormulario(track, perfil)}>
+            Completar mi perfil
+          </NavButton>
+        </Box>
+      )}
+
+      {estaEnRevision && (
+        <Box title="Estamos revisando tu información">
+          <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 12px" }}>
+            Mallorca Holística está revisando la información que nos has enviado. Mientras tanto
+            puedes seguir modificando tu información; si haces cambios relevantes, el perfil
+            continuará o volverá al proceso de revisión.
+          </p>
+          <NavButton to="/dashboard/formulario" search={busquedaFormulario(track, perfil)}>
+            Actualizar mi perfil
+          </NavButton>
+        </Box>
+      )}
+
+      {estaPublicado && (
+        <>
+          <Box title="Así aparece tu perfil en Mallorca Holística">
+            <div
+              style={{
+                border: "1px solid var(--border)",
+                borderRadius: 12,
+                overflow: "hidden",
+                background: "var(--card)",
+              }}
+            >
+              {esOrganizacion ? (
+                <FichaCentro
+                  data={fichaCentroFree}
+                  plan="presencia"
+                  origenPracticas={{
+                    tipo: "centro-free",
+                    slug: "casa-serena",
+                    nombre: fichaCentroFree.nombre,
+                  }}
+                />
+              ) : (
+                <FichaPublica
+                  data={fichaProfesionalFree}
+                  plan="presencia"
+                  origenPracticas={{
+                    tipo: "profesional-free",
+                    slug: "marta-ferrer",
+                    nombre: fichaProfesionalFree.nombre,
+                  }}
+                />
+              )}
+            </div>
+            <div style={{ marginTop: 12 }}>
+              {esOrganizacion ? (
+                <NavButton
+                  to="/centro-free/$slug"
+                  params={{ slug: "casa-serena" }}
+                  variant="secondary"
+                >
+                  Ver mi ficha pública
+                </NavButton>
+              ) : (
+                <NavButton
+                  to="/profesional-free/$slug"
+                  params={{ slug: "marta-ferrer" }}
+                  variant="secondary"
+                >
+                  Ver mi ficha pública
+                </NavButton>
+              )}
+            </div>
+          </Box>
+
+          <Box title="Acciones">
+            <NavButton to="/dashboard/formulario" search={busquedaFormulario(track, perfil)}>
+              Actualizar mi perfil
+            </NavButton>
+          </Box>
+        </>
+      )}
+
       <Box title="Volver">
         <NavButton to="/mi-espacio" search={{ track }} variant="secondary">
           ← Volver a Mi Espacio

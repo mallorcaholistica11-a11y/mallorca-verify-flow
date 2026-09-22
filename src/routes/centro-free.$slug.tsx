@@ -24,7 +24,7 @@ export const Route = createFileRoute("/centro-free/$slug")({
 });
 
 // Datos de ejemplo (MVP) para el Plan Presencia de Centros & Organizadores.
-const demo: FichaCentroData = {
+export const demo: FichaCentroData = {
   nombre: "Casa Serena",
   tipoOrganizacion: "Espacio de bienestar y talleres",
   especialidadesPrincipales: ["Yoga", "Meditación"],
