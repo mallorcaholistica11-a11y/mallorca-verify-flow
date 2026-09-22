@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, Navigate } from "@tanstack/react-router";
 import { useState, useRef, type CSSProperties, type ReactNode } from "react";
 import { WireframeShell, Box, NavButton, parseTrack, type Track, Note } from "@/components/Wireframe";
 import { TelefonoField, type TelefonoValue } from "@/components/TelefonoField";
@@ -162,6 +162,13 @@ function NuevaActividadPagina() {
   const update = <K extends keyof FormState>(k: K, v: FormState[K]) =>
     setForm((f) => ({ ...f, [k]: v }));
   const inputImagenRef = useRef<HTMLInputElement>(null);
+
+  // Plan Presencia FREE (MVP): sin acceso a la creación de actividades, ni
+  // siquiera por URL directa. Se redirige a Mis Actividades, que muestra la
+  // pantalla informativa de "no incluido" ya existente para este plan.
+  if (track === "presencia") {
+    return <Navigate to="/mi-espacio/actividades" search={{ track }} />;
+  }
 
   const esCentro = track === "organizacion" || track === "organizacionFundadora";
   const esVerificado = track === "verificado" || track === "verificadoFundador";
