@@ -14,9 +14,9 @@ import {
   type Track,
   type PerfilTipo,
 } from "@/components/Wireframe";
-import { PERFILES, type ResultadoProfesional } from "@/data/perfiles";
 import { FICHA_CENTRO_ACTUAL } from "@/data/ficha-centro";
-import { ambienteDe, retratoDe } from "@/data/imagenes";
+import { FICHA_PROFESIONAL_ACTUAL } from "@/data/ficha-profesional";
+import { ambienteDe } from "@/data/imagenes";
 import { FichaPublica } from "@/components/ficha/FichaPublica";
 import { FichaCentro } from "@/components/ficha/FichaCentro";
 import { demo as fichaProfesionalFree } from "./profesional-free.$slug";
@@ -71,23 +71,18 @@ export const Route = createFileRoute("/mi-espacio/perfil")({
   component: MiPerfil,
 });
 
-const perfilProfesional = PERFILES.find(
-  (perfil): perfil is ResultadoProfesional =>
-    perfil.tipo === "profesional" && perfil.slug === "lucia-gelabert",
-);
-
 const ESTADO_PERFIL: Record<PerfilEstado, { estado: string; verificacion: string }> = {
   pendiente: {
     estado: "Pendiente de completar",
-    verificacion: "Pendiente de verificar",
+    verificacion: "Pendiente",
   },
   preparacion: {
     estado: "Pendiente de completar",
-    verificacion: "Pendiente de verificar",
+    verificacion: "Pendiente",
   },
   revision: {
     estado: "En revisión",
-    verificacion: "Verificación en proceso",
+    verificacion: "En revisión",
   },
   aprobado: {
     estado: "Publicado",
@@ -119,176 +114,79 @@ function MiPerfil() {
   const estadoPerfil = ESTADO_PERFIL[estado];
   const estaAprobado = estado === "aprobado";
   const estaEnRevision = estado === "revision";
-  const nombre = perfilProfesional?.nombre ?? valorNoDisponible;
-  const practicas = perfilProfesional?.especialidades.join(", ") ?? valorNoDisponible;
-  const areas = perfilProfesional?.areas.join(", ") ?? valorNoDisponible;
-  const ubicaciones = perfilProfesional?.ubicacion ?? valorNoDisponible;
-  const slug = perfilProfesional?.slug;
-  const ultimaActualizacion = valorNoDisponible;
+  const ultimaActualizacion = estaAprobado || estaEnRevision ? "12 de marzo de 2026" : "—";
 
   return (
     <WireframeShell title="Mi Perfil" breadcrumb="Mi Espacio › Mi Perfil">
-      <div style={{ maxWidth: 620, margin: "0 auto 24px", textAlign: "center" }}>
-        <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)" }}>
-          Consulta la información de tu perfil profesional y mantén tus datos actualizados.
-        </p>
-      </div>
-
       <Box title="Estado del perfil">
         <Row>
-          <Card title="Estado">{estadoPerfil.estado}</Card>
+          <Card title="Plan">Profesional Verificado</Card>
+          <Card title="Estado del perfil">{estadoPerfil.estado}</Card>
+          <Card title="Estado de verificación">{estadoPerfil.verificacion}</Card>
           <Card title="Última actualización">{ultimaActualizacion}</Card>
-          <Card title="Verificación">{estadoPerfil.verificacion}</Card>
         </Row>
       </Box>
 
-      <Box title="Información del perfil">
-        <Row>
-          <div style={{ flex: 1, minWidth: 260 }}>
-            <ReadOnlyField label="Nombre profesional" value={nombre} />
-            <ReadOnlyField label="Prácticas" value={practicas} />
-            <ReadOnlyField label="Áreas de Acompañamiento" value={areas} />
-            <ReadOnlyField label="¿A quién acompañas?" value={valorNoDisponible} />
-            <ReadOnlyField label="¿Cómo trabajas?" value={valorNoDisponible} />
-          </div>
-          <div style={{ flex: 1, minWidth: 260 }}>
-            <ReadOnlyField label="Ubicaciones de atención" value={ubicaciones} />
-            <ReadOnlyField label="Idiomas" value={valorNoDisponible} />
-            <ReadOnlyField label="Correo electrónico" value={valorNoDisponible} />
-            <ReadOnlyField label="WhatsApp / teléfono" value={valorNoDisponible} />
-            <ReadOnlyField label="Página web" value={valorNoDisponible} />
-          </div>
-        </Row>
-      </Box>
+      {!estaAprobado && !estaEnRevision && (
+        <Box title="Tu perfil todavía está pendiente">
+          <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 12px" }}>
+            Completa tu perfil profesional para enviarlo a revisión y solicitar tu verificación.
+          </p>
+          <NavButton to="/dashboard/formulario" search={busquedaFormulario(track, perfil)}>
+            Completar mi perfil
+          </NavButton>
+        </Box>
+      )}
 
-      <Box title="Sobre mí">
-        <ReadOnlyField label="Frase destacada" value={valorNoDisponible} />
-        <div style={{ fontSize: 12.5, marginBottom: 6, color: "var(--foreground)" }}>
-          Sobre mí / presentación profesional
-        </div>
-        <div
-          style={{
-            border: "1px solid var(--border)",
-            borderRadius: 12,
-            padding: 12,
-            background: "var(--muted)",
-            fontSize: 13,
-            color: "var(--foreground)",
-            minHeight: 100,
-            whiteSpace: "pre-wrap",
-          }}
-        >
-          {valorNoDisponible}
-        </div>
-      </Box>
+      {estaEnRevision && (
+        <Box title="Tu perfil está en revisión">
+          <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 12px" }}>
+            Estamos revisando la información y documentación enviada.
+          </p>
+          <NavButton to="/dashboard/formulario" search={busquedaFormulario(track, perfil)}>
+            Actualizar mi perfil
+          </NavButton>
+        </Box>
+      )}
 
-      <Box title="Fotografías">
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-            gap: 20,
-            alignItems: "start",
-          }}
-        >
-          <div>
-            <div style={{ fontSize: 12, marginBottom: 8 }}>Fotografía principal</div>
+      {estaAprobado && (
+        <>
+          <Box title="Así aparece tu perfil en Mallorca Holística">
             <div
               style={{
                 border: "1px solid var(--border)",
                 borderRadius: 12,
-                background: "var(--muted)",
-                width: "min(100%, 220px)",
-                aspectRatio: "4 / 5",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
                 overflow: "hidden",
+                background: "var(--card)",
               }}
             >
-              {perfilProfesional ? (
-                <img
-                  src={retratoDe(perfilProfesional.nombre)}
-                  alt={`Fotografía principal de ${perfilProfesional.nombre}`}
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                />
-              ) : (
-                <span style={{ color: "var(--muted-foreground)", fontSize: 12 }}>
-                  Sin fotografía principal
-                </span>
-              )}
+              <FichaPublica
+                data={FICHA_PROFESIONAL_ACTUAL}
+                origenPracticas={{
+                  tipo: "profesional",
+                  slug: "lucia-gelabert",
+                  nombre: FICHA_PROFESIONAL_ACTUAL.nombre,
+                }}
+              />
             </div>
-          </div>
-          <div>
-            <div style={{ fontSize: 12, marginBottom: 8 }}>
-              Galería de hasta 6 imágenes adicionales
+            <div style={{ marginTop: 12 }}>
+              <NavButton
+                to="/profesional/$slug"
+                params={{ slug: "lucia-gelabert" }}
+                variant="secondary"
+              >
+                Ver perfil público →
+              </NavButton>
             </div>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(72px, 1fr))",
-                gap: 8,
-              }}
-            >
-              {[1, 2, 3, 4, 5].map((i) => (
-                <div
-                  key={i}
-                  style={{
-                    border: "1px dashed var(--border)",
-                    borderRadius: 12,
-                    background: "var(--muted)",
-                    aspectRatio: "1 / 1",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "var(--muted-foreground)",
-                    fontSize: 11,
-                    textAlign: "center",
-                  }}
-                >
-                  Sin imagen
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </Box>
+          </Box>
 
-      <Box title={estaAprobado ? "Perfil público" : "Vista previa de tu perfil"}>
-        <p
-          style={{ fontSize: 12, color: "var(--foreground)", margin: "0 0 12px", lineHeight: 1.7 }}
-        >
-          {estaAprobado
-            ? "Así aparece actualmente tu perfil en Mallorca Holística."
-            : "Así se mostrará tu perfil una vez aprobado y publicado en Mallorca Holística."}
-        </p>
-        {estaAprobado && slug ? (
-          <NavButton to="/profesional/$slug" params={{ slug }}>
-            Ver mi perfil público
-          </NavButton>
-        ) : (
-          <NavButton
-            to="/mi-espacio/vista-previa-perfil"
-            search={{ track, estado }}
-            variant="secondary"
-          >
-            Vista previa de mi perfil
-          </NavButton>
-        )}
-      </Box>
-
-      <Box title="Acciones">
-        {estaEnRevision ? (
-          <p style={{ fontSize: 13, lineHeight: 1.7, margin: 0 }}>
-            Tu solicitud está siendo revisada. Podrás actualizar nuevamente tu perfil cuando
-            finalice el proceso de verificación.
-          </p>
-        ) : (
-          <NavButton to="/dashboard/formulario" search={busquedaFormulario(track, perfil)}>
-            {estaAprobado ? "Actualizar mi perfil" : "Continuar mi perfil"}
-          </NavButton>
-        )}
-      </Box>
+          <Box title="Acciones">
+            <NavButton to="/dashboard/formulario" search={busquedaFormulario(track, perfil)}>
+              Actualizar mi perfil
+            </NavButton>
+          </Box>
+        </>
+      )}
 
       <Box title="Volver">
         <NavButton to="/mi-espacio" search={{ track, estado }} variant="secondary">
