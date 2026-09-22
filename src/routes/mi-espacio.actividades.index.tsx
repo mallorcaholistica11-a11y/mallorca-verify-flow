@@ -49,12 +49,43 @@ const MENSAJE_NO_DISPONIBLE =
 function MisActividades() {
   const { track, estado: estadoSearch } = Route.useSearch();
 
+  // Plan Presencia FREE (MVP): la publicación de actividades en la Agenda
+  // queda reservada a los planes de pago. La ruta se conserva, pero las
+  // cuentas de este plan no acceden a la funcionalidad.
+  if (track === "presencia") {
+    return <MisActividadesNoIncluidas track={track} />;
+  }
+
   if (esPlanOrganizacion(track)) {
     return <MisActividadesCentro track={track} estadoSearch={estadoSearch} />;
   }
   if (!esPlanVerificado(track)) return <MisActividadesOtrosRecorridos track={track} />;
 
   return <MisActividadesVerificado track={track} estadoSearch={estadoSearch} />;
+}
+
+// Pantalla informativa para el Plan Presencia FREE: sin acceso a actividades
+// durante el MVP. Mismo lenguaje visual que el resto de Mi Espacio.
+function MisActividadesNoIncluidas({ track }: { track: Track }) {
+  return (
+    <WireframeShell title="📅 Mis Actividades" breadcrumb="Mi Espacio › Mis Actividades">
+      <TrackBadge track={track} />
+      <Box title="Mis Actividades">
+        <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)", margin: 0 }}>
+          La publicación de actividades en la Agenda de Mallorca Holística no está incluida en el
+          Plan Presencia. Esta funcionalidad está reservada actualmente a los planes de pago.
+        </p>
+        <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "8px 0 0 0", lineHeight: 1.6 }}>
+          Puedes consultar y gestionar tu perfil desde la tarjeta «Mi Perfil» de tu Mi Espacio.
+        </p>
+      </Box>
+      <Box title="Volver">
+        <NavButton to="/mi-espacio" search={{ track }} variant="secondary">
+          ← Volver a Mi Espacio
+        </NavButton>
+      </Box>
+    </WireframeShell>
+  );
 }
 
 function MisActividadesVerificado({
