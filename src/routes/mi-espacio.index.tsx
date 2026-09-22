@@ -78,11 +78,13 @@ function MiEspacio() {
               Consulta la información de tu perfil profesional y mantén tus datos siempre actualizados.
             </Card>
           </Link>
-          <Link to="/mi-espacio/actividades" search={{ track }} style={cardLinkStyle}>
-            <Card title="📅 Mis Actividades">
-              Publica y gestiona las actividades que aparecerán en la Agenda de Mallorca Holística.
-            </Card>
-          </Link>
+          {track !== "presencia" && (
+            <Link to="/mi-espacio/actividades" search={{ track }} style={cardLinkStyle}>
+              <Card title="📅 Mis Actividades">
+                Publica y gestiona las actividades que aparecerán en la Agenda de Mallorca Holística.
+              </Card>
+            </Link>
+          )}
         </Row>
         <Row>
           <Link to="/mi-espacio/suscripcion" search={{ track }} style={cardLinkStyle}>
@@ -144,11 +146,13 @@ function MiEspacio() {
             Consulta la información de tu perfil profesional y mantén tus datos siempre actualizados.
           </Card>
         </Link>
-        <Link to="/mi-espacio/actividades" search={{ track }} style={cardLinkStyle}>
-          <Card title="📅 Mis Actividades">
-            Publica y gestiona las actividades que aparecerán en la Agenda de Mallorca Holística.
-          </Card>
-        </Link>
+        {track !== "presencia" && (
+          <Link to="/mi-espacio/actividades" search={{ track }} style={cardLinkStyle}>
+            <Card title="📅 Mis Actividades">
+              Publica y gestiona las actividades que aparecerán en la Agenda de Mallorca Holística.
+            </Card>
+          </Link>
+        )}
       </Row>
       <Row>
         <Link to="/mi-espacio/suscripcion" search={{ track }} style={cardLinkStyle}>
