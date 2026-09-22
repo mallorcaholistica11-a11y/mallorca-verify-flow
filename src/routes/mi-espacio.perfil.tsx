@@ -16,10 +16,6 @@ import {
 } from "@/components/Wireframe";
 import { FICHA_CENTRO_ACTUAL } from "@/data/ficha-centro";
 import { ambienteDe } from "@/data/imagenes";
-import { FichaPublica } from "@/components/ficha/FichaPublica";
-import { FichaCentro } from "@/components/ficha/FichaCentro";
-import { demo as fichaProfesionalFree } from "./profesional-free.$slug";
-import { demo as fichaCentroFree } from "./centro-free.$slug";
 
 
 type PerfilEstado = "pendiente" | "preparacion" | "revision" | "aprobado";
@@ -242,65 +238,33 @@ function MiPerfilPresencia({
       )}
 
       {estaPublicado && (
-        <>
-          <Box title="Así aparece tu perfil en Mallorca Holística">
-            <div
-              style={{
-                border: "1px solid var(--border)",
-                borderRadius: 12,
-                overflow: "hidden",
-                background: "var(--card)",
-              }}
-            >
-              {esOrganizacion ? (
-                <FichaCentro
-                  data={fichaCentroFree}
-                  plan="presencia"
-                  origenPracticas={{
-                    tipo: "centro-free",
-                    slug: "casa-serena",
-                    nombre: fichaCentroFree.nombre,
-                  }}
-                />
-              ) : (
-                <FichaPublica
-                  data={fichaProfesionalFree}
-                  plan="presencia"
-                  origenPracticas={{
-                    tipo: "profesional-free",
-                    slug: "marta-ferrer",
-                    nombre: fichaProfesionalFree.nombre,
-                  }}
-                />
-              )}
-            </div>
-            <div style={{ marginTop: 12 }}>
-              {esOrganizacion ? (
-                <NavButton
-                  to="/centro-free/$slug"
-                  params={{ slug: "casa-serena" }}
-                  variant="secondary"
-                >
-                  Ver mi ficha pública
-                </NavButton>
-              ) : (
-                <NavButton
-                  to="/profesional-free/$slug"
-                  params={{ slug: "marta-ferrer" }}
-                  variant="secondary"
-                >
-                  Ver mi ficha pública
-                </NavButton>
-              )}
-            </div>
-          </Box>
-
-          <Box title="Acciones">
+        <Box title="Tu perfil está publicado">
+          <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 12px" }}>
+            Tu perfil está publicado en Mallorca Holística.
+          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             <NavButton to="/dashboard/formulario" search={busquedaFormulario(track, perfil)}>
               Actualizar mi perfil
             </NavButton>
-          </Box>
-        </>
+            {esOrganizacion ? (
+              <NavButton
+                to="/centro-free/$slug"
+                params={{ slug: "casa-serena" }}
+                variant="secondary"
+              >
+                Ver mi perfil público →
+              </NavButton>
+            ) : (
+              <NavButton
+                to="/profesional-free/$slug"
+                params={{ slug: "marta-ferrer" }}
+                variant="secondary"
+              >
+                Ver mi perfil público →
+              </NavButton>
+            )}
+          </div>
+        </Box>
       )}
 
       <Box title="Volver">
