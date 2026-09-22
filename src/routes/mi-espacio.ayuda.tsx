@@ -86,7 +86,7 @@ const FAQ: FaqGroup[] = [
       },
       {
         q: "¿Cuántas actividades puedo publicar?",
-        a: "El Plan Profesional Verificado incluye la publicación de hasta 3 actividades grupales al mes en la Agenda de Mallorca Holística.",
+        a: "El Plan Profesional Verificado incluye la publicación de 1 actividad grupal al mes en la Agenda de Mallorca Holística.",
       },
       {
         q: "¿Puedo modificar una actividad publicada?",

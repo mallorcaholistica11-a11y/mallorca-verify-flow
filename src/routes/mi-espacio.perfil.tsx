@@ -221,7 +221,7 @@ function MiPerfil() {
           </div>
           <div>
             <div style={{ fontSize: 12, marginBottom: 8 }}>
-              Galería de hasta 5 imágenes adicionales
+              Galería de hasta 6 imágenes adicionales
             </div>
             <div
               style={{
