@@ -17,6 +17,10 @@ import {
 import { PERFILES, type ResultadoProfesional } from "@/data/perfiles";
 import { FICHA_CENTRO_ACTUAL } from "@/data/ficha-centro";
 import { ambienteDe, retratoDe } from "@/data/imagenes";
+import { FichaPublica } from "@/components/ficha/FichaPublica";
+import { FichaCentro } from "@/components/ficha/FichaCentro";
+import { demo as fichaProfesionalFree } from "./profesional-free.$slug";
+import { demo as fichaCentroFree } from "./centro-free.$slug";
 
 
 type PerfilEstado = "pendiente" | "preparacion" | "revision" | "aprobado";
