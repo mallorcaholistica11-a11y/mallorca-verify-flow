@@ -92,8 +92,6 @@ function busquedaFormulario(track: Track, perfil?: PerfilTipo) {
   } as const;
 }
 
-const valorNoDisponible = "No indicado";
-
 function MiPerfil() {
   const { track, estado: estadoSearch, perfil } = Route.useSearch();
 
