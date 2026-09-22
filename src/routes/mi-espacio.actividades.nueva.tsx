@@ -358,6 +358,14 @@ function NuevaActividadPagina() {
         Añade la información de tu actividad para publicarla en la Agenda de Mallorca Holística.
       </p>
 
+      <Note>
+        La Agenda está destinada a actividades grupales con fecha o programación concreta
+        (talleres, cursos, formaciones, retiros, clases, conferencias, encuentros, festivales y
+        otras actividades grupales). No admite promociones, descuentos, bonos, ofertas temporales
+        de servicios ni publicidad de tratamientos o servicios individuales.
+      </Note>
+
+
       {!perfilAprobado && (
         <Box title="Publicación en la Agenda">
           <p style={{ fontSize: 13, lineHeight: 1.7, margin: 0 }}>

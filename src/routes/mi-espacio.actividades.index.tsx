@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { WireframeShell, Box, NavButton, TrackBadge, parseTrack, esPlanOrganizacion, esPlanVerificado, type Track } from "@/components/Wireframe";
+import { WireframeShell, Box, NavButton, TrackBadge, Note, parseTrack, esPlanOrganizacion, esPlanVerificado, type Track } from "@/components/Wireframe";
 import {
   LIMITE_ACTIVIDADES_MES,
   actividadesConsumidas,
@@ -118,11 +118,12 @@ function MisActividadesVerificado({
         </NavButton>
         {aprobado ? (
           <>
-            <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0" }}>
-              Tu plan incluye hasta {LIMITE_ACTIVIDADES_MES} actividades al mes en la Agenda.
+            <p style={{ fontSize: 13, color: "var(--foreground)", margin: "12px 0 0 0", lineHeight: 1.6 }}>
+              Tu plan incluye la publicación de {LIMITE_ACTIVIDADES_MES} actividad grupal al mes en
+              la Agenda de Mallorca Holística.
             </p>
             <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "4px 0 0 0" }}>
-              {usadas} de {LIMITE_ACTIVIDADES_MES} actividades utilizadas este mes.
+              Este mes: {usadas} de {LIMITE_ACTIVIDADES_MES} actividades publicadas.
             </p>
             {alcanzado && (
               <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "8px 0 0 0", lineHeight: 1.6 }}>
@@ -131,6 +132,13 @@ function MisActividadesVerificado({
                 una nueva actividad para revisión cuando vuelvas a tener disponibilidad.
               </p>
             )}
+            <div style={{ marginTop: 16 }}>
+              <Note>
+                La Agenda está destinada a actividades grupales con fecha o programación concreta.
+                No admite promociones, descuentos, ofertas comerciales ni publicidad de servicios
+                individuales.
+              </Note>
+            </div>
           </>
         ) : (
           <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0", lineHeight: 1.6 }}>
@@ -323,9 +331,19 @@ function MisActividadesCentro({
           + Crear una actividad
         </NavButton>
         {aprobado ? (
-          <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0" }}>
-            Este plan permite publicar actividades grupales sin límite mensual.
-          </p>
+          <>
+            <p style={{ fontSize: 13, color: "var(--foreground)", margin: "12px 0 0 0", lineHeight: 1.6 }}>
+              Tu plan incluye la publicación ilimitada de actividades grupales en la Agenda de
+              Mallorca Holística.
+            </p>
+            <div style={{ marginTop: 16 }}>
+              <Note>
+                La Agenda está destinada a actividades grupales con fecha o programación concreta.
+                No admite promociones, descuentos, ofertas comerciales ni publicidad de servicios
+                individuales.
+              </Note>
+            </div>
+          </>
         ) : (
           <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0", lineHeight: 1.6 }}>
             {MENSAJE_NO_DISPONIBLE}
