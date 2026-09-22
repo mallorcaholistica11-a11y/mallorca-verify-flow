@@ -116,31 +116,28 @@ function MisActividadesVerificado({
         <NavButton to="/mi-espacio/actividades/nueva" search={{ track, estado }}>
           ➕ Crear una actividad
         </NavButton>
-        {aprobado ? (
-          <>
-            <p style={{ fontSize: 13, color: "var(--foreground)", margin: "12px 0 0 0", lineHeight: 1.6 }}>
-              Tu plan incluye la publicación de {LIMITE_ACTIVIDADES_MES} actividad grupal al mes en
-              la Agenda de Mallorca Holística.
-            </p>
-            <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "4px 0 0 0" }}>
-              Este mes: {usadas} de {LIMITE_ACTIVIDADES_MES} actividades publicadas.
-            </p>
-            {alcanzado && (
-              <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "8px 0 0 0", lineHeight: 1.6 }}>
-                Has utilizado las {LIMITE_ACTIVIDADES_MES} actividades incluidas este mes en tu plan.
-                Puedes seguir creando actividades y guardarlas para continuar más tarde, y enviar
-                una nueva actividad para revisión cuando vuelvas a tener disponibilidad.
-              </p>
-            )}
-            <div style={{ marginTop: 16 }}>
-              <Note>
-                La Agenda está destinada a actividades grupales con fecha o programación concreta.
-                No admite promociones, descuentos, ofertas comerciales ni publicidad de servicios
-                individuales.
-              </Note>
-            </div>
-          </>
-        ) : (
+        <p style={{ fontSize: 13, color: "var(--foreground)", margin: "12px 0 0 0", lineHeight: 1.6 }}>
+          Tu plan incluye la publicación de {LIMITE_ACTIVIDADES_MES} actividad grupal al mes en
+          la Agenda de Mallorca Holística.
+        </p>
+        <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "4px 0 0 0" }}>
+          Este mes: {usadas} de {LIMITE_ACTIVIDADES_MES} actividades publicadas.
+        </p>
+        {alcanzado && (
+          <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "8px 0 0 0", lineHeight: 1.6 }}>
+            Has utilizado las {LIMITE_ACTIVIDADES_MES} actividades incluidas este mes en tu plan.
+            Puedes seguir creando actividades y guardarlas para continuar más tarde, y enviar
+            una nueva actividad para revisión cuando vuelvas a tener disponibilidad.
+          </p>
+        )}
+        <div style={{ marginTop: 16 }}>
+          <Note>
+            La Agenda está destinada a actividades grupales con fecha o programación concreta.
+            No admite promociones, descuentos, ofertas comerciales ni publicidad de servicios
+            individuales.
+          </Note>
+        </div>
+        {!aprobado && (
           <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0", lineHeight: 1.6 }}>
             {MENSAJE_NO_DISPONIBLE}
           </p>
@@ -330,21 +327,18 @@ function MisActividadesCentro({
         <NavButton to="/mi-espacio/actividades/nueva" search={{ track, estado }}>
           + Crear una actividad
         </NavButton>
-        {aprobado ? (
-          <>
-            <p style={{ fontSize: 13, color: "var(--foreground)", margin: "12px 0 0 0", lineHeight: 1.6 }}>
-              Tu plan incluye la publicación ilimitada de actividades grupales en la Agenda de
-              Mallorca Holística.
-            </p>
-            <div style={{ marginTop: 16 }}>
-              <Note>
-                La Agenda está destinada a actividades grupales con fecha o programación concreta.
-                No admite promociones, descuentos, ofertas comerciales ni publicidad de servicios
-                individuales.
-              </Note>
-            </div>
-          </>
-        ) : (
+        <p style={{ fontSize: 13, color: "var(--foreground)", margin: "12px 0 0 0", lineHeight: 1.6 }}>
+          Tu plan incluye la publicación ilimitada de actividades grupales en la Agenda de
+          Mallorca Holística.
+        </p>
+        <div style={{ marginTop: 16 }}>
+          <Note>
+            La Agenda está destinada a actividades grupales con fecha o programación concreta.
+            No admite promociones, descuentos, ofertas comerciales ni publicidad de servicios
+            individuales.
+          </Note>
+        </div>
+        {!aprobado && (
           <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: "12px 0 0 0", lineHeight: 1.6 }}>
             {MENSAJE_NO_DISPONIBLE}
           </p>
