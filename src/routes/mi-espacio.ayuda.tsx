@@ -261,15 +261,20 @@ function Ayuda() {
   const [hoveredResource, setHoveredResource] = useState<number | null>(null);
 
   const esOrganizacion = esPlanOrganizacion(track);
-  const faqPlan = esOrganizacion ? FAQ_CENTROS : FAQ;
-  // La condición Fundadora solo adapta las preguntas de suscripción.
-  const faqActiva = esFundador(track)
-    ? conSuscripcionFundadora(
-        faqPlan,
-        esOrganizacion ? "35 €/mes" : "15 €/mes",
-        esOrganizacion,
-      )
-    : faqPlan;
+  // El Plan Presencia (gratuito) tiene sus propias preguntas, sin verificación,
+  // actividades/Agenda ni suscripción.
+  const faqActiva =
+    track === "presencia"
+      ? FAQ_PRESENCIA
+      : esFundador(track)
+        ? conSuscripcionFundadora(
+            esOrganizacion ? FAQ_CENTROS : FAQ,
+            esOrganizacion ? "35 €/mes" : "15 €/mes",
+            esOrganizacion,
+          )
+        : esOrganizacion
+          ? FAQ_CENTROS
+          : FAQ;
   return (
     <WireframeShell
       title="Ayuda"
