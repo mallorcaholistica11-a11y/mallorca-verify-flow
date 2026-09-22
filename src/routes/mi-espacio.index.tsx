@@ -75,7 +75,9 @@ function MiEspacio() {
         <Row>
           <Link to="/mi-espacio/perfil" search={{ track, ...(perfil ? { perfil } : {}) }} style={cardLinkStyle}>
             <Card title="👤 Mi Perfil">
-              Consulta la información de tu perfil profesional y mantén tus datos siempre actualizados.
+              {track === "presencia"
+                ? "Consulta el estado de tu perfil y mantén tu información actualizada."
+                : "Consulta la información de tu perfil profesional y mantén tus datos siempre actualizados."}
             </Card>
           </Link>
           {track !== "presencia" && (
@@ -89,7 +91,9 @@ function MiEspacio() {
         <Row>
           <Link to="/mi-espacio/suscripcion" search={{ track }} style={cardLinkStyle}>
             <Card title="💳 Mi Suscripción">
-              Consulta tu plan actual, tu método de pago y la información de tu suscripción.
+              {track === "presencia"
+                ? "Consulta la información de tu Plan Presencia."
+                : "Consulta tu plan actual, tu método de pago y la información de tu suscripción."}
             </Card>
           </Link>
           <Link to="/mi-espacio/ayuda" search={{ track }} style={cardLinkStyle}>
@@ -143,7 +147,9 @@ function MiEspacio() {
       <Row>
         <Link to="/mi-espacio/perfil" search={{ track, ...(perfil ? { perfil } : {}) }} style={cardLinkStyle}>
           <Card title="👤 Mi Perfil">
-            Consulta la información de tu perfil profesional y mantén tus datos siempre actualizados.
+            {track === "presencia"
+              ? "Consulta el estado de tu perfil y mantén tu información actualizada."
+              : "Consulta la información de tu perfil profesional y mantén tus datos siempre actualizados."}
           </Card>
         </Link>
         {track !== "presencia" && (
@@ -157,7 +163,9 @@ function MiEspacio() {
       <Row>
         <Link to="/mi-espacio/suscripcion" search={{ track }} style={cardLinkStyle}>
           <Card title="💳 Mi Suscripción">
-            Consulta tu plan actual, tu método de pago y la información de tu suscripción.
+            {track === "presencia"
+              ? "Consulta la información de tu Plan Presencia."
+              : "Consulta tu plan actual, tu método de pago y la información de tu suscripción."}
           </Card>
         </Link>
         <Link to="/mi-espacio/ayuda" search={{ track }} style={cardLinkStyle}>
