@@ -19,7 +19,7 @@ export type ActividadRegistro = {
 };
 
 /** Límite del Plan Profesional Verificado: publicaciones de actividad por mes. */
-export const LIMITE_ACTIVIDADES_MES = 3;
+export const LIMITE_ACTIVIDADES_MES = 1;
 
 /** Registro real de actividades. Vacío hasta que existan datos reales. */
 export const MIS_ACTIVIDADES: ActividadRegistro[] = [];
