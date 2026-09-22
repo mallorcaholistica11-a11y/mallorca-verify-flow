@@ -130,7 +130,7 @@ const INCLUYE_ORGANIZACION = [
   {
     titulo: "Visibilidad y actividad",
     items: [
-      "Mayor visibilidad en el Directorio y búsquedas.",
+      "Presencia en el Directorio y en los resultados de búsqueda.",
       "Publicación ilimitada de actividades grupales en la Agenda.",
       "Contacto directo mediante teléfono, WhatsApp, web y redes sociales.",
       "Enlace externo de reserva cuando exista.",
