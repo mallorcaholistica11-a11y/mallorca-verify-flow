@@ -15,7 +15,6 @@ import {
   type PerfilTipo,
 } from "@/components/Wireframe";
 import { FICHA_CENTRO_ACTUAL } from "@/data/ficha-centro";
-import { FICHA_PROFESIONAL_ACTUAL } from "@/data/ficha-profesional";
 import { ambienteDe } from "@/data/imagenes";
 import { FichaPublica } from "@/components/ficha/FichaPublica";
 import { FichaCentro } from "@/components/ficha/FichaCentro";
@@ -150,42 +149,23 @@ function MiPerfil() {
       )}
 
       {estaAprobado && (
-        <>
-          <Box title="Así aparece tu perfil en Mallorca Holística">
-            <div
-              style={{
-                border: "1px solid var(--border)",
-                borderRadius: 12,
-                overflow: "hidden",
-                background: "var(--card)",
-              }}
-            >
-              <FichaPublica
-                data={FICHA_PROFESIONAL_ACTUAL}
-                origenPracticas={{
-                  tipo: "profesional",
-                  slug: "lucia-gelabert",
-                  nombre: FICHA_PROFESIONAL_ACTUAL.nombre,
-                }}
-              />
-            </div>
-            <div style={{ marginTop: 12 }}>
-              <NavButton
-                to="/profesional/$slug"
-                params={{ slug: "lucia-gelabert" }}
-                variant="secondary"
-              >
-                Ver perfil público →
-              </NavButton>
-            </div>
-          </Box>
-
-          <Box title="Acciones">
+        <Box title="Tu perfil está publicado">
+          <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 12px" }}>
+            Tu perfil está publicado en Mallorca Holística como Profesional Verificado.
+          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             <NavButton to="/dashboard/formulario" search={busquedaFormulario(track, perfil)}>
               Actualizar mi perfil
             </NavButton>
-          </Box>
-        </>
+            <NavButton
+              to="/profesional/$slug"
+              params={{ slug: "lucia-gelabert" }}
+              variant="secondary"
+            >
+              Ver mi perfil público →
+            </NavButton>
+          </div>
+        </Box>
       )}
 
       <Box title="Volver">
