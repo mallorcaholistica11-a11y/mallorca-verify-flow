@@ -46,4 +46,4 @@
 - [x] Depurar el único formulario Profesional · Plan Presencia y verificar sus dos flujos sin alterar Profesional Verificado ni centros.
 - [x] Depurar el único formulario de Centros · Plan Presencia, conectar Espai Bellver y verificar ambas vías sin alterar Profesional Verificado.
 
-- [ ] Unificar Plan + tipo de perfil con TrackBadge en las cinco secciones privadas y verificar seis variantes.
+- [x] Unificar Plan + tipo de perfil con TrackBadge en las cinco secciones privadas y verificar seis variantes.
