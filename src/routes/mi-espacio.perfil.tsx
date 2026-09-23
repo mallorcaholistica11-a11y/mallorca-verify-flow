@@ -108,6 +108,7 @@ function MiPerfil() {
 
   return (
     <WireframeShell title="Mi Perfil" breadcrumb="Mi Espacio › Mi Perfil">
+      <TrackBadge track={track} />
       <Box title="Estado del perfil">
         <Row>
           <Card title="Plan">Profesional Verificado</Card>
@@ -197,7 +198,7 @@ function MiPerfilPresencia({
 
   return (
     <WireframeShell title="👤 Mi Perfil" breadcrumb="Mi Espacio › Mi Perfil">
-      <TrackBadge track={track} />
+      <TrackBadge track={track} perfil={perfil} />
 
       <Box title="Estado del perfil">
         <Row>
@@ -263,7 +264,7 @@ function MiPerfilPresencia({
       )}
 
       <Box title="Volver">
-        <NavButton to="/mi-espacio" search={{ track }} variant="secondary">
+        <NavButton to="/mi-espacio" search={{ track, ...(perfil ? { perfil } : {}) }} variant="secondary">
           ← Volver a Mi Espacio
         </NavButton>
       </Box>
@@ -299,6 +300,7 @@ function MiPerfilCentro({
 
   return (
     <WireframeShell title="Mi Perfil" breadcrumb="Mi Espacio › Mi Perfil">
+      <TrackBadge track={track} />
       <Box title="Estado del perfil">
         <Row>
           <Card title="Plan">Centros, Espacios &amp; Organizadores</Card>

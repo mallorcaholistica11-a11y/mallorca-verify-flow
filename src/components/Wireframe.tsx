@@ -254,11 +254,21 @@ const TRACK_LABEL: Record<Track, string> = {
 };
 
 // Indicador del plan activo. Ya no muestra rótulos técnicos de desarrollo.
-export function TrackBadge({ track }: { track: Track }) {
+export function TrackBadge({ track, perfil }: { track: Track; perfil?: PerfilTipo }) {
+  const tipoPerfil = track === "presencia"
+    ? perfil ?? "professional"
+    : esPlanOrganizacion(track)
+      ? "organization"
+      : "professional";
+  const perfilLabel = tipoPerfil === "organization"
+    ? "Centro, espacio u organizador"
+    : "Profesional";
+
   return (
     <div className="wireframe-track-badge" style={{ display: "inline-block", padding: "6px 14px", border: "1px solid var(--border)", borderRadius: 999, background: "var(--secondary)", color: "var(--secondary-foreground)", fontSize: 11.5, marginBottom: 16 }}>
-      Plan: <strong>{TRACK_LABEL[track]}</strong>
+      Plan: <strong>{TRACK_LABEL[track].replace("Plan ", "")}</strong>
       {esFundador(track) && <> · Comunidad Fundadora</>}
+      <> · Perfil: <strong>{perfilLabel}</strong></>
     </div>
   );
 }

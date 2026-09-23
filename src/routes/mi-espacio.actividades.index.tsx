@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { WireframeShell, Box, NavButton, TrackBadge, Note, parseTrack, esPlanOrganizacion, esPlanVerificado, type Track } from "@/components/Wireframe";
+import { WireframeShell, Box, NavButton, TrackBadge, Note, parseTrack, parsePerfil, esPlanOrganizacion, esPlanVerificado, type Track, type PerfilTipo } from "@/components/Wireframe";
 import {
   LIMITE_ACTIVIDADES_MES,
   actividadesConsumidas,
@@ -36,9 +36,10 @@ function parsePerfilEstado(value: unknown): PerfilEstado | undefined {
 }
 
 export const Route = createFileRoute("/mi-espacio/actividades/")({
-  validateSearch: (s: Record<string, unknown>): { track: Track; estado?: PerfilEstado } => {
+  validateSearch: (s: Record<string, unknown>): { track: Track; estado?: PerfilEstado; perfil?: PerfilTipo } => {
     const estado = parsePerfilEstado(s.estado);
-    return { track: parseTrack(s), ...(estado ? { estado } : {}) };
+    const perfil = parsePerfil(s);
+    return { track: parseTrack(s), ...(estado ? { estado } : {}), ...(perfil ? { perfil } : {}) };
   },
   component: MisActividades,
 });
@@ -47,13 +48,13 @@ const MENSAJE_NO_DISPONIBLE =
   "Puedes crear y guardar tus actividades desde ahora. Para que puedan publicarse en la Agenda, tu perfil deberá estar aprobado.";
 
 function MisActividades() {
-  const { track, estado: estadoSearch } = Route.useSearch();
+  const { track, estado: estadoSearch, perfil } = Route.useSearch();
 
   // Plan Presencia FREE (MVP): la publicación de actividades en la Agenda
   // queda reservada a los planes de pago. La ruta se conserva, pero las
   // cuentas de este plan no acceden a la funcionalidad.
   if (track === "presencia") {
-    return <MisActividadesNoIncluidas track={track} />;
+    return <MisActividadesNoIncluidas track={track} perfil={perfil} />;
   }
 
   if (esPlanOrganizacion(track)) {
@@ -66,10 +67,10 @@ function MisActividades() {
 
 // Pantalla informativa para el Plan Presencia FREE: sin acceso a actividades
 // durante el MVP. Mismo lenguaje visual que el resto de Mi Espacio.
-function MisActividadesNoIncluidas({ track }: { track: Track }) {
+function MisActividadesNoIncluidas({ track, perfil }: { track: Track; perfil?: PerfilTipo }) {
   return (
     <WireframeShell title="📅 Mis Actividades" breadcrumb="Mi Espacio › Mis Actividades">
-      <TrackBadge track={track} />
+      <TrackBadge track={track} perfil={perfil} />
       <Box title="Mis Actividades">
         <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)", margin: 0 }}>
           La publicación de actividades en la Agenda de Mallorca Holística no está incluida en el
@@ -80,7 +81,7 @@ function MisActividadesNoIncluidas({ track }: { track: Track }) {
         </p>
       </Box>
       <Box title="Volver">
-        <NavButton to="/mi-espacio" search={{ track }} variant="secondary">
+        <NavButton to="/mi-espacio" search={{ track, ...(perfil ? { perfil } : {}) }} variant="secondary">
           ← Volver a Mi Espacio
         </NavButton>
       </Box>
@@ -103,6 +104,7 @@ function MisActividadesVerificado({
 
   return (
     <WireframeShell title="Mis Actividades" breadcrumb="Mi Espacio › Mis Actividades">
+      <TrackBadge track={track} />
       <div style={{ maxWidth: 640, margin: "0 auto 32px" }}>
         <p style={{ fontSize: 14, lineHeight: 1.7, color: "var(--foreground)", margin: "0 0 12px 0" }}>
           Desde aquí podrás crear y gestionar todas las actividades que compartas en Mallorca Holística.
@@ -314,6 +316,7 @@ function MisActividadesCentro({
 
   return (
     <WireframeShell title="🗓️ Mis Actividades" breadcrumb="Mi Espacio › Mis Actividades">
+      <TrackBadge track={track} />
       <div style={{ maxWidth: 640, margin: "0 auto 32px" }}>
         <p style={{ fontSize: 14, lineHeight: 1.7, color: "var(--foreground)", margin: "0 0 12px 0" }}>
           Desde aquí podrás crear y gestionar las actividades grupales que compartas en Mallorca Holística.

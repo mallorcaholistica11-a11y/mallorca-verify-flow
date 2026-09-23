@@ -6,13 +6,15 @@ import {
   Row,
   Card,
   NavButton,
-  
+  TrackBadge,
   parseTrack,
+  parsePerfil,
   esFundador,
   esPlanOrganizacion,
   usaRecorridoActual,
   PRECIO_FUNDADOR,
   type Track,
+  type PerfilTipo,
 } from "@/components/Wireframe";
 import { Button } from "@/components/ui/button";
 import {
@@ -66,13 +68,15 @@ export const Route = createFileRoute("/mi-espacio/suscripcion")({
   }),
   validateSearch: (
     s: Record<string, unknown>,
-  ): { track: Track; estado?: PerfilEstado; suscripcion?: SuscripcionEstado } => {
+  ): { track: Track; estado?: PerfilEstado; suscripcion?: SuscripcionEstado; perfil?: PerfilTipo } => {
     const estado = parseEstado(s.estado);
     const suscripcion = parseSuscripcion(s.suscripcion);
+    const perfil = parsePerfil(s);
     return {
       track: parseTrack(s),
       ...(estado ? { estado } : {}),
       ...(suscripcion ? { suscripcion } : {}),
+      ...(perfil ? { perfil } : {}),
     };
   },
   component: MiSuscripcion,
@@ -160,7 +164,7 @@ const DATOS_STRIPE: DatosStripe = { facturas: [] };
 
 
 function MiSuscripcion() {
-  const { track, estado, suscripcion } = Route.useSearch();
+  const { track, estado, suscripcion, perfil } = Route.useSearch();
 
   if (usaRecorridoActual(track)) {
     return (
@@ -172,7 +176,7 @@ function MiSuscripcion() {
     );
   }
 
-  return <MiSuscripcionPresencia track={track} />;
+  return <MiSuscripcionPresencia track={track} perfil={perfil} />;
 }
 
 function MiSuscripcionVerificado({
@@ -211,6 +215,7 @@ function MiSuscripcionVerificado({
 
   return (
     <WireframeShell title="Mi Suscripción" breadcrumb="Mi Espacio › Mi Suscripción">
+      <TrackBadge track={track} />
       <Link
         to="/mi-espacio"
         search={{ track, estado: estadoMiEspacio }}
@@ -573,9 +578,10 @@ function TablaFacturas({ facturas }: { facturas: Factura[] }) {
 }
 
 // Plan Presencia: es el plan gratuito de entrada y no tiene suscripción de pago.
-function MiSuscripcionPresencia({ track }: { track: Track }) {
+function MiSuscripcionPresencia({ track, perfil }: { track: Track; perfil?: PerfilTipo }) {
   return (
     <WireframeShell title="💳 Mi Suscripción" breadcrumb="Mi Espacio › Mi Suscripción">
+      <TrackBadge track={track} perfil={perfil} />
       <Box title="Tu plan actual">
         <Row>
           <Card title="Plan actual">Plan Presencia</Card>
@@ -587,7 +593,7 @@ function MiSuscripcionPresencia({ track }: { track: Track }) {
         </p>
       </Box>
       <Box title="Volver">
-        <NavButton to="/mi-espacio" search={{ track }} variant="secondary">
+        <NavButton to="/mi-espacio" search={{ track, ...(perfil ? { perfil } : {}) }} variant="secondary">
           ← Volver a Mi Espacio
         </NavButton>
       </Box>
