@@ -47,7 +47,7 @@ function MiEspacio() {
         title="🌿 Bienvenido a Mallorca Holística"
         breadcrumb="Mi Espacio"
       >
-        <TrackBadge track={track} />
+        <TrackBadge track={track} perfil={perfil} />
 
         <div style={{ maxWidth: 620, margin: "0 auto 24px", textAlign: "center" }}>
           <div style={{ fontSize: 12, color: "var(--muted-foreground)", letterSpacing: 2, marginBottom: 8 }}>
@@ -89,14 +89,14 @@ function MiEspacio() {
           )}
         </Row>
         <Row>
-          <Link to="/mi-espacio/suscripcion" search={{ track }} style={cardLinkStyle}>
+          <Link to="/mi-espacio/suscripcion" search={{ track, ...(perfil ? { perfil } : {}) }} style={cardLinkStyle}>
             <Card title="💳 Mi Suscripción">
               {track === "presencia"
                 ? "Consulta la información de tu Plan Presencia."
                 : "Consulta tu plan actual, tu método de pago y la información de tu suscripción."}
             </Card>
           </Link>
-          <Link to="/mi-espacio/ayuda" search={{ track }} style={cardLinkStyle}>
+          <Link to="/mi-espacio/ayuda" search={{ track, ...(perfil ? { perfil } : {}) }} style={cardLinkStyle}>
             <Card title="❓ Ayuda">
               Resuelve tus dudas, consulta las preguntas más frecuentes o ponte en contacto con nosotros si necesitas ayuda.
             </Card>
@@ -118,7 +118,7 @@ function MiEspacio() {
       title="🌿 Bienvenido a Mallorca Holística"
       breadcrumb="Mi Espacio"
     >
-      <TrackBadge track={track} />
+      <TrackBadge track={track} perfil={perfil} />
 
       <div style={{ maxWidth: 620, margin: "0 auto 24px", textAlign: "center" }}>
         <div style={{ fontSize: 12, color: "var(--muted-foreground)", letterSpacing: 2, marginBottom: 8 }}>
@@ -161,14 +161,14 @@ function MiEspacio() {
         )}
       </Row>
       <Row>
-        <Link to="/mi-espacio/suscripcion" search={{ track }} style={cardLinkStyle}>
+        <Link to="/mi-espacio/suscripcion" search={{ track, ...(perfil ? { perfil } : {}) }} style={cardLinkStyle}>
           <Card title="💳 Mi Suscripción">
             {track === "presencia"
               ? "Consulta la información de tu Plan Presencia."
               : "Consulta tu plan actual, tu método de pago y la información de tu suscripción."}
           </Card>
         </Link>
-        <Link to="/mi-espacio/ayuda" search={{ track }} style={cardLinkStyle}>
+        <Link to="/mi-espacio/ayuda" search={{ track, ...(perfil ? { perfil } : {}) }} style={cardLinkStyle}>
           <Card title="❓ Ayuda">
             Resuelve tus dudas, consulta las preguntas más frecuentes o ponte en contacto con nosotros si necesitas ayuda.
           </Card>
@@ -293,6 +293,7 @@ function MiEspacioVerificado({ track, estado }: { track: Track; estado: EspacioE
 
   return (
     <WireframeShell title="Mi Espacio" breadcrumb="Mi Espacio">
+      <TrackBadge track={track} />
       <div style={{ maxWidth: 620, margin: "0 auto 24px", textAlign: "center" }}>
         <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--muted-foreground)", margin: 0 }}>
           Gestiona tu perfil, tus actividades y tu suscripción desde aquí.

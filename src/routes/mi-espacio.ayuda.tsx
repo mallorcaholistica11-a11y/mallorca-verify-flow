@@ -4,10 +4,13 @@ import {
   WireframeShell,
   Box,
   NavButton,
+  TrackBadge,
   parseTrack,
+  parsePerfil,
   esFundador,
   esPlanOrganizacion,
   type Track,
+  type PerfilTipo,
 } from "@/components/Wireframe";
 
 // Preguntas de suscripción para los miembros de la Comunidad Fundadora.
@@ -48,7 +51,10 @@ function conSuscripcionFundadora(
 }
 
 export const Route = createFileRoute("/mi-espacio/ayuda")({
-  validateSearch: (s: Record<string, unknown>): { track: Track } => ({ track: parseTrack(s) }),
+  validateSearch: (s: Record<string, unknown>): { track: Track; perfil?: PerfilTipo } => {
+    const perfil = parsePerfil(s);
+    return { track: parseTrack(s), ...(perfil ? { perfil } : {}) };
+  },
   component: Ayuda,
 });
 
@@ -306,7 +312,7 @@ function Accordion({ id, question, children }: { id: string; question: string; c
 }
 
 function Ayuda() {
-  const { track } = Route.useSearch();
+  const { track, perfil } = Route.useSearch();
   const [hoveredResource, setHoveredResource] = useState<number | null>(null);
 
   const esOrganizacion = esPlanOrganizacion(track);
@@ -329,6 +335,7 @@ function Ayuda() {
       title="Ayuda"
       breadcrumb="Mi Espacio › Ayuda"
     >
+      <TrackBadge track={track} perfil={perfil} />
       <div style={{ maxWidth: 620, margin: "0 auto 24px", textAlign: "center" }}>
         <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)" }}>
           Resuelve tus dudas, consulta las preguntas más frecuentes o ponte en contacto con nosotros si necesitas ayuda.
@@ -370,7 +377,7 @@ function Ayuda() {
         <div style={{ fontSize: 12, color: "var(--muted-foreground)", marginBottom: 12 }}>
           Nuestro equipo responderá lo antes posible.
         </div>
-        <NavButton to="/mi-espacio/ayuda" search={{ track }}>
+        <NavButton to="/mi-espacio/ayuda" search={{ track, ...(perfil ? { perfil } : {}) }}>
           Enviar un mensaje
         </NavButton>
       </Box>
@@ -409,7 +416,7 @@ function Ayuda() {
       </Box>
 
       <Box title="Volver">
-        <NavButton to="/mi-espacio" search={{ track }} variant="secondary">
+        <NavButton to="/mi-espacio" search={{ track, ...(perfil ? { perfil } : {}) }} variant="secondary">
           ← Volver a Mi Espacio
         </NavButton>
       </Box>
