@@ -264,7 +264,7 @@ function GestionarPerfil() {
               <Button asChild size="lg" className="rounded-full">
                 <Link
                   to="/mi-espacio"
-                  search={{ track: "presencia", perfil: esCentro ? "organization" : "professional", estado: "revision" }}
+                  search={{ track: "presencia", perfil: esCentro ? "organization" : "professional", origen: "informativo", slug, estado: "revision" }}
                 >
                   Ir a Mi Espacio →
                 </Link>
