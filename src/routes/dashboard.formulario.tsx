@@ -3533,7 +3533,7 @@ function PresenciaOrganizacionFormulario() {
       title={`Paso ${step} de ${total} · ${stepTitle}`}
       breadcrumb="Dashboard › Completar perfil del espacio o proyecto"
     >
-      <TrackBadge track={track} />
+      <TrackBadge track={track} perfil={perfil} />
 
       <Box title={`Progreso · Paso ${step} de ${total}`}>
         <div style={{ display: "flex", gap: 4 }}>
@@ -3992,7 +3992,7 @@ function PresenciaProfesionalFormulario() {
       compact
     >
       <div className="presencia-profesional-compact pp-form">
-      <TrackBadge track={track} />
+      <TrackBadge track={track} perfil={perfil} />
 
       <div className="pp-progress">
       <Box title={`Progreso · Paso ${step} de ${total}`}>
