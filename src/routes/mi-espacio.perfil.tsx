@@ -223,6 +223,20 @@ function MiPerfilPresencia({
   return (
     <WireframeShell title="👤 Mi Perfil" breadcrumb="Mi Espacio › Mi Perfil">
       <TrackBadge track={track} perfil={perfil} />
+      {/* Origen del perfil (dato aparte, no un estado): solo cuando el perfil
+          procede de un perfil informativo gestionado. */}
+      {origen === "informativo" && (
+        <div
+          style={{
+            fontSize: 12,
+            color: "var(--muted-foreground)",
+            marginTop: -8,
+            marginBottom: 16,
+          }}
+        >
+          Origen: Perfil informativo
+        </div>
+      )}
 
       <Box title="Estado del perfil">
         <Row>
