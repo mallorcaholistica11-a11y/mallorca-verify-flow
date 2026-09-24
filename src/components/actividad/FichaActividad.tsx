@@ -97,7 +97,7 @@ export function FichaActividad({
         }}
       >
         <Link to="/" style={{ textDecoration: "none", color: "var(--foreground)", fontWeight: 600 }}>
-          [LOGO] Mallorca Holística
+          Mallorca Holística
         </Link>
       </header>
 
