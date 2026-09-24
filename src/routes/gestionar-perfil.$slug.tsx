@@ -12,7 +12,7 @@ export const Route = createFileRoute("/gestionar-perfil/$slug")({
   validateSearch: (s: Record<string, unknown>): { paso?: Paso } => ({
     paso: typeof s.paso === "string" && (PASOS as readonly string[]).includes(s.paso) ? (s.paso as Paso) : undefined,
   }),
-  head: () => ({
+  head: ({ params }) => ({
     meta: [
       { title: "Gestiona tu perfil · Mallorca Holística" },
       {
@@ -23,7 +23,10 @@ export const Route = createFileRoute("/gestionar-perfil/$slug")({
       { property: "og:title", content: "Gestiona tu perfil · Mallorca Holística" },
       {
         property: "og:description",
-        content: "Comprueba tus datos y empieza a gestionar tu perfil profesional.",
+        content:
+          params.slug === "espai-bellver"
+            ? "Comprueba tus datos y empieza a gestionar el perfil de tu centro, espacio o proyecto."
+            : "Comprueba tus datos y empieza a gestionar tu perfil profesional.",
       },
       { name: "twitter:card", content: "summary" },
     ],
@@ -33,8 +36,12 @@ export const Route = createFileRoute("/gestionar-perfil/$slug")({
 
 type Canal = "email" | "telefono";
 
-const EMAIL_OCULTO = "e••••••@gmail.com";
-const TELEFONO_OCULTO = "••• ••• 427";
+type Motivo = "acceso" | "eliminacion" | "correccion";
+
+const CONTACTO_OCULTO = {
+  profesional: { email: "e••••••@gmail.com", telefono: "••• ••• 427" },
+  centro: { email: "h•••@espaibellver.example", telefono: "••• ••• 327" },
+};
 
 function GestionarPerfil() {
   const isMobile = useMobile();
@@ -44,7 +51,21 @@ function GestionarPerfil() {
   const [canal, setCanal] = useState<Canal>("email");
   const [codigo, setCodigo] = useState("");
   const [solicitudEnviada, setSolicitudEnviada] = useState(false);
+  const [motivo, setMotivo] = useState<Motivo>("acceso");
   const esCentro = slug === "espai-bellver";
+  const EMAIL_OCULTO = CONTACTO_OCULTO[esCentro ? "centro" : "profesional"].email;
+  const TELEFONO_OCULTO = CONTACTO_OCULTO[esCentro ? "centro" : "profesional"].telefono;
+  const abrirSolicitud = (nuevoMotivo: Motivo) => {
+    setMotivo(nuevoMotivo);
+    setSolicitudEnviada(false);
+    setPaso("excepcion");
+  };
+  const tituloSolicitud =
+    motivo === "eliminacion"
+      ? "Solicitar la eliminación del perfil"
+      : motivo === "correccion"
+        ? "Comunícanos la información incorrecta"
+        : "Te ayudamos a acceder a tu perfil";
   const perfil = esCentro
     ? {
         nombre: "Espai Bellver",
@@ -92,8 +113,13 @@ function GestionarPerfil() {
               <OpcionSecundaria
                 pregunta="¿Prefieres no aparecer en Mallorca Holística?"
                 accion="Solicitar la eliminación de mi perfil →"
+                onClick={() => abrirSolicitud("eliminacion")}
               />
-              <OpcionSecundaria pregunta="¿Hay algún dato que no sea correcto?" accion="Avísanos →" />
+              <OpcionSecundaria
+                pregunta="¿Hay algún dato que no sea correcto?"
+                accion="Avísanos →"
+                onClick={() => abrirSolicitud("correccion")}
+              />
             </div>
           </Pantalla>
         )}
@@ -111,18 +137,18 @@ function GestionarPerfil() {
               <OpcionSecundaria
                 pregunta="¿Ya no tienes acceso a estos datos?"
                 accion="Cuéntanos →"
-                onClick={() => setPaso("excepcion")}
+                onClick={() => abrirSolicitud("acceso")}
               />
             </div>
           </Pantalla>
         )}
 
         {paso === "excepcion" && (
-          <Pantalla titulo="Te ayudamos a acceder a tu perfil" volver={() => setPaso("contacto")}>
+          <Pantalla titulo={tituloSolicitud} volver={() => setPaso(motivo === "acceso" ? "contacto" : "bienvenida")}>
             {solicitudEnviada ? (
-              <ConfirmacionSolicitud />
+              <ConfirmacionSolicitud esCentro={esCentro} motivo={motivo} />
             ) : (
-              <FormularioExcepcion onSubmit={() => setSolicitudEnviada(true)} />
+              <FormularioExcepcion esCentro={esCentro} motivo={motivo} onSubmit={() => setSolicitudEnviada(true)} />
             )}
           </Pantalla>
         )}
@@ -196,34 +222,24 @@ function GestionarPerfil() {
         )}
 
         {paso === "completado" && (
-          <Pantalla titulo="Tu perfil ya está listo">
+          <Pantalla titulo="Tu perfil ha sido enviado a revisión">
             <div className="mb-8 flex h-12 w-12 items-center justify-center rounded-full bg-secondary text-primary">
               <Check aria-hidden="true" />
             </div>
             <div className="max-w-[620px] space-y-4 text-[15px] leading-7">
-              <p className="font-semibold">Gracias{esCentro ? "." : ", Elena."}</p>
-              <p>Tu perfil ya está gestionado por ti y forma parte de Mallorca Holística.</p>
-              <p>A partir de ahora podrás actualizar tu información siempre que lo necesites desde tu espacio.</p>
+              <p>
+                Gracias. Hemos recibido la información de tu perfil. Nuestro equipo realizará una revisión básica antes de publicarlo como perfil gestionado en Mallorca Holística.
+              </p>
             </div>
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
               <Button asChild size="lg" className="rounded-full">
-                {esCentro ? (
-                  <Link to="/perfil-informativo-centro/$slug" params={{ slug }} search={{ gestionado: true }}>
-                    Ver mi perfil →
-                  </Link>
-                ) : (
-                  <Link to="/perfil-informativo-profesional/$slug" params={{ slug }} search={{ gestionado: true }}>
-                    Ver mi perfil →
-                  </Link>
-                )}
+                <Link
+                  to="/mi-espacio/"
+                  search={{ track: "presencia", perfil: esCentro ? "organization" : "professional", estado: "revision" }}
+                >
+                  Ir a Mi Espacio →
+                </Link>
               </Button>
-              <Link
-                to="/mi-espacio"
-                search={{ track: "presencia" }}
-                className="text-sm text-foreground underline underline-offset-4"
-              >
-                Ir a Mi Espacio →
-              </Link>
             </div>
           </Pantalla>
         )}
@@ -299,20 +315,41 @@ function Campo({ label, type = "text", autoComplete }: { label: string; type?: s
   );
 }
 
-function FormularioExcepcion({ onSubmit }: { onSubmit: () => void }) {
+const INTRO_SOLICITUD: Record<Motivo, { profesional: string; centro: string }> = {
+  acceso: {
+    profesional:
+      "Si tus datos de contacto han cambiado o ya no tienes acceso a ellos, cuéntanos brevemente qué ha ocurrido. Revisaremos tu solicitud para ayudarte a gestionar tu perfil.",
+    centro:
+      "Si los datos de contacto del centro, espacio o proyecto han cambiado o ya no tienes acceso a ellos, cuéntanos brevemente qué ha ocurrido. Revisaremos tu solicitud para ayudarte a gestionar el perfil.",
+  },
+  eliminacion: {
+    profesional:
+      "Si prefieres no aparecer en Mallorca Holística, cuéntanos brevemente tu solicitud. La revisaremos para retirar tu perfil.",
+    centro:
+      "Si el centro, espacio o proyecto prefiere no aparecer en Mallorca Holística, cuéntanos brevemente tu solicitud. La revisaremos para retirar el perfil.",
+  },
+  correccion: {
+    profesional:
+      "Cuéntanos qué información de tu perfil no es correcta. La revisaremos para actualizarla.",
+    centro:
+      "Cuéntanos qué información del perfil del centro, espacio o proyecto no es correcta. La revisaremos para actualizarla.",
+  },
+};
+
+function FormularioExcepcion({ onSubmit, esCentro, motivo }: { onSubmit: () => void; esCentro: boolean; motivo: Motivo }) {
   const enviar = (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); onSubmit(); };
   return (
     <>
       <p className="max-w-[650px] text-[15px] leading-7">
-        Si tus datos de contacto han cambiado o ya no tienes acceso a ellos, cuéntanos brevemente qué ha ocurrido. Revisaremos tu solicitud para ayudarte a gestionar tu perfil.
+        {INTRO_SOLICITUD[motivo][esCentro ? "centro" : "profesional"]}
       </p>
       <form className="mt-8 max-w-[560px] space-y-5" onSubmit={enviar}>
-        <Campo label="Nombre y apellidos" autoComplete="name" />
+        <Campo label={esCentro ? "Nombre y apellidos de la persona de contacto" : "Nombre y apellidos"} autoComplete="name" />
+        {esCentro && <Campo label="Cargo o relación con el centro, espacio o proyecto" autoComplete="organization-title" />}
         <Campo label="Email actual" type="email" autoComplete="email" />
         <Campo label="Teléfono actual" type="tel" autoComplete="tel" />
         <label className="block text-sm font-semibold">
-          Cuéntanos brevemente qué ocurre
-
+          {motivo === "correccion" ? "¿Qué información no es correcta?" : "Cuéntanos brevemente qué ocurre"}
           <textarea required rows={5} className="mt-2 w-full resize-y border border-input bg-card px-3 py-3 font-normal text-foreground" />
         </label>
         <Button type="submit" size="lg" className="rounded-full">Enviar solicitud →</Button>
@@ -321,11 +358,17 @@ function FormularioExcepcion({ onSubmit }: { onSubmit: () => void }) {
   );
 }
 
-function ConfirmacionSolicitud() {
+function ConfirmacionSolicitud({ esCentro, motivo }: { esCentro: boolean; motivo: Motivo }) {
+  const texto =
+    motivo === "eliminacion"
+      ? "Hemos recibido tu solicitud de eliminación. La revisaremos y te responderemos."
+      : motivo === "correccion"
+        ? "Hemos recibido tu aviso. Revisaremos la información indicada."
+        : "Hemos recibido tu solicitud. La revisaremos antes de darte acceso al perfil.";
   return (
     <div className="max-w-[600px] border-l-2 border-sage-light bg-cream px-6 py-5 text-[15px] leading-7">
-      <p className="font-display text-lg font-semibold text-sage-dark">Gracias, Elena.</p>
-      <p className="mt-2">Hemos recibido tu solicitud. La revisaremos antes de darte acceso al perfil.</p>
+      <p className="font-display text-lg font-semibold text-sage-dark">{esCentro ? "Gracias." : "Gracias, Elena."}</p>
+      <p className="mt-2">{texto}</p>
     </div>
   );
 }
