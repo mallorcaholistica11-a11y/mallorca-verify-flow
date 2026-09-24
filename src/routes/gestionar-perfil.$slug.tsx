@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate, redirect } from "@tanstack/react-router";
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { ArrowLeft, Check, Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NavPublica } from "@/components/NavPublica";
@@ -71,6 +71,22 @@ function GestionarPerfil() {
   const navigate = useNavigate();
   const { paso: pasoInicial } = Route.useSearch();
   const [paso, setPaso] = useState<Paso>(pasoInicial && pasoInicial !== "introduccion" ? pasoInicial : "bienvenida");
+  // Entrada antigua (p. ej. «Anterior» del formulario) → Mi Espacio.
+  useEffect(() => {
+    if (pasoInicial === "introduccion") {
+      navigate({
+        to: "/mi-espacio",
+        replace: true,
+        search: {
+          track: "presencia",
+          perfil: slug === "espai-bellver" ? "organization" : "professional",
+          origen: "informativo",
+          slug,
+          estado: "pendiente",
+        },
+      });
+    }
+  }, [pasoInicial, slug, navigate]);
   const [canal, setCanal] = useState<Canal>("email");
   const [codigo, setCodigo] = useState("");
   const [solicitudEnviada, setSolicitudEnviada] = useState(false);
