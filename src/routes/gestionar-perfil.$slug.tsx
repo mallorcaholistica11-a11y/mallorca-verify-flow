@@ -234,7 +234,7 @@ function GestionarPerfil() {
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
               <Button asChild size="lg" className="rounded-full">
                 <Link
-                  to="/mi-espacio/"
+                  to="/mi-espacio"
                   search={{ track: "presencia", perfil: esCentro ? "organization" : "professional", estado: "revision" }}
                 >
                   Ir a Mi Espacio →
