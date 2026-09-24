@@ -65,10 +65,10 @@ function BienvenidaFundadora({ tipo }: { tipo: TipoFundador }) {
       <Box title="Condiciones Comunidad Fundadora">
         <ul style={{ fontSize: 13.5, paddingLeft: 20, margin: 0, lineHeight: 1.9 }}>
           <li>✓ 6 meses gratuitos desde el lanzamiento oficial de Mallorca Holística.</li>
-          <li>✓ Después, {precio}.</li>
+          <li>✓ Después de esos 6 meses gratuitos, {precio} durante los 24 meses siguientes.</li>
           <li>
-            ✓ El precio fundador se mantendrá durante 24 meses mientras la suscripción permanezca
-            activa.
+            ✓ El precio fundador se mantendrá durante esos 24 meses mientras la suscripción
+            permanezca activa.
           </li>
           <li>✓ Sin permanencia.</li>
         </ul>
@@ -111,7 +111,8 @@ function ElegirPlanFundador() {
             <p style={{ fontSize: 12, color: "var(--muted-foreground)", marginBottom: 4 }}>Condiciones exclusivas Comunidad Fundadora</p>
             <p style={{ fontSize: 13, margin: "0 0 4px 0" }}>✓ 6 meses gratuitos.</p>
             <p style={{ fontSize: 13, margin: "0 0 16px 0" }}>
-              ✓ 15 €/mes (IVA incluido) mientras mantengas activa tu suscripción.
+              ✓ Después de los 6 meses gratuitos, 15 €/mes (IVA incluido) durante los 24 meses
+              siguientes mientras mantengas activa tu suscripción.
             </p>
             <NavButton to="/comunidad-fundadora-bienvenida" search={{ tipo: "profesional" }}>
               👉 Elegir este plan
@@ -124,7 +125,8 @@ function ElegirPlanFundador() {
             <p style={{ fontSize: 12, color: "var(--muted-foreground)", marginBottom: 4 }}>Condiciones exclusivas Comunidad Fundadora</p>
             <p style={{ fontSize: 13, margin: "0 0 4px 0" }}>✓ 6 meses gratuitos.</p>
             <p style={{ fontSize: 13, margin: "0 0 16px 0" }}>
-              ✓ 35 €/mes (IVA incluido) mientras mantengáis activa la suscripción.
+              ✓ Después de los 6 meses gratuitos, 35 €/mes (IVA incluido) durante los 24 meses
+              siguientes mientras mantengáis activa la suscripción.
             </p>
             <NavButton to="/comunidad-fundadora-bienvenida" search={{ tipo: "centro" }}>
               👉 Elegir este plan
