@@ -402,45 +402,39 @@ function ColumnaPrincipal({
 }
 
 function Equipo({ miembros, total }: { miembros: MiembroEquipo[]; total?: number }) {
-  const visibles = miembros.slice(0, 3);
-  const hayMas = (total ?? miembros.length) > visibles.length;
+  // En el MVP se muestran todos los miembros disponibles en los datos de la ficha.
+  // El equipo es información del perfil de la entidad; no crea perfiles individuales.
+  void total;
 
   return (
-    <div>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 20 }}>
-        {visibles.map((m, i) => (
-          <div key={`${m.nombre}-${i}`} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+    <div style={{ display: "flex", flexWrap: "wrap", gap: 20 }}>
+      {miembros.map((m, i) => (
+        <div key={`${m.nombre}-${i}`} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          {m.perfilUrl ? (
+            <a
+              href={m.perfilUrl}
+              aria-label={`Ver perfil de ${m.nombre}`}
+              style={{ display: "block", flex: "0 0 auto" }}
+            >
+              <FotoMiembro miembro={m} />
+            </a>
+          ) : (
+            <FotoMiembro miembro={m} />
+          )}
+          <div style={{ fontSize: 12, lineHeight: 1.4 }}>
             {m.perfilUrl ? (
-              <a
-                href={m.perfilUrl}
-                aria-label={`Ver perfil de ${m.nombre}`}
-                style={{ display: "block", flex: "0 0 auto" }}
-              >
-                <FotoMiembro miembro={m} />
+              <a href={m.perfilUrl} style={enlace}>
+                {m.nombre}
               </a>
             ) : (
-              <FotoMiembro miembro={m} />
+              <div>{m.nombre}</div>
             )}
-            <div style={{ fontSize: 12, lineHeight: 1.4 }}>
-              {m.perfilUrl ? (
-                <a href={m.perfilUrl} style={enlace}>
-                  {m.nombre}
-                </a>
-              ) : (
-                <div>{m.nombre}</div>
-              )}
-              {m.rol && (
-                <div style={{ fontSize: 11, color: "var(--muted-foreground)" }}>{m.rol}</div>
-              )}
-            </div>
+            {m.rol && (
+              <div style={{ fontSize: 11, color: "var(--muted-foreground)" }}>{m.rol}</div>
+            )}
           </div>
-        ))}
-      </div>
-      {hayMas && (
-        <a href="#" style={{ ...enlace, display: "inline-block", fontSize: 12, marginTop: 10 }}>
-          Ver todo el equipo →
-        </a>
-      )}
+        </div>
+      ))}
     </div>
   );
 }
