@@ -3447,7 +3447,7 @@ function OPInformacionPublica() {
 }
 
 function PresenciaOrganizacionFormulario() {
-  const { track, origen, slug } = Route.useSearch();
+  const { track, perfil, origen, slug } = Route.useSearch();
   const navigate = useNavigate();
   const desdeInformativo =
     origen === "informativo" && slug === "espai-bellver";
@@ -3934,7 +3934,7 @@ function PPInformacionPublica() {
 }
 
 function PresenciaProfesionalFormulario() {
-  const { track, origen, slug } = Route.useSearch();
+  const { track, perfil, origen, slug } = Route.useSearch();
   const navigate = useNavigate();
   // Flujo de gestión de un perfil informativo existente (prototipo, Elena Rossell).
   const desdeInformativo = origen === "informativo" && typeof slug === "string" && slug.length > 0;
