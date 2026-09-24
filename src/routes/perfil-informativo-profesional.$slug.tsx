@@ -65,6 +65,7 @@ function PerfilInformativoProfesional() {
         perfilInformativo
         perfilGestionado={gestionado}
         enlaceGestionPerfil={gestionado ? undefined : "/gestionar-perfil/$slug"}
+        slugPerfil={slug}
         origenPracticas={{
           tipo: "perfil-informativo-profesional",
           slug,
