@@ -77,7 +77,7 @@ export function SeccionPerfilInformativo({
         </Link>
       ) : (
         <a href="#" style={estiloEnlace}>
-          {esProfesional ? "Reclama tu perfil →" : "Reclama este perfil →"}
+          {esProfesional ? "Gestiona tu perfil →" : "Gestiona este perfil →"}
         </a>
       )}
     </Seccion>
