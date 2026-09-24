@@ -1,17 +1,39 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, type FormEvent, type ReactNode } from "react";
+import { createFileRoute, Link, useNavigate, redirect } from "@tanstack/react-router";
+import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { ArrowLeft, Check, Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NavPublica } from "@/components/NavPublica";
 import { useMobile } from "@/components/ficha/useMobile";
 
-const PASOS = ["bienvenida", "contacto", "excepcion", "codigo", "cuenta", "introduccion", "completado"] as const;
+const PASOS = ["bienvenida", "contacto", "excepcion", "codigo", "cuenta", "completado"] as const;
 type Paso = (typeof PASOS)[number];
+// "introduccion" ya no es una pantalla: se conserva solo como dirección de
+// entrada (p. ej. «Anterior» del formulario) y redirige a Mi Espacio.
+type PasoEntrada = Paso | "introduccion";
 
 export const Route = createFileRoute("/gestionar-perfil/$slug")({
-  validateSearch: (s: Record<string, unknown>): { paso?: Paso } => ({
-    paso: typeof s.paso === "string" && (PASOS as readonly string[]).includes(s.paso) ? (s.paso as Paso) : undefined,
+  validateSearch: (s: Record<string, unknown>): { paso?: PasoEntrada } => ({
+    paso:
+      s.paso === "introduccion"
+        ? "introduccion"
+        : typeof s.paso === "string" && (PASOS as readonly string[]).includes(s.paso)
+          ? (s.paso as Paso)
+          : undefined,
   }),
+  beforeLoad: ({ params, search }) => {
+    if (search.paso === "introduccion") {
+      throw redirect({
+        to: "/mi-espacio",
+        search: {
+          track: "presencia",
+          perfil: params.slug === "espai-bellver" ? "organization" : "professional",
+          origen: "informativo",
+          slug: params.slug,
+          estado: "pendiente",
+        },
+      });
+    }
+  },
   head: ({ params }) => ({
     meta: [
       { title: "Gestiona tu perfil · Mallorca Holística" },
@@ -46,8 +68,25 @@ const CONTACTO_OCULTO = {
 function GestionarPerfil() {
   const isMobile = useMobile();
   const { slug } = Route.useParams();
+  const navigate = useNavigate();
   const { paso: pasoInicial } = Route.useSearch();
-  const [paso, setPaso] = useState<Paso>(pasoInicial ?? "bienvenida");
+  const [paso, setPaso] = useState<Paso>(pasoInicial && pasoInicial !== "introduccion" ? pasoInicial : "bienvenida");
+  // Entrada antigua (p. ej. «Anterior» del formulario) → Mi Espacio.
+  useEffect(() => {
+    if (pasoInicial === "introduccion") {
+      navigate({
+        to: "/mi-espacio",
+        replace: true,
+        search: {
+          track: "presencia",
+          perfil: slug === "espai-bellver" ? "organization" : "professional",
+          origen: "informativo",
+          slug,
+          estado: "pendiente",
+        },
+      });
+    }
+  }, [pasoInicial, slug, navigate]);
   const [canal, setCanal] = useState<Canal>("email");
   const [codigo, setCodigo] = useState("");
   const [solicitudEnviada, setSolicitudEnviada] = useState(false);
@@ -84,6 +123,20 @@ function GestionarPerfil() {
     setCanal(nuevoCanal);
     setCodigo("");
     setPaso("codigo");
+  };
+
+  // Cuenta creada / inicio de sesión → siempre Mi Espacio (perfil pendiente).
+  const irAMiEspacio = () => {
+    navigate({
+      to: "/mi-espacio",
+      search: {
+        track: "presencia",
+        perfil: esCentro ? "organization" : "professional",
+        origen: "informativo",
+        slug,
+        estado: "pendiente",
+      },
+    });
   };
 
   return (
@@ -186,38 +239,14 @@ function GestionarPerfil() {
             <p className="max-w-[620px] text-[15px] leading-7">
               Ya casi está. Crea tu cuenta para empezar a gestionar tu perfil en Mallorca Holística.
             </p>
-            <form className="mt-8 max-w-[480px] space-y-5" onSubmit={(event) => { event.preventDefault(); setPaso("introduccion"); }}>
+            <form className="mt-8 max-w-[480px] space-y-5" onSubmit={(event) => { event.preventDefault(); irAMiEspacio(); }}>
               <Campo label="Correo electrónico" type="email" autoComplete="email" />
               <Campo label="Contraseña" type="password" autoComplete="new-password" />
               <Button type="submit" size="lg" className="rounded-full">Crear mi cuenta →</Button>
             </form>
-            <button type="button" className="mt-6 text-sm text-muted-foreground underline underline-offset-4" onClick={() => setPaso("introduccion")}>
+            <button type="button" className="mt-6 text-sm text-muted-foreground underline underline-offset-4" onClick={irAMiEspacio}>
               ¿Ya tienes una cuenta? Iniciar sesión →
             </button>
-          </Pantalla>
-        )}
-
-        {paso === "introduccion" && (
-          <Pantalla titulo="Completa tu perfil">
-            <div className="mb-8 flex h-12 w-12 items-center justify-center rounded-full bg-secondary text-primary">
-              <Check aria-hidden="true" />
-            </div>
-            <div className="max-w-[620px] space-y-4 text-[15px] leading-7">
-              <p className="font-semibold">Tu perfil ya está preparado.</p>
-              <p>
-                Hemos incorporado la información que ya teníamos para que no tengas que empezar desde cero.
-                Revísala, corrige lo que necesites y completa tu perfil a tu manera.
-              </p>
-            </div>
-            <Button asChild size="lg" className="mt-8 rounded-full">
-              <Link
-                to="/dashboard/formulario"
-                search={{ track: "presencia", perfil: esCentro ? "organization" : "professional", origen: "informativo", slug }}
-                reloadDocument
-              >
-                Revisar y completar mi perfil →
-              </Link>
-            </Button>
           </Pantalla>
         )}
 
