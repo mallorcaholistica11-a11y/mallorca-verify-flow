@@ -29,7 +29,7 @@ export function WireframeShell({
     <div className={compact ? "wireframe-shell-compact" : undefined} style={{ fontFamily: "var(--font-body)", minHeight: "100vh", background: "var(--background)", color: "var(--foreground)" }}>
       <header style={{ borderBottom: "1px solid var(--border)", padding: "16px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 20, flexWrap: "wrap", background: "var(--ivory)", position: "sticky", top: 0, zIndex: 20, backdropFilter: "blur(6px)" }}>
         <Link to="/" style={{ textDecoration: "none", color: "var(--charcoal)", fontFamily: "var(--font-display)", fontSize: 17, letterSpacing: "-0.01em" }}>
-          [LOGO] Mallorca Holística — wireframe
+          Mallorca Holística
         </Link>
         <nav style={{ display: "flex", gap: 4, fontSize: 12.5, flexWrap: "wrap", minWidth: 0 }}>
           <Link to="/" style={linkStyle}>Inicio</Link>
@@ -39,7 +39,6 @@ export function WireframeShell({
           <Link to="/blog" style={linkStyle}>Blog</Link>
           <Link to="/nuestra-mirada" style={linkStyle}>Nuestra Mirada</Link>
           <Link to="/soy-profesional" style={linkStyle}>Soy profesional</Link>
-          <Link to="/inicio-tecnico" style={linkStyle}>Índice técnico</Link>
         </nav>
       </header>
 
@@ -58,7 +57,6 @@ export function WireframeShell({
       </main>
 
       <footer style={{ marginTop: compact ? 48 : 80, padding: compact ? "20px 24px" : "28px 24px", borderTop: "1px solid var(--border)", fontSize: 11.5, color: "var(--muted-foreground)", textAlign: "center", background: "var(--cream)" }}>
-        Wireframe funcional · sin diseño visual · validación de navegación
       </footer>
     </div>
   );
