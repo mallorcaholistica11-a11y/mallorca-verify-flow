@@ -50,14 +50,26 @@ export const Route = createFileRoute("/mi-espacio/perfil")({
   }),
   validateSearch: (
     s: Record<string, unknown>,
-  ): { track: Track; estado?: PerfilEstado; perfil?: PerfilTipo } => {
+  ): {
+    track: Track;
+    estado?: PerfilEstado;
+    perfil?: PerfilTipo;
+    origen?: "informativo";
+    slug?: string;
+  } => {
     const estado = parseEstado(s.estado);
     const perfil = parsePerfil(s);
+    // Solo para el recorrido de perfiles informativos (prototipo): se
+    // conservan opcionalmente para poder volver a Mi Espacio sin perderlos.
+    const origen = s.origen === "informativo" ? ("informativo" as const) : undefined;
+    const slug = typeof s.slug === "string" && s.slug.length > 0 ? s.slug : undefined;
 
     return {
       track: parseTrack(s),
       ...(estado ? { estado } : {}),
       ...(perfil ? { perfil } : {}),
+      ...(origen ? { origen } : {}),
+      ...(slug ? { slug } : {}),
     };
   },
   component: MiPerfil,
@@ -93,11 +105,19 @@ function busquedaFormulario(track: Track, perfil?: PerfilTipo) {
 }
 
 function MiPerfil() {
-  const { track, estado: estadoSearch, perfil } = Route.useSearch();
+  const { track, estado: estadoSearch, perfil, origen, slug } = Route.useSearch();
 
   if (esPlanOrganizacion(track)) return <MiPerfilCentro track={track} estadoSearch={estadoSearch} />;
   if (!esPlanVerificado(track))
-    return <MiPerfilPresencia track={track} perfil={perfil} estado={estadoSearch ?? "pendiente"} />;
+    return (
+      <MiPerfilPresencia
+        track={track}
+        perfil={perfil}
+        estado={estadoSearch ?? "pendiente"}
+        origen={origen}
+        slug={slug}
+      />
+    );
 
 
   const estado = estadoSearch ?? "pendiente";
@@ -186,10 +206,14 @@ function MiPerfilPresencia({
   track,
   perfil,
   estado,
+  origen,
+  slug,
 }: {
   track: Track;
   perfil?: PerfilTipo;
   estado: PerfilEstado;
+  origen?: "informativo";
+  slug?: string;
 }) {
   const esOrganizacion = perfil === "organization";
   const estaPublicado = estado === "aprobado";
@@ -264,7 +288,17 @@ function MiPerfilPresencia({
       )}
 
       <Box title="Volver">
-        <NavButton to="/mi-espacio" search={{ track, ...(perfil ? { perfil } : {}) }} variant="secondary">
+        <NavButton
+          to="/mi-espacio"
+          search={{
+            track,
+            ...(perfil ? { perfil } : {}),
+            ...(origen ? { origen } : {}),
+            ...(slug ? { slug } : {}),
+            estado,
+          }}
+          variant="secondary"
+        >
           ← Volver a Mi Espacio
         </NavButton>
       </Box>

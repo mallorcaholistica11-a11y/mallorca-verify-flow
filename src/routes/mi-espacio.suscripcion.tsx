@@ -68,15 +68,28 @@ export const Route = createFileRoute("/mi-espacio/suscripcion")({
   }),
   validateSearch: (
     s: Record<string, unknown>,
-  ): { track: Track; estado?: PerfilEstado; suscripcion?: SuscripcionEstado; perfil?: PerfilTipo } => {
+  ): {
+    track: Track;
+    estado?: PerfilEstado;
+    suscripcion?: SuscripcionEstado;
+    perfil?: PerfilTipo;
+    origen?: "informativo";
+    slug?: string;
+  } => {
     const estado = parseEstado(s.estado);
     const suscripcion = parseSuscripcion(s.suscripcion);
     const perfil = parsePerfil(s);
+    // Solo para el recorrido de perfiles informativos (prototipo): se
+    // conservan opcionalmente para poder volver a Mi Espacio sin perderlos.
+    const origen = s.origen === "informativo" ? ("informativo" as const) : undefined;
+    const slug = typeof s.slug === "string" && s.slug.length > 0 ? s.slug : undefined;
     return {
       track: parseTrack(s),
       ...(estado ? { estado } : {}),
       ...(suscripcion ? { suscripcion } : {}),
       ...(perfil ? { perfil } : {}),
+      ...(origen ? { origen } : {}),
+      ...(slug ? { slug } : {}),
     };
   },
   component: MiSuscripcion,
@@ -164,7 +177,7 @@ const DATOS_STRIPE: DatosStripe = { facturas: [] };
 
 
 function MiSuscripcion() {
-  const { track, estado, suscripcion, perfil } = Route.useSearch();
+  const { track, estado, suscripcion, perfil, origen, slug } = Route.useSearch();
 
   if (usaRecorridoActual(track)) {
     return (
@@ -176,7 +189,7 @@ function MiSuscripcion() {
     );
   }
 
-  return <MiSuscripcionPresencia track={track} perfil={perfil} />;
+  return <MiSuscripcionPresencia track={track} perfil={perfil} estado={estado} origen={origen} slug={slug} />;
 }
 
 function MiSuscripcionVerificado({
@@ -578,7 +591,19 @@ function TablaFacturas({ facturas }: { facturas: Factura[] }) {
 }
 
 // Plan Presencia: es el plan gratuito de entrada y no tiene suscripción de pago.
-function MiSuscripcionPresencia({ track, perfil }: { track: Track; perfil?: PerfilTipo }) {
+function MiSuscripcionPresencia({
+  track,
+  perfil,
+  estado,
+  origen,
+  slug,
+}: {
+  track: Track;
+  perfil?: PerfilTipo;
+  estado?: PerfilEstado;
+  origen?: "informativo";
+  slug?: string;
+}) {
   return (
     <WireframeShell title="💳 Mi Suscripción" breadcrumb="Mi Espacio › Mi Suscripción">
       <TrackBadge track={track} perfil={perfil} />
@@ -593,7 +618,17 @@ function MiSuscripcionPresencia({ track, perfil }: { track: Track; perfil?: Perf
         </p>
       </Box>
       <Box title="Volver">
-        <NavButton to="/mi-espacio" search={{ track, ...(perfil ? { perfil } : {}) }} variant="secondary">
+        <NavButton
+          to="/mi-espacio"
+          search={{
+            track,
+            ...(perfil ? { perfil } : {}),
+            ...(origen ? { origen } : {}),
+            ...(slug ? { slug } : {}),
+            ...(estado ? { estado } : {}),
+          }}
+          variant="secondary"
+        >
           ← Volver a Mi Espacio
         </NavButton>
       </Box>
