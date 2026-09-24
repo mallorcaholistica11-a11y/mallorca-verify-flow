@@ -57,19 +57,40 @@ function MiEspacio() {
           <div style={{ fontSize: 12, color: "var(--muted-foreground)", letterSpacing: 2, marginBottom: 8 }}>
             MI ESPACIO
           </div>
-          <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)" }}>
-            Tu cuenta ya está creada. Para aparecer en Mallorca Holística solo te queda completar tu
-            perfil: puedes hacerlo ahora o volver más tarde, tu espacio te estará esperando.
-          </p>
+          {desdeInformativo ? (
+            <>
+              <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)", fontWeight: 600 }}>
+                Tu perfil ya está preparado.
+              </p>
+              <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)" }}>
+                Ya hemos incorporado la información que teníamos para que no tengas que empezar desde cero.
+                Revísala, corrige lo que necesites y completa tu perfil a tu manera.
+              </p>
+            </>
+          ) : (
+            <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--foreground)" }}>
+              Tu cuenta ya está creada. Para aparecer en Mallorca Holística solo te queda completar tu
+              perfil: puedes hacerlo ahora o volver más tarde, tu espacio te estará esperando.
+            </p>
+          )}
         </div>
 
         <Box>
-          <NavButton
-            to={perfil ? "/dashboard/formulario" : "/dashboard/tipo-perfil"}
-            search={perfil ? { track, perfil } : { track }}
-          >
-            👉 Completar mi perfil
-          </NavButton>
+          {desdeInformativo ? (
+            <NavButton
+              to="/dashboard/formulario"
+              search={{ track, perfil, origen: "informativo", slug }}
+            >
+              Revisar y completar mi perfil →
+            </NavButton>
+          ) : (
+            <NavButton
+              to={perfil ? "/dashboard/formulario" : "/dashboard/tipo-perfil"}
+              search={perfil ? { track, perfil } : { track }}
+            >
+              👉 Completar mi perfil
+            </NavButton>
+          )}
         </Box>
 
         <div style={{ fontSize: 11, color: "var(--muted-foreground)", letterSpacing: 1, margin: "24px 0 8px 0" }}>
