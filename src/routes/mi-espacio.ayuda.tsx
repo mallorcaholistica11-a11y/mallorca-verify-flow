@@ -50,10 +50,43 @@ function conSuscripcionFundadora(
   );
 }
 
+type AyudaEstado = "pendiente" | "preparacion" | "revision" | "aprobado";
+
+function parseEstadoAyuda(value: unknown): AyudaEstado | undefined {
+  if (
+    value === "pendiente" ||
+    value === "preparacion" ||
+    value === "revision" ||
+    value === "aprobado"
+  ) {
+    return value;
+  }
+  return undefined;
+}
+
 export const Route = createFileRoute("/mi-espacio/ayuda")({
-  validateSearch: (s: Record<string, unknown>): { track: Track; perfil?: PerfilTipo } => {
+  validateSearch: (
+    s: Record<string, unknown>,
+  ): {
+    track: Track;
+    perfil?: PerfilTipo;
+    estado?: AyudaEstado;
+    origen?: "informativo";
+    slug?: string;
+  } => {
     const perfil = parsePerfil(s);
-    return { track: parseTrack(s), ...(perfil ? { perfil } : {}) };
+    const estado = parseEstadoAyuda(s.estado);
+    // Solo para el recorrido de perfiles informativos (prototipo): se
+    // conservan opcionalmente para poder volver a Mi Espacio sin perderlos.
+    const origen = s.origen === "informativo" ? ("informativo" as const) : undefined;
+    const slug = typeof s.slug === "string" && s.slug.length > 0 ? s.slug : undefined;
+    return {
+      track: parseTrack(s),
+      ...(perfil ? { perfil } : {}),
+      ...(estado ? { estado } : {}),
+      ...(origen ? { origen } : {}),
+      ...(slug ? { slug } : {}),
+    };
   },
   component: Ayuda,
 });
@@ -312,7 +345,15 @@ function Accordion({ id, question, children }: { id: string; question: string; c
 }
 
 function Ayuda() {
-  const { track, perfil } = Route.useSearch();
+  const { track, perfil, estado, origen, slug } = Route.useSearch();
+  // Contexto que se devuelve intacto al volver a Mi Espacio.
+  const contexto = {
+    track,
+    ...(perfil ? { perfil } : {}),
+    ...(estado ? { estado } : {}),
+    ...(origen ? { origen } : {}),
+    ...(slug ? { slug } : {}),
+  };
   const [hoveredResource, setHoveredResource] = useState<number | null>(null);
 
   const esOrganizacion = esPlanOrganizacion(track);
@@ -377,7 +418,7 @@ function Ayuda() {
         <div style={{ fontSize: 12, color: "var(--muted-foreground)", marginBottom: 12 }}>
           Nuestro equipo responderá lo antes posible.
         </div>
-        <NavButton to="/mi-espacio/ayuda" search={{ track, ...(perfil ? { perfil } : {}) }}>
+        <NavButton to="/mi-espacio/ayuda" search={contexto}>
           Enviar un mensaje
         </NavButton>
       </Box>
@@ -416,7 +457,7 @@ function Ayuda() {
       </Box>
 
       <Box title="Volver">
-        <NavButton to="/mi-espacio" search={{ track, ...(perfil ? { perfil } : {}) }} variant="secondary">
+        <NavButton to="/mi-espacio" search={contexto} variant="secondary">
           ← Volver a Mi Espacio
         </NavButton>
       </Box>
