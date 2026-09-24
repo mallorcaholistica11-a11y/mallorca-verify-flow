@@ -37,6 +37,7 @@ export function FichaPublica({
   perfilInformativo = false,
   perfilGestionado = false,
   enlaceGestionPerfil,
+  slugPerfil,
   origenPracticas,
 }: {
   data: FichaPublicaData;
@@ -44,6 +45,7 @@ export function FichaPublica({
   perfilInformativo?: boolean;
   perfilGestionado?: boolean;
   enlaceGestionPerfil?: "/gestionar-perfil/$slug";
+  slugPerfil?: string;
   origenPracticas?: OrigenFichaPractica;
 }) {
   const isMobile = useMobile();
@@ -56,6 +58,7 @@ export function FichaPublica({
       perfilInformativo={perfilInformativo}
       perfilGestionado={perfilGestionado}
       enlaceGestionPerfil={enlaceGestionPerfil}
+      slugPerfil={slugPerfil}
     />
   );
 
@@ -341,11 +344,13 @@ function BarraLateral({
   perfilInformativo,
   perfilGestionado,
   enlaceGestionPerfil,
+  slugPerfil,
 }: {
   data: FichaPublicaData;
   perfilInformativo?: boolean;
   perfilGestionado?: boolean;
   enlaceGestionPerfil?: "/gestionar-perfil/$slug";
+  slugPerfil?: string;
 }) {
   const ubicaciones = data.ubicaciones ?? [];
   const contacto = data.contacto;
@@ -447,7 +452,7 @@ function BarraLateral({
       </Seccion>
 
       {perfilInformativo && !perfilGestionado && (
-        <SeccionPerfilInformativo tipo="profesional" enlaceGestion={enlaceGestionPerfil} />
+        <SeccionPerfilInformativo tipo="profesional" enlaceGestion={enlaceGestionPerfil} slug={slugPerfil} />
       )}
     </>
   );
