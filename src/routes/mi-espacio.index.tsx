@@ -17,10 +17,13 @@ function parseEstado(s: Record<string, unknown>): EspacioEstado | undefined {
 export const Route = createFileRoute("/mi-espacio/")({
   validateSearch: (
     s: Record<string, unknown>,
-  ): { track: Track; estado?: EspacioEstado; perfil?: PerfilTipo } => ({
+  ): { track: Track; estado?: EspacioEstado; perfil?: PerfilTipo; origen?: "informativo"; slug?: string } => ({
     track: parseTrack(s),
     estado: parseEstado(s),
     perfil: parsePerfil(s),
+    // Solo para el perfil informativo que acaba de tomar el control (prototipo).
+    origen: s.origen === "informativo" ? "informativo" : undefined,
+    slug: typeof s.slug === "string" && s.slug.length > 0 ? s.slug : undefined,
   }),
   component: MiEspacio,
 });
@@ -28,7 +31,8 @@ export const Route = createFileRoute("/mi-espacio/")({
 const cardLinkStyle = { textDecoration: "none", color: "inherit", flex: 1, minWidth: 220 } as const;
 
 function MiEspacio() {
-  const { track, estado: estadoSearch, perfil } = Route.useSearch();
+  const { track, estado: estadoSearch, perfil, origen, slug } = Route.useSearch();
+  const desdeInformativo = track === "presencia" && origen === "informativo" && !!slug && !!perfil;
 
   // Recorridos actuales de los dos planes de pago, incluidos los miembros
   // fundadores: Mi Espacio es la única pantalla y no se duplica.
