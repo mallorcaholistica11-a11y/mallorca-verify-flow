@@ -7,11 +7,33 @@ import { useMobile } from "@/components/ficha/useMobile";
 
 const PASOS = ["bienvenida", "contacto", "excepcion", "codigo", "cuenta", "completado"] as const;
 type Paso = (typeof PASOS)[number];
+// "introduccion" ya no es una pantalla: se conserva solo como dirección de
+// entrada (p. ej. «Anterior» del formulario) y redirige a Mi Espacio.
+type PasoEntrada = Paso | "introduccion";
 
 export const Route = createFileRoute("/gestionar-perfil/$slug")({
-  validateSearch: (s: Record<string, unknown>): { paso?: Paso } => ({
-    paso: typeof s.paso === "string" && (PASOS as readonly string[]).includes(s.paso) ? (s.paso as Paso) : undefined,
+  validateSearch: (s: Record<string, unknown>): { paso?: PasoEntrada } => ({
+    paso:
+      s.paso === "introduccion"
+        ? "introduccion"
+        : typeof s.paso === "string" && (PASOS as readonly string[]).includes(s.paso)
+          ? (s.paso as Paso)
+          : undefined,
   }),
+  beforeLoad: ({ params, search }) => {
+    if (search.paso === "introduccion") {
+      throw redirect({
+        to: "/mi-espacio",
+        search: {
+          track: "presencia",
+          perfil: params.slug === "espai-bellver" ? "organization" : "professional",
+          origen: "informativo",
+          slug: params.slug,
+          estado: "pendiente",
+        },
+      });
+    }
+  },
   head: ({ params }) => ({
     meta: [
       { title: "Gestiona tu perfil · Mallorca Holística" },
