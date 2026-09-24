@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate, redirect } from "@tanstack/react-router";
 import { useState, type FormEvent, type ReactNode } from "react";
 import { ArrowLeft, Check, Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -70,7 +70,7 @@ function GestionarPerfil() {
   const { slug } = Route.useParams();
   const navigate = useNavigate();
   const { paso: pasoInicial } = Route.useSearch();
-  const [paso, setPaso] = useState<Paso>(pasoInicial ?? "bienvenida");
+  const [paso, setPaso] = useState<Paso>(pasoInicial && pasoInicial !== "introduccion" ? pasoInicial : "bienvenida");
   const [canal, setCanal] = useState<Canal>("email");
   const [codigo, setCodigo] = useState("");
   const [solicitudEnviada, setSolicitudEnviada] = useState(false);
