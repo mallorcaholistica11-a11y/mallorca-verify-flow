@@ -3938,11 +3938,13 @@ function PresenciaProfesionalFormulario() {
   const navigate = useNavigate();
   // Flujo de gestión de un perfil informativo existente (prototipo, Elena Rossell).
   const desdeInformativo = origen === "informativo" && typeof slug === "string" && slug.length > 0;
+  // La precarga de demostración solo corresponde a la ficha de Elena Rossell.
+  const precargaElena = desdeInformativo && slug === "elena-rossell";
   // Edición del mismo formulario desde Mi Espacio › Mi Perfil (prototipo, sin persistencia).
   const desdeMiEspacio = origen === "mi-espacio";
-  const precargaNombre = desdeInformativo ? "Elena" : desdeMiEspacio ? "Lucía" : undefined;
-  const precargaApellidos = desdeInformativo ? "Rossell" : desdeMiEspacio ? "Gelabert" : undefined;
-  const precargaUbicacion = desdeInformativo ? "Inca" : desdeMiEspacio ? "Palma" : "";
+  const precargaNombre = precargaElena ? "Elena" : desdeMiEspacio ? "Lucía" : undefined;
+  const precargaApellidos = precargaElena ? "Rossell" : desdeMiEspacio ? "Gelabert" : undefined;
+  const precargaUbicacion = precargaElena ? "Inca" : desdeMiEspacio ? "Palma" : "";
   const [step, setStep] = useState(1);
   const total = 6;
   const isLast = step === total;
