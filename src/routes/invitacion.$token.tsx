@@ -48,7 +48,10 @@ function Invitacion() {
       <Note>Token recibido por URL: <code>{token}</code></Note>
       <Box title="Estado">
         <p style={{ fontSize: 13 }}>✓ Invitación válida ({isOrg ? "Centros, Espacios & Organizadores" : "Profesional Verificado"} · Comunidad Fundadora)</p>
-        <p style={{ fontSize: 13 }}>Tu plaza permanecerá reservada durante 10 días.</p>
+        <p style={{ fontSize: 13 }}>
+          Tu plaza estará reservada durante 10 días desde el envío de esta invitación. Pasado este
+          plazo, podremos ofrecerla a otra persona de la lista de espera.
+        </p>
         <p style={{ fontSize: 13 }}>
           Para confirmarla, solo necesitas aceptar la invitación y crear tu cuenta. Después podrás
           completar tu perfil con tranquilidad.
@@ -62,7 +65,7 @@ function Invitacion() {
       <Box title="Beneficios fundadores activos">
         <ul style={{ fontSize: 13, paddingLeft: 18 }}>
           <li>6 meses gratuitos desde el lanzamiento oficial</li>
-          <li>{isOrg ? "35 €/mes (IVA incluido), mantenidos durante 24 meses mientras la suscripción permanezca activa" : "15 €/mes (IVA incluido), mantenidos durante 24 meses mientras la suscripción permanezca activa"}</li>
+          <li>{isOrg ? "Después de los 6 meses gratuitos, 35 €/mes (IVA incluido) durante los 24 meses siguientes, mientras la suscripción permanezca activa" : "Después de los 6 meses gratuitos, 15 €/mes (IVA incluido) durante los 24 meses siguientes, mientras la suscripción permanezca activa"}</li>
         </ul>
       </Box>
       <NavButton

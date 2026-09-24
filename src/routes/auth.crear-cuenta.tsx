@@ -73,9 +73,9 @@ function CrearCuenta() {
       {fundador && (
         <Note>
           Tu cuenta conservará tus condiciones como miembro de la Comunidad Fundadora: 6 meses
-          gratuitos desde el lanzamiento oficial y{" "}
-          {esOrganizacion ? "35 €/mes" : "15 €/mes"} (IVA incluido) después, mantenidos durante 24
-          meses mientras la suscripción permanezca activa.
+          gratuitos desde el lanzamiento oficial. Después de esos 6 meses, la suscripción será de{" "}
+          {esOrganizacion ? "35 €/mes" : "15 €/mes"} (IVA incluido) durante los 24 meses siguientes,
+          mientras la suscripción permanezca activa.
         </Note>
       )}
       <Box title="Formulario">

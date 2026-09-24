@@ -3188,7 +3188,7 @@ function Paso7ProfesionalFundador({
       autoriza={autoriza}
       onToggle={onToggle}
       precio="15 €/mes"
-      planLabel="Profesional Verificado · Miembro Fundador"
+      planLabel="Profesional Verificado · Comunidad Fundadora"
       contratacion={contratacion}
       onToggleContratacion={onToggleContratacion}
     />
@@ -3222,13 +3222,13 @@ function Paso7Fundador({
           {planLabel ?? `Plan ${planNombre}.`}
         </p>
         <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
-          Tus condiciones como miembro fundador:
+          Tus condiciones de la Comunidad Fundadora:
         </p>
         <ul style={{ fontSize: 13, paddingLeft: 20, marginBottom: 8, lineHeight: 1.8 }}>
           <li>✓ 6 meses gratuitos desde el lanzamiento oficial de Mallorca Holística.</li>
-          <li>✓ Después, {precio} (IVA incluido).</li>
+          <li>✓ Después de esos 6 meses gratuitos, {precio} (IVA incluido) durante los 24 meses siguientes.</li>
           <li>
-            ✓ Este precio fundador se mantendrá durante 24 meses mientras mantengas activa tu
+            ✓ Este precio fundador se mantendrá durante esos 24 meses mientras mantengas activa tu
             suscripción.
           </li>
           <li>✓ Sin permanencia.</li>
@@ -3252,7 +3252,7 @@ function Paso7Fundador({
           <li>
             el perfil haya sido aprobado{esEntidad ? " como Entidad Verificada" : ""};
           </li>
-          <li>haya finalizado el periodo gratuito Founder correspondiente.</li>
+          <li>hayan finalizado los 6 meses gratuitos desde el lanzamiento oficial.</li>
         </ol>
         <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>
           Si la solicitud no es aprobada, la suscripción no se activa y no se realiza ningún cargo.
@@ -3267,8 +3267,8 @@ function Paso7Fundador({
         title="Autorización"
         label={
           planLabel
-            ? `Autorizo a Mallorca Holística a registrar mi método de pago mediante Stripe y, una vez aprobado mi perfil y finalizado el periodo gratuito de 6 meses que me corresponde como Miembro Fundador, activar mi suscripción de ${precio} (IVA incluido), precio mantenido durante 24 meses mientras la suscripción permanezca activa, salvo cancelación previa.`
-            : `Autorizo a Mallorca Holística a registrar mi método de pago mediante Stripe y, una vez aprobado mi perfil y finalizado el periodo gratuito de lanzamiento que me corresponda, activar mi suscripción de Miembro Fundador de ${precio} (IVA incluido), salvo cancelación previa.`
+            ? `Autorizo a Mallorca Holística a registrar mi método de pago mediante Stripe y, una vez aprobado mi perfil y finalizados los 6 meses gratuitos desde el lanzamiento oficial, activar mi suscripción de ${precio} (IVA incluido) durante los 24 meses siguientes mientras la suscripción permanezca activa, salvo cancelación previa.`
+            : "Autorizo a Mallorca Holística a registrar el método de pago mediante Stripe. Dispondré de 6 meses gratuitos desde el lanzamiento oficial. Después de esos 6 meses, y solo cuando el perfil haya sido aprobado, podrá activarse la suscripción de 35 €/mes (IVA incluido) durante los 24 meses siguientes mientras permanezca activa, salvo cancelación previa. No se realizará ningún cargo mientras la solicitud esté pendiente de aprobación. Antes del primer cobro, Mallorca Holística enviará un aviso por correo indicando la fecha y el importe. Si la solicitud no es aprobada, la suscripción no se activa y no se realiza ningún cargo."
         }
         checked={autoriza}
         onToggle={onToggle}

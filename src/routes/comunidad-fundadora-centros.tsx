@@ -64,13 +64,13 @@ function InvitacionFundadoraCentros() {
         <ul style={{ paddingLeft: 18, fontSize: 13 }}>
           <li>✨ Hasta 10 Centros, Espacios & Organizadores Fundadores.</li>
           <li>✨ 6 meses gratuitos desde el lanzamiento oficial.</li>
-          <li>✨ Tarifa Fundadora de 35 €/mes (IVA incluido), mantenida durante 24 meses mientras la suscripción permanezca activa.</li>
+          <li>✨ Después de los 6 meses gratuitos, Tarifa Fundadora de 35 €/mes (IVA incluido) durante los 24 meses siguientes, mientras la suscripción permanezca activa.</li>
         </ul>
       </Box>
 
       <Box title="Ventaja Fundadora">
         <p style={{ fontSize: 13 }}>
-          <strong>35 €/mes (IVA incluido), mantenidos durante 24 meses mientras la suscripción permanezca activa.</strong>
+          <strong>Después de los 6 meses gratuitos: 35 €/mes (IVA incluido) durante los 24 meses siguientes, mientras la suscripción permanezca activa.</strong>
         </p>
         <p style={{ fontSize: 13 }}>+ 6 meses gratuitos desde el lanzamiento oficial.</p>
         <p style={{ fontSize: 13, color: "var(--muted-foreground)" }}>(Precio estándar del plan: 50 €/mes IVA incluido.)</p>
@@ -87,8 +87,8 @@ function InvitacionFundadoraCentros() {
 
       <Box title="Acciones">
         <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 8px 0" }}>
-          Tu plaza queda reservada durante 10 días. Para confirmarla, solo necesitas aceptar la
-          invitación y crear tu cuenta. Después podrás completar tu perfil con tranquilidad.
+          Tu plaza estará reservada durante 10 días desde el envío de esta invitación. Pasado este
+          plazo, podremos ofrecerla a otra persona de la lista de espera.
         </p>
         <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 8px 0" }}>
           Si sientes que ahora no es el momento para ti, te agradeceremos que nos lo comuniques durante
