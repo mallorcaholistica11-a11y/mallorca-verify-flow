@@ -33,6 +33,16 @@ const cardLinkStyle = { textDecoration: "none", color: "inherit", flex: 1, minWi
 function MiEspacio() {
   const { track, estado: estadoSearch, perfil, origen, slug } = Route.useSearch();
   const desdeInformativo = track === "presencia" && origen === "informativo" && !!slug && !!perfil;
+  // Contexto que se conserva al navegar a las secciones internas. Para un
+  // perfil informativo incluye también origen, slug y estado; para el resto
+  // de recorridos queda exactamente como antes (track y, si existe, perfil).
+  const contexto = {
+    track,
+    ...(perfil ? { perfil } : {}),
+    ...(desdeInformativo
+      ? { origen: "informativo" as const, slug, ...(estadoSearch ? { estado: estadoSearch } : {}) }
+      : {}),
+  };
 
   // Recorridos actuales de los dos planes de pago, incluidos los miembros
   // fundadores: Mi Espacio es la única pantalla y no se duplica.
@@ -98,7 +108,7 @@ function MiEspacio() {
         </div>
 
         <Row>
-          <Link to="/mi-espacio/perfil" search={{ track, ...(perfil ? { perfil } : {}) }} style={cardLinkStyle}>
+          <Link to="/mi-espacio/perfil" search={contexto} style={cardLinkStyle}>
             <Card title="👤 Mi Perfil">
               {track === "presencia"
                 ? "Consulta el estado de tu perfil y mantén tu información actualizada."
@@ -114,14 +124,14 @@ function MiEspacio() {
           )}
         </Row>
         <Row>
-          <Link to="/mi-espacio/suscripcion" search={{ track, ...(perfil ? { perfil } : {}) }} style={cardLinkStyle}>
+          <Link to="/mi-espacio/suscripcion" search={contexto} style={cardLinkStyle}>
             <Card title="💳 Mi Suscripción">
               {track === "presencia"
                 ? "Consulta la información de tu Plan Presencia."
                 : "Consulta tu plan actual, tu método de pago y la información de tu suscripción."}
             </Card>
           </Link>
-          <Link to="/mi-espacio/ayuda" search={{ track, ...(perfil ? { perfil } : {}) }} style={cardLinkStyle}>
+          <Link to="/mi-espacio/ayuda" search={contexto} style={cardLinkStyle}>
             <Card title="❓ Ayuda">
               Resuelve tus dudas, consulta las preguntas más frecuentes o ponte en contacto con nosotros si necesitas ayuda.
             </Card>
@@ -170,7 +180,7 @@ function MiEspacio() {
       </div>
 
       <Row>
-        <Link to="/mi-espacio/perfil" search={{ track, ...(perfil ? { perfil } : {}) }} style={cardLinkStyle}>
+        <Link to="/mi-espacio/perfil" search={contexto} style={cardLinkStyle}>
           <Card title="👤 Mi Perfil">
             {track === "presencia"
               ? "Consulta el estado de tu perfil y mantén tu información actualizada."
@@ -186,14 +196,14 @@ function MiEspacio() {
         )}
       </Row>
       <Row>
-        <Link to="/mi-espacio/suscripcion" search={{ track, ...(perfil ? { perfil } : {}) }} style={cardLinkStyle}>
+        <Link to="/mi-espacio/suscripcion" search={contexto} style={cardLinkStyle}>
           <Card title="💳 Mi Suscripción">
             {track === "presencia"
               ? "Consulta la información de tu Plan Presencia."
               : "Consulta tu plan actual, tu método de pago y la información de tu suscripción."}
           </Card>
         </Link>
-        <Link to="/mi-espacio/ayuda" search={{ track, ...(perfil ? { perfil } : {}) }} style={cardLinkStyle}>
+        <Link to="/mi-espacio/ayuda" search={contexto} style={cardLinkStyle}>
           <Card title="❓ Ayuda">
             Resuelve tus dudas, consulta las preguntas más frecuentes o ponte en contacto con nosotros si necesitas ayuda.
           </Card>
