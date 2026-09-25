@@ -46,7 +46,7 @@ const FEATURES = [
     icon: UserRound,
     items: [
       "Perfil profesional completo en el Directorio de Mallorca Holística.",
-      "Sello Profesional Verificado de Mallorca Holística.",
+      "✦ Sello Mallorca Holística, una vez aprobado el perfil.",
       "Fotografía principal.",
       "Presentación ampliada de tu actividad profesional.",
       "Formación y trayectoria profesional.",
@@ -160,7 +160,7 @@ function PlanProfesionalVerificado() {
                 Por ejemplo: masajistas, acupuntores, terapeutas y otros profesionales que trabajan principalmente mediante sesiones individuales.
               </p>
               <p>
-                Permite presentar de forma más completa tu actividad profesional, facilitar que las personas te encuentren y conozcan tus servicios, contar con el sello Profesional Verificado de Mallorca Holística y publicar 1 actividad grupal al mes en la Agenda.
+                Permite presentar de forma más completa tu actividad profesional, facilitar que las personas te encuentren y conozcan tus servicios, contar con el ✦ Sello Mallorca Holística una vez aprobado el perfil y publicar 1 actividad grupal al mes en la Agenda.
               </p>
             </div>
           </div>
@@ -268,7 +268,7 @@ function PlanProfesionalVerificado() {
             </h2>
           </div>
           <p className="mb-4 max-w-[760px] text-[0.78rem] leading-relaxed text-muted-foreground md:text-[0.8rem]">
-            Para obtener el sello Profesional Verificado:
+            Para obtener el ✦ Sello Mallorca Holística:
           </p>
           <ul className="grid grid-cols-1 gap-y-2 sm:hidden">
             {VERIFICATION_ITEMS.map((item) => (
