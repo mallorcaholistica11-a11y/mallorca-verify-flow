@@ -57,7 +57,7 @@ const PLANES: Plan[] = [
     priceNote: "IVA incluido · Sin permanencia",
     lead: "Para profesionales que quieren dar visibilidad principalmente a sus sesiones y servicios individuales.",
     description:
-      "Puedes tener tu propia consulta, trabajar en diferentes lugares y ofrecer también actividades grupales.",
+      "Tu actividad puede desarrollarse desde tu propia consulta, en diferentes lugares e incluir también actividades grupales.",
     highlight: "1 actividad grupal al mes en la Agenda.",
     sello: true,
     to: "/profesional-fundador",
@@ -71,7 +71,7 @@ const PLANES: Plan[] = [
     priceNote: "IVA incluido · Sin permanencia",
     lead: "Para quienes quieren mostrar una propuesta más amplia: un proyecto, espacio, servicios y actividades.",
     description:
-      "Puedes desarrollar tu propuesta de forma individual o con otros profesionales y ofrecer también sesiones y servicios individuales.",
+      "Tu propuesta puede desarrollarse de forma individual o junto a otros profesionales e incluir también sesiones y servicios individuales.",
     highlight: "Actividades grupales ilimitadas en la Agenda.",
     sello: true,
     to: "/comunidad-fundadora-organizaciones",
@@ -85,8 +85,8 @@ const ENCAJE = [
     title: "Profesional Verificado",
     price: "25 €/mes",
     lines: [
-      "Quiero mostrarme como profesional y dar visibilidad principalmente a mis sesiones y servicios individuales.",
-      "Puedo tener mi propia consulta, atender en diferentes lugares y ofrecer también actividades grupales.",
+      "Mi actividad se centra principalmente en sesiones y servicios individuales.",
+      "Puedo trabajar desde mi propia consulta, atender en diferentes lugares y ofrecer también actividades grupales.",
     ],
     highlight: "1 actividad grupal al mes en la Agenda",
   },
@@ -95,7 +95,7 @@ const ENCAJE = [
     price: "50 €/mes",
     lines: [
       "Quiero mostrar una propuesta más amplia: mi proyecto, espacio, equipo, servicios y actividades.",
-      "Puedo desarrollar mi propuesta de forma individual o con otros profesionales y ofrecer también sesiones y servicios individuales.",
+      "Puedo desarrollarla de forma individual o junto a otros profesionales e incluir también sesiones y servicios individuales.",
     ],
     highlight: "Actividades grupales ilimitadas en la Agenda",
   },
@@ -103,10 +103,10 @@ const ENCAJE = [
 
 function Sello() {
   return (
-    <span className="inline-flex items-center gap-1 rounded-full border border-champagne bg-champagne-light/70 px-2.5 py-0.5 text-[0.62rem] font-medium tracking-[0.04em] text-warm-brown">
-      <span aria-hidden="true" className="text-[oklch(0.62_0.08_78)]">✦</span>
+    <p className="flex items-center justify-center gap-1.5 text-[0.7rem] font-medium tracking-[0.03em] text-[oklch(0.56_0.085_75)]">
+      <span aria-hidden="true">✦</span>
       Sello Mallorca Holística
-    </span>
+    </p>
   );
 }
 
@@ -185,11 +185,15 @@ function SoyProfesional() {
                       {plan.highlight}
                     </p>
                   )}
-                  {plan.sello && <Sello />}
                 </div>
               </div>
 
               <div className="mt-4 text-center">
+                {plan.sello && (
+                  <div className="mb-3.5">
+                    <Sello />
+                  </div>
+                )}
                 <div className="mb-0.5 font-display text-[1.4rem] font-medium leading-none text-charcoal">
                   {plan.price}
                 </div>
