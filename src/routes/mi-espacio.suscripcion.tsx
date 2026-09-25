@@ -135,8 +135,7 @@ const INCLUYE_ORGANIZACION = [
   {
     titulo: "Tu perfil",
     items: [
-      "Perfil de Entidad Verificada.",
-      "Sello Entidad Verificada.",
+      "Perfil verificado con ✦ Sello Mallorca Holística.",
       "Perfil público en el Directorio.",
       "Información ampliada del centro, espacio o proyecto.",
       "Múltiples ubicaciones.",
@@ -411,7 +410,7 @@ function CondicionesFundadoras({
       </p>
       <p style={{ ...paragraphStyle, margin: 0 }}>
         El primer cobro se realizará únicamente cuando tu perfil haya sido aprobado
-        {entidad ? " como Entidad Verificada" : ""} y haya
+        {entidad ? " y concedido el ✦ Sello Mallorca Holística" : ""} y haya
         finalizado tu periodo gratuito. Si tu perfil no es aprobado, la suscripción no se activa y
         no se realiza ningún cobro.
       </p>

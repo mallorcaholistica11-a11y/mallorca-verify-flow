@@ -21,7 +21,7 @@ function conSuscripcionFundadora(
   entidad = false,
 ): FaqGroup[] {
   const aprobado = entidad
-    ? "tu perfil haya sido aprobado como Entidad Verificada"
+    ? "tu perfil haya sido aprobado y se le haya concedido el ✦ Sello Mallorca Holística"
     : "tu perfil haya sido aprobado";
   return grupos.map((grupo) =>
     grupo.titulo !== "Suscripción"
@@ -179,11 +179,11 @@ const FAQ_CENTROS: FaqGroup[] = [
       },
       {
         q: "¿Por qué mi perfil está en revisión?",
-        a: "Los perfiles que solicitan la verificación de Mallorca Holística pasan por un proceso de revisión antes de ser publicados como Entidad Verificada. Revisaremos la información y documentación presentada y te avisaremos por correo electrónico cuando el proceso haya finalizado.",
+        a: "Los perfiles que solicitan la verificación de Mallorca Holística pasan por un proceso de revisión antes de ser publicados con el ✦ Sello Mallorca Holística. Revisaremos la información y documentación presentada y te avisaremos por correo electrónico cuando el proceso haya finalizado.",
       },
       {
-        q: "¿Qué significa \"Entidad Verificada\"?",
-        a: "Significa que Mallorca Holística ha revisado la información y la documentación presentada dentro de su proceso de verificación. Una vez completada la revisión, el perfil podrá mostrar el sello Entidad Verificada.",
+        q: "¿Qué significa el Sello Mallorca Holística?",
+        a: "Significa que Mallorca Holística ha revisado la información y la documentación presentada dentro de su proceso de verificación. Indica que el perfil ha completado ese proceso de verificación y ha sido aprobado, por lo que puede mostrar el ✦ Sello Mallorca Holística.",
       },
     ],
   },
@@ -221,7 +221,7 @@ const FAQ_CENTROS: FaqGroup[] = [
       },
       {
         q: "¿Cuándo se realizará el primer cobro?",
-        a: "El primer cobro se realizará únicamente cuando tu perfil haya sido aprobado como Entidad Verificada y haya finalizado el periodo gratuito de lanzamiento. Si tu perfil se aprueba durante el periodo gratuito, no se realizará ningún cobro hasta que este finalice. Si se aprueba después de finalizar ese periodo, la suscripción comenzará a partir de su aprobación.\n\nMallorca Holística te informará por email antes del primer cobro de la suscripción, indicándote la fecha y el importe, para que puedas decidir con tiempo si deseas continuar o cancelar tu suscripción.",
+        a: "El primer cobro se realizará únicamente cuando tu perfil haya sido aprobado y se le haya concedido el ✦ Sello Mallorca Holística y haya finalizado el periodo gratuito de lanzamiento. Si tu perfil se aprueba durante el periodo gratuito, no se realizará ningún cobro hasta que este finalice. Si se aprueba después de finalizar ese periodo, la suscripción comenzará a partir de su aprobación.\n\nMallorca Holística te informará por email antes del primer cobro de la suscripción, indicándote la fecha y el importe, para que puedas decidir con tiempo si deseas continuar o cancelar tu suscripción.",
       },
       {
         q: "¿Qué ocurre si mi solicitud no es aprobada?",
@@ -257,7 +257,7 @@ const FAQ_PRESENCIA: FaqGroup[] = [
       },
       {
         q: "¿Por qué mi perfil aparece “En revisión”?",
-        a: "Antes de publicar un perfil, Mallorca Holística realiza una revisión básica de la información enviada para comprobar que el perfil está correctamente cumplimentado y encaja en el Directorio. Esta revisión no es una verificación documental ni otorga el sello de Profesional Verificado o Entidad Verificada.",
+        a: "Antes de publicar un perfil, Mallorca Holística realiza una revisión básica de la información enviada para comprobar que el perfil está correctamente cumplimentado y encaja en el Directorio. Esta revisión no es una verificación documental ni otorga el ✦ Sello Mallorca Holística.",
       },
       {
         q: "¿Cuándo aparecerá publicado mi perfil?",
