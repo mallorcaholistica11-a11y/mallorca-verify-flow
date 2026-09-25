@@ -429,8 +429,9 @@ function CondicionesOrganizacion() {
         Holística. La fecha se comunicará antes de la activación de las suscripciones.
       </p>
       <p style={{ ...paragraphStyle, margin: 0 }}>
-        El primer cobro se realizará únicamente cuando el perfil haya sido aprobado como Entidad
-        Verificada y haya finalizado el periodo gratuito de lanzamiento.
+        El primer cobro se realizará únicamente cuando el perfil haya sido aprobado y se haya
+        concedido el ✦ Sello Mallorca Holística, y haya finalizado el periodo gratuito de
+        lanzamiento.
       </p>
       <p style={{ ...paragraphStyle, margin: 0 }}>
         Si el perfil se aprueba durante el periodo gratuito, no se realizará ningún cobro hasta que
