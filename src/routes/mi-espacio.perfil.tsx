@@ -328,7 +328,7 @@ const ESTADO_PERFIL_CENTRO: Record<PerfilEstado, { estado: string; verificacion:
   pendiente: { estado: "Pendiente de completar", verificacion: "Pendiente de verificar" },
   preparacion: { estado: "Pendiente de completar", verificacion: "Pendiente de verificar" },
   revision: { estado: "En revisión", verificacion: "Verificación en proceso" },
-  aprobado: { estado: "Publicado", verificacion: "Entidad Verificada" },
+  aprobado: { estado: "Publicado", verificacion: "✦ Sello Mallorca Holística" },
 };
 
 function MiPerfilCentro({
@@ -361,7 +361,7 @@ function MiPerfilCentro({
       {!estaAprobado && !estaEnRevision && (
         <Box title="Tu perfil todavía está pendiente">
           <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 12px" }}>
-            Completa el perfil de vuestra entidad para enviarlo a revisión y solicitar su verificación.
+            Completa la información de este perfil para enviarlo a revisión y solicitar su verificación.
           </p>
           <NavButton to="/dashboard/formulario" search={busquedaFormulario(track, perfil)}>
             Completar mi perfil
@@ -372,7 +372,7 @@ function MiPerfilCentro({
       {estaEnRevision && (
         <Box title="Tu perfil está en revisión">
           <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 12px" }}>
-            Estamos revisando la información enviada. Podéis seguir actualizando vuestro perfil
+            Estamos revisando la información enviada. Puedes seguir actualizando el perfil
             mientras se completa el proceso de verificación.
           </p>
           <NavButton to="/dashboard/formulario" search={busquedaFormulario(track, perfil)}>
@@ -384,7 +384,7 @@ function MiPerfilCentro({
       {estaAprobado && (
         <Box title="Tu perfil está publicado">
           <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 12px" }}>
-            Tu perfil está publicado en Mallorca Holística como Entidad Verificada.
+            Tu perfil está publicado en Mallorca Holística y cuenta con el ✦ Sello Mallorca Holística.
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             <NavButton to="/dashboard/formulario" search={busquedaFormulario(track, perfil)}>

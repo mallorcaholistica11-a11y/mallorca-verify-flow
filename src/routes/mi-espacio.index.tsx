@@ -309,7 +309,7 @@ const ESTADOS_ORGANIZACION: Partial<Record<EspacioEstado, Partial<EstadoConfig>>
       "Cuando tu perfil haya sido aprobado, podrás publicar actividades grupales sin límite en la Agenda de Mallorca Holística.",
   },
   aprobado: {
-    titulo: "Entidad Verificada",
+    titulo: "Perfil verificado · ✦ Sello Mallorca Holística",
     ctaTo: "/centro/$slug",
     ctaParams: { slug: "espai-sa-font" },
     actividadesTexto:
