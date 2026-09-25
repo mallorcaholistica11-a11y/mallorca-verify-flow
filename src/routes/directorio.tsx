@@ -540,7 +540,7 @@ function TarjetaResultado({ r, isMobile }: { r: Resultado; isMobile: boolean }) 
           <div style={{ fontSize: 15, fontWeight: 600, letterSpacing: "-0.01em" }}>{r.nombre}</div>
           {r.verificado && (
             <span
-                style={{display: "inline-flex", alignItems: "center", gap: 5, color: "oklch(0.56 0.085 75)", fontSize: 11.5, fontWeight: 600, lineHeight: 1, whiteSpace: "nowrap", letterSpacing: "0.01em"}}
+                style={{display: "inline-flex", alignItems: "center", gap: 5, color: "oklch(0.48 0.09 70)", background: "oklch(0.96 0.03 85)", border: "1px solid oklch(0.80 0.07 80)", borderRadius: 999, padding: "4px 9px", fontSize: 11, fontWeight: 600, lineHeight: 1, whiteSpace: "nowrap", letterSpacing: "0.01em", cursor: "default"}}
               >
               ✦ Sello Mallorca Holística
             </span>
