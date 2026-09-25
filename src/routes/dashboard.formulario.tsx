@@ -3250,7 +3250,7 @@ function Paso7Fundador({
         </p>
         <ol style={{ fontSize: 13, paddingLeft: 20, marginBottom: 10, lineHeight: 1.8 }}>
           <li>
-            el perfil haya sido aprobado{esEntidad ? " y concedido el ✦ Sello Mallorca Holística" : ""};
+            el perfil haya sido aprobado{esEntidad ? " y se haya concedido el ✦ Sello Mallorca Holística" : ""};
           </li>
           <li>hayan finalizado los 6 meses gratuitos desde el lanzamiento oficial.</li>
         </ol>
