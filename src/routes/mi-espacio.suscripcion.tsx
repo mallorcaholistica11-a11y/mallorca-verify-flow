@@ -100,8 +100,7 @@ const INCLUYE_VERIFICADO = [
   {
     titulo: "Tu perfil",
     items: [
-      "Perfil Profesional Verificado.",
-      "Sello Profesional Verificado.",
+      "Perfil verificado con ✦ Sello Mallorca Holística.",
       "Perfil público en el Directorio.",
       "Fotografía principal.",
       "Presentación ampliada.",
@@ -457,8 +456,8 @@ function CondicionesProfesional() {
         Holística. La fecha se comunicará antes de la activación de las suscripciones.
       </p>
       <p style={{ ...paragraphStyle, margin: 0 }}>
-        El primer cobro se realizará únicamente cuando tu perfil haya sido aprobado como
-        Profesional Verificado y haya finalizado el periodo gratuito de lanzamiento.
+        El primer cobro se realizará únicamente cuando tu perfil haya sido aprobado y se le haya
+        concedido el ✦ Sello Mallorca Holística, y haya finalizado el periodo gratuito de lanzamiento.
       </p>
       <p style={{ ...paragraphStyle, margin: 0 }}>
         Si tu perfil se aprueba durante el periodo gratuito, no se realizará ningún cobro hasta que

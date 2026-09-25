@@ -104,11 +104,11 @@ const FAQ: FaqGroup[] = [
       },
       {
         q: "¿Por qué mi perfil está en revisión?",
-        a: "Todos los perfiles que solicitan la verificación de Mallorca Holística pasan por un proceso de revisión antes de ser publicados como Perfil Profesional Verificado. Revisaremos la información y documentación enviada y te avisaremos por correo electrónico cuando el proceso haya finalizado.",
+        a: "Todos los perfiles que solicitan la verificación de Mallorca Holística pasan por un proceso de revisión antes de ser publicados con el ✦ Sello Mallorca Holística. Revisaremos la información y documentación enviada y te avisaremos por correo electrónico cuando el proceso haya finalizado.",
       },
       {
-        q: "¿Qué significa \"Profesional Verificado\"?",
-        a: "Significa que Mallorca Holística ha revisado la información y la documentación profesional presentada dentro de su proceso de verificación. Una vez completada la revisión, el perfil podrá mostrar el sello Profesional Verificado.",
+        q: "¿Qué significa el Sello Mallorca Holística?",
+        a: "Significa que Mallorca Holística ha revisado la información y la documentación profesional presentada dentro de su proceso de verificación. Indica que el perfil ha completado ese proceso de verificación y ha sido aprobado, por lo que puede mostrar el ✦ Sello Mallorca Holística.",
       },
     ],
   },
@@ -117,7 +117,7 @@ const FAQ: FaqGroup[] = [
     items: [
       {
         q: "¿Por qué no puedo publicar actividades?",
-        a: "Puedes crear, guardar y preparar actividades desde Mi Espacio. Para enviarlas para revisión y que posteriormente puedan publicarse en la Agenda, tu perfil deberá haber sido aprobado como Profesional Verificado. Todas las actividades pasan por un proceso de revisión antes de su publicación.",
+        a: "Puedes crear, guardar y preparar actividades desde Mi Espacio. Para enviarlas para revisión y que posteriormente puedan publicarse en la Agenda, tu perfil deberá haber sido aprobado y contar con el ✦ Sello Mallorca Holística. Todas las actividades pasan por un proceso de revisión antes de su publicación.",
       },
       {
         q: "¿Qué tipo de actividades puedo publicar?",
@@ -146,7 +146,7 @@ const FAQ: FaqGroup[] = [
       },
       {
         q: "¿Cuándo se realizará el primer cobro?",
-        a: "El primer cobro se realizará únicamente cuando tu perfil haya sido aprobado como Profesional Verificado y haya finalizado el periodo gratuito de lanzamiento. Si tu perfil se aprueba después de finalizar ese periodo, la suscripción comenzará a partir de su aprobación.\n\nMallorca Holística te informará por email antes del primer cobro de la suscripción, indicándote la fecha y el importe, para que puedas decidir con tiempo si deseas continuar o cancelar tu suscripción.",
+        a: "El primer cobro se realizará únicamente cuando tu perfil haya sido aprobado y se le haya concedido el ✦ Sello Mallorca Holística, y haya finalizado el periodo gratuito de lanzamiento. Si tu perfil se aprueba después de finalizar ese periodo, la suscripción comenzará a partir de su aprobación.\n\nMallorca Holística te informará por email antes del primer cobro de la suscripción, indicándote la fecha y el importe, para que puedas decidir con tiempo si deseas continuar o cancelar tu suscripción.",
       },
       {
         q: "¿Qué ocurre si mi solicitud no es aprobada?",
