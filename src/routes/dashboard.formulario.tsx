@@ -1309,12 +1309,12 @@ const V_MODALIDADES_OPTIONS = V_MODALIDADES.filter((m) => m !== "Otro (especific
 // ---- Recorrido Organización (Centros, Espacios y Organizadores) ----
 
 const O_STEP_INTROS: Record<number, string> = {
-  1: "Empezamos con la información principal de vuestro centro, espacio o proyecto. Estos datos ayudarán a las personas a conoceros, ponerse en contacto con vosotros y generar confianza desde el primer momento.",
-  2: "Cuéntanos qué prácticas, actividades y propuestas ofrecéis. Esta información ayudará a las personas a comprender mejor vuestra actividad y a encontraros con mayor facilidad.",
-  3: "Indícanos dónde se encuentra vuestro espacio y qué instalaciones ofrece. Si disponéis de varias ubicaciones, podréis añadirlas todas.",
-  4: "Este es vuestro espacio para presentar la esencia de vuestro centro, espacio o proyecto. Compartid quiénes sois, qué ofrecéis y aquello que hace especial vuestra propuesta.",
-  5: "Añade los enlaces y canales de contacto que quieras compartir para que las personas puedan conoceros, reservar una sesión o una actividad y ponerse en contacto con vosotros.",
-  6: "Ya casi habéis terminado. Para mantener la calidad y la confianza de Mallorca Holística necesitamos verificar algunos aspectos de vuestra actividad. Este proceso nos ayuda a ofrecer un espacio más seguro tanto para quienes ofrecen acompañamiento como para las personas que lo buscan.",
+  1: "Empezamos con la información principal de tu propuesta. Estos datos ayudarán a las personas a conocerte, ponerse en contacto y generar confianza desde el primer momento.",
+  2: "Cuéntanos qué prácticas, actividades y propuestas ofreces. Esta información ayudará a las personas a comprender mejor la actividad y a encontrar el perfil con mayor facilidad.",
+  3: "Indica dónde se desarrolla la actividad y qué espacios o instalaciones forman parte de la propuesta. Si hay varias ubicaciones, puedes añadirlas todas.",
+  4: "Este es el espacio para presentar la esencia de tu propuesta: quién está detrás, qué ofrece y aquello que la hace especial.",
+  5: "Añade los enlaces y canales de contacto que quieras mostrar para que las personas puedan conocer la propuesta, reservar una sesión o actividad y ponerse en contacto.",
+  6: "Ya casi has terminado. Para mantener la calidad y la confianza de Mallorca Holística necesitamos verificar algunos aspectos de la actividad. Este proceso nos ayuda a ofrecer un espacio más seguro tanto para quienes ofrecen acompañamiento como para las personas que lo buscan.",
 };
 
 const O_TIPOS_PERFIL = [
@@ -1395,7 +1395,7 @@ function OWhatsAppMismo() {
   return (
     <div style={{ marginBottom: 12 }}>
       <div style={{ fontSize: 12, marginBottom: 6 }}>
-        ¿Utilizáis este mismo número para WhatsApp?
+        ¿Se utiliza este mismo número para WhatsApp?
       </div>
       <div style={{ display: "flex", gap: 8 }}>
         {[
@@ -2052,7 +2052,7 @@ function TarifasList({ variant = "profesional" }: { variant?: "profesional" | "o
     <div>
       <div style={{ fontSize: 13, marginBottom: 8 }}>
         {isOrg
-          ? "¿Queréis mostrar algunas tarifas en vuestro perfil?"
+          ? "¿Quieres mostrar algunas tarifas en el perfil?"
           : "¿Quieres mostrar tus tarifas en tu perfil público?"}
       </div>
       {opt(true, "Sí")}
@@ -2061,7 +2061,7 @@ function TarifasList({ variant = "profesional" }: { variant?: "profesional" | "o
         <div style={{ marginTop: 12 }}>
           {isOrg && (
             <div style={{ fontSize: 11, color: "var(--muted-foreground)", marginBottom: 10, lineHeight: 1.6 }}>
-              El importe se indica en euros. Podéis añadir una nota breve como “60 min”, “por persona”, “por hora” o “por día”.
+              El importe se indica en euros. Puedes añadir una nota breve como “60 min”, “por persona”, “por hora” o “por día”.
             </div>
           )}
           {items.map((it, idx) => (
@@ -2088,7 +2088,7 @@ function TarifasList({ variant = "profesional" }: { variant?: "profesional" | "o
           </button>
           <Note>
             {isOrg
-              ? "Podréis modificar estas tarifas siempre que lo necesitéis."
+              ? "Podrás modificar estas tarifas siempre que lo necesites."
               : "Podrás modificar estas tarifas siempre que lo necesites."}
           </Note>
         </div>
@@ -2433,7 +2433,7 @@ function VerificadoFormulario() {
             <>
               <Box title="Información del espacio / proyecto">
                 <FakeField label="Nombre del centro, espacio o proyecto *" />
-                <Ayuda>Es el nombre con el que las personas os encontrarán dentro de Mallorca Holística.</Ayuda>
+                <Ayuda>Es el nombre con el que las personas encontrarán el perfil dentro de Mallorca Holística.</Ayuda>
                 <FakeField label="Nombre comercial (opcional)" />
                 <SelectField label="Tipo de perfil *" options={O_TIPOS_PERFIL} />
               </Box>
@@ -2461,14 +2461,14 @@ function VerificadoFormulario() {
                   }}
                 />
                 <OWhatsAppMismo />
-                <Ayuda>Lo utilizaremos para gestionar vuestra cuenta y comunicarnos con vosotros. Más adelante podréis decidir si queréis mostrarlo públicamente en vuestro perfil.</Ayuda>
+                <Ayuda>Lo utilizaremos para gestionar la cuenta y mantener el contacto. Más adelante podrás decidir si quieres mostrarlo públicamente en el perfil.</Ayuda>
               </Box>
 
               <Box title="Identidad visual">
                 <FakeField label="Logo o imagen de marca (opcional)" type="file" />
-                <Ayuda>Si disponéis de un logotipo o imagen de marca podéis añadirlo aquí.</Ayuda>
+                <Ayuda>Si dispones de un logotipo o imagen de marca, puedes añadirlo aquí.</Ayuda>
                 <FakeField label="Imagen principal *" type="file" />
-                <Ayuda>Será la imagen principal que os representará en Mallorca Holística y es obligatoria para este plan.</Ayuda>
+                <Ayuda>Será la imagen principal que representará la propuesta en Mallorca Holística y es obligatoria para este plan.</Ayuda>
               </Box>
             </>
           ) : (
@@ -2590,37 +2590,37 @@ function VerificadoFormulario() {
           <Box title="Prácticas">
             <SelectorPracticas
               max={isOrg ? MAX_PRACTICAS_CENTRO : MAX_PRACTICAS_VERIFICADO}
-              label={isOrg ? "¿Qué prácticas o especialidades ofrecéis?" : undefined}
+              label={isOrg ? "¿Qué prácticas o especialidades ofreces?" : undefined}
               ayuda={
                 isOrg
-                  ? `Seleccionad hasta ${MAX_PRACTICAS_CENTRO} prácticas o especialidades. Las sugerencias no cuentan dentro de este límite ni se incorporan automáticamente al catálogo.`
+                  ? `Selecciona hasta ${MAX_PRACTICAS_CENTRO} prácticas o especialidades. Las sugerencias no cuentan dentro de este límite ni se incorporan automáticamente al catálogo.`
                   : `Selecciona hasta ${MAX_PRACTICAS_VERIFICADO} terapias, prácticas o especialidades que mejor representen tu actividad profesional.`
               }
-              sugerenciaPregunta={isOrg ? "¿No encontráis alguna de vuestras prácticas o especialidades? (opcional)" : undefined}
-              sugerenciaAyuda={isOrg ? "Podéis escribir varias sugerencias. Quedarán para revisión de Mallorca Holística y no se añadirán automáticamente al catálogo." : undefined}
-              sugerenciaPlaceholder={isOrg ? "Escribid aquí las prácticas o especialidades que no encontréis…" : undefined}
+              sugerenciaPregunta={isOrg ? "¿No encuentras alguna práctica o especialidad? (opcional)" : undefined}
+              sugerenciaAyuda={isOrg ? "Puedes escribir varias sugerencias. Quedarán para revisión de Mallorca Holística y no se añadirán automáticamente al catálogo." : undefined}
+              sugerenciaPlaceholder={isOrg ? "Escribe aquí las prácticas o especialidades que no encuentres…" : undefined}
             />
           </Box>
           <Box title="Áreas de Acompañamiento">
             <SelectorAreas
-              label={isOrg ? "¿En qué podéis acompañar?" : "¿En qué puedes acompañar?"}
+              label={isOrg ? "¿En qué se puede acompañar?" : "¿En qué puedes acompañar?"}
               ayuda={
                 isOrg
-                  ? `Seleccionad hasta ${MAX_AREAS_CENTRO} áreas. Las sugerencias no cuentan dentro de este límite ni se incorporan automáticamente al catálogo.`
+                  ? `Selecciona hasta ${MAX_AREAS_CENTRO} áreas. Las sugerencias no cuentan dentro de este límite ni se incorporan automáticamente al catálogo.`
                   : `Selecciona hasta ${MAX_AREAS_VERIFICADO} áreas en las que puedes acompañar a las personas.`
               }
               max={isOrg ? MAX_AREAS_CENTRO : MAX_AREAS_VERIFICADO}
-              sugerenciaPregunta={isOrg ? "¿No encontráis alguna de las áreas que necesitáis? (opcional)" : undefined}
-              sugerenciaAyuda={isOrg ? "Podéis escribir varias sugerencias. Quedarán para revisión de Mallorca Holística y no se añadirán automáticamente al catálogo." : undefined}
-              sugerenciaPlaceholder={isOrg ? "Escribid aquí las áreas que no encontréis…" : undefined}
+              sugerenciaPregunta={isOrg ? "¿No encuentras alguna de las áreas que necesitas? (opcional)" : undefined}
+              sugerenciaAyuda={isOrg ? "Puedes escribir varias sugerencias. Quedarán para revisión de Mallorca Holística y no se añadirán automáticamente al catálogo." : undefined}
+              sugerenciaPlaceholder={isOrg ? "Escribe aquí las áreas que no encuentres…" : undefined}
             />
           </Box>
-          <Box title={isOrg ? "¿A quién acompañáis?" : "¿A quién acompañas?"}>
+          <Box title={isOrg ? "¿A quién se acompaña?" : "¿A quién acompañas?"}>
             <Note>Selecciona todas las opciones que correspondan.</Note>
             <VCheckboxes options={isOrg ? O_PUBLICO : V_PUBLICO_OPTIONS} columns={3} />
           </Box>
-          <Box title={isOrg ? "¿Qué ofrece vuestro espacio o proyecto?" : "¿Cómo trabajas?"}>
-            <Note>{isOrg ? "Seleccionad todas las opciones que correspondan." : "Selecciona todas las modalidades que ofreces."}</Note>
+          <Box title={isOrg ? "¿Qué ofrece tu propuesta?" : "¿Cómo trabajas?"}>
+            <Note>{isOrg ? "Selecciona todas las opciones que correspondan." : "Selecciona todas las modalidades que ofreces."}</Note>
             {isOrg ? <><OPOferta /><Ayuda>Las actividades concretas con fecha y lugar se publicarán posteriormente en la Agenda.</Ayuda></> : <VCheckboxes options={V_MODALIDADES_OPTIONS} columns={3} />}
           </Box>
           {isOrg && (
@@ -2647,29 +2647,29 @@ function VerificadoFormulario() {
           )}
           {isOrg ? (
             <>
-              <Box title="¿Dónde os pueden encontrar?">
-                <Ayuda>Seleccionad todas las opciones que correspondan.</Ayuda>
+              <Box title="¿Dónde se puede encontrar la propuesta?">
+                <Ayuda>Selecciona todas las opciones que correspondan.</Ayuda>
                 <VCheckboxes options={OP_UBICACION_OPTIONS} columns={2} value={ubicacionOrg} onToggleValue={toggleUbicacionOrg} />
               </Box>
               {orgTieneLocal && (
                 <>
                   <Box title="Ubicaciones permanentes">
                     <Ayuda>Esta es la ubicación permanente del perfil. Las ubicaciones concretas de actividades se indicarán al publicarlas en la Agenda.</Ayuda>
-                    <ConsultasList locationHelp="Podéis buscar la dirección o escribirla manualmente." />
+                    <ConsultasList locationHelp="Puedes buscar la dirección o escribirla manualmente." />
                   </Box>
                   <Box title="Instalaciones">
-                    <Ayuda>Seleccionad las instalaciones y espacios que forman parte de vuestra actividad.</Ayuda>
+                    <Ayuda>Selecciona las instalaciones y espacios que forman parte de la actividad.</Ayuda>
                     <VCheckboxes options={OP_INSTALACIONES} columns={3} />
                   </Box>
                   <Box title="Horarios (opcional)">
-                    <Ayuda>Indicad vuestro horario habitual de atención. Si trabajáis únicamente con cita previa, podéis marcarlo y no será necesario completar los horarios.</Ayuda>
+                    <Ayuda>Indica el horario habitual de atención. Si se trabaja únicamente con cita previa, puedes marcarlo y no será necesario completar los horarios.</Ayuda>
                     <HorarioSemanal />
                   </Box>
                 </>
               )}
               <Box title="Galería">
                 <Ayuda>
-                  Añadid hasta 10 imágenes que ayuden a conocer vuestro espacio, proyecto o actividad.
+                  Añade hasta 10 imágenes que ayuden a conocer el espacio, proyecto o actividad.
                 </Ayuda>
                 <FakeField label="Imágenes del espacio (opcional, hasta 10)" type="file" />
               </Box>
@@ -2691,8 +2691,8 @@ function VerificadoFormulario() {
             <LimitedTextField label="Frase destacada" max={120} />
             {isOrg ? (
               <Ayuda>
-                Una frase breve que resuma vuestra filosofía, vuestra misión o aquello que mejor
-                define vuestro espacio.
+                Una frase breve que resuma la filosofía, la misión o aquello que mejor
+                define la propuesta.
               </Ayuda>
             ) : (
               <Ayuda>
@@ -2718,21 +2718,21 @@ function VerificadoFormulario() {
               </ul>
             </div>
           </Box>
-          <Box title={isOrg ? "Cuéntanos sobre vuestro espacio o proyecto" : "Cuéntanos un poco sobre ti"}>
+          <Box title={isOrg ? "Cuéntanos sobre tu propuesta" : "Cuéntanos un poco sobre ti"}>
             {!isOrg && <Note>Máximo 2000 caracteres.</Note>}
             <LimitedTextField
-              label={isOrg ? "Cuéntanos sobre vuestro espacio o proyecto" : "Cuéntanos un poco sobre ti"}
+              label={isOrg ? "Cuéntanos sobre tu propuesta" : "Cuéntanos un poco sobre ti"}
               max={2000}
               multiline
             />
             {isOrg ? (
               <>
                 <Ayuda>
-                  Contadnos quiénes sois, qué ofrecéis, vuestra manera de trabajar y aquello que os gustaría que las personas conocieran antes de contactar con vosotros.
+                  Cuéntanos qué ofreces, tu manera de trabajar y aquello que te gustaría que las personas conocieran antes de contactar.
                 </Ayuda>
                 <Note>
-                  No os preocupéis si ahora no tenéis el texto perfecto. Podréis modificarlo siempre
-                  que queráis.
+                  No te preocupes si ahora no tienes el texto perfecto. Podrás modificarlo siempre
+                  que quieras.
                 </Note>
               </>
             ) : (
@@ -2769,7 +2769,7 @@ function VerificadoFormulario() {
           )}
           <Box title="Idiomas">
             {isOrg ? (
-              <Ayuda>Seleccionad los idiomas en los que podéis atender a las personas.</Ayuda>
+              <Ayuda>Selecciona los idiomas en los que se puede atender a las personas.</Ayuda>
             ) : (
               <Ayuda>Selecciona los idiomas en los que puedes atender a las personas.</Ayuda>
             )}
@@ -2778,7 +2778,7 @@ function VerificadoFormulario() {
           {isOrg && (
             <Box title="Nuestro equipo (opcional)">
               <Ayuda>
-                Añadid las personas que forman parte de vuestro equipo y que queráis mostrar en el perfil público.
+                Si otras personas forman parte de la propuesta y quieres mostrarlas en el perfil público, puedes añadirlas aquí.
               </Ayuda>
               <EquipoList />
               <Note>Añadir una persona al equipo no crea un perfil propio, no implica que sea Profesional Verificado ni que Mallorca Holística haya verificado individualmente su formación.</Note>
@@ -2791,18 +2791,18 @@ function VerificadoFormulario() {
         (isOrg ? (
           <>
             <Box title="🌐 Página web (opcional)">
-              <Ayuda>Escribe la dirección de vuestra página web</Ayuda>
-              <FakeField label="Página web (opcional)" type="www.vuestrocentro.com" />
+              <Ayuda>Escribe la dirección de la página web</Ayuda>
+              <FakeField label="Página web (opcional)" type="www.tuweb.com" />
             </Box>
             <Box title="📱 Redes sociales">
-              <RedesSocialesList enlacePlaceholder="Enlace a vuestro perfil" />
+              <RedesSocialesList enlacePlaceholder="Enlace al perfil" />
             </Box>
             <Box title="📅 Reservas online (opcional)">
-              <Ayuda>Si utilizáis una plataforma externa para gestionar vuestras reservas, podéis añadir aquí el enlace.</Ayuda>
-              <FakeField label="Enlace de reserva" type="www.calendly.com/vuestrocentro" />
+              <Ayuda>Si utilizas una plataforma externa para gestionar las reservas, puedes añadir aquí el enlace.</Ayuda>
+              <FakeField label="Enlace de reserva" type="www.calendly.com/tu-propuesta" />
               <Note>Puede corresponder a Calendly, Fresha, Google Calendar, SimplyBook, Booksy u otra herramienta externa. Mallorca Holística no gestiona estas reservas.</Note>
             </Box>
-            <Box title="🔒 ¿Cómo queréis que contacten con vosotros?">
+            <Box title="🔒 ¿Cómo quieres que contacten?">
               <OPInformacionPublica />
             </Box>
           </>
@@ -2839,7 +2839,7 @@ function VerificadoFormulario() {
           title={isOrg ? "🛡️ Verificación y Compromisos" : "🛡️ Verificación Mallorca Holística"}
         >
           {isOrg ? (
-            <Note>Ya casi habéis terminado. Antes de enviar vuestra solicitud, necesitamos que la persona responsable del perfil confirme los siguientes compromisos.</Note>
+            <Note>Antes de enviar la solicitud, necesitamos que la persona responsable del perfil confirme los siguientes compromisos.</Note>
           ) : (
             <>
               <VConsentItem
@@ -2878,8 +2878,8 @@ function VerificadoFormulario() {
               <VConsentItem icon="🔒" title="Política de Privacidad" linkText="Leer documento" label="Confirmo que he leído la Política de Privacidad de Mallorca Holística." checked={orgConsents.privacidad} onToggle={() => toggleOrgConsent("privacidad")} />
               <VConsentItem icon="📄" title="Condiciones de Uso" linkText="Leer documento" label="Confirmo que he leído y acepto las Condiciones de Uso de Mallorca Holística." checked={orgConsents.condiciones} onToggle={() => toggleOrgConsent("condiciones")} />
               <VConsentItem icon="🌐" title="Publicación del perfil" label="Autorizo a Mallorca Holística a publicar este perfil en la plataforma." checked={orgConsents.publicacion} onToggle={() => toggleOrgConsent("publicacion")} />
-              <VConsentItem icon="📝" title="Declaración sobre la actividad" label="Declaro que el centro, espacio, proyecto u organización dispone de los requisitos, autorizaciones y documentación necesarios para desarrollar legalmente su actividad, cuando sean aplicables." checked={orgConsents.actividad} onToggle={() => toggleOrgConsent("actividad")} />
-              <VConsentItem icon="🤝" title="Responsabilidad y representación" label="Declaro que soy responsable de este perfil o que cuento con autorización para actuar en nombre del centro, espacio, proyecto u organización que represento." checked={orgConsents.representacion} onToggle={() => toggleOrgConsent("representacion")} />
+              <VConsentItem icon="📝" title="Declaración sobre la actividad" label="Declaro que la actividad dispone de los requisitos, autorizaciones y documentación necesarios para desarrollarse legalmente, cuando sean aplicables." checked={orgConsents.actividad} onToggle={() => toggleOrgConsent("actividad")} />
+              <VConsentItem icon="🤝" title="Responsabilidad y representación" label="Declaro que soy responsable de este perfil o que cuento con autorización para representar la propuesta publicada." checked={orgConsents.representacion} onToggle={() => toggleOrgConsent("representacion")} />
             </>
           ) : (
             <>
@@ -2944,7 +2944,7 @@ function VerificadoFormulario() {
 
           <Note>
             {isOrg
-              ? "Ya solo queda un último paso. Después podréis enviar vuestra solicitud y nuestro equipo comenzará el proceso de revisión."
+              ? "Ya solo queda un último paso. Después podrás enviar la solicitud y nuestro equipo comenzará el proceso de revisión."
               : "Ya solo queda un último paso. Después podrás enviar tu solicitud de verificación."}
           </Note>
         </Box>
@@ -3296,13 +3296,13 @@ function Paso7OrganizacionEstandar({
         <p style={{ fontSize: 13, marginBottom: 0, lineHeight: 1.7 }}>2 meses gratis desde el lanzamiento oficial de Mallorca Holística.</p>
       </Box>
       <Box title="Añade tu método de pago">
-        <p style={{ fontSize: 13, marginBottom: 12, lineHeight: 1.7 }}>Registra tu método de pago de forma segura. No realizaremos ningún cargo mientras vuestra solicitud esté pendiente de revisión.</p>
-        <StripeBlock title="💳 Registro seguro con Stripe" note="Registrar vuestro método de pago no supone ningún cargo en este momento." />
+        <p style={{ fontSize: 13, marginBottom: 12, lineHeight: 1.7 }}>Registra tu método de pago de forma segura. No realizaremos ningún cargo mientras la solicitud esté pendiente de revisión.</p>
+        <StripeBlock title="💳 Registro seguro con Stripe" note="Registrar el método de pago no supone ningún cargo en este momento." />
       </Box>
       <Box title="Periodo gratuito de lanzamiento">
-        <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>Los perfiles de Centros, Espacios & Organizadores disfrutarán de 2 meses gratuitos desde el lanzamiento oficial de Mallorca Holística. Si vuestro perfil es aprobado durante este periodo, no pagaréis hasta que finalice. Si vuestro perfil es aprobado después, la suscripción comenzará en el momento de la aprobación.</p>
-        <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>Antes del primer cobro os informaremos por email de la fecha y el importe.</p>
-        <p style={{ fontSize: 13, marginBottom: 0, lineHeight: 1.7 }}>Si vuestra solicitud no es aprobada, la suscripción no se activará y no se realizará ningún cargo.</p>
+        <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>Los perfiles de Centros, Espacios & Organizadores disfrutarán de 2 meses gratuitos desde el lanzamiento oficial de Mallorca Holística. Si el perfil es aprobado durante este periodo, no pagarás hasta que finalice. Si el perfil es aprobado después, la suscripción comenzará en el momento de la aprobación.</p>
+        <p style={{ fontSize: 13, marginBottom: 8, lineHeight: 1.7 }}>Antes del primer cobro te informaremos por email de la fecha y el importe.</p>
+        <p style={{ fontSize: 13, marginBottom: 0, lineHeight: 1.7 }}>Si la solicitud no es aprobada, la suscripción no se activará y no se realizará ningún cargo.</p>
       </Box>
       <VConsentItem
         icon="🔒"
