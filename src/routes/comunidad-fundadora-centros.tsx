@@ -38,7 +38,7 @@ function InvitacionFundadoraCentros() {
     >
       <Box title="Una invitación personal">
         <p style={{ fontSize: 13 }}>
-          Vuestro centro, espacio o proyecto ha sido invitado personalmente a formar parte de la Comunidad Fundadora de Mallorca Holística.
+          Tu propuesta —centro, espacio, proyecto u organización— ha sido invitada personalmente a formar parte de la Comunidad Fundadora de Mallorca Holística.
         </p>
         <p style={{ fontSize: 13 }}>
           Esta es una invitación reservada a un grupo reducido de centros, espacios y organizadores seleccionados para acompañarnos desde el principio en el lanzamiento del proyecto.

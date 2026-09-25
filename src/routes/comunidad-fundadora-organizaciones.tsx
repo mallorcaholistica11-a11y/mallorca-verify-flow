@@ -31,7 +31,7 @@ export const Route = createFileRoute("/comunidad-fundadora-organizaciones")({
       {
         property: "og:description",
         content:
-          "Un perfil de entidad verificado con actividades grupales ilimitadas en la Agenda de Mallorca Holística.",
+          "Un perfil verificado con el ✦ Sello Mallorca Holística y actividades grupales ilimitadas en la Agenda de Mallorca Holística.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -43,22 +43,22 @@ export const Route = createFileRoute("/comunidad-fundadora-organizaciones")({
 const FEATURES = [
   {
     key: "perfil",
-    title: "Vuestro perfil",
+    title: "Tu perfil",
     icon: Building2,
     items: [
-      "Perfil de entidad completo en el Directorio de Mallorca Holística.",
-      "Sello Entidad Verificada de Mallorca Holística.",
-      "Logo, si disponéis de uno.",
+      "Perfil completo en el Directorio de Mallorca Holística.",
+      "✦ Sello Mallorca Holística, una vez aprobado el perfil.",
+      "Logo, si dispones de uno.",
       "Imagen principal.",
-      "Presentación ampliada de vuestra entidad o proyecto.",
-      "Información sobre vuestros espacios e instalaciones.",
-      "Presentación del equipo.",
+      "Presentación ampliada de tu propuesta: proyecto, espacio u organización.",
+      "Información sobre espacios e instalaciones, si los hay.",
+      "Presentación del equipo (opcional).",
       "Galería de hasta 10 imágenes.",
     ],
   },
   {
     key: "actividad",
-    title: "Vuestra actividad",
+    title: "Tu actividad",
     icon: ClipboardList,
     items: [
       "Hasta 25 prácticas, terapias o disciplinas.",
@@ -67,7 +67,7 @@ const FEATURES = [
       "Modalidades de atención o actividad.",
       "Idiomas.",
       "Horarios habituales.",
-      "Tarifas, si deseáis mostrarlas.",
+      "Tarifas, si deseas mostrarlas.",
     ],
   },
   {
@@ -86,7 +86,7 @@ const FEATURES = [
     items: [
       "Teléfono, WhatsApp y correo electrónico.",
       "Página web y redes sociales.",
-      "Enlace a vuestro sistema externo de reservas, si disponéis de uno.",
+      "Enlace a tu sistema externo de reservas, si dispones de uno.",
     ],
   },
   {
@@ -115,8 +115,8 @@ const VERIFICATION_ITEMS = [
   "Lectura de la Política de Privacidad.",
   "Aceptación de las Condiciones de Uso.",
   "Autorización para publicar el perfil.",
-  "Declaración responsable de la persona responsable de la entidad sobre el cumplimiento de los requisitos y autorizaciones que correspondan a su actividad.",
-  "Confirmación de que quien realiza el alta está autorizado para representar y gestionar el perfil de la entidad.",
+  "Declaración responsable de la persona responsable del perfil sobre el cumplimiento de los requisitos y autorizaciones que correspondan a su actividad.",
+  "Confirmación de que quien realiza el alta está autorizado para representar y gestionar este perfil.",
 ];
 
 function PlanCentrosEspaciosOrganizadores() {
@@ -154,7 +154,7 @@ function PlanCentrosEspaciosOrganizadores() {
               Plan Centros, Espacios & Organizadores
             </h1>
             <p className="mb-4 font-display text-[0.98rem] font-normal leading-snug text-sage-dark md:text-[1.05rem]">
-              Más visibilidad para vuestra propuesta, más espacio para todo lo que ofrecéis.
+              Más visibilidad para tu propuesta, más espacio para todo lo que ofreces.
             </p>
             <div className="max-w-[640px] space-y-3 text-[0.8rem] leading-relaxed text-muted-foreground md:text-[0.84rem]">
               <p>
@@ -170,8 +170,8 @@ function PlanCentrosEspaciosOrganizadores() {
                 proyectos del ecosistema.
               </p>
               <p>
-                Permite presentar de forma completa vuestra entidad, equipo, espacios, servicios y
-                actividades, contar con el sello Entidad Verificada de Mallorca Holística y
+                Permite presentar de forma completa tu propuesta —proyecto, espacio, servicios,
+                actividades y, si lo hay, equipo—, contar con el ✦ Sello Mallorca Holística una vez aprobado el perfil y
                 publicar actividades grupales ilimitadas en la Agenda.
               </p>
             </div>
@@ -203,7 +203,7 @@ function PlanCentrosEspaciosOrganizadores() {
               ¿Qué incluye?
             </h2>
             <p className="text-[0.78rem] text-muted-foreground md:text-[0.8rem]">
-              Un perfil de entidad verificado con mayor capacidad para presentar y gestionar vuestra actividad.
+              Un perfil verificado con mayor capacidad para presentar y gestionar tu actividad.
             </p>
           </div>
 
@@ -281,7 +281,7 @@ function PlanCentrosEspaciosOrganizadores() {
           </div>
           <div className="max-w-[820px] space-y-2.5 text-[0.78rem] leading-relaxed text-muted-foreground md:text-[0.8rem]">
             <p>
-              El equipo puede presentarse de forma informativa mediante fotografía, nombre,
+              Si tu propuesta cuenta con equipo, este es opcional y puede presentarse de forma informativa mediante fotografía, nombre,
               apellidos y práctica o especialidad.
             </p>
             <p>
@@ -301,11 +301,11 @@ function PlanCentrosEspaciosOrganizadores() {
               />
             </div>
             <h2 className="font-display text-[1.05rem] font-medium text-charcoal md:text-[1.1rem]">
-              Verificación de la entidad
+              Verificación del perfil
             </h2>
           </div>
           <p className="mb-4 max-w-[760px] text-[0.78rem] leading-relaxed text-muted-foreground md:text-[0.8rem]">
-            Para obtener el sello Entidad Verificada:
+            Para obtener el ✦ Sello Mallorca Holística:
           </p>
           <ul className="grid grid-cols-1 gap-y-2 sm:hidden">
             {VERIFICATION_ITEMS.map((item) => (
@@ -356,7 +356,7 @@ function PlanCentrosEspaciosOrganizadores() {
           </div>
           <p className="mt-4 max-w-[760px] text-[0.76rem] leading-relaxed text-muted-foreground md:text-[0.78rem]">
             No se solicitan diplomas, titulaciones ni documentación profesional individual de los
-            miembros del equipo para verificar la entidad.
+            posibles miembros del equipo para verificar el perfil.
           </p>
         </section>
 
@@ -381,7 +381,7 @@ function PlanCentrosEspaciosOrganizadores() {
               Durante el proceso de solicitud podrán solicitarse los datos necesarios para preparar la suscripción, pero no se realizará ningún cobro mientras el perfil esté pendiente de revisión ni durante el período gratuito.
             </p>
             <p>
-              El primer cobro solo podrá realizarse cuando el perfil haya sido aprobado y haya finalizado el período gratuito. La entidad será informada antes de comenzar la suscripción de pago.
+              El primer cobro solo podrá realizarse cuando el perfil haya sido aprobado y haya finalizado el período gratuito. Te informaremos antes de comenzar la suscripción de pago.
             </p>
             <p>
               Sin permanencia.
