@@ -160,7 +160,7 @@ function Hero({
             <h1 style={{ fontSize: 28, lineHeight: 1.15, margin: 0 }}>{data.nombre}</h1>
             {plan !== "presencia" && data.verificado && (
               <span
-                style={{display: "inline-flex", alignItems: "center", gap: 5, color: "oklch(0.56 0.085 75)", fontSize: 13, fontWeight: 600, lineHeight: 1, whiteSpace: "nowrap", letterSpacing: "0.01em"}}
+                style={{display: "inline-flex", alignItems: "center", gap: 5, color: "oklch(0.48 0.09 70)", background: "oklch(0.96 0.03 85)", border: "1px solid oklch(0.80 0.07 80)", borderRadius: 999, padding: "4px 9px", fontSize: 12, fontWeight: 600, lineHeight: 1, whiteSpace: "nowrap", letterSpacing: "0.01em", cursor: "default"}}
               >
                 <span aria-hidden="true">✦</span> Sello Mallorca Holística
               </span>
