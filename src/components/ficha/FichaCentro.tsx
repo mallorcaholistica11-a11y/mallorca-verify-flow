@@ -178,21 +178,9 @@ function HeroCentro({
             <h1 style={{ fontSize: 28, lineHeight: 1.15, margin: 0 }}>{data.nombre}</h1>
             {!esPresencia && data.verificado && (
               <span
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 5,
-                  border: "1px solid var(--sage-light)",
-                  borderRadius: 999,
-                  background: "var(--secondary)",
-                  color: "var(--sage-dark)",
-                  padding: "4px 9px",
-                  fontSize: 11,
-                  fontWeight: 700,
-                  lineHeight: 1,
-                }}
+                style={{display: "inline-flex", alignItems: "center", gap: 5, color: "oklch(0.56 0.085 75)", fontSize: 13, fontWeight: 600, lineHeight: 1, whiteSpace: "nowrap", letterSpacing: "0.01em"}}
               >
-                <span aria-hidden="true">✓</span> Entidad Verificada
+                <span aria-hidden="true">✦</span> Sello Mallorca Holística
               </span>
             )}
           </div>
@@ -283,7 +271,7 @@ function ColumnaPrincipal({
 
   return (
     <>
-      <Seccion titulo="Sobre nosotros" vacio={!data.sobreNosotros}>
+      <Seccion titulo="Sobre" vacio={!data.sobreNosotros}>
         <p style={{ fontSize: 14, lineHeight: 1.7, margin: 0, whiteSpace: "pre-wrap" }}>
           {data.sobreNosotros}
         </p>
