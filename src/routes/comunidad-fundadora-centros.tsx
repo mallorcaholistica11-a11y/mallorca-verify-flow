@@ -33,7 +33,7 @@ function InvitacionFundadoraCentros() {
   return (
     <WireframeShell
 
-      title="🌿 Bienvenidos a la Comunidad Fundadora"
+      title="🌿 Te damos la bienvenida a la Comunidad Fundadora"
       breadcrumb="Invitación personal › Comunidad Fundadora · Centros, Espacios & Organizadores"
     >
       <Box title="Una invitación personal">
