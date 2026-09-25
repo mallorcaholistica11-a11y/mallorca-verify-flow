@@ -90,7 +90,7 @@ const ESTADO_PERFIL: Record<PerfilEstado, { estado: string; verificacion: string
   },
   aprobado: {
     estado: "Publicado",
-    verificacion: "Profesional Verificado",
+    verificacion: "✦ Sello Mallorca Holística",
   },
 };
 
@@ -163,7 +163,7 @@ function MiPerfil() {
       {estaAprobado && (
         <Box title="Tu perfil está publicado">
           <p style={{ fontSize: 13, lineHeight: 1.7, margin: "0 0 12px" }}>
-            Tu perfil está publicado en Mallorca Holística como Profesional Verificado.
+            Tu perfil está publicado en Mallorca Holística y cuenta con el ✦ Sello Mallorca Holística.
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             <NavButton to="/dashboard/formulario" search={busquedaFormulario(track, perfil)}>

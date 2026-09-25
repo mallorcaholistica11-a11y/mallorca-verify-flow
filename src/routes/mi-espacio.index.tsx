@@ -273,7 +273,7 @@ const ESTADOS: Record<EspacioEstado, EstadoConfig> = {
   },
   aprobado: {
     indicador: "🟢",
-    titulo: "Profesional Verificado",
+    titulo: "Perfil verificado · ✦ Sello Mallorca Holística",
     texto: "Tu perfil ha sido aprobado y ya forma parte de Mallorca Holística.",
     ctaLabel: "Ver mi perfil público",
     ctaTo: "/profesional/$slug",
