@@ -1309,7 +1309,7 @@ const V_MODALIDADES_OPTIONS = V_MODALIDADES.filter((m) => m !== "Otro (especific
 // ---- Recorrido Organización (Centros, Espacios y Organizadores) ----
 
 const O_STEP_INTROS: Record<number, string> = {
-  1: "Empezamos con la información principal de vuestro centro, espacio o proyecto. Estos datos ayudarán a las personas a conoceros, ponerse en contacto con vosotros y generar confianza desde el primer momento.",
+  1: "Empezamos con la información principal de tu propuesta. Estos datos ayudarán a las personas a conocerte, ponerse en contacto y generar confianza desde el primer momento.",
   2: "Cuéntanos qué prácticas, actividades y propuestas ofreces. Esta información ayudará a las personas a comprender mejor la actividad y a encontrar el perfil con mayor facilidad.",
   3: "Indica dónde se desarrolla la actividad y qué espacios o instalaciones forman parte de la propuesta. Si hay varias ubicaciones, puedes añadirlas todas.",
   4: "Este es el espacio para presentar la esencia de tu propuesta: quién está detrás, qué ofrece y aquello que la hace especial.",
@@ -2088,7 +2088,7 @@ function TarifasList({ variant = "profesional" }: { variant?: "profesional" | "o
           </button>
           <Note>
             {isOrg
-              ? "Podréis modificar estas tarifas siempre que lo necesitéis."
+              ? "Podrás modificar estas tarifas siempre que lo necesites."
               : "Podrás modificar estas tarifas siempre que lo necesites."}
           </Note>
         </div>
@@ -2598,7 +2598,7 @@ function VerificadoFormulario() {
               }
               sugerenciaPregunta={isOrg ? "¿No encuentras alguna práctica o especialidad? (opcional)" : undefined}
               sugerenciaAyuda={isOrg ? "Puedes escribir varias sugerencias. Quedarán para revisión de Mallorca Holística y no se añadirán automáticamente al catálogo." : undefined}
-              sugerenciaPlaceholder={isOrg ? "Escribid aquí las prácticas o especialidades que no encontréis…" : undefined}
+              sugerenciaPlaceholder={isOrg ? "Escribe aquí las prácticas o especialidades que no encuentres…" : undefined}
             />
           </Box>
           <Box title="Áreas de Acompañamiento">
@@ -2612,10 +2612,10 @@ function VerificadoFormulario() {
               max={isOrg ? MAX_AREAS_CENTRO : MAX_AREAS_VERIFICADO}
               sugerenciaPregunta={isOrg ? "¿No encuentras alguna de las áreas que necesitas? (opcional)" : undefined}
               sugerenciaAyuda={isOrg ? "Puedes escribir varias sugerencias. Quedarán para revisión de Mallorca Holística y no se añadirán automáticamente al catálogo." : undefined}
-              sugerenciaPlaceholder={isOrg ? "Escribid aquí las áreas que no encontréis…" : undefined}
+              sugerenciaPlaceholder={isOrg ? "Escribe aquí las áreas que no encuentres…" : undefined}
             />
           </Box>
-          <Box title={isOrg ? "¿A quién acompañáis?" : "¿A quién acompañas?"}>
+          <Box title={isOrg ? "¿A quién se acompaña?" : "¿A quién acompañas?"}>
             <Note>Selecciona todas las opciones que correspondan.</Note>
             <VCheckboxes options={isOrg ? O_PUBLICO : V_PUBLICO_OPTIONS} columns={3} />
           </Box>
@@ -2769,7 +2769,7 @@ function VerificadoFormulario() {
           )}
           <Box title="Idiomas">
             {isOrg ? (
-              <Ayuda>Seleccionad los idiomas en los que podéis atender a las personas.</Ayuda>
+              <Ayuda>Selecciona los idiomas en los que se puede atender a las personas.</Ayuda>
             ) : (
               <Ayuda>Selecciona los idiomas en los que puedes atender a las personas.</Ayuda>
             )}
