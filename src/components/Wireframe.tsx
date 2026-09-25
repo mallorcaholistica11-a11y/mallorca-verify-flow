@@ -259,7 +259,7 @@ export function TrackBadge({ track, perfil }: { track: Track; perfil?: PerfilTip
       ? "organization"
       : "professional";
   const perfilLabel = tipoPerfil === "organization"
-    ? "Centro, espacio u organizador"
+    ? "Centro, espacio, proyecto u organizador"
     : "Profesional";
 
   return (
