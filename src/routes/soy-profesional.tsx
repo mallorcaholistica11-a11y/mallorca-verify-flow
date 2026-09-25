@@ -28,8 +28,10 @@ type Plan = {
   title: string;
   price: string;
   priceNote?: string;
-  info: string[];
+  lead: string;
   description: string;
+  highlight?: string;
+  sello?: boolean;
   to: string;
   cta: string;
   variant: "free" | "paid";
@@ -39,10 +41,11 @@ const PLANES: Plan[] = [
   {
     key: "presencia",
     title: "Presencia",
-    price: "Gratis",
-    info: ["Acceso libre"],
+    price: "0 €",
+    priceNote: "Sin límite de tiempo",
+    lead: "Tu espacio esencial para estar presente en Mallorca Holística.",
     description:
-      "Para profesionales, centros, espacios, escuelas y organizadores que desean formar parte de Mallorca Holística y dar a conocer su actividad.",
+      "Perfil público con tu información principal, prácticas, ubicación y formas de contacto.",
     to: "/plan-presencia",
     cta: "Conocer el plan",
     variant: "free",
@@ -51,14 +54,12 @@ const PLANES: Plan[] = [
     key: "verificado",
     title: "Profesional Verificado",
     price: "25 €/mes",
-    priceNote: "IVA incluido",
-    info: [
-      "2 meses gratuitos desde el lanzamiento oficial",
-      "Acceso mediante verificación profesional",
-      "1 actividad grupal al mes en la Agenda",
-    ],
+    priceNote: "IVA incluido · Sin permanencia",
+    lead: "Para profesionales que quieren dar visibilidad principalmente a sus sesiones y servicios individuales.",
     description:
-      "Para profesionales que acompañan y atienden directamente a las personas mediante sesiones individuales.",
+      "Puedes tener tu propia consulta, trabajar en diferentes lugares y ofrecer también actividades grupales.",
+    highlight: "1 actividad grupal al mes en la Agenda.",
+    sello: true,
     to: "/profesional-fundador",
     cta: "Conocer el plan",
     variant: "paid",
@@ -67,19 +68,47 @@ const PLANES: Plan[] = [
     key: "organizacion",
     title: "Centros, Espacios & Organizadores",
     price: "50 €/mes",
-    priceNote: "IVA incluido",
-    info: [
-      "2 meses gratuitos desde el lanzamiento oficial",
-      "Acceso mediante verificación",
-      "Actividades grupales ilimitadas en la Agenda",
-    ],
+    priceNote: "IVA incluido · Sin permanencia",
+    lead: "Para quienes quieren mostrar una propuesta más amplia: un proyecto, espacio, servicios y actividades.",
     description:
-      "Para centros, espacios, organizaciones y proyectos que reúnen profesionales, ofrecen actividades grupales, formación, retiros o eventos, gestionan espacios o desarrollan otras propuestas.",
+      "Puedes desarrollar tu propuesta de forma individual o con otros profesionales y ofrecer también sesiones y servicios individuales.",
+    highlight: "Actividades grupales ilimitadas en la Agenda.",
+    sello: true,
     to: "/comunidad-fundadora-organizaciones",
     cta: "Conocer el plan",
     variant: "paid",
   },
 ];
+
+const ENCAJE = [
+  {
+    title: "Profesional Verificado",
+    price: "25 €/mes",
+    lines: [
+      "Quiero mostrarme como profesional y dar visibilidad principalmente a mis sesiones y servicios individuales.",
+      "Puedo tener mi propia consulta, atender en diferentes lugares y ofrecer también actividades grupales.",
+    ],
+    highlight: "1 actividad grupal al mes en la Agenda",
+  },
+  {
+    title: "Centros, Espacios & Organizadores",
+    price: "50 €/mes",
+    lines: [
+      "Quiero mostrar una propuesta más amplia: mi proyecto, espacio, equipo, servicios y actividades.",
+      "Puedo desarrollar mi propuesta de forma individual o con otros profesionales y ofrecer también sesiones y servicios individuales.",
+    ],
+    highlight: "Actividades grupales ilimitadas en la Agenda",
+  },
+];
+
+function Sello() {
+  return (
+    <span className="inline-flex items-center gap-1 rounded-full border border-champagne bg-champagne-light/70 px-2.5 py-0.5 text-[0.62rem] font-medium tracking-[0.04em] text-warm-brown">
+      <span aria-hidden="true" className="text-[oklch(0.62_0.08_78)]">✦</span>
+      Sello Mallorca Holística
+    </span>
+  );
+}
 
 function PlanButton({
   to,
@@ -123,17 +152,17 @@ function SoyProfesional() {
         </nav>
       </div>
 
-      <main className="mx-auto max-w-[820px] px-4 pb-10 pt-6 md:px-6 md:pt-7">
+      <main className="mx-auto max-w-[860px] px-4 pb-10 pt-6 md:px-6 md:pt-7">
         <header className="mb-5 text-center">
           <h1 className="mb-1.5 font-display text-[1.75rem] font-medium leading-tight text-charcoal md:text-[1.95rem]">
-            Forma parte de Mallorca Holística
+            Elige cómo quieres estar presente en Mallorca Holística
           </h1>
           <p className="text-[0.78rem] leading-relaxed text-muted-foreground">
-            Elige cómo quieres participar.
+            Empieza con una presencia gratuita o elige el plan que mejor se adapta a tu actividad.
           </p>
         </header>
 
-        <section className="mb-4 grid grid-cols-1 gap-3 md:grid-cols-3">
+        <section className="mb-3 grid grid-cols-1 gap-3 md:grid-cols-3">
           {PLANES.map((plan) => (
             <article
               key={plan.key}
@@ -144,15 +173,19 @@ function SoyProfesional() {
               </h2>
 
               <div className="flex flex-col">
-                <p className="mb-2.5 text-[0.72rem] leading-[1.55] text-muted-foreground">
+                <p className="mb-1.5 text-[0.74rem] font-medium leading-[1.5] text-charcoal">
+                  {plan.lead}
+                </p>
+                <p className="mb-2.5 text-[0.7rem] leading-[1.55] text-muted-foreground">
                   {plan.description}
                 </p>
-                <div className="mt-auto min-h-[4rem] space-y-0.5 border-t border-border/70 pt-2.5">
-                  {plan.info.map((line) => (
-                    <p key={line} className="text-[0.64rem] leading-relaxed text-muted-foreground">
-                      {line}
+                <div className="mt-auto min-h-[3.6rem] space-y-1.5 border-t border-border/70 pt-2.5">
+                  {plan.highlight && (
+                    <p className="text-[0.68rem] font-medium leading-relaxed text-sage-dark">
+                      {plan.highlight}
                     </p>
-                  ))}
+                  )}
+                  {plan.sello && <Sello />}
                 </div>
               </div>
 
@@ -170,6 +203,54 @@ function SoyProfesional() {
             </article>
           ))}
         </section>
+
+        <p className="mb-8 text-center text-[0.68rem] text-muted-foreground">
+          Oferta de lanzamiento: los planes de pago incluyen 2 meses gratuitos desde el lanzamiento oficial.
+        </p>
+
+        <section className="mb-4">
+          <div className="mb-4 text-center">
+            <h2 className="mb-1 font-display text-[1.2rem] font-medium text-charcoal">
+              ¿Qué plan encaja contigo?
+            </h2>
+            <p className="text-[0.74rem] text-muted-foreground">
+              Elige según cómo quieres mostrar tu actividad en Mallorca Holística.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 overflow-hidden rounded-[12px] border border-border bg-card md:grid-cols-2">
+            {ENCAJE.map((col, i) => (
+              <div
+                key={col.title}
+                className={`px-5 py-4 ${i === 1 ? "border-t border-border md:border-l md:border-t-0" : ""}`}
+              >
+                <div className="mb-2 flex items-baseline justify-between gap-3">
+                  <h3 className="font-display text-[0.92rem] font-medium text-charcoal">
+                    {col.title}
+                  </h3>
+                  <span className="shrink-0 text-[0.72rem] text-muted-foreground">{col.price}</span>
+                </div>
+                <div className="space-y-1.5 text-[0.72rem] leading-relaxed text-muted-foreground">
+                  {col.lines.map((l) => (
+                    <p key={l}>“{l}”</p>
+                  ))}
+                </div>
+                <p className="mt-2.5 text-[0.7rem] font-medium text-sage-dark">{col.highlight}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <aside className="mb-8 rounded-[10px] bg-cream/60 px-5 py-3.5 text-[0.72rem] leading-relaxed text-muted-foreground">
+          <p className="mb-1 font-medium text-charcoal">
+            ¿Ofreces principalmente sesiones individuales y además organizas algún taller, clase o retiro?
+          </p>
+          <p className="mb-1">
+            El plan Profesional Verificado puede encajar perfectamente: incluye 1 actividad grupal al mes en la Agenda.
+          </p>
+          <p>
+            Si las actividades grupales forman una parte importante de tu propuesta y quieres publicarlas regularmente, el plan Centros, Espacios & Organizadores te ofrece una presencia más amplia.
+          </p>
+        </aside>
 
         <aside className="mx-auto max-w-[560px] rounded-[10px] border border-border bg-pastel-sage/25 px-4 py-3.5 text-center">
           <h2 className="mb-1 font-display text-[0.9rem] font-medium text-charcoal">
